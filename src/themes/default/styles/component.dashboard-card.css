@@ -130,6 +130,7 @@
 			@media (--screen-to-sml) {
 				margin-bottom: calc($unit * 2);
 				text-align: center;
+				visibility: hidden;
 			}
 		}
 

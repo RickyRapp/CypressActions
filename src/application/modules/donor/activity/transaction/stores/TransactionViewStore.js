@@ -3,6 +3,7 @@ import { applicationContext } from 'core/utils';
 import { TransactionListFilter } from 'application/donor/activity/transaction/models';
 import { action } from 'mobx';
 import _ from 'lodash';
+import moment from 'moment';
 
 @applicationContext
 class TransactionViewStore extends BaseListViewStore {
@@ -79,21 +80,52 @@ class TransactionViewStore extends BaseListViewStore {
     }
 
     createTransactionPeriodStore() {
-        const currentYear = new Date().getFullYear();
+        //const currentYear = new Date().getFullYear();
         const transactionPeriod = [
-            { id: 0, name: 'Transactions Period', key: 0 },
-            { id: 1, name: 'This year', key: currentYear },
-            { id: 2, name: (currentYear-1).toString(), key: currentYear-1 },
-            { id: 3, name: (currentYear-2).toString(), key: currentYear-2 },
-            { id: 4, name: (currentYear-3).toString(), key: currentYear-3 }
+            { id: 0, name: 'All time', key: 0 },
+            { id: 5, name: 'This week', key: 5 },
+            { id: 1, name: 'This month', key: 1 },
+            { id: 2, name: 'Past week', key: 2 },
+            { id: 3, name: 'Past month', key: 3 },
+            { id: 4, name: 'Year to date', key: 4 },
         ];
+        
         this.transactionPeriod = new BaasicDropdownStore(
             {
                 placeholder: 'CHOOSE_TRANSACTION_TYPE'
             },
             {
                 onChange: type => {
-                    this.queryUtility.filter.paymentTransactionPeriod = transactionPeriod[type].key;
+                    const currentDate = new Date();
+                    const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
+                    let start = null;
+                    let end = null;
+                    if (type === 5) {
+                        start = moment(new Date(now_utc)).startOf('week').toDate();
+                        end = moment(new Date(now_utc)).endOf('week').toDate();
+                    }
+                    else if (type === 1) {
+                        start = moment(new Date(now_utc)).startOf('month').toDate();
+                        end = moment(new Date(now_utc)).endOf('month').toDate();
+                    }
+                    else if (type === 2) {
+                        start = moment(new Date(now_utc)).add(-7, 'days').startOf('week').toDate();
+                        end = moment(new Date(now_utc)).add(-7, 'days').endOf('week').toDate();
+                    }
+                    else if (type === 3) {
+                        start = moment(new Date(now_utc)).add(-1, 'months').startOf('month').toDate();
+                        end = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate();
+                    }
+                    else if (type == 4) {
+                        start = moment(new Date(now_utc)).startOf('year').toDate();
+                        end = moment(new Date(now_utc)).toDate();
+                    }
+                    else if (type == 0) {
+                        start = moment(new Date(2000, 1, 1));
+                        end = moment();
+                    }
+                    this.queryUtility.filter.dateCreatedFrom = start.toISOString();
+                    this.queryUtility.filter.dateCreatedTo = end.toISOString();
                     this.queryUtility.fetch();
                 },
             },

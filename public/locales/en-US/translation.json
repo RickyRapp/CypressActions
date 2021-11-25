@@ -257,7 +257,9 @@
     "PREVIEW_LAYOUT": {
         "NEW": "New",
         "EDIT_BUTTON": "Edit",
-        "CANCEL_BUTTON": "Cancel"
+        "CANCEL_BUTTON": "Go Back",
+        "CANCEL_GRANT_BUTTON": "Cancel",
+        "NEW_GRANT": "Create New Grant"
     },
     "APPLICATION_EDIT_LAYOUT": {
         "EMPTY_STATE_TITLE": "Application Not Selected",
@@ -2120,8 +2122,8 @@
             "EXPRESS_MAIL_FEE": " (Express Mail Fee In Amount Of $25)",
             "HIDE_MORE_OPTIONS": "SHOW LESS OPTIONS",
             "SHOW_MORE_OPTIONS": "SHOW MORE OPTIONS",
-            "HIDE_CUSTOMIZE_BOOKS": "HIDE CUSTOMIZE BOOKS",
-            "SHOW_CUSTOMIZE_BOOKS": "SHOW CUSTOMIZE BOOKS",
+            "HIDE_CUSTOMIZE_BOOKS": "DON'T CUSTOMIZE MY BOOKS",
+            "SHOW_CUSTOMIZE_BOOKS": "CUSTOMIZE MY BOOKS",
             "ENROLLED_IN_PROTECTION_PLAN": "Enrolled in protection plan",
             "PLACE_ORDER": "Place Order",
             "SHOW_ADD_ON_ITEMS": "SHOW ADD ON ITEMS",
@@ -2846,7 +2848,9 @@
                 "CARDNUMBER": "Card Number",
                 "DESCRIPTION": "Description",
                 "REQUEST_TYPE": "Request Type",
-                "STARTFUTUREDATE": "Start future date"  
+                "STARTFUTUREDATE": "Start future date",
+                "PURPOSE_NOTE": "Purpose Note",
+                "PURPOSE_TYPE": "Purpose Type"
             }            
         },
         "SCHEDULED_SETTING": {

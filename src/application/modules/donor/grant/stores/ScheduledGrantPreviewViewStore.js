@@ -1,10 +1,12 @@
 import { action, observable } from 'mobx';
 import { BasePreviewViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
+import moment from 'moment';
 
 @applicationContext
 class ScheduledGrantPreviewViewStore extends BasePreviewViewStore {
     @observable isEditable = false;
+    @observable isCancelable = false;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -48,7 +50,34 @@ class ScheduledGrantPreviewViewStore extends BasePreviewViewStore {
         }
         else {
             await this.fetch([this.getResource(this.id)]);
+            if (this.item.remainingNumberOfPayments > 0) {
+                const dateToEdit = moment(this.item.dateCreated).add(15, 'minutes');
+                this.isEditable = moment().isBetween(this.item.dateCreated, dateToEdit);
+                this.isCancelable = true;
+            }
         }
+    }
+    @action.bound 
+    async cancelGrant() {
+        this.rootStore.modalStore.showConfirm('SCHEDULED_GRANT.CANCEL.QUESTION',
+            async () => {
+                try {
+                    await this.rootStore.application.donor.grantStore.cancelScheduledGrant({ id: this.id });
+                    this.rootStore.notificationStore.success('SCHEDULED_GRANT.CANCEL.SUCCESS');
+                } catch (error) {
+                    this.rootStore.notificationStore.error('SCHEDULED_GRANT.CANCEL.ERROR');
+                }
+                this.rootStore.routerStore.goTo('master.app.main.donor.activity', {}, { headerTab: 2 });
+            }
+        );
+    }
+    @action.bound
+    newGrant() {
+        this.rootStore.routerStore.goTo('master.app.main.donor.grant.create');
+    }
+    @action.bound
+    editGrant() {
+        this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-edit', { id: this.id });
     }
 }
 

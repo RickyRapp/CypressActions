@@ -5,10 +5,10 @@ import { defaultTemplate } from 'core/hoc';
 //import propTypes from 'prop-types';
 
 /*Grant acknowledgment name: ${this.grantAcknowledgmentName}
-		\n\r
-		Recepient charity: ${this.charityDropdownStore.value.name}
-		\n\r
-		Given amount: $${this.form.$('amount').$value}`), async () => {
+        \n\r
+        Recepient charity: ${this.charityDropdownStore.value.name}
+        \n\r
+        Given amount: $${this.form.$('amount').$value}`), async () => {
  */
 
 function GrantConfirmTemplate({ modalParams, t }) {
@@ -34,14 +34,14 @@ function GrantConfirmTemplate({ modalParams, t }) {
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.RECEPIENT_CHARITY')}</div>
                 <div className="modal__list__divider"></div>
-                <div className="modal__list__amount--secondary">{charity ? charity.item.name : <div><b>{form.$('charityName').value}</b><span>&nbsp;(new)</span></div>}</div>
+                <div className="modal__list__amount--secondary">{charity && charity.item ? charity.item.name : (typeof charity.item == 'undefined' ? charity.name : <div><b>{form.$('charityName').value}</b><span>&nbsp;(new)</span></div>)}</div>
             </section>
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.GIVEN_AMOUNT')}</div>
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount">
                     <FormatterResolver
-                        item={{amount: amount}}
+                        item={{ amount: amount }}
                         field='amount'
                         format={{ type: 'currency' }}
                     />
@@ -53,14 +53,14 @@ function GrantConfirmTemplate({ modalParams, t }) {
                 <div className="modal__list__amount">{date}</div>
             </section>
             {
-                form.$('isRecurring').value && 
+                form.$('isRecurring').value &&
                 <section className="modal__list u-mar--bottom--med">
                     <div>{t('GRANT.CONFIRM.RECURRING')}</div>
                     <div className="modal__list__divider"></div>
                     <div className="modal__list__amount">{recurring}</div>
                 </section>
             }
-            
+
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.PURPOSE')}</div>
                 <div className="modal__list__divider"></div>

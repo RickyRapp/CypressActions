@@ -22,8 +22,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	charities = [];
 	isFuture = false;
 	isGrantAgain = false;
+	@observable defaultValue = '';
 	@observable charity = null;
-	
+	@observable inputCharity = '';
+	@observable asyncPlaceholder = '';
+	@observable moreSettings = false;
+	@observable isAdvancedInput = false;
+
 	constructor(rootStore, { donorId, grantStore }) {
 		super(rootStore, {
 			name: 'grant-create',
@@ -65,13 +70,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 									resource.grantScheduleTypeId = data.filter(c => c.abrv == 'one-time')[0].id;
 									resource.numberOfPayments = 1;
 									const resultRec = await this.grantStore.createScheduledGrant(resource);
-									this.grantId = resultRec.response;
+									this.grantId = resultRec;
 									this.isFuture = true;
 								}
 							} else if(resource.isRecurring) {
 								// eslint-disable-next-line
 								const resultRec = await this.grantStore.createScheduledGrant(resource);
-								this.grantId = resultRec.response;
+								this.grantId = resultRec;
 							} else {
 								var result = await this.grantStore.createGrant(resource);
 								this.grantId = result.response;
@@ -87,10 +92,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				} else {
 					if(!this.isFuture && !this.form.$('isRecurring').value)
 						this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: this.grantId });
-					else if(!this.isFuture && this.form.$('isRecurring').value)
-						this.rootStore.routerStore.goBack();
 					else
-						this.rootStore.routerStore.goBack();
+						this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-preview', {id: this.grantId} )
+					// else if(!this.isFuture && this.form.$('isRecurring').value)
+					// 	this.rootStore.routerStore.goBack();
+					// else
+					// 	this.rootStore.routerStore.goBack();
 				}
 				this.rootStore.notificationStore.success('Successfully created a grant');
 			},
@@ -135,7 +142,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 					name: charityFormatter.format(grant.charity, { value: 'charity-name-display' }),
 					item: grant.charity,
 				});
-
+				this.inputCharity = this.charityDropdownStore.value.name;
 				this.form.$('grantPurposeTypeId').value = grant.grantPurposeTypeId;
 				if(grant.grantPurposeType.abrv == 'in-honor-of' || grant.grantPurposeType.abrv == 'in-memory-of' || grant.grantPurposeType.abrv == 'other')
 					this.form.$('purposeNote').value = grant.purposeNote;
@@ -228,6 +235,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.form.$('amount').set(data.amount);
 			}
 		}
+	}
+
+	@action.bound
+	toggleSettings() {
+		this.moreSettings = !this.moreSettings;
 	}
 
 	@action.bound
@@ -351,7 +363,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
 			this.form.$('grantPurposeTypeId').setDisabled(false);
 		}
-		if(value > this.donor.availableBalance && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
+		if(value > this.donor.availableBalance + this.donor.lineOfCredit && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
 			const { modalStore } = this.rootStore;
 			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
 				this.rootStore.routerStore.goTo("master.app.main.donor.contribution.create");
@@ -461,7 +473,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onCharitySelected(charity) {
-		this.setCharity(charity);
+		this.isAdvancedInput = true;
+		this.form.$('charityId').set(charity.id);
+		this.asyncPlaceholder = charityFormatter.format(charity, {value: 'charity-name-display'});
+		this.charity = charity;
+		this.setAddress(charity && charity.charityAddresses.find(c => c.isPrimary));
+		this.setSimilarGrantTable(charity.charityTypeId);
 		this.advancedSearchModal.close();
 	}
 
@@ -618,11 +635,17 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 	@action.bound
 	setCharityId(id) {
+		this.isAdvancedInput = false;
 		this.form.$('charityId').set(id);
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
-		this.setAddress(charity.item.charityAddresses[0]);
+		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
+		this.setAddress(charity && charity.item && charity.item.charityAddresses[0]);
 		this.setSimilarGrantTable(this.charity.item.charityTypeId);
+	}
+	@action.bound
+	setInputValue(value) {
+		this.charityInputValue = value;
 	} 
 	@action.bound
 	async filterCharities(inputValue) {

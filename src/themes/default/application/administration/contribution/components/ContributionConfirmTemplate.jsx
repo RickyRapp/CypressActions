@@ -141,9 +141,9 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                 </div>
             </section>
             <div className="row">
-                <div className="col col-sml-12 col-lrg-6">
+                <div className="col col-sml-12 col-lrg-6 u-order--2">
                     <BaasicButton
-                        className="btn btn--med btn--med--100 btn--ghost u-mar--bottom--sml"
+                        className="btn btn--med btn--med--100 btn--ghost u-mar--bottom--sml u-mar--top--sml"
                         classNameExtend="u-display--flex--justify--center"
                         label={t('EDIT_FORM_LAYOUT.CANCEL')}
                         onClick={onCancel}
@@ -151,7 +151,7 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                 </div>
                 <div className="col col-sml-12 col-lrg-6">
                     <div className="u-mar--left--auto">
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--med--100 btn--secondary" label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} classNameExtend="u-display--flex--justify--center" />
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--med--100 btn--secondary u-mar--top--sml" label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} classNameExtend="u-display--flex--justify--center" />
                     </div>
                 </div>
             </div>

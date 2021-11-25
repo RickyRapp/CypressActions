@@ -30,7 +30,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
     const promiseOptions = inputValue =>
     new Promise(resolve => {
         setTimeout(() => {
-            resolve(filterCharities(inputValue));
+            resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
         }, 1000);
     });
 
@@ -43,7 +43,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 						<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
-								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
+								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput
@@ -185,7 +185,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--close u-icon--base u-mar--left--sml"
+						icon="u-icon u-icon--cancel u-icon--base u-mar--left--sml"
 						label="SESSION.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}

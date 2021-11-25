@@ -11,6 +11,8 @@ import {
 	ChartCategoryAxisItem,
 	ChartLegend,
 	ChartTooltip,
+	ChartValueAxis,
+	ChartValueAxisItem,
 } from '@progress/kendo-react-charts';
 import { AccountManager } from 'application/donor/donor/components';
 import { DonorGivingCardActivationTemplate } from '../../donor/components';
@@ -43,7 +45,12 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		tableStore,
 		noGivingGoals
 	} = dashboardViewStore;
-	let categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	let categoriesMonths = [];
+	if(window.innerWidth > 750) {
+		categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	} else {
+		categoriesMonths = ['1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '10.', '11.', '12.'];
+	}
 	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
 	let categoriesYears = [];
@@ -162,11 +169,18 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const yearlyGoalAmount = (yearly * (percentageYear / 100));
 	const givingTotal = (localStorageProvider.get('grantsThisYear') / (oneTimeToGive + yearlyGoalAmount)) * 100;
 
+	const labelVisual = (e) => {
+		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+	};
+
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
 				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : (yearDropdownStore.value.id === 1 ? categoriesYears : (yearDropdownStore.value.id === 2 ? categoriesYearToDate : categoriesWeeks)))} />
 			</ChartCategoryAxis>
+			<ChartValueAxis>
+				<ChartValueAxisItem labels={{visible: true, content: labelVisual}} />
+			</ChartValueAxis>
 			<ChartTooltip
 				render={({ point }) => (
 					<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
@@ -261,7 +275,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 						</div>
 					)}
 				</div>
-				<div className="col col-sml-12 col-xxlrg-6">
+				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
 					{donor && donor.isContributionMade ? (
 						<div className="dashboard-card u-mar--bottom--sml">
 							<h3 className="dashboard-card__title dashboard-card__title--ordered u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
@@ -371,6 +385,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					)}
+				{window.innerWidth > 750 &&
 				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med" id="giving-goals-card">
 					<button type="button" className={`btn btn--show btn--show--secondary type--wgt--medium ${showMoreOptions ? "show" : ""}`} onClick={onShowMoreOptionsClick}>
 						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
@@ -453,13 +468,16 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 						</div>
 					}
 				</div>
+				}
 				<div className="col col-sml-12 col-lrg-12">
 					<div className="card card--primary card--med u-mar--bottom--med">
 						<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
 						<Transaction
 							hideSearch={true}
 							hidePager={true}
-							hidePeriod={true} />
+							hidePeriod={true}
+							noBackground={true}
+							/>
 					</div>
 				</div>
 			</div>

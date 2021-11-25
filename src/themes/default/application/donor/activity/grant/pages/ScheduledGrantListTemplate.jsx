@@ -113,7 +113,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--close u-icon--base"
+						icon="u-icon u-icon--cancel u-icon--base u-mar--left--sml"
 						label="SCHEDULED_GRANT.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}

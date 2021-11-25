@@ -79,7 +79,7 @@
 .k-grid {
 	position: relative;
 	overflow: auto;
-	max-height: calc(100vh - 98px);
+	/* max-height: calc(100vh - 98px); */
 
 	table {
 		/* table-layout: fixed; */

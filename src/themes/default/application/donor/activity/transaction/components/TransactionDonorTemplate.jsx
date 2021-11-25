@@ -22,9 +22,9 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 			<div className="row">
 				<div className="col col-sml-12 u-mar--bottom--sml">
 					{/* <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3> */}
-					<div className="card--tertiary--to-lrg">
-						<div className="row">
-							<div className="col col-sml-12 col-med-4">
+					<div className="card--tertiary">
+						<div className="row row--form">
+							<div className="col col-sml-4">
 								<div className="transaction__card">
 									
 									{donor && (
@@ -40,8 +40,8 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 
 								</div>
 							</div>
-							<div className="col col-sml-12 col-med-4">
-								<div className="transaction__card">
+							<div className="col col-sml-4">
+								<div className="transaction__card transaction__card--center">
 									
 									{donor && (
 										<div
@@ -59,7 +59,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 
 								</div>
 							</div>
-							<div className="col col-sml-12 col-med-4">
+							<div className="col col-sml-4">
 								<div className="transaction__card transaction__card--last">
 									
 									{donor && (

@@ -14,13 +14,13 @@ import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 
 const CharityAdvancedSearchTemplate = function({ charityAdvancedSearchViewStore }) {
-	const { tableStore, loadMoreClick, queryUtility, charityTypeDropdownStore, showSearch, expanded } = charityAdvancedSearchViewStore;
+	const { tableStore, loadMoreClick, queryUtility, charityTypeDropdownStore, expanded } = charityAdvancedSearchViewStore;
 
 	return (
 		<ListContent>
 			<Content>
 				<div className="u-mar--bottom--sml">
-					<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false} showSearch={showSearch} visibleByDefault={expanded}>
+					<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false} showSearch={false} visibleByDefault={expanded} showToggle={false}>
 						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 							<BaasicInput
 								id="name"

@@ -29,7 +29,8 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         filterCharities,
         setCharityId,
         charity,
-        insufficientAmount
+        insufficientAmount,
+        isCharitySelected
     } = sessionCreateViewStore;
 
     return (
@@ -57,7 +58,8 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             isChangedDefaultAddress={isChangedDefaultAddress}
                             onChangeDefaultAddressClick={onChangeDefaultAddressClick}
                             filterCharities={filterCharities}
-                            setCharityId={setCharityId} 
+                            setCharityId={setCharityId}
+                            isCharitySelected={isCharitySelected}
                         />
                     </div>}
 

@@ -1,0 +1,65 @@
+/*------------------------------------*\
+    # utils.order
+\*------------------------------------*/
+
+.u-order {
+	&--1 {
+		@media (--screen-to-sml) {
+			order: 1;
+		}
+		
+		&--xxxlrg {
+			@media (--screen-to-xxlrg) {
+				order: 1;
+			}
+		}
+	}
+	
+	&--2 {
+		@media (--screen-to-sml) {
+			order: 2;
+		}
+		
+		&--xxxlrg {
+			@media (--screen-to-xxlrg) {
+				order: 2;
+			}
+		}
+	}
+
+	&--3 {
+		@media (--screen-to-sml) {
+			order: 3;
+		}
+
+		&--xxxlrg {
+			@media (--screen-to-xxlrg) {
+				order: 3;
+			}
+		}
+	}
+
+	&--4 {
+		@media (--screen-to-sml) {
+			order: 4;
+		}
+
+		&--xxxlrg {
+			@media (--screen-to-xxlrg) {
+				order: 4;
+			}
+		}
+	}
+
+	&--5 {
+		@media (--screen-to-sml) {
+			order: 5;
+		}
+
+		&--xxxlrg {
+			@media (--screen-to-xxlrg) {
+				order: 5;
+			}
+		}
+	}
+}

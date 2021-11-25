@@ -29,14 +29,21 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
+                        const data = await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
                             donorId: this.donorId,
                             checkOrderUrl: `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`,
                             ...resource,
                             bookletOrderContents: this.orderContents.filter(c => c.bookletCount > 0)
                         });
+                        this.id = data.response;
                     }
                 }
+            },
+            onAfterAction: () => {
+                if(rootStore.userStore.user.roles.includes('Users'))
+                    rootStore.routerStore.goTo('master.app.main.donor.booklet-order.details', { id: this.id });
+                else 
+                    rootStore.routerStore.goTo('master.app.main.administration.booklet-order.details', { id: this.id });
             },
             FormClass: BookletOrderCreateForm,
             errorActions: {
@@ -119,7 +126,11 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get totalAmount() {
-        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount;
+        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount + ((this.form.$('customizedName').value && this.form.$('customizedName').value.length > 0) || (this.form.$('customizedAddressLine1').value && this.form.$('customizedAddressLine1').value.length > 0) ? this.donor && this.donor.accountType && this.donor.accountType.abrv != 'private' && parseFloat(this.customizedFee) : 0);
+    }
+
+    @computed get customizedFee() {
+        return this.orderContents.reduce((a,b) => a+b.bookletCount, 0)*5;
     }
 
     @computed get totalPrepaidAmount() {

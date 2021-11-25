@@ -18,6 +18,7 @@ class SessionViewStore extends BaseEditViewStore {
 	@observable charity = null;
     @observable charityInputValue = null;
 	@observable filteredCharities = [];
+    @observable isCharitySelected = false;
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -112,6 +113,7 @@ class SessionViewStore extends BaseEditViewStore {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
         this.form.$('charityId').value = id;
+        this.isCharitySelected = true;
         //this.queryUtility.filter.charityId = id;
 		//this.setAddress(charity.item.charityAddresses[0]);
 	} 
@@ -228,7 +230,8 @@ class SessionViewStore extends BaseEditViewStore {
             // let existingCertificateInSession = this.sessionCertificates.find(c => c.barcode == certificate.barcode);
             let existingCertificateInSession = this.sessionCertificates.map(c => c.barcode).indexOf(certificate.barcode);
             if(existingCertificateInSession >= 0) {
-                this.sessionCertificates[existingCertificateInSession].certificateValue = certificate.certificateValue;
+                this.sessionCertificates[existingCertificateInSession].certificateValue = data.response.certificateValue;
+                this.sessionCertificates[existingCertificateInSession].denominationTypeValue = data.response.denominationTypeValue;
             } else {
                 this.sessionCertificates.push(data.response);
             }

@@ -43,19 +43,26 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		getNumberOfReocurrency,
 		grantPurposeTypes,
 		confirmModal,
-        filterCharities,
-        setCharityId,
+		filterCharities,
+		setCharityId,
 		onSubmitClick,
 		charity,
 		isGrantAgain,
-		charityDropdownStore
+		charityDropdownStore,
+		asyncPlaceholder,
+		moreSettings,
+		toggleSettings,
+		isAdvancedInput
+		//inputCharity,
+		//setInputValue
 	} = grantCreateViewStore;
-	const promiseOptions = inputValue =>
-        new Promise(resolve => {
-            setTimeout(() => {
-                resolve(filterCharities(inputValue));
-            }, 1000);
-        });
+	const promiseOptions = (inputValue) =>
+		new Promise(resolve => {
+			setTimeout(() => {
+				resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
+			}, 1000);
+		});
+
 	return (
 		<React.Fragment>
 			<EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
@@ -73,20 +80,19 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										/> */}
 										{
 											isGrantAgain ?
-											<div>
-												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} inputValue={charityDropdownStore.value.name} />
-											</div>
-											:
-											<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions loadOptions={promiseOptions} />
+												<div>
+													<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} defaultInputValue={charityDropdownStore.value.name} classNamePrefix="react-select" />
+												</div>
+												:
+												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax Id...'} value={asyncPlaceholder}/>
 										}
-										
+
 									</div>
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
 									<div className="row row--form u-mar--bottom--med row__align--center">
-
 										<div className="col col-sml-12 col-lrg-6">
-											<BaasicFieldToggle field={form.$('isNewCharity')} showLabel={true} />
+											<BaasicFieldToggle field={form.$('isNewCharity')} showLabel={true} wrapperClassName={"u-display--flex u-display--none--med"} />
 										</div>
 										<div className="col col-sml-12 col-lrg-6 ">
 											<div className="u-push--from--med">
@@ -153,7 +159,14 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									</div>
 								)}
 
-								{charity &&
+								{charity && typeof charity.item == 'undefined' &&
+									<CharityShortInformationTemplate
+										charity={charity}
+										onChangeDefaultAddressClick={onChangeDefaultAddressClick}
+										isChangedDefaultAddress={isChangedDefaultAddress}
+										grantRequestId={grantRequestId}
+									/>}
+								{charity && charity.item &&
 									<CharityShortInformationTemplate
 										charity={charity.item}
 										onChangeDefaultAddressClick={onChangeDefaultAddressClick}
@@ -187,18 +200,28 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									<div className="form__group col col-sml-12 col-lrg-6">
 										<NumericInputField field={form.$('amount')} />
 									</div>
-									<div className="form__group col col-sml-12 col-lrg-6">
+									{window.innerWidth > 750 && <div className={`form__group col col-sml-12 col-lrg-6`}>
 										<DatePickerField field={form.$('startFutureDate')} />
-									</div>
+									</div>}
 								</div>
-								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
+								{window.innerWidth < 750 ?
+									<button type="button" className="btn btn--show type--wgt--medium u-mar--bottom--med" onClick={() => toggleSettings()}>
+									<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+									{!moreSettings ? 'More Settings' : 'Less Settings'}
+									<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+								</button> : null
+								}
+								{window.innerWidth < 750 && moreSettings && <div className="row row--form"><div className={`form__group col col-sml-12 col-lrg-6`}>
+										<DatePickerField field={form.$('startFutureDate')} />
+									</div></div>}
+								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (moreSettings || window.innerWidth > 750) && (
 									<div className="row row--form">
 										<div className="form__group col col-sml-12">
 											<BaasicFieldToggle field={form.$('isRecurring')} showLabel={true} />
 										</div>
 									</div>
 								)}
-								{form.$('isRecurring').value && (
+								{form.$('isRecurring').value && (moreSettings || window.innerWidth > 750) && (
 									<div className="card--form card--med u-mar--bottom--lrg">
 										<div className="row row--form">
 											<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
@@ -241,33 +264,40 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									</div>
 								)}
 								<div className="row row--form">
+								{
+									(moreSettings || window.innerWidth > 750) && 
 									<div className="form__group col col-sml-12">
 										<BaasicFieldDropdown
 											field={form.$('grantAcknowledgmentTypeId')}
 											store={grantAcknowledgmentTypeDropdownStore}
 										/>
 									</div>
-									{grantAcknowledgmentName && (
+								}
+									
+									{grantAcknowledgmentName && (moreSettings || window.innerWidth > 750) && (
 										<div className="form__group col col-sml-12">
 											<div className="charity-information__card charity-information__card--secondary">
 												{grantAcknowledgmentName}
 											</div>
 										</div>
 									)}
-
-									<div className="form__group col col-sml-12 ">
+									{
+										(moreSettings || window.innerWidth > 750) &&
+										<div className="form__group col col-sml-12 ">
 										<BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
 									</div>
-									<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-										{form.$('grantPurposeTypeId').value &&
-											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
+									
+									}<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+									{(moreSettings || window.innerWidth > 750) && form.$('grantPurposeTypeId').value &&
+											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />
+									}
 									</div>
 
 								</div>
 
 								<div className="u-mar--top--sml u-mar--bottom--sml type--right">
-                                    <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
-                                </div>
+									<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
+								</div>
 
 							</div>
 						</div>
@@ -308,6 +338,66 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										</div>
 									</div>
 
+									{charity && typeof charity.item == 'undefined' ? (
+										<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+											<div className="card--secondary card--med ">
+												<div className="row row--form">
+													<div className="col col-sml-12 col-lrg-6">
+														<h4 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">
+															{t('GRANT.CREATE.PROFILE_INFO')}
+														</h4>
+													</div>
+												</div>
+												<div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
+													<div className="col col-sml-12 col-lrg-4">
+														<div className="type--base type--wgt--bold">{charity.name}</div>
+													</div>
+												</div>
+												<div className="row row--form u-padd--top--med">
+													<div className="col col-sml-12 col-lrg-4">
+														<div className="u-separator--primary u-mar--bottom--sml"></div>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.RULLING_YEAR')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.rullingYear}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<div className="u-separator--primary u-mar--bottom--sml"></div>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.EIN')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charityFormatter.format(charity.taxId, { value: 'tax-id' })}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<div className="u-separator--primary u-mar--bottom--sml"></div>
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.irsFilingRequirement}</p>
+													</div>
+												</div>
+												<div className="row row--form u-padd--top--med">
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.principalOfficer}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.CAUSE_AREA')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.nteeCode}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">{charity.irsFilingRequirement}</p>
+													</div>
+												</div>
+												<div className="row row--form u-padd--top--med">
+													<div className="col col-sml-12 col-lrg-4">
+														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.MAIN_ADDRESS')}</p>
+														<p className="type--base type--wgt--medium type--color--opaque">
+															{addressFormatter.format(
+																charity.charityAddresses.filter(c => c.isPrimary === true),
+																'full'
+															)}
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									) : null}
 									{charity && charity.item ? (
 										<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 											<div className="card--secondary card--med ">
@@ -423,8 +513,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 				<GrantConfirmDetailsTemplate form={form} />
 			</BaasicModal> */}
 			<BaasicModal modalParams={confirmModal}>
-                <GrantConfirmTemplate form={form} />
-            </BaasicModal>
+				<GrantConfirmTemplate form={form} />
+			</BaasicModal>
 			<BaasicModal modalParams={advancedSearchModal}>
 				<CharityAdvancedSearch onSelected={onCharitySelected} showSearch={false} expanded={true} />
 			</BaasicModal>
@@ -437,7 +527,7 @@ GrantCreateTemplate.propTypes = {
 	t: PropTypes.func.isRequired,
 	confirmModal: PropTypes.any,
 	form: PropTypes.any,
-    onSubmitClick: PropTypes.func
+	onSubmitClick: PropTypes.func
 };
 
 function renderEditLayoutFooterContent({ form }) {

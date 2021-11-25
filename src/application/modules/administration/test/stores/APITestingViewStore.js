@@ -19,8 +19,9 @@ class APITestingViewStore extends BaseEditViewStore {
         this.service = new AdministrationService(rootStore.application.baasic.apiClient)
         this.createRequestTypeDropdownStore();
         this.createGrantScheduleTypeDropdownStore();
+        this.createGrantPurposeTypeDropdownStore();
         this.validationToken = '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5';
-        this.url = 'https://api.tdfcharitable.org/thedonorsfund/third-party/create-grant';
+        this.url = 'http://api.thedonorsfund.local/thedonorsfund/third-party/create-grant';
     }
 
     createGrantScheduleTypeDropdownStore() {
@@ -28,6 +29,15 @@ class APITestingViewStore extends BaseEditViewStore {
 			fetchFunc: async () => {
 				const data = await this.rootStore.application.lookup.grantScheduleTypeStore.find();
 				return data.filter(c => c.abrv != 'one-time');
+			},
+		});
+	}
+
+    createGrantPurposeTypeDropdownStore() {
+		this.grantPurposeTypeDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				const data = await this.rootStore.application.lookup.grantPurposeTypeStore.find();
+				return data;
 			},
 		});
 	}
@@ -60,33 +70,65 @@ class APITestingViewStore extends BaseEditViewStore {
 	sendRequest = async () => { 
             var requestData;
             if (this.form.$('requestType').value == 1 && this.grantScheduleTypeDropdownStore.value){
-                requestData = {
-                    taxId: `${this.form.$('taxId').value.slice(0,2)}-${this.form.$('taxId').value.slice(2)}`,
-                    amount: this.form.$('amount').value,
-                    startFutureDate: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == 'Invalid date' ? null : moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
-                    noEndDate: this.form.$('noEndDate').value,
-                    numberOfPayments: this.form.$('numberOfPayments').value,
-                    grantScheduleType: this.grantScheduleTypeDropdownStore.value.abrv,
-                    donor: this.form.$('donor').value,
-                    donorAuthorization: this.form.$('donorAuthorization').value,
-                    isRecurring: this.form.$('isRecurring').value
+                if(this.grantPurposeTypeDropdownStore.value && (this.grantPurposeTypeDropdownStore.value.abrv == 'in-honor-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'in-memory-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'solicited-by' || this.grantPurposeTypeDropdownStore.value.abrv == 'other'))
+                {
+                    requestData = {
+                        taxId: this.form.$('taxId').value,
+                        amount: this.form.$('amount').value,
+                        startFutureDate: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == 'Invalid date' ? null : moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
+                        noEndDate: this.form.$('noEndDate').value,
+                        numberOfPayments: this.form.$('numberOfPayments').value,
+                        grantScheduleType: this.grantScheduleTypeDropdownStore.value.abrv,
+                        donor: this.form.$('donor').value,
+                        donorAuthorization: this.form.$('donorAuthorization').value,
+                        isRecurring: this.form.$('isRecurring').value,
+                        grantPurposeType: this.grantPurposeTypeDropdownStore.value.abrv,
+                        purposeNote: this.form.$('purposeNote').value
+                    }
+                } else {
+                    requestData = {
+                        taxId: this.form.$('taxId').value,
+                        amount: this.form.$('amount').value,
+                        startFutureDate: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == 'Invalid date' ? null : moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
+                        noEndDate: this.form.$('noEndDate').value,
+                        numberOfPayments: this.form.$('numberOfPayments').value,
+                        grantScheduleType: this.grantScheduleTypeDropdownStore.value.abrv,
+                        donor: this.form.$('donor').value,
+                        grantPurposeType: this.grantPurposeTypeDropdownStore.value.abrv,
+                        donorAuthorization: this.form.$('donorAuthorization').value,
+                        isRecurring: this.form.$('isRecurring').value
+                    }
                 }
+                
             } else if (this.form.$('requestType').value == 2){
                 requestData = {
-                    taxId: `${this.form.$('taxId').value.slice(0,2)}-${this.form.$('taxId').value.slice(2)}`,
+                    taxId: this.form.$('taxId').value,
                     amount: this.form.$('amount').value,
                     cardNumber: this.form.$('cardNumber').value,
                     description: this.form.$('description').value
                 } 
+            } else { 
+                if(this.grantPurposeTypeDropdownStore.value && (this.grantPurposeTypeDropdownStore.value.abrv == 'in-honor-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'in-memory-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'solicited-by' || this.grantPurposeTypeDropdownStore.value.abrv == 'other')) {
+                requestData = {
+                    taxId: this.form.$('taxId').value,
+                    amount: this.form.$('amount').value,
+                    noEndDate: this.form.$('noEndDate').value,
+                    donor: this.form.$('donor').value,
+                    donorAuthorization: this.form.$('donorAuthorization').value,
+                    isRecurring: this.form.$('isRecurring').value,
+                    grantPurposeType: this.grantPurposeTypeDropdownStore.value.abrv,
+                    purposeNote: this.form.$('purposeNote').value
+                }
             } else {
                 requestData = {
-                    taxId: `${this.form.$('taxId').value.slice(0,2)}-${this.form.$('taxId').value.slice(2)}`,
+                    taxId: this.form.$('taxId').value,
                     amount: this.form.$('amount').value,
                     noEndDate: this.form.$('noEndDate').value,
                     donor: this.form.$('donor').value,
                     donorAuthorization: this.form.$('donorAuthorization').value,
                     isRecurring: this.form.$('isRecurring').value
                 }
+            }    
             }
             const requestOptions = {
                 method: 'POST',
@@ -99,7 +141,6 @@ class APITestingViewStore extends BaseEditViewStore {
             fetch(this.url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    
                     if(data.error != undefined || data.error != null)
                     {
                         this.response = {

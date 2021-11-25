@@ -14,6 +14,12 @@
 
 		&--ib {
 			display: inline-block;
+
+			&--from-med {
+				@media (--screen-from-med) {
+					display: inline-block;
+				}
+			}
 		}
 
 		&--flex {
@@ -24,7 +30,6 @@
 			}
 
 			&--align {
-				
 				&--center {
 					align-items: center;
 				}
@@ -35,7 +40,6 @@
 			}
 
 			&--justify {
-				
 				&--center {
 					justify-content: center;
 				}
@@ -43,8 +47,8 @@
 				&--space-around {
 					justify-content: space-around;
 				}
-				
-				&--space-between  {
+
+				&--space-between {
 					justify-content: space-between;
 				}
 
