@@ -30,7 +30,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
     const promiseOptions = inputValue =>
     new Promise(resolve => {
         setTimeout(() => {
-            resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
+            resolve(filterCharities(inputValue.length > 0 ? inputValue : null));
         }, 1000);
     });
 
