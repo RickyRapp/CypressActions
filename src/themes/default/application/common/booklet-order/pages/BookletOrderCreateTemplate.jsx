@@ -8,7 +8,7 @@ import {
     BaasicFormControls,
     Address,
     BaasicModal,
-    BaasicFieldDropdown
+   //BaasicFieldDropdown
 } from 'core/components';
 
 import { defaultTemplate } from 'core/hoc';
@@ -17,7 +17,6 @@ import { BookletOrderButtonCounterTemplate } from '../components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorAutomaticContributionEditTemplate } from 'themes/application/donor/donor/components';
 import { BookletOrderMixedPopup } from '../components';
-
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
         contentLoading,
@@ -43,7 +42,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         //onShowAddOnItemsClick,
         onAddProtectionPlanClick,
         protectionPlanModalParams,
-        customizedExpirationDateDropdownStore,
+        //customizedExpirationDateDropdownStore,
         confirmModal,
         click500,
         click2000,
@@ -351,7 +350,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         </div>
 
                         <div className="card--sml">
-                            {donor && !donor.hasProtectionPlan && prepaidBooksChecks &&
+                            {donor && !donor.hasProtectionPlan &&
                                 <div className="u-mar--bottom--med">
                                     <div className="message--enh">
                                         <span className="u-mar--right--tny">

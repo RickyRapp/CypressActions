@@ -21,6 +21,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable isDefaultShippingAddress = true;
     @observable tableData = [];
     applicationDefaultSetting = null;
+    @observable validForm = true;
 
     constructor(rootStore, { donorId, isDonor }) {
         super(rootStore, {
@@ -29,6 +30,18 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
+                        if(!this.donor.hasProtectionPlan && (this.donor.availableBalance + this.donor.lineOfCredit) < this.totalAmount) {
+                            this.rootStore.notificationStore.error('Insufficient funds, please enroll in protection plan or deposit funds');
+                            this.form.invalidate('Insufficient funds');
+                            this.validForm = false;
+                            return;
+                        }
+                        if(this.totalPrepaidAmount > (this.donor.availableBalance + this.donor.lineOfCredit)) {
+                            this.rootStore.notificationStore.error('Insufficient funds, please deposit funds');
+                            this.form.invalidate('Insufficient funds');
+                            this.validForm = false;
+                            return;
+                        }
                         const data = await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
                             donorId: this.donorId,
                             checkOrderUrl: `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`,
@@ -40,10 +53,12 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 }
             },
             onAfterAction: () => {
-                if(rootStore.userStore.user.roles.includes('Users'))
-                    rootStore.routerStore.goTo('master.app.main.donor.booklet-order.details', { id: this.id });
-                else 
-                    rootStore.routerStore.goTo('master.app.main.administration.booklet-order.details', { id: this.id });
+                if(this.validForm) {
+                    if(rootStore.userStore.user.roles.includes('Users'))
+                        rootStore.routerStore.goTo('master.app.main.donor.booklet-order.details', { id: this.id });
+                    else 
+                        rootStore.routerStore.goTo('master.app.main.administration.booklet-order.details', { id: this.id });
+                }   
             },
             FormClass: BookletOrderCreateForm,
             errorActions: {

@@ -278,6 +278,16 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	//#region MODAL
 	@action.bound
 	async onSubmitClick() {
+		if(this.form.$('amount').value > this.donor.availableBalance + this.donor.lineOfCredit && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
+			const { modalStore } = this.rootStore;
+			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
+				if(this.rootStore.userStore.user.roles.includes('Users'))
+					this.rootStore.routerStore.goTo("master.app.main.donor.contribution.create");
+				else
+					this.rootStore.routerStore.goTo("master.app.main.administration.contribution.create", {id: this.donorId});
+			})
+			return;
+		}
 		const { isValid } = await this.form.validate({ showErrors: true });
 		if (isValid) {
 			this.confirmModal.open({
@@ -362,12 +372,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.amountWithFee = null;
 			this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
 			this.form.$('grantPurposeTypeId').setDisabled(false);
-		}
-		if(value > this.donor.availableBalance + this.donor.lineOfCredit && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
-			const { modalStore } = this.rootStore;
-			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
-				this.rootStore.routerStore.goTo("master.app.main.donor.contribution.create");
-			})
 		}
 	}
 
