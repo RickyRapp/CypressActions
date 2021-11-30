@@ -21,7 +21,7 @@ class APITestingViewStore extends BaseEditViewStore {
         this.createGrantScheduleTypeDropdownStore();
         this.createGrantPurposeTypeDropdownStore();
         this.validationToken = '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5';
-        this.url = 'http://api.thedonorsfund.local/thedonorsfund/third-party/create-grant';
+        this.url = 'https://api.tdfcharitable.org/thedonorsfund/third-party/create-grant';
     }
 
     createGrantScheduleTypeDropdownStore() {

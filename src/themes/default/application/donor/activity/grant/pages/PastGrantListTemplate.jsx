@@ -99,7 +99,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	let dataContributions = [];
 	let chartDays = [];
 	
-	if (donor) {
+	if (donor && yearDropdownStore && yearDropdownStore.value) {
 
 		if (yearDropdownStore.value.id == 7) {
 			const todayDate = new Date();
@@ -147,7 +147,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
+				<ChartCategoryAxisItem categories={yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
 			</ChartCategoryAxis>
 			<ChartValueAxis>
 				<ChartValueAxisItem labels={{visible: true, content: labelVisual}} />
