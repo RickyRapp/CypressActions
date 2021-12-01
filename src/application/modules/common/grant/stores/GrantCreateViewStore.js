@@ -77,6 +77,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 								// eslint-disable-next-line
 								const resultRec = await this.grantStore.createScheduledGrant(resource);
 								this.grantId = resultRec;
+								
 							} else {
 								var result = await this.grantStore.createGrant(resource);
 								this.grantId = result.response;
@@ -89,6 +90,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				if(this.rootStore.userStore.applicationUser.roles[0] === 'Administrators') {
 					if(!this.isFuture && !this.form.$('isRecurring').value)
 						this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: this.grantId });
+					else
+						this.rootStore.routerStore.goTo('master.app.main.administration.grant.scheduled-preview', { id: this.grantId });
 				} else {
 					if(!this.isFuture && !this.form.$('isRecurring').value)
 						this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: this.grantId });
@@ -377,6 +380,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	onRecurringChange(value) {
+		if(value) {
+			this.form.$('startFutureDate').value = null;
+		}
 		this.form.$('startFutureDate').setDisabled(value);
 	}
 

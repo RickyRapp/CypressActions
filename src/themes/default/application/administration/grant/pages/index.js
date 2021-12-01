@@ -5,3 +5,4 @@ export { default as ScheduledGrantEditTemplate } from './ScheduledGrantEditTempl
 export { default as GrantListTemplate } from './GrantListTemplate'
 export { default as GrantTabTemplate } from './GrantTabTemplate'
 export { default as ScheduledGrantListTemplate } from './ScheduledGrantListTemplate'
+export { default as ScheduledGrantPreviewTemplate } from './ScheduledGrantPreviewTemplate'
