@@ -21,6 +21,7 @@ import {
 } from '@progress/kendo-react-charts';
 import { isSome } from 'core/utils';
 import { localStorageProvider } from 'core/providers';
+import moment from 'moment';
 
 const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const {
@@ -98,10 +99,11 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	let dataGrants = [];
 	let dataContributions = [];
 	let chartDays = [];
+	let categoriesYearToDate = [];
+	let categoriesYears = [];
 	
-	if (donor && yearDropdownStore && yearDropdownStore.value) {
-
-		if (yearDropdownStore.value.id == 7) {
+	function checkWeek(donor) {
+		if (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7) {
 			const todayDate = new Date();
 			let dayOfWeek = todayDate.getDay();
 			let counter = 0;
@@ -119,24 +121,86 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 					}
 				}
 			}
-			for (let i = 0; i < 7; i++) {
-				dataGrants.push(donor.donationsPerWeek[i].grants[0]);
-			}
-			for (let i = 0; i < 7; i++) {
-				dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
+			if (yearDropdownStore.value.id == -7) {
+				for (let i = 0; i < 7; i++) {
+					dataGrants.push(donor.donationsPerPastWeek[i].grants[0]);
+				}
+				for (let i = 0; i < 7; i++) {
+					dataContributions.push(donor.donationsPerPastWeek[i].contributions[0]);
+				}
+			} else {
+				for (let i = 0; i < 7; i++) {
+					dataGrants.push(donor.donationsPerWeek[i].grants[0]);
+				}
+				for (let i = 0; i < 7; i++) {
+					dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
+				}
 			}
 		}
-		if (yearDropdownStore.value.id === 30) {
-			for (let i = 0; i < 4; i++) {
-				dataGrants.push(donor.donationsPerMonth[i].grants[0]);
-				dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
+	}
+	function checkMonth(donor) {
+		if (yearDropdownStore.value.id === 30 || yearDropdownStore.value.id === -30) {
+			if (yearDropdownStore.value.id == -30) {
+				for (let i = 0; i < 4; i++) {
+					dataGrants.push(donor.donationsPerPastMonth[i].grants[0]);
+					dataContributions.push(donor.donationsPerPastMonth[i].contributions[0]);
+				}
+			} else {
+				for (let i = 0; i < 4; i++) {
+					dataGrants.push(donor.donationsPerMonth[i].grants[0]);
+					dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
+				}
 			}
 		}
+	}
+	function checkYear(donor) {
 		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
 			dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
 		}
 		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
 			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
+		}
+	}
+	if (donor && donor.donationsPerYear.length > 0) {
+		checkWeek(donor);
+		checkMonth(donor);
+		checkYear(donor);
+
+		if (yearDropdownStore.value.id === 1) {
+			const today = moment();
+			const minDate = moment(donor.minDate);
+			if (today.diff(minDate, 'days') < 7) {
+				yearDropdownStore.value.id = 7;
+				checkWeek(donor);
+			} else if (today.diff(minDate, 'days') < 31) {
+				yearDropdownStore.value.id = 30;
+				checkMonth(donor);
+			} else if (today.diff(minDate, 'days') < 366) {
+				yearDropdownStore.value.id = donor.donationsPerYear[0].year;
+				checkYear(donor);
+			} else {
+				let multipleYears = [];
+				for (let i = 0; i < donor.donationsPerYear.length; i++) {
+					multipleYears.push({ year: donor.donationsPerYear[i].year, grants: donor.donationsPerYear[i].grants.length > 0 ? donor.donationsPerYear[i].grants[donor.donationsPerYear[i].grants.length - 1] : 0, contributions: donor.donationsPerYear[i].contributions.length > 0 ? donor.donationsPerYear[i].contributions[donor.donationsPerYear[i].contributions.length - 1] : 0});
+					categoriesYears.push(donor.donationsPerYear[i].year);
+					dataGrants.push(multipleYears[i].grants);
+					dataContributions.push(multipleYears[i].contributions);
+				}
+			}
+		}
+		if (yearDropdownStore.value.id === 2) {
+			const month = parseInt(moment().format("M"));
+			if(month == 0) {
+				yearDropdownStore.value.id = 30;
+				checkMonth(donor);
+			} else if (month == 11) {
+				yearDropdownStore.value.id = new Date().getFullYear();
+				checkYear(donor);
+			} else {
+				dataGrants = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).grants.slice(0, month);
+				dataContributions = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).contributions.slice(0, month);
+				categoriesYearToDate = categoriesMonths.slice(0, month);
+			}
 		}
 	}
 
@@ -147,7 +211,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : (yearDropdownStore.value.id === 1 ? categoriesYears : (yearDropdownStore.value.id === 2 ? categoriesYearToDate : categoriesWeeks)))} />
 			</ChartCategoryAxis>
 			<ChartValueAxis>
 				<ChartValueAxisItem labels={{visible: true, content: labelVisual}} />

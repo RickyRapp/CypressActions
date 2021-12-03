@@ -148,11 +148,11 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		}
 		if (yearDropdownStore.value.id === 2) {
 			const month = parseInt(moment().format("M"));
-			if(month == 1) {
+			if(month == 0) {
 				yearDropdownStore.value.id = 30;
 				checkMonth(donor);
-			} else if (month == 12) {
-				yearDropdownStore.value.id = donor.donationsPerYear[0].year;
+			} else if (month == 11) {
+				yearDropdownStore.value.id = new Date().getFullYear();
 				checkYear(donor);
 			} else {
 				dataGrants = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).grants.slice(0, month);
@@ -168,7 +168,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	//const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
 	const yearlyGoalAmount = (yearly * (percentageYear / 100));
 	const givingTotal = (localStorageProvider.get('grantsThisYear') / (oneTimeToGive + yearlyGoalAmount)) * 100;
-
 	const labelVisual = (e) => {
 		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 	};
@@ -289,7 +288,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									<div
 										style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : 0}%` }}
 										className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
-										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : givingTotal == 0 ? (100).toFixed(2) + '%' : 0 + '%')}
+										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : givingTotal == 0 ? 0 + '%' : (100).toFixed(2) + '%')}
 									</div>
 									<p className="dashboard-card__giving-goal__income">
 										<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}

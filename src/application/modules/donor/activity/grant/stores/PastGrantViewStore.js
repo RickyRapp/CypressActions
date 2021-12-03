@@ -159,7 +159,7 @@ class PastGrantViewStore extends BaseListViewStore {
         let initialValue = new Date().getFullYear();
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
-            donations.push({name: 'This Week', id: 7}, {name: 'This Month', id: 30});
+            donations.push({ name: 'All Time', id: 1 }, {name: 'This Week', id: 7}, {name: 'This Month', id: 30}, { name: 'Last Month', id: -30 }, { name: 'Year To Date', id: 2 });
             this.yearDropdownStore.setItems(donations);
 			//this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
         }

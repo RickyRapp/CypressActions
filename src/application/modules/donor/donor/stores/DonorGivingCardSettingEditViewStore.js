@@ -17,6 +17,14 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
                         // if(resource.isLost || resource.isStolen) {
                         //     await 
                         // } else {
+                            if(!this.reportCard) {
+                                resource.isLost = resource.isLost !== '' && resource.isLost !== null;
+                                resource.isStolen = resource.isStolen !== '' && resource.isStolen !== null;
+                            }
+                            if(typeof resource.isStolen != 'string' && !resource.isStolen && this.reportCard)
+                                resource.isLost = true;
+                            if(typeof resource.isStolen != 'string' && resource.isStolen && this.reportCard)
+                                resource.isLost = false;
                             resource.givingCardId = this.item.givingCardId;
                             await rootStore.application.donor.donorStore.updateGivingCardSetting(resource);
                         //}

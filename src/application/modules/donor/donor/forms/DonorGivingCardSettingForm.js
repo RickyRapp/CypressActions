@@ -43,14 +43,14 @@ export default class DonorGivingCardSettingForm extends FormBase {
                 {
                     name: 'isStolen',
                     label: 'DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.IS_STOLEN_LABEL',
-                    rules: 'required|boolean',
-                    type: 'checkbox'
+                    rules: 'boolean',
+                    type: 'radio'
                 },
                 {
                     name: 'isLost',
                     label: 'DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.IS_LOST_LABEL',
-                    rules: 'required|boolean',
-                    type: 'checkbox'
+                    rules: 'boolean',
+                    type: 'radio'
                 },
                 {
                     name: 'reportDescription',

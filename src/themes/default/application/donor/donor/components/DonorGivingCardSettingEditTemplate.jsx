@@ -8,8 +8,9 @@ import {
     BaasicFieldDropdown,
     NumericInputField,
     BasicInput,
-    BasicFieldCheckbox,
-    BaasicToggle
+    //BasicFieldCheckbox,
+    BaasicToggle,
+    BasicRadio
 } from 'core/components'
 import moment from 'moment';
 
@@ -22,7 +23,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
         grantAcknowledgmentTypeDropdownStore,
         grantPurposeTypeDropdownStore,
         toggleEdit,
-        onChangeIsEnabled,
+        //onChangeIsEnabled,
         reportCard,
         setCardAction
     } = donorGivingCardSettingEditViewStore;
@@ -105,8 +106,22 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                     </div>
                 </div> :
                     <div>
-                        <BasicFieldCheckbox showLabel={true} field={form.$('isStolen')} onChange={onChangeIsEnabled} />&nbsp;&nbsp;
-                        <BasicFieldCheckbox showLabel={true} field={form.$('isLost')} onChange={onChangeIsEnabled} /> <br /><br />
+                        <div className="row">
+                        <BasicRadio
+                            label={t('DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.IS_STOLEN_LABEL')}
+                            value={'true'}
+                            field={form.$('isStolen')}
+                            className="col col-sml-6 col-lrg-3"
+                        />
+                        <BasicRadio
+                            label={t('DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.IS_LOST_LABEL')}
+                            value={'false'}
+                            field={form.$('isStolen')}
+                            className="col col-sml-6 col-lrg-3"
+                        />
+                        </div>
+                        {/* <BasicFieldCheckbox showLabel={true} field={form.$('isStolen')} onChange={onChangeIsEnabled} />&nbsp;&nbsp;
+                        <BasicFieldCheckbox showLabel={true} field={form.$('isLost')} onChange={onChangeIsEnabled} /> <br /><br /> */}
                         <BasicInput field={form.$('reportDescription')} /> <br /><br />
                         <span className="">Important! Please be aware that once you complete this report, your card will immediately be disabled.</span>
                     </div>}

@@ -82,8 +82,8 @@ class DashboardViewStore extends BaseViewStore {
     @action.bound
     async fetchDonorData() {
         const data = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
-        let initialValue = new Date().getMonth() > 1 ? 2 : 30;
-        let initialName = new Date().getMonth() > 1 ? 'Year To Date' : 'This Month';
+        let initialValue = new Date().getMonth() > 0 && new Date().getMonth() < 11 ? 2 : (new Date().getMonth() == 11 ? (new Date().getFullYear()) : 30);
+        let initialName = new Date().getMonth() > 0 && new Date().getMonth() < 11 ? 'Year To Date' : (new Date().getMonth() == 11 ? (new Date().getFullYear()).toString() : 'This Month');
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
             //{ name: 'Last Week', id: -7 }
@@ -102,7 +102,7 @@ class DashboardViewStore extends BaseViewStore {
         }
         this.yearDropdownStore.setValue({ name: (new Date().getFullYear()).toString(), id: new Date().getFullYear() });
         this.donor = data;
-        this.yearDropdownStore.setValue({ name: initialName, id: initialValue });
+        this.yearDropdownStore.setValue({ name: 'Year To Date', id: 2 });
     }
 
     createYearDropdownStore() {
