@@ -26,73 +26,71 @@ const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
 				</div>
 				<div
 					className={`col col-sml-12 col-lrg-${(isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId) ||
-							undefined === editId ||
-							(secondaryPhoneNumber && secondaryPhoneNumber.id === editId)
-							? '12'
-							: '9'
+						undefined === editId ||
+						(secondaryPhoneNumber && secondaryPhoneNumber.id === editId)
+						? '12'
+						: '9'
 						}`}
 				>
-					<div className="row">
-						<div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-							{isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId ? (
-								<DonorPhoneNumberEditTemplate
-									form={form}
-									title="Primary"
-									onCancelEditClick={onCancelEditClick}
-									isAssignableAsPrimary={false}
-								/>
-							) : (
-								<div
-									className="row info-card--scale"
-									title="Click to edit"
-									onClick={() => onEnableEditClick(primaryPhoneNumber)}
-								>
-									{primaryPhoneNumber && (
-										<div
-											className="col col-sml-12 col-lrg-9"
-											title="Click to edit"
-											onClick={onEnableEditClick}
-										>
-											<div className="row">
-												<div className="col col-sml-6 col-xxlrg-4">
-													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Number:</p>
-													<p className="type--base type--wgt--bold">{primaryPhoneNumber.number}</p>
-												</div>
+					<div className={`u-mar--bottom--sml ${isEditEnabled && secondaryPhoneNumber.id === editId ? "u-padd--x--med" : ""}`}>
+						{isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId ? (
+							<DonorPhoneNumberEditTemplate
+								form={form}
+								title="Primary"
+								onCancelEditClick={onCancelEditClick}
+								isAssignableAsPrimary={false}
+							/>
+						) : (
+							<div
+								className="row info-card--scale"
+								title="Click to edit"
+								onClick={() => onEnableEditClick(primaryPhoneNumber)}
+							>
+								{primaryPhoneNumber && (
+									<div
+										className="col col-sml-12 col-lrg-9"
+										title="Click to edit"
+										onClick={onEnableEditClick}
+									>
+										<div className="row">
+											<div className="col col-sml-6 col-xxlrg-4">
+												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Number:</p>
+												<p className="type--base type--wgt--bold">{primaryPhoneNumber.number}</p>
+											</div>
 
-												<div className="col col-sml-6 col-xxlrg-4">
-													<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-														Primary
-													</p>
-													<p className="type--base type--wgt--bold">{primaryPhoneNumber.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ''}</p>
-												</div>
+											<div className="col col-sml-6 col-xxlrg-4">
+												<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+													Primary
+												</p>
+												<p className="type--base type--wgt--bold">{primaryPhoneNumber.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ''}</p>
 											</div>
 										</div>
-									)}
-								</div>
-							)}
-						</div>
-						<div className="col col-sml-12 col-lrg-12">
-							{isEditEnabled &&
-								((secondaryPhoneNumber && secondaryPhoneNumber.id === editId) || undefined === editId) ? (
-								<DonorPhoneNumberEditTemplate
-									form={form}
-									onCancelEditClick={onCancelEditClick}
-									isAssignableAsPrimary={true}
-								/>
-							) : (
-								<span
-									className="cursor--pointer type--color--opaque type--sml"
-									title={`Click to ${secondaryPhoneNumber ? 'edit' : 'insert'}`}
-									onClick={() => onEnableEditClick(secondaryPhoneNumber)}
-								>
-									{secondaryPhoneNumber ? (
-										<FormatterResolver item={secondaryPhoneNumber} field="number" format={{ type: 'phone-number' }} />
-									) : (
-										<span className="btn btn--link btn--sml">Add new phone number</span>
-									)}
-								</span>
-							)}
-						</div>
+									</div>
+								)}
+							</div>
+						)}
+					</div>
+					<div className={`${isEditEnabled && primaryPhoneNumber.id === editId ? "u-padd--x--med" : ""}`}>
+						{isEditEnabled &&
+							((secondaryPhoneNumber && secondaryPhoneNumber.id === editId) || undefined === editId) ? (
+							<DonorPhoneNumberEditTemplate
+								form={form}
+								onCancelEditClick={onCancelEditClick}
+								isAssignableAsPrimary={true}
+							/>
+						) : (
+							<span
+								className="cursor--pointer type--color--opaque type--sml"
+								title={`Click to ${secondaryPhoneNumber ? 'edit' : 'insert'}`}
+								onClick={() => onEnableEditClick(secondaryPhoneNumber)}
+							>
+								{secondaryPhoneNumber ? (
+									<FormatterResolver item={secondaryPhoneNumber} field="number" format={{ type: 'phone-number' }} />
+								) : (
+									<span className="btn btn--link btn--sml">Add new phone number</span>
+								)}
+							</span>
+						)}
 					</div>
 				</div>
 			</div>
