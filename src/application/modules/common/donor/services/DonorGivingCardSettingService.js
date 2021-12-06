@@ -11,6 +11,10 @@ class DonorGivingCardSettingService extends BaseService {
     const url = this.routeService.activateCard(resource);
     return this.apiClient.put(url, resource);
   }
+  unfreezeCard(resource) {
+    const url = this.routeService.unfreezeCard(resource);
+    return this.apiClient.put(url, resource);
+  }
 }
 
 export default DonorGivingCardSettingService;

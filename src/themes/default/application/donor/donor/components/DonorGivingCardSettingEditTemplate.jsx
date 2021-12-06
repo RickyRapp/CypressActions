@@ -10,7 +10,8 @@ import {
     BasicInput,
     //BasicFieldCheckbox,
     BaasicToggle,
-    BasicRadio
+    BasicRadio,
+    BaasicButton
 } from 'core/components'
 import moment from 'moment';
 
@@ -25,7 +26,8 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
         toggleEdit,
         //onChangeIsEnabled,
         reportCard,
-        setCardAction
+        setCardAction,
+        unfreezeCard
     } = donorGivingCardSettingEditViewStore;
     return (
         <div className="u-mar--bottom--med">
@@ -64,6 +66,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                         </div>
                         <div className="col col-sml-12 col-lrg-3">
                             {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) &&  <BaasicToggle wrapperClassName="u-display--flex u-display--flex--column u-display--flex--align--end" showLabel={true} label={t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')} value={reportCard} onChange={() => setCardAction()}/>} 
+                            {item && item.givingCard && (item.givingCard.isStolen || item.givingCard.isLost) && <BaasicButton label="Unfreeze card" onClick={unfreezeCard}/>}
                             {/* (!reportCard ? <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</a> : <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.GO_BACK')}</a>)} */}
                         </div>
                     </div>

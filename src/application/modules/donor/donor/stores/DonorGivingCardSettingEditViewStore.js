@@ -40,7 +40,6 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
             },
             FormClass: DonorGivingCardSettingForm,
         });
-
         this.donorId = rootStore.userStore.applicationUser.id;
         this.createGrantPurposeTypeDropdownStore();
         this.createGrantAcknowledgmentTypeDropdownStore();
@@ -64,6 +63,18 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
     toggleEdit() {
         this.form.$('isEnabled').value = !this.form.$('isEnabled').value;
         this.onChangeIsEnabled();
+    }
+
+    @action.bound
+    async unfreezeCard() {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to unfreeze your card?`,
+            async () => {
+                await this.rootStore.application.donor.donorStore.unfreezeCard({givingCardId: this.item.givingCardId, id: this.id});
+                this.rootStore.notificationStore.success('The card has successully been unfrozen');
+                this.rootStore.routerStore.goBack();
+            }
+        );
     }
 
     @action.bound

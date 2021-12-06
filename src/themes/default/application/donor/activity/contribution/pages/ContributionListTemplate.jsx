@@ -7,7 +7,8 @@ import {
 	TableFilter,
 	BaasicDropdown,
 	BaasicInput,
-	DateRangeQueryPicker
+	DateRangeQueryPicker,
+	FormatterResolver
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
@@ -131,7 +132,16 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
 						//eslint-disable-next-line
 							 <tr className="table--secondary__row" style={x.month == (new Date()).getFullYear() ? {borderTop: '3px solid #d4d4d4'} : null}>
                             <th className="table--secondary__th">{x.month <= 12 ? `${monthNames[x.month - 1]} ${(new Date()).getFullYear()}` : `Year of ${x.month}`}</th>
-                            <td className="table--secondary__td">${x.sumByMonth.toFixed(2)}</td>
+                            <td className="table--secondary__td">
+							<div className="modal__list__amount">
+								<FormatterResolver
+									item={{ amount: x.sumByMonth }}
+									field='amount'
+									format={{ type: 'currency' }}
+								/>
+							</div>
+							</td>
+							{/* ${x.sumByMonth.toFixed(2)} */}
                         </tr>)
 						}
                         

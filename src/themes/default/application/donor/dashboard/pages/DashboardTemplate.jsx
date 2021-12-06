@@ -59,7 +59,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let chartDays = [];
 	let categoriesYearToDate = [];
 	//let isMultipleYears = false;
-
 	function checkWeek(donor) {
 		if (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7) {
 			const todayDate = new Date();
@@ -161,8 +160,15 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			}
 		}
 	}
-
-	const grantsThisYear = dataGrants[dataGrants.length - 1];
+	if(yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id != 1)
+	{
+		if(dataGrants.length > 0)
+			dataGrants = dataGrants.map(c => dataGrants[dataGrants.length - 1] != (c - dataGrants[0]) ? (c - dataGrants[0]) : c);
+		if(dataContributions.length > 0)
+			dataContributions = dataContributions.map(c => dataContributions[dataContributions.length - 1] != (c - dataContributions[0]) ? (c - dataContributions[0]) : c);
+	}
+	
+		const grantsThisYear = dataGrants[dataGrants.length - 1];
 	if(yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id == (new Date()).getFullYear())
 		localStorageProvider.add('grantsThisYear', grantsThisYear);
 	//const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
@@ -174,7 +180,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const currencyFormat = (e) => {
 		return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 	};
-
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
@@ -286,9 +291,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
 									<div
-										style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : 0}%` }}
+										style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : (oneTimeToGive + yearlyGoalAmount)>0 && grantsThisYear > 0 ? 100 : 0}%` }}
 										className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
-										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : givingTotal == 0 ? 0 + '%' : (100).toFixed(2) + '%')}
+										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : (oneTimeToGive + yearlyGoalAmount)>0 && grantsThisYear > 0 ? (100).toFixed(2) + '%' : 0 + '%')}
 									</div>
 									<p className="dashboard-card__giving-goal__income">
 										<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
