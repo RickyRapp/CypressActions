@@ -64,9 +64,9 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                                 {item.givingCard.isStolen && <div className="type--base type--wgt--bold type--color--warning">Card is reported stolen! </div>}
                             </div>
                         </div>
-                        <div className="col col-sml-12 col-lrg-3">
+                        <div className="col col-sml-12 col-lrg-3 type--right">
                             {item && item.givingCard && !(item.givingCard.isStolen || item.givingCard.isLost) &&  <BaasicToggle wrapperClassName="u-display--flex u-display--flex--column u-display--flex--align--end" showLabel={true} label={t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')} value={reportCard} onChange={() => setCardAction()}/>} 
-                            {item && item.givingCard && (item.givingCard.isStolen || item.givingCard.isLost) && <BaasicButton label="Unfreeze card" onClick={unfreezeCard}/>}
+                            {item && item.givingCard && (item.givingCard.isStolen || item.givingCard.isLost) && <BaasicButton label="Unfreeze card" className="btn btn--med btn--secondary" onClick={unfreezeCard}/>}
                             {/* (!reportCard ? <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.REPORT_STOLEN_TITLE')}</a> : <a className="btn btn--secondary btn--med" onClick={() => setCardAction()}>{t('DONOR_GIVING_CARD_SETTING.CREATE.GO_BACK')}</a>)} */}
                         </div>
                     </div>
