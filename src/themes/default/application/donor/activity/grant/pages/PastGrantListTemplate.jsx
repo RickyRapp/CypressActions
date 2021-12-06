@@ -204,6 +204,14 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		}
 	}
 
+	if(yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id != 1)
+	{
+		if(dataGrants.length > 0)
+			dataGrants = dataGrants.map(c => dataGrants[dataGrants.length - 1] != (c - dataGrants[0]) ? (c - dataGrants[0]) : c);
+		if(dataContributions.length > 0)
+			dataContributions = dataContributions.map(c => dataContributions[dataContributions.length - 1] != (c - dataContributions[0]) ? (c - dataContributions[0]) : c);
+	}
+	
 	const labelVisual = (e) => {
 		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 	};
