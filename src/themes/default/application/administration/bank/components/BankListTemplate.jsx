@@ -8,7 +8,7 @@ import {
     BaasicButton
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { Content } from 'core/layouts';
+import { Content, ApplicationListLayout } from 'core/layouts';
 import { BankCreate } from 'application/administration/bank/components';
 
 const BankListTemplate = function ({ bankViewStore }) {
@@ -21,6 +21,7 @@ const BankListTemplate = function ({ bankViewStore }) {
 
     return (
         <React.Fragment>
+            <ApplicationListLayout store={bankViewStore} authorization={authorization}>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="type--right">
                     <BaasicButton
@@ -35,6 +36,7 @@ const BankListTemplate = function ({ bankViewStore }) {
                     />
                 </div>
             </Content>
+            </ApplicationListLayout>
             <BaasicModal modalParams={createModal}>
                 <BankCreate />
             </BaasicModal>
