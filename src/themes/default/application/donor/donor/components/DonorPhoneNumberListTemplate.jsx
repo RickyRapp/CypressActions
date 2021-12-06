@@ -32,7 +32,7 @@ const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
 						: '9'
 						}`}
 				>
-					<div className={`u-mar--bottom--sml ${isEditEnabled && secondaryPhoneNumber.id === editId ? "u-padd--x--med" : ""}`}>
+					<div className={`u-mar--bottom--sml ${(isEditEnabled && secondaryPhoneNumber === null && primaryPhoneNumber.id !== editId) || (secondaryPhoneNumber && secondaryPhoneNumber.id === editId) ? "u-padd--x--med" : ""}`}>
 						{isEditEnabled && primaryPhoneNumber && primaryPhoneNumber.id === editId ? (
 							<DonorPhoneNumberEditTemplate
 								form={form}
@@ -70,7 +70,7 @@ const DonorAddressListTemplate = function ({ donorPhoneNumberViewStore, t }) {
 							</div>
 						)}
 					</div>
-					<div className={`${isEditEnabled && primaryPhoneNumber.id === editId ? "u-padd--x--med" : ""}`}>
+					<div className={`${(isEditEnabled && primaryPhoneNumber === null) || (primaryPhoneNumber && primaryPhoneNumber.id === editId) ? "u-padd--x--med" : ""}`}>
 						{isEditEnabled &&
 							((secondaryPhoneNumber && secondaryPhoneNumber.id === editId) || undefined === editId) ? (
 							<DonorPhoneNumberEditTemplate

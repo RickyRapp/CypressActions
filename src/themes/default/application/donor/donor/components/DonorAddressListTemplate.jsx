@@ -35,7 +35,7 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
 						/>
 					) : (
 						<div
-							className={`type--base type--wgt--bold ${isEditEnabled && secondaryAddress.id === editId ? "u-padd--x--med" : ""}`}
+							className={`type--base type--wgt--bold ${(isEditEnabled && secondaryAddress === null) || (secondaryAddress && secondaryAddress.id === editId) ? "u-padd--x--med" : ""}`}
 							title="Click to edit"
 							onClick={() => onEnableEditClick(primaryAddress)}
 						>
@@ -79,7 +79,7 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
 						</div>
 					)}
 
-					<div className={`u-mar--top--sml ${isEditEnabled && primaryAddress.id === editId ? "u-padd--x--med" : ""}`}>
+					<div className={`u-mar--top--sml ${(isEditEnabled && primaryAddress === null) || (primaryAddress && primaryAddress.id === editId) ? "u-padd--x--med" : ""}`}>
 						{isEditEnabled && ((secondaryAddress && secondaryAddress.id === editId) || undefined === editId) ? (
 							<DonorAddressEditTemplate
 								form={form}

@@ -48,7 +48,7 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
 							/>
 						) : (
 							<div
-								className={`${isEditEnabled && secondaryEmailAddress.id === editId ? "u-padd--x--med" : ""}`}
+								className={`${(isEditEnabled && secondaryEmailAddress === null) || ((secondaryEmailAddress && secondaryEmailAddress.id === editId)) ? "u-padd--x--med" : ""}`}
 								title="Click to edit"
 								onClick={() => onEnableEditClick(primaryEmailAddress)}
 							>
@@ -74,7 +74,7 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
 							</div>
 						)}
 
-						<div className={`u-mar--top--sml ${isEditEnabled && primaryEmailAddress.id === editId ? "u-padd--x--med" : ""}`}>
+						<div className={`u-mar--top--sml ${(isEditEnabled && primaryEmailAddress === null) || (primaryEmailAddress && primaryEmailAddress.id === editId) ? "u-padd--x--med" : ""}`}>
 							{isEditEnabled &&
 								((secondaryEmailAddress && secondaryEmailAddress.id === editId) || undefined === editId) ? (
 								<DonorEmailAddressEditTemplate
