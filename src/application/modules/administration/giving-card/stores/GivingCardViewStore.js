@@ -36,6 +36,15 @@ class GivingCardViewStore extends BaseListViewStore {
         await this.queryUtility.fetch();
         this.loaderStore.resume();
     }
+    @action.bound
+    async toggleActivate(item) {
+        this.loaderStore.suspend();
+        item.isActivated = !item.isActivated;
+        await this.rootStore.application.administration.givingCardStore.updateGivingCard(item);
+        this.rootStore.notificationStore.success(`Successfully ${item.isLockedOut ? 'activated' : 'inactivated'} card`);
+        await this.queryUtility.fetch();
+        this.loaderStore.resume();
+    }
 
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
@@ -81,17 +90,26 @@ class GivingCardViewStore extends BaseListViewStore {
                     }
                 },
                 {
+                    key: 'isActivated',
+                    title: 'GIVING_CARD.LIST.COLUMNS.ACTIVATED_LABEL',
+                    format: {
+                        type: 'boolean',
+                        value: 'yes-no'
+                    }
+                },
+                {
                     key: 'dateCreated',
                     title: 'GIVING_CARD.LIST.COLUMNS.DATE_CREATED_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'
                     }
-                }
+                },
             ],
             actions: {
                 onToggleLock: (card) => this.toggleLock(card),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
+                onSort: (column) => this.queryUtility.changeOrder(column.key),
+                onToggleActivate: (card) => this.toggleActivate(card)
             },
             actionsRender: {
             }

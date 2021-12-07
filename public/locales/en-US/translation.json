@@ -2641,6 +2641,7 @@
                 "POSSIBLE_LOST_OR_STOLEN_LABEL": "Possible lost or stolen",
                 "LOST_OR_STOLEN_DESCRIPTION_LABEL": "Lost/Stolen description",
                 "LOCKED_LABEL": "Locked",
+                "ACTIVATED_LABEL": "Activated",
                 "CVV_LABEL": "CVV"
             },
             "EMPTY_STATE": {
