@@ -206,10 +206,24 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 
 	if(yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id != 1)
 	{
-		if(dataGrants.length > 0)
-			dataGrants = dataGrants.map(c => dataGrants[dataGrants.length - 1] != (c - dataGrants[0]) ? (c - dataGrants[0]) : c);
-		if(dataContributions.length > 0)
-			dataContributions = dataContributions.map(c => dataContributions[dataContributions.length - 1] != (c - dataContributions[0]) ? (c - dataContributions[0]) : c);
+		let previousYearGrants = 0, previousYearContributions = 0;
+		if(donor && donor.donationsPerYear.length > 1) {
+			if(yearDropdownStore.value.id > donor.donationsPerYear[0].year || yearDropdownStore.value.id == 2) {
+				const previousYear = donor.donationsPerYear.find(c => c.year == (yearDropdownStore.value.id == 2 ? ((new Date().getFullYear()) - 1) : yearDropdownStore.value.id - 1));
+				previousYearGrants = previousYear.grants[11] ? previousYear.grants[11] : 0;
+				previousYearContributions = previousYear.contributions[11] ? previousYear.contributions[11] : 0;
+			}
+			if(dataGrants.length > 0)
+				dataGrants = dataGrants.map(c => c - previousYearGrants);
+			if(dataContributions.length > 0)
+				dataContributions = dataContributions.map(c => c - previousYearContributions);
+
+		} else {
+			if(dataGrants.length > 0)
+				dataGrants = dataGrants.map(c => dataGrants[dataGrants.length - 1] != (c - dataGrants[0]) ? (c - dataGrants[0]) : c);
+			if(dataContributions.length > 0)
+				dataContributions = dataContributions.map(c => dataContributions[dataContributions.length - 1] != (c - dataContributions[0]) ? (c - dataContributions[0]) : c);
+			}
 	}
 	
 	const labelVisual = (e) => {
