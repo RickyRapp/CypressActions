@@ -229,7 +229,9 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const labelVisual = (e) => {
 		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 	};
-
+	const currencyFormat = (e) => {
+		return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+	};
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
@@ -245,8 +247,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${(dataContributions[dataContributions.length - 1] - dataContributions[0]).toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataContributions} />
-				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${(dataGrants[dataGrants.length - 1] - dataGrants[0]).toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataGrants} />
+				<ChartSeriesItem color="#bc6d11" name={`Total contributed: ${dataContributions[dataContributions.length - 1] ? `${currencyFormat(dataContributions[dataContributions.length - 1])}` : '$' + (0).toFixed(2).toString()}`} type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name={`Total granted: ${dataGrants[dataGrants.length - 1] ? `${currencyFormat(dataGrants[dataGrants.length - 1])}` : '$' + (0).toFixed(2).toString()}`} type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
