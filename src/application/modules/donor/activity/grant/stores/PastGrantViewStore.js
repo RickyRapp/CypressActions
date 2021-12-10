@@ -11,6 +11,7 @@ class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
     @observable donor = null;
 	@observable showMoreOptions = false;
+	@observable upcomingGrants = 0;
 
 	constructor(rootStore) {
 		super(rootStore, {
@@ -168,6 +169,8 @@ class PastGrantViewStore extends BaseListViewStore {
         }
         this.yearDropdownStore.setValue({ name: initialValue.toString(), id: initialValue });
         this.donor = data;
+		let upcoming = (await this.rootStore.application.donor.grantStore.getDonorInformation(this.donorId)).upcomingGrantsThisYear;
+		this.upcomingGrants = upcoming ? upcoming : 0;
     }
 	createCharityDropdownStore() {
 		this.charityDropdownStore = new BaasicDropdownStore(

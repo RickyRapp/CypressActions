@@ -37,7 +37,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		donor,
 		yearDropdownStore,
 		onShowMoreOptionsClick,
-		showMoreOptions
+		showMoreOptions,
+		upcomingGrants
 	} = pastGrantViewStore;
 	//Color palette
 	let colors = ["#99bdf3", "#F9EA9A", "#A8C69F", "#223A5E", "#C36C36", "#D8D4F2", "#E0EEC6", "#5DB7DE", "#CEB1BE"];
@@ -409,7 +410,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 											<div className="type--xxlrg type--wgt--medium type--color--note">
 												{summaryData && (
 													<FormatterResolver
-														item={{ amount: summaryData.totalMoneyUpcomingThisYear }}
+														item={{ amount: upcomingGrants }}
 														field="amount"
 														format={{ type: 'currency' }}
 													/>
