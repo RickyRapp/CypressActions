@@ -121,7 +121,7 @@ class SessionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (session) => {
-                    return session.grants && session.grants.length > 0 && session.grants[0].donationStatus.abrv === 'pending' || session.grants[0].donationStatus.abrv === 'approved'
+                    return session.grants && session.grants.length > 0 && (session.grants[0].donationStatus.abrv === 'pending' || session.grants[0].donationStatus.abrv === 'approved')
                 }
             }
         }));
@@ -144,7 +144,7 @@ class SessionViewStore extends BaseListViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 		});        
 		const mapped = data.item.map(x => {
 			return {
@@ -182,11 +182,7 @@ class SessionViewStore extends BaseListViewStore {
                         embed: [
                             'charityAddresses'
                         ],
-                        fields: [
-                            'id',
-                            'taxId',
-                            'name'
-                        ]
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
                     });
                     return data.item.map(x => { return { id: x.id, name: x.name } });
                 },

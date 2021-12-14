@@ -56,13 +56,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		//inputCharity,
 		//setInputValue
 	} = grantCreateViewStore;
-	const promiseOptions = (inputValue) =>
+	let promiseOptions = (inputValue) =>
 		new Promise(resolve => {
 			setTimeout(() => {
-				resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
+				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
 			}, 1000);
 		});
-
 	return (
 		<React.Fragment>
 			<EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
@@ -389,7 +388,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.MAIN_ADDRESS')}</p>
 														<p className="type--base type--wgt--medium type--color--opaque">
 															{addressFormatter.format(
-																charity.charityAddresses.filter(c => c.isPrimary === true),
+																charity,
 																'full'
 															)}
 														</p>
@@ -449,7 +448,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.MAIN_ADDRESS')}</p>
 														<p className="type--base type--wgt--medium type--color--opaque">
 															{addressFormatter.format(
-																charity.item.charityAddresses.filter(c => c.isPrimary === true),
+																charity.item,
 																'full'
 															)}
 														</p>

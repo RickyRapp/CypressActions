@@ -30,7 +30,7 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
                     <div className="col col-sml-12 u-mar--bottom--sml">
                         <div className="charity-information__card ">
                             <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
-                            <span className="type--base type--wgt--medium u-mar--left--auto type--right">{addressFormatter.format(charity.charityAddresses.filter(c => c.isPrimary === true), 'full')}</span>
+                            <span className="type--base type--wgt--medium u-mar--left--auto type--right">{addressFormatter.format(charity, 'full')}</span>
                         </div>
                     </div>}
             </div>

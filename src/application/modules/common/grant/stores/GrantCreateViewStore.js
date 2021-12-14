@@ -623,7 +623,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						search: searchQuery,
 						sort: 'name|asc',
 						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId'],
+						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 					});
 					return data.item.map(x => {
 						return {
@@ -650,7 +650,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
 		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
-		this.setAddress(charity && charity.item && charity.item.charityAddresses[0]);
+		this.setAddress(charity && charity.item);
 		this.setSimilarGrantTable(this.charity.item.charityTypeId);
 	}
 	@action.bound
@@ -665,7 +665,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 		});
 		const mapped = data.item.map(x => {
 			return {

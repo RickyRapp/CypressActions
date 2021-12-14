@@ -55,12 +55,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         toggleSettings
     } = grantCreateViewStore;
 
-    const promiseOptions = (inputValue) =>
-        new Promise(resolve => {
-            setTimeout(() => {
-                resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
-            }, 1000);
-        });
+    let promiseOptions = (inputValue) =>
+		new Promise(resolve => {
+			setTimeout(() => {
+				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
+			}, 1000);
+		});
 
     return (
         <React.Fragment>

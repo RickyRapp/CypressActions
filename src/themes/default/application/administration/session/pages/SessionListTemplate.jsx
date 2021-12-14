@@ -27,12 +27,12 @@ const SessionListTemplate = function ({ sessionViewStore }) {
         setCharityId,
     } = sessionViewStore;
 
-    const promiseOptions = inputValue =>
-    new Promise(resolve => {
-        setTimeout(() => {
-            resolve(filterCharities(inputValue.length > 0 ? inputValue : null));
-        }, 1000);
-    });
+    let promiseOptions = (inputValue) =>
+		new Promise(resolve => {
+			setTimeout(() => {
+				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
+			}, 1000);
+		});
 
 	return (
 		<ApplicationListLayout store={sessionViewStore} authorization={authorization}>

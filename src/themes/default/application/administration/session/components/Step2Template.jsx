@@ -4,10 +4,10 @@ import { defaultTemplate } from 'core/hoc';
 import { BasicInput, BaasicButton, NumberFormatInputField } from 'core/components';
 import AsyncSelect from 'react-select/async';
 function Step2Template({ form, onPreviousStepClick, onNextStepClick, isCharitySelected, isChangedDefaultAddress, onChangeDefaultAddressClick, filterCharities, setCharityId }) {
-    const promiseOptions = (inputValue) =>
+    let promiseOptions = (inputValue) =>
 		new Promise(resolve => {
 			setTimeout(() => {
-				resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
+				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
 			}, 1000);
 		});
 

@@ -34,12 +34,12 @@ const GrantListTemplate = function ({ grantViewStore }) {
         setCharityId,
 	} = grantViewStore;
 
-	const promiseOptions = inputValue =>
-	new Promise(resolve => {
-		setTimeout(() => {
-			resolve(filterCharities(inputValue.length > 0 ? inputValue : null));
-		}, 1000);
-	});
+	let promiseOptions = (inputValue) =>
+		new Promise(resolve => {
+			setTimeout(() => {
+				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
+			}, 1000);
+		});
 
 	return (
 		<Content>
