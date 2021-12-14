@@ -56,12 +56,26 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		//inputCharity,
 		//setInputValue
 	} = grantCreateViewStore;
+	
+	// let counter = 0;
+	// const countdown = () => setInterval(() => counter++, 1000);
+
 	let promiseOptions = (inputValue) =>
 		new Promise(resolve => {
-			setTimeout(() => {
-				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
-			}, 1000);
+				setTimeout(() => {
+					resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
+				}, 1000);
 		});
+
+	// let promiseOptionsv2 = (inputValue) =>
+	// 	new Promise(resolve => {
+	// 		if(counter > 1) {
+	// 			setTimeout(() => {
+	// 				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
+	// 			}, 1000);
+	// 			counter = 0;
+	// 		}
+	// 	});
 	return (
 		<React.Fragment>
 			<EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
@@ -83,6 +97,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} defaultInputValue={charityDropdownStore.value.name} classNamePrefix="react-select" />
 												</div>
 												:
+												// onKeyDown={() => countdown()}
 												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax Id...'} value={asyncPlaceholder}/>
 										}
 
