@@ -150,7 +150,7 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     async onNextStep2Click() {
         if (!this.isChangedDefaultAddress) {
-            const address = this.charity.item.charityAddresses.find(c => c.isPrimary);
+            const address = this.charity.item;
             this.setAddress(address);
         }
         const { isValid } = await this.form.validate({ showErrors: true });
