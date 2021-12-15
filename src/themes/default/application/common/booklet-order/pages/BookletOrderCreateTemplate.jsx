@@ -257,6 +257,16 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 <th>${totalPrepaidAmount}</th>
                                             </tr>
                                         </tfoot>
+                                        {
+                                            donor && !donor.isSessionFeePayedByCharity &&
+                                            <tfoot>
+                                                <tr>
+                                                    <th colSpan="2">Pre-paid fee</th>
+                                                    <th>${(totalPrepaidAmount * 0.029).toFixed(2)}</th>
+                                                </tr>
+                                            </tfoot>
+                                        }
+                                        
                                         <tfoot>
                                             <tr>
                                                 <th colSpan="2">Shipping method</th>
