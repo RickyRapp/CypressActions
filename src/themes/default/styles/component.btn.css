@@ -146,6 +146,8 @@
 	}
 
 	&--secondary {
+		display: flex;
+		justify-content: center;
 		background: $color-text;
 		color: $white;
 

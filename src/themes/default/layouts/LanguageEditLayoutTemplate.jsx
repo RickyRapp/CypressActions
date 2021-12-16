@@ -18,7 +18,7 @@ function LanguageEditLayoutTemplate({ store, form, loaderStore, t, routeBack }) 
                         rotate
                         icon={
                             form.submitting || form.validating
-                                ? 'synchronize-arrows-1 rotate'
+                                ? 'u-icon u-icon--med u-icon--sync u-rotate--login'
                                 : ''
                         }
                         label={t('FORM_CONTROLS.SAVE_BUTTON')}
