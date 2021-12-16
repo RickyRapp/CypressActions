@@ -11,6 +11,7 @@ import {
 import { PageFooter } from 'core/layouts';
 import AsyncSelect from 'react-select/async';
 
+
 const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStore }) {
     const {
         loaderStore,
@@ -18,16 +19,15 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
         id,
         validateIPaddress,
         //charityDropdownStore,
-        filterCharities,
+        debouncedSearchCharities,
         setCharityId,
     } = charityWebsiteCreateViewStore;
 
+  
     let promiseOptions = (inputValue) =>
-		new Promise(resolve => {
-			setTimeout(() => {
-				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
-			}, 1000);
-		});
+    new Promise(resolve => {
+            inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+    });
 
     return (
         <section>

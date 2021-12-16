@@ -3,6 +3,7 @@ import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/sto
 import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { GrantCreateForm } from 'application/common/grant/forms';
 import moment from 'moment';
+import _ from 'lodash';
 import { charityFormatter, addressFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { localStorageProvider } from 'core/providers';
@@ -25,9 +26,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable defaultValue = '';
 	@observable charity = null;
 	@observable inputCharity = '';
-	@observable asyncPlaceholder = '';
+ 	@observable asyncPlaceholder = '';
 	@observable moreSettings = false;
 	@observable isAdvancedInput = false;
+	debouncedSearchCharities =  _.debounce(this.filterCharities, 500);
 
 	constructor(rootStore, { donorId, grantStore }) {
 		super(rootStore, {
@@ -105,6 +107,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.rootStore.notificationStore.success('Successfully created a grant');
 			},
 			FormClass: GrantCreateForm,
+			
 		});
 		
 		this.donorId = donorId;
@@ -113,7 +116,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.grantRequestId) {
 			this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;
 		}
-
+	
 		this.createCharityDropdownStore();
 		this.createCharityTypeDropdownStore();
 		this.createGrantPurposeTypeDropdownStore();
@@ -127,9 +130,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onInit({ initialLoad }) {
+		
 		if (!initialLoad) {
+			
 			this.rootStore.routerStore.goBack();
 		} else {
+			
 			await this.setDonor();
 			await this.fetch([this.loadLookups()]);
 			const isExistingGrant = localStorageProvider.get('ExistingGrant');
@@ -495,12 +501,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	createConfirmModalParams() {
 		this.confirmModal = new ModalParams({});
 	}
-	promiseOptions = inputValue =>
-        new Promise(resolve => {
-            setTimeout(() => {
-                resolve(this.filterCharities(inputValue));
-            }, 1000);
-    });
 
 	setCharity(charity) {
 		this.charityDropdownStore.setValue({
@@ -551,7 +551,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@action.bound
 	setCharityVal(val) {
 		this.charityInputValue = val;
-		this.filterCharities(val);
+		this.debouncedSearchCharities(val);
 	}
 
 	async loadLookups() {
@@ -657,8 +657,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	setInputValue(value) {
 		this.charityInputValue = value;
 	} 
+
 	@action.bound
-	async filterCharities(inputValue) {
+	async filterCharities(inputValue, resolve ) {
 		const data = await this.grantStore.searchCharity({
 			pageNumber: 1,
 			pageSize: 10,
@@ -679,7 +680,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			options.push({value: item.id, label:item.name, item: item.item});
 		});
 		this.filteredCharities = options;
-		return options;
+		return resolve(options);
 	};
 	
 	@action.bound

@@ -6,6 +6,7 @@ import { applicationContext } from 'core/utils';
 import { FormatterResolver } from 'core/components';
 import { charityFormatter } from 'core/utils';
 import ReactTooltip from 'react-tooltip';
+import _ from 'lodash'
 
 @applicationContext
 class SessionViewStore extends BaseListViewStore {
@@ -13,6 +14,7 @@ class SessionViewStore extends BaseListViewStore {
 	@observable charity = null;
     @observable charityInputValue = null;
 	@observable filteredCharities = [];
+    debouncedSearchCharities =  _.debounce(this.filterCharities, 500);
     constructor(rootStore) {
         super(rootStore, {
             name: 'session',
@@ -137,7 +139,7 @@ class SessionViewStore extends BaseListViewStore {
 		//this.setAddress(charity.item.charityAddresses[0]);
 	} 
 	@action.bound
-	async filterCharities(inputValue) {
+	async filterCharities(inputValue, resolve) {
 		const data = await this.rootStore.application.administration.grantStore.searchCharity({
 			pageNumber: 1,
 			pageSize: 10,
@@ -158,7 +160,7 @@ class SessionViewStore extends BaseListViewStore {
 			options.push({value: item.id, label:item.name, item: item.item});
 		});
 		this.filteredCharities = options;
-		return options;
+		return resolve(options);
 	};
 	
 	@action.bound

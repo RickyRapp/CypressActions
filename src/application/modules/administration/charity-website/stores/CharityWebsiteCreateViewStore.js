@@ -2,12 +2,14 @@ import { action, observable } from 'mobx';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { CharityWebsiteCreateForm } from 'application/administration/charity-website/forms';
 import { charityFormatter } from 'core/utils';
+import _ from  'lodash';
 
 class CharityWebsiteCreateViewStore extends BaseEditViewStore {
     charities = [];
 	@observable charity = null;
     @observable charityInputValue = null;
 	@observable filteredCharities = [];
+    debouncedSearchCharities =  _.debounce(this.filterCharities, 500);
     constructor(rootStore, id, onAfterAction) {
         super(rootStore, {
             name: 'charity-website-edit',
@@ -94,7 +96,7 @@ class CharityWebsiteCreateViewStore extends BaseEditViewStore {
 		//this.setAddress(charity.item.charityAddresses[0]);
 	} 
 	@action.bound
-	async filterCharities(inputValue) {
+	async filterCharities(inputValue, resolve) {
 		const data = await this.rootStore.application.administration.grantStore.searchCharity({
 			pageNumber: 1,
 			pageSize: 10,
@@ -115,7 +117,7 @@ class CharityWebsiteCreateViewStore extends BaseEditViewStore {
 			options.push({value: item.id, label:item.name, item: item.item});
 		});
 		this.filteredCharities = options;
-		return options;
+		return resolve(options);
 	};
 	
 	@action.bound

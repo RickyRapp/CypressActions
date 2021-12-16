@@ -30,16 +30,15 @@ const GrantListTemplate = function ({ grantViewStore }) {
 		donationTypeDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		declineModal,
-		filterCharities,
+		debouncedSearchCharities,
         setCharityId,
 	} = grantViewStore;
 
+ 
 	let promiseOptions = (inputValue) =>
-		new Promise(resolve => {
-			setTimeout(() => {
-				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
-			}, 1000);
-		});
+	new Promise(resolve => {
+			inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+	});
 
 	return (
 		<Content>

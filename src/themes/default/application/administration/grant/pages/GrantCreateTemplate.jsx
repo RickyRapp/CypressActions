@@ -46,7 +46,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         grantRequestId,
         getNumberOfReocurrency,
         grantPurposeTypes,
-        filterCharities,
+        debouncedSearchCharities,
         setCharityId,
         charity,
         asyncPlaceholder,
@@ -55,12 +55,11 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         toggleSettings
     } = grantCreateViewStore;
 
-    let promiseOptions = (inputValue) =>
-		new Promise(resolve => {
-			setTimeout(() => {
-				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
-			}, 1000);
-		});
+  
+        let promiseOptions = (inputValue) =>
+        new Promise(resolve => {
+                inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+        });
 
     return (
         <React.Fragment>

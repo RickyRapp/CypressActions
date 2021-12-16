@@ -23,16 +23,14 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 		paymentTypeDropdownStore,
 		donationStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
-		filterCharities,
+		debouncedSearchCharities,
         setCharityId,
     } = sessionViewStore;
 
-    let promiseOptions = (inputValue) =>
-		new Promise(resolve => {
-			setTimeout(() => {
-				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
-			}, 1000);
-		});
+	let promiseOptions = (inputValue) =>
+	new Promise(resolve => {
+			inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+	});
 
 	return (
 		<ApplicationListLayout store={sessionViewStore} authorization={authorization}>
