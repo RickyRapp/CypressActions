@@ -33,7 +33,6 @@ const GrantListTemplate = function ({ grantViewStore }) {
 		debouncedSearchCharities,
         setCharityId,
 	} = grantViewStore;
-
  
 	let promiseOptions = (inputValue) =>
 	new Promise(resolve => {

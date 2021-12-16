@@ -11,7 +11,6 @@ import {
 import { PageFooter } from 'core/layouts';
 import AsyncSelect from 'react-select/async';
 
-
 const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStore }) {
     const {
         loaderStore,
@@ -22,7 +21,6 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
         debouncedSearchCharities,
         setCharityId,
     } = charityWebsiteCreateViewStore;
-
   
     let promiseOptions = (inputValue) =>
     new Promise(resolve => {

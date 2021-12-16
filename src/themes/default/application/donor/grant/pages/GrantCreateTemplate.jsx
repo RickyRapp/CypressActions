@@ -43,7 +43,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		getNumberOfReocurrency,
 		grantPurposeTypes,
 		confirmModal,
-		filterCharities,
+		//filterCharities,
 		setCharityId,
 		onSubmitClick,
 		charity,
@@ -52,7 +52,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		asyncPlaceholder,
 		moreSettings,
 		toggleSettings,
-		isAdvancedInput
+		isAdvancedInput,
+		debouncedSearchCharities
 		//inputCharity,
 		//setInputValue
 	} = grantCreateViewStore;
@@ -61,12 +62,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 	// const countdown = () => setInterval(() => counter++, 1000);
 
 	let promiseOptions = (inputValue) =>
-		new Promise(resolve => {
-				setTimeout(() => {
-					resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
-				}, 1000);
-		});
-
+	new Promise(resolve => {
+		inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+	});
 	// let promiseOptionsv2 = (inputValue) =>
 	// 	new Promise(resolve => {
 	// 		if(counter > 1) {

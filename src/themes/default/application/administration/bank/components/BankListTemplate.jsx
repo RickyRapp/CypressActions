@@ -5,10 +5,10 @@ import {
     BaasicTable,
     EmptyState,
     BaasicModal,
-    BaasicButton
+    //BaasicButton
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { Content, ApplicationListLayout } from 'core/layouts';
+import { Content, PageHeader } from 'core/layouts';
 import { BankCreate } from 'application/administration/bank/components';
 
 const BankListTemplate = function ({ bankViewStore }) {
@@ -21,14 +21,14 @@ const BankListTemplate = function ({ bankViewStore }) {
 
     return (
         <React.Fragment>
-            <ApplicationListLayout store={bankViewStore} authorization={authorization}>
+            <PageHeader routes={routes}></PageHeader>
             <Content emptyRenderer={renderEmpty(routes)} >
-                <div className="type--right">
+                {/* <div className="type--right">
                     <BaasicButton
                         className="btn btn--med btn--primary"
                         label={'LIST_LAYOUT.CREATE_BUTTON'}
                         onClick={routes.create} />
-                </div>
+                </div> */}
                 <div className="card--primary card--med u-mar--top--med">
                     <BaasicTable
                         authorization={authorization}
@@ -36,7 +36,6 @@ const BankListTemplate = function ({ bankViewStore }) {
                     />
                 </div>
             </Content>
-            </ApplicationListLayout>
             <BaasicModal modalParams={createModal}>
                 <BankCreate />
             </BaasicModal>

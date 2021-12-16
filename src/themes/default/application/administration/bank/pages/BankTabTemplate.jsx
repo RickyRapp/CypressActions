@@ -13,7 +13,7 @@ function BankTabTemplate({ bankTabViewStore }) {
         <Page loading={loaderStore.loading} >
             <div className='u-mar--bottom--med'>
                 <TabLayout store={bankTabViewStore}>
-                    <div label={'BANK.TAB.LIST'} className="u-mar--top--sml">
+                    <div label={'BANK.TAB.LIST'} className="u-mar--top--sml layout--nested">
                         <BankList />
                     </div>
                     <div label={'BANK.TAB.ROUTING_NUMBER'} className="u-mar--top--sml">

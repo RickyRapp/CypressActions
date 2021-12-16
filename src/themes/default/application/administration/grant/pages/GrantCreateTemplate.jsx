@@ -55,7 +55,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         toggleSettings
     } = grantCreateViewStore;
 
-  
         let promiseOptions = (inputValue) =>
         new Promise(resolve => {
                 inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
@@ -352,7 +351,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
-                                                    <p>{addressFormatter.format(charity.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
+                                                    <p>{addressFormatter.format(charity.item, 'full')}</p>
                                                 </div>
                                             </div>
                                         </div>}

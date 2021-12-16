@@ -176,9 +176,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				const formattedGrantAddress = addressFormatter.format(grant, 'full');
 				this.isChangedDefaultAddress = formattedCharityAddress === formattedGrantAddress;
 			}
-			
-			this.form.$('amount').set('rules', `${this.form.$('amount').rules}|max:${(this.donor.presentBalance + this.donor.lineOfCredit) < 0 ? 0 : (this.donor.presentBalance + this.donor.lineOfCredit)}`);
-
+			this.amountRules();
 			this.setFormDefaultRules();
 			this.form.$('isRecurring').observe(({ field }) => {
 				this.onRecurringChange(field.value);
@@ -207,6 +205,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.form.$('noEndDate').observe(({ field }) => {
 				this.onChangeNoEndDate(field.value);
 			});
+			this.form.$('startFutureDate').observe(() => {
+				this.amountRules();
+			})
 			this.form.$('charityAddressLine1').observe(({ field }) => {
 				this.form.$('addressLine1').set(field.value);
 			});
@@ -349,6 +350,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onBlurAmount(value) {
+		this.amountRules();
 		this.setAmount(value);
 	}
 
@@ -409,7 +411,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	setFormDefaultRules() {
-		if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+		if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create') && (moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD'))) {
 			this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
 		}
 	}
@@ -493,7 +495,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.form.$('charityId').set(charity.id);
 		this.asyncPlaceholder = charityFormatter.format(charity, {value: 'charity-name-display'});
 		this.charity = charity;
-		this.setAddress(charity && charity.charityAddresses.find(c => c.isPrimary));
+		this.setAddress(charity);
 		this.setSimilarGrantTable(charity.charityTypeId);
 		this.advancedSearchModal.close();
 	}
@@ -607,7 +609,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			},
 		});
 	}
-
+	@action.bound 
+	amountRules() {
+		if(moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD'))
+			this.form.$('amount').set('rules', `${this.form.$('amount').rules}|max:${(this.donor.presentBalance + this.donor.lineOfCredit) < 0 ? 0 : (this.donor.presentBalance + this.donor.lineOfCredit)}`);
+		else
+			this.form.$('amount').set('rules', 'required|numeric|min:100');
+	}
 	createCharityDropdownStore() {
 		this.charityDropdownStore = new BaasicDropdownStore(
 			{
@@ -665,7 +673,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			pageSize: 10,
 			search: inputValue,
 			sort: 'name|asc',
-			embed: ['charityAddresses'],
+			embed: ['charityAddresses', 'charityBankAccounts'],
 			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 		});
 		const mapped = data.item.map(x => {

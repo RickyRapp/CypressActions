@@ -84,8 +84,7 @@ class GrantViewStore extends BaseListViewStore {
         this.createSearchCharityDropdownStore();
         this.createDonationStatusDropdownStore();
         this.createDonationTypeDropdownStore();
-        this.createExportConfig();
-      
+        this.createExportConfig();  
 
         this.reviewModal = new ModalParams({});
         this.selectDonorModal = new ModalParams({});
