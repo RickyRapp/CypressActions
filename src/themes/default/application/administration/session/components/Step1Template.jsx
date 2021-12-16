@@ -12,7 +12,7 @@ const Step1Template = function ({ onNextStepClick, t }) {
             <div className="u-mar--bottom--sml">
                 {t('SESSION.CREATE.STEP1.SELECT_LANGUAGE_HEB')}
             </div>
-            <div>
+            <div className="u-display--flex u-display--flex--justify--center u-mar--top--lrg">
                 <BaasicButton
                     className="btn btn--med btn--med--wide btn--secondary u-mar--right--sml"
                     label='SESSION.CREATE.STEP1.ENG_LANGUAGE'
