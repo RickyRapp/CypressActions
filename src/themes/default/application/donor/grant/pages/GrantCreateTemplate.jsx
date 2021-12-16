@@ -399,12 +399,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												<div className="row row--form u-padd--top--med">
 													<div className="col col-sml-12 col-lrg-4">
 														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.MAIN_ADDRESS')}</p>
-														<p className="type--base type--wgt--medium type--color--opaque">
-															{addressFormatter.format(
-																charity,
-																'full'
-															)}
-														</p>
+														<p>{charity && charity && charity.charityAddresses ? addressFormatter.format(charity.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</p>
+														{/* <p>{charity && charity.item && charity.item.charityAddresses ? addressFormatter.format(charity.item.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity.item, 'full')}</p> */}
 													</div>
 												</div>
 											</div>
@@ -460,10 +456,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													<div className="col col-sml-12 col-lrg-4">
 														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.MAIN_ADDRESS')}</p>
 														<p className="type--base type--wgt--medium type--color--opaque">
-															{addressFormatter.format(
-																charity.item,
-																'full'
-															)}
+															{charity && charity.item && charity.item.charityAddresses ? addressFormatter.format(charity.item.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity.item, 'full')}
 														</p>
 													</div>
 												</div>

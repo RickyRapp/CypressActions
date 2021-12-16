@@ -495,7 +495,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.form.$('charityId').set(charity.id);
 		this.asyncPlaceholder = charityFormatter.format(charity, {value: 'charity-name-display'});
 		this.charity = charity;
-		this.setAddress(charity);
+		this.setAddress(charity.charityAddresses.find(c => c.isPrimary));
 		this.setSimilarGrantTable(charity.charityTypeId);
 		this.advancedSearchModal.close();
 	}
@@ -658,7 +658,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
 		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
-		this.setAddress(charity && charity.item);
+		if(charity && charity.item && charity.item.charityAddresses) {
+			this.setAddress(charity && charity.item && charity.item.charityAddresses.find(c => c.isPrimary));
+		} else {
+			this.setAddress(charity && charity.item);
+		}
 		this.setSimilarGrantTable(this.charity.item.charityTypeId);
 	}
 	@action.bound

@@ -1,7 +1,7 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { CharityListFilter } from 'application/administration/charity/models';
 import { action } from 'mobx';
-import { addressFormatter } from 'core/utils';
+// import { addressFormatter } from 'core/utils';
 
 class CharityAdvancedSearchViewStore extends BaseListViewStore {
     constructor(rootStore, onSelected) {
@@ -24,6 +24,7 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                         params.embed = [
                             'charityAddresses'
                         ];
+                        params.advancedSearch = true;
                         return this.rootStore.application.administration.charityStore.searchCharity(params);
                     }
                 }
@@ -67,10 +68,8 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                     key: 'charityAddresses',
                     title: 'CHARITY.LIST.COLUMNS.ADDRESS_LABEL',
                     format: {
-                        type: 'function',
-                        value: (item) => {
-                            return addressFormatter.format(item, 'full');
-                        }
+                        type: 'address',
+                        value: 'full'
                     }
                 }
             ],
