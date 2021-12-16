@@ -54,7 +54,7 @@ const SessionExpireModalTemplate = function (props) {
 
                 <BaasicButton className='btn btn--med btn--tertiary spc--top--med' type='submit' //disabled={form.submitting}
                                 onClick={submit}
-                                icon={loading ? 'synchronize-arrows-1 rotate' : ''} 
+                                icon={loading ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : ''} 
                                 disabled={(error ? true : false) || passwordInputValue ? false : true || loading}
                                 label={t('SESSION.EXPIRE_LOGIN_BUTTON_LABEL')}/>
             </form>

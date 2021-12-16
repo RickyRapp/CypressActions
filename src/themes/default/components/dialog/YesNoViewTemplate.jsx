@@ -23,7 +23,7 @@ function YesNoViewTemplate({
                     onClick={onConfirm}
                     disabled={loading}
                     rotate
-                    icon={loading ? 'synchronize-arrows-1 rotate' : ''}
+                    icon={loading ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : ''}
                     label={t(yesLabel)}
                 />
                 <BaasicButton className="btn btn--med btn--med--wide btn--ghost" onClick={onCancel} disabled={loading} label={t(noLabel)} />
