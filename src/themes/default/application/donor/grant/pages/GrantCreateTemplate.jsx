@@ -43,7 +43,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		getNumberOfReocurrency,
 		grantPurposeTypes,
 		confirmModal,
-		filterCharities,
+		//filterCharities,
 		setCharityId,
 		onSubmitClick,
 		charity,
@@ -52,17 +52,28 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		asyncPlaceholder,
 		moreSettings,
 		toggleSettings,
-		isAdvancedInput
+		isAdvancedInput,
+		debouncedSearchCharities
 		//inputCharity,
 		//setInputValue
 	} = grantCreateViewStore;
-	const promiseOptions = (inputValue) =>
-		new Promise(resolve => {
-			setTimeout(() => {
-				resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
-			}, 1000);
-		});
+	
+	// let counter = 0;
+	// const countdown = () => setInterval(() => counter++, 1000);
 
+	let promiseOptions = (inputValue) =>
+	new Promise(resolve => {
+		inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+	});
+	// let promiseOptionsv2 = (inputValue) =>
+	// 	new Promise(resolve => {
+	// 		if(counter > 1) {
+	// 			setTimeout(() => {
+	// 				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
+	// 			}, 1000);
+	// 			counter = 0;
+	// 		}
+	// 	});
 	return (
 		<React.Fragment>
 			<EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
@@ -84,6 +95,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} defaultInputValue={charityDropdownStore.value.name} classNamePrefix="react-select" />
 												</div>
 												:
+												// onKeyDown={() => countdown()}
 												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax Id...'} value={asyncPlaceholder}/>
 										}
 
@@ -387,12 +399,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												<div className="row row--form u-padd--top--med">
 													<div className="col col-sml-12 col-lrg-4">
 														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.MAIN_ADDRESS')}</p>
-														<p className="type--base type--wgt--medium type--color--opaque">
-															{addressFormatter.format(
-																charity.charityAddresses.filter(c => c.isPrimary === true),
-																'full'
-															)}
-														</p>
+														<p>{charity && charity && charity.charityAddresses ? addressFormatter.format(charity.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</p>
+														{/* <p>{charity && charity.item && charity.item.charityAddresses ? addressFormatter.format(charity.item.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity.item, 'full')}</p> */}
 													</div>
 												</div>
 											</div>
@@ -448,10 +456,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													<div className="col col-sml-12 col-lrg-4">
 														<p className="type--base type--wgt--bold">{t('GRANT.CREATE.MAIN_ADDRESS')}</p>
 														<p className="type--base type--wgt--medium type--color--opaque">
-															{addressFormatter.format(
-																charity.item.charityAddresses.filter(c => c.isPrimary === true),
-																'full'
-															)}
+															{charity && charity.item && charity.item.charityAddresses ? addressFormatter.format(charity.item.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity.item, 'full')}
 														</p>
 													</div>
 												</div>

@@ -21,7 +21,7 @@ class APITestingViewStore extends BaseEditViewStore {
         this.createGrantScheduleTypeDropdownStore();
         this.createGrantPurposeTypeDropdownStore();
         this.validationToken = '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5';
-        this.url = 'http://api.thedonorsfund.local/thedonorsfund/third-party/create-grant';
+        this.url = 'https://api.tdfcharitable.org/thedonorsfund/third-party/create-grant';
     }
 
     createGrantScheduleTypeDropdownStore() {
@@ -68,13 +68,13 @@ class APITestingViewStore extends BaseEditViewStore {
 
     @action.bound
 	sendRequest = async () => { 
-            var requestData;
+            var requestData = null;
             if (this.form.$('requestType').value == 1 && this.grantScheduleTypeDropdownStore.value){
                 if(this.grantPurposeTypeDropdownStore.value && (this.grantPurposeTypeDropdownStore.value.abrv == 'in-honor-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'in-memory-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'solicited-by' || this.grantPurposeTypeDropdownStore.value.abrv == 'other'))
                 {
                     requestData = {
                         taxId: this.form.$('taxId').value,
-                        amount: this.form.$('amount').value,
+                        amount: this.form.$('amount').value ? this.form.$('amount').value : 0,
                         startFutureDate: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == 'Invalid date' ? null : moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
                         noEndDate: this.form.$('noEndDate').value,
                         numberOfPayments: this.form.$('numberOfPayments').value,
@@ -88,13 +88,13 @@ class APITestingViewStore extends BaseEditViewStore {
                 } else {
                     requestData = {
                         taxId: this.form.$('taxId').value,
-                        amount: this.form.$('amount').value,
+                        amount: this.form.$('amount').value ? this.form.$('amount').value : 0,
                         startFutureDate: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == 'Invalid date' ? null : moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
                         noEndDate: this.form.$('noEndDate').value,
                         numberOfPayments: this.form.$('numberOfPayments').value,
                         grantScheduleType: this.grantScheduleTypeDropdownStore.value.abrv,
                         donor: this.form.$('donor').value,
-                        grantPurposeType: this.grantPurposeTypeDropdownStore.value.abrv,
+                        grantPurposeType: this.grantPurposeTypeDropdownStore.value ? this.grantPurposeTypeDropdownStore.value.abrv : 'where-deemed-most-needed',
                         donorAuthorization: this.form.$('donorAuthorization').value,
                         isRecurring: this.form.$('isRecurring').value
                     }
@@ -111,7 +111,7 @@ class APITestingViewStore extends BaseEditViewStore {
                 if(this.grantPurposeTypeDropdownStore.value && (this.grantPurposeTypeDropdownStore.value.abrv == 'in-honor-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'in-memory-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'solicited-by' || this.grantPurposeTypeDropdownStore.value.abrv == 'other')) {
                 requestData = {
                     taxId: this.form.$('taxId').value,
-                    amount: this.form.$('amount').value,
+                    amount: this.form.$('amount').value ? this.form.$('amount').value : 0,
                     noEndDate: this.form.$('noEndDate').value,
                     donor: this.form.$('donor').value,
                     donorAuthorization: this.form.$('donorAuthorization').value,
@@ -122,7 +122,7 @@ class APITestingViewStore extends BaseEditViewStore {
             } else {
                 requestData = {
                     taxId: this.form.$('taxId').value,
-                    amount: this.form.$('amount').value,
+                    amount: this.form.$('amount').value ? this.form.$('amount').value : 0,
                     noEndDate: this.form.$('noEndDate').value,
                     donor: this.form.$('donor').value,
                     donorAuthorization: this.form.$('donorAuthorization').value,
@@ -141,12 +141,12 @@ class APITestingViewStore extends BaseEditViewStore {
             fetch(this.url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    if(data.error != undefined || data.error != null)
+                    if(data.error != undefined || data.error != null || (data.message && data.message.includes("invalid")))
                     {
                         this.response = {
                             isSuccess : false,
-                            error : data.error,
-                            errorCode : data.errorCode
+                            error : data.error ? data.error : data.message,
+                            errorCode : data.errorCode ? data.errorCode : 400
                         }
                     } else if (data == 'Success!') {
                         this.response = {

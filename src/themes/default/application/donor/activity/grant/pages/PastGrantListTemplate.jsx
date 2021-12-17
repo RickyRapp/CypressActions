@@ -21,6 +21,7 @@ import {
 } from '@progress/kendo-react-charts';
 import { isSome } from 'core/utils';
 import { localStorageProvider } from 'core/providers';
+import moment from 'moment';
 
 const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const {
@@ -36,7 +37,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		donor,
 		yearDropdownStore,
 		onShowMoreOptionsClick,
-		showMoreOptions
+		showMoreOptions,
+		upcomingGrants
 	} = pastGrantViewStore;
 	//Color palette
 	let colors = ["#99bdf3", "#F9EA9A", "#A8C69F", "#223A5E", "#C36C36", "#D8D4F2", "#E0EEC6", "#5DB7DE", "#CEB1BE"];
@@ -98,10 +100,11 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	let dataGrants = [];
 	let dataContributions = [];
 	let chartDays = [];
+	let categoriesYearToDate = [];
+	let categoriesYears = [];
 	
-	if (donor) {
-
-		if (yearDropdownStore.value.id == 7) {
+	function checkWeek(donor) {
+		if (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7) {
 			const todayDate = new Date();
 			let dayOfWeek = todayDate.getDay();
 			let counter = 0;
@@ -119,19 +122,39 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 					}
 				}
 			}
-			for (let i = 0; i < 7; i++) {
-				dataGrants.push(donor.donationsPerWeek[i].grants[0]);
-			}
-			for (let i = 0; i < 7; i++) {
-				dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
+			if (yearDropdownStore.value.id == -7) {
+				for (let i = 0; i < 7; i++) {
+					dataGrants.push(donor.donationsPerPastWeek[i].grants[0]);
+				}
+				for (let i = 0; i < 7; i++) {
+					dataContributions.push(donor.donationsPerPastWeek[i].contributions[0]);
+				}
+			} else {
+				for (let i = 0; i < 7; i++) {
+					dataGrants.push(donor.donationsPerWeek[i].grants[0]);
+				}
+				for (let i = 0; i < 7; i++) {
+					dataContributions.push(donor.donationsPerWeek[i].contributions[0]);
+				}
 			}
 		}
-		if (yearDropdownStore.value.id === 30) {
-			for (let i = 0; i < 4; i++) {
-				dataGrants.push(donor.donationsPerMonth[i].grants[0]);
-				dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
+	}
+	function checkMonth(donor) {
+		if (yearDropdownStore.value.id === 30 || yearDropdownStore.value.id === -30) {
+			if (yearDropdownStore.value.id == -30) {
+				for (let i = 0; i < 4; i++) {
+					dataGrants.push(donor.donationsPerPastMonth[i].grants[0]);
+					dataContributions.push(donor.donationsPerPastMonth[i].contributions[0]);
+				}
+			} else {
+				for (let i = 0; i < 4; i++) {
+					dataGrants.push(donor.donationsPerMonth[i].grants[0]);
+					dataContributions.push(donor.donationsPerMonth[i].contributions[0]);
+				}
 			}
 		}
+	}
+	function checkYear(donor) {
 		if (donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id)) {
 			dataGrants = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).grants.slice();
 		}
@@ -139,15 +162,81 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			dataContributions = donor.donationsPerYear.find(c => c.year === yearDropdownStore.value.id).contributions.slice();
 		}
 	}
+	if (donor && donor.donationsPerYear.length > 0) {
+		checkWeek(donor);
+		checkMonth(donor);
+		checkYear(donor);
 
+		if (yearDropdownStore.value.id === 1) {
+			const today = moment();
+			const minDate = moment(donor.minDate);
+			if (today.diff(minDate, 'days') < 7) {
+				yearDropdownStore.value.id = 7;
+				checkWeek(donor);
+			} else if (today.diff(minDate, 'days') < 31) {
+				yearDropdownStore.value.id = 30;
+				checkMonth(donor);
+			} else if (today.diff(minDate, 'days') < 366) {
+				yearDropdownStore.value.id = donor.donationsPerYear[0].year;
+				checkYear(donor);
+			} else {
+				let multipleYears = [];
+				for (let i = 0; i < donor.donationsPerYear.length; i++) {
+					multipleYears.push({ year: donor.donationsPerYear[i].year, grants: donor.donationsPerYear[i].grants.length > 0 ? donor.donationsPerYear[i].grants[donor.donationsPerYear[i].grants.length - 1] : 0, contributions: donor.donationsPerYear[i].contributions.length > 0 ? donor.donationsPerYear[i].contributions[donor.donationsPerYear[i].contributions.length - 1] : 0});
+					categoriesYears.push(donor.donationsPerYear[i].year);
+					dataGrants.push(multipleYears[i].grants);
+					dataContributions.push(multipleYears[i].contributions);
+				}
+			}
+		}
+		if (yearDropdownStore.value.id === 2) {
+			const month = parseInt(moment().format("M"));
+			if(month == 0) {
+				yearDropdownStore.value.id = 30;
+				checkMonth(donor);
+			} else if (month == 11) {
+				yearDropdownStore.value.id = new Date().getFullYear();
+				checkYear(donor);
+			} else {
+				dataGrants = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).grants.slice(0, month);
+				dataContributions = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).contributions.slice(0, month);
+				categoriesYearToDate = categoriesMonths.slice(0, month);
+			}
+		}
+	}
+
+	if(yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id != 1)
+	{
+		let previousYearGrants = 0, previousYearContributions = 0;
+		if(donor && donor.donationsPerYear.length > 1) {
+			if(yearDropdownStore.value.id > donor.donationsPerYear[0].year || yearDropdownStore.value.id == 2) {
+				const previousYear = donor.donationsPerYear.find(c => c.year == (yearDropdownStore.value.id == 2 ? ((new Date().getFullYear()) - 1) : yearDropdownStore.value.id - 1));
+				previousYearGrants = previousYear.grants[11] ? previousYear.grants[11] : 0;
+				previousYearContributions = previousYear.contributions[11] ? previousYear.contributions[11] : 0;
+			}
+			if(dataGrants.length > 0)
+				dataGrants = dataGrants.map(c => c - previousYearGrants);
+			if(dataContributions.length > 0)
+				dataContributions = dataContributions.map(c => c - previousYearContributions);
+
+		} else {
+			if(dataGrants.length > 0)
+				dataGrants = dataGrants.map(c => dataGrants[dataGrants.length - 1] != (c - dataGrants[0]) ? (c - dataGrants[0]) : c);
+			if(dataContributions.length > 0)
+				dataContributions = dataContributions.map(c => dataContributions[dataContributions.length - 1] != (c - dataContributions[0]) ? (c - dataContributions[0]) : c);
+			}
+	}
+	
 	const labelVisual = (e) => {
 		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 	};
-
+	const currencyFormat = (e) => {
+		return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+	};
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 ? chartDays : categoriesWeeks)} />
+				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : (yearDropdownStore.value.id === 1 ? categoriesYears : (yearDropdownStore.value.id === 2 ? categoriesYearToDate : categoriesWeeks)))} />
 			</ChartCategoryAxis>
 			<ChartValueAxis>
 				<ChartValueAxisItem labels={{visible: true, content: labelVisual}} />
@@ -159,8 +248,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${dataContributions[dataContributions.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataContributions} />
-				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${dataGrants[dataGrants.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataGrants} />
+				<ChartSeriesItem color="#bc6d11" name={`Total contributed: ${dataContributions[dataContributions.length - 1] ? `${currencyFormat(dataContributions[dataContributions.length - 1])}` : '$' + (0).toFixed(2).toString()}`} type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name={`Total granted: ${dataGrants[dataGrants.length - 1] ? `${currencyFormat(dataGrants[dataGrants.length - 1])}` : '$' + (0).toFixed(2).toString()}`} type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
@@ -321,7 +410,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 											<div className="type--xxlrg type--wgt--medium type--color--note">
 												{summaryData && (
 													<FormatterResolver
-														item={{ amount: summaryData.totalMoneyUpcomingThisYear }}
+														item={{ amount: upcomingGrants }}
 														field="amount"
 														format={{ type: 'currency' }}
 													/>

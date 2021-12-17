@@ -11,6 +11,7 @@ class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
     @observable donor = null;
 	@observable showMoreOptions = false;
+	@observable upcomingGrants = 0;
 
 	constructor(rootStore) {
 		super(rootStore, {
@@ -159,7 +160,7 @@ class PastGrantViewStore extends BaseListViewStore {
         let initialValue = new Date().getFullYear();
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
-            donations.push({name: 'This Week', id: 7}, {name: 'This Month', id: 30});
+            donations.push({ name: 'All Time', id: 1 }, {name: 'This Week', id: 7}, {name: 'This Month', id: 30}, { name: 'Last Month', id: -30 }, { name: 'Year To Date', id: 2 });
             this.yearDropdownStore.setItems(donations);
 			//this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
         }
@@ -168,6 +169,8 @@ class PastGrantViewStore extends BaseListViewStore {
         }
         this.yearDropdownStore.setValue({ name: initialValue.toString(), id: initialValue });
         this.donor = data;
+		let upcoming = (await this.rootStore.application.donor.grantStore.getDonorInformation(this.donorId)).upcomingGrantsThisYear;
+		this.upcomingGrants = upcoming ? upcoming : 0;
     }
 	createCharityDropdownStore() {
 		this.charityDropdownStore = new BaasicDropdownStore(
@@ -184,7 +187,7 @@ class PastGrantViewStore extends BaseListViewStore {
 						search: searchQuery,
 						sort: 'name|asc',
 						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses'],
+						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 					});
 					return data.item.map(x => {
 						return {

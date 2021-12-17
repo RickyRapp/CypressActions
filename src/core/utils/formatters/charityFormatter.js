@@ -12,6 +12,9 @@ class CharityFormatter {
                 if (value.charityAddresses && value.charityAddresses.length > 0) {
                     const address = _.find(value.charityAddresses, { isPrimary: true });
                     formattedCharityName += ', ' + addressFormatter.format(address, 'full');
+                } else if (value.addressLine1 && value.city) {
+                    const address = value;
+                    formattedCharityName += ', ' + addressFormatter.format(address, 'full');
                 }
                 return formattedCharityName;
             }

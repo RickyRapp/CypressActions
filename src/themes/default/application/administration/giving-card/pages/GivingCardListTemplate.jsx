@@ -30,7 +30,8 @@ GivingCardListTemplate.propTypes = {
 function renderActions({ item, actions }) {
 	if (!isSome(actions)) return null;
 
-	const { onToggleLock } = actions;
+	const { onToggleLock, onToggleActivate } = actions;
+	if (!isSome(onToggleLock) && !isSome(onToggleActivate)) return null;
 	if (!isSome(onToggleLock)) return null;
 
 	return (
@@ -45,6 +46,17 @@ function renderActions({ item, actions }) {
 						onClick={() => onToggleLock(item)}
 					></BaasicButton>
 				) : null}
+				{
+					item.donorGivingCardSetting &&item.donorGivingCardSetting.donor && item.donorGivingCardSetting.donor.id ? (
+						<BaasicButton
+						className="btn btn--icon"
+						icon={`u-icon u-icon--${item.isActivated ? 'decline' : 'approve'} u-icon--base`}
+						label={`${item.isActivated ? 'INACTIVATE' : 'ACTIVATE'}`}
+						onlyIcon={true}
+						onClick={() => onToggleActivate(item)}
+					></BaasicButton>
+					) : null
+				}
 			</div>
 		</td>
 	);

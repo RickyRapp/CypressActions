@@ -29,6 +29,8 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 
     } = donorAccountInformationViewStore;
 
+    window.scrollTo(0, 0);
+
     return (
         <div className="card--primary card--med u-mar--bottom--sml">
             <EditFormContent form={form}>

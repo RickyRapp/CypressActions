@@ -61,25 +61,29 @@ const ContributionCreateStep3Template = function ({
                         </span>
                     </div>
 
-                    {(paymentType.abrv === 'ach' || (paymentType.abrv === 'wire-transfer' && form.$('bankAccountId').value)) && (
+                    {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && 
                         <React.Fragment>
-                            <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">
-                                    {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
-                                </span>
-                                <span className="type--base type--wgt--bold u-push">
-                                    {bankAccount.name}
-                                </span>
-                            </div>
-
-                            <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
-                                <span className="type--base type--wgt--medium type--color--opaque">
-                                    {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
-                                </span>
-                                <span className="type--base type--wgt--bold u-push">
-                                    {bankAccount.accountNumber}
-                                </span>
-                            </div>
+                            {
+                                form.$('bankAccountId').value && 
+                                <div>
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">
+                                            {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NAME')}
+                                        </span>
+                                        <span className="type--base type--wgt--bold u-push">
+                                            {bankAccount.name}
+                                        </span>
+                                    </div>
+                                    <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">
+                                        <span className="type--base type--wgt--medium type--color--opaque">
+                                            {t('CONTRIBUTION.CREATE.BANK_ACCOUNT_NUMBER')}
+                                        </span>
+                                        <span className="type--base type--wgt--bold u-push">
+                                            {bankAccount.accountNumber}
+                                        </span>
+                                    </div>
+                                </div>
+                            }
 
                             {paymentType.abrv === "wire-transfer" &&
                                 <div className="u-mar--bottom--med" id="clipboard-info">
@@ -119,7 +123,7 @@ const ContributionCreateStep3Template = function ({
                                 </div>
                             }
                         </React.Fragment>
-                    )}
+                    }
                     {paymentType.abrv === 'check' && (
 
                         <div className="card--tny card--secondary card--column--med u-mar--bottom--sml">

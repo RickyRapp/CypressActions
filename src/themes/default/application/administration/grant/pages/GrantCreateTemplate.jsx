@@ -46,7 +46,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         grantRequestId,
         getNumberOfReocurrency,
         grantPurposeTypes,
-        filterCharities,
+        debouncedSearchCharities,
         setCharityId,
         charity,
         asyncPlaceholder,
@@ -55,11 +55,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         toggleSettings
     } = grantCreateViewStore;
 
-    const promiseOptions = (inputValue) =>
+        let promiseOptions = (inputValue) =>
         new Promise(resolve => {
-            setTimeout(() => {
-                resolve(inputValue.length > 0 ? filterCharities(inputValue) : null);
-            }, 1000);
+                inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
         });
 
     return (
@@ -353,7 +351,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
-                                                    <p>{addressFormatter.format(charity.item.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
+                                                    <p>{charity && charity.item && charity.item.charityAddresses ? addressFormatter.format(charity.item.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</p>
                                                 </div>
                                             </div>
                                         </div>}
@@ -406,7 +404,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                             <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
-                                                    <p>{addressFormatter.format(charity.charityAddresses.filter(c => c.isPrimary === true), 'full')}</p>
+                                                    <p>{charity && charity.charityAddresses ? addressFormatter.format(charity.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</p>
                                                 </div>
                                             </div>
                                         </div>}

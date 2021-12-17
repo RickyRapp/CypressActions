@@ -34,7 +34,7 @@ function GrantConfirmTemplate({ modalParams, t }) {
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.RECEPIENT_CHARITY')}</div>
                 <div className="modal__list__divider"></div>
-                <div className="modal__list__amount--secondary">{charity && charity.item ? charity.item.name : (typeof charity.item == 'undefined' ? charity.name : <div><b>{form.$('charityName').value}</b><span>&nbsp;(new)</span></div>)}</div>
+                <div className="modal__list__amount--secondary">{charity && charity.item && charity.item ? charity.item.name : (charity && typeof charity.item == 'undefined' ? charity.name : <div><b>{form.$('charityName').value}</b><span>&nbsp;(new)</span></div>)}</div>
             </section>
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.GIVEN_AMOUNT')}</div>

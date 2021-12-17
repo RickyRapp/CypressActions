@@ -187,12 +187,7 @@ class SessionEditViewStore extends BaseEditViewStore {
                         embed: [
                             'charityAddresses'
                         ],
-                        fields: [
-                            'id',
-                            'taxId',
-                            'name',
-                            'charityAddresses'
-                        ]
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
                     });
                     return _.map(data.item, x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }), item: x } });
                 }

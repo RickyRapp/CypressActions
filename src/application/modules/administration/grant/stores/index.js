@@ -4,3 +4,4 @@ export { default as ScheduledGrantEditViewStore } from './ScheduledGrantEditView
 export { default as GrantStore } from './GrantStore'
 export { default as GrantViewStore } from './GrantViewStore'
 export { default as ScheduledGrantViewStore } from './ScheduledGrantViewStore'
+export { default as ScheduledGrantPreviewViewStore } from './ScheduledGrantPreviewViewStore'

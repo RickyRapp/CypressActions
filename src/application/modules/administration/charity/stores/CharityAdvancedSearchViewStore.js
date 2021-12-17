@@ -1,6 +1,7 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { CharityListFilter } from 'application/administration/charity/models';
 import { action } from 'mobx';
+// import { addressFormatter } from 'core/utils';
 
 class CharityAdvancedSearchViewStore extends BaseListViewStore {
     constructor(rootStore, onSelected) {
@@ -23,6 +24,7 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                         params.embed = [
                             'charityAddresses'
                         ];
+                        params.advancedSearch = true;
                         return this.rootStore.application.administration.charityStore.searchCharity(params);
                     }
                 }

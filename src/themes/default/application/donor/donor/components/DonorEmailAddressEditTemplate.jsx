@@ -36,7 +36,7 @@ class DonorEmailAddressEditForm extends Component {
 						)}
 					</div>
 				</div>
-				<div className="col col-sml-12 info-card--footer">
+				<div className="info-card--footer">
 					<BaasicButton
 						type="button"
 						className="btn btn--med btn--med--wide btn--ghost"

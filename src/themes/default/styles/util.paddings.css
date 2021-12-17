@@ -173,16 +173,16 @@
 
 		&--x {
 			&--sml {
-				padding: inherit calc($unit * 2);
+				padding: 0 calc($unit * 2);
 			}
 			&--med {
-				padding: inherit calc($unit * 4);
+				padding: 0 calc($unit * 4);
 			}
 			&--lrg {
-				padding: inherit calc($unit * 6);
+				padding: 0 calc($unit * 6);
 			}
 			&--xlrg {
-				padding: inherit calc($unit * 8);
+				padding: 0 calc($unit * 8);
 			}
 		}
 

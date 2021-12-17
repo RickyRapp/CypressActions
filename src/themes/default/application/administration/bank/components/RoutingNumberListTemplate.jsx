@@ -6,12 +6,12 @@ import {
 	TableFilter,
 	EmptyState,
 	BaasicModal,
-	BaasicButton,
+	//BaasicButton,
 	BaasicInput,
 	BaasicDropdown,
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { Content } from 'core/layouts';
+import { Content, PageHeader } from 'core/layouts';
 import { RoutingNumberCreate } from 'application/administration/bank/components';
 
 const RoutingNumberListTemplate = function({ routingNumberViewStore }) {
@@ -19,14 +19,15 @@ const RoutingNumberListTemplate = function({ routingNumberViewStore }) {
 
 	return (
 		<React.Fragment>
+            <PageHeader routes={routes}></PageHeader>
 			<Content emptyRenderer={renderEmpty(routes)}>
-				<div className="type--right">
+				{/* <div className="type--right">
 					<BaasicButton
 						className="btn btn--med btn--primary u-mar--right--med"
 						label={'LIST_LAYOUT.CREATE_BUTTON'}
 						onClick={routes.create}
 					/>
-				</div>
+				</div> */}
 				<div className="card--tertiary card--med u-mar--top--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
 						<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility} showDefaultSearchFilter={false}>

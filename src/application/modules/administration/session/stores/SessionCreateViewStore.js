@@ -125,7 +125,7 @@ class SessionViewStore extends BaseEditViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 		});
 		const mapped = data.item.map(x => {
 			return {
@@ -150,7 +150,7 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     async onNextStep2Click() {
         if (!this.isChangedDefaultAddress) {
-            const address = this.charity.item.charityAddresses.find(c => c.isPrimary);
+            const address = this.charity.item;
             this.setAddress(address);
         }
         const { isValid } = await this.form.validate({ showErrors: true });
@@ -271,12 +271,7 @@ class SessionViewStore extends BaseEditViewStore {
                         embed: [
                             'charityAddresses',
                         ],
-                        fields: [
-                            'id',
-                            'taxId',
-                            'name',
-                            'charityAddresses'
-                        ]
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
                     });
                     return data.item.map(x => {
                         return {

@@ -21,6 +21,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable isDefaultShippingAddress = true;
     @observable tableData = [];
     applicationDefaultSetting = null;
+    @observable validForm = true;
 
     constructor(rootStore, { donorId, isDonor }) {
         super(rootStore, {
@@ -29,6 +30,18 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
+                        if(!this.donor.hasProtectionPlan && (this.totalAmount - this.totalPrepaidAmount > 0) && (this.donor.presentBalance + this.donor.lineOfCredit) < this.totalAmount) {
+                            this.rootStore.notificationStore.error('Insufficient funds, please enroll in protection plan or deposit funds');
+                            this.form.invalidate('Insufficient funds');
+                            this.validForm = false;
+                            return;
+                        }
+                        if(this.totalPrepaidAmount > (this.donor.presentBalance + this.donor.lineOfCredit)) {
+                            this.rootStore.notificationStore.error('Insufficient funds, please deposit funds');
+                            this.form.invalidate('Insufficient funds');
+                            this.validForm = false;
+                            return;
+                        }
                         const data = await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
                             donorId: this.donorId,
                             checkOrderUrl: `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`,
@@ -40,10 +53,12 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 }
             },
             onAfterAction: () => {
-                if(rootStore.userStore.user.roles.includes('Users'))
-                    rootStore.routerStore.goTo('master.app.main.donor.booklet-order.details', { id: this.id });
-                else 
-                    rootStore.routerStore.goTo('master.app.main.administration.booklet-order.details', { id: this.id });
+                if(this.validForm) {
+                    if(rootStore.userStore.user.roles.includes('Users'))
+                        rootStore.routerStore.goTo('master.app.main.donor.booklet-order.details', { id: this.id });
+                    else 
+                        rootStore.routerStore.goTo('master.app.main.administration.booklet-order.details', { id: this.id });
+                }   
             },
             FormClass: BookletOrderCreateForm,
             errorActions: {
@@ -126,7 +141,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get totalAmount() {
-        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount + ((this.form.$('customizedName').value && this.form.$('customizedName').value.length > 0) || (this.form.$('customizedAddressLine1').value && this.form.$('customizedAddressLine1').value.length > 0) ? this.donor && this.donor.accountType && this.donor.accountType.abrv != 'private' && parseFloat(this.customizedFee) : 0);
+        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount + (this.donor && !this.donor.isSessionFeePayedByCharity && parseFloat((this.totalPrepaidAmount * 0.029).toFixed(2))) + ((this.form.$('customizedName').value && this.form.$('customizedName').value.length > 0) || (this.form.$('customizedAddressLine1').value && this.form.$('customizedAddressLine1').value.length > 0) ? this.donor && this.donor.accountType && this.donor.accountType.abrv != 'private' && parseFloat(this.customizedFee) : 0) + ((this.deliveryMethodTypes && this.deliveryMethodTypes.length > 0 && this.deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == this.form.$('deliveryMethodTypeId').value) ? 25 : 0);
     }
 
     @computed get customizedFee() {
