@@ -413,7 +413,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                         type="button"
                                         className="btn btn--med btn--med--wide btn--secondary u-push"
                                         onClick={onSubmitClick}
-                                        icon={form.validating ? 'synchronize-arrows-1 rotate' : ''}
+                                        icon={form.validating ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : ''}
                                         label={'CONTRIBUTION.CREATE.CONTINUE'}
                                     />
                                 </div>

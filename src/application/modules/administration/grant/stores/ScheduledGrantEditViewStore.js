@@ -341,7 +341,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 						search: searchQuery,
 						sort: 'name|asc',
 						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses'],
+						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 					});
 					return data.item.map(x => {
 						return {

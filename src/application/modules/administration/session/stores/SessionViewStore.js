@@ -6,6 +6,7 @@ import { applicationContext } from 'core/utils';
 import { FormatterResolver } from 'core/components';
 import { charityFormatter } from 'core/utils';
 import ReactTooltip from 'react-tooltip';
+import _ from 'lodash'
 
 @applicationContext
 class SessionViewStore extends BaseListViewStore {
@@ -13,6 +14,7 @@ class SessionViewStore extends BaseListViewStore {
 	@observable charity = null;
     @observable charityInputValue = null;
 	@observable filteredCharities = [];
+    debouncedSearchCharities =  _.debounce(this.filterCharities, 500);
     constructor(rootStore) {
         super(rootStore, {
             name: 'session',
@@ -121,7 +123,7 @@ class SessionViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (session) => {
-                    return session.grants && session.grants.length > 0 && session.grants[0].donationStatus.abrv === 'pending' || session.grants[0].donationStatus.abrv === 'approved'
+                    return session.grants && session.grants.length > 0 && (session.grants[0].donationStatus.abrv === 'pending' || session.grants[0].donationStatus.abrv === 'approved')
                 }
             }
         }));
@@ -137,14 +139,14 @@ class SessionViewStore extends BaseListViewStore {
 		//this.setAddress(charity.item.charityAddresses[0]);
 	} 
 	@action.bound
-	async filterCharities(inputValue) {
+	async filterCharities(inputValue, resolve) {
 		const data = await this.rootStore.application.administration.grantStore.searchCharity({
 			pageNumber: 1,
 			pageSize: 10,
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 		});        
 		const mapped = data.item.map(x => {
 			return {
@@ -158,7 +160,7 @@ class SessionViewStore extends BaseListViewStore {
 			options.push({value: item.id, label:item.name, item: item.item});
 		});
 		this.filteredCharities = options;
-		return options;
+		return resolve(options);
 	};
 	
 	@action.bound
@@ -182,11 +184,7 @@ class SessionViewStore extends BaseListViewStore {
                         embed: [
                             'charityAddresses'
                         ],
-                        fields: [
-                            'id',
-                            'taxId',
-                            'name'
-                        ]
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
                     });
                     return data.item.map(x => { return { id: x.id, name: x.name } });
                 },

@@ -151,7 +151,7 @@ function ContributionConfirmTemplate({ modalParams, t }) {
                 </div>
                 <div className="col col-sml-12 col-lrg-6">
                     <div className="u-mar--left--auto">
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--med btn--med--100 btn--secondary u-mar--top--sml" label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} classNameExtend="u-display--flex--justify--center" />
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} className="btn btn--100 btn--secondary u-mar--top--sml" label={'CONTRIBUTION.CREATE.COMPLETE_DEPOSIT'} classNameExtend="u-display--flex--justify--center" />
                     </div>
                 </div>
             </div>

@@ -18,15 +18,13 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
         id,
         validateIPaddress,
         //charityDropdownStore,
-        filterCharities,
+        debouncedSearchCharities,
         setCharityId,
     } = charityWebsiteCreateViewStore;
-
-    const promiseOptions = inputValue =>
+  
+    let promiseOptions = (inputValue) =>
     new Promise(resolve => {
-        setTimeout(() => {
-            resolve(filterCharities(inputValue.length > 0 ? filterCharities(inputValue) : null));
-        }, 1000);
+            inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
     });
 
     return (

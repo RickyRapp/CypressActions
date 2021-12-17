@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview } from 'application/administration/grant/pages';
+import { GrantTab, GrantCreate, GrantEdit, ScheduledGrantEdit, GrantPreview, ScheduledGrantPreview } from 'application/administration/grant/pages';
 import { RouterState } from 'mobx-state-router';
 
 (function () {
@@ -62,6 +62,15 @@ import { RouterState } from 'mobx-state-router';
                         name: 'master.app.main.administration.grant.preview',
                         pattern: '/preview/:id',
                         component: GrantPreview,
+                        authorization: 'theDonorsFundGrantSection.read',
+                        data: {
+                            title: "GRANT.PREVIEW.TITLE"
+                        }
+                    },
+                    {
+                    name: 'master.app.main.administration.grant.scheduled-preview',
+                        pattern: '/scheduled-preview/:id',
+                        component: ScheduledGrantPreview,
                         authorization: 'theDonorsFundGrantSection.read',
                         data: {
                             title: "GRANT.PREVIEW.TITLE"

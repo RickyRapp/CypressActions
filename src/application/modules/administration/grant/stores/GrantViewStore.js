@@ -6,12 +6,14 @@ import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
 import moment from 'moment'
 import GrantDeclineForm from 'application/common/grant/forms';
+import _ from 'lodash';
 class GrantViewStore extends BaseListViewStore {
     @observable declinationTypeId;
     charities = [];
 	@observable charity = null;
     @observable charityInputValue = null;
 	@observable filteredCharities = [];
+    debouncedSearchCharities =  _.debounce(this.filterCharities, 500);
     constructor(rootStore) {
         super(rootStore, {
             name: 'grant',
@@ -82,8 +84,8 @@ class GrantViewStore extends BaseListViewStore {
         this.createSearchCharityDropdownStore();
         this.createDonationStatusDropdownStore();
         this.createDonationTypeDropdownStore();
-        this.createExportConfig();
-        
+        this.createExportConfig();  
+
         this.reviewModal = new ModalParams({});
         this.selectDonorModal = new ModalParams({});
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
@@ -125,14 +127,14 @@ class GrantViewStore extends BaseListViewStore {
 		//this.setAddress(charity.item.charityAddresses[0]);
 	} 
 	@action.bound
-	async filterCharities(inputValue) {
+	async filterCharities(inputValue, resolve) {
 		const data = await this.rootStore.application.administration.grantStore.searchCharity({
 			pageNumber: 1,
 			pageSize: 10,
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 		});
 		const mapped = data.item.map(x => {
 			return {
@@ -146,12 +148,12 @@ class GrantViewStore extends BaseListViewStore {
 			options.push({value: item.id, label:item.name, item: item.item});
 		});
 		this.filteredCharities = options;
-		return options;
+		return resolve(options);
 	};
 	
 	@action.bound
 	async charityLoadOptions(inputValue) {
-		await this.filterCharities(inputValue);
+		await this.debounceCharitySearch(inputValue);
 	};
 
     createTableStore() {
@@ -412,12 +414,7 @@ class GrantViewStore extends BaseListViewStore {
                         embed: [
                             'charityAddresses'
                         ],
-                        fields: [
-                            'id',
-                            'taxId',
-                            'name',
-                            'charityAddresses'
-                        ]
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
                     });
                     return data.item.map(x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }), item: x } });
                 },

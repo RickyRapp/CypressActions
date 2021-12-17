@@ -59,7 +59,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let chartDays = [];
 	let categoriesYearToDate = [];
 	//let isMultipleYears = false;
-
 	function checkWeek(donor) {
 		if (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7) {
 			const todayDate = new Date();
@@ -148,11 +147,11 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		}
 		if (yearDropdownStore.value.id === 2) {
 			const month = parseInt(moment().format("M"));
-			if(month == 1) {
+			if(month == 0) {
 				yearDropdownStore.value.id = 30;
 				checkMonth(donor);
-			} else if (month == 12) {
-				yearDropdownStore.value.id = donor.donationsPerYear[0].year;
+			} else if (month == 11) {
+				yearDropdownStore.value.id = new Date().getFullYear();
 				checkYear(donor);
 			} else {
 				dataGrants = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).grants.slice(0, month);
@@ -161,18 +160,40 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			}
 		}
 	}
+	if(yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id != 1)
+	{
+		let previousYearGrants = 0, previousYearContributions = 0;
+		if(donor && donor.donationsPerYear.length > 1) {
+			if(yearDropdownStore.value.id > donor.donationsPerYear[0].year || yearDropdownStore.value.id == 2) {
+				const previousYear = donor.donationsPerYear.find(c => c.year == (yearDropdownStore.value.id == 2 ? ((new Date().getFullYear()) - 1) : yearDropdownStore.value.id - 1));
+				previousYearGrants = previousYear.grants[11] ? previousYear.grants[11] : 0;
+				previousYearContributions = previousYear.contributions[11] ? previousYear.contributions[11] : 0;
+			}
+			if(dataGrants.length > 0)
+				dataGrants = dataGrants.map(c => c - previousYearGrants);
+			if(dataContributions.length > 0)
+				dataContributions = dataContributions.map(c => c - previousYearContributions);
 
-	const grantsThisYear = dataGrants[dataGrants.length - 1];
-	if(yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id == (new Date()).getFullYear())
+		} else {
+			if(dataGrants.length > 0)
+				dataGrants = dataGrants.map(c => dataGrants[dataGrants.length - 1] != (c - dataGrants[0]) ? (c - dataGrants[0]) : c);
+			if(dataContributions.length > 0)
+				dataContributions = dataContributions.map(c => dataContributions[dataContributions.length - 1] != (c - dataContributions[0]) ? (c - dataContributions[0]) : c);
+			}
+	}
+	let grantsThisYear = dataGrants[dataGrants.length - 1];
+
+	if(yearDropdownStore && yearDropdownStore.value && (yearDropdownStore.value.id == (new Date()).getFullYear() || yearDropdownStore.value.id == 2))
 		localStorageProvider.add('grantsThisYear', grantsThisYear);
 	//const oneTimeGoalAmount = (oneTime * (percentageMonth / 100));
 	const yearlyGoalAmount = (yearly * (percentageYear / 100));
 	const givingTotal = (localStorageProvider.get('grantsThisYear') / (oneTimeToGive + yearlyGoalAmount)) * 100;
-
 	const labelVisual = (e) => {
 		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 	};
-
+	const currencyFormat = (e) => {
+		return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+	};
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
@@ -188,8 +209,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name={`Total contributed: $${dataContributions[dataContributions.length - 1] ? `${dataContributions[dataContributions.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataContributions} />
-				<ChartSeriesItem color="#223a5e" name={`Total granted: $${dataGrants[dataContributions.length - 1] ? `${dataGrants[dataGrants.length - 1].toFixed(2)}` : (0).toFixed(2)}`} type="line" data={dataGrants} />
+				<ChartSeriesItem color="#bc6d11" name={`Total contributed: ${dataContributions[dataContributions.length - 1] ? `${currencyFormat(dataContributions[dataContributions.length - 1])}` : '$' + (0).toFixed(2).toString()}`} type="line" data={dataContributions} />
+				<ChartSeriesItem color="#223a5e" name={`Total granted: ${dataGrants[dataGrants.length - 1] ? `${currencyFormat(dataGrants[dataGrants.length - 1])}` : '$' + (0).toFixed(2).toString()}`} type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
@@ -284,9 +305,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
 									<div
-										style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : 0}%` }}
+										style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : (oneTimeToGive + yearlyGoalAmount)>0 && grantsThisYear > 0 ? 100 : 0}%` }}
 										className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
-										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : givingTotal == 0 ? (100).toFixed(2) + '%' : 0 + '%')}
+										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : (oneTimeToGive + yearlyGoalAmount)>0 && grantsThisYear > 0 ? (100).toFixed(2) + '%' : 0 + '%')}
 									</div>
 									<p className="dashboard-card__giving-goal__income">
 										<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}

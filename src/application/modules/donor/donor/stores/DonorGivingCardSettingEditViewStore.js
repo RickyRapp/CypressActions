@@ -17,6 +17,14 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
                         // if(resource.isLost || resource.isStolen) {
                         //     await 
                         // } else {
+                            if(!this.reportCard) {
+                                resource.isLost = resource.isLost !== '' && resource.isLost !== null;
+                                resource.isStolen = resource.isStolen !== '' && resource.isStolen !== null;
+                            }
+                            if(typeof resource.isStolen != 'string' && !resource.isStolen && this.reportCard)
+                                resource.isLost = true;
+                            if(typeof resource.isStolen != 'string' && resource.isStolen && this.reportCard)
+                                resource.isLost = false;
                             resource.givingCardId = this.item.givingCardId;
                             await rootStore.application.donor.donorStore.updateGivingCardSetting(resource);
                         //}
@@ -32,7 +40,6 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
             },
             FormClass: DonorGivingCardSettingForm,
         });
-
         this.donorId = rootStore.userStore.applicationUser.id;
         this.createGrantPurposeTypeDropdownStore();
         this.createGrantAcknowledgmentTypeDropdownStore();
@@ -56,6 +63,18 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
     toggleEdit() {
         this.form.$('isEnabled').value = !this.form.$('isEnabled').value;
         this.onChangeIsEnabled();
+    }
+
+    @action.bound
+    async unfreezeCard() {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to unfreeze your card?`,
+            async () => {
+                await this.rootStore.application.donor.donorStore.unfreezeCard({givingCardId: this.item.givingCardId, id: this.id});
+                this.rootStore.notificationStore.success('The card has successully been unfrozen');
+                this.rootStore.routerStore.goBack();
+            }
+        );
     }
 
     @action.bound

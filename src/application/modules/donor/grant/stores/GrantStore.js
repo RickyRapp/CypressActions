@@ -36,7 +36,7 @@ class GrantStore {
     }
 
     async searchCharity(params) {
-        const response = await this.charityService.search(params);
+        let response = await this.charityService.search(params);
         return response.data;
     }
 

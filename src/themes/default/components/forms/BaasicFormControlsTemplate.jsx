@@ -18,7 +18,7 @@ const BaasicFormControlsTemplate = function (props) {
                     onClick={onSubmit || form.onSubmit}
                     disabled={isSome(disableSave) ? disableSave : form.submitting}
                     rotate
-                    icon={form.submitting || form.validating ? 'synchronize-arrows-1 rotate' : ''}
+                    icon={form.submitting || form.validating ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : ''}
                     label={label}
                 />
             )}

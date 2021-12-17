@@ -3,6 +3,7 @@ import { BaasicDropdownStore, BaseEditViewStore, TableViewStore } from 'core/sto
 import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { GrantCreateForm } from 'application/common/grant/forms';
 import moment from 'moment';
+import _ from 'lodash';
 import { charityFormatter, addressFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { localStorageProvider } from 'core/providers';
@@ -25,9 +26,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable defaultValue = '';
 	@observable charity = null;
 	@observable inputCharity = '';
-	@observable asyncPlaceholder = '';
+ 	@observable asyncPlaceholder = '';
 	@observable moreSettings = false;
 	@observable isAdvancedInput = false;
+	debouncedSearchCharities =  _.debounce(this.filterCharities, 500);
 
 	constructor(rootStore, { donorId, grantStore }) {
 		super(rootStore, {
@@ -77,6 +79,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 								// eslint-disable-next-line
 								const resultRec = await this.grantStore.createScheduledGrant(resource);
 								this.grantId = resultRec;
+								
 							} else {
 								var result = await this.grantStore.createGrant(resource);
 								this.grantId = result.response;
@@ -89,6 +92,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				if(this.rootStore.userStore.applicationUser.roles[0] === 'Administrators') {
 					if(!this.isFuture && !this.form.$('isRecurring').value)
 						this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: this.grantId });
+					else
+						this.rootStore.routerStore.goTo('master.app.main.administration.grant.scheduled-preview', { id: this.grantId });
 				} else {
 					if(!this.isFuture && !this.form.$('isRecurring').value)
 						this.rootStore.routerStore.goTo('master.app.main.donor.grant.preview', { id: this.grantId });
@@ -102,6 +107,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.rootStore.notificationStore.success('Successfully created a grant');
 			},
 			FormClass: GrantCreateForm,
+			
 		});
 		
 		this.donorId = donorId;
@@ -110,7 +116,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.grantRequestId) {
 			this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;
 		}
-
+	
 		this.createCharityDropdownStore();
 		this.createCharityTypeDropdownStore();
 		this.createGrantPurposeTypeDropdownStore();
@@ -124,9 +130,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onInit({ initialLoad }) {
+		
 		if (!initialLoad) {
+			
 			this.rootStore.routerStore.goBack();
 		} else {
+			
 			await this.setDonor();
 			await this.fetch([this.loadLookups()]);
 			const isExistingGrant = localStorageProvider.get('ExistingGrant');
@@ -167,9 +176,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				const formattedGrantAddress = addressFormatter.format(grant, 'full');
 				this.isChangedDefaultAddress = formattedCharityAddress === formattedGrantAddress;
 			}
-			
-			this.form.$('amount').set('rules', `${this.form.$('amount').rules}|max:${(this.donor.presentBalance + this.donor.lineOfCredit) < 0 ? 0 : (this.donor.presentBalance + this.donor.lineOfCredit)}`);
-
+			this.amountRules();
 			this.setFormDefaultRules();
 			this.form.$('isRecurring').observe(({ field }) => {
 				this.onRecurringChange(field.value);
@@ -198,6 +205,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.form.$('noEndDate').observe(({ field }) => {
 				this.onChangeNoEndDate(field.value);
 			});
+			this.form.$('startFutureDate').observe(() => {
+				this.amountRules();
+			})
 			this.form.$('charityAddressLine1').observe(({ field }) => {
 				this.form.$('addressLine1').set(field.value);
 			});
@@ -278,6 +288,16 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	//#region MODAL
 	@action.bound
 	async onSubmitClick() {
+		if(this.form.$('amount').value > this.donor.availableBalance + this.donor.lineOfCredit && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
+			const { modalStore } = this.rootStore;
+			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
+				if(this.rootStore.userStore.user.roles.includes('Users'))
+					this.rootStore.routerStore.goTo("master.app.main.donor.contribution.create");
+				else
+					this.rootStore.routerStore.goTo("master.app.main.administration.contribution.create", {id: this.donorId});
+			})
+			return;
+		}
 		const { isValid } = await this.form.validate({ showErrors: true });
 		if (isValid) {
 			this.confirmModal.open({
@@ -330,6 +350,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onBlurAmount(value) {
+		this.amountRules();
 		this.setAmount(value);
 	}
 
@@ -363,16 +384,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
 			this.form.$('grantPurposeTypeId').setDisabled(false);
 		}
-		if(value > this.donor.availableBalance + this.donor.lineOfCredit && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
-			const { modalStore } = this.rootStore;
-			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
-				this.rootStore.routerStore.goTo("master.app.main.donor.contribution.create");
-			})
-		}
 	}
 
 	@action.bound
 	onRecurringChange(value) {
+		if(value) {
+			this.form.$('startFutureDate').value = null;
+		}
 		this.form.$('startFutureDate').setDisabled(value);
 	}
 
@@ -393,7 +411,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	setFormDefaultRules() {
-		if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create')) {
+		if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.create') && (moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD'))) {
 			this.form.$('amount').set('rules', this.form.$('amount').rules + '|min:0');
 		}
 	}
@@ -477,7 +495,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.form.$('charityId').set(charity.id);
 		this.asyncPlaceholder = charityFormatter.format(charity, {value: 'charity-name-display'});
 		this.charity = charity;
-		this.setAddress(charity && charity.charityAddresses.find(c => c.isPrimary));
+		this.setAddress(charity.charityAddresses.find(c => c.isPrimary));
 		this.setSimilarGrantTable(charity.charityTypeId);
 		this.advancedSearchModal.close();
 	}
@@ -485,12 +503,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	createConfirmModalParams() {
 		this.confirmModal = new ModalParams({});
 	}
-	promiseOptions = inputValue =>
-        new Promise(resolve => {
-            setTimeout(() => {
-                resolve(this.filterCharities(inputValue));
-            }, 1000);
-    });
 
 	setCharity(charity) {
 		this.charityDropdownStore.setValue({
@@ -541,7 +553,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@action.bound
 	setCharityVal(val) {
 		this.charityInputValue = val;
-		this.filterCharities(val);
+		this.debouncedSearchCharities(val);
 	}
 
 	async loadLookups() {
@@ -597,7 +609,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			},
 		});
 	}
-
+	@action.bound 
+	amountRules() {
+		if(moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD'))
+			this.form.$('amount').set('rules', `${this.form.$('amount').rules}|max:${(this.donor.presentBalance + this.donor.lineOfCredit) < 0 ? 0 : (this.donor.presentBalance + this.donor.lineOfCredit)}`);
+		else
+			this.form.$('amount').set('rules', 'required|numeric|min:100');
+	}
 	createCharityDropdownStore() {
 		this.charityDropdownStore = new BaasicDropdownStore(
 			{
@@ -613,7 +631,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						search: searchQuery,
 						sort: 'name|asc',
 						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId'],
+						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 					});
 					return data.item.map(x => {
 						return {
@@ -640,22 +658,27 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
 		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
-		this.setAddress(charity && charity.item && charity.item.charityAddresses[0]);
+		if(charity && charity.item && charity.item.charityAddresses) {
+			this.setAddress(charity && charity.item && charity.item.charityAddresses.find(c => c.isPrimary));
+		} else {
+			this.setAddress(charity && charity.item);
+		}
 		this.setSimilarGrantTable(this.charity.item.charityTypeId);
 	}
 	@action.bound
 	setInputValue(value) {
 		this.charityInputValue = value;
 	} 
+
 	@action.bound
-	async filterCharities(inputValue) {
+	async filterCharities(inputValue, resolve ) {
 		const data = await this.grantStore.searchCharity({
 			pageNumber: 1,
 			pageSize: 10,
 			search: inputValue,
 			sort: 'name|asc',
-			embed: ['charityAddresses'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId'],
+			embed: ['charityAddresses', 'charityBankAccounts'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 		});
 		const mapped = data.item.map(x => {
 			return {
@@ -669,7 +692,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			options.push({value: item.id, label:item.name, item: item.item});
 		});
 		this.filteredCharities = options;
-		return options;
+		return resolve(options);
 	};
 	
 	@action.bound
