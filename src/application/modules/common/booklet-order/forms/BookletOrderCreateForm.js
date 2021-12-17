@@ -8,11 +8,11 @@ export default class BookletOrderCreateForm extends FormBase {
     setup() {
         return {
             fields: [
-                'addressLine1',
-                'addressLine2',
-                'city',
-                'state',
-                'zipCode',
+                'shippingAddressLine1',
+                'shippingAddressLine2',
+                'shippingCity',
+                'shippingState',
+                'shippingZipCode',
                 'isCustomizedBook',
                 'customizedName',
                 'deliveryMethodTypeId',
@@ -24,11 +24,11 @@ export default class BookletOrderCreateForm extends FormBase {
                 'customizedExpirationDate'
             ],
             labels: {
-                'addressLine1': 'BOOKLET_ORDER.CREATE.FIELDS.ADDRESS_LINE_1_LABEL',
-                'addressLine2': 'BOOKLET_ORDER.CREATE.FIELDS.ADDRESS_LINE_2_LABEL',
-                'city': 'BOOKLET_ORDER.CREATE.FIELDS.CITY_LABEL',
-                'state': 'BOOKLET_ORDER.CREATE.FIELDS.STATE_LABEL',
-                'zipCode': 'BOOKLET_ORDER.CREATE.FIELDS.ZIPCODE_LABEL',
+                'shippingAddressLine1': 'BOOKLET_ORDER.CREATE.FIELDS.ADDRESS_LINE_1_LABEL',
+                'shippingAddressLine2': 'BOOKLET_ORDER.CREATE.FIELDS.ADDRESS_LINE_2_LABEL',
+                'shippingCity': 'BOOKLET_ORDER.CREATE.FIELDS.CITY_LABEL',
+                'shippingState': 'BOOKLET_ORDER.CREATE.FIELDS.STATE_LABEL',
+                'shippingZipCode': 'BOOKLET_ORDER.CREATE.FIELDS.ZIPCODE_LABEL',
                 'isCustomizedBook': 'BOOKLET_ORDER.CREATE.FIELDS.CUSTOMIZE_YOUR_BOOKS_LABEL',
                 'deliveryMethodTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_LABEL'
             },
@@ -43,11 +43,11 @@ export default class BookletOrderCreateForm extends FormBase {
                 'deliveryMethodTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_LABEL'
             },
             rules: {
-                'addressLine1': 'required|string',
-                'addressLine2': 'string',
-                'city': 'required|string',
-                'state': 'required|string',
-                'zipCode': 'required|string',
+                'shippingAddressLine1': 'required|string',
+                'shippingAddressLine2': 'string',
+                'shippingCity': 'required|string',
+                'shippingState': 'required|string',
+                'shippingZipCode': 'required|string',
                 'deliveryMethodTypeId': 'required|string',
                 'isCustomizedBook': 'required|boolean'
             },
@@ -56,11 +56,11 @@ export default class BookletOrderCreateForm extends FormBase {
                 'deliveryMethodTypeId': 'radio'
             },
             disabled: {
-                'addressLine1': true,
-                'addressLine2': true,
-                'city': true,
-                'state': true,
-                'zipCode': true
+                'shippingAddressLine1': true,
+                'shippingAddressLine2': true,
+                'shippingCity': true,
+                'shippingState': true,
+                'shippingZipCode': true
             },
             values: {
                 'isCustomizedBook': false

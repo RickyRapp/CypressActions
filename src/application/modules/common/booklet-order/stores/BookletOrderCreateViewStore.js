@@ -118,6 +118,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
             this.setDefaultShippingAddress();
         }
+        console.log(this.donor);
     }
 
     @action.bound
@@ -333,21 +334,21 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     async onChangeShippingAddressClick() {
         this.isDefaultShippingAddress = !this.isDefaultShippingAddress;
 
-        this.form.$('addressLine1').setDisabled(this.isDefaultShippingAddress);
-        this.form.$('addressLine2').setDisabled(this.isDefaultShippingAddress);
-        this.form.$('city').setDisabled(this.isDefaultShippingAddress);
-        this.form.$('state').setDisabled(this.isDefaultShippingAddress);
-        this.form.$('zipCode').setDisabled(this.isDefaultShippingAddress);
+        this.form.$('shippingAddressLine1').setDisabled(this.isDefaultShippingAddress);
+        this.form.$('shippingAddressLine2').setDisabled(this.isDefaultShippingAddress);
+        this.form.$('shippingCity').setDisabled(this.isDefaultShippingAddress);
+        this.form.$('shippingState').setDisabled(this.isDefaultShippingAddress);
+        this.form.$('shippingZipCode').setDisabled(this.isDefaultShippingAddress);
 
         if (this.isDefaultShippingAddress) {
             this.setDefaultShippingAddress();
         }
         else {
-            this.form.$('addressLine1').clear();
-            this.form.$('addressLine2').clear();
-            this.form.$('city').clear();
-            this.form.$('state').clear();
-            this.form.$('zipCode').clear();
+            this.form.$('shippingAddressLine1').clear();
+            this.form.$('shippingAddressLine2').clear();
+            this.form.$('shippingCity').clear();
+            this.form.$('shippingState').clear();
+            this.form.$('shippingZipCode').clear();
         }
     }
 
@@ -362,11 +363,11 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     setDefaultShippingAddress() {
-        this.form.$('addressLine1').set(this.donor.donorAddress.addressLine1);
-        this.form.$('addressLine2').set(this.donor.donorAddress.addressLine2);
-        this.form.$('city').set(this.donor.donorAddress.city);
-        this.form.$('state').set(this.donor.donorAddress.state);
-        this.form.$('zipCode').set(this.donor.donorAddress.zipCode);
+        this.form.$('shippingAddressLine1').set(this.donor.donorAddress.addressLine1);
+        this.form.$('shippingAddressLine2').set(this.donor.donorAddress.addressLine2);
+        this.form.$('shippingCity').set(this.donor.donorAddress.city);
+        this.form.$('shippingState').set(this.donor.donorAddress.state);
+        this.form.$('shippingZipCode').set(this.donor.donorAddress.zipCode);
     }
 
     async loadDonor() {

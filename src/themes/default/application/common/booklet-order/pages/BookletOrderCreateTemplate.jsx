@@ -448,30 +448,35 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             :
                                             <React.Fragment>
                                                 <div className="col col-sml-12 col-xlrg-6 col-xxlrg-2 u-mar--bottom--sml">
-                                                    <BasicInput field={form.$('addressLine1')} />
+                                                    <BasicInput field={form.$('shippingAddressLine1')} />
                                                 </div>
                                                 <div className="col col-sml-12 col-xlrg-6 col-xxlrg-2 u-mar--bottom--sml">
-                                                    <BasicInput field={form.$('addressLine2')} />
+                                                    <BasicInput field={form.$('shippingAddressLine2')} />
                                                 </div>
                                                 <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
-                                                    <BasicInput field={form.$('city')} />
+                                                    <BasicInput field={form.$('shippingCity')} />
                                                 </div>
                                                 <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
-                                                    <BasicInput field={form.$('state')} />
+                                                    <BasicInput field={form.$('shippingState')} />
                                                 </div>
                                                 <div className="col col-sml-12 col-xlrg-4 col-xxlrg-2 u-mar--bottom--sml">
-                                                    <BasicInput field={form.$('zipCode')} />
+                                                    <BasicInput field={form.$('shippingZipCode')} />
                                                 </div>
                                             </React.Fragment>}
-                                        <div className="col col-sml-12 type--center u-mar--top--sml">
+                                        {/* <div className="col col-sml-12 type--center u-mar--top--sml">
                                             <BaasicButton
                                                 className="btn row--form btn--med btn--med--100 btn--primary"
                                                 label={form.$('addressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
                                                 onClick={() => onChangeShippingAddressClick()}>
                                             </BaasicButton>
-                                        </div>
+                                        </div> */}
                                     </div>
 
+                                    <BaasicButton
+                                        className="btn row--form btn--med btn--med--100 btn--primary"
+                                        label={form.$('shippingAddressLine1').disabled ? 'BOOKLET_ORDER.CREATE.CHANGE_SHIPPING_ADDRESS' : 'BOOKLET_ORDER.CREATE.SET_DEFAULT_SHIPPING_ADDRESS'}
+                                        onClick={() => onChangeShippingAddressClick()}>
+                                    </BaasicButton>
                                 </React.Fragment> :
                                 <div className="row row--form u-mar--top--sml u-mar--bottom--sml">
                                     <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
