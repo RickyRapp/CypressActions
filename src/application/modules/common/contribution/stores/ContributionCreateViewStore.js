@@ -84,6 +84,9 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				this.previousContributionsTableStore.dataInitialized = true;
 			}
 			this.onSelectPaymentType(this.paymentTypeDropdownStore.value);
+			if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) {
+				this.form.$('amount').set('rules', 'required|numeric|min:0');
+			}
 		}
 	}
 	
