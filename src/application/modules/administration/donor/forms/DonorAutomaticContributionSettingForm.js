@@ -12,7 +12,7 @@ export default class DonorAutomaticContributionSettingForm extends FormBase {
                     name: 'amount',
                     label: 'DONOR.AUTOMATIC_CONTRIBUTION_SETTING.EDIT.FIELDS.AMOUNT_LABEL',
                     placeholder: 'DONOR.AUTOMATIC_CONTRIBUTION_SETTING.EDIT.FIELDS.AMOUNT_PLACEHOLDER',
-                    rules: 'required|numeric|min:0',
+                    rules: 'required|numeric|min:250',
                     extra: {
                         type: 'c2'
                     }
