@@ -16,7 +16,6 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
         form,
         order
     } = bookletOrderReviewViewStore;
-
     return (
         <ApplicationEditLayout store={bookletOrderReviewViewStore} footerClassName={"container--base"}>
             <Content loading={contentLoading} >
@@ -40,20 +39,35 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
                                     <BasicInput field={form.$('trackingNumber')} />
                                 </div>}
                         </div>
-
-                        {orderContents.map((item) => {
-                            return (
-                                <BookletOrderReviewRowTemplate
-                                    key={`${item.denominationTypeId}_${item.bookletTypeId}_${item.booklets.length}`}
-                                    item={item}
-                                    fetchFunc={fetchFunc}
-                                    bookletTypes={bookletTypes}
-                                    denominationTypes={denominationTypes}
-                                    onAddBookletsChange={onAddBookletsChange}
-                                />
-                            )
-                        })}
+                        <div className="col col-sml-12 col-xxlrg-2">
+                            <div className="form__group__label">Delivery Method</div>
+                            <span className="input input--text input--lrg padd--top--tny input--disabled">
+                                {order && <React.Fragment>{order.deliveryMethodType.name}</React.Fragment>}
+                            </span>
+                        </div>
+                        {order && (order.deliveryMethodType.abrv === 'mail-usps' || order.deliveryMethodType.abrv === 'express-mail') &&
+                            <div className="col col-sml-12 col-xxlrg-2">
+                                <BasicInput field={form.$('trackingNumber')} />
+                            </div>}
                     </div>
+                    <div className="card--primary card--med u-mar--bottom--med">
+                        {order && order.deliveryMethodType.abrv !== 'pick-up'? 
+                        <p><b>Shipping address: </b>{order.shippingAddressLine1 ? order.shippingAddressLine1 : ""}, {order.shippingAddressLine2 ? order.shippingAddressLine2 : ""}, {order.shippingCity ? order.shippingCity : ""}, {order.shippingState ? order.shippingState : ""}, {order.shippingZipCode ? order.shippingZipCode : ""}</ p>
+                        : null
+                        }
+                    </div>
+                    {orderContents.map((item) => {
+                        return (
+                            <BookletOrderReviewRowTemplate
+                                key={`${item.denominationTypeId}_${item.bookletTypeId}_${item.booklets.length}`}
+                                item={item}
+                                fetchFunc={fetchFunc}
+                                bookletTypes={bookletTypes}
+                                denominationTypes={denominationTypes}
+                                onAddBookletsChange={onAddBookletsChange}
+                            />
+                        )
+                    })}
                 </div>
             </Content>
         </ApplicationEditLayout >
