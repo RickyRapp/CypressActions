@@ -6,7 +6,8 @@ import {
     EditFormContent,
     BaasicDropzone,
     NumberFormatInputField,
-    BaasicFieldDropdown
+    BaasicFieldDropdown,
+    BaasicButton
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
@@ -69,9 +70,9 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                 </span>
                 
-                <button className='btn btn--med btn--ghost search__wrapper__item' onClick={deleteBankAccount} disabled={!id}>
-                    {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')}
-                </button>
+                <BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} disabled={!id}>
+                    {/* {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')} */}
+                </BaasicButton>
             </div>
         </EditFormContent >
 

@@ -1,10 +1,12 @@
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { BaasicUploadStore, BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/administration/charity/forms';
+import { CharityFileStreamService } from 'common/services';
 
 @applicationContext
 class CharityBankAccountViewStore extends BaseEditViewStore {
+    @observable image = null;
     constructor(rootStore) {
         super(rootStore, {
             name: 'bank-account',
@@ -95,10 +97,14 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
     async selectCharity(){
         this.id = null;
         this.form.clear();
-        this.id = this.bankAccountDropdownStore.value.id;
-        await this.fetch([
-            this.getResource(this.id)
-        ]);
+        if(this.bankAccountDropdownStore.value && this.bankAccountDropdownStore.value.id) {
+            this.id = this.bankAccountDropdownStore.value.id;
+            await this.fetch([
+                this.getResource(this.id)
+            ]);
+            if(this.item.coreMediaVaultEntryId)
+                this.imageUploadStore.setInitialItems(this.item.coreMediaVaultEntryId)
+        }
     }
     @action.bound
     async deleteBankAccount() {
@@ -106,18 +112,39 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             `Are you sure you want to delete bank account?`,
             async () => {
                 await this.rootStore.application.administration.charityStore.deleteCharityBank({ id: this.id, charityId: this.charityId });
+                this.bankAccountDropdownStore = null;
+                this.createBankAccountDropdownStore();
                 this.form.clear();
+                this.id = null;
                 this.rootStore.notificationStore.success('Successfully deleted Bank account');
             }
         );
     }
 
     @action.bound
+    async getImage(fileId) {
+        if (this.attachment != null) {
+            try {
+                var service = new CharityFileStreamService(this.rootStore.application.baasic.apiClient);
+                this.imageLoading = true;
+                const response = await service.get(fileId);
+                this.imageLoading = false;
+                return response;
+            }
+            catch (err) {
+                this.uploadLoading = false;
+                this.rootStore.notificationStore.error('ERROR', err);
+            }
+        }
+        return null;
+    }
+
+    @action.bound
     async resetBankAccount() {
-        
         this.id = null;
         this.bankAccountDropdownStore.value = null;
         this.form.clear();
+        this.imageUploadStore.clear();
     }
 
     async getCharityInfo() {
