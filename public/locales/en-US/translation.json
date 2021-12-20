@@ -41,7 +41,7 @@
         "CHARITY_GRANT_REQUESTS": "Request Donation",
         "CHARITY_CERTIFICATES": "Certificates",
         "BANKS": "Banks",
-        "TESTING": "Test",
+        "TESTING": "Administration",
         "APITESTING": "API Test",
         "INVESTMENTS": "Investments",
         "SEND_A_GIFT": "Transfer funds",
@@ -2787,7 +2787,8 @@
             "REPORT": "Report",
             "SCHEDULED_TASK": "Scheduled task",
             "WELCOME_EMAILS": "Welcome emails",
-            "API_TESTING": "API testing"
+            "API_TESTING": "API testing",
+            "ANNUAL_RECEIPTS": "Annual receipts"
         },
         "TEST_EMAIL": {
             "LIST": {
