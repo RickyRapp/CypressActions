@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout } from 'core/layouts';
-import { Transaction } from 'application/donor/activity/transaction/components';
+import { Transaction, StatementsReports } from 'application/donor/activity/transaction/components';
 import { TransactionDonor } from 'application/donor/activity/transaction/components';
 
 const TransactionTabTemplate = function ({ transactionTabViewStore }) {
@@ -18,8 +18,7 @@ const TransactionTabTemplate = function ({ transactionTabViewStore }) {
                     </div>
                     <div label={'ACTIVITY.TRANSACTION_TAB.STATEMENTS'}>
                         <div className="card--primary card--med type--center">
-                            <i className="u-icon u-icon--rounded u-icon--rounded--coming-soon"></i>
-                            <p className="type--lrg type--wgt--medium type--color--opaque u-mar--top--sml">Coming Soon</p>
+                            <StatementsReports />
                         </div>
                         
                         {/* <Transaction /> */}
