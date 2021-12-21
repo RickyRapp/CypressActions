@@ -34,6 +34,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 							resource.zipCode = this.donor.donorAddress.zipCode;
 							resource.email = this.donor.donorEmailAddress.email;
 							resource.number = this.donor.donorPhoneNumber.number;
+							resource.isAdmin = rootStore.userStore.user.roles.includes('Administrators');
 						}
 						return this.contributionStore.createContribution({ donorId: this.donorId, ...resource });
 					},
@@ -272,6 +273,8 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			} else if(paymentType.abrv === 'paycheck-direct') {
 				this.form.$('nameOfEmployment').setRequired(true);
 			}
+			if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) 
+				this.form.$('amount').set('rules', 'required|numeric|min:0');
 		}
 		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');
 		const json = JSON.parse(paymentType.json);
