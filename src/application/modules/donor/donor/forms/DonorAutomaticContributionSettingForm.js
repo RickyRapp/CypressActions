@@ -10,7 +10,7 @@ export default class DonorAutomaticContributionSettingForm extends FormBase {
             fields: [
                 {
                     name: 'amount',
-                    label: 'Replenish amount (min: $250)',
+                    label: 'Replenish amount (minimum amount is $250)',
                     placeholder: 'DONOR.AUTOMATIC_CONTRIBUTION_SETTING.EDIT.FIELDS.AMOUNT_PLACEHOLDER',
                     rules: 'required|numeric|min:250',
                     extra: {
