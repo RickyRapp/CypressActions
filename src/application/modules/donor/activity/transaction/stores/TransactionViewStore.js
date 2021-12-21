@@ -210,6 +210,14 @@ class TransactionViewStore extends BaseListViewStore {
                     {
                         key: 'description',
                         title: 'ACTIVITY.LIST.COLUMNS.CHARITY_LABEL',
+                        format: {
+                            type: 'function',
+                            value: (item) => {
+                                if(item.paymentTransaction && item.paymentTransaction.description && item.paymentTransaction.description.includes('Refund Contribution'))
+                                    return `Declined ${item.description}`;
+                                return item.description;
+                            }
+                        }
                     },
                     {
                         key: 'paymentTransaction',
