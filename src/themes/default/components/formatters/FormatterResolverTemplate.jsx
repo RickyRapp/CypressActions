@@ -65,6 +65,9 @@ function FormatterResolver({ item, field, format }) {
             if (type === 'debit') {
                 params.value = params.value * (-1)
             }
+            if (paymentTransaction.description == 'Donor to donor transaction') {
+                params.value = paymentTransaction.amount;
+            }
             return <NumberFormat {...params} />
         }
         case 'boolean':
