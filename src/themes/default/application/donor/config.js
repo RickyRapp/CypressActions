@@ -41,7 +41,7 @@ import { moduleProviderFactory } from 'core/providers';
             },
             {
                 title: 'MENU.SEND_A_GIFT',
-                icon: 'contribution',
+                icon: 'transfer-funds',
                 order: 5,
                 route: 'master.app.main.donor.donor-donor.create',
                 role: ['Users']

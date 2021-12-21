@@ -163,9 +163,11 @@
 			}
 
 			& .u-icon {
-				width: 32px;
-				height: 32px;
-				background-size: 32px;
+				&.u-icon--xmed {
+					width: 32px;
+					height: 32px;
+					background-size: 32px;
+				}
 
 				&--give {
 					background-image: svg-load('postcss-svg/give.svg', stroke: color($white a(50%)));
@@ -262,6 +264,14 @@
 				&--default-settings {
 					background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($white a(60%)));
 				}
+				
+				&--donor-to-donor {
+					background-image: svg-load('postcss-svg/donor-to-donor.svg', stroke: color($white a(60%)));
+				}
+				
+				&--transfer-funds {
+					background-image: svg-load('postcss-svg/transfer-funds.svg', stroke: color($white a(60%)));
+				}
 			}
 
 			&:hover,
@@ -277,10 +287,12 @@
 				} */
 
 				& .u-icon {
-					width: 32px;
-					height: 32px;
-					background-size: 32px;
-					
+					&.u-icon--xmed {
+						width: 32px;
+						height: 32px;
+						background-size: 32px;
+					}
+
 					&--give {
 						background-image: svg-load('postcss-svg/give.svg', stroke: color($color-note a(100%)));
 					}
@@ -375,6 +387,14 @@
 
 					&--default-settings {
 						background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($color-note a(100%)));
+					}
+					
+					&--donor-to-donor {
+						background-image: svg-load('postcss-svg/donor-to-donor.svg', stroke: color($color-note a(100%)));
+					}
+					
+					&--transfer-funds {
+						background-image: svg-load('postcss-svg/transfer-funds.svg', stroke: color($color-note a(100%)));
 					}
 				}
 			}
