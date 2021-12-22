@@ -6,7 +6,7 @@ import { Page, PageFooter } from 'core/layouts';
 import { defaultTemplate } from 'core/hoc';
 import { getPageObject } from 'core/utils';
 
-function EditFormLayoutTemplate({ store, children, t, layoutFooterVisible, loading }) {
+function EditFormLayoutTemplate({ store, children, t, layoutFooterVisible, loading, footerClassName }) {
     const {
         rootStore,
         form,
@@ -27,6 +27,7 @@ function EditFormLayoutTemplate({ store, children, t, layoutFooterVisible, loadi
                 footer,
                 form,
                 visible: layoutFooterVisible,
+                footerClassName,
                 t,
                 goBack: () => rootStore.routerStore.goBack()
             })}
@@ -34,13 +35,13 @@ function EditFormLayoutTemplate({ store, children, t, layoutFooterVisible, loadi
     );
 }
 
-function renderEditLayoutFooterContent({ footer, form, visible, goBack, t }) {
+function renderEditLayoutFooterContent({ footerClassName, footer, form, visible, goBack, t }) {
     return visible ? (
         footer
             ? footer
             : (
                 <PageFooter>
-                    <div>
+                    <div className={footerClassName ? footerClassName : ""}>
                         <BaasicButton
                             className='btn btn--med btn--med--wide btn--primary u-mar--right--sml'
                             label={t('EDIT_FORM_LAYOUT.CANCEL')}
@@ -58,6 +59,7 @@ EditFormLayoutTemplate.propTypes = {
     loading: PropTypes.bool,
     layoutFooterVisible: PropTypes.bool,
     children: PropTypes.any,
+    footerClassName: PropTypes.string,
     t: PropTypes.func
 };
 
