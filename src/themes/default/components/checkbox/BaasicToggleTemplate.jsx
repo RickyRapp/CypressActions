@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton } from 'core/components';
+//import { BaasicButton } from 'core/components';
 
-function BaasicToggleTemplate({ label, value, onChange, disabled, t, showLabel, wrapperClassName }) {
+function BaasicToggleTemplate({ label, value, onChange, t, showLabel, wrapperClassName }) { //disabled
 	return (
 		<div className={`${wrapperClassName ? wrapperClassName : "toggle__wrapper"}`}>
 			<input className={`input toggle ${value ? 'toggle--active' : ''}`} type="checkbox" onClick={onChange} />
