@@ -43,7 +43,7 @@
 			top: 99px;
 			left: 0;
 			right: 0;
-			bottom: 99px; 
+			bottom: 99px;
 		}
 
 		&__item {
@@ -51,12 +51,12 @@
 			display: flex;
 			align-items: center;
 			padding: calc($unit * 3) calc($unit * 4);
+			margin: -1px 0;
 
 			font-weight: $type-weight-regular;
 			color: white;
 			transition: color, background-color 250ms ease-out;
 			cursor: pointer;
-			margin: -1px 0;
 
 			border-top: 1px solid color($scandal a(10%));
 			border-bottom: 1px solid color($scandal a(10%));
@@ -66,29 +66,26 @@
 			}
 
 			&--give {
-				
-				
-					@mixin type-scale $type-medium, 1;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					padding: calc($unit * 3) calc($unit * 1);
-					margin: calc($unit * 3) calc($unit * 4);
-					border: 1px solid color($scandal a(20%));
-					border-radius: calc($unit / 1.6);
-					cursor: pointer;
-					transition: all 250ms ease-out;
+				@mixin type-scale $type-medium, 1;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: calc($unit * 3) calc($unit * 1);
+				margin: calc($unit * 3) calc($unit * 4);
+				border: 1px solid color($scandal a(20%));
+				border-radius: calc($unit / 1.6);
+				cursor: pointer;
+				transition: all 250ms ease-out;
 
-					&:hover {
-						color: color($color-note a(70%));
-						border-color: color($color-note a(70%));
-						background-color: $color-text !important;
-					}
+				&:hover {
+					color: color($color-note a(70%));
+					border-color: color($color-note a(70%));
+					background-color: $color-text !important;
+				}
 
-					&:before {
-						width: 0 !important;
-					}
-				
+				&:before {
+					width: 0 !important;
+				}
 
 				@media (--screen-from-med) {
 					@mixin type-scale $type-large, 1.25;
@@ -126,7 +123,6 @@
 			}
 
 			&--menu {
-
 				@media (--screen-to-med) {
 					display: none;
 				}
@@ -166,7 +162,13 @@
 				background-color: transparent;
 			}
 
-			.u-icon {
+			& .u-icon {
+				&.u-icon--xmed {
+					width: 32px;
+					height: 32px;
+					background-size: 32px;
+				}
+
 				&--give {
 					background-image: svg-load('postcss-svg/give.svg', stroke: color($white a(50%)));
 				}
@@ -262,6 +264,14 @@
 				&--default-settings {
 					background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($white a(60%)));
 				}
+				
+				&--donor-to-donor {
+					background-image: svg-load('postcss-svg/donor-to-donor.svg', stroke: color($white a(60%)));
+				}
+				
+				&--transfer-funds {
+					background-image: svg-load('postcss-svg/transfer-funds.svg', stroke: color($white a(60%)));
+				}
 			}
 
 			&:hover,
@@ -276,7 +286,13 @@
 					background-color: $scandal;
 				} */
 
-				.u-icon {
+				& .u-icon {
+					&.u-icon--xmed {
+						width: 32px;
+						height: 32px;
+						background-size: 32px;
+					}
+
 					&--give {
 						background-image: svg-load('postcss-svg/give.svg', stroke: color($color-note a(100%)));
 					}
@@ -372,6 +388,14 @@
 					&--default-settings {
 						background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($color-note a(100%)));
 					}
+					
+					&--donor-to-donor {
+						background-image: svg-load('postcss-svg/donor-to-donor.svg', stroke: color($color-note a(100%)));
+					}
+					
+					&--transfer-funds {
+						background-image: svg-load('postcss-svg/transfer-funds.svg', stroke: color($color-note a(100%)));
+					}
 				}
 			}
 		}
@@ -398,7 +422,6 @@
 		}
 
 		&__footer {
-
 			@media (--screen-from-med) {
 				position: absolute;
 				left: 0;
@@ -409,7 +432,6 @@
 	}
 
 	&--secondary {
-
 		&__text {
 			position: relative;
 			display: block;
@@ -502,27 +524,24 @@
 
 .is-collapsed {
 	@media (--screen-from-sml) {
-
 		.nav--primary__collapse {
 			i {
 				transform: rotate(0deg);
 			}
 
 			&[aria-label-expand]:hover:after {
-				
-					@mixin type-scale $type-small, 1;
-					content: attr(aria-label-expand);
-					position: absolute;
-					right: 0;
-					top: calc(50% - $unit * 3);
-					padding: $unit;
-					display: block;
-					background-color: black;
-					color: white;
-					white-space: nowrap;
-					transform: translateX(90%);
-					border-radius: $radius-base;
-
+				@mixin type-scale $type-small, 1;
+				content: attr(aria-label-expand);
+				position: absolute;
+				right: 0;
+				top: calc(50% - $unit * 3);
+				padding: $unit;
+				display: block;
+				background-color: black;
+				color: white;
+				white-space: nowrap;
+				transform: translateX(90%);
+				border-radius: $radius-base;
 			}
 		}
 
