@@ -18,40 +18,42 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
     } = bookletOrderReviewViewStore;
 
     return (
-        <ApplicationEditLayout store={bookletOrderReviewViewStore}>
+        <ApplicationEditLayout store={bookletOrderReviewViewStore} footerClassName={"container--base"}>
             <Content loading={contentLoading} >
-                <div className="card--primary card--med u-mar--bottom--med">
-                    <div className="row row--form u-mar--bottom--lrg">
-                        <div className="col col-sml-12 col-xxlrg-2">
-                            <div className="form__group__label">Donor</div>
-                            <span className="input input--text input--lrg padd--top--tny input--disabled">
-                                {order && <React.Fragment>{order.donor.donorName}</React.Fragment>}
-                            </span>
+                <div className="container--base">
+                    <div className="card--primary card--med u-mar--bottom--med">
+                        <div className="row row--form u-mar--bottom--lrg">
+                            <div className="col col-sml-12 col-xxlrg-6">
+                                <div className="form__group__label">Donor</div>
+                                <span className="input input--text input--lrg padd--top--tny input--disabled">
+                                    {order && <React.Fragment>{order.donor.donorName}</React.Fragment>}
+                                </span>
+                            </div>
+                            <div className="col col-sml-12 col-xxlrg-6">
+                                <div className="form__group__label">Delivery Method</div>
+                                <span className="input input--text input--lrg padd--top--tny input--disabled">
+                                    {order && <React.Fragment>{order.deliveryMethodType.name}</React.Fragment>}
+                                </span>
+                            </div>
+                            {order && (order.deliveryMethodType.abrv === 'mail-usps' || order.deliveryMethodType.abrv === 'express-mail') &&
+                                <div className="col col-sml-12 col-xxlrg-2">
+                                    <BasicInput field={form.$('trackingNumber')} />
+                                </div>}
                         </div>
-                        <div className="col col-sml-12 col-xxlrg-2">
-                            <div className="form__group__label">Delivery Method</div>
-                            <span className="input input--text input--lrg padd--top--tny input--disabled">
-                                {order && <React.Fragment>{order.deliveryMethodType.name}</React.Fragment>}
-                            </span>
-                        </div>
-                        {order && (order.deliveryMethodType.abrv === 'mail-usps' || order.deliveryMethodType.abrv === 'express-mail') &&
-                            <div className="col col-sml-12 col-xxlrg-2">
-                                <BasicInput field={form.$('trackingNumber')} />
-                            </div>}
-                    </div>
 
-                    {orderContents.map((item) => {
-                        return (
-                            <BookletOrderReviewRowTemplate
-                                key={`${item.denominationTypeId}_${item.bookletTypeId}_${item.booklets.length}`}
-                                item={item}
-                                fetchFunc={fetchFunc}
-                                bookletTypes={bookletTypes}
-                                denominationTypes={denominationTypes}
-                                onAddBookletsChange={onAddBookletsChange}
-                            />
-                        )
-                    })}
+                        {orderContents.map((item) => {
+                            return (
+                                <BookletOrderReviewRowTemplate
+                                    key={`${item.denominationTypeId}_${item.bookletTypeId}_${item.booklets.length}`}
+                                    item={item}
+                                    fetchFunc={fetchFunc}
+                                    bookletTypes={bookletTypes}
+                                    denominationTypes={denominationTypes}
+                                    onAddBookletsChange={onAddBookletsChange}
+                                />
+                            )
+                        })}
+                    </div>
                 </div>
             </Content>
         </ApplicationEditLayout >
