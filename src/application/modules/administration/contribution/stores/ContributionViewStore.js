@@ -56,7 +56,8 @@ class ContributionViewStore extends BaseListViewStore {
                             'payerInformation',
                             'bankAccount',
                             'paymentType',
-                            'contributionStatus'
+                            'contributionStatus',
+                            'bankAccount.accountHolder'
                         ];
                         return rootStore.application.administration.contributionStore.findContribution(params);
                     }
@@ -213,7 +214,7 @@ class ContributionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != "" ? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.paymentType && item.paymentType.abrv == 'credit-card' ? 'PayPal Giving' : item.payerInformation.name;
+                            return item.bankAccount && item.bankAccount.isThirdPartyAccount && item.bankAccount.accountHolder ? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != "" ? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.paymentType && item.paymentType.abrv == 'credit-card' ? 'PayPal Giving' : item.payerInformation.name;
                         }
                     }
                 },
