@@ -42,7 +42,7 @@ class ContributionViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus'];
+						params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus', 'bankAccount.accountHolder'];
 						this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
 								donorId: this.donorId,
 								...params,
@@ -143,6 +143,12 @@ class ContributionViewStore extends BaseListViewStore {
 						{
 							key: 'payerInformation.name',
 							title: 'CONTRIBUTION.LIST.COLUMNS.PAYER_INFORMATION_NAME_LABEL',
+							format: {
+								type: 'function',
+								value: (item) => {
+									return item.bankAccount && item.bankAccount.isThirdPartyAccount && item.bankAccount.accountHolder ? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != "" ? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.payerInformation.name
+								}
+							}
 						},
 						{
 							key: 'amount',
