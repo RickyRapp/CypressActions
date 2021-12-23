@@ -85,7 +85,7 @@ function renderActions({ item, actions, authorization }) {
 					<BaasicButton
 						authorization={authorization ? authorization.update : null}
 						className="btn btn--icon"
-						icon="u-icon u-icon--edit u-icon--base"
+						icon="u-icon u-icon--edit u-icon--base u-mar--right--sml"
 						label="CHARITY.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}

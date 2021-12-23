@@ -40,30 +40,30 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="row">
                         {booklet &&
-                            <div className="form__group col col-lrg-2">
+                            <div className="form__group col col-sml-12 col-med-6 col-xlrg-3">
                                 <strong>Type: </strong>{booklet.bookletType.name}
                                 {!isMixedBooklet &&
                                     <span>
                                         {" "}({booklet.certificates[0].denominationType.name})
-                                </span>}
+                                    </span>}
                             </div>}
-                        <div className="form__group col col-lrg-2">
+                        <div className="form__group col col-sml-12 col-med-6 col-xlrg-3">
                             <strong>Code:</strong> {booklet && booklet.code}
                         </div>
-                        <div className="form__group col col-lrg-2">
+                        <div className="form__group col col-sml-12 col-med-6 col-xlrg-3">
                             <strong>Count:</strong> {`${clean} / ${used} / ${canceled} | ${active}`}
                         </div>
-                        <div className="form__group col col-lrg-2">
+                        <div className="form__group col col-sml-12 col-med-6 col-xlrg-3">
                             <strong>Donor: </strong>
                             {bookletOrder ?
                                 <span>{bookletOrder.donor.donorName}  <br /> </span> : 'N/A'}
                         </div>
-                        <div className="form__group col col-lrg-2">
+                        <div className="form__group col col-sml-12 col-med-6 col-xlrg-3">
                             <strong>Pre Paid: </strong>
                             {booklet && isSome(booklet.isPrePaid) ?
                                 <span>{booklet.isPrePaid ? 'Yes' : 'No'}</span> : 'N/A'}
                         </div>
-                        <div className="form__group col col-lrg-2">
+                        <div className="form__group col col-sml-12 col-med-6 col-xlrg-3">
                             <strong>Fee paid by: </strong>
                             {booklet && isSome(booklet.isSessionFeePayedByCharity) ?
                                 <span>{booklet.isSessionFeePayedByCharity ? 'Charity' : 'Donor'}</span> : 'N/A'}
@@ -72,26 +72,22 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                             <strong>Assigned On:</strong> {booklet && booklet.dateAssigned ? <Date value={booklet.dateAssigned} format='full' /> : 'N/A'}
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="form__group col col-sml-12 col-lrg-3">
-                            <BaasicButton
-                                className="btn btn--base btn--primary"
-                                label='BOOKLET.EDIT.BUTTON.ACTIVE'
-                                onClick={() => isActiveConfirm(true)}
-                            />
-                            <BaasicButton
-                                className="btn btn--base btn--secondary u-mar--left--sml"
-                                label='BOOKLET.EDIT.BUTTON.INACTIVE'
-                                onClick={() => isActiveConfirm(false)}
-                            />
-                        </div>
-                        <div className="form__group col col-sml-12 col-lrg-2">
-                            <BaasicButton
-                                className="btn btn--base btn--secondary u-mar--left--sml"
-                                label='BOOKLET.EDIT.BUTTON.CLEAN_CERTIFICATE_STATUS'
-                                onClick={onSetCleanStatusClick}
-                            />
-                        </div>
+                    <div className="u-display--f u-mar--bottom--sml">
+                        <BaasicButton
+                            className="btn btn--base btn--primary u-mar--bottom--sml"
+                            label='BOOKLET.EDIT.BUTTON.ACTIVE'
+                            onClick={() => isActiveConfirm(true)}
+                        />
+                        <BaasicButton
+                            className="btn btn--base btn--secondary u-mar--left--sml u-mar--right--sml u-mar--bottom--sml"
+                            label='BOOKLET.EDIT.BUTTON.INACTIVE'
+                            onClick={() => isActiveConfirm(false)}
+                        />
+                        <BaasicButton
+                            className="btn btn--base btn--ghost u-mar--bottom--sml"
+                            label='BOOKLET.EDIT.BUTTON.CLEAN_CERTIFICATE_STATUS'
+                            onClick={onSetCleanStatusClick}
+                        />
                     </div>
 
                     <table className="table w--100 card--primary">
