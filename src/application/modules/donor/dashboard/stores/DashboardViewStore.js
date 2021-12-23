@@ -84,8 +84,13 @@ class DashboardViewStore extends BaseViewStore {
         const data = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
         let initialValue = new Date().getMonth() > 0 && new Date().getMonth() < 11 ? 2 : (new Date().getMonth() == 11 ? (new Date().getFullYear()) : 30);
         let initialName = new Date().getMonth() > 0 && new Date().getMonth() < 11 ? 'Year To Date' : (new Date().getMonth() == 11 ? (new Date().getFullYear()).toString() : 'This Month');
+        let minYear = new Date().getFullYear();
+        
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
+            minYear = data.donationsPerYear.reduce(function(prev, curr) {
+                return prev.year < curr.year ? prev : curr;
+            });
             //{ name: 'Last Week', id: -7 }
             let donationsSorted = [];
             donationsSorted.push({ name: 'This Week', id: 7 }, { name: 'This Month', id: 30 }, { name: 'Last Month', id: -30 }, { name: 'Year To Date', id: 2 });
@@ -103,6 +108,8 @@ class DashboardViewStore extends BaseViewStore {
         this.yearDropdownStore.setValue({ name: (new Date().getFullYear()).toString(), id: new Date().getFullYear() });
         this.donor = data;
         this.yearDropdownStore.setValue({ name: 'Year To Date', id: 2 });
+        localStorage.setItem('minYear', minYear.year);
+
     }
 
     createYearDropdownStore() {

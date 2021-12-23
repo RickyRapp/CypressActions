@@ -23,11 +23,16 @@ class StatementsReportsViewStore extends BaseListViewStore {
                 }
             }
         });
+        this.createYearDropdownStore();
             
 
         this.donorId = rootStore.userStore.applicationUser.id;
         
         
+    }
+
+    createYearDropdownStore() {
+        this.yearDropdownStore = new BaasicDropdownStore();
     }
 
     @action.bound
@@ -37,8 +42,13 @@ class StatementsReportsViewStore extends BaseListViewStore {
         }
         else {
             this.loaderStore.resume();
+            const minYear = parseInt(localStorage.getItem('minYear'));
+            let years = [];
+            for (let yr = minYear; yr <= new Date().getFullYear(); yr++) {
+                years.push(yr.toString());
+            }
+            this.yearDropdownStore.setItems(years);
         }
-        console.log(this);
     }
     
 
