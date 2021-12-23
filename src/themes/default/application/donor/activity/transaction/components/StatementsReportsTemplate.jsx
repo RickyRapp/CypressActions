@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicTable, DateRangeQueryPicker, BaasicDropdown, TableFilter, BaasicTableWithRowDetails, FormatterResolver, BaasicButton } from 'core/components';
 
 function StatementsReportsTemplate({ statementsReportsViewStore, hideSearch, hidePager, hidePeriod, noBackground }) {
-	const { tableStore, dateCreatedDateRangeQueryStore, transactionTypeStore, transactionPeriod, queryUtility } = statementsReportsViewStore;
+	const { tableStore, dateCreatedDateRangeQueryStore, transactionTypeStore, transactionPeriod, queryUtility, yearDropdownStore } = statementsReportsViewStore;
 
 	
 	return (
@@ -50,6 +50,7 @@ function StatementsReportsTemplate({ statementsReportsViewStore, hideSearch, hid
 					}
 				</div> */}
 				<div className="card--primary">
+				<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
 					<h3>Annual receipts</h3>
 					<br />
 					<BaasicButton
