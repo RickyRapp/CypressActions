@@ -4,6 +4,7 @@ import { addressFormatter, applicationContext, donorFormatter } from 'core/utils
 import { GrantEditForm } from 'application/common/grant/forms';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
+import _ from 'lodash';
 
 @applicationContext
 class GrantCreateViewStore extends BaseEditViewStore {
@@ -14,6 +15,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	applicationDefaultSetting = {};
 	grantAcknowledgmentTypes = [];
 	grantPurposeTypes = [];
+	@observable asyncPlaceholder = '';
+	@observable isAdvancedInput = false;
+	debouncedSearchCharities =  _.debounce(this.filterCharities, 500);
+	@observable charity = null;
 
 	constructor(rootStore, { grantStore }) {
 		super(rootStore, {
@@ -85,6 +90,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				name: charityFormatter.format(this.item.charity, { value: 'charity-name-display' }),
 				item: this.item.charity,
 			});
+			this.asyncPlaceholder = charityFormatter.format(this.item.charity, { value: 'charity-name-display' });
+			this.isAdvancedInput = true;
+			
 			this.setGrantAcknowledgmentName(this.form.$('grantAcknowledgmentTypeId').value);
 			this.setPreviousGrantTable(this.item.charityId);
 			this.setSimilarGrantTable(this.item.grantPurposeTypeId);
@@ -131,6 +139,56 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.form.$('zipCode').set(field.value);
 			});
 		}
+	}
+
+	@action.bound
+	async filterCharities(inputValue, resolve ) {
+		const data = await this.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses', 'charityBankAccounts'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
+		});
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+		this.filteredCharities = options;
+		return resolve(options);
+	};
+
+	@action.bound
+	setCharityId(id) {
+		
+		this.isAdvancedInput = false;
+		this.form.$('charityId').set(id);
+		const charity = this.filteredCharities.find(x => x.value === id);
+		this.charity = charity;
+		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
+
+		if(charity && charity.item) {
+			this.charityDropdownStore.setValue({
+				id: charity.value,
+				name: charity.label,
+				item: charity.item,
+			});
+		}
+		
+		if(charity && charity.item && charity.item.charityAddresses) {
+			this.setAddress(charity && charity.item && charity.item.charityAddresses.find(c => c.isPrimary));
+		} else {
+			this.setAddress(charity && charity.item);
+		}
+		this.setSimilarGrantTable(this.charity.item.charityTypeId);
 	}
 
 	@action.bound

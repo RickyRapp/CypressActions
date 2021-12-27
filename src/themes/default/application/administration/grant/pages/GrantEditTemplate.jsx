@@ -18,6 +18,7 @@ import { addressFormatter, charityFormatter } from 'core/utils';
 import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
 import { CharityAdvancedSearch } from 'application/administration/charity/components';
 import logo from 'themes/assets/img/logo.svg';
+import AsyncSelect from 'react-select/async';
 
 const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 	const {
@@ -37,8 +38,17 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 		grantAcknowledgmentName,
 		isChangedDefaultAddress,
 		onChangeDefaultAddressClick,
-		grantPurposeTypes
+		grantPurposeTypes,
+		asyncPlaceholder,
+		setCharityId,
+		isAdvancedInput,
+		debouncedSearchCharities
 	} = grantEditViewStore;
+
+	let promiseOptions = (inputValue) =>
+	new Promise(resolve => {
+			inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+	});
 
 	return (
 		<React.Fragment>
@@ -50,11 +60,12 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 								<h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.FROM_TITLE')}</h3>
 								<div className="row row--form">
 									<div className="form__group col col-sml-12">
-										<BaasicFieldDropdown
+										{/* <BaasicFieldDropdown
 											field={form.$('charityId')}
 											store={charityDropdownStore}
 											additionalLabel="My Favorite Charities"
-										/>
+										/> */}
+                                        <AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax Id...'} value={asyncPlaceholder} />
 									</div>
 								</div>
 								<div className="row row--form row__align--center">
@@ -273,7 +284,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 														<strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
 														<p>
 															{addressFormatter.format(
-																charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true),
+																charityDropdownStore.value.item && charityDropdownStore.value.item.charityAddresses ? charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true) : charityDropdownStore.value.item,
 																'full'
 															)}
 														</p>
