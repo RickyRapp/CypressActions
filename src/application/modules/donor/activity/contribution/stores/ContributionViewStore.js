@@ -14,6 +14,21 @@ class ContributionViewStore extends BaseListViewStore {
 	@observable depositTab = 0;
 	contributionStatuses = [];
 
+	thirdPartyFunds = [
+		{ id: '1', name: 'Fidelity Charitable' },
+		{ id: '2', name: 'Schwab Charitable' },
+		{ id: '3', name: 'JP Morgan Charitable Giving Fund' },
+		{ id: '4', name: 'Vanguard Charitable Endowment Fund' },
+		{ id: '5', name: 'Jewish Communal Fund' },
+		{ id: '6', name: 'Goldman Sachs Philanthropy Fund' },
+		{ id: '7', name: 'Greater Kansas City Community Foundation' },
+		{ id: '8', name: 'The OJC Fund' },
+		{ id: '9', name: 'Renaissance Charitable' },
+		{ id: '10', name: 'National Philanthropic Trust' },
+		{ id: '11', name: 'Jewish Federation of Metropolitan Chicago' },
+		{ id: '12', name: 'Other' },
+	];
+
 	constructor(rootStore) {
 		super(rootStore, {
 			name: 'contribution',
