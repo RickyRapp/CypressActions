@@ -23,20 +23,20 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
                 <div className="container--base">
                     <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row row--form u-mar--bottom--lrg">
-                            <div className="col col-sml-12 col-xxlrg-6">
+                            <div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
                                 <div className="form__group__label">Donor</div>
                                 <span className="input input--text input--lrg padd--top--tny input--disabled">
                                     {order && <React.Fragment>{order.donor.donorName}</React.Fragment>}
                                 </span>
                             </div>
-                            <div className="col col-sml-12 col-xxlrg-6">
+                            <div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
                                 <div className="form__group__label">Delivery Method</div>
                                 <span className="input input--text input--lrg padd--top--tny input--disabled">
                                     {order && <React.Fragment>{order.deliveryMethodType.name}</React.Fragment>}
                                 </span>
                             </div>
                             {order && (order.deliveryMethodType.abrv === 'mail-usps' || order.deliveryMethodType.abrv === 'express-mail') &&
-                                <div className="col col-sml-12 col-xxlrg-2">
+                                <div className="col col-sml-12 col-xxlrg-6">
                                     <BasicInput field={form.$('trackingNumber')} />
                                 </div>}
                         </div>
