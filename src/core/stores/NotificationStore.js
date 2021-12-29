@@ -23,6 +23,15 @@ class NotificationStore {
         });
     }
 
+    alertCenter(message) {
+        return showToast(localizationService.t(message), {
+            className: 'red-background',
+            bodyClassName: 'grow-font-size',
+            progressClassName: 'fancy-progress-bar',
+            position: 'top-center'
+        });
+    }
+
     error(message, data = null, messageAfter = null) {
         if (data) {
             const { headers, config, statusCode, statusText } = data;

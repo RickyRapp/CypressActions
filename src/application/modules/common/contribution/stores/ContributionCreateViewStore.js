@@ -11,6 +11,7 @@ import _ from 'lodash';
 class ContributionCreateViewStore extends BaseEditViewStore {
 	@observable paymentTypes = [];
 	@observable selectedType = null;
+	@observable selectedAbrv = '';
 	@observable step = 2;
 	@observable isThirdPartyFundingAvailable = false;
 	@observable clipboardText = '1';
@@ -224,6 +225,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		const paymentType = this.paymentTypes.find(c => c.id === id);
 		if (paymentType) {
 			this.selectedType = JSON.parse(paymentType.json);
+			this.selectedAbrv = paymentType.abrv;
 			this.form.$('bankAccountId').setRequired(false);
 			this.form.$('checkNumber').setRequired(false);
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
@@ -240,7 +242,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			}
 			if (paymentType.abrv === 'ach') {
 				this.form.$('bankAccountId').setRequired(true);
-				this.form.$('amount').set('rules', 'required|numeric|min:250');
+				this.form.$('amount').set('rules', 'required|numeric|min:250|max:25000');
 				this.isThirdPartyFundingAvailable = false;
 			} else if (paymentType.abrv === 'wire-transfer') {
 				this.isThirdPartyFundingAvailable = true;
@@ -271,6 +273,10 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');
 		const json = JSON.parse(paymentType.json);
 		this.form.$('amount').set('rules', `required|numeric|min:${json ? json.minimumDeposit : 0}`);
+		if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) 
+			this.form.$('amount').set('rules', 'required|numeric|min:0');
+		else if(paymentType.abrv == 'ach')
+			this.form.$('amount').set('rules', 'required|numeric|min:250|max:25000');
 		this.nextStep(2);
 	}
 
@@ -343,6 +349,13 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			}
 		});
 	}
+
+	@action.bound
+    validateMax() {
+        if(this.selectedAbrv == 'ach' && this.form.$('amount').value > 25000) {
+            this.rootStore.notificationStore.alertCenter('ACH deposits are temporarily capped at $25,000. For larger deposits, please use alternative deposit methods.');
+        }
+    }
 
 	async initializePaymentType() {
 		const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
