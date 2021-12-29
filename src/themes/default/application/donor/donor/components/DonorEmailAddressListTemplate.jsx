@@ -83,17 +83,22 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
 									isAssignableAsPrimary={true}
 								/>
 							) : (
-								<span
-									className="cursor--pointer type--color--opaque type--sml"
-									title={`Click to ${secondaryEmailAddress ? 'edit' : 'insert'}`}
-									onClick={() => onEnableEditClick(secondaryEmailAddress)}
-								>
-									{secondaryEmailAddress ? (
-										<EmailAddress value={secondaryEmailAddress} format="full" />
-									) : (
-										<button className="btn btn--link btn--sml">Add new email address</button>
-									)}
-								</span>
+								<React.Fragment>
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+										Secondary Email Address
+									</p>
+									<span
+										className="cursor--pointer type--base type--wgt--bold"
+										title={`Click to ${secondaryEmailAddress ? 'edit' : 'insert'}`}
+										onClick={() => onEnableEditClick(secondaryEmailAddress)}
+									>
+										{secondaryEmailAddress ? (
+											<EmailAddress value={secondaryEmailAddress} format="full" />
+										) : (
+											<button className="btn btn--link btn--sml">Add new email address</button>
+										)}
+									</span>
+								</React.Fragment>
 							)}
 						</div>
 					</div>
