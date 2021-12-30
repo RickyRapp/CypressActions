@@ -721,6 +721,31 @@ class GrantCreateViewStore extends BaseEditViewStore {
     };
 
 	@action.bound
+	async filterGrantAgainCharities(inputValue) {
+		const data = await this.grantStore.searchCharity({
+			pageNumber: 1,
+			pageSize: 10,
+			search: inputValue,
+			sort: 'name|asc',
+			embed: ['charityAddresses', 'charityBankAccounts'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
+		});
+		const mapped = data.item.map(x => {
+			return {
+				id: x.id,
+				name: charityFormatter.format(x, { value: 'charity-name-display' }),
+				item: x,
+			};
+		});
+		let options = [];
+		mapped.forEach(item => {
+			options.push({value: item.id, label:item.name, item: item.item});
+		});
+		this.filteredCharities = options;
+		return options;
+	};
+
+	@action.bound
 	async charityLoadOptions(inputValue) {
 		await this.filterCharities(inputValue);
 	};
