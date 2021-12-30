@@ -25,6 +25,7 @@ const ContributionCreateTemplate = function ({ store }) {
 		onAddBankAccountClick,
 		bankAccountNumberModal,
 		onShowBankAccountNumberClick,
+		validateMax,
 		...otherProps
 	} = store;
 
@@ -49,6 +50,7 @@ const ContributionCreateTemplate = function ({ store }) {
 					onSubmitClick={onSubmitClick}
 					nextStep={nextStep}
 					step={step}
+					validateMax={validateMax}
 					onSelectPaymentType={onSelectPaymentType}
 					onAddBankAccountClick={onAddBankAccountClick}
 					onShowBankAccountNumberClick={onShowBankAccountNumberClick}

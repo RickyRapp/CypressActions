@@ -103,11 +103,13 @@
         "IN": "The selected [:attribute] is invalid.",
         "INTEGER": "The [:attribute] must be an integer.",
         "MAX": {
-            "NUMERIC": "The [:attribute] may not be greater than [:max].",
+            "NUMERIC": "The [:attribute] may not be greater than $[:max].",
+            "INTEGER": "The [:attribute] may not be greater than [:max].",
             "STRING": "The [:attribute] may not be greater than [:max] characters."
         },
         "MIN": {
             "NUMERIC": "The [:attribute] must be at least $[:min].",
+            "INTEGER": "The [:attribute] must be at least [:min].",
             "STRING": "The [:attribute] must be at least [:min] characters."
         },
         "NOT_IN": "The selected [:attribute] is invalid.",

@@ -13,7 +13,7 @@ export default class ContributionCreateForm extends FormBase {
 					name: 'amount',
 					label: 'CONTRIBUTION.CREATE.FIELDS.AMOUNT_LABEL',
 					placeholder: 'CONTRIBUTION.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
-					rules: 'required|numeric|min:0',
+					rules: 'required|numeric|min:250',
 					extra: {
 						type: 'c2',
 					},
