@@ -107,7 +107,7 @@
             "STRING": "The [:attribute] may not be greater than [:max] characters."
         },
         "MIN": {
-            "NUMERIC": "The [:attribute] must be at least [:min].",
+            "NUMERIC": "The [:attribute] must be at least $[:min].",
             "STRING": "The [:attribute] must be at least [:min] characters."
         },
         "NOT_IN": "The selected [:attribute] is invalid.",
