@@ -5,7 +5,7 @@ import { BaasicButtonTemplate } from 'themes/components';
 
 class BaasicButton extends Component {
     render() {
-        const { type, onClick, disabled, content, className, classNameExtend, onlyIconClassName, label, icon, rotate, onlyIcon, authorization } = this.props;
+        const { type, onClick, disabled, content, className, classNameExtend, onlyIconClassName, label, icon, rotate, onlyIcon, authorization, message } = this.props;
 
         return (
             <BaasicButtonTemplate
@@ -21,6 +21,7 @@ class BaasicButton extends Component {
                 icon={icon}
                 onlyIcon={onlyIcon}
                 authorization={authorization}
+                message={message}
             />
         );
     }
@@ -36,6 +37,7 @@ BaasicButton.propTypes = {
     onlyIconClassName: PropTypes.string,
     label: PropTypes.string,
     icon: PropTypes.string,
+    message: PropTypes.string,
     rotate: PropTypes.bool,
     onlyIcon: PropTypes.bool,
     authorization: PropTypes.any

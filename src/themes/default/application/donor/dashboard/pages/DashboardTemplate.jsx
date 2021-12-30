@@ -272,11 +272,11 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								<div className="col col-sml-12 col-med-6">
 									<div className="u-mar--bottom--sml w--100--to-med u-position--rel">
 										<BaasicButton
-											className="btn btn--med btn--100 btn--primary--light"
+											className="btn btn--med btn--100 btn--primary--light u-display--flex--column"
 											label="DASHBOARD.BUTTON.INVEST_FUNDS"
 											disabled={true}
+											message={"Coming Soon"}
 										/>
-										<div className="message--soon">Coming Soon</div>
 									</div>
 								</div>
 							</div>

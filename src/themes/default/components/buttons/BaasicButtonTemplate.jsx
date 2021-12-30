@@ -21,6 +21,7 @@ function DefaultContent({
     disabled = false,
     content = null,
     type = 'button',
+    message,
     className,
     onlyIconClassName,
     onAction,
@@ -36,6 +37,9 @@ function DefaultContent({
                 <React.Fragment>
                     {!onlyIcon && t(label)}
                     {onlyIcon ? <i className={`${iconName(icon)} ${onlyIconClassName ? onlyIconClassName : ""}`} /> : icon ? <i className={`${iconName(icon)} u-mar--left--sml`} /> : null}
+                    {message &&
+                        <div className="message--soon">{message}</div>
+                    }
                 </React.Fragment>
             )}
         </button>
@@ -47,6 +51,7 @@ DefaultContent.propTypes = {
     disabled: PropTypes.bool,
     content: PropTypes.any,
     type: PropTypes.string,
+    message: PropTypes.string,
     className: PropTypes.string,
     onlyIconClassName: PropTypes.string,
     onAction: PropTypes.func,
