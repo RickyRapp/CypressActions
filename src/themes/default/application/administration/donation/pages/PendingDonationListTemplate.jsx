@@ -8,10 +8,12 @@ import {
     BasicCheckbox,
     FormatterResolver,
     BaasicFormControls,
-    DatePickerField
+    DatePickerField,
+    BaasicButton
 } from 'core/components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
+import _ from 'lodash';
 
 const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
     const {
@@ -21,7 +23,8 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
         paymentTypeDropdownStore,
         achBatchCurrentNumber,
         form,
-        onAchNextPaymentNumberClick
+        onAchNextPaymentNumberClick,
+        getpendingdonations
     } = pendingDonationViewStore;
 
     const DetailComponent = ({ dataItem }) => {
@@ -64,8 +67,9 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
     DetailComponent.propTypes = {
         dataItem: PropTypes.object.isRequired
     };
+    
+        const selectedGrants = 0;
 
-    const selectedGrants = tableStore.data.filter(c => c.pendingDonations.filter(d => d.checked).length > 0).length;
 
     return (
         <ApplicationListLayout store={pendingDonationViewStore} authorization={authorization}>
@@ -92,6 +96,13 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
 
                     <div className="col col-sml-6 col-lrg-3">
                         <DatePickerField field={form.$('paymentDate')} />
+                    </div>
+                    <div className="col col-sml-6 col-lrg-3">
+                    <BaasicButton
+					
+						label={'LIST_LAYOUT.CREATE_BUTTON'}
+						onClick={getpendingdonations}
+					/>
                     </div>
 
                 </div>

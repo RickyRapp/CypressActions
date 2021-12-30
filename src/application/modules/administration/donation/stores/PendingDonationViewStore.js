@@ -37,14 +37,15 @@ class PendingDonationViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        params.embed = ['charity'];
-
                         this.data = await rootStore.application.administration.donationStore.findPendingDonation(params);
                         this.achBatchCurrentNumber = await rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
                         return {
                             item: this.data,
                             totalRecords: this.data.length
                         };
+                    },
+                    getPendingDonations: async (param) => {
+                        
                     }
                 }
             }
@@ -96,32 +97,18 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     @action.bound
     async onReviewClick(model) {
-        try {
-            this.tableStore.suspend();
-            const checkedGroupedDonations = this.tableStore.data.filter(d => {
-                d.pendingDonations = d.pendingDonations.filter(c => c.checked);
-                return d.pendingDonations.length > 0;
-            });
-            const groupedDonations = checkedGroupedDonations.map(d => { return { ...d, pendingDonations: d.pendingDonations.filter(c => { return c.checked }) } });
+        console.log("Review clicked");
+        this.data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId('0ec32ec7-4bc5-4872-8ce6-acd20080a38f');
+        console.log(this.data);
+      
+    }
 
-            if (groupedDonations.length === 0 || groupedDonations.some(c => c.pendingDonations === null || c.pendingDonations === null || c.pendingDonations.length === 0)) {
-                this.tableStore.resume();
-                this.rootStore.notificationStore.warning('Please, check if you selected grants/donations to process.');
-                return;
-            }
-            model.groupedPendingDonations = groupedDonations;
-            const data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(model);
-            this.rootStore.notificationStore.success("Successfully processed.");
-            this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
-            await this.downloadReport(data.response, this.paymentTypeDropdownStore.value.id);
-            this.paymentTypeDropdownStore.setValue(null);
-            await this.queryUtility.fetch();
-            this.form.clear();
-            this.tableStore.resume();
-        } catch (error) {
-            this.tableStore.resume();
-            this.rootStore.notificationStore.error("Something went wrong.");
-        }
+    @action.bound
+    async getpendingdonations() {
+        console.log("Revgertiew clicked");
+        this.data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId('0ec32ec7-4bc5-4872-8ce6-acd20080a38f');
+        console.log(this.data);
+      
     }
 
     async downloadReport(ids, paymentTypeId) {
@@ -172,13 +159,13 @@ class PendingDonationViewStore extends BaseListViewStore {
                             type: 'function',
                             value: (item) => {
                                 return <div>
-                                    {item.charityName} <small style={{ display: "block" }}>{item.id.item2}</small>
+                                    {item.name} <small style={{ display: "block" }}>{item.charityAddress}</small>
                                 </div>
                             }
                         },
                     },
                     {
-                        key: 'isAchAvailable',
+                        key: 'isACHAvailable',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.ACH_AVAILABLE_LABEL',
                         format: {
                             type: 'boolean',
@@ -186,7 +173,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                         },
                     },
                     {
-                        key: 'totalAmount',
+                        key: 'amount',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.AMOUNT_LABEL',
                         format: {
                             type: 'currency',
@@ -194,23 +181,23 @@ class PendingDonationViewStore extends BaseListViewStore {
                         },
                     },
                     {
-                        key: 'online',
+                        key: 'onlineCount',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.ONLINE_LABEL'
                     },
                     {
-                        key: 'charityWebsite',
+                        key: 'charityWebsiteCount',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.CHARITY_WEBSITE_LABEL'
                     },
                     {
-                        key: 'grantRequest',
+                        key: 'grantRequestCount',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.GRANT_REQUEST_LABEL'
                     },
                     {
-                        key: 'givingCard',
+                        key: 'givingCardCount',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.GIVING_CARD_LABEL'
                     },
                     {
-                        key: 'session',
+                        key: 'sessionCount',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.SESSION_LABEL'
                     },
                 ],
