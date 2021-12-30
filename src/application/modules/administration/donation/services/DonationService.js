@@ -27,8 +27,14 @@ class DonationService extends BaseService {
         return this.apiClient.get(url);
     }
 
-    findPastGrant(params) {
-        const url = this.routeService.findPastGrant(params);
+    findPastGrant(id) {
+        const url = this.routeService.findPastGrant(id);
+        return this.apiClient.get(url);
+    }
+
+    getPendingDonationsByCharityId(id) {
+        console.log("sdasdasd");
+        const url = this.routeService.getPendingDonationsByCharityId(id);
         return this.apiClient.get(url);
     }
 

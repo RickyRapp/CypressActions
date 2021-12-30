@@ -28,6 +28,10 @@ class DonationRouteService extends BaseRouteService {
     withdrawFundCharity(resource) {
         return super.update(this.base + '/withdraw-funds/{id}', resource);
     }
+
+    getPendingDonationsByCharityId(id) {
+        return super.get(this.base + '/pending-donations/{id}', id);
+    }
 }
 
 export default DonationRouteService;
