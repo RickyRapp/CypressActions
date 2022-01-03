@@ -4,6 +4,8 @@ import { addressFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/ut
 import { defaultTemplate } from 'core/hoc';
 
 const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultAddressClick, isChangedDefaultAddress, grantRequestId }) {
+    const taxId = `${charity.taxId.slice(0, 2)}-${charity.taxId.slice(2)}`;
+
     return (
         <React.Fragment>
             <h3 className="">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
@@ -17,7 +19,7 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
                 <div className="col col-sml-12 u-mar--bottom--sml">
                     <div className="charity-information__card ">
                         <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
-                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.taxId}</span>
+                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{taxId}</span>
                     </div>
                 </div>
                 <div className="col col-sml-12 u-mar--bottom--sml">
