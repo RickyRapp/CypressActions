@@ -90,7 +90,8 @@
 		}
 
 		&__divider {
-			min-width: calc($unit * 6);
+			min-width: $unit;
+			/* min-width: calc($unit * 6); */
 			flex-grow: 2;
 			margin: 0 6px 3px 6px;
 
