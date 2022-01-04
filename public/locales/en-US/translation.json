@@ -1036,7 +1036,7 @@
             "TITLE": "Charities",
             "COLUMNS": {
                 "NAME_LABEL": "Name",
-                "TAX_ID_LABEL": "Tax id",
+                "TAX_ID_LABEL": "Tax ID",
                 "DATE_CREATED_LABEL": "Date created",
                 "BALANCE_LABEL": "Balance",
                 "ADDRESS_LABEL": "Address"
@@ -1045,7 +1045,7 @@
                 "NAME_PLACEHOLDER": "Name",
                 "EMAILS_PLACEHOLDER": "Emails",
                 "ADDRESS_PLACEHOLDER": "Address",
-                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "TAX_ID_PLACEHOLDER": "Tax ID",
                 "CHARITY_TYPE_PLACEHOLDER": "Charity type",
                 "DBA_PLACEHOLDER": "DBA"
             },
@@ -1074,8 +1074,8 @@
                 "NAME_PLACEHOLDER": "Name",
                 "CHARITY_ACCOUNT_LABEL": "Account",
                 "CHARITY_ACCOUNT_PLACEHOLDER": "Account",
-                "TAX_ID_LABEL": "Tax Id",
-                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "TAX_ID_LABEL": "Tax ID",
+                "TAX_ID_PLACEHOLDER": "Tax ID",
                 "DBA_LABEL": "DBA",
                 "DBA_PLACEHOLDER": "DBA",
                 "CHARITY_TYPE_LABEL": "Category",
@@ -1143,8 +1143,8 @@
                 "BALANCE_LABEL": "Balance",
                 "NAME_LABEL": "Name",
                 "NAME_PLACEHOLDER": "Name",
-                "TAX_ID_LABEL": "Tax Id",
-                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "TAX_ID_LABEL": "Tax ID",
+                "TAX_ID_PLACEHOLDER": "Tax ID",
                 "DBA_LABEL": "DBA",
                 "DBA_PLACEHOLDER": "DBA",
                 "CHARITY_TYPE_LABEL": "Type",
@@ -2297,7 +2297,7 @@
                     "CHARITY_NAME_LABEL": "Charity name",
                     "CHARITY_EMAIL_LABEL": "Charity email",
                     "IS_ACTIVE_LABEL": "Is active",
-                    "TAX_ID_LABEL": "Tax Id",
+                    "TAX_ID_LABEL": "Tax ID",
                     "SESSION_CERTIFICATES_LABEL": "Certificates"
                 },
                 "BUTTON": {
@@ -2420,8 +2420,8 @@
                 "EMAIL_PLACEHOLDER": "Email",
                 "CHARITY_NAME_LABEL": "Charity name",
                 "CHARITY_NAME_PLACEHOLDER": "Charity name",
-                "TAX_ID_LABEL": "Tax Id",
-                "TAX_ID_PLACEHOLDER": "Tax Id",
+                "TAX_ID_LABEL": "Tax ID",
+                "TAX_ID_PLACEHOLDER": "Tax ID",
                 "CHARITY_EMAIL_LABEL": "Charity email",
                 "CHARITY_EMAIL_PLACEHOLDER": "Charity email",
                 "DESCRIPTION_LABEL": "Description",
@@ -2843,7 +2843,7 @@
         },
         "API_TESTING": {
             "FIELDS": {
-                "TAXID": "Tax Id",
+                "TAXID": "Tax ID",
                 "GRANT_SCHEDULE_TYPE": "Grant Schedule Type",
                 "START_FUTURE_DATE": "Start Future Date",
                 "DONOR": "Donor",

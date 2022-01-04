@@ -48,7 +48,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                 <div className="flex flex--primary w--100">
                                     <div className="form__group">
                                         <div>
-                                            <label className="form__group__label">Tax Id</label>
+                                            <label className="form__group__label">Tax ID</label>
                                             {item &&
                                                 <h2><NumberFormat format="##-#######" displayType="text" value={item.taxId} /></h2>
                                             }
