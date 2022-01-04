@@ -109,7 +109,6 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                         type="button"
                                         className="btn btn--med btn--med--wide btn--secondary"
                                         onClick={onSubmitClick}
-                                        icon={form.validating ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : ''}
                                         form={form} onSubmit={onSubmitClick}
                                         label="DONOR-DONOR.CREATE.BUTTON.CREATE" />
                                 </div>

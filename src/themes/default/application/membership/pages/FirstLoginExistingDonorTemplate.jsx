@@ -76,7 +76,6 @@ function FirstLoginExistingDonorTemplate({ currentView, t }) {
 							onlyIconClassName="u-mar--right--sml"
 							type="submit"
 							disabled={form.submitting}
-							icon={form.submitting || form.validating ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : ''}
 							label={t('FIRST_LOGIN_EXISTING_DONOR.SIGNIN_BUTTON')}
 						/>
 					</div>
