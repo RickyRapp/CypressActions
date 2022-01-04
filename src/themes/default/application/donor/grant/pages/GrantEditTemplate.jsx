@@ -69,7 +69,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                             store={charityDropdownStore}
                                             additionalLabel='My Favorite Charities'
                                         /> */}
-                                        <AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID...'} value={asyncPlaceholder} />
+                                        <AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID'} value={asyncPlaceholder} />
                                     </div>
                                 </div>
                                 <div className="row row--form">

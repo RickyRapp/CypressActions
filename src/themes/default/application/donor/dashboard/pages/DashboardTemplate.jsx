@@ -305,9 +305,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 								<p className="dashboard-card__giving-goal__label">Giving goal:</p>
 								<div className="dashboard-card__giving-goal--range">
 									<div
-										style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : (oneTimeToGive + yearlyGoalAmount)>0 && grantsThisYear > 0 ? 100 : 0}%` }}
-										className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
-										{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. <a onClick={() => noGivingGoals()}>Set up your giving goal?</a></span> : (oneTimeToGive + yearlyGoalAmount)>0 && grantsThisYear > 0 ? (100).toFixed(2) + '%' : 0 + '%')}
+										style={{ 'width': `${false && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : (oneTimeToGive + yearlyGoalAmount)>0 && grantsThisYear > 0 ? 100 : 0}%` }}
+										className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || true ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
+										{false ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : (true ? <span>No goals entered. {window.innerWidth > 750 && <a onClick={() => noGivingGoals()}>Set up your giving goal?</a>}</span> : (oneTimeToGive + yearlyGoalAmount)>0 && grantsThisYear > 0 ? (100).toFixed(2) + '%' : 0 + '%')}
 									</div>
 									<p className="dashboard-card__giving-goal__income">
 										<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
