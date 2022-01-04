@@ -16,11 +16,6 @@ function LanguageEditLayoutTemplate({ store, form, loaderStore, t, routeBack }) 
                         className='btn btn--med btn--tertiary spc--right--sml display--ib'
                         onClick={e => store.onSuccess(e)}
                         rotate
-                        icon={
-                            form.submitting || form.validating
-                                ? 'u-icon u-icon--med u-icon--sync u-rotate--login'
-                                : ''
-                        }
                         label={t('FORM_CONTROLS.SAVE_BUTTON')}
                     />
                     <BaasicButton className='btn btn--med btn--med--wide btn--ghost display-ib' label={t('EDIT_FORM_LAYOUT.CANCEL')} onClick={back} />
