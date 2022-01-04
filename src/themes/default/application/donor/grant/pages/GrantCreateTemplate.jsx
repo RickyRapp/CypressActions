@@ -96,7 +96,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												</div>
 												:
 												// onKeyDown={() => countdown()}
-												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax Id...'} value={asyncPlaceholder}/>
+												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID...'} value={asyncPlaceholder}/>
 										}
 
 									</div>
