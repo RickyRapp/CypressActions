@@ -71,6 +71,10 @@ class ContributionViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
+						if(params.dateCreatedFrom)
+                            params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
+                        if(params.dateCreatedTo)
+                            params.dateCreatedTo = `${params.dateCreatedTo} 23:59:59`;
 						params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus', 'bankAccount.accountHolder'];
 						this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
 								donorId: this.donorId,

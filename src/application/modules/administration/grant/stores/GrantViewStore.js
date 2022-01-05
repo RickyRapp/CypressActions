@@ -72,6 +72,10 @@ class GrantViewStore extends BaseListViewStore {
                             'scheduledGrantPayment',
                             'declinationTypeId'
                         ];
+                        if(params.dateCreatedFrom)
+                            params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
+                        if(params.dateCreatedTo)
+                            params.dateCreatedTo = `${params.dateCreatedTo} 23:59:59`;
                         return this.rootStore.application.administration.grantStore.findGrant(params);
                     }
                 }
