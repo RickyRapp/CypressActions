@@ -33,6 +33,10 @@ class BookletOrderViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
+                        if(params.dateCreatedFrom)
+                            params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
+                        if(params.dateCreatedTo)
+                            params.dateCreatedTo = `${params.dateCreatedTo} 23:59:59`;
                         params.embed = [
                             'donor',
                             'bookletOrderStatus'
