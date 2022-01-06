@@ -210,7 +210,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
                                 <div className="row row--form">
-                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                                    <div className="col col-sml-12 col-xxxlrg-6 u-mar--bottom--med">
                                         <div className="card--secondary card--med type--center">
                                             <div className="type--xxlrg type--wgt--medium type--color--text">
                                                 {donor && <FormatterResolver
@@ -222,7 +222,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                             <p className="type--xsml type--wgt--medium type--color--text">{t('GRANT.CREATE.CURRENT_BALANCE')}</p>
                                         </div>
                                     </div>
-                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                                    <div className="col col-sml-12 col-xxxlrg-6 u-mar--bottom--med">
                                         <div className="card--secondary--light card--med type--center">
                                             <div className="type--xxlrg type--wgt--medium type--color--note">
                                                 {donor && <FormatterResolver

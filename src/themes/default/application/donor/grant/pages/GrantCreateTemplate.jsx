@@ -103,10 +103,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
 									<div className="row row--form u-mar--bottom--med row__align--center">
-										<div className="col col-sml-12 col-lrg-6">
+										<div className="col col-sml-12 col-lrg-6 col-xxlrg-7">
 											<BaasicFieldToggle field={form.$('isNewCharity')} showLabel={true} wrapperClassName={"u-display--flex u-display--none--med"} />
 										</div>
-										<div className="col col-sml-12 col-lrg-6 ">
+										<div className="col col-sml-12 col-lrg-6 col-xxlrg-5 ">
 											<div className="u-push--from--med">
 												<BaasicButton
 													className="advanced-search"
@@ -209,10 +209,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								)}
 
 								<div className="row row--form">
-									<div className="form__group col col-sml-12 col-lrg-6">
+									<div className="form__group col col-sml-12 col-xxxlrg-6">
 										<NumericInputField field={form.$('amount')} />
 									</div>
-									{window.innerWidth > 750 && <div className={`form__group col col-sml-12 col-lrg-6`}>
+									{window.innerWidth > 750 && <div className={`form__group col col-sml-12 col-xxxlrg-6`}>
 										<DatePickerField field={form.$('startFutureDate')} />
 									</div>}
 								</div>
@@ -317,7 +317,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 							<div className="card--primary card--med u-mar--bottom--med">
 								<h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
 								<div className="row row--form">
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+									<div className="col col-sml-12 col-xxxlrg-6 u-mar--bottom--med">
 										<div className="card--secondary card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--text">
 												{donor && (
@@ -333,7 +333,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											</p>
 										</div>
 									</div>
-									<div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+									<div className="col col-sml-12 col-xxxlrg-6 u-mar--bottom--med">
 										<div className="card--secondary--light card--med type--center">
 											<div className="type--xxlrg type--wgt--medium type--color--note">
 												{donor && (
