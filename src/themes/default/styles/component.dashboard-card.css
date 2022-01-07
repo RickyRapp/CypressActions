@@ -149,7 +149,8 @@
 
 		&--range {
 			position: relative;
-			height: 54px;
+			min-height: 54px;
+			height: 100%;
 			padding: $unit;
 
 			border-radius: $radius-full;
@@ -172,7 +173,7 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				padding: 0 calc($unit * 3);
+				padding: calc($unit / 2) calc($unit * 3);
 
 				border-top-left-radius: $radius-full;
 				border-bottom-left-radius: $radius-full;
