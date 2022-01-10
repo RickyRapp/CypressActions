@@ -273,7 +273,7 @@ class PastGrantViewStore extends BaseListViewStore {
 							format: {
 								type: 'function',
 								value: (item) => {
-									return this.getTransactionType(item);
+									return item.donationType.description;
 								}
 							},
 						},
@@ -305,7 +305,7 @@ class PastGrantViewStore extends BaseListViewStore {
 							format: {
 								type: 'function',
 								value: (item) => {
-									return this.getDescription(item);
+									return this.getTransactionType(item);
 								}
 							}
 						},
