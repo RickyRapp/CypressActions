@@ -7,7 +7,7 @@ import { ContributionConfirmTemplate } from 'themes/application/administration/c
 const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, step, form, bankAccountDropdownStore,
     onSelectPaymentType, t, nextStep, thirdPartyDonorAdvisedFundDropdownStore, securityTypeDropdownStore, brokerageInstitutionDropdownStore,
     collectibleTypeDropdownStore, propertyTypeDropdownStore, onAddBankAccountClick, businessTypeDropdownStore, onSubmitClick, confirmModal, routes,
-    previousContributionsTableStore, isThirdPartyFundingAvailable, onShowBankAccountNumberClick, selectedType, paymentTypeDropdownStore, validateMax }) {
+    previousContributionsTableStore, isThirdPartyFundingAvailable, onShowBankAccountNumberClick, selectedType, paymentTypeDropdownStore }) {
 
     const AddButton = () => (
         <BaasicButton
@@ -366,7 +366,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                     </React.Fragment>
                                 )}
                                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                    <NumericInputField field={form.$('amount')} onChange={() => validateMax()}/>
+                                    <NumericInputField field={form.$('amount')}/>
                                 </div>
                                 {isThirdPartyFundingAvailable && (
                                     <React.Fragment>
@@ -508,8 +508,7 @@ ContributionCreateStep2Template.propTypes = {
     onShowBankAccountNumberClick: PropTypes.func,
     onSelectPaymentTypeFromDropdown: PropTypes.func,
     paymentTypeDropdownStore: PropTypes.any,
-    selectedType: PropTypes.object,
-    validateMax: PropTypes.func
+    selectedType: PropTypes.object
 };
 
 export default defaultTemplate(ContributionCreateStep2Template);

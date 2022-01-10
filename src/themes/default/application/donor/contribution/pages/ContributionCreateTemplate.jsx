@@ -30,7 +30,6 @@ const ContributionCreateTemplate = function ({ store }) {
 		downloadZelleTxtFile,
 		downloadThirdPartyTxtFile,
 		downloadCheckTxtFile,
-		validateMax,
 		...otherProps
 	} = store;
 
@@ -55,7 +54,6 @@ const ContributionCreateTemplate = function ({ store }) {
 					onSubmitClick={onSubmitClick}
 					nextStep={nextStep}
 					step={step}
-					validateMax={validateMax}
 					onSelectPaymentType={onSelectPaymentType}
 					onAddBankAccountClick={onAddBankAccountClick}
 					{...otherProps}
