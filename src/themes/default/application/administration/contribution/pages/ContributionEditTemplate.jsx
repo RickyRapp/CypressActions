@@ -24,7 +24,6 @@ const ContributionEditTemplate = function ({ store }) {
 		onSubmitClick,
 		onAddBankAccountClick,
 		onShowBankAccountNumberClick,
-		validateMax,
 		...otherProps
 	} = store;
 
@@ -48,7 +47,6 @@ const ContributionEditTemplate = function ({ store }) {
 					onSubmitClick={onSubmitClick}
 					nextStep={nextStep}
 					step={step}
-					validateMax={validateMax}
 					onSelectPaymentType={onSelectPaymentType}
 					onAddBankAccountClick={onAddBankAccountClick}
 					onShowBankAccountNumberClick={onShowBankAccountNumberClick}
