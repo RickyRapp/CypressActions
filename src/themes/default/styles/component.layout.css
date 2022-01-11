@@ -153,7 +153,7 @@ $header-height-mobile: 72px;
                 padding: calc($unit * 3) calc($unit * 4);
             }
             
-            @media (--screen-from-xlrg) {
+            @media (--screen-from-xxlrg) {
                 padding: calc($unit * 3) calc($unit * 8);
                 padding-right: calc($unit * 4);
             }
