@@ -246,7 +246,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			}
 			if (paymentType.abrv === 'ach') {
 				this.form.$('bankAccountId').setRequired(true);
-				this.form.$('amount').set('rules', 'required|numeric|min:250|max:25000');
+				this.form.$('amount').set('rules', 'required|numeric|min:250');
 				this.isThirdPartyFundingAvailable = false;
 			} else if (paymentType.abrv === 'wire-transfer') {
 				this.isThirdPartyFundingAvailable = true;
@@ -282,7 +282,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) 
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
 		else if(paymentType.abrv == 'ach')
-			this.form.$('amount').set('rules', 'required|numeric|min:250|max:25000');
+			this.form.$('amount').set('rules', 'required|numeric|min:250');
 		this.nextStep(2);
 	}
 
@@ -355,14 +355,6 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			}
 		});
 	}
-
-	@action.bound
-    validateMax() {
-        if(this.selectedAbrv == 'ach' && this.form.$('amount').value > 25000) {
-            this.rootStore.notificationStore.alertCenter('ACH deposits are temporarily capped at $25,000. For larger deposits, please use alternative deposit methods.');
-        }
-    }
-
 	async initializePaymentType() {
 		const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
 		this.form.$('paymentTypeId').set(tempTypes[0].id);

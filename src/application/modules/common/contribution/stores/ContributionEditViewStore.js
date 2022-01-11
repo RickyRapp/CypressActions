@@ -108,13 +108,6 @@ class ContributionEditViewStore extends BaseEditViewStore {
 		}
 	}
 
-	@action.bound
-    validateMax() {
-        if(this.selectedAbrv == 'ach' && this.form.$('amount').value > 25000) {
-            this.rootStore.notificationStore.alertCenter('ACH deposits are temporarily capped at $25,000. For larger deposits, please use alternative deposit methods.');
-        }
-    }
-
 	async loadDonor(donorId) {
 		this.donor = await this.contributionStore.getDonorInformation(donorId);
 	}
