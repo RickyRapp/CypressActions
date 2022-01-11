@@ -63,6 +63,7 @@
 
 	&__list {
 		display: flex;
+		align-items: flex-end;
 		padding-bottom: calc($unit * 2);
 		margin-bottom: calc($unit * 2);
 		border-bottom: 1px dotted $color-text;
