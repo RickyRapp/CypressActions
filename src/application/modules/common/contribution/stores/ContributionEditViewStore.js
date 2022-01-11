@@ -10,6 +10,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 	@observable paymentTypes = [];
 	@observable step = 1;
 	@observable isThirdPartyFundingAvailable = false;
+	@observable selectedAbrv = '';
 	donor = null;
 
 	constructor(rootStore, { contributionStore, step }) {
@@ -107,6 +108,13 @@ class ContributionEditViewStore extends BaseEditViewStore {
 		}
 	}
 
+	@action.bound
+    validateMax() {
+        if(this.selectedAbrv == 'ach' && this.form.$('amount').value > 25000) {
+            this.rootStore.notificationStore.alertCenter('ACH deposits are temporarily capped at $25,000. For larger deposits, please use alternative deposit methods.');
+        }
+    }
+
 	async loadDonor(donorId) {
 		this.donor = await this.contributionStore.getDonorInformation(donorId);
 	}
@@ -123,6 +131,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 		this.form.$('paymentTypeId').set(id);
 		const paymentType = this.paymentTypes.find(c => c.id === id);
 		if (paymentType) {
+			this.selectedAbrv = paymentType.abrv;
 			this.form.$('bankAccountId').setRequired(false);
 			this.form.$('checkNumber').setRequired(false);
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
