@@ -13,7 +13,7 @@ const ExportTemplate = function ({ store, t, hideLimit }) {
     } = store;
 
     return (
-        <div className="row row__align--end">
+        <div className="row row--form row__align--end">
             <div className="col col-sml-6 col-lrg-3 col-xxlrg-2">
                 <label className="form__group__label">{t('EXPORT_TYPES')}</label>
                 <BaasicDropdown store={exportTypeStore} />
