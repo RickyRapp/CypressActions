@@ -2,7 +2,7 @@
   "name": "thedonorsfund",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/app",
+  "homepage": "/",
   "dependencies": {
     "@progress/kendo-data-query": "^1.5.4",
     "@progress/kendo-drawing": "^1.9.3",
