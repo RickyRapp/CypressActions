@@ -2,7 +2,7 @@
   "name": "thedonorsfund",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/app",
+  "homepage": "/",
   "dependencies": {
     "@progress/kendo-data-query": "^1.5.4",
     "@progress/kendo-drawing": "^1.9.3",
@@ -119,6 +119,7 @@
     "start": "node scripts/start.js",
     "build:staging": "cross-env NODE_ENV=staging node scripts/build.js",
     "build:production": "cross-env NODE_ENV=production node scripts/build.js",
+    "build:localtest": "cross-env NODE_ENV=localtest node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
