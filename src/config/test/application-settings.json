@@ -1,0 +1,8 @@
+{
+    "appId": "thedonorsfund",
+    "appUrl": "thedonorsfund.dev.local/api/",
+    "apiVersion": "1.0.1",
+    "appVersion": "",
+    "useSSL": true,
+    "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v"
+}
