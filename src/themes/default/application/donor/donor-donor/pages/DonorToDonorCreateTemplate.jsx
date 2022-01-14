@@ -37,8 +37,8 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                     {!summaryInfo && <div className="row row--form">
                         <div className="col col-sml-12 col-xxlrg-6">
                             <div className="card--primary card--med u-mar--bottom--med">
-                                <h2>{t('DONOR-DONOR.CREATE.FROM_TITLE')}</h2>
-                                <h4 className=" u-mar--bottom--lrg">{t('DONOR-DONOR.CREATE.TITLE_LABEL')}</h4>
+                                <h3>{t('DONOR-DONOR.CREATE.FROM_TITLE')}</h3>
+                                <h4 className="type--base u-mar--bottom--lrg">{t('DONOR-DONOR.CREATE.TITLE_LABEL')}</h4>
                                 <div className="row row--form u-mar--bottom--sml">
                                     <div className="form__group col col-sml-12">
                                         <div className="type--center">
@@ -57,13 +57,13 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                 </div>
                             </div>
                             <div className="card--primary card--med u-mar--bottom--med">
-                                <h2>{t('DONOR-DONOR.CREATE.SEND_TO')}:</h2>
-                                <h4 className=" u-mar--bottom--med">{t('DONOR-DONOR.CREATE.SEND_TO_INFO_TITLE')}</h4>
+                                <h3>{t('DONOR-DONOR.CREATE.SEND_TO')}:</h3>
+                                <h4 className="type--base u-mar--bottom--med">{t('DONOR-DONOR.CREATE.SEND_TO_INFO_TITLE')}</h4>
                                 <div className="row row--form">
-                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                    <div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('emailOrAccountNumber')} />
                                     </div>
-                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                    <div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationName')} />
                                     </div>
                                     <div>
@@ -76,10 +76,10 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                 </div>
                                 {addAnotherRecipientForm && (
                                     <div className="row row--form u-mar--bottom--med">
-                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                        <div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('emailOrAccountNumberAnother')} />
                                         </div>
-                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                        <div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('contactInformationNameAnother')} />
                                         </div>
                                     </div>

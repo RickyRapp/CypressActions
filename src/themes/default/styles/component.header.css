@@ -8,12 +8,12 @@
     justify-content: flex-start;
     background-color: $white;
     align-items: center;
+    padding: 0 calc($unit * 8);
 
     border-bottom: 1px solid color($color-text a(10%));
-    padding: 0 calc($unit * 8);
     @mixin type-scale $type-medium, 1.25;
-
-    @media (--screen-to-xxlrg) {
+    
+    @media (--screen-to-xxxlrg) {
         @mixin type-scale $type-base, 1;
         padding: calc($unit * 3) calc($unit * 4);
     }
@@ -24,10 +24,6 @@
         & .account-manager {
             display: none;
         }
-    }
-
-    @media (--screen-to-xxlrg) {
-        padding: calc($unit * 3) calc($unit * 2);
     }
 
     &__logo {
