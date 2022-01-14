@@ -31,13 +31,13 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                         <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_GENERAL')}</h3>
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('donorAvailableBalanceRunsBelow')} />
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12">
                                 <BasicFieldCheckbox field={form.$('isNewGrantRequestEnabled')} />
                             </div>
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <BasicFieldCheckbox field={form.$('isDonorStatementAvailableEnabled')} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('donorAvailableBalanceRunsBelow')} />
                             </div>
                         </div>
                     </div>
@@ -45,10 +45,10 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
                         <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CHECK')}</h3>
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox field={form.$('isCheckInventoryRunningLowEnabled')} />
+                                <NumericInputField field={form.$('checkAmountExceeding')} />
                             </div>
                             <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('checkAmountExceeding')} />
+                                <BasicFieldCheckbox field={form.$('isCheckInventoryRunningLowEnabled')} />
                             </div>
                         </div>
                     </div>
