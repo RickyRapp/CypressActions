@@ -45,13 +45,13 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <div className="form__group col col-sml-12 col-lrg-4">
+                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6 col-xxxlrg-4">
                                             <NumericInputField field={form.$('lowBalanceAmount')} />
                                         </div>
-                                        <div className="form__group col col-sml-12 col-lrg-4">
+                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6 col-xxxlrg-4">
                                             <NumericInputField field={form.$('amount')} />
                                         </div>
-                                        <div className="form__group col col-sml-12 col-lrg-4">
+                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6 col-xxxlrg-4">
                                             <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore} />
                                         </div>
                                     </div>
