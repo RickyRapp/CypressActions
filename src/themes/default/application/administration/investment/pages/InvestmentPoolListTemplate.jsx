@@ -31,7 +31,7 @@ const InvestmentPoolListTemplate = function ({ investmentPoolViewStore }) {
                     <BaasicButton
                         className="btn btn--med btn--med--wide btn--ghost"
                         onlyIconClassName="u-mar--right--tny"
-                        icon={`u-icon u-icon--unlock u-icon--sml`}
+                        // icon={`u-icon u-icon--unlock u-icon--sml`}
                         label='Enter change'
                         onClick={openInvestmentPoolChange}>
                     </BaasicButton>
