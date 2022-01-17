@@ -22,6 +22,12 @@ class ReconcileService extends BaseService {
             responseType: 'blob',
         });
     }
+
+    uploadFile(resource) {
+        const url = this.routeService.uploadFile(resource);
+        return this.apiClient.put(url, resource);
+    }
+    
 }
 
 export default ReconcileService;

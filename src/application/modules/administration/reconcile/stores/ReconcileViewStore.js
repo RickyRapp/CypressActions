@@ -32,6 +32,8 @@ class ReconcileViewStore extends BaseListViewStore {
         this.createTableStore();
         this.editModal = new ModalParams({});
         this.previewModal = new ModalParams({});
+        this.uploadFileTemplateModal = new ModalParams({});
+        this.reconcileCashedPreviewModal = new ModalParams({});
 
         this.createPaymentTypeDropodownStore();
     }
@@ -51,6 +53,12 @@ class ReconcileViewStore extends BaseListViewStore {
     openPreviewModal(reconcile) {
         this.previewModal.open({
             reconcile: reconcile
+        });
+    }
+
+    @action.bound
+    openUploadFileTemplateModal() {
+        this.uploadFileTemplateModal.open({
         });
     }
 
