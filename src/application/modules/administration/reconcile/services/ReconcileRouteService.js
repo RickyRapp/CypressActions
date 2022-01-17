@@ -20,6 +20,14 @@ class ReconcileRouteService extends BaseRouteService {
     update(resource) {
         return super.update(this.base + '/{id}', resource);
     }
+
+    uploadFile(resource) {
+        return super.update(this.base+'/checks-upload', resource, 
+        {
+            'content-type': 'multipart/form-data'
+		});
+    }
+
 }
 
 export default ReconcileRouteService;

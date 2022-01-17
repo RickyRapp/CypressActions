@@ -6,23 +6,42 @@ import { ApplicationListLayout, Content } from 'core/layouts';
 import { isSome } from 'core/utils';
 import { ReconcileEdit } from 'application/administration/reconcile/components';
 import { ReconcilePreviewTemplate } from 'themes/application/administration/reconcile/components';
+import { ReconcileUploadFile } from 'application/administration/reconcile/components';
 
 const ReconcileListTemplate = function ({ reconcileViewStore }) {
-	const { tableStore, queryUtility, paymentTypeDropdownStore, authorization, editModal, previewModal } = reconcileViewStore;
+	const { 
+		tableStore, 
+		queryUtility, 
+		paymentTypeDropdownStore, 
+		authorization, 
+		editModal, 
+		previewModal, 
+		uploadFileTemplateModal, 
+		openUploadFileTemplateModal
+	 } = reconcileViewStore;
 
 	return (
 		<ApplicationListLayout store={reconcileViewStore} authorization={authorization}>
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
-					<div className="u-mar--bottom--med">
-						<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility}>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={paymentTypeDropdownStore}
-									placeholder="RECONCILE.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
-								/>
-							</div>
-						</TableFilter>
+					<div className="row u-mar--bottom--med">
+						<div className="col col-sml-12 col-xxlrg-10">
+							<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility}>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={paymentTypeDropdownStore}
+										placeholder="RECONCILE.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
+									/>
+								</div>
+							</TableFilter>
+						</div>
+						<div className="col col-sml-12 col-xxlrg-2 type--right">
+							<BaasicButton
+								className="btn btn--med btn--primary"
+								label={'DROPZONE.TITLE'}
+								onClick={openUploadFileTemplateModal}
+							/>
+						</div>
 					</div>
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 				</div>
@@ -33,6 +52,10 @@ const ReconcileListTemplate = function ({ reconcileViewStore }) {
 			<BaasicModal modalParams={previewModal}>
 				<ReconcilePreviewTemplate />
 			</BaasicModal>
+			<BaasicModal modalParams={uploadFileTemplateModal}>
+				<ReconcileUploadFile />
+			</BaasicModal>
+			
 		</ApplicationListLayout>
 	);
 };
