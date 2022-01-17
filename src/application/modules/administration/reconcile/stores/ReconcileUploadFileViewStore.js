@@ -39,8 +39,9 @@ class ReconcileUploadFileViewStore extends BaseEditViewStore {
     @action.bound
     async uploadFile(){
         debugger;
+        const file = this.fileUploadStore.files[0].getRawFile();
         let formData = new FormData();
-        formData.append('file', this.fileUploadStore.files[0]);
+        formData.append('file', file, file.name);
         await this.rootStore.application.administration.reconcileStore.uploadFile(formData);
 
         this.isUploaded = true;

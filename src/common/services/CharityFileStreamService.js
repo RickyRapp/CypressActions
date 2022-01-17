@@ -12,7 +12,7 @@ class CharityFileStreamService extends BaseService {
         return this.apiClient.get(url);
     }
 
-    uploadCharityBankAccount(file, charityId, bankAccountId) {
+    uploadCharityBankAccount(file, charityId, bankAccountId) { debugger;
         let formData = new FormData();
         formData.append('file', file.getRawFile(), file.name);
         const url = this.routeService.uploadCharityBankAccount(charityId, bankAccountId, file.name);
