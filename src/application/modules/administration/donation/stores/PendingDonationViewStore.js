@@ -97,15 +97,12 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     @action.bound
     async onReviewClick(model) {
-        console.log("Review clicked");
         this.data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId('0ec32ec7-4bc5-4872-8ce6-acd20080a38f');
         console.log(this.data);
-      
     }
 
     @action.bound
     async getpendingdonations() {
-        console.log("Revgertiew clicked");
         this.data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId('0ec32ec7-4bc5-4872-8ce6-acd20080a38f');
         console.log(this.data);
       
