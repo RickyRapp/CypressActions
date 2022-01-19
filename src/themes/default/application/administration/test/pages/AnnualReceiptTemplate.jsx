@@ -10,7 +10,8 @@ import { BaasicButton, BaasicDropdown } from 'core/components';
 function AnnualReceiptTemplate({ annualReceiptViewStore}) {
     const {
         searchDonorDropdownStore,
-        donorId
+        donorId,
+        generateAnnualReport
     } = annualReceiptViewStore;
 
     return (
@@ -31,10 +32,10 @@ function AnnualReceiptTemplate({ annualReceiptViewStore}) {
                             className="btn btn--med btn--med--wide btn--tertiary u-mar--top--sml"
                             icon='u-icon u-icon--approve u-icon--base'
                             label={`Generate annual receipt for this donor`}
-                            onClick={() => console.log(donorId)}>
+                            onClick={() => generateAnnualReport(donorId)}>
                         </BaasicButton>}
                     </div>
-                    <div className="col col-sml-12 col-xxlrg-4">
+                    {/* <div className="col col-sml-12 col-xxlrg-4">
                         <label className="form__group__label">Or</label>
                         <BaasicButton
                             className="btn btn--med btn--med--wide btn--secondary u-mar--bottom--sml"
@@ -42,7 +43,7 @@ function AnnualReceiptTemplate({ annualReceiptViewStore}) {
                             label={`Generate annual receipt for all the donors`}
                             onClick={() => console.log("All")}>
                         </BaasicButton>
-                    </div>
+                    </div> */}
                 </div>
                 </div>
             </div>
