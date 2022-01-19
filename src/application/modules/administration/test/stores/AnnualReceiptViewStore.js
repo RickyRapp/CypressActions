@@ -4,7 +4,7 @@ import { AdministrationService } from 'application/administration/test/services'
 import { APITestingForm } from 'application/administration/test/forms';
 import { BaasicDropdownStore, BaseViewStore } from 'core/stores';
 import { donorFormatter } from 'core/utils';
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 //import moment from 'moment';
 
 class AnnualReceiptViewStore extends BaseViewStore {
@@ -53,6 +53,11 @@ class AnnualReceiptViewStore extends BaseViewStore {
                     console.log(this.searchDonorDropdownStore);
                 }
             });
+    }
+
+    @action.bound
+    generateAnnualReport(donorId) {
+        console.log(donorId);
     }
 
 }
