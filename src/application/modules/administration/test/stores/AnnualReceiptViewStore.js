@@ -1,11 +1,8 @@
-//import { BaseEditViewStore, BaasicDropdownStore, BaseViewStore } from 'core/stores';
-import { AdministrationService } from 'application/administration/test/services';
-//import { action, observable } from 'mobx';
-import { APITestingForm } from 'application/administration/test/forms';
 import { BaasicDropdownStore, BaseViewStore } from 'core/stores';
 import { donorFormatter } from 'core/utils';
 import { action, observable } from 'mobx';
-//import moment from 'moment';
+import { DepositInfoService } from 'application/administration/depositinfo/services';
+import { saveAs } from '@progress/kendo-file-saver';
 
 class AnnualReceiptViewStore extends BaseViewStore {
     @observable donorId = null;
@@ -50,16 +47,25 @@ class AnnualReceiptViewStore extends BaseViewStore {
                 },
                 onChange: (donorId) => {
                     this.donorId = donorId;
-                    console.log(this.searchDonorDropdownStore);
                 }
             });
     }
 
     @action.bound
-    generateAnnualReport(donorId) {
-        console.log(donorId);
+    async generateAnnualReport(donorId) {
+        try {
+        const service = new DepositInfoService(this.rootStore.application.baasic.apiClient);
+        let contentType = 'application/pdf';
+        const report = (await service.generateReport({contentType, id: donorId, year: new Date().getFullYear() - 1}));
+        let extension = 'pdf';
+        const fileName = `AnnualReceipt_${this.searchDonorDropdownStore.value.name.split(',')[0]}_${new Date().getFullYear() - 1}.${extension}`;
+        saveAs(report.data, fileName);
+        this.rootStore.notificationStore.success("Report generated.");
+        } catch (error) {
+            this.rootStore.notificationStore.success("There were no deposits processed in the past year.");
+        }
+        
     }
-
 }
 
 export default AnnualReceiptViewStore;

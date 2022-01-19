@@ -85,11 +85,10 @@ class DashboardViewStore extends BaseViewStore {
         let initialValue = new Date().getMonth() > 0 && new Date().getMonth() < 11 ? 2 : (new Date().getMonth() == 11 ? (new Date().getFullYear()) : 30);
         let initialName = new Date().getMonth() > 0 && new Date().getMonth() < 11 ? 'Year To Date' : (new Date().getMonth() == 11 ? (new Date().getFullYear()).toString() : 'This Month');
         let minYear = new Date().getFullYear();
-        
         if (data.donationsPerYear.length > 0) {
             let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
             minYear = data.donationsPerYear.reduce(function(prev, curr) {
-                return prev.year < curr.year ? prev : curr;
+                return prev.year < curr.year && prev.contributions.length > 0 ? prev : curr;
             });
             //{ name: 'Last Week', id: -7 }
             let donationsSorted = [];

@@ -20,7 +20,7 @@ function AnnualReceiptTemplate({ annualReceiptViewStore}) {
                 <h3>Generate report</h3>
                 <div className="card--primary card--med u-mar--top--med">
                 <div className="row">
-                    <div className="col col-sml-12 col-xxlrg-6">
+                    <div className="col col-sml-12 col-xxlrg-12">
                         <label className="form__group__label">For Donor</label>
                         <BaasicDropdown
                             placeholder={'SELECT_DONOR_PLACEHOLDER'}
@@ -29,7 +29,7 @@ function AnnualReceiptTemplate({ annualReceiptViewStore}) {
                         />
                         {donorId &&
                         <BaasicButton
-                            className="btn btn--med btn--med--wide btn--tertiary u-mar--top--sml"
+                            className="btn btn--med btn--med--wide btn--secondary u-mar--top--sml"
                             icon='u-icon u-icon--approve u-icon--base'
                             label={`Generate annual receipt for this donor`}
                             onClick={() => generateAnnualReport(donorId)}>
