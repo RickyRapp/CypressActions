@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicTable, DateRangeQueryPicker, BaasicDropdown, TableFilter, BaasicTableWithRowDetails, FormatterResolver, BaasicButton } from 'core/components';
+import { BaasicDropdown, BaasicButton } from 'core/components';
 
-function StatementsReportsTemplate({ statementsReportsViewStore, hideSearch, hidePager, hidePeriod, noBackground }) {
-	const { tableStore, dateCreatedDateRangeQueryStore, transactionTypeStore, transactionPeriod, queryUtility, yearDropdownStore } = statementsReportsViewStore;
+function StatementsReportsTemplate({ statementsReportsViewStore, noBackground }) {
+	const { yearDropdownStore, onPrintReport } = statementsReportsViewStore;
 
-	
 	return (
 		<div>
 			<div className={`${noBackground ? "" : "card--tertiary card--med"}`}>
@@ -50,30 +49,20 @@ function StatementsReportsTemplate({ statementsReportsViewStore, hideSearch, hid
 					}
 				</div> */}
 				<div className="card--primary">
-				<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
-					<h3>Annual receipts</h3>
-					<br />
-					<BaasicButton
-						className="btn btn--med btn--tertiary u-mar--btm--sml"
-						onlyIconClassName="u-mar--left--sml"
-						icon="u-icon u-icon--print u-icon--base"
-						label="Generate report for 2021"
-						onClick={() => onPrintReport(item)}
-					></BaasicButton>
-					<BaasicButton
-						className="btn btn--med btn--tertiary u-mar--btm--sml"
-						onlyIconClassName="u-mar--left--sml"
-						icon="u-icon u-icon--print u-icon--base"
-						label="Generate report for 2020"
-						onClick={() => onPrintReport(item)}
-					></BaasicButton>
-					<BaasicButton
-						className="btn btn--med btn--tertiary u-mar--btm--sml"
-						onlyIconClassName="u-mar--left--sml"
-						icon="u-icon u-icon--print u-icon--base"
-						label="Generate report for 2019"
-						onClick={() => onPrintReport(item)}
-					></BaasicButton>
+					<h3 className="u-mar--bottom--med">Annual receipts</h3>
+					<div className="col col-sml-12 col-med-12 col-lrg-12 col-xlrg-12 col-xxlrg-12  u-mar--bottom--sml">
+						<div className="u-mar--bottom--sml">Please Select Tax Year</div>
+						<div className="u-mar--bottom--sml"><BaasicDropdown className="form-field--sml" store={yearDropdownStore} /></div>
+					</div>
+					<div className="col col-sml-12 col-med-12 col-lrg-12 col-xlrg-12 col-xxlrg-12 u-mar--bottom--sml">
+						<BaasicButton
+							className="btn btn--med btn--tertiary u-mar--bottom--sml"
+							onlyIconClassName="u-mar--left--sml"
+							icon="u-icon u-icon--print u-icon--base"
+							label={`Generate report for year ${yearDropdownStore.value.name}`}
+							onClick={() => onPrintReport()}
+						></BaasicButton>
+					</div>
 				</div>
 			</div>
 		</div>
