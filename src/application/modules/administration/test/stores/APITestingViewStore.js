@@ -21,7 +21,7 @@ class APITestingViewStore extends BaseEditViewStore {
         this.createGrantScheduleTypeDropdownStore();
         this.createGrantPurposeTypeDropdownStore();
         this.validationToken = '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5';
-        this.baseUrl = ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
+        this.baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
         this.url = this.baseUrl + 'third-party/create-grant';
     }
 
