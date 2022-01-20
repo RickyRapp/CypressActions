@@ -16,6 +16,10 @@ class DepositInfoService extends BaseService {
             responseType: 'blob',
         });
     }
+    getIds() {
+        const url = this.routeService.getIds();
+        return this.apiClient.get(url);
+    }
 }
 
 export default DepositInfoService;

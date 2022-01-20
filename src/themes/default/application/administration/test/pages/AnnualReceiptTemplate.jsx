@@ -11,7 +11,8 @@ function AnnualReceiptTemplate({ annualReceiptViewStore}) {
     const {
         searchDonorDropdownStore,
         donorId,
-        generateAnnualReport
+        generateAnnualReport,
+        loading
     } = annualReceiptViewStore;
 
     return (
@@ -27,13 +28,14 @@ function AnnualReceiptTemplate({ annualReceiptViewStore}) {
                             className='input--dropdown'
                             store={searchDonorDropdownStore}
                         />
-                        {donorId &&
                         <BaasicButton
                             className="btn btn--med btn--med--wide btn--secondary u-mar--top--sml"
-                            icon='u-icon u-icon--approve u-icon--base'
-                            label={`Generate annual receipt for this donor`}
-                            onClick={() => generateAnnualReport(donorId)}>
-                        </BaasicButton>}
+                            icon={loading ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : 'u-icon u-icon--approve u-icon--base'}
+                            disabled={loading}
+                            label={donorId ? 'Generate annual receipt for this donor' : 'Generate annual receipts for all donors'}
+                            onClick={() => donorId ? generateAnnualReport(donorId) : generateAnnualReport()}
+                        >
+                        </BaasicButton>
                     </div>
                     {/* <div className="col col-sml-12 col-xxlrg-4">
                         <label className="form__group__label">Or</label>

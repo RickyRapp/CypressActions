@@ -13,6 +13,10 @@ class DepositInfoRouteService extends BaseRouteService {
 		return super.get(`${this.base}/{id}{?embed,fields}`, id, options);	
 	}	
 	
+	getIds() {		
+		return super.get(`${this.base}/get-ids`);	
+	}	
+
 	create(resource) {		
 		return super.create(this.base, resource);	
 	}
