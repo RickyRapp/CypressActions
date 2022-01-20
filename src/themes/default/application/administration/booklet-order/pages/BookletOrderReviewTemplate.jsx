@@ -39,16 +39,6 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
                                     <BasicInput field={form.$('trackingNumber')} />
                                 </div>}
                         </div>
-                        <div className="col col-sml-12 col-xxlrg-2">
-                            <div className="form__group__label">Delivery Method</div>
-                            <span className="input input--text input--lrg padd--top--tny input--disabled">
-                                {order && <React.Fragment>{order.deliveryMethodType.name}</React.Fragment>}
-                            </span>
-                        </div>
-                        {order && (order.deliveryMethodType.abrv === 'mail-usps' || order.deliveryMethodType.abrv === 'express-mail') &&
-                            <div className="col col-sml-12 col-xxlrg-2">
-                                <BasicInput field={form.$('trackingNumber')} />
-                            </div>}
                     </div>
                     <div className="card--primary card--med u-mar--bottom--med">
                         {order && order.deliveryMethodType.abrv !== 'pick-up'? 
