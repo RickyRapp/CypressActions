@@ -12,7 +12,6 @@ class SelectTableWithRowDetailsViewStore extends SelectTableViewStore {
     @action.bound
     onExpand = event => {
         event.dataItem[this.config.expandField] = !event.dataItem[this.config.expandField];
-
         this.updateDataItems();
     };
 }

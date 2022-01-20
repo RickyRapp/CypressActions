@@ -24,7 +24,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
         achBatchCurrentNumber,
         form,
         onAchNextPaymentNumberClick,
-        getpendingdonations
+        getPendingDonations
     } = pendingDonationViewStore;
 
     const DetailComponent = ({ dataItem }) => {
@@ -39,7 +39,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataItem.pendingDonations.map((item, index) => {
+                        {dataItem && dataItem.pendingDonations && dataItem.pendingDonations.map((item, index) => {
                             return (
                                 <tr key={item.id}>
                                     <td>
@@ -50,7 +50,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                                             classSuffix=" input--check--nolabel"
                                         />
                                     </td>
-                                    <td>{item.donorName}</td>
+                                    <td>{item.name}</td>
                                     <td><FormatterResolver
                                         item={{ charityAmount: item.charityAmount }}
                                         field='charityAmount'
@@ -67,10 +67,8 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
     DetailComponent.propTypes = {
         dataItem: PropTypes.object.isRequired
     };
-    
-        const selectedGrants = 0;
 
-
+    const selectedGrants = 0;
     return (
         <ApplicationListLayout store={pendingDonationViewStore} authorization={authorization}>
             <Content>
@@ -78,7 +76,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                     <div className="col col-sml-6 col-lrg-3">
                         <BaasicFieldDropdown field={form.$('paymentTypeId')} store={paymentTypeDropdownStore} />
                     </div>
-                    
+
                     <div className="col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('paymentNumber')} />
 
@@ -98,11 +96,11 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                         <DatePickerField field={form.$('paymentDate')} />
                     </div>
                     <div className="col col-sml-6 col-lrg-3">
-                    <BaasicButton
-					
-						label={'LIST_LAYOUT.CREATE_BUTTON'}
-						onClick={getpendingdonations}
-					/>
+                        <BaasicButton
+
+                            label={'LIST_LAYOUT.CREATE_BUTTON'}
+                            onClick={getPendingDonations}
+                        />
                     </div>
 
                 </div>
