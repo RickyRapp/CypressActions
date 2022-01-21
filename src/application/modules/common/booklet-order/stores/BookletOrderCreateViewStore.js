@@ -118,7 +118,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
             this.setDefaultShippingAddress();
         }
-        console.log(this.donor);
     }
 
     @action.bound

@@ -4,7 +4,7 @@ import { BaasicButton, Translation} from 'core/components';
 import { ListLayout, PageFooter } from 'core/layouts';
 import { defaultTemplate } from 'core/hoc';
 
-function LanguageEditLayoutTemplate({ store, form, loaderStore, t, routeBack }) {    
+function LanguageEditLayoutTemplate({ store, loaderStore, t, routeBack }) {    
     const { translationStore, rootStore } = store;
     const back = routeBack || (() => rootStore.routerStore.goBack());
     return (

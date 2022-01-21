@@ -4,7 +4,6 @@ import { defaultTemplate } from 'core/hoc';
 import { TableViewStore } from 'core/stores';
 import { SimpleBaasicTable } from 'core/components';
 
-
 const ReconcileCashedPreviewTemplate = function ({ modalParams }){
 
     const {
@@ -34,13 +33,11 @@ const ReconcileCashedPreviewTemplate = function ({ modalParams }){
         actions: {},
     });
 
-    var stringifyedUserData = JSON.stringify(updatedSuccessfully)
+    let stringifyedUserData = JSON.stringify(updatedSuccessfully)
     reconcileCashedSuccessfullyPreviewTableStore.setData(JSON.parse(stringifyedUserData));
     if (!reconcileCashedSuccessfullyPreviewTableStore.dataInitialized) {
         reconcileCashedSuccessfullyPreviewTableStore.dataInitialized = true;
     }
-
-
 
     const reconcileCashedUnsuccessfullyPreviewTableStore = new TableViewStore(null, {
         columns: [
@@ -64,7 +61,7 @@ const ReconcileCashedPreviewTemplate = function ({ modalParams }){
         actions: {},
     });
 
-    var stringifyedUserData = JSON.stringify(updatedUnsuccessfully)
+    stringifyedUserData = JSON.stringify(updatedUnsuccessfully)
     reconcileCashedUnsuccessfullyPreviewTableStore.setData(JSON.parse(stringifyedUserData));
     if (!reconcileCashedUnsuccessfullyPreviewTableStore.dataInitialized) {
         reconcileCashedUnsuccessfullyPreviewTableStore.dataInitialized = true;
