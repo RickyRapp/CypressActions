@@ -30,5 +30,10 @@ class ReconcileStore {
         const response = await this.reconcileService.checkUpdate(resource);
         return response.data;
     }
+
+    async uploadFile(resource) {
+        const response = await this.reconcileService.uploadFile(resource);
+        return response.data;
+    }
 }
 export default ReconcileStore;

@@ -21,7 +21,7 @@ class BaasicUploadStore {
         deleteUploaded: true,
         disabled: false,
         label: 'DROPZONE.TITLE',
-        acceptFiles: ['.png', '.jpg', '.jpeg'],
+        acceptFiles: ['.png', '.jpg', '.jpeg', '.csv'],
         showPreview: true,
         showLivePreview: true,
         routeService: new FileStreamRouteService()
