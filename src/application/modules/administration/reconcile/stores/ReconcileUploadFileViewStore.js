@@ -6,6 +6,7 @@ import { applicationContext } from 'core/utils';
 @applicationContext
 class ReconcileUploadFileViewStore extends BaseEditViewStore {
     @observable isUploaded = false;
+    @observable response;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -16,6 +17,7 @@ class ReconcileUploadFileViewStore extends BaseEditViewStore {
         });
 
         this.createFileUploadStore();
+        
     }
 
     @action.bound
@@ -38,13 +40,19 @@ class ReconcileUploadFileViewStore extends BaseEditViewStore {
 
     @action.bound
     async uploadFile(){
-        const file = this.fileUploadStore.files[0].getRawFile();
+        const formFile = this.fileUploadStore.files;
+        if(!formFile || formFile.length === 0)
+            return;
+
+        if(formFile[0].extension != '.csv')
+            return;
+
+        const file = formFile[0].getRawFile();
         let formData = new FormData();
         
         formData.append('file', file, file.name);
-        var response = await this.rootStore.application.administration.reconcileStore.uploadFile(formData);
-        debugger;
-
+        this.response = await this.rootStore.application.administration.reconcileStore.uploadFile(formData);
+        
         this.isUploaded = true;
     }
 
