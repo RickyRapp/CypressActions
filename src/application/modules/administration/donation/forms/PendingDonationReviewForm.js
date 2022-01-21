@@ -30,6 +30,10 @@ export default class PendingDonationReviewForm extends FormBase {
 					options: {
 						validateOnChange: false,
 					},
+                },
+                {
+                    name: 'selectedItems',
+                    label: 'Selected Items'
                 }
             ]
         };
