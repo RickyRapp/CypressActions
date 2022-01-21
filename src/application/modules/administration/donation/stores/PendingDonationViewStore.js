@@ -63,11 +63,13 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     onChangeChecked(dataItem, grantId, checked) {
         console.log('on change checked', dataItem, grantId, checked);
+        var elItem = {};
         const data = this.tableStore.data.map(item => {
             if (item.id === dataItem.id) {
                 item.pendingDonations = item.pendingDonations.map(element => {
                     if (element.id === grantId) {
                         element.checked = checked;
+                        elItem = element;
                         console.log("checked ", item, element);
                     }
                     return element;
@@ -78,21 +80,25 @@ class PendingDonationViewStore extends BaseListViewStore {
         this.tableStore.updateDataItems(data);
 
         if (checked) {
-            if (this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.filter(c => c.checked).length ===
-                this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.length) {
-                this.tableStore.selectedItems.push(dataItem);
-                console.log('adding to selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
+            if (elItem) {
+                this.tableStore.selectedItems.push(elItem);
+                console.log('adding to selected... ', elItem.id, elItem, this.tableStore.selectedItems);
             }
-            else {
-                this.tableStore.selectedItems.push(dataItem);
-                console.log('adding item to selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
-            }
+            // if (this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.filter(c => c.checked).length ===
+            //     this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.length) {
+            //     this.tableStore.selectedItems.push(dataItem);
+            //     console.log('adding to selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
+            // }
+            // else {
+            //     this.tableStore.selectedItems.push(dataItem);
+            //     console.log('adding item to selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
+            // }
         }
         else {
-            const item = _.find(this.tableStore.selectedItems, e => e.id === dataItem.id);
+            const item = _.find(this.tableStore.selectedItems, e => e.id === grantId);
             if (item) {
                 _.remove(this.tableStore.selectedItems, item);
-                console.log('removing from selected... ', dataItem.id, item, this.tableStore.selectedItems);
+                console.log('removing from selected... ', item.id, item, this.tableStore.selectedItems);
             }
         }
     }
@@ -109,9 +115,10 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async onReviewClick(charityId) {
-        this.data = await this.getPendingDonationsByCharityId(charityId);
-        console.log("onReviewClick", charityId, this.data);
+    async onReviewClick(formValues) {
+        //this.data = await this.getPendingDonationsByCharityId(charityId);
+        var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
+        console.log("onReviewClick", formValues, data);
         return data;
     }
 
@@ -125,8 +132,8 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async getPendingDonations(params) {
-        var data = await this.rootStore.application.administration.donationStore.findPendingDonation(params);
+    async getPendingDonations() {
+        var data = await this.rootStore.application.administration.donationStore.findPendingDonation({ paymentType: this.paymentTypeDropdownStore.value });
         this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress, checked: false } });
         console.log(this.data);
 
@@ -151,18 +158,22 @@ class PendingDonationViewStore extends BaseListViewStore {
             {
                 fetchFunc: async () => {
                     const data = await this.rootStore.application.lookup.paymentTypeStore.find();
-                    const availablePaymentTypes = ['check', 'ach'];
+                    const availablePaymentTypes = ['all', 'check', 'ach'];
+                    data.unshift({ id: '0000000-0000-0000-0000-000000000000', abrv: 'all', name: 'All' });
+                    //TODO select All as default option
                     return data.filter(c => { return availablePaymentTypes.includes(c.abrv) })
                 },
-                onChange: (item) => {
+                onChange: async (item) => {
                     this.tableStore.clearSelected();
                     if (item) {
-                        if (this.paymentTypeDropdownStore.value.abrv === 'ach') {
-                            this.tableStore.setData(this.data.filter(c => c.isAchAvailable));
-                        }
-                        else {
-                            this.tableStore.setData(this.data);
-                        }
+                        await this.getPendingDonations(this.paymentTypeDropdownStore.value.abrv);
+                        this.tableStore.setData(this.data);
+                        //if (this.paymentTypeDropdownStore.value.abrv === 'ach') {
+                        //this.tableStore.setData(this.data.filter(c => c.isAchAvailable));
+                        //}
+                        //else {
+                        //    this.tableStore.setData(this.data);
+                        //}
                     }
                 }
             });
@@ -230,13 +241,29 @@ class PendingDonationViewStore extends BaseListViewStore {
                         if (item.charityId === dataItem.charityId && item.pendingDonations) {
                             item.pendingDonations = item.pendingDonations.map(element => {
                                 element.checked = !isRemoving;
+                                if (isRemoving) {
+                                    _.remove(this.tableStore.selectedItems, dataItem);
+                                    console.log('removing charity item from selected... ', element, this.tableStore.selectedItems);
+                                }
+                                else {
+                                    this.tableStore.selectedItems.push(element);
+                                    console.log('adding charity item to selected... ', element, this.tableStore.selectedItems);
+                                }
                                 console.log("checked ", item, element);
                                 return element;
                             });
+                            if (isRemoving) {
+                                _.remove(this.tableStore.selectedItems, dataItem);
+                                console.log('removing charity group from selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
+                            }
+                            else {
+                                this.tableStore.selectedItems.push(dataItem);
+                                console.log('adding charity group to selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
+                            }
                         }
                         else {
                             if (item.charityId === dataItem.charityId) {
-                                if(isRemoving){
+                                if (isRemoving) {
                                     _.remove(this.tableStore.selectedItems, dataItem);
                                     console.log('removing charity from selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
                                 }
@@ -248,7 +275,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                         }
                         return item;
                     });
-                    this.tableStore.updateDataItems(data);
+                    //this.tableStore.updateDataItems(data);
                 },
                 onSelectAll: (e) => {
                     console.log('all charities selected', e);
@@ -262,7 +289,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                         }
                         return item;
                     });
-                    this.tableStore.updateDataItems(data);
+                    //this.tableStore.updateDataItems(data);
                 }
             },
                 true, loadMethod));
