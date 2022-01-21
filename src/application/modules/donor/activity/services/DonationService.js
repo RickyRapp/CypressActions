@@ -37,6 +37,10 @@ class DonationService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    review(resource) {
+        const url = this.routeService.review(resource);
+        return this.apiClient.get(url);
+    }
 }
 
 export default DonationService;

@@ -6,7 +6,7 @@ class DonationRouteService extends BaseRouteService {
     }
 
     find(params) {
-        return super.find(this.base + '/{?embed,fields}', params);
+        return super.find(this.base + '/{?embed,fields,paymentType}', params);
     }
 
     get(id, options) {

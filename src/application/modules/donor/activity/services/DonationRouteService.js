@@ -6,7 +6,7 @@ class DonationRouteService extends BaseRouteService {
     }
 
     findPendingDonation(params) {
-        return super.find(this.base + '/overview/{?embed,fields}', params);
+        return super.find(this.base + '/overview/{?embed,fields,paymentType}', params);
     }
 
     findSummaryPastGrant(params) {
