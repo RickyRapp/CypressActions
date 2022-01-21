@@ -18,6 +18,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     form = new PendingDonationReviewForm({
         onSuccess: async () => {
             this.disableSave = true;
+            console.log("form ", this.form.values());
             await this.onReviewClick(this.form.values());
             this.disableSave = false;
         }
@@ -39,7 +40,7 @@ class PendingDonationViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        var data = this.getPendingDonations(params)
+                        await this.getPendingDonations(params);
                         this.achBatchCurrentNumber = await rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
                         return {
                             item: this.data,
