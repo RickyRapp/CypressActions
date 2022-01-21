@@ -10,11 +10,11 @@ export default class APITestingForm extends FormBase {
         return {
             fields: [
                 {
-					name: 'requestType',
-					label: 'TEST.API_TESTING.FIELDS.REQUEST_TYPE',
-					placeholder: 'TEST.API_TESTING.FIELDS.REQUEST_TYPE',
-					rules: 'string',
-				},
+                    name: 'requestType',
+                    label: 'TEST.API_TESTING.FIELDS.REQUEST_TYPE',
+                    placeholder: 'TEST.API_TESTING.FIELDS.REQUEST_TYPE',
+                    rules: 'string',
+                },
                 {
                     name: 'taxId',
                     label: 'TEST.API_TESTING.FIELDS.TAXID',
@@ -31,16 +31,16 @@ export default class APITestingForm extends FormBase {
                     }
                 },
                 {
-					name: 'startFutureDate',
+                    name: 'startFutureDate',
                     label: 'TEST.API_TESTING.FIELDS.STARTFUTUREDATE',
                     placeholder: 'TEST.API_TESTING.FIELDS.STARTFUTUREDATE',
-					rules: `min_date:${moment().format('YYYY-MM-DD')}`,
-					type: 'date',
-					value: moment().format('YYYY-MM-DD'),
-					options: {
-						validateOnChange: false,
-					},
-				},
+                    rules: `min_date:${moment().format('YYYY-MM-DD')}`,
+                    type: 'date',
+                    value: moment().format('YYYY-MM-DD'),
+                    options: {
+                        validateOnChange: false,
+                    },
+                },
                 {
                     name: 'noEndDate',
                     label: 'No End Date',
@@ -54,7 +54,7 @@ export default class APITestingForm extends FormBase {
                     label: 'Number Of Payments',
                     placeholder: 'Number Of Payments',
                     rules: 'numeric|min:1',
-					type: 'integer',
+                    type: 'integer'
                 },
                 {
                     name: 'grantScheduleType',
@@ -86,26 +86,44 @@ export default class APITestingForm extends FormBase {
                     placeholder: 'Is recurring',
                     rules: 'boolean',
                     type: 'checkbox',
-                    value: false
+                    value: false,
+                    handlers: {
+                        onChange: (field) => (event) => {
+                            console.log(event.target.checked, event, field);
+                            const value = event.target.checked;
+                            let rule = 'numeric|min:1';
+                            if (value) {
+                                rule += '|required';
+                                field.container().$('grantScheduleType').set('rules', 'required|string');
+                                field.container().$('startFutureDate').set('rules', `required|min_date:${moment().format('YYYY-MM-DD')}`);
+                            }
+                            else {
+                                field.container().$('grantScheduleType').set('rules', 'string');
+                                field.container().$('startFutureDate').set('rules', '');
+                            }
+                            field.container().$('numberOfPayments').set('rules', rule);
+                            field.set(event.target.checked);
+                        }
+                    }
                 },
                 {
                     name: 'cardNumber',
                     label: 'TEST.API_TESTING.FIELDS.CARDNUMBER',
                     placeholder: 'TEST.API_TESTING.FIELDS.CARDNUMBER',
-                    rules: 'string' 
-                },     
+                    rules: 'string'
+                },
                 {
                     name: 'description',
                     label: 'TEST.API_TESTING.FIELDS.DESCRIPTION',
                     placeholder: 'TEST.API_TESTING.FIELDS.DESCRIPTION',
-                    rules: 'string' 
+                    rules: 'string'
                 },
                 {
                     name: 'purposeNote',
                     label: 'TEST.API_TESTING.FIELDS.PURPOSE_NOTE',
                     placeholder: 'TEST.API_TESTING.FIELDS.PURPOSE_NOTE',
-                    rules: 'string' 
-                },        
+                    rules: 'string'
+                },
             ]
         };
     }
