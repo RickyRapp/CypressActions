@@ -21,7 +21,8 @@ class APITestingViewStore extends BaseEditViewStore {
         this.createGrantScheduleTypeDropdownStore();
         this.createGrantPurposeTypeDropdownStore();
         this.validationToken = '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5';
-        this.url = 'https://api.tdfcharitable.org/thedonorsfund/third-party/create-grant';
+        this.baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
+        this.url = this.baseUrl + 'third-party/create-grant';
     }
 
     createGrantScheduleTypeDropdownStore() {
@@ -63,7 +64,7 @@ class APITestingViewStore extends BaseEditViewStore {
     @action.bound
 	requestChange = async () => {   
         this.validationToken =  this.form.$('requestType').value == 1 ? '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5': '27a1c6fd-9287-4ce1-8c0f-cec958e3d3c5';
-        this.url  =  this.form.$('requestType').value == 1 ? 'https://api.tdfcharitable.org/thedonorsfund/third-party/create-grant' : 'https://api.tdfcharitable.org/thedonorsfund/grant/create';
+        this.url  =  this.form.$('requestType').value == 1 ? this.baseUrl + 'third-party/create-grant' : this.baseUrl + 'grant/create';
     }
 
     @action.bound
