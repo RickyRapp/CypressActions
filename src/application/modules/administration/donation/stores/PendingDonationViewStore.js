@@ -116,16 +116,15 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     @action.bound
     async onReviewClick(formValues) {
-        //this.data = await this.getPendingDonationsByCharityId(charityId);
         var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
         console.log("onReviewClick", formValues, data);
         return data;
     }
 
     @action.bound
-    async getPendingDonationsByCharityId(charityId) {
+    async getPendingDonationsByCharityId(charityId, address) {
 
-        var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId);
+        var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address);
         this.data = data.map(e => { return { ...e, checked: false } });
         console.log("getPendingDonationsByCharityId", charityId, this.data);
         return this.data;

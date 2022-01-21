@@ -36,8 +36,8 @@ class DonationStore {
         console.log("reviewPending ", response);
         return response.data;
     }
-    async getPendingDonationsByCharityId(id) {
-        const response = await this.donationService.getPendingDonationsByCharityId(id);
+    async getPendingDonationsByCharityId(id, address) {
+        const response = await this.donationService.getPendingDonationsByCharityId(id, address);
         return response.data;
     }
 }
