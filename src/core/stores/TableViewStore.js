@@ -184,6 +184,7 @@ class TableViewStore {
 
     @action.bound
     updateDataItems(data) {
+        console.log('updating dataItems', data);
         this.data = data && data.length ? data : [...this.data];
     }
 

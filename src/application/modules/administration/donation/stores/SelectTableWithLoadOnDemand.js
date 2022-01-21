@@ -12,6 +12,7 @@ class SelectTableWithLoadOnDemand extends SelectTableWithRowDetailsViewStore {
 
     @action.bound
     onExpand = async event => {
+        console.log('charity expanded ', event);
         if (!event.dataItem.pendingDonations) {
             var data = await this.loadChildData(event.dataItem.charityId);
             if (data) {

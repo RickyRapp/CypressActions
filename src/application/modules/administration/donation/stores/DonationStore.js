@@ -18,6 +18,7 @@ class DonationStore {
 
     async reviewPendingDonations(resource) {
         const response = await this.donationService.reviewPendingDonations(resource);
+        console.log("reviewPending ", response);
         return response.data;
     }
     async getPendingDonationsByCharityId(id) {

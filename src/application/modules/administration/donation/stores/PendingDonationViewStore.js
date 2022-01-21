@@ -18,7 +18,9 @@ class PendingDonationViewStore extends BaseListViewStore {
     form = new PendingDonationReviewForm({
         onSuccess: async () => {
             this.disableSave = true;
-            console.log("form ", this.form.values());
+            console.log("form1 ", this.tableStore.selectedItems, this.form.values());
+            this.form.$('selectedItems').set(this.tableStore.selectedItems);
+            console.log("form2 ", this.tableStore.selectedItems, this.form.values());
             await this.onReviewClick(this.form.values());
             this.disableSave = false;
         }
@@ -60,8 +62,9 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     @action.bound
     onChangeChecked(dataItem, grantId, checked) {
+        console.log('on change checked', dataItem, grantId, checked);
         const data = this.tableStore.data.map(item => {
-            if (item.charityId === dataItem.charityId) {
+            if (item.id === dataItem.id) {
                 item.pendingDonations = item.pendingDonations.map(element => {
                     if (element.id === grantId) {
                         element.checked = checked;
@@ -75,15 +78,21 @@ class PendingDonationViewStore extends BaseListViewStore {
         this.tableStore.updateDataItems(data);
 
         if (checked) {
-            if (this.tableStore.data.find(c => c.charityId === dataItem.charityId).pendingDonations.filter(c => c.checked).length ===
-                this.tableStore.data.find(c => c.charityId === dataItem.charityId).pendingDonations.length) {
+            if (this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.filter(c => c.checked).length ===
+                this.tableStore.data.find(c => c.id === dataItem.id).pendingDonations.length) {
                 this.tableStore.selectedItems.push(dataItem);
+                console.log('adding to selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
+            }
+            else {
+                this.tableStore.selectedItems.push(dataItem);
+                console.log('adding item to selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
             }
         }
         else {
-            const item = _.find(this.tableStore.selectedItems, e => e.charityId === dataItem.charityId);
+            const item = _.find(this.tableStore.selectedItems, e => e.id === dataItem.id);
             if (item) {
                 _.remove(this.tableStore.selectedItems, item);
+                console.log('removing from selected... ', dataItem.id, item, this.tableStore.selectedItems);
             }
         }
     }
@@ -118,7 +127,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async getPendingDonations(params) {
         var data = await this.rootStore.application.administration.donationStore.findPendingDonation(params);
-        this.data = data.map(e => { return { ...e, checked: false } });
+        this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress, checked: false } });
         console.log(this.data);
 
     }
@@ -216,6 +225,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                 actions: {},
                 disablePaging: true,
                 onSelect: (dataItem, isRemoving) => {
+                    console.log('charity selected', dataItem, isRemoving);
                     const data = this.tableStore.data.map(item => {
                         if (item.charityId === dataItem.charityId && item.pendingDonations) {
                             item.pendingDonations = item.pendingDonations.map(element => {
@@ -224,11 +234,24 @@ class PendingDonationViewStore extends BaseListViewStore {
                                 return element;
                             });
                         }
+                        else {
+                            if (item.charityId === dataItem.charityId) {
+                                if(isRemoving){
+                                    _.remove(this.tableStore.selectedItems, dataItem);
+                                    console.log('removing charity from selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
+                                }
+                                else {
+                                    this.tableStore.selectedItems.push(dataItem);
+                                    console.log('adding charity to selected... ', dataItem.id, dataItem, this.tableStore.selectedItems);
+                                }
+                            };
+                        }
                         return item;
                     });
                     this.tableStore.updateDataItems(data);
                 },
                 onSelectAll: (e) => {
+                    console.log('all charities selected', e);
                     const data = this.tableStore.data.map(item => {
                         if (item.pendingDonations) {
                             item.pendingDonations = item.pendingDonations.map(element => {
