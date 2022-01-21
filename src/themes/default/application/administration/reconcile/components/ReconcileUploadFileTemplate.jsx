@@ -12,11 +12,11 @@ import {
 
 const ReconcileUploadFileTemplate = function ({ reconcileUploadFileViewStore }){
 
-    const { form, fileUploadStore, isUploaded, uploadFile} = reconcileUploadFileViewStore;
+    const { form, fileUploadStore, isUploaded, uploadFile, response} = reconcileUploadFileViewStore;
     return (
         <div>
             {isUploaded ? (
-                <ReconcileCashedPreview  />
+                <ReconcileCashedPreview modalParams={response} />
             ):(
                 <EditFormContent form={form}>
                     <div className=''>

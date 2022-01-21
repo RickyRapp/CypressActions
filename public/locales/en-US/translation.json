@@ -2610,7 +2610,8 @@
                 "COLUMNS": {
                     "OLD_CHECK_NUMBER_LABEL": "Check number",
                     "OLD_CHECK_DATE_CREATED_LABEL": "Date",
-                    "OLD_CHECK_DESCRIPTION_LABEL": "Description"
+                    "OLD_CHECK_DESCRIPTION_LABEL": "Description",
+                    "OLD_CHECK_AMOUNT_LABEL": "Amount"
                 },
                 "BUTTON": {
                     "EDIT": "Edit",
