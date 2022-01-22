@@ -7,6 +7,7 @@ import { SelectTableWithLoadOnDemand } from 'application/administration/donation
 import { action, observable, toJS } from 'mobx';
 import _ from 'lodash';
 import { saveAs } from '@progress/kendo-file-saver';
+import { uniteEntries } from 'webpack-merge/lib/join-arrays-smart';
 
 class PendingDonationViewStore extends BaseListViewStore {
     @observable disableSave = false;
@@ -18,9 +19,14 @@ class PendingDonationViewStore extends BaseListViewStore {
     form = new PendingDonationReviewForm({
         onSuccess: async () => {
             this.disableSave = true;
-            console.log("form1 ", this.tableStore.selectedItems, this.form.values());
-            this.form.$('selectedItems').set(this.tableStore.selectedItems);
-            console.log("form2 ", this.tableStore.selectedItems, this.form.values());
+            const onlySelectedDonations = this.tableStore.selectedItems.map(p => {
+                if (p.pendingDonations) {
+                    p.pendingDonations = p.pendingDonations.filter(s => s.checked);
+                    console.log('filtered only', p.pendingDonations);
+                }
+            });
+            this.form.$('selectedItems').set(onlySelectedDonations);
+            console.log("form ", onlySelectedDonations, this.form.values());
             await this.onReviewClick(this.form.values());
             this.disableSave = false;
         }
@@ -74,6 +80,18 @@ class PendingDonationViewStore extends BaseListViewStore {
                     }
                     return element;
                 })
+                const parentCheck = item.pendingDonations.some((s) => s.checked);
+                if (parentCheck) {
+                    item.checked = true;
+                    if (!this.tableStore.selectedItems.some((f) => f.id === item.id)) {
+                        this.tableStore.selectedItems.push(item);
+                        console.log('selected item set', item, this.tableStore.selectedItems.toJS());
+                    }
+                }
+                else {
+                    item.checked = false;
+                    _.remove(this.tableStore.selectedItems, item);
+                }
             }
             return item;
         });
@@ -84,10 +102,10 @@ class PendingDonationViewStore extends BaseListViewStore {
         // } else {
         //     _.remove(this.tableStore.selectedItems, dataItem);
         // }
-        if (checked) {
-            this.tableStore.setSelectedItem(elItem);
-            console.log('selected item set', elItem);
-        }
+        // if (checked) {
+        //     this.tableStore.selectItem(elItem);
+        //     console.log('selected item set', elItem);
+        // }
         this.tableStore.updateDataItems(data);
         console.log('table data updated', data);
         // if (checked) {
@@ -251,7 +269,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                     console.log('charity selected', dataItem, isRemoving);
                     var sel;
                     const data = this.tableStore.data.map(item => {
-                        if (item.charityId === dataItem.charityId) {
+                        if (item.id === dataItem.id) {
                             if (item.pendingDonations) {
                                 item.pendingDonations = item.pendingDonations.map(element => {
                                     element.checked = !isRemoving;
@@ -298,9 +316,9 @@ class PendingDonationViewStore extends BaseListViewStore {
                         }
                         return item;
                     });
-                    if (sel) {
-                        this.tableStore.setSelectedItem(sel);
-                    }
+                    // if (sel) {
+                    //     this.tableStore.selectItem(sel);
+                    // }
                     this.tableStore.updateDataItems(data);
                 },
                 onSelectAll: (e) => {
