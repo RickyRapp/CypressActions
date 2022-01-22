@@ -99,7 +99,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                         <BaasicButton
 
                             label={'LIST_LAYOUT.CREATE_BUTTON'}
-                            onClick={getPendingDonations}
+                            onClick={() => { console.log('selected items 3', tableStore.hasSelectedItems, tableStore.selectedItems.toJS().length, tableStore.selectedItems.toJS()); }}
                         />
                     </div>
 
