@@ -103,7 +103,26 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     @action.bound
     async onReviewClick(formValues) {
-        var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
+        try {
+            this.tableStore.suspend();
+            if (this.tableStore.selectedItems.length === 0) {
+                this.tableStore.resume();
+                this.rootStore.notificationStore.warning('Please, check if you selected grants/donations to process.');
+                return;
+            }
+
+            var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
+            this.rootStore.notificationStore.success("Successfully processed.");
+            this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
+            await this.downloadReport(data.response, this.paymentTypeDropdownStore.value.id);
+            this.paymentTypeDropdownStore.setValue(null);
+            this.form.clear();
+            this.tableStore.resume();
+        } catch (error) {
+            this.tableStore.resume();
+            console.log(error);
+            this.rootStore.notificationStore.error("Something went wrong.");
+        }
         return data;
     }
 
