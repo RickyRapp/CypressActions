@@ -95,13 +95,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                     <div className="col col-sml-6 col-lrg-3">
                         <DatePickerField field={form.$('paymentDate')} />
                     </div>
-                    <div className="col col-sml-6 col-lrg-3">
-                        <BaasicButton
-
-                            label={'LIST_LAYOUT.CREATE_BUTTON'}
-                            onClick={() => { console.log('selected items 3', tableStore.hasSelectedItems, tableStore.selectedItems.toJS().length, tableStore.selectedItems.toJS()); }}
-                        />
-                    </div>
+                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
 
                 </div>
                 <div className="card--primary card--med u-mar--bottom--med">
