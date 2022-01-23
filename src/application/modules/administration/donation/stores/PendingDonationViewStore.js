@@ -45,8 +45,10 @@ class PendingDonationViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async () => {
+                        this.loaderStore.suspend();
                         await this.getPendingDonations();
                         this.achBatchCurrentNumber = await rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
+                        this.loaderStore.resume();
                         return {
                             item: this.data,
                             totalRecords: this.data.length

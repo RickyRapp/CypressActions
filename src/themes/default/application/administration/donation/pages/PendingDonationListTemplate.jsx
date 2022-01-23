@@ -24,7 +24,9 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
         achBatchCurrentNumber,
         form,
         onAchNextPaymentNumberClick,
-        getPendingDonations
+        getPendingDonations,
+        disableSave,
+        loaderStore
     } = pendingDonationViewStore;
 
     const DetailComponent = ({ dataItem }) => {
@@ -70,7 +72,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
 
     const selectedGrants = 0;
     return (
-        <ApplicationListLayout store={pendingDonationViewStore} authorization={authorization}>
+        <ApplicationListLayout store={pendingDonationViewStore} authorization={authorization} loading={loaderStore.loading}>
             <Content>
                 <div className="row u-mar--bottom--med">
                     <div className="col col-sml-6 col-lrg-3">
@@ -109,7 +111,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                     </div>
                 </div>
 
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={disableSave} />
             </Content>
         </ApplicationListLayout >
     )
