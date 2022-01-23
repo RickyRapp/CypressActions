@@ -24,6 +24,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                     p.pendingDonations = p.pendingDonations.filter(s => s.checked);
                     console.log('filtered only', p.pendingDonations);
                 }
+                return p;
             });
             this.form.$('selectedItems').set(onlySelectedDonations);
             console.log("form ", onlySelectedDonations, this.form.values());
@@ -47,8 +48,8 @@ class PendingDonationViewStore extends BaseListViewStore {
             },
             actions: () => {
                 return {
-                    find: async (params) => {
-                        await this.getPendingDonations(params);
+                    find: async () => {
+                        await this.getPendingDonations();
                         this.achBatchCurrentNumber = await rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
                         return {
                             item: this.data,
@@ -163,7 +164,7 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     @action.bound
     async getPendingDonations() {
-        var data = await this.rootStore.application.administration.donationStore.findPendingDonation({ paymentType: this.paymentTypeDropdownStore.value });
+        var data = await this.rootStore.application.administration.donationStore.findPendingDonation({ paymentType: this.paymentTypeDropdownStore.value ? this.paymentTypeDropdownStore.value.abrv : 'all' });
         this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress, checked: false } });
         console.log(this.data);
 
@@ -265,6 +266,9 @@ class PendingDonationViewStore extends BaseListViewStore {
                 ],
                 actions: {},
                 disablePaging: true,
+                onSort: (col) => {
+                    console.log('sort', col);
+                },
                 onSelect: (dataItem, isRemoving) => {
                     console.log('charity selected', dataItem, isRemoving);
                     var sel;
