@@ -17,6 +17,7 @@ const BaasicFormControlsTemplate = function (props) {
                     classNameExtend={classNameExtend}
                     onClick={onSubmit || form.onSubmit}
                     disabled={isSome(disableSave) ? disableSave : form.submitting}
+                    icon={isSome(disableSave) && disableSave && 'u-icon u-icon--med u-icon--sync u-rotate--login'}
                     rotate
                     label={label}
                 />
