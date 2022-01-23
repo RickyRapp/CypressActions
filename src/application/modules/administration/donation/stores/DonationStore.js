@@ -7,9 +7,8 @@ class DonationStore {
     }
 
     async findPendingDonation(params) {
-        const response = await this.donationService.find(params);
         //TODO move sorting to server
-        console.log("findPendingDonations ", response);
+        const response = await this.donationService.find(params);
         return response.data;
     }
 
@@ -20,7 +19,6 @@ class DonationStore {
 
     async reviewPendingDonations(resource) {
         const response = await this.donationService.reviewPendingDonations(resource);
-        console.log("reviewPending ", response);
         return response.data;
     }
     async getPendingDonationsByCharityId(id, address) {

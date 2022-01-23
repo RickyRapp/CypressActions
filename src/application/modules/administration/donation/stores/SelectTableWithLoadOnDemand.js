@@ -12,13 +12,12 @@ class SelectTableWithLoadOnDemand extends SelectTableWithRowDetailsViewStore {
 
     @action.bound
     onExpand = async event => {
-        console.log('charity expanded ', event);
+        //TODO leave only generic code
         if (!event.dataItem.pendingDonations) {
             var data = await this.loadChildData(event.dataItem.charityId, event.dataItem.charityAddress);
             if (data) {
                 var d = this.data.find(c => { return c.charityId === event.dataItem.charityId });
                 d.pendingDonations = data;
-                console.log("stwrdvs expand", event);
             }
         }
         event.dataItem[this.config.expandField] = !event.dataItem[this.config.expandField];

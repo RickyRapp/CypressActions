@@ -27,7 +27,6 @@ class DonationRouteService extends BaseRouteService {
 
     
     getPendingDonationsByCharityId(id, address1) {
-        console.log("route service");
         return super.get(this.base + '/pending-donations/{id}?address1=' +  address1, id);
     }
 }
