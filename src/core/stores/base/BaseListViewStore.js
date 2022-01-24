@@ -50,7 +50,6 @@ class BaseListViewStore extends BaseViewStore {
                         response = null;
                     }
                 } catch (err) {
-                    console.log('error', err);
                     response = { item: [], totalRecords: 0 };
                     rootStore.notificationStore.error('ERROR_MESSAGES.FETCH');
                 }

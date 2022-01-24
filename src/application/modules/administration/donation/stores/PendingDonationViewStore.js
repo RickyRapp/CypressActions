@@ -46,20 +46,30 @@ class PendingDonationViewStore extends BaseListViewStore {
                 return {
                     find: async () => {
                         this.loaderStore.suspend();
-                        await this.getPendingDonations();
                         this.achBatchCurrentNumber = await rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
-                        this.loaderStore.resume();
-                        return {
-                            item: this.data,
-                            totalRecords: this.data.length
-                        };
+                        if(this.paymentTypeDropdownStore && this.paymentTypeDropdownStore.value != null) {
+                            this.loaderStore.suspend();
+                            await this.getPendingDonations();
+                            this.loaderStore.resume();
+                            return {
+                                item: this.data,
+                                totalRecords: this.data.length
+                            };
+                        } else {
+                            return {
+                                item: [],
+                                totalRecords: 0
+                            }
+                        }
+                        
                     }
                 }
             }
         });
-
+        this.loaderStore.suspend();
         this.createPaymentTypeDropdownStore();
         this.createTableStore(this.getPendingDonationsByCharityId);
+        this.loaderStore.resume();
     }
 
     @action.bound
@@ -120,7 +130,6 @@ class PendingDonationViewStore extends BaseListViewStore {
             this.tableStore.resume();
         } catch (error) {
             this.tableStore.resume();
-            console.log(error);
             this.rootStore.notificationStore.error("Something went wrong.");
         }
         return data;
@@ -128,7 +137,6 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     @action.bound
     async getPendingDonationsByCharityId(charityId, address) {
-
         var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address);
         this.data = data.map(e => { return { ...e, checked: false } });
         return this.data;
@@ -159,15 +167,17 @@ class PendingDonationViewStore extends BaseListViewStore {
             {
                 fetchFunc: async () => {
                     const data = await this.rootStore.application.lookup.paymentTypeStore.find();
-                    const availablePaymentTypes = ['all', 'check', 'ach'];
-                    data.unshift({ id: '0000000-0000-0000-0000-000000000000', abrv: 'all', name: 'All' });
+                    const availablePaymentTypes = ['check', 'ach'];
+                    //data.unshift({ id: '0000000-0000-0000-0000-000000000000', abrv: 'all', name: 'All' });
                     //TODO select All as default option
                     return data.filter(c => { return availablePaymentTypes.includes(c.abrv) })
                 },
                 onChange: async (item) => {
                     this.tableStore.clearSelected();
                     if (item) {
+                        this.loaderStore.suspend();
                         await this.getPendingDonations(this.paymentTypeDropdownStore.value.abrv);
+                        this.loaderStore.resume();
                         this.tableStore.setData(this.data);
                     }
                 }
