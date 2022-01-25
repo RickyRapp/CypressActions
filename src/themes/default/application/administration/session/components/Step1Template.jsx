@@ -1,29 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton } from 'core/components'
+import { BaasicButton, BaasicModal } from 'core/components'
+import { GivingCardModal } from '.';
 
-const Step1Template = function ({ onNextStepClick, t }) {
+const Step1Template = function ({ onNextStepClick, createGivingCardGrant, t, givingCardModal }) {
     return (
         <div className="card--med type--center">
             <div className="u-mar--bottom--tny">
-                {t('SESSION.CREATE.STEP1.SELECT_LANGUAGE_ENG')}
+                {t('SESSION.CREATE.STEP1.SELECT_TYPE_SCANNER')}
             </div>
-            <div className="u-mar--bottom--sml">
+            {/* <div className="u-mar--bottom--sml">
                 {t('SESSION.CREATE.STEP1.SELECT_LANGUAGE_HEB')}
-            </div>
+            </div> */}
             <div className="u-display--flex u-display--flex--justify--center u-mar--top--lrg">
                 <BaasicButton
                     className="btn btn--med btn--med--wide btn--secondary u-mar--right--sml"
-                    label='SESSION.CREATE.STEP1.ENG_LANGUAGE'
+                    label='SESSION.CREATE.STEP1.DEPOSIT_CHECKS'
                     onClick={() => onNextStepClick('eng')}
                 />
                 <BaasicButton
                     className="btn btn--med btn--med--wide btn--secondary"
-                    label='SESSION.CREATE.STEP1.HEB_LANGUAGE'
-                    onClick={() => onNextStepClick('heb')}
+                    label='SESSION.CREATE.STEP1.ACCEPT_CARD'
+                    onClick={() => createGivingCardGrant()}
                 />
             </div>
+            <BaasicModal modalParams={givingCardModal} showClose={true}>
+				<GivingCardModal />
+			</BaasicModal>
         </div>
         )
 }

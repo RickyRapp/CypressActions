@@ -53,6 +53,7 @@ class SessionViewStore extends BaseEditViewStore {
 
         this.createCharityDropdownStore();
         this.blankCertificateModal = new ModalParams({});
+        this.givingCardModal = new ModalParams({});
         this.service = service;
     }
 
@@ -323,6 +324,14 @@ class SessionViewStore extends BaseEditViewStore {
 											field='amount'
 											format={{ type: 'currency' }} */
         this.sessionCertificates.length > 0 ? this.sessionCertificates.filter(c => c.insufficientFunds).map(c => c.certificateValue).reduce((a, b) => a + b, 0) : 0;
+    }
+
+    @action.bound
+    createGivingCardGrant() {
+        this.givingCardModal.open({
+            title: 'New Giving Card Grant',
+            cardNumber: '',
+        });
     }
 }
 
