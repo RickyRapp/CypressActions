@@ -4,6 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, BaasicDropdown } from 'core/components';
 import PropTypes from 'prop-types';
 import { DashboardHeader } from 'application/charity/dashboard/components';
+import { Transaction } from 'application/donor/activity/transaction/components';
 import {
 	Chart,
 	ChartSeries,
@@ -13,8 +14,9 @@ import {
 	ChartLegend,
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
-function DashboardTemplate({ dashboardViewStore }) {
-	const { charity, newContributionOnClick, yearDropdownStore } = dashboardViewStore;
+import { AllTransactionList } from 'application/charity/activity/pages';
+function DashboardTemplate({ dashboardViewStore, t }) {
+	const { charity, newContributionOnClick, yearDropdownStore, notImplemented, manageAccount, balance, grantsPerYear } = dashboardViewStore;
 	
 	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	let dataGrants = [];
@@ -154,6 +156,14 @@ function DashboardTemplate({ dashboardViewStore }) {
 								</div>
 							</div>
 						</div>
+			</div>
+			<div className="row">
+				<div className="col col-sml-12 col-lrg-12">
+						<div className="card card--primary card--med u-mar--bottom--med">
+							<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
+							<AllTransactionList hideSearch={true} />
+					</div>						
+				</div>
 			</div>
 		</Page>
 	);

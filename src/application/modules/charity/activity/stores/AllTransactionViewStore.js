@@ -29,6 +29,7 @@ class AllTransactionViewStore extends BaseListViewStore {
         });
 
         this.charityId = rootStore.userStore.applicationUser.id;
+        this.showSearchFilter = true;
 
         this.createTableStore();
         this.createDonationStatusDropdownStore();
