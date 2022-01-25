@@ -7,6 +7,7 @@ import {
     BaasicFormControls,
     BasicInput,
     NumberFormatInputField,
+    BasicRadio
 } from 'core/components'
 import { PageFooter } from 'core/layouts';
 import AsyncSelect from 'react-select/async';
@@ -43,6 +44,22 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
                     </div>
                     <div className="u-mar--bottom--sml col col-lrg-12">
                         <BasicInput field={form.$('url')} />
+                    </div>
+                    <div className="u-mar--bottom--sml col col-lrg-12">
+                        <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                            <BasicRadio
+                                label={ 'Third pary API' }  
+                                value={ 'ThirdParyAPI' }
+                                field={ form.$('websiteType') }
+                            />
+                        </div>
+                        <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                            <BasicRadio
+                                label={ 'Processing company' }
+                                value={ 'ProcessingCompany' }
+                                field={ form.$('websiteType') }
+                            />
+                        </div>
                     </div>
                     <div className="u-mar--bottom--sml col col-lrg-12">
                         {/* <BaasicFieldDropdown

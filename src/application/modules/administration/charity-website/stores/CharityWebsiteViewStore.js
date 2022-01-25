@@ -54,6 +54,7 @@ class CharityWebsiteViewStore extends BaseListViewStore {
                 {
                     key: 'ip',
                     title: 'CHARITY_WEBSITE.LIST.COLUMNS.IP_LABEL'
+                    
                 },
                 {
                     key: 'url',
