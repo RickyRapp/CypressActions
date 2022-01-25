@@ -30,6 +30,11 @@ export default class CharityWebsiteCreateForm extends FormBase {
                     }
                 },
                 {
+                    name: 'websiteType',
+                    rules: 'required|string',
+                    type: 'radio'
+                },
+                {
                     name: 'url',
                     label: 'CHARITY_WEBSITE.CREATE.FIELDS.URL_LABEL',
                     placeholder: 'CHARITY_WEBSITE.CREATE.FIELDS.URL_PLACEHOLDER',
