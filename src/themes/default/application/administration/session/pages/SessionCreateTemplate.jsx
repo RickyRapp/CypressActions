@@ -30,7 +30,9 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         setCharityId,
         charity,
         insufficientAmount,
-        isCharitySelected
+        isCharitySelected,
+        givingCardModal,
+        createGivingCardGrant
     } = sessionCreateViewStore;
 
     return (
@@ -45,7 +47,11 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
             <form onSubmit={form.onSubmit}>
                 {currentStep === 1 &&
                     <div className="container container--sml">
-                        <Step1Template onNextStepClick={onNextStep1Click} />
+                        <Step1Template 
+                            onNextStepClick={onNextStep1Click}
+                            givingCardModal={givingCardModal}
+                            createGivingCardGrant={createGivingCardGrant}
+                        />
                     </div>}
 
                 {currentStep === 2 &&
