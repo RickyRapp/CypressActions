@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicTable, TableFilter, BaasicModal, BaasicButton } from 'core/components';
@@ -8,6 +8,7 @@ import { CharityWebsiteCreate } from 'application/administration/charity-website
 const CharityWebsiteListTemplate = function ({ charityWebsiteViewStore }) {
 	const { tableStore, queryUtility, authorization, createModal, routes } = charityWebsiteViewStore;
 
+	
 	return (
 		<ApplicationListLayout store={charityWebsiteViewStore} authorization={authorization}>
 			<Content>
@@ -36,7 +37,7 @@ const CharityWebsiteListTemplate = function ({ charityWebsiteViewStore }) {
 
 CharityWebsiteListTemplate.propTypes = {
 	charityWebsiteViewStore: PropTypes.object.isRequired,
-	t: PropTypes.func,
+	t: PropTypes.func
 };
 
 export default defaultTemplate(CharityWebsiteListTemplate);
