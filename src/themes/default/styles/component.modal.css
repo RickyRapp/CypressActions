@@ -35,7 +35,8 @@
 
 		/* Modal sizes */
 		&--sml {
-			width: 768px;
+			width: 600px;
+			max-width: 600px;
 		}
 	}
 
