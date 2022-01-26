@@ -4,30 +4,45 @@ import { defaultTemplate } from 'core/hoc';
 import {
     NumericInput,
     BaasicButton,
-    BaasicInput
+    BaasicInput,
+    BasicInput,
+    NumberFormatInputField,
+    NumericInputField,
+    BaasicFieldDropdown
 } from 'core/components'
 
 const GivingCardModal = function ({ modalParams, t }) {
     const {
         title,
-        cardNumber
+        form,
+        processCard,
+        charityDropdownStore
     } = modalParams.data;
 
     return (
         <section>
             <h3 className="u-mar--bottom--med">{title}</h3>
             <div className="row">
-                <div className="form__group col col-lrg-12 ">
+                <div className="form__group col col-lrg-12 col-xxlrg-12 col-xlrg-12">
                     <div>
-                        <label className="form__group__label">Card Number</label>
-                        <BaasicInput value={cardNumber}></BaasicInput>
-                        <label className="form__group__label">Tax Id</label>
-                        <BaasicInput value={cardNumber}></BaasicInput>
+                        {/* <label className="form__group__label">Card Number</label> */}
+                        <BasicInput field={form.$('cardNumber')} />
+                        {/* <NumberFormatInputField field={form.$('taxId')} /> */}
+                        <BaasicFieldDropdown
+											field={form.$('charityId')}
+											store={charityDropdownStore}
+											additionalLabel="My Favorite Charities"
+										/>
+                        <BasicInput field={form.$('note')} />
+                        <NumericInputField label='Grant Amount' showLabel={true} field={form.$('amount')} />
+                        
+                        {/* <label className="form__group__label">Tax Id</label> */}
+                        {/* <BaasicInput value={cardNumber}></BaasicInput>
                         <label className="form__group__label">Amount</label>
                         <BaasicInput value={cardNumber}></BaasicInput>
                         <label className="form__group__label">Description</label>
-                        <BaasicInput value={cardNumber}></BaasicInput>
-                        <BaasicButton className="btn btn--base btn--secondary u-mar--top--sml" label="Process Card"></BaasicButton>
+                        <BaasicInput value={cardNumber}></BaasicInput> */}
+                        <BaasicButton className="btn btn--base btn--secondary u-mar--top--sml" label="Process Card" onClick={processCard}></BaasicButton>
                         {/* {certificate &&
                             <span className={"input input--lrg input--text input--disabled"}>{certificate.bookletCode}-{certificate.certificateCode}</span>} */}
                     </div>
