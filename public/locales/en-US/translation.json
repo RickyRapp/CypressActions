@@ -2699,6 +2699,12 @@
                 "URL_LABEL": "URL",
                 "URL_PLACEHOLDER": "URL"
             }
+        },
+        "TAB":{
+            "LIST":{
+                "THIRD_PARTY_API" : "Third pary API",
+                "PROCESSING_COMPANY" : "Processing company"
+            }
         }
     },
     "BANK": {
