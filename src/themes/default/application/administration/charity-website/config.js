@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { CharityWebsiteList } from 'application/administration/charity-website/pages';
+import { CharityWebsiteTab } from 'application/administration/charity-website/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -9,9 +9,9 @@ import { CharityWebsiteList } from 'application/administration/charity-website/p
                 pattern: '/charity-websites',
                 children: [
                     {
-                        name: 'master.app.main.administration.charity-website.list',
+                        name: 'master.app.main.administration.charity-website.tab',
                         pattern: '',
-                        component: CharityWebsiteList,
+                        component: CharityWebsiteTab,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
                             title: "CHARITY_WEBSITE.LIST.TITLE"

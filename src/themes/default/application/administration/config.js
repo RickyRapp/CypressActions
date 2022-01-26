@@ -85,7 +85,7 @@ import { moduleProviderFactory } from 'core/providers';
                 title: 'MENU.CHARITY_WEBSITE',
                 icon: 'third-party-website',
                 order: 11,
-                route: 'master.app.main.administration.charity-website.list',
+                route: 'master.app.main.administration.charity-website.tab',
                 role: ['Administrators', 'Employees']
             },
             {
