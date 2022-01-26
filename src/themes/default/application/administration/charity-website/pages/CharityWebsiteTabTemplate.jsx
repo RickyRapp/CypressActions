@@ -14,11 +14,11 @@ function CharityWebsiteTabTemplate({ charitiyWebsiteTabViewStore }) {
             <div className='u-mar--bottom--med'>
                 <TabLayout store={charitiyWebsiteTabViewStore}>
                         <div label={'CHARITY_WEBSITE.TAB.LIST.THIRD_PARTY_API'} className="u-mar--top--sml layout--nested">
-                            <CharityWebsiteList />
+                            <CharityWebsiteList websiteType={ "ThirdParyAPI" } />
                         </div>
-                    <div label={'CHARITY_WEBSITE.TAB.LIST.PROCESSING_COMPANY'} className="u-mar--top--sml">
+                    <div label={'CHARITY_WEBSITE.TAB.LIST.PROCESSING_COMPANY'} className="u-mar--top--sml layout--nested">
                          <div>
-                             ok
+                            <CharityWebsiteList websiteType={ "ProcessingCompany" } />
                          </div>
                     </div>
                 </TabLayout>
@@ -29,6 +29,7 @@ function CharityWebsiteTabTemplate({ charitiyWebsiteTabViewStore }) {
 
 CharityWebsiteTabTemplate.propTypes = {
     charitiyWebsiteTabViewStore: PropTypes.object.isRequired,
+    websiteType: PropTypes.string
 };
 
 export default defaultTemplate(CharityWebsiteTabTemplate);

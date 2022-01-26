@@ -4,7 +4,7 @@ import { ModalParams } from 'core/models';
 import { action } from 'mobx';
 
 class CharityWebsiteViewStore extends BaseListViewStore {
-    constructor(rootStore) {
+    constructor(rootStore, websiteType) {
         super(rootStore, {
             name: 'charity-website',
             authorization: 'theDonorsFundAdministrationSection',
@@ -23,6 +23,7 @@ class CharityWebsiteViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         params.embed = 'charity';
+                        params.type = websiteType;
                         return rootStore.application.administration.charityWebsiteStore.findCharityWebsite(params);
                     }
                 }
