@@ -25,7 +25,7 @@ const Step1Template = function ({ onNextStepClick, createGivingCardGrant, t, giv
                     onClick={() => createGivingCardGrant()}
                 />
             </div>
-            <BaasicModal modalParams={givingCardModal} showClose={true}>
+            <BaasicModal modalParams={givingCardModal} showClose={true} modalClassName={"modal__content--sml"}>
 				<GivingCardModal />
 			</BaasicModal>
         </div>
