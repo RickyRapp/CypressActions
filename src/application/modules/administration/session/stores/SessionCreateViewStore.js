@@ -338,20 +338,22 @@ class SessionViewStore extends BaseEditViewStore {
             form: this.form,
             charityDropdownStore: this.charityDropdownStore,
             processCard: async () => {
-                this.form.$('taxId').value = this.charityDropdownStore.value.item.taxId;
+                this.form.$('taxId').value =  this.charityDropdownStore.value && this.charityDropdownStore.value.item.taxId;
                 const postData = {
                     cardNumber: this.form.$('cardNumber').value,
                     amount: this.form.$('amount').value,
                     description: this.form.$('note').value,
-                    taxId: this.form.$('taxId').value.slice(0, 2) + '-' + this.form.$('taxId').value.slice(2)
+                    taxId:  this.charityDropdownStore.value && this.form.$('taxId').value.slice(0, 2) + '-' + this.form.$('taxId').value.slice(2)
                 }
                 const service = new GrantService(this.rootStore.application.baasic.apiClient);
                 try {
-                    await service.createGivingCard({...postData});
+                    const response = await service.createGivingCard({...postData});
+                    if(response.data.error || response.data.errorCode)
+                        throw response.data.error;
                     this.rootStore.notificationStore.success(`Grant approved`);
                     this.givingCardModal.close();
                 } catch (e) {
-                    this.rootStore.notificationStore.error(`Grant declined`);
+                    this.rootStore.notificationStore.error(e);
                 }
             }
         });
