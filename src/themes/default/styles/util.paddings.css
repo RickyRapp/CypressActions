@@ -204,5 +204,9 @@
 		&--tny {
 			padding: calc($unit * 1);
 		}
+
+		&--reset {
+			padding: 0;
+		}
 	}
 }

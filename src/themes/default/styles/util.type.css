@@ -149,6 +149,10 @@
 		text-transform: lowercase;
 	}
 
+	&--inherit {
+		text-transform: inherit; 
+	}
+
 	&--underline {
 		text-decoration: underline;
 	}
