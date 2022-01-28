@@ -82,6 +82,35 @@ export default class SessionCreateForm extends FormBase {
                     placeholder: 'ADDRESS.CREATE.FIELDS.ZIPCODE_PLACEHOLDER',
                     rules: 'required|string',
                 },
+                {
+                    name: 'cardNumber',
+                    label: 'Giving card number',
+                    placeholder: 'Giving card number',
+                    rules: 'string|size:16'
+                },
+                {
+                    name: 'amount',
+                    label: 'Grant Amount',
+                    placeholder: 'Grant Amount',
+                    rules: 'numeric|min:0',
+                    extra: {
+                        type: 'c2'
+                    }
+                },
+                {
+                    name: 'note',
+                    label: 'Note',
+                    placeholder: 'Note',
+                    rules: 'string'
+                },
+                {
+                    name: 'taxId',
+                    label: 'Tax Id',
+                    rules: 'string|size:9',
+                    extra: {
+                        format: '##-#######'
+                    }
+                }
             ]
         };
     }

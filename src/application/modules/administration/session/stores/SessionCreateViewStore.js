@@ -2,6 +2,7 @@ import { action, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { SessionCreateForm } from 'application/administration/session/forms';
 import { SessionService } from 'application/administration/session/services';
+import { GrantService } from 'application/common/grant/services';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 
@@ -19,6 +20,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable charityInputValue = null;
 	@observable filteredCharities = [];
     @observable isCharitySelected = false;
+    @observable cardNumber = null;
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -53,6 +55,7 @@ class SessionViewStore extends BaseEditViewStore {
 
         this.createCharityDropdownStore();
         this.blankCertificateModal = new ModalParams({});
+        this.givingCardModal = new ModalParams({});
         this.service = service;
     }
 
@@ -283,8 +286,12 @@ class SessionViewStore extends BaseEditViewStore {
                 },
                 onChange: value => {
                     if (value) {
-                        const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
-                        this.setAddress(address);
+                        try {
+                            const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
+                            this.setAddress(address);
+                        } catch (error) {
+                            
+                        }
                     }
                 },
             });
@@ -323,6 +330,33 @@ class SessionViewStore extends BaseEditViewStore {
 											field='amount'
 											format={{ type: 'currency' }} */
         this.sessionCertificates.length > 0 ? this.sessionCertificates.filter(c => c.insufficientFunds).map(c => c.certificateValue).reduce((a, b) => a + b, 0) : 0;
+    }
+
+    @action.bound
+    async createGivingCardGrant() {
+        this.givingCardModal.open({
+            form: this.form,
+            charityDropdownStore: this.charityDropdownStore,
+            processCard: async () => {
+                this.form.$('taxId').value =  this.charityDropdownStore.value && this.charityDropdownStore.value.item.taxId;
+                const postData = {
+                    cardNumber: this.form.$('cardNumber').value,
+                    amount: this.form.$('amount').value,
+                    description: this.form.$('note').value,
+                    taxId:  this.charityDropdownStore.value && this.form.$('taxId').value.slice(0, 2) + '-' + this.form.$('taxId').value.slice(2)
+                }
+                const service = new GrantService(this.rootStore.application.baasic.apiClient);
+                try {
+                    const response = await service.createGivingCard({...postData});
+                    if(response.data.error || response.data.errorCode)
+                        throw response.data.error;
+                    this.rootStore.notificationStore.success(`Grant approved`);
+                    this.givingCardModal.close();
+                } catch (e) {
+                    this.rootStore.notificationStore.error(e);
+                }
+            }
+        });
     }
 }
 

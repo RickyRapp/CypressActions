@@ -42,6 +42,11 @@ class GrantService extends BaseService {
         return this.apiClient.post(url, resource);
     }
 
+    createGivingCard(resource) {
+        const url = this.routeService.createGivingCard(resource);
+        return this.apiClient.request({url: url, data: resource, method:'POST', headers: {'Validation-Token': '27a1c6fd-9287-4ce1-8c0f-cec958e3d3c5'}});
+    }
+
     approve(resource) {
         const url = this.routeService.approve(resource);
         return this.apiClient.put(url, resource);

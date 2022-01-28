@@ -2310,8 +2310,11 @@
             "STEP1": {
                 "SELECT_LANGUAGE_ENG": "To begin please select a language",
                 "SELECT_LANGUAGE_HEB": "כדי להתחיל בבקשה בחר שפה",
+                "SELECT_TYPE_SCANNER": "To begin please choose a transaction type",
                 "ENG_LANGUAGE": "English",
-                "HEB_LANGUAGE": "עברי"
+                "HEB_LANGUAGE": "עברי",
+                "DEPOSIT_CHECKS": "Deposit Checks",
+                "ACCEPT_CARD": "Accept the Card"
             },
             "STEP2": {
                 "BUTTONS": {
