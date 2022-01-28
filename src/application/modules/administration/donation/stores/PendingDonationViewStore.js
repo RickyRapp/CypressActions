@@ -130,6 +130,7 @@ class PendingDonationViewStore extends BaseListViewStore {
             this.tableStore.resume();
         } catch (error) {
             this.tableStore.resume();
+            console.log(error);
             this.rootStore.notificationStore.error("Something went wrong.");
         }
         return data;
