@@ -17,7 +17,7 @@ import {
 import { AccountManager } from 'application/donor/donor/components';
 import { DonorGivingCardActivationTemplate } from '../../donor/components';
 import { Transaction } from 'application/donor/activity/transaction/components';
-import { GivingGoalsTemplate } from '../components';
+import { GivingGoalsTemplate, YourFundsCardTemplate } from '../components';
 import { localStorageProvider } from 'core/providers';
 import moment from 'moment';
 
@@ -196,10 +196,26 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const currencyFormat = (e) => {
 		return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 	};
+
+	let categoryDropDown = 0;
+	if (donor && donor.isContributionMade) {
+		if (yearDropdownStore.value.id && yearDropdownStore.value.id > 2000) {
+			categoryDropDown = categoriesMonths;
+		} else if (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7) {
+			categoryDropDown = chartDays;
+		} else if (yearDropdownStore.value.id === 1) {
+			categoryDropDown = categoriesYears;
+		} else if (yearDropdownStore.value.id === 2) {
+			categoryDropDown = categoriesYearToDate
+		} else {
+			categoryDropDown = categoriesWeeks;
+		}
+	}
+
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : (yearDropdownStore.value.id === 1 ? categoriesYears : (yearDropdownStore.value.id === 2 ? categoriesYearToDate : categoriesWeeks)))} />
+				<ChartCategoryAxisItem categories={categoryDropDown} />
 			</ChartCategoryAxis>
 			<ChartValueAxis>
 				<ChartValueAxisItem labels={{ visible: true, content: labelVisual }} />
@@ -216,6 +232,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			</ChartSeries>
 		</Chart>
 	);
+	
 	return (
 		<Page>
 			<PageHeader>
@@ -234,122 +251,62 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 
 			<div className="row">
 				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
-					<div className="dashboard-card">
-						<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_FUNDS')}</h3>
-						<div className="dashboard-card__body">
-							{donor && (
-								<p className="dashboard-card__body--amount">
-									<FormatterResolver
-										item={{ balance: donor.presentBalance }}
-										field="balance"
-										format={{ type: 'currency' }}
-									/>
-								</p>
-							)}
+					<YourFundsCardTemplate donor={donor} newContributionOnClick={newContributionOnClick} t={t} />
+				</div>
 
-							<p className="dashboard-card__body--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</p>
-							<div className="dashboard-card__body--amount--secondary">
-								{donor && (
-									<FormatterResolver
-										item={{ balance: donor.availableBalance > 0 ? donor.availableBalance : "0.00" }}
-										field="balance"
-										format={{ type: 'currency' }}
-									/>
-								)}
-							</div>
-							<p className="dashboard-card__body--title">{t('DASHBOARD.PRESENT_BALANCE')}</p>
-						</div>
+				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
+					<div className={`dashboard-card ${mobileResolution ? "u-mar--bottom--sml" : ""}`}>
+						<h3 className="dashboard-card__title dashboard-card__title--ordered u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
 
-						<div className="row">
-							<div className="col col-sml-12 col-med-6">
-								<div className="u-mar--bottom--sml w--100--to-med">
-									<BaasicButton
-										className="btn btn--med btn--100 btn--primary--light"
-										label="DASHBOARD.BUTTON.CONTRIBUTE"
-										onClick={newContributionOnClick}
-									/>
+						{mobileResolution &&
+							<React.Fragment>
+								<div className="dashboard-card__giving-goal">
+									<p className="dashboard-card__giving-goal__label">Giving goal:</p>
+									<div className="dashboard-card__giving-goal--range">
+										<div
+											style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : (oneTimeToGive + yearlyGoalAmount) > 0 && grantsThisYear > 0 ? 100 : 0}%` }}
+											className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
+											{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. {mobileResolution && <a onClick={() => noGivingGoals()}>Set up your giving goal?</a>}</span> : (oneTimeToGive + yearlyGoalAmount) > 0 && grantsThisYear > 0 ? (100).toFixed(2) + '%' : 0 + '%')}
+										</div>
+										<p className="dashboard-card__giving-goal__income">
+											<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
+											<FormatterResolver
+												item={{ amount: (oneTimeToGive + yearlyGoalAmount) }}
+												field='amount'
+												format={{ type: 'currency' }}
+											/></p>
+									</div>
+
+									<div>
+										<button className="btn btn--link type--inherit">
+											Manage
+										</button>
+									</div>
+								</div>
+
+								<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml dashboard-card__separator"></div>
+							</React.Fragment>
+						}
+
+						<div className="dashboard-card__chart">
+							<div className="row u-mar--bottom--tny">
+								<div className="col col-sml-12">
+									<div className="u-display--flex row__align--center">
+										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
+										{donor && donor.isContributionMade &&
+											<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
+										}
+									</div>
 								</div>
 							</div>
-							<div className="col col-sml-12 col-med-6">
-								<div className="u-mar--bottom--sml w--100--to-med u-position--rel">
-									<BaasicButton
-										className="btn btn--med btn--100 btn--primary--light u-display--flex--column"
-										label="DASHBOARD.BUTTON.INVEST_FUNDS"
-										disabled={true}
-										message={"Coming Soon"}
-									/>
+
+							<div className={`row ${mobileResolution ? "u-mar--bottom--med" : ""}`}>
+								<div className="col col-sml-12">
+									<LineChartContainer />
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-
-				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
-					{donor && donor.isContributionMade ? (
-						<div className={`dashboard-card ${mobileResolution ? "u-mar--bottom--sml" : ""}`}>
-							<h3 className="dashboard-card__title dashboard-card__title--ordered u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
-
-							{mobileResolution &&
-								<React.Fragment>
-									<div className="dashboard-card__giving-goal">
-										<p className="dashboard-card__giving-goal__label">Giving goal:</p>
-										<div className="dashboard-card__giving-goal--range">
-											<div
-												style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : (oneTimeToGive + yearlyGoalAmount) > 0 && grantsThisYear > 0 ? 100 : 0}%` }}
-												className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
-												{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. {mobileResolution && <a onClick={() => noGivingGoals()}>Set up your giving goal?</a>}</span> : (oneTimeToGive + yearlyGoalAmount) > 0 && grantsThisYear > 0 ? (100).toFixed(2) + '%' : 0 + '%')}
-											</div>
-											<p className="dashboard-card__giving-goal__income">
-												<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
-												<FormatterResolver
-													item={{ amount: (oneTimeToGive + yearlyGoalAmount) }}
-													field='amount'
-													format={{ type: 'currency' }}
-												/></p>
-										</div>
-
-										<div>
-											<button className="btn btn--link type--inherit">
-												Manage
-											</button>
-										</div>
-									</div>
-
-									<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml dashboard-card__separator"></div>
-								</React.Fragment>
-							}
-
-							<div className="dashboard-card__chart">
-								<div className="row u-mar--bottom--tny">
-									<div className="col col-sml-12">
-										<div className="u-display--flex row__align--center">
-											<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
-											<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
-										</div>
-									</div>
-								</div>
-
-								<div className={`row ${mobileResolution ? "u-mar--bottom--med" : ""}`}>
-									<div className="col col-sml-12">
-										<LineChartContainer />
-									</div>
-								</div>
-							</div>
-						</div>
-					) : (
-						<div className="dashboard-card--emptystate card--med">
-							<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
-							<div className="dashboard-card--emptystate__body">
-								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-								<BaasicButton
-									className="btn btn--secondary btn--med btn--med--wide"
-									label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-									onClick={newContributionOnClick}
-								/>
-							</div>
-						</div>
-					)}
 				</div>
 				{donor &&
 					//|| !donor.isInvestmentMade - this isn't implemented yet

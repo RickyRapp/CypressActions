@@ -5,7 +5,7 @@
 .dashboard-card {
 	display: flex;
 	flex-direction: column;
-	height: 535px;
+
 	padding: calc($unit * 6) calc($unit * 6);
 	padding-bottom: calc($unit * 2);
 
@@ -40,7 +40,7 @@
 		}
 
 		&--amount {
-			@mixin type-scale $type-huge, 3.5;
+			@mixin type-scale $type-huge, 3;
 			margin-bottom: calc($unit * 2);
 			color: $color-text;
 			font-weight: $type-weight-extra-bold;
@@ -51,7 +51,7 @@
 			}
 
 			&--secondary {
-				@mixin type-scale $type-xxxlarge, 2.3;
+				@mixin type-scale $type-xxlarge, 1.6;
 				margin-bottom: calc($unit * 2);
 				color: $color-text;
 
