@@ -48,21 +48,20 @@ function StatementsReportsTemplate({ statementsReportsViewStore, noBackground })
 							</div>
 					}
 				</div> */}
-				<div className="card--primary">
+				<div>
 					<h3 className="u-mar--bottom--med">Annual receipts</h3>
-					<div className="col col-sml-12 col-med-12 col-lrg-12 col-xlrg-12 col-xxlrg-12  u-mar--bottom--sml">
+					<div className="u-mar--bottom--sml">
 						<div className="u-mar--bottom--sml">Please Select Tax Year</div>
-						<div className="u-mar--bottom--sml"><BaasicDropdown className="form-field--sml" store={yearDropdownStore} /></div>
+						<div className="u-mar--bottom--sml"><BaasicDropdown className="form-field" store={yearDropdownStore} /></div>
 					</div>
-					<div className="col col-sml-12 col-med-12 col-lrg-12 col-xlrg-12 col-xxlrg-12 u-mar--bottom--sml">
-						<BaasicButton
-							className="btn btn--med btn--tertiary u-mar--bottom--sml"
-							onlyIconClassName="u-mar--left--sml"
-							icon="u-icon u-icon--print u-icon--base"
-							label={`Generate report for year ${yearDropdownStore.value.name}`}
-							onClick={() => onPrintReport()}
-						></BaasicButton>
-					</div>
+
+					<BaasicButton
+						className="btn btn--med btn--tertiary u-padd--reset u-mar--bottom--sml"
+						onlyIconClassName="u-mar--left--sml"
+						icon="u-icon u-icon--print u-icon--base"
+						label={`Generate report for year ${yearDropdownStore.value.name}`}
+						onClick={() => onPrintReport()}
+					></BaasicButton>
 				</div>
 			</div>
 		</div>
