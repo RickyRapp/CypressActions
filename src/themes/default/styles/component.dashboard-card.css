@@ -6,19 +6,22 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	min-height: 485px;
-
+	
 	padding: calc($unit * 6) calc($unit * 6);
 	padding-bottom: calc($unit * 2);
-
+	
 	border-radius: $radius-base;
 	background-color: $white;
 	box-shadow: $shadow-card;
-
+	
 	&--secondary {
 		height: 450px;
 		justify-content: space-between;
 		padding: calc($unit * 6) calc($unit * 6);
+	}
+	
+	@media (--screen-from-sml) {
+		min-height: 502px;
 	}
 
 	@media (--screen-to-xlrg) {
