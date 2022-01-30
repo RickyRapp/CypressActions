@@ -5,6 +5,8 @@
 .dashboard-card {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
+	min-height: 485px;
 
 	padding: calc($unit * 6) calc($unit * 6);
 	padding-bottom: calc($unit * 2);
@@ -33,7 +35,7 @@
 
 	&__body {
 		text-align: center;
-		margin-bottom: calc($unit * 6);
+		/* margin-bottom: calc($unit * 6); */
 
 		@media (--screen-to-xlrg) {
 			margin-bottom: calc($unit * 2);
@@ -62,7 +64,7 @@
 		}
 
 		&--title {
-			margin-bottom: calc($unit * 10);
+			margin-bottom: calc($unit * 8);
 
 			color: $bali-hai;
 			text-transform: uppercase;
