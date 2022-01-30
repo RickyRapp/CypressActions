@@ -45,12 +45,16 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 		tableStore,
 		noGivingGoals
 	} = dashboardViewStore;
+
+	const mobileResolution = window.innerWidth > 750;
 	let categoriesMonths = [];
+	
 	if (mobileResolution) {
 		categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	} else {
 		categoriesMonths = ['1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '10.', '11.', '12.'];
 	}
+	
 	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
 	let categoriesYears = [];
@@ -59,7 +63,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let chartDays = [];
 	let categoriesYearToDate = [];
 
-	const mobileResolution = window.innerWidth > 750;
 
 	//let isMultipleYears = false;
 	function checkWeek(donor) {
