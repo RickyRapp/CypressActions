@@ -2595,7 +2595,9 @@
                 "PAYMENT_TYPE_LABEL": "Payment type",
                 "CHARITY_NAME_LABEL": "Charity",
                 "DATE_CREATED_LABEL": "Date created",
-                "DESCRIPTION_LABEL": "Description"
+                "DESCRIPTION_LABEL": "Description",
+                "STATUS_LABEL" : "Status",
+                "DATE_UPDATED" : "Date Updated"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -2605,6 +2607,10 @@
             },
             "FILTER": {
                 "PAYMENT_TYPE_PLACEHOLDER": "Payment type"
+            },
+            "STATUS":{
+                "IS_CASHED" : "Payment Received",
+                "IS_NOT_CASHED" : "Payment Submited"
             }
         },
         "CHECK": {
