@@ -2862,6 +2862,7 @@
                 "CARDNUMBER": "Card Number",
                 "DESCRIPTION": "Description",
                 "REQUEST_TYPE": "Request Type",
+                "PROCESS_REQUEST": "Process request",
                 "STARTFUTUREDATE": "Start future date",
                 "PURPOSE_NOTE": "Purpose Note",
                 "PURPOSE_TYPE": "Purpose Type"
