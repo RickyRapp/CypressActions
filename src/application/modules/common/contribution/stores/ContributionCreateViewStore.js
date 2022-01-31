@@ -75,7 +75,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-	async onInit({ initialLoad }) {
+	async onInit({ initialLoad }) { 
 		if (!initialLoad) {
 			this.rootStore.routerStore.goBack();
 		} else {
@@ -87,7 +87,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			}
 			this.onSelectPaymentType(this.paymentTypeDropdownStore.value);
 			if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) {
-				this.form.$('amount').set('rules', 'required|numeric|min:0');
+				this.form.$('amount').set('rules', 'required|numeric');
 			}
 		}
 	}
@@ -274,16 +274,18 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				this.form.$('nameOfEmployment').setRequired(true);
 			}
 			if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) 
-				this.form.$('amount').set('rules', 'required|numeric|min:0');
+				this.form.$('amount').set('rules', 'required|numeric');
 		}
 		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');
 		const json = JSON.parse(paymentType.json);
 		this.form.$('amount').set('rules', `required|numeric|min:${json ? json.minimumDeposit : 0}`);
 		if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) 
-			this.form.$('amount').set('rules', 'required|numeric|min:0');
+			this.form.$('amount').set('rules', 'required|numeric');
 		else if(paymentType.abrv == 'ach')
 			this.form.$('amount').set('rules', 'required|numeric|min:250');
 		this.nextStep(2);
+
+		console.log(this.rootStore.userStore.applicationUser.roles.includes('Administrators'));
 	}
 
 	@action.bound

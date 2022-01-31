@@ -90,6 +90,10 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			if (this.item.donorBankAccount) {
 				this.bankAccountDropdownStore.setValue(this.item.donorBankAccount);
 			}
+
+			if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) {
+				this.form.$('amount').set('rules', 'required|numeric');
+			}
 		}
 	}
 
@@ -159,10 +163,15 @@ class ContributionEditViewStore extends BaseEditViewStore {
 				this.form.$('collectibleTypeId').setRequired(true);
 				this.form.$('amount').set('rules', 'required|numeric|min:25000');
 			}
+			if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) 
+				this.form.$('amount').set('rules', 'required|numeric');
+				
 		}
 		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');
 		const json = JSON.parse(paymentType.json);
 		this.form.$('amount').set('rules', `required|numeric|min:${json ? json.minimumDeposit : 0}`);
+		if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) 
+			this.form.$('amount').set('rules', 'required|numeric');
 		this.nextStep(2);
 	}
 
