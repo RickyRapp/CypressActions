@@ -285,7 +285,6 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 			this.form.$('amount').set('rules', 'required|numeric|min:250');
 		this.nextStep(2);
 
-		console.log(this.rootStore.userStore.applicationUser.roles.includes('Administrators'));
 	}
 
 	@action.bound
