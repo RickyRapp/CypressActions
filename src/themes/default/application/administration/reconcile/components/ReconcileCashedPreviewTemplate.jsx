@@ -8,7 +8,8 @@ const ReconcileCashedPreviewTemplate = function ({ modalParams }){
 
     const {
         updatedSuccessfully,
-        updatedUnsuccessfully
+        updatedUnsuccessfully,
+        repeatingRecords
     } = modalParams;
 
     const reconcileCashedSuccessfullyPreviewTableStore = new TableViewStore(null, {
@@ -65,6 +66,34 @@ const ReconcileCashedPreviewTemplate = function ({ modalParams }){
     reconcileCashedUnsuccessfullyPreviewTableStore.setData(JSON.parse(stringifyedUpdatedUnsuccessfully));
     if (!reconcileCashedUnsuccessfullyPreviewTableStore.dataInitialized) {
         reconcileCashedUnsuccessfullyPreviewTableStore.dataInitialized = true;
+    }
+
+    const repeatingRecordsPreviewTableStore = new TableViewStore(null, {
+        columns: [
+            {
+                key: 'paymentNumber',
+                title: 'RECONCILE.CHECK.LIST.COLUMNS.OLD_CHECK_NUMBER_LABEL'
+            },
+            {
+                key: 'amount',
+                title: 'RECONCILE.CHECK.LIST.COLUMNS.OLD_CHECK_AMOUNT_LABEL'
+            },
+            {
+                key: 'postingDate',
+                title: 'RECONCILE.CHECK.LIST.COLUMNS.OLD_CHECK_DATE_CREATED_LABEL',
+                format : {
+                    type: 'date',
+                    value: 'short'
+                }
+            },
+        ],
+        actions: {},
+    });
+
+    let stringifyedRepeatingRecordsData = JSON.stringify(repeatingRecords)
+    repeatingRecordsPreviewTableStore.setData(JSON.parse(stringifyedRepeatingRecordsData));
+    if (!repeatingRecordsPreviewTableStore.dataInitialized) {
+        repeatingRecordsPreviewTableStore.dataInitialized = true;
     }
 
     return (
