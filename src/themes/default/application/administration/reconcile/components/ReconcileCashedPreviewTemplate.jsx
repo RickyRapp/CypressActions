@@ -33,8 +33,8 @@ const ReconcileCashedPreviewTemplate = function ({ modalParams }){
         actions: {},
     });
 
-    let stringifyedUserData = JSON.stringify(updatedSuccessfully)
-    reconcileCashedSuccessfullyPreviewTableStore.setData(JSON.parse(stringifyedUserData));
+    let stringifyedUpdatedSuccessfully = JSON.stringify(updatedSuccessfully)
+    reconcileCashedSuccessfullyPreviewTableStore.setData(JSON.parse(stringifyedUpdatedSuccessfully));
     if (!reconcileCashedSuccessfullyPreviewTableStore.dataInitialized) {
         reconcileCashedSuccessfullyPreviewTableStore.dataInitialized = true;
     }
@@ -61,8 +61,8 @@ const ReconcileCashedPreviewTemplate = function ({ modalParams }){
         actions: {},
     });
 
-    stringifyedUserData = JSON.stringify(updatedUnsuccessfully)
-    reconcileCashedUnsuccessfullyPreviewTableStore.setData(JSON.parse(stringifyedUserData));
+    let stringifyedUpdatedUnsuccessfully = JSON.stringify(updatedUnsuccessfully)
+    reconcileCashedUnsuccessfullyPreviewTableStore.setData(JSON.parse(stringifyedUpdatedUnsuccessfully));
     if (!reconcileCashedUnsuccessfullyPreviewTableStore.dataInitialized) {
         reconcileCashedUnsuccessfullyPreviewTableStore.dataInitialized = true;
     }

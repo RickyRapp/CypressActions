@@ -126,6 +126,24 @@ class ReconcileViewStore extends BaseListViewStore {
                     title: 'RECONCILE.LIST.COLUMNS.CHARITY_NAME_LABEL'
                 },
                 {
+                    key: 'isCashed',
+                    title: 'RECONCILE.LIST.COLUMNS.STATUS_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return item.isCashed ? 'Payment Received' : 'Payment Submited'
+                        }
+                    }
+                },
+                {
+                    key: 'dateCashed',
+                    title: 'RECONCILE.LIST.COLUMNS.DATE_UPDATED',
+                    format: {
+                        type: 'date',
+                        value: 'full'
+                    }
+                },
+                {
                     key: 'description',
                     title: 'RECONCILE.LIST.COLUMNS.DESCRIPTION_LABEL'
                 },
