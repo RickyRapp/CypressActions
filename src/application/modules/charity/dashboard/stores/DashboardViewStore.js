@@ -1,4 +1,4 @@
-import { BaseViewStore } from 'core/stores';
+import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { action, observable } from 'mobx';
 
@@ -8,6 +8,8 @@ class DashboardViewStore extends BaseViewStore {
 
     constructor(rootStore) {
         super(rootStore);
+
+        this.createYearDropdownStore();
     }
 
     @action.bound
@@ -20,6 +22,10 @@ class DashboardViewStore extends BaseViewStore {
                 this.fetchCharityData()
             ]);
         }
+    }
+
+    createYearDropdownStore() {
+        this.yearDropdownStore = new BaasicDropdownStore();
     }
 
     @action.bound

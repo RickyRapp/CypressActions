@@ -50,6 +50,7 @@
         "PROFILE": "Profile",
         "CHARITY_PROFILE_SETTING": "Profile Settings",
         "MANAGE_CHARITIES": "Manage Charities",
+        "MANAGE_ACCOUNT": "Manage Account",
         "COMMUNICATION_PREFERENCES": "Communication Preferences",
         "LEGACY": "Legacy",
         "ORDER_VOUCHERS": "Order Checks",
@@ -64,7 +65,12 @@
         "CHARITY_GIVING_CARD": "Accept Card",
         "CREDIT_DEBIT": "Credit/Debit",
         "DONOR-DONOR": "Donor To Donor",
-        "GIVING_GOALS": "Giving Goals"
+        "GIVING_GOALS": "Giving Goals",
+        "WITHDRAW": "Withdraw Funds",
+        "REMOTE_DEPOSIT": "Remote Deposit",
+        "APIS_AND_PAYMENTS": "APIs and Payments",
+        "INVEST_FUNDS": "Invest Funds",
+        "ACCEPT_STOCKS_AND_SECURITIES": "Accept Stocks and Securities"
     },
     "CORE": {
         "DATE_FORMAT": {
@@ -1523,6 +1529,18 @@
                 "EXPIRATION_DATE_LABEL": "Expiration date",
                 "EXPIRATION_DATE_PLACEHOLDER": "##/##"
             }
+        }
+    },
+    "ACCEPT-SECURITY": {
+        "CREATE": {
+            "DONOR_INFO": "Accepting Stocks and Securities:",
+            "DONOR_INFO_DESCRIPTION": "Enter information about the donor and the donation",
+            "BUTTON_CREATE": "Accept donation",
+            "RECENT_SECURITIES": "Recently accepted",
+            "STOCKS_AND_SECURITIES": "Stocks and Securities",
+            "BROKERAGE_INSTITUTION": "Brokerage Institution",
+            "SECURITY_TYPE": "Security Type",
+            "DONOR": "Donor"
         }
     },
     "DONOR-DONOR": {
