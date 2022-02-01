@@ -88,7 +88,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                     <BaasicFieldDropdown
                                         field={form.$('processRequest')}
                                         store={processRequestDropdownStore}
-                                        onChange={processChange()}
+                                        onChange={requestChange()}
                                     />
                                      </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">

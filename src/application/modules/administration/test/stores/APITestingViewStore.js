@@ -6,6 +6,7 @@ import moment from 'moment';
 
 class APITestingViewStore extends BaseEditViewStore {
     @observable requestType;
+    @observable processRequest;
     @observable url;
     @observable validationToken;
     @observable response;
@@ -77,16 +78,17 @@ class APITestingViewStore extends BaseEditViewStore {
             name: 'Fidelity' 
         })
         this.response = null;
+        this.form.$('processRequest').set('1');
 	}
 
     @action.bound
-	requestChange = async () => {   
-        this.validationToken =  this.form.$('requestType').value == 1 ? '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5': '27a1c6fd-9287-4ce1-8c0f-cec958e3d3c5';
-        this.url  =  this.form.$('requestType').value == 1 ? this.baseUrl + 'third-party/create-grant' : this.baseUrl + 'grant/create';
+	requestChange = () => {   console.log(this.form.$('processRequest').value);
+      //  this.validationToken =  this.form.$('requestType').value == 1 ? '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5': '27a1c6fd-9287-4ce1-8c0f-cec958e3d3c5';
+      //  this.url  =  this.form.$('requestType').value == 1 ? this.baseUrl + 'third-party/create-grant' : this.baseUrl + 'grant/create';
     }
 
     @action.bound
-	processChange = () => {   console.log("ok");
+	processChange =  () => {   console.log("2");
        // this.validationToken =  this.form.$('processRequest').value == 1 ? '27a1c6fd-9287-4ce1-8c0f-cec958e3d3c5' : '2a4efc98-ce15-4c6f-a8e7-0255c3c60bad';
 
         this.url  = this.baseUrl + 'grant/create';
