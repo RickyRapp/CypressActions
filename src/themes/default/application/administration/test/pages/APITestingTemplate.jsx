@@ -14,8 +14,6 @@ function APITestingTemplate({ apiTestingViewStore}) {
         sendRequest,
         validationToken,
         response,
-        requestChange,
-        processChange,
         url,
         grantScheduleTypeDropdownStore,
         grantPurposeTypeDropdownStore,
@@ -36,7 +34,6 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                     <BaasicFieldDropdown
                                         field={form.$('requestType')}
                                         store={requestTypeDropdownStore}
-                                        onChange={requestChange()}
                                     />
                                 </div>
                                 {form.$('requestType').value == 1 ?
@@ -88,7 +85,6 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                     <BaasicFieldDropdown
                                         field={form.$('processRequest')}
                                         store={processRequestDropdownStore}
-                                        onChange={requestChange()}
                                     />
                                      </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
