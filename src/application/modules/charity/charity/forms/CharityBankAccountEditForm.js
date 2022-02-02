@@ -48,6 +48,12 @@ export default class CharityBankAccountEditForm extends FormBase {
                     value: false
                 },
                 {
+                    name: 'donorBankAccountId',
+                    label: 'DONOR.AUTOMATIC_CONTRIBUTION_SETTING.EDIT.FIELDS.BANK_ACCOUNT_LABEL',
+                    placeholder: 'DONOR.AUTOMATIC_CONTRIBUTION_SETTING.EDIT.FIELDS.BANK_ACCOUNT_PLACEHOLDER',
+                    rules: 'string'
+                },
+                {
                     name: 'accountHolderName',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER',
