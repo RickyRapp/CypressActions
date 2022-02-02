@@ -14,10 +14,10 @@ function APITestingTemplate({ apiTestingViewStore}) {
         sendRequest,
         validationToken,
         response,
-        requestChange,
         url,
         grantScheduleTypeDropdownStore,
-        grantPurposeTypeDropdownStore
+        grantPurposeTypeDropdownStore,
+        processRequestDropdownStore
     } = apiTestingViewStore;
 
     return (
@@ -34,7 +34,6 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                     <BaasicFieldDropdown
                                         field={form.$('requestType')}
                                         store={requestTypeDropdownStore}
-                                        onChange={requestChange()}
                                     />
                                 </div>
                                 {form.$('requestType').value == 1 ?
@@ -82,6 +81,12 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                 </React.Fragment>
                                 : 
                                 <React.Fragment>
+                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                    <BaasicFieldDropdown
+                                        field={form.$('processRequest')}
+                                        store={processRequestDropdownStore}
+                                    />
+                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <BasicInput field={form.$('taxId')} />
                                     </div>

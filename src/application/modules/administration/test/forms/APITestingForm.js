@@ -16,6 +16,12 @@ export default class APITestingForm extends FormBase {
                     rules: 'string',
                 },
                 {
+                    name: 'processRequest',
+                    label: 'TEST.API_TESTING.FIELDS.PROCESS_REQUEST',
+                    placeholder: 'TEST.API_TESTING.FIELDS.PROCESS_REQUEST',
+                    rules: 'string',
+                },
+                {
                     name: 'taxId',
                     label: 'TEST.API_TESTING.FIELDS.TAXID',
                     placeholder: 'TEST.API_TESTING.FIELDS.TAXID',
