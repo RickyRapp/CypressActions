@@ -396,7 +396,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 								</div>
 
 								<div className="u-mar--bottom--med">
-									<ProgressLineTemplate />
+									<ProgressLineTemplate summaryData={summaryData} />
 									<DonutChartContainer />
 									<div>
 										<p className="type--base type--wgt--medium u-mar--bottom--sml">

@@ -281,7 +281,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 									</div>
 
 									<div>
-										<button className="btn btn--link type--inherit" onClick={() => editIncomeOnClick(yearlyGoal)}>
+										<button className="btn btn--link type--inherit">
 											Manage
 										</button>
 									</div>

@@ -2098,7 +2098,7 @@
     },
     "BOOKLET_ORDER": {
         "LIST": {
-            "TITLE": "Booklet orders",
+            "TITLE": "Order Check Books (50 checks per book)",
             "COLUMNS": {
                 "CODE_LABEL": "Code",
                 "DENOMINATION_LABEL": "Denominaiton",
