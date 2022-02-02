@@ -1,0 +1,53 @@
+/*------------------------------------*\
+    # component.summary
+\*------------------------------------*/
+
+.summary {
+	&__wrapper {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: calc($unit * 1.5);
+
+		margin-bottom: calc($unit * 4);
+	}
+
+	&__card {
+		flex: 1;
+		padding: calc($unit * 4);
+
+		text-align: center;
+		word-wrap: none;
+		white-space: nowrap;
+
+		@media (--screen-to-sml) {
+			padding: calc($unit * 3);
+		}
+
+		&__amount {
+			@mixin type-scale $type-large, 1.5;
+			@media (--screen-from-med) {
+				@mixin type-scale $type-xxlarge, 2;
+			}
+			font-weight: $type-weight-medium;
+
+			&--primary {
+				color: $color-text;
+			}
+
+			&--secondary {
+				color: $color-primary;
+			}
+		}
+
+		&--primary {
+			border-radius: $radius-base;
+			background-color: $color-background;
+		}
+
+		&--secondary {
+			background-color: $color-background-seashellt;
+			border-radius: $radius-base;
+		}
+	}
+}

@@ -301,12 +301,13 @@
 }
 
 .form-field--sml.k-dropdown .k-dropdown-wrap {
-	@mixin type-scale $type-base, 1;
-
 	height: calc($unit * 6);
+	min-width: 150px;
+	
 	padding-top: 0;
 	margin-top: calc($unit / 2);
-
+	
+	@mixin type-scale $type-base, 1;
 	font-family: $ff-sans;
 	font-weight: $type-weight-medium;
 
