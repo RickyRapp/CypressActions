@@ -492,7 +492,7 @@ function renderActions({ item, actions, actionsRender }) {
 				<BaasicButton
 					className="btn btn--icon"
 					onlyIconClassName="u-mar--right--tny"
-					icon="u-icon u-icon--approve u-icon--base"
+					icon="u-icon u-icon--recycle u-icon--base"
 					label="Grant Again"
 					onlyIcon={true}
 					onClick={() => onGrantAgain(item)}

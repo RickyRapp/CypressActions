@@ -762,6 +762,10 @@
 			background-image: svg-load('../styles/postcss-svg/refresh.svg', fill: $color-primary);
 		}
 
+		&--recycle {
+			background-image: svg-load('../styles/postcss-svg/recycle.svg', fill: $color-primary);
+		}
+
 		&--reset {
 			background-image: svg-load('../styles/postcss-svg/reset.svg', stroke: $color-note);
 
