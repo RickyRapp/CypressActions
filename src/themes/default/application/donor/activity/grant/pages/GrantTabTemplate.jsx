@@ -8,9 +8,9 @@ import { TransactionDonor } from 'application/donor/activity/transaction/compone
 const GrantTabTemplate = function ({ grantTabViewStore }) {
     return (
         <div className="row">
-            <div className="col col-sml-12 col-med-12 col-lrg-12 col-xxxlrg-10 u-mar--bottom--tny u-mar--top--sml">
+            {/* <div className="col col-sml-12 col-med-12 col-lrg-12 col-xxxlrg-10 u-mar--bottom--tny u-mar--top--sml">
                 <TransactionDonor />
-            </div>
+            </div> */}
             <div className="col col-sml-12 col-med-12 col-lrg-12 u-mar--bottom--lrg">
                 <TabLayout store={grantTabViewStore} activeClassName="tabs--filter__item">
                     <div label={'ACTIVITY.GRANT_TAB.PAST_GRANT'}>
