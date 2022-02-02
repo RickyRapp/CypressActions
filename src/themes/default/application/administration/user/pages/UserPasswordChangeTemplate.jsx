@@ -12,10 +12,12 @@ function UserPasswordChangeTemplate(props) {
     return (
         <section >
             <form className='form' onSubmit={userPasswordChangeForm.onSubmit}>
-                <h3 className='spc--bottom--sml'>Change Password</h3>
-                <BasicInput field={userPasswordChangeForm.$('newPassword')} />
+                <h3 className='u-mar--bottom--sml'>Change Password</h3>
+                <div className='u-mar--bottom--tny'>
+                    <BasicInput field={userPasswordChangeForm.$('newPassword')} />
+                </div>
                 <BasicFieldCheckbox field={userPasswordChangeForm.$('sendMailNotification')} />
-                <div>
+                <div className='u-mar--top--sml type--right'>
                     <BaasicButton
                         className='btn btn--med btn--med--wide btn--primary spc--top--sml display--ib'
                         type='submit'

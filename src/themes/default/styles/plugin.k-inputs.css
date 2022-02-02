@@ -33,6 +33,7 @@
 		height: calc($unit * 8);
 		line-height: calc($unit * 8);
 		padding: 0 calc($unit * 4);
+		padding-left: calc($unit * 2);
 		@mixin type-scale $type-small, 1;
 	}
 }

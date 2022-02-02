@@ -85,6 +85,8 @@
 @import "component.toggle.css";
 @import "component.validation.css";
 @import "component.list.css";
+@import "component.progressbar.css";
+@import "component.summary.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)

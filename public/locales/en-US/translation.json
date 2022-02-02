@@ -1861,6 +1861,7 @@
                 "SUMMARY": {
                     "TITLE": "Summary",
                     "SLIDER_LABEL": "Amount given this year",
+                    "PROGRESSBAR_TITLE": "Amount given this year",
                     "DONAUT_CHART_TITLE": "Amount donated by category",
                     "LINE_CHART_TITLE": "Amount donated by time period"
                 }
@@ -2097,7 +2098,7 @@
     },
     "BOOKLET_ORDER": {
         "LIST": {
-            "TITLE": "Booklet orders",
+            "TITLE": "Order Check Books (50 checks per book)",
             "COLUMNS": {
                 "CODE_LABEL": "Code",
                 "DENOMINATION_LABEL": "Denominaiton",

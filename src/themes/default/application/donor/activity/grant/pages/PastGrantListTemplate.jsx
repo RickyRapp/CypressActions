@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Export, BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton, BaasicInput, NumberFormatInput, DateRangeQueryPicker } from 'core/components';
 import { Content } from 'core/layouts';
+import { ProgressLineTemplate } from '../components'
 
 import {
 	Chart,
@@ -14,13 +15,11 @@ import {
 	ChartSeriesItem,
 	ChartSeriesItemTooltip,
 	//ChartSeriesLabels,
-	ChartTitle,
 	ChartTooltip,
 	ChartValueAxis,
 	ChartValueAxisItem,
 } from '@progress/kendo-react-charts';
 import { isSome } from 'core/utils';
-import { localStorageProvider } from 'core/providers';
 import moment from 'moment';
 
 const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
@@ -56,30 +55,36 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	//const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
 	const DonutChartContainer = () => {// eslint-disable-line
 		return (
-			<Chart>
-				<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')} />
-				<ChartLegend position="right" visible={true} />
-				<ChartArea background="none" />
-				<ChartTooltip render={({ point }) => (
-					point ? point.category + ' ' + '$' + point.value.toFixed(2) : null)}
-				/>
-				<ChartTooltip />
-				<ChartSeries>
-					<ChartSeriesItem
-						type="donut"
-						startAngle={150}
-						data={dataDonut}
-						categoryField="legend"
-						field="value"
-						colorField="color"
-						border={'1px'}
-					>
-						{/* $${point.value.toFixed(2)} */}
-						<ChartSeriesItemTooltip render={({ point }) => point ? <span>{point.dataItem.charityType}: <FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} /></span> : null} />
-						{/* <ChartSeriesLabels position="outsideEnd" background="none" content={labelContent} /> */}
-					</ChartSeriesItem>
-				</ChartSeries>
-			</Chart>
+			<div className="u-mar--bottom--med">
+				<p className="type--base">
+					{t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')}
+				</p>
+				<Chart style={{
+					height: 250,
+				}}>
+					<ChartLegend position="right" visible={true} />
+					<ChartArea background="none" />
+					<ChartTooltip render={({ point }) => (
+						point ? point.category + ' ' + '$' + point.value.toFixed(2) : null)}
+					/>
+					<ChartTooltip />
+					<ChartSeries>
+						<ChartSeriesItem
+							type="donut"
+							startAngle={150}
+							data={dataDonut}
+							categoryField="legend"
+							field="value"
+							colorField="color"
+							border={'1px'}
+						>
+							{/* $${point.value.toFixed(2)} */}
+							<ChartSeriesItemTooltip render={({ point }) => point ? <span>{point.dataItem.charityType}: <FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} /></span> : null} />
+							{/* <ChartSeriesLabels position="outsideEnd" background="none" content={labelContent} /> */}
+						</ChartSeriesItem>
+					</ChartSeries>
+				</Chart>
+			</div>
 		);
 	};
 
@@ -89,7 +94,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	// 	//dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
 	// };
 	let categoriesMonths = [];
-	if(window.innerWidth > 750) {
+	if (window.innerWidth > 750) {
 		categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	} else {
 		categoriesMonths = ['1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '10.', '11.', '12.'];
@@ -102,7 +107,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	let chartDays = [];
 	let categoriesYearToDate = [];
 	let categoriesYears = [];
-	
+
 	function checkWeek(donor) {
 		if (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7) {
 			const todayDate = new Date();
@@ -182,7 +187,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			} else {
 				let multipleYears = [];
 				for (let i = 0; i < donor.donationsPerYear.length; i++) {
-					multipleYears.push({ year: donor.donationsPerYear[i].year, grants: donor.donationsPerYear[i].grants.length > 0 ? donor.donationsPerYear[i].grants[donor.donationsPerYear[i].grants.length - 1] : 0, contributions: donor.donationsPerYear[i].contributions.length > 0 ? donor.donationsPerYear[i].contributions[donor.donationsPerYear[i].contributions.length - 1] : 0});
+					multipleYears.push({ year: donor.donationsPerYear[i].year, grants: donor.donationsPerYear[i].grants.length > 0 ? donor.donationsPerYear[i].grants[donor.donationsPerYear[i].grants.length - 1] : 0, contributions: donor.donationsPerYear[i].contributions.length > 0 ? donor.donationsPerYear[i].contributions[donor.donationsPerYear[i].contributions.length - 1] : 0 });
 					categoriesYears.push(donor.donationsPerYear[i].year);
 					dataGrants.push(multipleYears[i].grants);
 					dataContributions.push(multipleYears[i].contributions);
@@ -191,7 +196,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		}
 		if (yearDropdownStore.value.id === 2) {
 			const month = parseInt(moment().format("M"));
-			if(month == 0) {
+			if (month == 0) {
 				yearDropdownStore.value.id = 30;
 				checkMonth(donor);
 			} else if (month == 11) {
@@ -205,41 +210,56 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		}
 	}
 
-	if(yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id != 1)
-	{
+	if (yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id != 1) {
 		let previousYearGrants = 0, previousYearContributions = 0;
-		if(donor && donor.donationsPerYear.length > 1) {
-			if(yearDropdownStore.value.id > donor.donationsPerYear[0].year || yearDropdownStore.value.id == 2) {
+		if (donor && donor.donationsPerYear.length > 1) {
+			if (yearDropdownStore.value.id > donor.donationsPerYear[0].year || yearDropdownStore.value.id == 2) {
 				const previousYear = donor.donationsPerYear.find(c => c.year == (yearDropdownStore.value.id == 2 ? ((new Date().getFullYear()) - 1) : yearDropdownStore.value.id - 1));
 				previousYearGrants = previousYear.grants[11] ? previousYear.grants[11] : 0;
 				previousYearContributions = previousYear.contributions[11] ? previousYear.contributions[11] : 0;
 			}
-			if(dataGrants.length > 0)
+			if (dataGrants.length > 0)
 				dataGrants = dataGrants.map(c => c - previousYearGrants);
-			if(dataContributions.length > 0)
+			if (dataContributions.length > 0)
 				dataContributions = dataContributions.map(c => c - previousYearContributions);
 
 		} else {
-			if(dataGrants.length > 0)
+			if (dataGrants.length > 0)
 				dataGrants = dataGrants.map(c => dataGrants[dataGrants.length - 1] != (c - dataGrants[0]) ? (c - dataGrants[0]) : c);
-			if(dataContributions.length > 0)
+			if (dataContributions.length > 0)
 				dataContributions = dataContributions.map(c => dataContributions[dataContributions.length - 1] != (c - dataContributions[0]) ? (c - dataContributions[0]) : c);
-			}
+		}
 	}
-	
+
 	const labelVisual = (e) => {
 		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 	};
 	const currencyFormat = (e) => {
 		return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 	};
+
+	let categoryDropDown = 0;
+	if (donor && donor.isContributionMade) {
+		if (yearDropdownStore.value.id && yearDropdownStore.value.id > 2000) {
+			categoryDropDown = categoriesMonths;
+		} else if (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7) {
+			categoryDropDown = chartDays;
+		} else if (yearDropdownStore.value.id === 1) {
+			categoryDropDown = categoriesYears;
+		} else if (yearDropdownStore.value.id === 2) {
+			categoryDropDown = categoriesYearToDate
+		} else {
+			categoryDropDown = categoriesWeeks;
+		}
+	}
+
 	const LineChartContainer = () => (
 		<Chart style={{ height: 260 }}>
 			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={yearDropdownStore.value.id > 2000 ? categoriesMonths : (yearDropdownStore.value.id == 7 || yearDropdownStore.value.id == -7 ? chartDays : (yearDropdownStore.value.id === 1 ? categoriesYears : (yearDropdownStore.value.id === 2 ? categoriesYearToDate : categoriesWeeks)))} />
+				<ChartCategoryAxisItem categories={categoryDropDown} />
 			</ChartCategoryAxis>
 			<ChartValueAxis>
-				<ChartValueAxisItem labels={{visible: true, content: labelVisual}} />
+				<ChartValueAxisItem labels={{ visible: true, content: labelVisual }} />
 			</ChartValueAxis>
 			<ChartTooltip
 				render={({ point }) => (
@@ -253,48 +273,6 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			</ChartSeries>
 		</Chart>
 	);
-
-	// const LineChartContainer = () => (
-	// 	<Chart style={{ height: 260 }}>
-	// 		<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
-	// 		<ChartCategoryAxis>
-	// 			<ChartCategoryAxisItem categories={categories} />
-	// 		</ChartCategoryAxis>
-	// 		<ChartTooltip
-	// 			render={({ point }) => (
-	// 				<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
-	// 			)}
-	// 		/>
-	// 		<ChartLegend position="bottom" orientation="horizontal" />
-	// 		<ChartSeries>
-	// 			<ChartSeriesItem color="#bc6d11" name="Total Contributed" type="line" data={dataContributions} />
-	// 			<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
-	// 		</ChartSeries>
-	// 	</Chart>
-	// );
-	// let categories = [];
-	// let dataLine = [];
-	// if (summaryData) {
-	// 	categories = summaryData.donationsByTimePeriod.map(c => c.month);
-	// 	dataLine = summaryData.donationsByTimePeriod.map(c => c.amount);
-	// }
-
-	// const LineChartContainer = () => (// eslint-disable-line
-	// 	<Chart>
-	// 		<ChartTitle text={t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')} />
-	// 		<ChartCategoryAxis>
-	// 			<ChartCategoryAxisItem categories={categories} />
-	// 		</ChartCategoryAxis>
-	// 		<ChartTooltip
-	// 			render={({ point }) => (
-	// 				<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
-	// 			)}
-	// 		/>
-	// 		<ChartSeries>
-	// 			<ChartSeriesItem type="line" color="#bc6d11" data={dataLine} />
-	// 		</ChartSeries>
-	// 	</Chart>
-	// );
 
 	return (
 		<Content>
@@ -389,85 +367,50 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 						</h4>
 						{summaryData ? (
 							<React.Fragment>
-								<div className="row row--form">
-									<div className="col col-sml-12 col-med-6 col-xxxlrg-12 u-mar--bottom--med">
-										<div className="card--secondary card--med type--center">
-											<div className="type--xxlrg type--wgt--medium type--color--text">
-												{summaryData && (
-													<FormatterResolver
-														item={{ amount: summaryData.totalMoneyGiven }}
-														field="amount"
-														format={{ type: 'currency' }}
-													/>
-												)}
-												<p className="type--xsml type--wgt--medium type--color--text">Total money given</p>
-											</div>
+								<div className="summary__wrapper">
+									<div className="summary__card summary__card--primary">
+										<div className="summary__card__amount summary__card__amount--secondary--primary">
+											{summaryData && (
+												<FormatterResolver
+													item={{ amount: summaryData.totalMoneyGiven }}
+													field="amount"
+													format={{ type: 'currency' }}
+												/>
+											)}
+											<p className="type--xsml type--wgt--medium type--color--text">Total money given</p>
 										</div>
 									</div>
 
-									<div className="col col-sml-12 col-med-6 col-xxxlrg-12 u-mar--bottom--med">
-										<div className="card--secondary--light card--med type--center">
-											<div className="type--xxlrg type--wgt--medium type--color--note">
-												{summaryData && (
-													<FormatterResolver
-														item={{ amount: upcomingGrants }}
-														field="amount"
-														format={{ type: 'currency' }}
-													/>
-												)}
-												<p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming this year</p>
-											</div>
+									<div className="summary__card summary__card--secondary">
+										<div className="summary__card__amount summary__card__amount--secondary">
+											{summaryData && (
+												<FormatterResolver
+													item={{ amount: upcomingGrants }}
+													field="amount"
+													format={{ type: 'currency' }}
+												/>
+											)}
+											<p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming this year</p>
 										</div>
 									</div>
 								</div>
-								{/* <div className="row u-mar--bottom--med">
-									<div className="col col-sml-12 col-lrg-12">
-										<span>{t('DONATION.PAST_GRANT.LIST.SUMMARY.SLIDER_LABEL')}</span>
-										{summaryData && (
-											<Slider
-												buttons={false}
-												step={1}
-												defaultValue={summaryData.totalMoneyGivenThisYear}
-												min={0}
-												max={summaryData.totalMoneyUpcomingThisYear}
-												disabled={true}
-											>
-												<SliderLabel position={0}>
-													{(summaryData.totalMoneyGivenThisYear / summaryData.totalMoneyUpcomingThisYear) * 100}%
-												</SliderLabel>
 
-												<SliderLabel position={summaryData.totalMoneyUpcomingThisYear}>
-													${summaryData.totalMoneyUpcomingThisYear}
-												</SliderLabel>
-											</Slider>
-										)}
-									</div>
-								</div> */}
 								<div className="u-mar--bottom--med">
-									<div className="dashboard-card__giving-goal">
-										<p className="dashboard-card__giving-goal__label">Giving goal:</p>
-										<div className="dashboard-card__giving-goal--range">
-											<div style={{ 'width': `${((localStorageProvider.get('grantsThisYear') / localStorageProvider.get('totalGoal')) * 100).toFixed(2) >= 100 ? 100 : ((localStorageProvider.get('grantsThisYear') / localStorageProvider.get('totalGoal')) * 100).toFixed(2)}%` }} 
-												className={`dashboard-card__giving-goal--range--progress${isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal') * 100) || ((localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) * 100).toFixed(2) >= 100 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
-													{isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal') * 100) || (typeof localStorage.getItem('totalGoal') == 'undefined' || localStorage.getItem('totalGoal') == 0) ? <span>No goals set up</span> : null}
-												{!(typeof localStorage.getItem('totalGoal') == 'undefined' || localStorage.getItem('totalGoal') == 0) && (((localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) * 100).toFixed(2) >= 100 ? 100 : (isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) ? null : ((localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) * 100).toFixed(2)))}{!(typeof localStorage.getItem('totalGoal') == 'undefined' || localStorage.getItem('totalGoal') == 0) && !isNaN(localStorage.getItem('grantsThisYear') / localStorage.getItem('totalGoal')) ? '%' : null}</div>
-											</div>
-										{/* <div className="dashboard-card__giving-goal__label">
-											<a className="btn btn--sml btn--link">Manage</a>
-										</div> */}
-									</div>
+									<ProgressLineTemplate summaryData={summaryData} />
 									<DonutChartContainer />
-									<div className="u-display--flex row__align--center">
-										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
-										<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
-									</div>
-									<LineChartContainer />
-								</div>
-								{/* <div className="row">
-									<div className="col col-sml-12 col-lrg-12">
+									<div>
+										<p className="type--base type--wgt--medium u-mar--bottom--sml">
+											{t('DONATION.PAST_GRANT.LIST.SUMMARY.LINE_CHART_TITLE')}
+										</p>
+										<div className="u-display--flex row__align--center">
+											<span className="type--sml type--wgt--medium u-mar--right--sml">Total Given</span>
+											{donor && donor.isContributionMade &&
+												<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
+											}
+										</div>
 										<LineChartContainer />
 									</div>
-								</div> */}
+								</div>
 							</React.Fragment>
 						) : (
 							<div className="card--med">

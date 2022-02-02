@@ -1,0 +1,34 @@
+/*------------------------------------*\
+    # component.progressbar
+\*------------------------------------*/
+
+.progressbar {
+    margin-bottom: calc($unit * 5);
+
+    &__label {
+        margin-bottom: calc($unit * 2);
+
+        font-weight: $type-weight-medium;
+        color: $bali-hai;
+    }
+
+    &__body {
+        height: calc($unit * 1.5);
+
+        background-color: $grey-1;
+        border-radius: $unit;
+    }
+
+    &__progress {
+        height: 100%;
+
+        background-color: $zest;
+        border-top-left-radius: $unit;
+        border-bottom-left-radius: $unit;
+
+        &--rounded {
+            border-top-right-radius: $unit;
+            border-bottom-right-radius: $unit;
+        }
+    }
+}
