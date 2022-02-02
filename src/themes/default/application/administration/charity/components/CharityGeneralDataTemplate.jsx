@@ -48,10 +48,20 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                 <div className="flex flex--primary w--100">
                                     <div className="form__group">
                                         <div>
-                                            <label className="form__group__label">Tax ID</label>
+                                            <label className="form__group__label">Tax Id: </label>
                                             {item &&
-                                                <h2><NumberFormat format="##-#######" displayType="text" value={item.taxId} /></h2>
-                                            }
+                                                <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
+                                            <br />
+                                            <label className="form__group__label">Api Key: </label>
+                                            {item && item.apiKey}&nbsp; 
+                                            {item && item.apiKey && <BaasicButton
+                                                className="btn btn--icon"
+                                                onlyIconClassName="u-mar--right--tny"
+                                                icon="u-icon u-icon--clipboard u-icon--base"
+                                                label="Copy to clipboard"
+                                                onlyIcon={true}
+                                                onClick={() => navigator.clipboard.writeText(item.apiKey)}
+                                            ></BaasicButton>}
                                         </div>
                                     </div>
                                     <div className="form__group">

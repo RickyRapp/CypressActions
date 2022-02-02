@@ -36,7 +36,7 @@ class CharityAddressViewStore extends BaseListViewStore {
                         params.charityId = this.charityId;
                         params.orderBy = 'isPrimary';
                         params.orderDirection = 'desc';
-                        return rootStore.application.administration.charityAddressStore.findCharityAddress(params);
+                        return rootStore.application.charity.charityStore.findCharityAddress(params);
                     }
                 }
             }
@@ -64,7 +64,7 @@ class CharityAddressViewStore extends BaseListViewStore {
     @action.bound
     async updateAddressAsync(entity) {
         try {
-            await this.rootStore.application.administration.charityAddressStore.updateCharityAddress(entity);
+            await this.rootStore.application.charity.charityStore.updateCharityAddress(entity);
 
             this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             this.addressModal.close();
@@ -78,7 +78,7 @@ class CharityAddressViewStore extends BaseListViewStore {
     @action.bound
     async createAddressAsync(entity) {
         try {
-            await this.rootStore.application.administration.charityAddressStore.createCharityAddress({
+            await this.rootStore.application.charity.charityStore.createCharityAddress({
                 charityId: this.charityId,
                 ...entity
             });

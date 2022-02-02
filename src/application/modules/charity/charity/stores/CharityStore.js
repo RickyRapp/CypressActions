@@ -1,3 +1,4 @@
+import { RoutingNumberService } from 'application/administration/bank/services';
 import { CharityService, CharityBankAccountService, CharityAddressService } from 'application/common/charity/services';
 import { DonationService } from 'application/donor/activity/services';
 import { CharityFileStreamService } from 'common/services';
@@ -10,6 +11,7 @@ class CharityStore {
         this.charityAddressService = moduleStore.rootStore.createApplicationService(CharityAddressService);
         this.fileStreamService = moduleStore.rootStore.createApplicationService(CharityFileStreamService);
         this.donationService = moduleStore.rootStore.createApplicationService(DonationService);
+        this.routingNumberService = moduleStore.rootStore.createApplicationService(RoutingNumberService);
     }
 
     async findCharity(params) {
@@ -90,6 +92,16 @@ class CharityStore {
     async taxIdExists(resource) {
         const response = await this.charityService.taxIdExists(resource);
         return response.statusCode;
+    }
+
+    async findRoutingNumber(params) {
+        const response = await this.routingNumberService.find(params);
+        return response.data;
+    }
+
+    async updateAddress(params) {
+        const response = await this.charityAddressService.update(params);
+        return response.data;
     }
 
 }
