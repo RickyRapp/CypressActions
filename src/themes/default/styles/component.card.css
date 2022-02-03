@@ -40,6 +40,16 @@
 		}
 	}
 
+	&--center {
+		display: flex;
+		align-items: baseline;
+		justify-content: center;
+
+		& span {
+			line-height: 1;
+		}
+	}
+
 	&--tertiary {
 		background-color: $white;
 		border-radius: $radius-base;
