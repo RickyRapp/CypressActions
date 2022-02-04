@@ -17,4 +17,10 @@
     &--lrg {
         max-width: 1440px;
     }
+
+    &--sidebar {
+        display: grid;
+        grid-template-columns: 1fr 450px;
+        grid-gap: calc($unit * 4);
+    }
 }
