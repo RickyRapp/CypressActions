@@ -2098,7 +2098,7 @@
     },
     "BOOKLET_ORDER": {
         "LIST": {
-            "TITLE": "Order Check Books (50 checks per book)",
+            "TITLE": "Booklet Order",
             "COLUMNS": {
                 "CODE_LABEL": "Code",
                 "DENOMINATION_LABEL": "Denominaiton",
@@ -2128,7 +2128,7 @@
             }
         },
         "CREATE": {
-            "TITLE": "Order Checks",
+            "TITLE": "Order Check Books (50 checks per book)",
             "ORDER_VOUCHERS_BOOKS": "Order Check Books (50 checks per book)",
             "PREPAID_ONLY": "PREPAID",
             "DELIVERY_OPTIONS": "Delivery Options",
