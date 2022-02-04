@@ -127,6 +127,7 @@ class PendingDonationViewStore extends BaseListViewStore {
             await this.downloadReport(data.response, this.paymentTypeDropdownStore.value.id);
             this.paymentTypeDropdownStore.setValue(null);
             this.form.clear();
+            this.queryUtility.fetch();
             this.tableStore.resume();
         } catch (error) {
             this.tableStore.resume();

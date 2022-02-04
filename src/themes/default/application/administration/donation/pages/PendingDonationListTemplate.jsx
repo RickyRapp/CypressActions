@@ -82,9 +82,9 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                     <div className="col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('paymentNumber')} />
 
-                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentNumber').value) && selectedGrants > 0 ?
+                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'check' && !isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentNumber').value) && tableStore && tableStore.selectedItems && tableStore.selectedItems.length > 0 ?
                             <div>
-                                Check Numbers From: {Number(form.$('paymentNumber').value)} to {selectedGrants + Number(form.$('paymentNumber').value) - 1}
+                                Check Numbers From: {form.$('paymentNumber').value} to {tableStore.selectedItems.length + Number(form.$('paymentNumber').value) - 1}
                             </div>
                             :
                             null}
