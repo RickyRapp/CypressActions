@@ -273,7 +273,7 @@ class PastGrantViewStore extends BaseListViewStore {
 							format: {
 								type: 'function',
 								value: (item) => {
-									return item.donationType.description;
+									return this.getTransactionType(item);
 								}
 							},
 						},
@@ -305,7 +305,7 @@ class PastGrantViewStore extends BaseListViewStore {
 							format: {
 								type: 'function',
 								value: (item) => {
-									return this.getTransactionType(item);
+									return this.getDescription(item);
 								}
 							}
 						},
@@ -355,22 +355,28 @@ class PastGrantViewStore extends BaseListViewStore {
 			}
 			return item.grantPurposeType.name;
 		} else if (item.donationType.abrv === 'charity-website') {
-            return `Grant: ${item.charity.name}`;
+            return item.thirdPartyWebsite.url;
         }
-		// else if(item.donationType.abrv === "giving-card") {
-		// 	return `Grant: ${item.charity.name}`;
-		// }
+		else if(item.donationType.abrv === "giving-card") {
+			return `Giving card`;
+		}
+		else if(item.donationType.abrv === "session") {
+			return item.session.fullName;
+		}
 		else{
 			return `Grant: ${item.charity.name}`;
 		} 
     }
 
-	getTransactionType(item) {
+	getTransactionType(item) { 
 		if (item.donationType.abrv === "session") {
 			return ((((item.donationType.name + ' ') + item.certificate.booklet.code) + ' - ') + item.certificate.code);
 		} else if (item.donationType.abrv === 'charity-website') {
-			return item.thirdPartyWebsite.url;
+			return `Charity website`;
 		} 
+		else if(item.donationType.abrv === "giving-card") {
+			return `Fidelity`;
+		}
 		else {
 			return item.donationType.name;
 		}
