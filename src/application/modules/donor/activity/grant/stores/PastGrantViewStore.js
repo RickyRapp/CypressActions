@@ -358,7 +358,7 @@ class PastGrantViewStore extends BaseListViewStore {
             return item.thirdPartyWebsite.url;
         }
 		else if(item.donationType.abrv === "giving-card") {
-			return `Giving card`;
+			return `Fidelity`;
 		}
 		else if(item.donationType.abrv === "session") {
 			return item.session.fullName;
@@ -375,7 +375,7 @@ class PastGrantViewStore extends BaseListViewStore {
 			return `Charity website`;
 		} 
 		else if(item.donationType.abrv === "giving-card") {
-			return `Fidelity`;
+			return `Giving card`;
 		}
 		else {
 			return item.donationType.name;
