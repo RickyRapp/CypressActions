@@ -346,14 +346,14 @@ class PastGrantViewStore extends BaseListViewStore {
 		this.showMoreOptions = !this.showMoreOptions;
 	}
 
-	getDescription(item) {
+	getDescription(item) { 
 		if (item.donationType.abrv === "online") {
 			if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
 				return `${item.grantPurposeType.name} - ${item.purposeNote}`
 			}
 			return item.grantPurposeType.name;
-		} else if (item.donationType.abrv === 'charity-website') {
-            return item.thirdPartyWebsite.url;
+		} else if (item.donationType.abrv === 'charity-website') { 
+				return item.thirdPartyWebsite.url;
         }
 		else if(item.donationType.abrv === "giving-card") {
 			return `Fidelity`;
