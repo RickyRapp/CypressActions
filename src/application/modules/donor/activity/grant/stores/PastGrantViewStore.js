@@ -323,7 +323,6 @@ class PastGrantViewStore extends BaseListViewStore {
 								if (grant.donationStatus.abrv === 'pending' || ((grant.grantPurposeType.abrv === 'where-deemed-most-needed' || grant.grantPurposeType.abrv === 'general-fund') && grant.donationStatus.abrv === 'approved')) {
 									return canEditCancel(grant.dateCreated);
 								}
-								return true;
 							}
 							return false;
 						},
@@ -332,7 +331,6 @@ class PastGrantViewStore extends BaseListViewStore {
 								if (grant.donationStatus.abrv === 'pending' || ((grant.grantPurposeType.abrv === 'where-deemed-most-needed' || grant.grantPurposeType.abrv === 'general-fund') && grant.donationStatus.abrv === 'approved')) {
 									return canEditCancel(grant.dateCreated);
 								}
-								return true;
 							}
 							return false;
 						},
