@@ -155,15 +155,6 @@
 			color: color($white a(80%));
 			background: color($color-text a(80%));
 		}
-
-		&--light {
-			background: $color-background-clear-day;
-			color: $color-note;
-
-			&:hover {
-				background: color($color-background-clear-day blackness(+5%));
-			}
-		}
 	}
 
 	&--tertiary {

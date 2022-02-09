@@ -37,6 +37,10 @@
 				&--end {
 					align-items: flex-end;
 				}
+
+				&--baseline {
+					align-items: baseline;
+				}
 			}
 
 			&--justify {
