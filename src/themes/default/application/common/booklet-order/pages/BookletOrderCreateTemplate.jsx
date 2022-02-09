@@ -210,7 +210,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                             <div className="">
                                 <div className="card--primary card--med ">
-                                    <div className="card--med card--secondary--light card--center">
+                                    <div className="card--med card--secondary--light card--center u-display--flex u-display--flex--wrap">
                                         <span className="type--med type--color--text u-mar--right--sml u-mar--bottom--tny">Available balance: </span>
                                         <span className="type--xlrg type--wgt--medium type--color--note">
                                             {donor && <FormatterResolver
@@ -416,7 +416,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     className = "col-sml-12 col-med-3 col-xxlrg-2"
                                 }
                                 return (
-                                    <div key={c.id} className={`col ${className} ${isMobile ? "u-mar--bottom--sml" : ""}`}>
+                                    <div key={c.id} className={`col ${className} ${isMobile && c.sortOrder !== 2 ? "u-mar--bottom--sml" : ""}`}>
                                         <BasicRadio
                                             label={c.abrv === 'express-mail' ? `${c.name} (Additional $25)` : c.name}
                                             value={c.id}
