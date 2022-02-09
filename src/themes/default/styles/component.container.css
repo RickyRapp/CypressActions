@@ -20,7 +20,19 @@
 
     &--sidebar {
         display: grid;
-        grid-template-columns: 1fr 450px;
+        grid-template-columns: 1fr;
         grid-gap: calc($unit * 4);
+        
+        @media(--screen-from-xlrg) {
+            grid-template-columns: 1fr 400px;
+        }
+       
+        @media(--screen-from-xxlrg) {
+            grid-template-columns: 1fr;
+        }
+
+        @media(--screen-from-xxxlrg) {
+            grid-template-columns: 1fr 450px;
+        }
     }
 }

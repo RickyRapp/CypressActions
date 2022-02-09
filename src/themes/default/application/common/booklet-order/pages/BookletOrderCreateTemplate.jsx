@@ -61,8 +61,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                             <div className="">
                                 <div className="card--primary card--med ">
                                     <div>
-                                        <button onClick={onShowAllBooksClick} className={`btn btn--${isMobile ? "100" : "base"} btn--primary u-mar--right--sml u-mar--bottom--sml`}>Previous Orders</button>
-                                        <button onClick={onShowBookletsClick} className={`btn btn--${isMobile ? "100" : "base"} btn--primary u-mar--bottom--sml`}>My Checkbooks</button>
+                                        <button onClick={onShowAllBooksClick} className={`btn btn--${isMobile ? "100" : "base  type--inherit"} btn--primary u-mar--right--sml u-mar--bottom--sml`}>Previous Orders</button>
+                                        <button onClick={onShowBookletsClick} className={`btn btn--${isMobile ? "100" : "base  type--inherit"} btn--primary u-mar--bottom--sml`}>My Checkbooks</button>
                                     </div>
                                     <div className="u-separator--primary u-mar--bottom--sml"></div>
                                     {bookletTypes.map(bt => {
@@ -199,10 +199,10 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     })}
 
                                     <div>
-                                        <button type="button" className="btn btn--ghost btn--base type--wgt--medium type--inherit" onClick={onShowMoreOptionsClick}>
-                                            {/* <i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i> */}
+                                        <button type="button" className="btn btn--show type--wgt--medium type--inherit" onClick={onShowMoreOptionsClick}>
+                                            <i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
                                             {showMoreOptions ? t('BOOKLET_ORDER.CREATE.HIDE_MORE_OPTIONS') : t('BOOKLET_ORDER.CREATE.SHOW_MORE_OPTIONS')}
-                                            {/* <i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i> */}
+                                            <i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
                                         </button>
                                     </div>
                                 </div>
