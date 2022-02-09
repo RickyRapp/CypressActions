@@ -48,13 +48,13 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 
 	const mobileResolution = window.innerWidth > 750;
 	let categoriesMonths = [];
-	
+
 	if (mobileResolution) {
 		categoriesMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	} else {
 		categoriesMonths = ['1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '10.', '11.', '12.'];
 	}
-	
+
 	let categoriesDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 	let categoriesWeeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
 	let categoriesYears = [];
@@ -235,7 +235,7 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 			</ChartSeries>
 		</Chart>
 	);
-	
+
 	return (
 		<Page>
 			<PageHeader>
@@ -280,11 +280,13 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 											/></p>
 									</div>
 
-									<div>
-										<button className="btn btn--link type--inherit">
-											Manage
-										</button>
-									</div>
+									{yearly > 0 &&
+										<div>
+											<button className="btn btn--link type--inherit" onClick={() => editIncomeOnClick(yearlyGoal)}>
+												Manage
+											</button>
+										</div>
+									}
 								</div>
 
 								<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml dashboard-card__separator"></div>

@@ -57,14 +57,14 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		//inputCharity,
 		//setInputValue
 	} = grantCreateViewStore;
-	
+
 	// let counter = 0;
 	// const countdown = () => setInterval(() => counter++, 1000);
 
 	let promiseOptions = (inputValue) =>
-	new Promise(resolve => {
-		inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
-	});
+		new Promise(resolve => {
+			inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+		});
 	// let promiseOptionsv2 = (inputValue) =>
 	// 	new Promise(resolve => {
 	// 		if(counter > 1) {
@@ -96,7 +96,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												</div>
 												:
 												// onKeyDown={() => countdown()}
-												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID'} value={asyncPlaceholder}/>
+												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID'} value={asyncPlaceholder} />
 										}
 
 									</div>
@@ -218,14 +218,14 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								</div>
 								{window.innerWidth < 750 ?
 									<button type="button" className="btn btn--show type--wgt--medium u-mar--bottom--med" onClick={() => toggleSettings()}>
-									<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-									{!moreSettings ? 'More Settings' : 'Less Settings'}
-									<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-								</button> : null
+										<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+										{!moreSettings ? 'More Settings' : 'Less Settings'}
+										<i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+									</button> : null
 								}
 								{window.innerWidth < 750 && moreSettings && <div className="row row--form"><div className={`form__group col col-sml-12 col-lrg-6`}>
-										<DatePickerField field={form.$('startFutureDate')} />
-									</div></div>}
+									<DatePickerField field={form.$('startFutureDate')} />
+								</div></div>}
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (moreSettings || window.innerWidth > 750) && (
 									<div className="row row--form">
 										<div className="form__group col col-sml-12">
@@ -276,16 +276,16 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									</div>
 								)}
 								<div className="row row--form">
-								{
-									(moreSettings || window.innerWidth > 750) && 
-									<div className="form__group col col-sml-12">
-										<BaasicFieldDropdown
-											field={form.$('grantAcknowledgmentTypeId')}
-											store={grantAcknowledgmentTypeDropdownStore}
-										/>
-									</div>
-								}
-									
+									{
+										(moreSettings || window.innerWidth > 750) &&
+										<div className="form__group col col-sml-12">
+											<BaasicFieldDropdown
+												field={form.$('grantAcknowledgmentTypeId')}
+												store={grantAcknowledgmentTypeDropdownStore}
+											/>
+										</div>
+									}
+
 									{grantAcknowledgmentName && (moreSettings || window.innerWidth > 750) && (
 										<div className="form__group col col-sml-12">
 											<div className="charity-information__card charity-information__card--secondary">
@@ -296,13 +296,13 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									{
 										(moreSettings || window.innerWidth > 750) &&
 										<div className="form__group col col-sml-12 ">
-										<BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
-									</div>
-									
+											<BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
+										</div>
+
 									}<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-									{(moreSettings || window.innerWidth > 750) && form.$('grantPurposeTypeId').value &&
+										{(moreSettings || window.innerWidth > 750) && form.$('grantPurposeTypeId').value &&
 											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />
-									}
+										}
 									</div>
 
 								</div>
@@ -416,8 +416,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 														</h4>
 													</div>
 												</div>
-												<div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
-													<div className="col col-sml-12 col-lrg-4">
+												<div className="row row--form">
+													<div className="col col-sml-12">
 														<div className="type--base type--wgt--bold">{charity.item.name}</div>
 													</div>
 												</div>
@@ -478,7 +478,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 									<div className="col col-sml-12 col-lrg-12">
 										<div className="card--primary card--med">
 											<h4 className="type--base type--wgt--medium u-mar--bottom--med">
-												{t('GRANT.CREATE.PREVIOUS_GRANTS')}
+												{t('GRANT.CREATE.PREVIOUS_GRANTS')} to
+												{charity &&
+													<span> {charity.item.name}</span>
+												}
 											</h4>
 											<SimpleBaasicTable tableStore={previousGrantsTableStore} />
 										</div>
@@ -488,7 +491,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 								<div className="row row--form">
 									<div className="col col-sml-12 col-lrg-12">
 										<div className="card--med card--primary">
-											<h4 className="type--base type--wgt--medium type--color--opaque u-mar--bottom--med">
+											<h4 className="type--base type--wgt--medium u-mar--bottom--med">
 												{t('GRANT.CREATE.SIMILAR_GRANTS')}
 											</h4>
 											<div

@@ -56,7 +56,7 @@ function StatementsReportsTemplate({ statementsReportsViewStore, noBackground })
 					</div>
 
 					<BaasicButton
-						className="btn btn--med btn--tertiary u-padd--reset u-mar--bottom--sml"
+						className={`btn btn--med btn--tertiary u-mar--bottom--sml ${window.innerWidth < 425 ? "u-padd--reset" : ""}`}
 						onlyIconClassName="u-mar--left--sml"
 						icon="u-icon u-icon--print u-icon--base"
 						label={`Generate report for year ${yearDropdownStore.value.name}`}

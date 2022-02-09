@@ -111,10 +111,10 @@ class BookletViewStore extends BaseListViewStore {
                         type: 'function',
                         value: (item) => {
                             const clean = item.certificates.filter(c => c.certificateStatus.abrv === 'clean').length;
-                            const used = item.certificates.filter(c => c.certificateStatus.abrv === 'used').length;
-                            const canceled = item.certificates.filter(c => c.certificateStatus.abrv === 'canceled').length;
-                            const active = item.certificates.filter(c => c.isActive).length;
-                            return `${clean} / ${used} / ${canceled} | ${active}`;
+                            // const used = item.certificates.filter(c => c.certificateStatus.abrv === 'used').length;
+                            // const canceled = item.certificates.filter(c => c.certificateStatus.abrv === 'canceled').length;
+                            // const active = item.certificates.filter(c => c.isActive).length;
+                            return `${clean} / ${item.certificateCount}`;
                         }
                     }
                 },
