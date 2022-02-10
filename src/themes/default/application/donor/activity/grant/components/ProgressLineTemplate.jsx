@@ -14,12 +14,15 @@ const ProgressLineTemplate = () => {
     if (!(typeof totalGoalItem == 'undefined')) {
         if (isNaN(grantThisYearItem / totalGoalItem)) {
             progressTotal = totalGoalItem
+        } else if (totalGoalItem <= 0) {
+            progressTotal = 0;
         } else if (((grantThisYearItem / totalGoalItem) * 100).toFixed(2) >= 100) {
             progressTotal = 100;
         } else {
             progressTotal = ((grantThisYearItem / totalGoalItem) * 100).toFixed(2)
         }
     }
+
 
     if (isNaN(grantThisYearItem / totalGoalItem * 100) || ((grantThisYearItem / totalGoalItem) * 100).toFixed(2) >= 100) {
         progressBarClassName = " progressbar__progress--rounded"

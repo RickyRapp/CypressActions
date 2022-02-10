@@ -356,7 +356,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 						</div>
 						<div className="u-display--flex u-display--flex--justify--flex-end w--100">
 							<p className="type--sml">
-								Total Amount:
+								Total amount:
 								<span className="type--med type--wgt--bold u-mar--left--tny">
 									{tableStore.recordCount}
 								</span>
