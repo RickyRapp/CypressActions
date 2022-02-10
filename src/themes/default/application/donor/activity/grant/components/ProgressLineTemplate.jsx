@@ -8,7 +8,7 @@ const ProgressLineTemplate = () => {
         return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
     };
 
-    let progressTotal = null;
+    let progressTotal = 0;
     let progressBarClassName = "";
 
     if (!(typeof totalGoalItem == 'undefined')) {
@@ -23,7 +23,6 @@ const ProgressLineTemplate = () => {
         }
     }
 
-
     if (isNaN(grantThisYearItem / totalGoalItem * 100) || ((grantThisYearItem / totalGoalItem) * 100).toFixed(2) >= 100) {
         progressBarClassName = " progressbar__progress--rounded"
     }
@@ -37,11 +36,11 @@ const ProgressLineTemplate = () => {
             </div>
             <div>
                 <span className="type--base type--wgt--bold type--color--primary">
-                    {progressTotal}%
+                    {isNaN(progressTotal) ? 0 : progressTotal}%
                 </span>
 
                 <span className="type--base type--wgt--bold type--color--opaque u-push">
-                    {labelVisual(totalGoalItem)}
+                    {labelVisual(isNaN(totalGoalItem) ? 0 : totalGoalItem)}
                 </span>
             </div>
         </div>
