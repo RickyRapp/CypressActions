@@ -7,7 +7,7 @@ const CharityNameCell = ({ data }) => {
 
     return (
         <td title={charity.name}>
-            {charity.name}
+            <span>{charity.name}</span>
         </td>
     )
 }
