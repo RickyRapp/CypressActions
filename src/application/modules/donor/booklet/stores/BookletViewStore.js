@@ -76,7 +76,7 @@ class BookletViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'dateCreated',
-                    title: 'BOOKLET.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    title: 'BOOKLET.LIST.COLUMNS.DATE_ORDERED_LABEL',
                     format: {
                         type: 'date',
                         value: 'short'

@@ -2007,6 +2007,7 @@
                 "ASSIGNED_TO_LABEL": "Assigned to",
                 "DATE_ASSIGNED_LABEL": "Assigned on",
                 "DATE_CREATED_LABEL": "Date created",
+                "DATE_ORDERED_LABEL": "Date ordered",
                 "STATUS_LABEL": "Status",
                 "TYPE_LABEL": "Type",
                 "SHARE_NAME_LABEL": "Share name",

@@ -454,11 +454,11 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                             <div className="modal__list__divider"></div>
                                             <div className="modal__list__label">{selectedType ? (selectedType.timeline ? <span> {selectedType.timeline}</span> : null) : 'No information to show'}</div>
                                         </div>
-                                        <div className="modal__list u-mar--bottom--med">
+                                        {/* <div className="modal__list u-mar--bottom--med">
                                             <div>Deductible Eligibility</div>
                                             <div className="modal__list__divider"></div>
                                             <div className="modal__list__label">{selectedType && selectedType.deductibleEligibility ? selectedType.deductibleEligibility : 'No information to show'}</div>
-                                        </div>
+                                        </div> */}
                                         <div className="modal__list u-mar--bottom--med">
                                             <div>Minimum Deposit</div>
                                             <div className="modal__list__divider"></div>
