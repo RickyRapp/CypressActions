@@ -6,6 +6,8 @@ import { localStorageProvider } from 'core/providers';
 import { GrantRouteService } from 'application/common/grant/services';
 import moment from 'moment';
 import { applicationContext } from 'core/utils';
+import React from 'react'
+import {CharityNameCell} from '../components'
 @applicationContext
 class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
@@ -266,6 +268,9 @@ class PastGrantViewStore extends BaseListViewStore {
 						{
 							key: 'charity.name',
 							title: 'DONATION.PAST_GRANT.LIST.COLUMNS.CHARITY_LABEL',
+							cell: (data) => {
+								return (<CharityNameCell data={data} />)
+							}
 						},
 						{
 							key: 'donationType.name',
