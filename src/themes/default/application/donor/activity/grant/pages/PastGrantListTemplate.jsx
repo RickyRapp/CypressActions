@@ -291,7 +291,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 				</div>
 				: null}
 
-			<div className="row">
+			<div className="row row--form">
 				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">
 						<div className="u-mar--bottom--med">
@@ -353,6 +353,14 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 									</div>
 								</div>
 							</TableFilter>
+						</div>
+						<div className="u-display--flex u-display--flex--justify--flex-end w--100">
+							<p className="type--sml">
+								Total Amount:
+								<span className="type--med type--wgt--bold u-mar--left--tny">
+									{tableStore.recordCount}
+								</span>
+							</p>
 						</div>
 						<BaasicTable
 							authorization={authorization}
