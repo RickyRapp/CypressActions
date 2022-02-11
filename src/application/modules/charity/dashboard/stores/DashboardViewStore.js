@@ -30,6 +30,9 @@ class DashboardViewStore extends BaseViewStore {
 
     @action.bound
     async fetchCharityData() {
+        this.yearDropdownStore.setValue({ name: (new Date().getFullYear()).toString(), id: new Date().getFullYear() });
+        this.yearDropdownStore.setValue({ name: 'Year To Date', id: 2 });
+        
         this.charity = { name: 'test', taxId: 123456789 }
     }
 }

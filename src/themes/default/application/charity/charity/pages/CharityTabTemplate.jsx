@@ -13,10 +13,13 @@ function CharityTabTemplate({ charityTabViewStore }) {
         <Page loading={loaderStore.loading} >
             <div className='u-mar--bottom--med'>
                 <TabLayout store={charityTabViewStore}>
-                    <div label={'CHARITY.TAB.GENERAL_DATA'}>
+                    <div label={'CHARITY.TAB.ACCOUNT_INFORMATION'}>
                         <CharityGeneralData />
                     </div>
-                    <div label={'CHARITY.TAB.PERSONAL_DATA'}>
+                    <div label={'CHARITY.TAB.SECURITY_AND_PREFERENCES'}>
+                        <CharityPersonalData />
+                    </div>
+                    <div label={'CHARITY.TAB.COMMUNICATION_PREFERENCE'}>
                         <CharityPersonalData />
                     </div>
                 </TabLayout>

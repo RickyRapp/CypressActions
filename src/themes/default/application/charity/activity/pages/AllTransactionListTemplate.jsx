@@ -49,7 +49,8 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
 AllTransactionListTemplate.propTypes = {
     allTransactionViewStore: PropTypes.object.isRequired,
     t: PropTypes.func,
-    hideSearch: PropTypes.bool
+    hideSearch: PropTypes.bool,
+    hideCheckBox: PropTypes.bool
 };
 
 export default defaultTemplate(AllTransactionListTemplate);
