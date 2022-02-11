@@ -1,5 +1,5 @@
 import { FilterParams } from 'core/models';
-import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
+import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore, TableViewStore } from 'core/stores';
 
 class GrantsViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -69,7 +69,7 @@ class GrantsViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
+        this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'paymentTransaction.dateCreated',
