@@ -19,6 +19,20 @@ $table-width: 1024px;
     } */
 }
 
+.k-master-row {
+    td {
+        span {
+            display: block;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            /* autoprefixer: off */
+        }
+    }
+}
+
 .table {
 
     &--payment {

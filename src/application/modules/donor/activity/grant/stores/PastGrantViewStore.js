@@ -1,3 +1,4 @@
+import React from 'react'
 import { BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore, TableViewStore } from 'core/stores';
 import { charityFormatter, canEditCancel } from 'core/utils';
 import { observable, action } from 'mobx';
@@ -6,10 +7,11 @@ import { localStorageProvider } from 'core/providers';
 import { GrantRouteService } from 'application/common/grant/services';
 import moment from 'moment';
 import { applicationContext } from 'core/utils';
+import { CharityNameCell, DescriptionCell } from '../components'
 @applicationContext
 class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
-    @observable donor = null;
+	@observable donor = null;
 	@observable showMoreOptions = false;
 	@observable upcomingGrants = 0;
 
@@ -38,10 +40,10 @@ class PastGrantViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						if(params.dateCreatedFrom)
-                            params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
-                        if(params.dateCreatedTo)
-                            params.dateCreatedTo = `${params.dateCreatedTo} 23:59:59`;
+						if (params.dateCreatedFrom)
+							params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
+						if (params.dateCreatedTo)
+							params.dateCreatedTo = `${params.dateCreatedTo} 23:59:59`;
 						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet', 'thirdPartyWebsite', 'charity.charityAddresses'];
 						const tableData = await rootStore.application.donor.grantStore.findPastGrant({
 							donorId: this.donorId,
@@ -69,16 +71,16 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 
 	@action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                this.fetchDonorData()
-            ]);
-        }
-    }
+	async onInit({ initialLoad }) {
+		if (!initialLoad) {
+			this.rootStore.routerStore.goBack();
+		}
+		else {
+			await this.fetch([
+				this.fetchDonorData()
+			]);
+		}
+	}
 
 	@action.bound
 	async cancelGrant(grant) {
@@ -123,59 +125,59 @@ class PastGrantViewStore extends BaseListViewStore {
 		this.charity = charity;
 		this.setAddress(charity.item.charityAddresses[0]);
 		this.setSimilarGrantTable(this.charity.item.charityTypeId);
-	} 
+	}
 
 	@action.bound
 	async grantAgain(grant) {
 		localStorageProvider.add("ExistingGrant", true);
 		localStorageProvider.add("ExistingGrantObject", JSON.stringify(grant));
-		this.rootStore.routerStore.goTo("master.app.main.donor.grant.create", {grant: grant});
+		this.rootStore.routerStore.goTo("master.app.main.donor.grant.create", { grant: grant });
 	}
 
 	createExportConfig() {
-        this.exportConfig = {
-            fileName: `Grants_${moment().format("YYYY-MM-DD_HH-mm-ss")}`,
-            columns: [
-                { id: 1, title: 'Date', key: 'DATE CREATED', selected: true, visible: true },
-                { id: 2, title: 'Charity', key: 'CHARITY', selected: true, visible: true },
-                { id: 3, title: 'TaxId', key: 'TAX ID', selected: true, visible: true },
-                { id: 4, title: 'Amount', key: 'AMOUNT', selected: true, visible: true },
-                { id: 5, title: 'Grant status', key: 'STATUS', selected: true, visible: true },
-                { id: 6, title: 'Payment method', key: 'PAYMENT METHOD', selected: true, visible: true },
-                { id: 7, title: 'Grant address', key: 'GRANT ADDRESS', selected: true, visible: true },
-            ],
-            exportUrlFunc: (exportData) => {
-                const routeService = new GrantRouteService();
-                let filter = this.queryUtility.filter;
-                filter.exportFields = exportData.exportFields;
+		this.exportConfig = {
+			fileName: `Grants_${moment().format("YYYY-MM-DD_HH-mm-ss")}`,
+			columns: [
+				{ id: 1, title: 'Date', key: 'DATE CREATED', selected: true, visible: true },
+				{ id: 2, title: 'Charity', key: 'CHARITY', selected: true, visible: true },
+				{ id: 3, title: 'TaxId', key: 'TAX ID', selected: true, visible: true },
+				{ id: 4, title: 'Amount', key: 'AMOUNT', selected: true, visible: true },
+				{ id: 5, title: 'Grant status', key: 'STATUS', selected: true, visible: true },
+				{ id: 6, title: 'Payment method', key: 'PAYMENT METHOD', selected: true, visible: true },
+				{ id: 7, title: 'Grant address', key: 'GRANT ADDRESS', selected: true, visible: true },
+			],
+			exportUrlFunc: (exportData) => {
+				const routeService = new GrantRouteService();
+				let filter = this.queryUtility.filter;
+				filter.exportFields = exportData.exportFields;
 				filter.donorId = this.donorId;
-                filter.exportLimit = 1000;
-                filter.exportType = exportData.exportType;
-                return routeService.exportDonor(filter);
-            }
-        }
+				filter.exportLimit = 1000;
+				filter.exportType = exportData.exportType;
+				return routeService.exportDonor(filter);
+			}
+		}
 	}
 	createYearDropdownStore() {
-        this.yearDropdownStore = new BaasicDropdownStore();
-    }
+		this.yearDropdownStore = new BaasicDropdownStore();
+	}
 	@action.bound
-    async fetchDonorData() {
-        const data = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
-        let initialValue = new Date().getFullYear();
-        if (data.donationsPerYear.length > 0) {
-            let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
-            donations.push({ name: 'All Time', id: 1 }, {name: 'This Week', id: 7}, {name: 'This Month', id: 30}, { name: 'Last Month', id: -30 }, { name: 'Year To Date', id: 2 });
-            this.yearDropdownStore.setItems(donations);
+	async fetchDonorData() {
+		const data = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
+		let initialValue = new Date().getFullYear();
+		if (data.donationsPerYear.length > 0) {
+			let donations = data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } });
+			donations.push({ name: 'All Time', id: 1 }, { name: 'This Week', id: 7 }, { name: 'This Month', id: 30 }, { name: 'Last Month', id: -30 }, { name: 'Year To Date', id: 2 });
+			this.yearDropdownStore.setItems(donations);
 			//this.yearDropdownStore.setItems(data.donationsPerYear.map(c => { return { name: c.year.toString(), id: c.year } }));
-        }
-        else {
-            this.yearDropdownStore.setItems([{ name: initialValue.toString(), id: initialValue }]);
-        }
-        this.yearDropdownStore.setValue({ name: initialValue.toString(), id: initialValue });
-        this.donor = data;
+		}
+		else {
+			this.yearDropdownStore.setItems([{ name: initialValue.toString(), id: initialValue }]);
+		}
+		this.yearDropdownStore.setValue({ name: initialValue.toString(), id: initialValue });
+		this.donor = data;
 		let upcoming = (await this.rootStore.application.donor.grantStore.getDonorInformation(this.donorId)).upcomingGrantsThisYear;
 		this.upcomingGrants = upcoming ? upcoming : 0;
-    }
+	}
 	createCharityDropdownStore() {
 		this.charityDropdownStore = new BaasicDropdownStore(
 			{
@@ -245,11 +247,11 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 
 	createTableStore() {
-		const declinationReason = [{id: 1, name:'Legally binding pledge'},
-                            {id: 2, name:'Charity failed to provide necessary documents'},
-                            {id: 3, name:'Charity has seen its status revoked by the IRS'},
-                            {id: 4, name:'This grant does not comply with the Donors Funds’ Policies and guidelines'},
-                            {id: 5, name:'Earmarked grant'}];
+		const declinationReason = [{ id: 1, name: 'Legally binding pledge' },
+		{ id: 2, name: 'Charity failed to provide necessary documents' },
+		{ id: 3, name: 'Charity has seen its status revoked by the IRS' },
+		{ id: 4, name: 'This grant does not comply with the Donors Funds’ Policies and guidelines' },
+		{ id: 5, name: 'Earmarked grant' }];
 		this.setTableStore(
 			new TableViewStore(
 				this.queryUtility,
@@ -266,6 +268,9 @@ class PastGrantViewStore extends BaseListViewStore {
 						{
 							key: 'charity.name',
 							title: 'DONATION.PAST_GRANT.LIST.COLUMNS.CHARITY_LABEL',
+							cell: (data) => {
+								return (<CharityNameCell data={data} />)
+							}
 						},
 						{
 							key: 'donationType.name',
@@ -291,7 +296,7 @@ class PastGrantViewStore extends BaseListViewStore {
 							format: {
 								type: 'function',
 								value: (item) => {
-									if(item.declinationTypeId != null && typeof item.declinationTypeId != 'undefined'){
+									if (item.declinationTypeId != null && typeof item.declinationTypeId != 'undefined') {
 										return `Declined - ${(declinationReason.filter(x => x.id == item.declinationTypeId)).length > 0 ? declinationReason.filter(x => x.id == item.declinationTypeId)[0].name : 'other'}`;
 									} else {
 										return item.donationStatus.name;
@@ -302,6 +307,10 @@ class PastGrantViewStore extends BaseListViewStore {
 						{
 							key: 'desciption',
 							title: 'GRANT.LIST.COLUMNS.DESCRIPTION',
+							cell: (data) => {
+								let newData = this.getDescription(data.dataItem);
+								return (<DescriptionCell desc={newData} />)
+							},
 							format: {
 								type: 'function',
 								value: (item) => {
@@ -346,33 +355,35 @@ class PastGrantViewStore extends BaseListViewStore {
 		this.showMoreOptions = !this.showMoreOptions;
 	}
 
-	getDescription(item) { 
-		if (item.donationType.abrv === "online") {
-			if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
-				return `${item.grantPurposeType.name} - ${item.purposeNote}`
-			}
-			return item.grantPurposeType.name;
-		} else if (item.donationType.abrv === 'charity-website') { 
+	getDescription(item) {
+		if (item && item.donationType) {
+			if (item.donationType.abrv === "online") {
+				if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
+					return `${item.grantPurposeType.name} - ${item.purposeNote}`
+				}
+				return item.grantPurposeType.name;
+			} else if (item.donationType.abrv === 'charity-website') {
 				return item.thirdPartyWebsite.url;
-        }
-		else if(item.donationType.abrv === "giving-card") {
-			return `Fidelity`;
+			}
+			else if (item.donationType.abrv === "giving-card") {
+				return `Fidelity`;
+			}
+			else if (item.donationType.abrv === "session") {
+				return item.session.fullName;
+			}
+			else {
+				return `Grant: ${item.charity.name}`;
+			}
 		}
-		else if(item.donationType.abrv === "session") {
-			return item.session.fullName;
-		}
-		else{
-			return `Grant: ${item.charity.name}`;
-		} 
-    }
+	}
 
-	getTransactionType(item) { 
+	getTransactionType(item) {
 		if (item.donationType.abrv === "session") {
 			return ((((item.donationType.name + ' ') + item.certificate.booklet.code) + ' - ') + item.certificate.code);
 		} else if (item.donationType.abrv === 'charity-website') {
 			return `Charity website`;
-		} 
-		else if(item.donationType.abrv === "giving-card") {
+		}
+		else if (item.donationType.abrv === "giving-card") {
 			return `Giving card`;
 		}
 		else {
