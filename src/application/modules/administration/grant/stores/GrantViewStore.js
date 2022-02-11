@@ -53,7 +53,8 @@ class GrantViewStore extends BaseListViewStore {
                             'donor',
                             'donationStatus',
                             'donationType',
-                            'scheduledGrantPayment'
+                            'scheduledGrantPayment',
+                            'givingCardType'
                         ];
                         params.fields = [
                             'id',
@@ -70,7 +71,9 @@ class GrantViewStore extends BaseListViewStore {
                             'purposeNote',
                             'dateCreated',
                             'scheduledGrantPayment',
-                            'declinationTypeId'
+                            'declinationTypeId',
+                            'givingCardTypeId',
+                            'givingCardType'
                         ];
                         if(params.dateCreatedFrom)
                             params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
@@ -208,6 +211,16 @@ class GrantViewStore extends BaseListViewStore {
                 {
                     key: 'donationType.name',
                     title: 'GRANT.LIST.COLUMNS.GRANT_TYPE_NAME_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => { console.log(item);
+                            if(item.donationType.abrv === 'giving-card'){
+                                return `${item.donationType.name} - `;
+                            }else{
+                                return item.donationType.name;
+                            }
+                        }
+                    }
                 },
                 {
                     key: 'grantPurposeType.name',
