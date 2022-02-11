@@ -25,6 +25,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	isGrantAgain = false;
 	@observable defaultValue = '';
 	@observable charity = null;
+	@observable grant = null;
 	@observable inputCharity = '';
  	@observable asyncPlaceholder = '';
 	@observable moreSettings = false;
@@ -144,6 +145,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.isGrantAgain = true;
 				this.rootStore.notificationStore.warning('Please wait... Charity info is loading')
 				const grant = (localStorageProvider.get('ExistingGrantObject'));
+				this.grant = grant;
 				localStorageProvider.remove('ExistingGrantObject');
 				localStorageProvider.remove('ExistingGrant');
 				this.charityDropdownStore.setValue({
@@ -165,7 +167,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.setAddress(grant.charity.charityAddresses.find(c => {
 					return c.isPrimary === true;
 				}));
-				await this.filterGrantAgainCharities(grant.charity.name);
+				try{
+					async () => await this.filterGrantAgainCharities(grant.charity.name);
+				} catch(e) {
+					console.log(e);
+				}
 				this.setCharityId(grant.charityId);
 				const formattedCharityAddress = addressFormatter.format(
 					grant.charity.charityAddresses.find(c => {
@@ -655,13 +661,20 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	setCharityId(id) {
 		this.isAdvancedInput = false;
 		this.form.$('charityId').set(id);
-		const charity = this.filteredCharities.find(x => x.value === id);
-		this.charity = charity;
-		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
-		if(charity && charity.item && charity.item.charityAddresses) {
-			this.setAddress(charity && charity.item && charity.item.charityAddresses.find(c => c.isPrimary));
+		
+		if(!this.isGrantAgain) {
+			const charity = this.filteredCharities.find(x => x.value === id);
+			this.charity = charity;
 		} else {
-			this.setAddress(charity && charity.item);
+			this.charity = {item: this.grant.charity};
+		}
+
+		this.asyncPlaceholder = charityFormatter.format(this.charity, { value: 'charity-name-display' });
+		console.log(this.charity);
+		if(this.charity && this.charity.item) {
+			this.setAddress(this.charity && this.charity.item);
+		} else {
+			this.setAddress(this.charity && this.charity.charityAddresses.find(c => c.isPrimary));
 		}
 		this.setSimilarGrantTable(this.charity.item.charityTypeId);
 	}
