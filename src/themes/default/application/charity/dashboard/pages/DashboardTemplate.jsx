@@ -54,7 +54,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 									/>
 									$1.500,000
 								</div>
-								<p className="dashboard-card__body--title">AVAILABLE BALANCE</p>
+								<p className="dashboard-card__body--title">ACCOUNT BALANCE</p>
 							</div>
 							<div className="row">
 								<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
@@ -92,7 +92,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 							<div className="row u-mar--bottom--tny remove--sml">
 								<div className="col col-sml-12">
 									<div className="u-display--flex row__align--center">
-										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
+										<span className="type--base type--wgt--medium u-mar--right--med">Total grants received</span>
 										{/* <LineChartContainer /> */}
 										<BaasicDropdown store={yearDropdownStore} />
 									</div>
