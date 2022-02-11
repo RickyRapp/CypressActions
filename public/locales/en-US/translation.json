@@ -1035,7 +1035,10 @@
     "CHARITY": {
         "TAB": {
             "GENERAL_DATA": "General data",
+            "ACCOUNT_INFORMATION": "Account Information",
             "PERSONAL_DATA": "Personal data",
+            "SECURITY_AND_PREFERENCES": "Security And Preferences",
+            "COMMUNICATION_PREFERENCE":"Communication Preferences",
             "EMAIL": "Emails"
         },
         "LIST": {

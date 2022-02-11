@@ -14,7 +14,7 @@ import {
 import NumberFormat from 'react-number-format';
 import { BarcodeFormat } from '@zxing/library';
 import { charityFormatter } from 'core/utils';
-import { CharityWithdrawFund } from 'application/charity/charity/components';
+import { CharityWithdrawFund, CharityPersonalData } from 'application/charity/charity/components';
 
 function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
     const {
@@ -114,6 +114,9 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
             <BaasicModal modalParams={withdrawFundModalParams}>
                 <CharityWithdrawFund />
             </BaasicModal>
+
+            <CharityPersonalData />
+
         </React.Fragment>
     )
 }
