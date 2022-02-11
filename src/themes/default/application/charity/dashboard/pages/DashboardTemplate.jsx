@@ -33,7 +33,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#223a5e" name="Total Granted" type="line" data={dataGrants} />
+				<ChartSeriesItem color="#223a5e" name="Total grants received" type="line" data={dataGrants} />
 			</ChartSeries>
 		</Chart>
 	);
@@ -161,7 +161,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 				<div className="col col-sml-12 col-lrg-12">
 						<div className="card card--primary card--med u-mar--bottom--med">
 							<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
-							<AllTransactionList hideSearch={true} />
+							<AllTransactionList hideSearch={true} hideCheckBox={true} />
 					</div>						
 				</div>
 			</div>

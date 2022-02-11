@@ -1,8 +1,8 @@
 import { FilterParams } from 'core/models';
-import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
+import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore, TableViewStore } from 'core/stores';
 
 class AllTransactionViewStore extends BaseListViewStore {
-    constructor(rootStore) {
+    constructor(rootStore, props) {
         super(rootStore, {
             name: 'charity-all-transaction',
             authorization: 'theDonorsFundDonationSection',
@@ -30,6 +30,7 @@ class AllTransactionViewStore extends BaseListViewStore {
 
         this.charityId = rootStore.userStore.applicationUser.id;
         this.showSearchFilter = true;
+        this.hideCheckBox = props.hideCheckBox != "undefined" ? props.hideCheckBox : false;
 
         this.createTableStore();
         this.createDonationStatusDropdownStore();
@@ -67,7 +68,9 @@ class AllTransactionViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
+        const tableType = this.hideCheckBox ?  TableViewStore : SelectTableWithRowDetailsViewStore;
+
+        this.setTableStore( new tableType(this.queryUtility, {
             columns: [
                 {
                     key: 'paymentTransaction.dateCreated',
