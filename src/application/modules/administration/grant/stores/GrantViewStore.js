@@ -215,7 +215,7 @@ class GrantViewStore extends BaseListViewStore {
                         type: 'function',
                         value: (item) => { console.log(item);
                             if(item.donationType.abrv === 'giving-card'){
-                                return `${item.donationType.name} - `;
+                                return `${item.donationType.name} - ${item.givingCardType.name}`;
                             }else{
                                 return item.donationType.name;
                             }
