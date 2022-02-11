@@ -468,7 +468,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												<h4 className="type--base type--wgt--medium u-mar--bottom--sml">
 													{t('GRANT.CREATE.PROFILE_INFO')}
 												</h4>
-												<p className="type--med type--color--opaque">Search for a charity to view profile info</p>
+												<div className="u-mar--top--med card--med">
+													<p className="type--sml type--wgt--bold type--color--opaque">Search for a charity to view profile info</p>
+												</div>
 											</div>
 										</div>
 									)}
