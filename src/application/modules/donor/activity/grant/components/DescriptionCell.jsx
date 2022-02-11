@@ -2,15 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
-const DescriptionCell = ({ data }) => {
-    const { dataItem } = data;
-    const { grantPurposeType } = dataItem;
-    console.log(data)
-
+const DescriptionCell = ({ desc }) => {
     return (
         <td>
-            <span data-tip={`${grantPurposeType.name}`} data-type="info" style={{ cursor: 'pointer' }}>
-                {grantPurposeType.name}
+            <span data-tip={`${desc}`} data-type="info" style={{ cursor: 'pointer' }}>
+                {desc}
                 <ReactTooltip />
             </span>
         </td>

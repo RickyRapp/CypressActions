@@ -308,7 +308,8 @@ class PastGrantViewStore extends BaseListViewStore {
 							key: 'desciption',
 							title: 'GRANT.LIST.COLUMNS.DESCRIPTION',
 							cell: (data) => {
-								return (<DescriptionCell data={data} />)
+								let newData = this.getDescription(data.dataItem);
+								return (<DescriptionCell desc={newData} />)
 							},
 							format: {
 								type: 'function',
@@ -355,22 +356,24 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 
 	getDescription(item) {
-		if (item.donationType.abrv === "online") {
-			if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
-				return `${item.grantPurposeType.name} - ${item.purposeNote}`
+		if (item && item.donationType) {
+			if (item.donationType.abrv === "online") {
+				if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
+					return `${item.grantPurposeType.name} - ${item.purposeNote}`
+				}
+				return item.grantPurposeType.name;
+			} else if (item.donationType.abrv === 'charity-website') {
+				return item.thirdPartyWebsite.url;
 			}
-			return item.grantPurposeType.name;
-		} else if (item.donationType.abrv === 'charity-website') {
-			return item.thirdPartyWebsite.url;
-		}
-		else if (item.donationType.abrv === "giving-card") {
-			return `Fidelity`;
-		}
-		else if (item.donationType.abrv === "session") {
-			return item.session.fullName;
-		}
-		else {
-			return `Grant: ${item.charity.name}`;
+			else if (item.donationType.abrv === "giving-card") {
+				return `Fidelity`;
+			}
+			else if (item.donationType.abrv === "session") {
+				return item.session.fullName;
+			}
+			else {
+				return `Grant: ${item.charity.name}`;
+			}
 		}
 	}
 
