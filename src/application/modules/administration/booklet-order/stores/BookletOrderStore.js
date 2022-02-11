@@ -33,6 +33,11 @@ class BookletOrderStore {
         return response.data;
     }
 
+    async cancelBookletOrder(resource) {
+        const response = await this.bookletOrderService.cancel(resource);
+        return response.data;
+    }
+
     async reviewBookletOrder(resource) {
         const response = await this.bookletOrderService.review(resource);
         return response.data;

@@ -2128,7 +2128,8 @@
             "BUTTON": {
                 "REVIEW": "Review",
                 "EDIT": "Edit",
-                "PREVIEW": "Details"
+                "PREVIEW": "Details",
+                "CANCEL": "Cancel"
             }
         },
         "CREATE": {

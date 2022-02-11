@@ -111,7 +111,8 @@ class BookletOrderViewStore extends BaseListViewStore {
             actions: {
                 onReview: (bookletOrderId) => this.routes.review(bookletOrderId),
                 onDetails: (bookletOrderId) => this.routes.details(bookletOrderId),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
+                onSort: (column) => this.queryUtility.changeOrder(column.key),
+                onCancel: async (item) => await this.cancelBookletOrder(item.id)
             },
             actionsRender: {
                 onReviewRender: (item) => {
@@ -119,9 +120,18 @@ class BookletOrderViewStore extends BaseListViewStore {
                 },
                 onDetailsRender: (item) => {
                     return item.bookletOrderStatus.abrv === 'finished';
+                },
+                onCancelRender: (item) => {
+                    return item.bookletOrderStatus.abrv === 'pending';
                 }
             }
         }));
+    }
+    
+    @action.bound
+    async cancelBookletOrder(id) {
+        await this.rootStore.application.administration.bookletOrderStore.cancelBookletOrder({id: id});
+        this.queryUtility.fetch();
     }
 
     createDonorSearchDropdownStore() {

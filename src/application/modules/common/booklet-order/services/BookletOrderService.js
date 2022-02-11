@@ -16,6 +16,11 @@ class BookletOrderService extends BaseService {
         const url = this.routeService.getDonorInformation(id);
         return this.apiClient.get(url);
     }
+
+    cancel(resource) {
+        const url = this.routeService.cancel(resource);
+        return this.apiClient.put(url, resource);
+    }
 }
 
 export default BookletOrderService;

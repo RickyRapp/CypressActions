@@ -110,8 +110,8 @@ BookletOrderListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onReview, onDetails } = actions;
-	if (!isSome(onEdit) && !isSome(onReview) && !isSome(onDetails)) return null;
+	const { onEdit, onReview, onDetails, onCancel } = actions;
+	if (!isSome(onEdit) && !isSome(onReview) && !isSome(onDetails) && isSome(onCancel)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -134,9 +134,26 @@ function renderActions({ item, actions, actionsRender }) {
 		}
 	}
 
+	let cancelRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onCancelRender) {
+			cancelRender = actionsRender.onCancelRender(item);
+		}
+	}
+
 	return (
 		<td>
 			<div className="type--right">
+				{isSome(onCancel) && cancelRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						icon="u-icon u-icon--cancel u-icon--base"
+						label="BOOKLET_ORDER.LIST.BUTTON.CANCEL"
+						onlyIcon={true}
+						onClick={() => onCancel(item)}
+					></BaasicButton>
+				) : null
+				}
 				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
