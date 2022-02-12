@@ -35,6 +35,11 @@ class DashboardViewStore extends BaseViewStore {
         
         this.charity = { name: 'test', taxId: 123456789 }
     }
+
+    @action.bound
+    async redirectToWithdrawFundsPage(){
+        //implementirati redirect na Withdraw funds page
+    }
 }
 
 export default DashboardViewStore;
