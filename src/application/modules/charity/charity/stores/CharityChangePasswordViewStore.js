@@ -1,5 +1,5 @@
 import { BaseEditViewStore } from 'core/stores';
-import { CharityChangepasswordForm } from 'application/charity/charity/forms';
+import { CharityChangePasswordForm } from 'application/charity/charity/forms';
 
 class CharityChangePasswordViewStore extends BaseEditViewStore{
     constructor(rootStore){
@@ -16,7 +16,7 @@ class CharityChangePasswordViewStore extends BaseEditViewStore{
                     }
                 }
             },
-            FormClass: CharityChangepasswordForm,
+            FormClass: CharityChangePasswordForm,
         })
     }
 }

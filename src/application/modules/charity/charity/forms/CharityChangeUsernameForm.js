@@ -9,9 +9,9 @@ export default class CharityChangeUsernameForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'charityUsername',
-                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_LABEL',
-                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER',
+                    name: 'charityChangeUsername',
+                    label: 'CHARITY.CHANGE_USERNAME.FIELDS.CHANGE_USERNAME_LABEL',
+                    placeholder: 'CHARITY.CHANGE_USERNAME.FIELDS.CHANGE_USERNAME_PLACEHOLDER',
                     rules: 'required|string'
                 }
             ]

@@ -5,4 +5,4 @@ export { default as CharityBankAccountEditForm, charityBankAccountFormProperties
 export { default as CharityOnlineAccountForm } from './CharityOnlineAccountForm'
 export { default as CharityPaymentOptionsForm } from './CharityPaymentOptionsForm'
 export { default as CharityChangeUsernameForm } from './CharityChangeUsernameForm'
-export { default as CharityChangepasswordForm } from './CharityChangepasswordForm'
+export { default as CharityChangePasswordForm } from './CharityChangePasswordForm'

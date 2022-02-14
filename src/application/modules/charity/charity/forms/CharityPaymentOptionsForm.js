@@ -10,22 +10,22 @@ export default class CharityPaymentOptionsForm extends FormBase {
             fields: [
                 {
                     name: 'keepFundsUntilManuallyDistributed',
-                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_LABEL',
-                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_PLACEHOLDER',
+                    label: 'CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY',
+                    placeholder: 'CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY',
                     rules: 'required|boolean',
                     type: 'checkbox'
                 },
                 {
                     name: 'keepFundsUntilAccumulatedAmount',
-                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_LABEL',
-                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_PLACEHOLDER',
+                    label: 'CHARITY.PAYMENT_OPTIONS.FIELDS.DISTRIBUTE_WHEN_ACCUMULATED',
+                    placeholder: 'CHARITY.PAYMENT_OPTIONS.FIELDS.DISTRIBUTE_WHEN_ACCUMULATED',
                     rules: 'required|boolean',
                     type: 'checkbox'
                 },
                 {
                     name: 'AccumulatedAmount',
-                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_LABEL',
-                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.IS_ENABLED_PLACEHOLDER',
+                    label: 'CHARITY.PAYMENT_OPTIONS.FIELDS.ACCUMULATED_AMOUNT',
+                    placeholder: 'CHARITY.PAYMENT_OPTIONS.FIELDS.ACCUMULATED_AMOUNT',
                     rules: 'numeric|min:0'
                 }
             ]

@@ -9,10 +9,11 @@ export default class CharityChangePasswordForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'charityPassword',
-                    label: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_LABEL',
-                    placeholder: 'DONOR.CHARITY_WEBSITE_SETTING.EDIT.FIELDS.GRANT_ACKNOWLEDGMENT_TYPE_PLACEHOLDER',
-                    rules: 'required|string'
+                    name: 'charityChangePassword',                    
+                    label: 'CHARITY.CHANGE_PASSWORD.FIELDS.CHANGE_PASSWORD_LABEL',
+                    placeholder: 'CHARITY.CHANGE_PASSWORD.FIELDS.CHANGE_PASSWORD_PLACEHOLDER',
+                    rules: 'required|string',
+                    type: 'password'
                 }
             ]
         };

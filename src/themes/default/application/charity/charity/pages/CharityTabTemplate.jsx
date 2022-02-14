@@ -15,13 +15,13 @@ function CharityTabTemplate({ charityTabViewStore }) {
     const children = () => {
         return (
             <React.Fragment>
-                <div label={'DONOR.TAB.ACCOUNT_INFORMATION'}>
+                <div label={'CHARITY.TAB.ACCOUNT_INFORMATION'}>
                     <CharityGeneralData />
                 </div>
-                <div label={'DONOR.TAB.SECURITY_AND_PREFERENCES'}>
+                <div label={'CHARITY.TAB.SECURITY_AND_PREFERENCES'}>
                     <CharitySecurityAndPreferencesData />
                 </div>
-                <div label={'DONOR.TAB.COMMUNICATION_PREFERENCE'}>
+                <div label={'CHARITY.TAB.COMMUNICATION_PREFERENCE'}>
                     <CharityPersonalData />
                 </div>
             </React.Fragment>

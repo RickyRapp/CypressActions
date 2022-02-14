@@ -1219,6 +1219,30 @@
                 "SUBSCRIPTION_AMOUNT_LABEL": "Subscription amount",
                 "SUBSCRIPTION_NEXT_DATE_LABEL": "Date to renew"
             }
+        },
+        "PAYMENT_OPTIONS": {
+            "TITLE" : "Payments",
+            "FIELDS" : {
+                "KEEP_UNTIL_MANUALLY" : "Keep funds at The Donors Fund until manually distributed",
+                "DISTRIBUTE_WHEN_ACCUMULATED": "Only distribute funds when accumulated to ",
+                "ACCUMULATED_AMOUNT" : "Accumulated Amount"
+            }
+        },
+        "CHANGE_USERNAME" : {
+            "TITLE" : "Change Username",
+            "FIELDS" : {
+                "USERNAME" : "Username",
+                "CHANGE_USERNAME_LABEL" : "Change Username",
+                "CHANGE_USERNAME_PLACEHOLDER" : "Change Username"
+            }
+        },
+        "CHANGE_PASSWORD" : {
+            "TITLE" : "Change Password",
+            "FIELDS" : {
+                "PASSWORD" : "Password",
+                "CHANGE_PASSWORD_LABEL" : "Change Password",
+                "CHANGE_PASSWORD_PLACEHOLDER" : "Change Password"
+            }
         }
     },
     "CHARITY_GRANTS": {
