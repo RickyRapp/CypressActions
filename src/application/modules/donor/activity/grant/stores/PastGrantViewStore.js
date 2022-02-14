@@ -44,7 +44,7 @@ class PastGrantViewStore extends BaseListViewStore {
 							params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
 						if (params.dateCreatedTo)
 							params.dateCreatedTo = `${params.dateCreatedTo} 23:59:59`;
-						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet', 'thirdPartyWebsite', 'charity.charityAddresses'];
+						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet', 'thirdPartyWebsite', 'charity.charityAddresses', 'givingCardType'];
 						const tableData = await rootStore.application.donor.grantStore.findPastGrant({
 							donorId: this.donorId,
 							...params,
@@ -356,7 +356,7 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 
 	getDescription(item) {
-		if (item && item.donationType) {
+		if (item && item.donationType) { 
 			if (item.donationType.abrv === "online") {
 				if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
 					return `${item.grantPurposeType.name} - ${item.purposeNote}`
@@ -365,8 +365,8 @@ class PastGrantViewStore extends BaseListViewStore {
 			} else if (item.donationType.abrv === 'charity-website') {
 				return item.thirdPartyWebsite.url;
 			}
-			else if (item.donationType.abrv === "giving-card") {
-				return `Fidelity`;
+			else if (item.donationType.abrv === "giving-card"){
+				return item.givingCardType.name;
 			}
 			else if (item.donationType.abrv === "session") {
 				return item.session.fullName;
