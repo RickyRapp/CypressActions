@@ -2,10 +2,12 @@ import { CharityEditForm } from 'application/charity/charity/forms';
 import { ModalParams } from 'core/models';
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 
 @applicationContext
 class CharityGeneralDataViewStore extends BaseEditViewStore {
+    @observable isEditEnabled = false;
+
     constructor(rootStore) {
         super(rootStore, {
             name: 'charity',
@@ -75,6 +77,11 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
 
     createWithdrawFundModalParams() {
         this.withdrawFundModalParams = new ModalParams({});
+    }
+
+    @action.bound
+    onEnableEditClick() {
+        this.isEditEnabled = !this.isEditEnabled;
     }
 }
 

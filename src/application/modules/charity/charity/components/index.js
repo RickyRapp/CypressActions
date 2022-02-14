@@ -3,4 +3,8 @@ export { default as CharityAddressEditForm } from './CharityAddressEditForm'
 export { default as CharityBankAccount } from './CharityBankAccount'
 export { default as CharityGeneralData } from './CharityGeneralData'
 export { default as CharityPersonalData } from './CharityPersonalData'
+export { default as CharitySecurityAndPreferencesData } from './CharitySecurityAndPreferencesData'
+export { default as CharityPaymentOptions } from './CharityPaymentOptions'
+export { default as CharityChangeUsername } from './CharityChangeUsername'
+export { default as CharityChangePassword } from './CharityChangePassword'
 

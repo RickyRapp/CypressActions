@@ -12,7 +12,8 @@ export default class CharityEditForm extends FormBase {
                     name: 'name',
                     label: 'CHARITY.EDIT.FIELDS.NAME_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.NAME_PLACEHOLDER',
-                    rules: 'required|string'
+                    rules: 'required|string',
+                    disabled: true
                 },
                 {
                     name: 'dba',

@@ -23,20 +23,24 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         charityTypeDropdownStore,
         charityStatusDropdownStore,
         withdrawFundModalParams,
-        openWithdrawFundModalClick
+        openWithdrawFundModalClick,
+        isEditEnabled,
+        onEnableEditClick
     } = charityGeneralDataViewStore;
 
     return (
-        <React.Fragment>
+        <div className="card--primary card--med">
             <EditFormContent form={form}>
-                <div className="card--primary card--med u-mar--bottom--sml u-mar--top--sml">
-                    <div className="row row--form">
-                        <div className="col col-sml-12 col-lrg-12">
-                            <div className="u-mar--bottom--lrg">
-                                <div className="u-mar--bottom--med">
-                                    <h3 className="type--med type--wgt--medium" style={{ display: 'inline' }}>
-                                        {t('CHARITY.EDIT.FIELDS.TITLE')}
-                                    </h3>
+                <div className="row">
+					<div className="col col-sml-12 col-lrg-3">
+                            <h3 className=" u-mar--bottom--med">
+                                {t('CHARITY.EDIT.FIELDS.TITLE')}
+                             </h3>
+                    </div>
+                    {isEditEnabled ? (
+                        <React.Fragment>
+                            <div className='col col-sml-12 col-lrg-12'>
+                                <div className='card--med card--primary'>
                                     {item && item.availableBalance > 0 &&
                                         <BaasicButton
                                             authorization={'theDonorsFundAdministrationSection.update'}
@@ -44,7 +48,6 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                             label="CHARITY.EDIT.BUTTON.WITHDRAW_FUNDS"
                                             onClick={openWithdrawFundModalClick}
                                         />}
-                                </div>
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-2 u-mar--bottom--sml">
                                         <div className="">
@@ -88,7 +91,6 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                         <BaasicFieldDropdown field={form.$('charityStatusId')} store={charityStatusDropdownStore} />
                                     </div>
                                 </div>
-                            </div>
                             <div className="u-mar--bottom--sml">
                                 <h3 className="type--med type--wgt--medium">Contact info</h3>
                                 <div className="row row--form">
@@ -101,23 +103,67 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                                         <NumberFormatInputField field={form.$('contactInformationNumber')} />
                                     </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="u-mar--bottom--med u-push">
-                    <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                            <div className="col col-sml-12 info-card--footer">
+								<BaasicButton
+									type="button"
+									className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
+									onClick={onEnableEditClick}
+									label="Cancel"
+								/>
+								<BaasicFormControls form={form} onSubmit={form.onSubmit} />
+							</div>
+                </div>
+                </div>
+                </React.Fragment>
+                ) : (
+                    <div className="col col-sml-12 col-lrg-9" title="Click to edit" onClick={onEnableEditClick}>
+							<div className="row info-card--scale">
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Name:</p>
+									<p className="type--base type--wgt--bold">
+										{item ? `${item.name}` : ''}
+									</p>
+								</div>
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Tax Id:</p>
+									<p className="type--base type--wgt--bold">
+										{item && item.taxId}
+									</p>
+								</div> {console.log(item)}
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Api Key:</p>
+									<p className="type--base type--wgt--bold"> {item && item.apiKey}&nbsp; </p>
+								</div>
+								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Contact Name:</p>
+									<p className="type--base type--wgt--bold">{item && item.contactInformationName}</p>
+								</div>
+                                <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Contact Email:</p>
+									<p className="type--base type--wgt--bold">{item && item.contactInformationEmail}</p>
+								</div>
+							</div>
+						</div>
+                    )}
                 </div>
             </EditFormContent>
+
             <BaasicModal modalParams={withdrawFundModalParams}>
                 <CharityWithdrawFund />
             </BaasicModal>
 
-            <CharityPersonalData />
-
-        </React.Fragment>
+            <div className="row row__align--end">
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
+                    <div className="u-separator--primary u-mar--bottom--xlrg u-mar--top--lrg"></div>
+                        <CharityPersonalData />
+                    <div className="u-separator--primary u-mar--top--xlrg"></div>
+                </div>
+            </div>
+            
+        </div>
     )
 }
 
