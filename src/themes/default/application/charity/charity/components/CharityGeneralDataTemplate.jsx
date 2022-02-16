@@ -14,7 +14,8 @@ import {
 import NumberFormat from 'react-number-format';
 import { BarcodeFormat } from '@zxing/library';
 import { charityFormatter } from 'core/utils';
-import { CharityWithdrawFund, CharityBankAccount, CharityAddressListTable, CharityDescription, CharityUploadLogo } from 'application/charity/charity/components';
+import { CharityBankAccount, CharityAddressListTable, CharityDescription, CharityUploadLogo } from 'application/charity/charity/components';
+import { CharityWithdrawFund } from 'application/administration/charity/components';
 
 function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
     const {
