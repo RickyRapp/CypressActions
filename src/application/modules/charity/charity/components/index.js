@@ -7,4 +7,12 @@ export { default as CharitySecurityAndPreferencesData } from './CharitySecurityA
 export { default as CharityPaymentOptions } from './CharityPaymentOptions'
 export { default as CharityChangeUsername } from './CharityChangeUsername'
 export { default as CharityChangePassword } from './CharityChangePassword'
+export { default as CharityCardPreferences } from './CharityCardPreferences'
+export { default as CharityChecksPreferences } from './CharityChecksPreferences'
+export { default as CharityWebsiteDonationsPreferences } from './CharityWebsiteDonationsPreferences'
+export { default as CharityGeneralNotifications } from './CharityGeneralNotifications'
+export { default as CharityInvestmentNotifications } from './CharityInvestmentNotifications'
+export { default as CharityCommunicationPreferences } from './CharityCommunicationPreferences'
+export { default as CharityDescription } from './CharityDescription'
+export { default as CharityUploadLogo } from './CharityUploadLogo'
 

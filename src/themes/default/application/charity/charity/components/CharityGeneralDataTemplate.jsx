@@ -14,7 +14,7 @@ import {
 import NumberFormat from 'react-number-format';
 import { BarcodeFormat } from '@zxing/library';
 import { charityFormatter } from 'core/utils';
-import { CharityWithdrawFund, CharityPersonalData } from 'application/charity/charity/components';
+import { CharityWithdrawFund, CharityBankAccount, CharityAddressListTable, CharityDescription, CharityUploadLogo } from 'application/charity/charity/components';
 
 function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
     const {
@@ -29,6 +29,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
     } = charityGeneralDataViewStore;
 
     return (
+        <div className="u-mar--bottom--med">
+        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
         <div className="card--primary card--med">
             <EditFormContent form={form}>
                 <div className="row">
@@ -132,7 +134,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
 									<p className="type--base type--wgt--bold">
 										{item && item.taxId}
 									</p>
-								</div> {console.log(item)}
+								</div>
 								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Api Key:</p>
 									<p className="type--base type--wgt--bold"> {item && item.apiKey}&nbsp; </p>
@@ -154,16 +156,31 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
             <BaasicModal modalParams={withdrawFundModalParams}>
                 <CharityWithdrawFund />
             </BaasicModal>
-
-            <div className="row row__align--end">
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--xlrg">
-                    <div className="u-separator--primary u-mar--bottom--xlrg u-mar--top--lrg"></div>
-                        <CharityPersonalData />
-                    <div className="u-separator--primary u-mar--top--xlrg"></div>
-                </div>
             </div>
-            
-        </div>
+            </div>
+
+            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <div className="card--primary card--med">
+                        <CharityDescription />
+                    </div>
+                </div>
+                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <div className="card--primary card--med">
+                        <CharityUploadLogo />
+                    </div>
+                </div><div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <div className="card--primary card--med">
+                        <CharityAddressListTable />
+                    </div>
+                </div><div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                    <div className="card--primary card--med">
+                        <CharityBankAccount />
+                    </div>
+                </div>
+
+    </div>
+                
+
     )
 }
 

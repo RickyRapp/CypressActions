@@ -6,7 +6,7 @@ import {
     EditFormContent,
     BaasicFormControls,
     BaasicToggle,
-    NumericInputField
+    BasicInput
 } from 'core/components'
 
 
@@ -36,7 +36,7 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
                     <div className="list--preferences__label is-dropdown">{t('CHARITY.PAYMENT_OPTIONS.FIELDS.DISTRIBUTE_WHEN_ACCUMULATED')}</div>
                     <div className="list--preferences__dd">
                     <BaasicToggle value={true} field={form.$('keepFundsUntilAccumulatedAmount')} />
-                    <NumericInputField showLabel={false} field={form.$('AccumulatedAmount')} />
+                    <BasicInput showLabel={false} field={form.$('AccumulatedAmount')} />
                     </div>
                 </div>
 

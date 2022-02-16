@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page, PageHeader } from 'core/layouts';
-import { CharityGeneralData, CharityPersonalData, CharitySecurityAndPreferencesData } from 'application/charity/charity/components';
+import { CharityGeneralData, CharityCommunicationPreferences, CharitySecurityAndPreferencesData } from 'application/charity/charity/components';
 import renderTabsContent from 'core/utils/renderTabsContent';
 import { TabsHeader } from 'core/components';
 
@@ -22,7 +22,7 @@ function CharityTabTemplate({ charityTabViewStore }) {
                     <CharitySecurityAndPreferencesData />
                 </div>
                 <div label={'CHARITY.TAB.COMMUNICATION_PREFERENCE'}>
-                    <CharityPersonalData />
+                    <CharityCommunicationPreferences />
                 </div>
             </React.Fragment>
         )
