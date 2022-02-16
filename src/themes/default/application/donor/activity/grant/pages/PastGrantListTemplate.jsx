@@ -41,7 +41,6 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	} = pastGrantViewStore;
 	//Color palette
 	let colors = ["#99bdf3", "#F9EA9A", "#A8C69F", "#223A5E", "#C36C36", "#D8D4F2", "#E0EEC6", "#5DB7DE", "#CEB1BE"];
-
 	let dataDonut = [];
 	if (summaryData) {
 		dataDonut = summaryData.donationsByCharityType.map(c => {
@@ -51,6 +50,11 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	for (let i = 0; i < dataDonut.length; i++) {
 		dataDonut[i].color = colors[i];
 	}
+
+	let totalAmount = 0;
+	tableStore.data.map(item => {
+		totalAmount += item.amount;
+	});
 
 	//const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
 	const DonutChartContainer = () => {// eslint-disable-line
@@ -358,7 +362,11 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 							<p className="type--sml">
 								Total amount:
 								<span className="type--med type--wgt--bold u-mar--left--tny">
-									{tableStore.recordCount}
+									<FormatterResolver
+										item={{ amount: totalAmount }}
+										field="amount"
+										format={{ type: 'currency' }}
+									/>
 								</span>
 							</p>
 						</div>

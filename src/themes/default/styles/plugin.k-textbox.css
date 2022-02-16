@@ -243,6 +243,10 @@
 	}
 }
 
+.k-pager-sizes .k-dropdown {
+	width: 6em;
+}
+
 .k-list-container {
 	.k-nodata {
 		color: $color-text;
