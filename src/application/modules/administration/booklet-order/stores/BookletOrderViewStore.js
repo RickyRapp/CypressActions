@@ -18,6 +18,9 @@ class BookletOrderViewStore extends BaseListViewStore {
                 },
                 details: (id) => {
                     this.rootStore.routerStore.goTo('master.app.main.administration.booklet-order.details', { id: id });
+                },
+                edit: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.administration.booklet-order.edit', { id: id });
                 }
             },
             queryConfig: {
@@ -112,7 +115,8 @@ class BookletOrderViewStore extends BaseListViewStore {
                 onReview: (bookletOrderId) => this.routes.review(bookletOrderId),
                 onDetails: (bookletOrderId) => this.routes.details(bookletOrderId),
                 onSort: (column) => this.queryUtility.changeOrder(column.key),
-                onCancel: async (item) => await this.cancelBookletOrder(item.id)
+                onCancel: async (item) => await this.cancelBookletOrder(item.id),
+                onEdit: (item) => this.routes.edit(item.id)
             },
             actionsRender: {
                 onReviewRender: (item) => {
@@ -122,6 +126,9 @@ class BookletOrderViewStore extends BaseListViewStore {
                     return item.bookletOrderStatus.abrv === 'finished';
                 },
                 onCancelRender: (item) => {
+                    return item.bookletOrderStatus.abrv === 'pending';
+                },
+                onEditRender: (item) => {
                     return item.bookletOrderStatus.abrv === 'pending';
                 }
             }

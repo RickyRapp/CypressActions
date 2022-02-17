@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
-import { BookletOrderReviewRowTemplate } from 'themes/application/administration/booklet-order/components';
-import { BasicInput } from 'core/components';
+import { BookletOrderEditRowTemplate } from 'themes/application/administration/booklet-order/components';
+import { BaasicInput, BasicInput } from 'core/components';
 
-const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
+const BookletOrderEditTemplate = function ({ bookletOrderEditViewStore }) {
     const {
         contentLoading,
         orderContents,
@@ -15,9 +15,9 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
         bookletTypes,
         form,
         order
-    } = bookletOrderReviewViewStore;
+    } = bookletOrderEditViewStore;
     return (
-        <ApplicationEditLayout store={bookletOrderReviewViewStore} footerClassName={"container--base"}>
+        <ApplicationEditLayout store={bookletOrderEditViewStore} footerClassName={"container--base"}>
             <Content loading={contentLoading} >
                 <div className="container--base">
                     <div className="card--primary card--med u-mar--bottom--med">
@@ -40,15 +40,24 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
                                 </div>}
                         </div>
                     </div>
+                    {order && order.deliveryMethodType.abrv !== 'pick-up' ? 
                     <div className="card--primary card--med u-mar--bottom--med">
-                        {order && order.deliveryMethodType.abrv !== 'pick-up'? 
-                        <p><b>Shipping address: </b>{order.shippingAddressLine1 ? order.shippingAddressLine1 : ""}, {order.shippingAddressLine2 ? order.shippingAddressLine2 : ""}, {order.shippingCity ? order.shippingCity : ""}, {order.shippingState ? order.shippingState : ""}, {order.shippingZipCode ? order.shippingZipCode : ""}</ p>
-                        : null
-                        }
-                    </div>
+                        <div className="form__group__label">Address Line 1</div>
+                        <BaasicInput value={order.shippingAddressLine1} onChange={(e => order.shippingAddressLine1 = e.target.value)}/>
+                        <div className="form__group__label">Address Line 2</div>
+                        <BaasicInput value={order.shippingAddressLine2} onChange={(e => order.shippingAddressLine2 = e.target.value)}/>
+                        <div className="form__group__label">City</div>
+                        <BaasicInput value={order.shippingCity} onChange={(e => order.shippingCity = e.target.value)}/>
+                        <div className="form__group__label">State</div>
+                        <BaasicInput value={order.shippingState} onChange={(e => order.shippingState = e.target.value)}/>
+                        <div className="form__group__label">Zip Code</div>
+                        <BaasicInput value={order.shippingZipCode} onChange={(e => order.shippingZipCode = e.target.value)}/>
+                        {/* <p><b>Shipping address: </b>{order.shippingAddressLine1 ? order.shippingAddressLine1 : ""}, {order.shippingAddressLine2 ? order.shippingAddressLine2 : ""}, {order.shippingCity ? order.shippingCity : ""}, {order.shippingState ? order.shippingState : ""}, {order.shippingZipCode ? order.shippingZipCode : ""}</ p> */}
+                    </div> : null
+                    }
                     {orderContents.map((item) => {
                         return (
-                            <BookletOrderReviewRowTemplate
+                            <BookletOrderEditRowTemplate
                                 key={`${item.denominationTypeId}_${item.bookletTypeId}_${item.booklets.length}`}
                                 item={item}
                                 fetchFunc={fetchFunc}
@@ -64,9 +73,9 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
     )
 };
 
-BookletOrderReviewTemplate.propTypes = {
-    bookletOrderReviewViewStore: PropTypes.object.isRequired,
+BookletOrderEditTemplate.propTypes = {
+    bookletOrderEditViewStore: PropTypes.object.isRequired,
     t: PropTypes.func
 };
 
-export default defaultTemplate(BookletOrderReviewTemplate);
+export default defaultTemplate(BookletOrderEditTemplate);

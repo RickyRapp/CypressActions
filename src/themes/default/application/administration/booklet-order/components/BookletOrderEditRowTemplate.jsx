@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicDropdownStore } from 'core/stores';
-import { BaasicDropdown } from 'core/components';
+import { BaasicInput, BasicInput } from 'core/components';
 
-const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAddBookletsChange, fetchFunc, bookletTypes }) {
+const BookletOrderEditRowTemplate = function ({ denominationTypes, item, onAddBookletsChange, fetchFunc, bookletTypes }) {
     const isMaxBookletsSelected = item.bookletCount === item.booklets.length;
     const denominationType = denominationTypes.find(c => { return c.id === item.denominationTypeId });
     const bookletType = bookletTypes.find(c => c.id === item.bookletTypeId)
@@ -23,14 +23,6 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
                     const temp = item.booklets.slice();
                     temp.push(arrayResult[0])
                     bookletDropdownStore.onChange(temp);
-                    try {
-                        var x = document.getElementsByName('dd_' + denominationType.name);
-                        var ce = $(x).find('.k-searchbar')[0];
-                        $(ce).children()[0].focus();
-                    }
-                    catch (ex) {
-                        console.log('Error finding elements...', ex);
-                    }
                 }
             },
             onChange: (value) => {
@@ -54,9 +46,9 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
             </div>
             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                 <div className="form__group__label u-mar--bottom--sml">Booklet count</div>
-                {item.bookletCount}
+                <BaasicInput value={item.bookletCount} onChange={(e) => item.bookletCount = parseInt(e.target.value)} />
             </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml" name={'dd_' + denominationType.name}>
+            {/* <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                 <div className="form__group__label">Booklet list</div>
                 <BaasicDropdown
                     store={bookletDropdownStore}
@@ -68,14 +60,14 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
                     <div className="validation__message">
                         <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>
                         Need to assign {item.bookletCount - item.booklets.length} more booklet/s.
-                    </div>
+                        </div>
                 }
-            </div>
+            </div> */}
         </div>
     )
 };
 
-BookletOrderReviewRowTemplate.propTypes = {
+BookletOrderEditRowTemplate.propTypes = {
     item: PropTypes.object.isRequired,
     fetchFunc: PropTypes.func.isRequired,
     onAddBookletsChange: PropTypes.func.isRequired,
@@ -103,4 +95,4 @@ const listNoDataRender = (element, isMaxBookletsSelected) => {
     return React.cloneElement(element, { ...element.props }, isMaxBookletsSelected ? maxData : noData);
 }
 
-export default defaultTemplate(BookletOrderReviewRowTemplate);
+export default defaultTemplate(BookletOrderEditRowTemplate);

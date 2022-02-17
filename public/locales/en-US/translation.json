@@ -2203,6 +2203,7 @@
                 "IS_ACTIVE": "Is active"
             },
             "TITLE": "Create booklet",
+            "TITLE_TEMPLATE": "Edit booklet order",
             "FIELDS": {
                 "COUNT_LABEL": "Count",
                 "COUNT_PLACEHOLDER": "Count",

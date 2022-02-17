@@ -1,25 +1,31 @@
 import { action, observable } from 'mobx';
-import { BookletOrderReviewForm } from 'application/administration/booklet-order/forms';
+import { BookletOrderEditForm, BookletOrderReviewForm } from 'application/administration/booklet-order/forms';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { join, orderBy } from 'lodash';
 
 @applicationContext
-class BookletOrderReviewViewStore extends BaseEditViewStore {
+class BookletOrderEditViewStore extends BaseEditViewStore {
     @observable orderContents = [];
     @observable order;
 
     constructor(rootStore) {
         super(rootStore, {
-            name: 'booklet-order-create',
+            name: 'booklet-order-edit',
             id: rootStore.routerStore.routerState.params.id,
             autoInit: false,
             actions: () => {
                 return {
                     update: async (resource) => {
-                        console.log(resource);
-                        return;
-                        await this.rootStore.application.administration.bookletOrderStore.reviewBookletOrder({ ...resource, bookletOrderContents: this.orderContents });
+                        await this.rootStore.application.administration.bookletOrderStore.updateBookletOrder({ ...resource, 
+                            bookletOrderItems: this.orderContents.map(x =>  ({count: x.bookletCount, denominationTypeId: x.denominationTypeId})), 
+                            shippingAddressLine1: this.order.shippingAddressLine1,
+                            shippingAddressLine2: this.order.shippingAddressLine2,
+                            shippingCity: this.order.shippingCity,
+                            shippingState: this.order.shippingState,
+                            shippingZipCode: this.order.shippingZipCode,
+                            trackingNumber: this.form.$('trackingNumber').value
+                        });
                     },
                     get: async (id) => {
                         const data = await this.rootStore.application.administration.bookletOrderStore.getBookletOrder(id, { embed: 'donor,deliveryMethodType,booklets' });
@@ -27,11 +33,13 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
                         const temp = JSON.parse(data.json)
                         temp.forEach(c => { c.booklets = []; c.denominationTypeValue = this.denominationTypes.find(d => d.id === c.denominationTypeId).value }); //denominationTypeValue is added only for sorting
                         this.orderContents = orderBy(temp, ['denominationTypeValue'], ['desc']);
+                        console.log(this.orderContents, this.order, this.form);
+                        this.form.$('deliveryMethodTypeId').value = data.deliveryMethodTypeId;
                         return { id: data.id, trackingNumber: data.trackingNumber };
                     }
                 }
             },
-            FormClass: BookletOrderReviewForm
+            FormClass: BookletOrderEditForm
         });
 
         this.createFetchFunc();
@@ -48,6 +56,7 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
                 this.getResource(this.id),
             ]);
         }
+        console.log(this.form);
     }
 
     @action.bound
@@ -95,4 +104,4 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
     }
 }
 
-export default BookletOrderReviewViewStore;
+export default BookletOrderEditViewStore;
