@@ -16,12 +16,6 @@ function CharityTabTemplate({ charityTabViewStore }) {
                     <div label={'CHARITY.TAB.ACCOUNT_INFORMATION'}>
                         <CharityGeneralData />
                     </div>
-                    <div label={'CHARITY.TAB.SECURITY_AND_PREFERENCES'}>
-                        <CharityPersonalData />
-                    </div>
-                    <div label={'CHARITY.TAB.COMMUNICATION_PREFERENCE'}>
-                        <CharityPersonalData />
-                    </div>
                 </TabLayout>
             </div>
         </Page>
