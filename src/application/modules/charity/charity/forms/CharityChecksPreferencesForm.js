@@ -9,38 +9,41 @@ export default class CharityChecksPreferencesForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'notifyCheckExceeding',
-                    label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_CHECK_DONATION',
+                    name: 'isNotifyCheckExceedingEnabled',
+                    label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.CHECKBOX_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_CHECK_DONATION',
                     rules: 'required|boolean',
-                    type: 'toggle'
+                    type: 'checkbox'
                 },
                 {
                     name: 'notifyCheckExceedingAmount',
                     label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.AMOUNT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.AMOUNT_PLACEHOLDER',
-                    rules: 'required|number'
+                    rules: 'numeric|min:0',
+                    extra: {
+                        type: 'c2'
+                    }
                 },
                 {
-                    name: 'notifyProcessedSession',
-                    label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_PROCESSED_SESSION',
+                    name: 'isNotifyProcessedSessionEnabled',
+                    label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.CHECKBOX_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_PROCESSED_SESSION',
                     rules: 'required|boolean',
-                    type: 'toggle'
+                    type: 'checkbox'
                 },
                 {
-                    name: 'notifyRemoteSessionApproved',
-                    label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_APPROVED_SESSION',
+                    name: 'isNotifyRemoteSessionApprovedEnabled',
+                    label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.CHECKBOX_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_APPROVED_SESSION',
                     rules: 'required|boolean',
-                    type: 'toggle'
+                    type: 'checkbox'
                 },
                 {
-                    name: 'notifyDelayedCheck',
-                    label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_DELAYED_CHECK',
+                    name: 'isNotifyDelayedCheckEnabled',
+                    label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.CHECKBOX_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_DELAYED_CHECK',
                     rules: 'required|boolean',
-                    type: 'toggle'
+                    type: 'checkbox'
                 }
             ]
         };

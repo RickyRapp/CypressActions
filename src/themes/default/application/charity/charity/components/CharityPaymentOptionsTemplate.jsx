@@ -5,7 +5,6 @@ import {
     ApplicationEmptyState,
     EditFormContent,
     BaasicFormControls,
-    BaasicToggle,
     NumericInputField,
     BasicFieldCheckbox
 } from 'core/components'

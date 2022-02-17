@@ -6,7 +6,7 @@ import {
     EditFormContent,
     BaasicFormControls,
     BasicInput,
-    BaasicToggle
+    BasicFieldCheckbox
 } from 'core/components'
 
 const CharityCardPreferencesTemplate = function ({t, charityCardPreferencesViewStore}){
@@ -25,17 +25,31 @@ const CharityCardPreferencesTemplate = function ({t, charityCardPreferencesViewS
                 <h3 className="list--preferences__title">{t('CHARITY.CARD_PREFERENCES.CARD.NAME')}</h3>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label is-dropdown">{t('CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT')}</div>
+                    <div className="list--preferences__label">{t('CHARITY.CARD_PREFERENCES.CARD.FIELDS.EMAIL_TO_NOTIFY')}</div>
                     <div className="list--preferences__dd">
-                    <BaasicToggle value={true} field={form.$('notifyAchPayments')} />
-                    <BasicInput showLabel={false} field={form.$('emailToNotify')} />
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <BasicInput showLabel={false} field={form.$('emailToNotifyPayments')} />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label is-dropdown"> {t('CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_CHECK_PAYMENT')}  </div>
+                    <div className="list--preferences__label">{t('CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT')}</div>
                     <div className="list--preferences__dd">
-                        <BaasicToggle value={true} field={form.$('notifyCheckPayments')} />
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <BasicFieldCheckbox field={form.$('isNotifyAchPaymentsEnabled')} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="list--preferences">
+                    <div className="list--preferences__label "> {t('CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_CHECK_PAYMENT')}  </div>
+                    <div className="list--preferences__dd">
+                        <BasicFieldCheckbox field={form.$('isNotifyCheckPaymentsEnabled')} />
                     </div>
                 </div>
 

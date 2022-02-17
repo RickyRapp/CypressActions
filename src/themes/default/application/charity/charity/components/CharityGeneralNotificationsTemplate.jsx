@@ -5,8 +5,7 @@ import {
     ApplicationEmptyState,
     EditFormContent,
     BaasicFormControls,
-    BasicInput,
-    BaasicToggle
+    BasicFieldCheckbox
 } from 'core/components'
 
 const CharityGeneralNotificationsTemplate = function ({t, charityGeneralNotificationsViewStore}){
@@ -28,7 +27,7 @@ const CharityGeneralNotificationsTemplate = function ({t, charityGeneralNotifica
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">{t('CHARITY.CARD_PREFERENCES.GENERAL_NOTIFICATIONS.FIELDS.NOTIFY_APPROVED_GRANT')}</div>
                     <div className="list--preferences__dd">
-                    <BaasicToggle value={true} field={form.$('notifyDonorsApprovedGrant')} />
+                    <BasicFieldCheckbox value={true} field={form.$('isNotifyDonorsApprovedGrantEnabled')} />
                     </div>
                 </div>
 

@@ -5,8 +5,8 @@ import {
     ApplicationEmptyState,
     EditFormContent,
     BaasicFormControls,
-    BasicInput,
-    BaasicToggle
+    NumericInputField,
+    BasicFieldCheckbox
 } from 'core/components'
 
 const CharityChecksPreferencesTemplate = function ({t, charityChecksPreferencesViewStore}){
@@ -27,29 +27,35 @@ const CharityChecksPreferencesTemplate = function ({t, charityChecksPreferencesV
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">{t('CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_CHECK_DONATION')}</div>
                     <div className="list--preferences__dd">
-                    <BaasicToggle value={true} field={form.$('notifyCheckExceeding')} />
-                    <BasicInput showLabel={false} field={form.$('notifyCheckExceedingAmount')} />
+                    <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('notifyCheckExceedingAmount')} />
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <BasicFieldCheckbox field={form.$('isNotifyCheckExceedingEnabled')} />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown"> {t('CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_PROCESSED_SESSION')}  </div>
                     <div className="list--preferences__dd">
-                        <BaasicToggle value={true} field={form.$('notifyProcessedSession')} />
+                        <BasicFieldCheckbox field={form.$('isNotifyProcessedSessionEnabled')} />
                     </div>
                 </div>
 
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown"> {t('CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_APPROVED_SESSION')}  </div>
                     <div className="list--preferences__dd">
-                        <BaasicToggle value={true} field={form.$('notifyRemoteSessionApproved')} />
+                        <BasicFieldCheckbox field={form.$('isNotifyRemoteSessionApprovedEnabled')} />
                     </div>
                 </div>
 
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown"> {t('CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_DELAYED_CHECK')}  </div>
                     <div className="list--preferences__dd">
-                        <BaasicToggle value={true} field={form.$('notifyDelayedCheck')} />
+                        <BasicFieldCheckbox field={form.$('isNotifyDelayedCheckEnabled')} />
                     </div>
                 </div>
 

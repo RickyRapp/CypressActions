@@ -9,25 +9,25 @@ export default class CharityCardPreferencesForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'notifyAchPayments',
-                    label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT',
+                    name: 'isNotifyAchPaymentsEnabled',
+                    label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT',
                     rules: 'required|boolean',
-                    type: 'toggle'
+                    type: 'checkbox'
                 },
                 {
-                    name: 'emailToNotify',
+                    name: 'emailToNotifyPayments',
                     label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.EMAIL_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.EMAIL_PLACEHOLDER',
                     rules: 'required|string',
                     type : 'email'
                 },
                 {
-                    name: 'notifyCheckPayments',
-                    label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_CHECK_PAYMENT',
+                    name: 'isNotifyCheckPaymentsEnabled',
+                    label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_CHECK_PAYMENT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_CHECK_PAYMENT',
                     rules: 'required|boolean',
-                    type: 'toggle'
+                    type: 'checkbox'
                 }
             ]
         };

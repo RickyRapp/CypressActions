@@ -6,7 +6,7 @@ import {
     EditFormContent,
     BaasicFormControls,
     NumericInputField,
-    BaasicToggle
+    BasicFieldCheckbox
 } from 'core/components'
 
 const CharityWebsiteDonationsPreferencesTemplate = function ({t, charityWebsiteDonationsPreferencesViewStore}){
@@ -27,8 +27,16 @@ const CharityWebsiteDonationsPreferencesTemplate = function ({t, charityWebsiteD
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">{t('CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.NOTIFY_TRANSACTIONS_EXCEEDING')}</div>
                     <div className="list--preferences__dd">
-                    <BaasicToggle value={true} field={form.$('notifyExceedingTransaction')} />
-                    <NumericInputField showLabel={false} field={form.$('notifyExceedingTransactionAmount')} />
+                    <div className="list--preferences__dd">
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('notifyExceedingTransactionAmount')} />
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <BasicFieldCheckbox field={form.$('isNotifyExceedingTransactionEnabled')} />
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
 

@@ -9,11 +9,11 @@ export default class CharityGeneralNotificationsForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'notifyDonorsApprovedGrant',
-                    label: 'CHARITY.CARD_PREFERENCES.GENERAL_NOTIFICATIONS.FIELDS.NOTIFY_APPROVED_GRANT',
+                    name: 'isNotifyDonorsApprovedGrantEnabled',
+                    label: 'CHARITY.CARD_PREFERENCES.GENERAL_NOTIFICATIONS.FIELDS.NOTIFY_APPROVED_GRANT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.GENERAL_NOTIFICATIONS.FIELDS.NOTIFY_APPROVED_GRANT',
                     rules: 'required|boolean',
-                    type: 'toggle'
+                    type: 'checkbox'
                 }
             ]
         };

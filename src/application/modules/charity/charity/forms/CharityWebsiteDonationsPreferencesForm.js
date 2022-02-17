@@ -9,17 +9,20 @@ export default class CharityWebsiteDonationsPreferencesForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'notifyExceedingTransaction',
-                    label: 'CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.NOTIFY_TRANSACTIONS_EXCEEDING',
+                    name: 'isNotifyExceedingTransactionEnabled',
+                    label: 'CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.NOTIFY_TRANSACTIONS_EXCEEDING_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.NOTIFY_TRANSACTIONS_EXCEEDING',
                     rules: 'required|boolean',
-                    type: 'toggle'
+                    type: 'checkbox'
                 },
                 {
                     name: 'notifyExceedingTransactionAmount',
                     label: 'CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.AMOUNT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.AMOUNT_PLACEHOLDER',
-                    rules: 'required|number'
+                    rules: 'numeric|min:0',
+                    extra: {
+                        type: 'c2'
+                    }
                 }
             ]
         };

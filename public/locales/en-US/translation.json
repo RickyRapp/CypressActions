@@ -1262,15 +1262,19 @@
                 "NAME" : "Card",
                 "FIELDS" : {
                     "NOTIFY_ACH_PAYMENT" : "Notify ACH payment",
+                    "NOTIFY_ACH_PAYMENT_LABEL" : "Is enabled",
+                    "EMAIL_TO_NOTIFY": "Email to send notifications",
                     "EMAIL_LABEL" : "Email",
                     "EMAIL_PLACEHOLDER" : "Email address",
-                    "NOTIFY_CHECK_PAYMENT" : "Notify check payment"
+                    "NOTIFY_CHECK_PAYMENT" : "Notify check payment",
+                    "NOTIFY_CHECK_PAYMENT_LABEL" : "Is enabled"
                 }
             },
             "CHECKS_REMOTE_DEPOSITS" : {
                 "NAME" : "Checks and remote deposits",
                 "FIELDS" : {
                     "NOTIFY_CHECK_DONATION" : "Notify us for check donations exceeding",
+                    "CHECKBOX_LABEL" : "Is enabled",
                     "AMOUNT_LABEL" : "Amount",
                     "AMOUNT_PLACEHOLDER" : "$",
                     "NOTIFY_PROCESSED_SESSION" : "Notify us when a session has been processed",
@@ -1282,6 +1286,7 @@
                 "NAME" : "API website donations",
                 "FIELDS" : {
                     "NOTIFY_TRANSACTIONS_EXCEEDING" : "Notify us for transactions exceeding",
+                    "NOTIFY_TRANSACTIONS_EXCEEDING_LABEL" : "Is enabled",
                     "AMOUNT_LABEL" : "Amount",
                     "AMOUNT_PLACEHOLDER" :"$"
                 }
@@ -1289,15 +1294,17 @@
             "GENERAL_NOTIFICATIONS" : {
                 "NAME" : "General notifications",
                 "FIELDS" : {
-                    "NOTIFY_APPROVED_GRANT" : "Notify us when a donor approves a grant request"
+                    "NOTIFY_APPROVED_GRANT" : "Notify us when a donor approves a grant request",
+                    "NOTIFY_APPROVED_GRANT_LABEL" : "Is enabled"
                 }
             },
             "INVESTMENT" : {
                 "NAME" : "Investment (coming soon)",
                 "FIELDS" : {
                     "NOTIFY_INVESTMENT_DAILY" : "Notify us for investment daily percentage changes",
-                    "AMOUNT_LABEL" :"Amount",
-                    "AMOUNT_PLACEHOLDER" : "$"
+                    "NOTIFY_INVESTMENT_DAILY_LABEL" : "Is enabled",
+                    "AMOUNT_LABEL" :"Percentage",
+                    "AMOUNT_PLACEHOLDER" : "%"
                 }
             }
         }

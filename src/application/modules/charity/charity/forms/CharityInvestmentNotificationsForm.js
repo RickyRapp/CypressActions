@@ -9,17 +9,21 @@ export default class CharityInvestmentNotificationsForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'notifyOnDailyChanges',
-                    label: 'CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.NOTIFY_INVESTMENT_DAILY',
+                    name: 'isNotifyOnDailyChangesEnabled',
+                    label: 'CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.NOTIFY_INVESTMENT_DAILY_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.NOTIFY_INVESTMENT_DAILY',
                     rules: 'required|boolean',
-                    type: 'toggle'
+                    type: 'checkbox'
                 },
                 {
                     name: 'notifyOnDailyChangesAmount',
                     label: 'CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.AMOUNT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.AMOUNT_PLACEHOLDER',
-                    rules: 'required|number'
+                    rules: 'number|min:0',
+                    extra: {
+                        type: 'p2',
+                        step: 0.001
+                    }
                 }
             ]
         };
