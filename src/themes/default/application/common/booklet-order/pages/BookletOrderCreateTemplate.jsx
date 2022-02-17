@@ -42,6 +42,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         //onShowAddOnItemsClick,
         onAddProtectionPlanClick,
         protectionPlanModalParams,
+        needsProtectionPlan,
         //customizedExpirationDateDropdownStore,
         confirmModal,
         click500,
@@ -51,6 +52,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
     } = store;
 
     const isMobile = window.innerWidth < 543;
+    console.log(needsProtectionPlan);
 
     return (
         <React.Fragment>
@@ -303,7 +305,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                                     </div>
 
-                                    {donor && !donor.hasProtectionPlan &&
+                                    {((donor && !donor.hasProtectionPlan) || needsProtectionPlan) &&
                                         <div className="u-mar--top--med">
                                             <div className="message--enh">
                                                 <span className="u-mar--right--tny">
@@ -489,7 +491,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 </Content>
                 <PageFooter>
                     <div>
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={donor && prepaidBooksChecks} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={needsProtectionPlan} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
                     </div>
                 </PageFooter>
             </ApplicationEditLayout>

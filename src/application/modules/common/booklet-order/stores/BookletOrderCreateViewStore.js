@@ -278,6 +278,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 denominationTypeId: denominationTypeId
             })
         }
+        console.log(this.orderContents);
 
         const index = this.orderContents.findIndex(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)
         this.orderContents[index] = { ...this.orderContents[index], bookletCount: this.orderContents[index].bookletCount + 1 };
@@ -399,6 +400,11 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 }
             });
     }
+
+    @computed get needsProtectionPlan() {
+        return (this.classicBookletAmount > 0 || this.mixed2000BookletAmount > 0 || this.mixed500BookletAmount > 0) && this.donor && !this.donor.hasProtectionPlan;
+    }
+
 }
 
 export default BookletOrderCreateViewStore;
