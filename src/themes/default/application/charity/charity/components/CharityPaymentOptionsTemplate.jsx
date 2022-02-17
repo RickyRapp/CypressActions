@@ -6,7 +6,8 @@ import {
     EditFormContent,
     BaasicFormControls,
     BaasicToggle,
-    BasicInput
+    NumericInputField,
+    BasicFieldCheckbox
 } from 'core/components'
 
 
@@ -26,17 +27,21 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
                 <h3 className="list--preferences__title">{t('CHARITY.PAYMENT_OPTIONS.TITLE')}</h3>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label is-dropdown"> {t('CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY')}  </div>
-                    <div className="list--preferences__dd">
-                        <BaasicToggle value={true} field={form.$('keepFundsUntilManuallyDistributed')} />
-                    </div>
+                    <div className="list--preferences__label"> {t('CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY')}  </div>
+                    <BasicFieldCheckbox field={form.$('keepFundsUntilManuallyDistributed')} />
                 </div>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label is-dropdown">{t('CHARITY.PAYMENT_OPTIONS.FIELDS.DISTRIBUTE_WHEN_ACCUMULATED')}</div>
+                    <div className="list--preferences__label">{t('CHARITY.PAYMENT_OPTIONS.FIELDS.DISTRIBUTE_WHEN_ACCUMULATED')}</div>
                     <div className="list--preferences__dd">
-                    <BaasicToggle value={true} field={form.$('keepFundsUntilAccumulatedAmount')} />
-                    <BasicInput showLabel={false} field={form.$('AccumulatedAmount')} />
+                        <div className="row u-mar--bottom--sml">
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <NumericInputField field={form.$('AccumulatedAmount')} />
+                            </div>
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <BasicFieldCheckbox field={form.$('keepFundsUntilAccumulatedAmount')} />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
