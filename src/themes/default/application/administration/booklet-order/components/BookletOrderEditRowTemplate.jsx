@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicDropdownStore } from 'core/stores';
-import { BaasicInput, BasicInput } from 'core/components';
+import { BaasicInput, BasicInput, NumericInput } from 'core/components';
 
 const BookletOrderEditRowTemplate = function ({ denominationTypes, item, onAddBookletsChange, fetchFunc, bookletTypes }) {
     const isMaxBookletsSelected = item.bookletCount === item.booklets.length;
@@ -46,7 +46,7 @@ const BookletOrderEditRowTemplate = function ({ denominationTypes, item, onAddBo
             </div>
             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                 <div className="form__group__label u-mar--bottom--sml">Booklet count</div>
-                <BaasicInput value={item.bookletCount} onChange={(e) => item.bookletCount = parseInt(e.target.value)} />
+                <NumericInput value={item.bookletCount} onChange={(e) => item.bookletCount = e.target.value} />
             </div>
             {/* <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
                 <div className="form__group__label">Booklet list</div>
