@@ -1,7 +1,9 @@
 import { BaseEditViewStore } from 'core/stores';
 import { CharityDescriptionForm } from 'application/charity/charity/forms';
+import { action, observable } from 'mobx';
 
 class CharityDescriptionViewStore extends BaseEditViewStore{
+    @observable isEditEnabled = false;
     constructor(rootStore){
         super(rootStore, {
             name: 'charity-description',
@@ -18,6 +20,12 @@ class CharityDescriptionViewStore extends BaseEditViewStore{
             },
             FormClass: CharityDescriptionForm,
         })
+    }
+
+
+    @action.bound
+    onEnableEditClick() {
+        this.isEditEnabled = !this.isEditEnabled;
     }
 }
 

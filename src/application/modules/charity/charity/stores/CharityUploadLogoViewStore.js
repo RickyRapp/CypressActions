@@ -5,6 +5,8 @@ import { CharityFileStreamService } from 'common/services';
 
 class CharityUploadLogoViewStore extends BaseEditViewStore{
     @observable image = null;
+    @observable isEditEnabled = false;
+
     constructor(rootStore){
         super(rootStore, {
             name: 'charity-upload-logo',
@@ -73,7 +75,11 @@ class CharityUploadLogoViewStore extends BaseEditViewStore{
                 this.form.$('coreMediaVaultEntryId').clear();
             }
         });
+    }
 
+    @action.bound
+    onEnableEditClick() {
+        this.isEditEnabled = !this.isEditEnabled;
     }
 }
 
