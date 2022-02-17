@@ -17,6 +17,8 @@ class BookletOrderReviewViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
+                        console.log(resource);
+                        return;
                         await this.rootStore.application.administration.bookletOrderStore.reviewBookletOrder({ ...resource, bookletOrderContents: this.orderContents });
                     },
                     get: async (id) => {
