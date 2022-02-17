@@ -214,6 +214,11 @@ class DonorStore {
         return response.data;
     }
 
+    async deleteGivingCardSetting(resource) {
+        const response = await this.donorGivingCardSettingService.delete(resource);
+        return response.data;
+    }
+
     async unfreezeCard(resource) {
         const response = await this.donorGivingCardSettingService.unfreezeCard(resource);
         return response.data;
