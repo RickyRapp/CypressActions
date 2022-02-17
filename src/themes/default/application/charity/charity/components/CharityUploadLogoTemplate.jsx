@@ -55,7 +55,7 @@ const CharityUploadLogoTemplate = function ({t, charityUploadLogoViewStore}){
 								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Logo:</p>
 									<p className="type--base type--wgt--bold">
-                                        ${":)"}
+                                        <i className="fa fa-heart"></i>
 									</p>
 								</div>
 							</div>
