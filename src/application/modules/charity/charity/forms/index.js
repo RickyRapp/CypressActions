@@ -13,3 +13,4 @@ export { default as CharityGeneralNotificationsForm } from './CharityGeneralNoti
 export { default as CharityInvestmentNotificationsForm } from './CharityInvestmentNotificationsForm'
 export { default as CharityDescriptionForm } from './CharityDescriptionForm'
 export { default as CharityUploadLogoForm } from './CharityUploadLogoForm'
+export { default as CharityUploadPhotoForm } from './CharityUploadPhotoForm'

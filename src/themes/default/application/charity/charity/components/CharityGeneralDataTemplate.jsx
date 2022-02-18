@@ -17,7 +17,8 @@ import { charityFormatter } from 'core/utils';
 import { CharityBankAccountList, 
         CharityAddressListTable, 
         CharityDescription, 
-        CharityUploadLogo 
+        CharityUploadLogo ,
+        CharityUploadPhoto
 } from 'application/charity/charity/components';
 import { CharityWithdrawFund } from 'application/administration/charity/components';
 
@@ -165,6 +166,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                      <CharityDescription />
                 </div><div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                      <CharityUploadLogo />
+                </div><div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                     <CharityUploadPhoto />
                 </div><div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <CharityAddressListTable />
                 </div><div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">

@@ -1257,6 +1257,9 @@
         "UPLOAD_LOGO" : {
             "TITLE" : "Upload logo"
         },
+        "UPLOAD_PHOTO" : {
+            "TITLE" : "Upload photo"
+        },
         "CARD_PREFERENCES" : {
             "CARD": {
                 "NAME" : "Card",

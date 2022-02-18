@@ -12,3 +12,4 @@ export { default as CharityGeneralNotificationsTemplate } from './CharityGeneral
 export { default as CharityDescriptionTemplate } from './CharityDescriptionTemplate'
 export { default as CharityUploadLogoTemplate } from './CharityUploadLogoTemplate'
 export { default as CharityBankAccountListTemplate } from './CharityBankAccountListTemplate'
+export { default as CharityUploadPhotoTemplate } from './CharityUploadPhotoTemplate'

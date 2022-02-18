@@ -14,3 +14,4 @@ export { default as CharityGeneralNotificationsViewStore } from './CharityGenera
 export { default as CharityDescriptionViewStore } from './CharityDescriptionViewStore'
 export { default as CharityUploadLogoViewStore } from './CharityUploadLogoViewStore'
 export { default as CharityBankAccountListViewStore } from './CharityBankAccountListViewStore'
+export { default as CharityUploadPhotoViewStore } from './CharityUploadPhotoViewStore'

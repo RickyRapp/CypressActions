@@ -2,28 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    ApplicationEmptyState,
+    BaasicButton,
     EditFormContent,
     BaasicFormControls,
-    BasicTextArea,
-    BaasicButton
+    BaasicDropzone
 } from 'core/components'
+import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 
-const CharityDescriptionTemplate = function ({t, charityDescriptionViewStore}){
+const CharityUploadPhotoTemplate = function ({t, charityUploadPhotoViewStore}){
 
     const {
+        imageUploadStore,
         form,
         isEditEnabled,
         onEnableEditClick
-    } = charityDescriptionViewStore;
+    } = charityUploadPhotoViewStore;
 
     return(
-        <div >
+        <div>
             <EditFormContent form={form}>
                 <div className="row">
 					<div className="col col-sml-12 col-lrg-3">
                             <h3 className=" u-mar--bottom--med">
-                                {t('CHARITY.DESCRIPTION.TITLE')}
+                                {t('CHARITY.UPLOAD_PHOTO.TITLE')}
                              </h3>
                     </div>
                     {isEditEnabled ? (
@@ -32,7 +33,7 @@ const CharityDescriptionTemplate = function ({t, charityDescriptionViewStore}){
                                 <div className='card--med card--primary'>
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-6 u-mar--bottom--sml">
-                                        <BasicTextArea field={form.$('description')} />
+                                    <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
                                     </div>
                                 </div>
 
@@ -52,9 +53,9 @@ const CharityDescriptionTemplate = function ({t, charityDescriptionViewStore}){
                     <div className="col col-sml-12 col-lrg-9" title="Click to edit" onClick={onEnableEditClick}>
 							<div className="row info-card--scale">
 								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Description:</p>
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Photo:</p>
 									<p className="type--base type--wgt--bold">
-										Lorem ipsum.....
+                                        <i className="fa fa-heart"></i>
 									</p>
 								</div>
 							</div>
@@ -62,16 +63,15 @@ const CharityDescriptionTemplate = function ({t, charityDescriptionViewStore}){
                     )}
                 </div>
             </EditFormContent>
-            
-            </div>
+        </div>
     );
 
 
 }
 
-CharityDescriptionTemplate.propTypes = {
-    charityDescriptionViewStore: PropTypes.object.isRequired,
+CharityUploadPhotoTemplate.propTypes = {
+    charityUploadPhotoViewStore: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired
 };
 
-export default defaultTemplate(CharityDescriptionTemplate);
+export default defaultTemplate(CharityUploadPhotoTemplate);

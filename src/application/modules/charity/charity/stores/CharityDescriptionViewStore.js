@@ -8,13 +8,17 @@ class CharityDescriptionViewStore extends BaseEditViewStore{
         super(rootStore, {
             name: 'charity-description',
             autoInit: false,
+            id: rootStore.userStore.applicationUser.id,
             actions: () => {
                 return {
-                    update: async () => {
-                        return true;
-                    },
                     get: async (id) => {
-                        return true;
+                        const data = await rootStore.application.charity.charityStore.getCharity(id);
+                        return {
+                            description: data.description
+                        }
+                    },
+                    update: async (resource) => { console.log(resource);
+                        await this.rootStore.application.charity.charityStore.updateCharity(resource);
                     }
                 }
             },

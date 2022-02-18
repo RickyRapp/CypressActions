@@ -9,7 +9,7 @@ export default class CharityDescriptionForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'charityDescription',
+                    name: 'description',
                     label: 'CHARITY.DESCRIPTION.FIELDS.CHANGE_DESCRIPTION_LABEL',
                     placeholder: 'CHARITY.DESCRIPTION.FIELDS.CHANGE_DESCRIPTION_PLACEHOLDER',
                     rules: 'string',
