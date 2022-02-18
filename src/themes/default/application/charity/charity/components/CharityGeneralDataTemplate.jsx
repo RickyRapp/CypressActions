@@ -14,7 +14,7 @@ import {
 import NumberFormat from 'react-number-format';
 import { BarcodeFormat } from '@zxing/library';
 import { charityFormatter } from 'core/utils';
-import { CharityBankAccount, 
+import { CharityBankAccountList, 
         CharityAddressListTable, 
         CharityDescription, 
         CharityUploadLogo 
@@ -163,13 +163,12 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
             <div className="row row__align--end">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                      <CharityDescription />
-                </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                </div><div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                      <CharityUploadLogo />
                 </div><div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <CharityAddressListTable />
                 </div><div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <CharityBankAccount />
+                    <CharityBankAccountList />
                 </div>
             </div>
 

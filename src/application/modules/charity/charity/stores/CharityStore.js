@@ -39,7 +39,7 @@ class CharityStore {
         return response.data;
     }
 
-    async getCharityBank(id, options = {}) {
+    async getCharityBank(id, options) {
         const response = await this.bankAccountService.get(id, options);
         return response.data;
     }

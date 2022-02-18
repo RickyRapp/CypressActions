@@ -40,31 +40,24 @@ export default class CharityBankAccountEditForm extends FormBase {
                     rules: 'string'
                 },
                 {
-                    name: 'isThirdPartyAccount',
-                    label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_BANK_ACCOUNT_LABEL',
-                    placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_BANK_ACCOUNT_PLACEHOLDER',
+                    name: 'isPrimary',
+                    label: 'Is primary?',
                     rules: 'boolean',
                     type: 'checkbox',
                     value: false
                 },
                 {
-                    name: 'donorBankAccountId',
-                    label: 'DONOR.AUTOMATIC_CONTRIBUTION_SETTING.EDIT.FIELDS.BANK_ACCOUNT_LABEL',
-                    placeholder: 'DONOR.AUTOMATIC_CONTRIBUTION_SETTING.EDIT.FIELDS.BANK_ACCOUNT_PLACEHOLDER',
-                    rules: 'string'
-                },
-                {
                     name: 'accountHolderName',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER',
-                    rules: 'required_if:isThirdPartyAccount,true|string'
+                    rules: 'string'
                 },
 
                 {
                     name: 'addressLine1',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ADDRESS_LINE_1_PLACEHOLDER',
-                    rules: 'required_if:isThirdPartyAccount,true|string'
+                    rules: 'string'
                 },
                 {
                     name: 'addressLine2',
@@ -76,25 +69,25 @@ export default class CharityBankAccountEditForm extends FormBase {
                     name: 'city',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_CITY_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_CITY_PLACEHOLDER',
-                    rules: 'required_if:isThirdPartyAccount,true|string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'state',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_STATE_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_STATE_PLACEHOLDER',
-                    rules: 'required_if:isThirdPartyAccount,true|string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'zipCode',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ZIPCODE_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_ZIPCODE_PLACEHOLDER',
-                    rules: 'required_if:isThirdPartyAccount,true|string'
+                    rules: 'required|string'
                 },
                 {
                     name: 'email',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_EMAIL_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_EMAIL_PLACEHOLDER',
-                    rules: 'required_if:isThirdPartyAccount,true|email',
+                    rules: 'required|email',
                     options: {
                         validateOnChange: false
                     },
@@ -107,7 +100,7 @@ export default class CharityBankAccountEditForm extends FormBase {
                 {
                     name: 'number',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.ACCOUNT_HOLDER_NUMBER_LABEL',
-                    rules: 'required_if:isThirdPartyAccount,true|string',
+                    rules: 'required|string',
                     extra: {
                         format: '(###) ###-####'
                     }
