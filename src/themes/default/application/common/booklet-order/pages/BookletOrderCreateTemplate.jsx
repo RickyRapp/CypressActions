@@ -43,16 +43,18 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         onAddProtectionPlanClick,
         protectionPlanModalParams,
         needsProtectionPlan,
+        needsMoreFunds,
         //customizedExpirationDateDropdownStore,
         confirmModal,
         click500,
         click2000,
         tableData,
-        onShowBookletsClick
+        onShowBookletsClick,
+        isAdmin,
+        goToNewDeposit
     } = store;
 
     const isMobile = window.innerWidth < 543;
-    console.log(needsProtectionPlan);
 
     return (
         <React.Fragment>
@@ -322,6 +324,23 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             </div>
                                         </div>
                                     }
+                                    {(donor && needsMoreFunds) &&
+                                        <div className="u-mar--top--med">
+                                            <div className="message--enh">
+                                                <span className="u-mar--right--tny">
+                                                    Insufficient funds, the order amount is greater than your available funds - 
+                                                </span>
+                                                <a href="#" className="u-anchor--underline" onClick={goToNewDeposit}>
+                                                    Create a new deposit
+                                                </a>
+                                                {/* <BaasicButton
+                                            className="btn btn--link"
+                                            label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
+                                            >
+                                        </BaasicButton> */}
+                                            </div>
+                                        </div>
+                                    }
 
                                     <div className="type--med type--wgt--medium type--right u-mar--top--sml">
                                         <div className="u-display--flex u-display--flex--justify--flex-end u-display--flex--align--baseline">
@@ -491,7 +510,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                 </Content>
                 <PageFooter>
                     <div>
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={needsProtectionPlan} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
+                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={!isAdmin && (needsProtectionPlan || needsMoreFunds)} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
                     </div>
                 </PageFooter>
             </ApplicationEditLayout>

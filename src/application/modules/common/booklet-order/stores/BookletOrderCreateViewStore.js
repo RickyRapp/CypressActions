@@ -22,6 +22,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable tableData = [];
     applicationDefaultSetting = null;
     @observable validForm = true;
+    blankDenomination = null;
 
     constructor(rootStore, { donorId, isDonor }) {
         super(rootStore, {
@@ -77,6 +78,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
         this.donorId = donorId;
         this.isDonor = isDonor;
+        this.isAdmin = rootStore.userStore.applicationUser.roles.includes('Administrators');
         this.protectionPlanModalParams = new ModalParams({})
         this.createConfirmModalParams();
         this.createCustomizedExpirationDateDropdownStore();
@@ -118,6 +120,16 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
             this.setDefaultShippingAddress();
         }
+        console.log(this.rootStore);
+        this.blankDenomination = (await this.rootStore.application.lookup.denominationTypeStore.find()).find(x => x.abrv == 'blank');
+    }
+
+    @action.bound
+    goToNewDeposit() {
+        if(this.isAdmin)
+            this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', {id: this.donorId});
+        else
+            this.rootStore.routerStore.goTo('master.app.main.donor.contribution.create');
     }
 
     @action.bound
@@ -278,7 +290,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 denominationTypeId: denominationTypeId
             })
         }
-        console.log(this.orderContents);
 
         const index = this.orderContents.findIndex(c => c.bookletTypeId === bookletTypeId && c.denominationTypeId === denominationTypeId)
         this.orderContents[index] = { ...this.orderContents[index], bookletCount: this.orderContents[index].bookletCount + 1 };
@@ -402,9 +413,16 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get needsProtectionPlan() {
-        return (this.classicBookletAmount > 0 || this.mixed2000BookletAmount > 0 || this.mixed500BookletAmount > 0) && this.donor && !this.donor.hasProtectionPlan;
+        const blanks = this.orderContents.filter(x => x.denominationTypeId == this.blankDenomination.id);
+        return ((blanks.length > 0 && blanks[0].bookletCount > 0) || this.classicBookletAmount > 0 || this.mixed2000BookletAmount > 0 || this.mixed500BookletAmount > 0) && this.donor && !this.donor.hasProtectionPlan;
     }
-
+    @computed get needsMoreFunds() {
+        if(this.donor) {
+            const totalContributionsUpcoming = this.donor.contribution.map(item => item.amount).reduce((a, b) => a + b, 0);
+            return (this.totalPrepaidAmount > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
+        }
+        return false;
+    }
 }
 
 export default BookletOrderCreateViewStore;

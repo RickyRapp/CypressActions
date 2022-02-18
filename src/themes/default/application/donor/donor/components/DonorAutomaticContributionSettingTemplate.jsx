@@ -39,20 +39,20 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
                                         <div className="form__group col col-sml-12 col-lrg-4">
                                             <div className="u-display--flex">
                                                 <label className="form__group__label u-mar--right--med">Is enabled?</label>
-                                                <BasicFieldCheckbox field={form.$('isEnabled')} showLabel={false} toggleClass="--toggle" onChange={onChangeIsEnabled} />
+                                                <BasicFieldCheckbox field={form.$('isEnabled')} disabled={form.$('isEnabled').value} showLabel={false} toggleClass="--toggle" onChange={onChangeIsEnabled} />
                                             </div>
                                             
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6 col-xxxlrg-4">
-                                            <NumericInputField field={form.$('lowBalanceAmount')} />
+                                            <NumericInputField field={form.$('lowBalanceAmount')} disabled={form.$('isEnabled').value} />
                                         </div>
                                         <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6 col-xxxlrg-4">
-                                            <NumericInputField field={form.$('amount')} />
+                                            <NumericInputField field={form.$('amount')} disabled={form.$('isEnabled').value} />
                                         </div>
                                         <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6 col-xxxlrg-4">
-                                            <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore} />
+                                            <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore} disabled={form.$('isEnabled').value} />
                                         </div>
                                     </div>
                                 </EditFormContent>
