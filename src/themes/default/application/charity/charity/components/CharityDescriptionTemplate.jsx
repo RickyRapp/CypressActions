@@ -13,6 +13,7 @@ const CharityDescriptionTemplate = function ({t, charityDescriptionViewStore}){
 
     const {
         form,
+        item,
         isEditEnabled,
         onEnableEditClick
     } = charityDescriptionViewStore;
