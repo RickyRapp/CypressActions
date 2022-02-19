@@ -7,11 +7,11 @@ class CharityDescriptionViewStore extends BaseEditViewStore{
     constructor(rootStore){
         super(rootStore, {
             name: 'charity-description',
-            autoInit: false,
             id: rootStore.userStore.applicationUser.id,
-            actions: {
+            actions: () => {
+                return {
                     get: async () => {
-                        const data = await rootStore.application.charity.charityStore.getCharity(rootStore.userStore.applicationUser.id); console.log(data);
+                        const data = await rootStore.application.charity.charityStore.getCharity(rootStore.userStore.applicationUser.id);
                         return {
                             description: data.description
                         };
@@ -21,43 +21,31 @@ class CharityDescriptionViewStore extends BaseEditViewStore{
                             embed: ['contactInformation']
                         }
                         const data = await rootStore.application.charity.charityStore.getCharity(rootStore.userStore.applicationUser.id, params);
-                        console.log(data.apiKey);
-                        resource.name = data.name,
-                        resource.taxId = data.taxId,
-                        resource.charityStatusId = data.charityStatusId,
-                        resource.charityTypeId = data.charityTypeId,
-                        resource.contactInformationName = data.contactInformation.name,
-                        resource.contactInformationEmail = data.contactInformation.email,
-                        resource.contactInformationNumber = data.contactInformation.number,
-                        resource.presentBalance = data.presentBalance,
-                        resource.apiKey = data.apiKey
+
+                        resource.name = data.name;
+                        resource.charityStatusId = data.charityStatusId;
+                        resource.charityTypeId = data.charityTypeId;
+                        resource.dba = data.dba;
+                        resource.contactInformationName = data.contactInformation.name;
+                        resource.contactInformationEmail = data.contactInformation.email;
+                        resource.contactInformationNumber = data.contactInformation.number;
 
                         await this.rootStore.application.charity.charityStore.updateCharity({ contactInformation: { name: resource.contactInformationName, email: resource.contactInformationEmail, number: resource.contactInformationNumber }, ...resource});
+                        rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                     }
+                }
             },
             FormClass: CharityDescriptionForm,
+            onAfterAction: () => { this.getResource(this.id); }
         });
         
     }
-
 
     @action.bound
     onEnableEditClick() {
         this.isEditEnabled = !this.isEditEnabled;
     }
 
-    @action.bound
-	async onInit({ initialLoad }) {
-		if (!initialLoad) {
-			this.rootStore.routerStore.goBack();
-		} else {
-			await this.fetch([this.getCharityInfo()]);
-		}
-	}
-
-    async getCharityInfo() {
-        this.charity = await this.rootStore.application.charity.charityStore.getCharity(this.charityId);
-    }
 }
 
 

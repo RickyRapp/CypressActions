@@ -1,11 +1,10 @@
 import { BaseEditViewStore } from 'core/stores';
-import { CharityInvestmentNotificationsForm } from 'application/charity/charity/forms';
+import { CharityCommunicationPreferenceForm } from 'application/charity/charity/forms';
 
-class CharityInvestmentNotificationsViewStore extends BaseEditViewStore{
+class CharityCommunicationPreferenceViewStore extends BaseEditViewStore{
     constructor(rootStore){
         super(rootStore, {
-            name: 'charity-investment-notifications',
-            autoInit: false,
+            name: 'charity-communication-preferences',
             actions: () => {
                 return {
                     update: async () => {
@@ -16,10 +15,10 @@ class CharityInvestmentNotificationsViewStore extends BaseEditViewStore{
                     }
                 }
             },
-            FormClass: CharityInvestmentNotificationsForm,
+            FormClass: CharityCommunicationPreferenceForm,
         })
     }
 }
 
 
-export default CharityInvestmentNotificationsViewStore;
+export default CharityCommunicationPreferenceViewStore;

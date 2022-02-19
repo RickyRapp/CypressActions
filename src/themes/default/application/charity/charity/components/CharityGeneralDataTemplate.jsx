@@ -85,7 +85,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                 </div>
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-3 u-mar--bottom--sml">
-                                        <BasicInput field={form.$('name')} />
+                                        <BasicInput field={form.$('name')} disabled={true} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-3 u-mar--bottom--sml">
                                         <BasicInput field={form.$('dba')} />

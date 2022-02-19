@@ -12,7 +12,7 @@ export default class CharityEditForm extends FormBase {
                     name: 'name',
                     label: 'CHARITY.EDIT.FIELDS.NAME_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.NAME_PLACEHOLDER',
-                    rules: 'required|string',
+                    rules: 'string',
                     disabled: true
                 },
                 {
@@ -51,6 +51,13 @@ export default class CharityEditForm extends FormBase {
                     extra: {
                         format: '(###) ###-####'
                     }
+                },
+                {
+                    name: 'description',
+                    label: 'CHARITY.DESCRIPTION.FIELDS.CHANGE_DESCRIPTION_LABEL',
+                    placeholder: 'CHARITY.DESCRIPTION.FIELDS.CHANGE_DESCRIPTION_PLACEHOLDER',
+                    rules: 'string',
+                    type: "text"
                 }
             ]
         };
