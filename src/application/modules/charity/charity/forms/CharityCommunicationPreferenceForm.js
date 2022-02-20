@@ -13,7 +13,8 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                     label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT',
                     rules: 'required|boolean',
-                    type: 'checkbox'
+                    type: 'checkbox',
+                    disabled: true
                 },
                 {
                     name: 'emailToNotify',
@@ -100,7 +101,7 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                     name: 'notifyOnDailyChangesAmount',
                     label: 'CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.AMOUNT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.AMOUNT_PLACEHOLDER',
-                    rules: 'number|min:0',
+                    rules: 'numeric|min:0',
                     extra: {
                         type: 'p2',
                         step: 0.001
