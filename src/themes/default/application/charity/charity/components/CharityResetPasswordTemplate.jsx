@@ -4,15 +4,15 @@ import { defaultTemplate } from 'core/hoc';
 import {
     ApplicationEmptyState,
     EditFormContent,
-    BaasicFormControls,
+    BaasicButton,
     BasicInput
 } from 'core/components'
 
-const CharityChangePasswordTemplate = function ({t, charityChangePasswordViewStore}){
+const CharityResetPasswordTemplate = function ({t, charityResetPasswordViewStore}){
     const {
         loaderStore,
         form
-    } = charityChangePasswordViewStore;
+    } = charityResetPasswordViewStore;
 
     return (
         <div>
@@ -24,24 +24,34 @@ const CharityChangePasswordTemplate = function ({t, charityChangePasswordViewSto
           
             <div className="list--preferences">
                 <div className="list--preferences__label is-dropdown">
-                    {t("CHARITY.CHANGE_PASSWORD.FIELDS.PASSWORD")}
+                    {t("PASSWORD_RECOVERY.DESCRIPTION")}
                 </div>
                 <div className="list--preferences__field">
-                    <BasicInput showLabel={false} field={form.$('charityChangePassword')} />
+                    <BasicInput showLabel={false} field={form.$('userName')} />
                 </div>
+                {form.error && (
+						<div>
+							<p className="type--color--warning">{form.error}</p>
+						</div>
+					)}
             </div>
 
             <div className="type--right">
-                <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+            <BaasicButton
+				className="btn btn--med btn--primary display--ib u-mar--right--sml"
+				type="submit"
+				label={t('PASSWORD_RECOVERY.RESET_BUTTON')}
+			    disabled={form.submitting || form.validating}
+			/>
             </div>
         </EditFormContent>
         </div>
     )
 }
 
-CharityChangePasswordTemplate.propTypes = {
-    charityChangePasswordViewStore: PropTypes.object.isRequired,
+CharityResetPasswordTemplate.propTypes = {
+    charityResetPasswordViewStore: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired
 };
 
-export default defaultTemplate(CharityChangePasswordTemplate);
+export default defaultTemplate(CharityResetPasswordTemplate);

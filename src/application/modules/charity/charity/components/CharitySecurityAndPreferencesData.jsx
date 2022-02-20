@@ -3,7 +3,7 @@ import { defaultTemplate } from 'core/hoc';
 import {
     CharityPaymentOptions,
     CharityChangeUsername,
-    CharityChangePassword
+    CharityResetPassword
 } from 'application/charity/charity/components';
 
 
@@ -23,7 +23,7 @@ function CharitySecurityAndPreferencesData() {
                 </div>
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
                     <div className="card--primary card--med">
-                        <CharityChangePassword />
+                        <CharityResetPassword />
                     </div>
                 </div>
             </div>

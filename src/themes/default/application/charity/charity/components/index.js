@@ -1,7 +1,7 @@
 export { default as CharityAddressListTableTemplate } from './CharityAddressListTableTemplate'
 export { default as CharityBankAccountEditTemplate } from './CharityBankAccountEditTemplate'
 export { default as CharityGeneralDataTemplate } from './CharityGeneralDataTemplate'
-export { default as CharityChangePasswordTemplate } from './CharityChangePasswordTemplate'
+export { default as CharityResetPasswordTemplate } from './CharityResetPasswordTemplate'
 export { default as CharityChangeUsernameTemplate } from './CharityChangeUsernameTemplate'
 export { default as CharityPaymentOptionsTemplate } from './CharityPaymentOptionsTemplate'
 export { default as CharityDescriptionTemplate } from './CharityDescriptionTemplate'
