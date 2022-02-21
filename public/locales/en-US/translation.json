@@ -329,7 +329,7 @@
         }
     },
     "PASSWORD_RECOVERY": {
-        "TITLE": "FORGOT YOUR PASSWORD?",
+        "TITLE": "Forgot your password?",
         "DESCRIPTION": "Enter your signup username or e-mail, and we'll send you a link to reset your password.",
         "RESET_BUTTON": "Reset Password",
         "CANCEL_BUTTON": "Cancel",
