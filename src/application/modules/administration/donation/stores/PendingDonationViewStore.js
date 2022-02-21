@@ -120,7 +120,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                 this.rootStore.notificationStore.warning('Please, check if you selected grants/donations to process.');
                 return;
             }
-
+            
             var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
             this.rootStore.notificationStore.success("Successfully processed.");
             this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
