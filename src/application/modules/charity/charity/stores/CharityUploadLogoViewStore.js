@@ -10,16 +10,17 @@ class CharityUploadLogoViewStore extends BaseEditViewStore{
     constructor(rootStore){
         super(rootStore, {
             name: 'charity-upload-logo',
-            autoInit: false,
+            id: rootStore.userStore.applicationUser.id,
             actions: () => {
                 return {
+                    get: async (id) => {
+                    const data = await rootStore.application.charity.charityStore.getCharityMedia(id, 'logo');
+                    console.log(data);
+                    },
                     update: async () => {
                         return true;
                     },
-                    get: async (id) => {
-                        return true;
-                    }
-                }
+            }
             },
             FormClass: CharityUploadLogoForm,
         });
