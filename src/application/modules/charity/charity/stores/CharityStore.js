@@ -55,6 +55,11 @@ class CharityStore {
         const response = await this.charityCommunicationPreferenceService.get(id, options);
         return response.data;
     }
+    
+    async getCharityMedia(charityId, mediaType) {
+        const response = await this.fileStreamService.getCharityMedia(charityId, mediaType);
+        return response.data;
+    }
 
     async createCharity(resource) {
         const response = await this.charityService.create(resource);
@@ -120,6 +125,11 @@ class CharityStore {
         const response = await this.charityAddressService.update(params);
         return response.data;
     }
+
+    async uploadMedia(file, charityId, mediaType) {
+    const response = await this.fileStreamService.uploadCharityMedia(file, charityId, mediaType);
+    return response.data;
+}
 
 }
 export default CharityStore;

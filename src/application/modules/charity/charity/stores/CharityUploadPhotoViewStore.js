@@ -10,11 +10,11 @@ class CharityUploadPhotoViewStore extends BaseEditViewStore{
     constructor(rootStore){
         super(rootStore, {
             name: 'charity-upload-logo',
-            autoInit: false,
+            id: rootStore.userStore.applicationUser.id,
             actions: () => {
                 return {
                     update: async () => {
-                        return true;
+                        await rootStore.application.charity.charityStore.uploadMedia(this.imageUploadStore.files[0], rootStore.userStore.applicationUser.id, 'photo');
                     },
                     get: async (id) => {
                         return true;

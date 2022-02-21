@@ -26,11 +26,6 @@ class CharityStore {
         return response.data;
     }
 
-    async getCharityMedia(charityId, mediaType) {
-        const response = await this.fileStreamService.getCharityMedia(charityId, mediaType);
-        return response.data;
-    }
-
     async createCharity(resource) {
         const response = await this.charityService.create(resource);
         return response.data;
@@ -86,9 +81,6 @@ class CharityStore {
         return response.data;
     }
 
-    async uploadMedia(file, charityId, id, mediaType) {
-        const response = await this.fileStreamService.uploadCharityMedia(file, charityId, id, mediaType);
-        return response.data;
-    }
+
 }
 export default CharityStore;
