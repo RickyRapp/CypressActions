@@ -92,6 +92,21 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
     onEnableEditClick() {
         this.isEditEnabled = !this.isEditEnabled;
     }
+
+    @action.bound
+    downloadQrCode(){
+        const canvas = document.getElementById("charity-qr");
+        const pngUrl = canvas
+          .toDataURL("image/png")
+          .replace("image/png", "image/octet-stream");
+        let downloadLink = document.createElement("a");
+        downloadLink.href = pngUrl;
+        downloadLink.download = `qr-code.png`;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
+
 }
 
 export default CharityGeneralDataViewStore;

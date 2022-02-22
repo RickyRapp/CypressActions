@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BarcodeFormat, BrowserQRCodeSvgWriter } from '@zxing/library';
 import JsBarcode from 'jsbarcode'
+import BaasicButton from '../buttons/BaasicButton';
 
 class Barcode extends Component {
     oneDType = false;
@@ -66,7 +67,7 @@ class Barcode extends Component {
         return (
             <React.Fragment>
                 {this.twoDType &&
-                    <div dangerouslySetInnerHTML={{ __html: svgElement.outerHTML }} />}
+                    <div dangerouslySetInnerHTML={{ __html: svgElement.outerHTML }} id="qr-code" />}
                 {this.oneDType &&
                     <svg id={this.selector}></svg>}
             </React.Fragment>

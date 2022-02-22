@@ -21,6 +21,7 @@ import { CharityBankAccountList,
         CharityUploadPhoto
 } from 'application/charity/charity/components';
 import { CharityWithdrawFund } from 'application/administration/charity/components';
+import QRCode from 'qrcode.react';
 
 function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
     const {
@@ -31,7 +32,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         withdrawFundModalParams,
         openWithdrawFundModalClick,
         isEditEnabled,
-        onEnableEditClick
+        onEnableEditClick,
+        downloadQrCode
     } = charityGeneralDataViewStore;
 
     return (
@@ -75,12 +77,20 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-2 u-mar--bottom--sml">
                                         {item &&
-                                            <Barcode
-                                                type={BarcodeFormat.QR_CODE}
+                                            <QRCode
+                                                id='charity-qr'
                                                 value={charityFormatter.format(item.taxId, { value: 'tax-id' })}
-                                                height={100}
-                                                width={100}
+                                                size={70}
+                                                includeMargin={false}
                                             />}
+                                    <div className="row row--form">
+                                        <BaasicButton
+                                            type="button"
+                                            className="btn btn--sml btn--sml btn--ghost u-mar--right--sml"
+                                            onClick={downloadQrCode}
+                                            label="Download"
+                                        />
+                                    </div>
                                     </div>
                                 </div>
                                 <div className="row row--form">
