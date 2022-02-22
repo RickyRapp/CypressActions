@@ -27,6 +27,7 @@ class CharityPaymentOptionsViewStore extends BaseEditViewStore{
                         resource.charityStatusId = data.charityStatusId;
                         resource.charityTypeId = data.charityTypeId;
                         resource.dba = data.dba;
+                        resource.description = data.description;
                         resource.contactInformationName = data.contactInformation.name;
                         resource.contactInformationEmail = data.contactInformation.email;
                         resource.contactInformationNumber = data.contactInformation.number;

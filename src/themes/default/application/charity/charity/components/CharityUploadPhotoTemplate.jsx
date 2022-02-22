@@ -15,6 +15,7 @@ const CharityUploadPhotoTemplate = function ({t, charityUploadPhotoViewStore}){
         imageUploadStore,
         form,
         isEditEnabled,
+        item,
         onEnableEditClick
     } = charityUploadPhotoViewStore;
 
@@ -34,6 +35,11 @@ const CharityUploadPhotoTemplate = function ({t, charityUploadPhotoViewStore}){
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-6 u-mar--bottom--sml">
                                     <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
+                                    </div>
+                                    <div className="col-md-4 px-0">
+                                    {  
+                                        item ? ( <img alt=""  src={URL.createObjectURL(item)} /> ) : null
+                                    }
                                     </div>
                                 </div>
 
@@ -55,7 +61,9 @@ const CharityUploadPhotoTemplate = function ({t, charityUploadPhotoViewStore}){
 								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Photo:</p>
 									<p className="type--base type--wgt--bold">
-                                        <i className="fa fa-heart"></i>
+                                        {  
+                                            item ? ( <img alt=""  src={URL.createObjectURL(item)} /> ) : null
+                                        }
 									</p>
 								</div>
 							</div>

@@ -13,13 +13,14 @@ class CharityUploadPhotoViewStore extends BaseEditViewStore{
             id: rootStore.userStore.applicationUser.id,
             actions: () => {
                 return {
+                    get: async (id) => {
+                    return await rootStore.application.charity.charityStore.getCharityMedia(id, 'photo');
+                    },
                     update: async () => {
                         await rootStore.application.charity.charityStore.uploadMedia(this.imageUploadStore.files[0], rootStore.userStore.applicationUser.id, 'photo');
+                        rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                     },
-                    get: async (id) => {
-                        return true;
-                    }
-                }
+            }
             },
             FormClass: CharityUploadPhotoForm,
         });
@@ -34,17 +35,9 @@ class CharityUploadPhotoViewStore extends BaseEditViewStore{
         }
         else {
             await this.fetch([
-                this.getCharityInfo()
+                this.getCharityMedia()
             ]);
-            if (this.charity.charityBankAccounts && this.charity.charityBankAccounts.length === 1) {
-                this.id = this.charity.charityBankAccounts[0].id;
-                await this.fetch([
-                    this.getResource(this.id)
-                ]);
-            }
-            this.form.$('routingNumber').onBlur = (event) => {
-                this.onBlurRoutingNumber(event.target.value)
-            };
+            
             this.imageUploadStore.setInitialItems(this.form.$('coreMediaVaultEntryId').value)
         }
     }

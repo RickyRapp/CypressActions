@@ -13,11 +13,12 @@ class CharityUploadLogoViewStore extends BaseEditViewStore{
             id: rootStore.userStore.applicationUser.id,
             actions: () => {
                 return {
-                    get: async () => {
-                    const data = await rootStore.application.charity.charityStore.getCharityMedia(rootStore.userStore.applicationUser.id, 'logo');
+                    get: async (id) => {
+                    return await rootStore.application.charity.charityStore.getCharityMedia(id, 'logo');
                     },
                     update: async () => {
                         await rootStore.application.charity.charityStore.uploadMedia(this.imageUploadStore.files[0], rootStore.userStore.applicationUser.id, 'logo');
+                        rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                     },
             }
             },

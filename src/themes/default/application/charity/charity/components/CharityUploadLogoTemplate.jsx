@@ -15,7 +15,8 @@ const CharityUploadLogoTemplate = function ({t, charityUploadLogoViewStore}){
         imageUploadStore,
         form,
         isEditEnabled,
-        onEnableEditClick
+        onEnableEditClick,
+        item
     } = charityUploadLogoViewStore;
 
     return(
@@ -35,9 +36,14 @@ const CharityUploadLogoTemplate = function ({t, charityUploadLogoViewStore}){
                                     <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-6 u-mar--bottom--sml">
                                     <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
                                     </div>
+                                    <div className="col-md-4 px-0">
+                                    {  
+                                        item ? ( <img alt=""  src={URL.createObjectURL(item)} /> ) : null
+                                    }
+                                    </div>
                                 </div>
 
-                            <div className="col col-sml-12 info-card--footer">
+                            <div className="col col-sml-12 col-lrg-4">
 								<BaasicButton
 									type="button"
 									className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
@@ -55,7 +61,9 @@ const CharityUploadLogoTemplate = function ({t, charityUploadLogoViewStore}){
 								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Logo:</p>
 									<p className="type--base type--wgt--bold">
-                                        <i className="fa fa-heart"></i>
+                                        {  
+                                            item ? ( <img alt=""  src={URL.createObjectURL(item)} /> ) : null
+                                        }
 									</p>
 								</div>
 							</div>

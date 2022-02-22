@@ -18,7 +18,7 @@ class CharityFileStreamRouteService extends BaseRouteService {
     }
 
     getCharityMedia(charityId, mediaType) {
-        return super.get(this.base + '/{charityId}/media-gallery/{mediaType}/{?embed}', charityId, { charityId: charityId, mediaType: mediaType });
+        return super.find(this.base + '/{charityId}/media-gallery/{mediaType}', { charityId: charityId, mediaType: mediaType });
     }
 
     create(resource) {
