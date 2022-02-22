@@ -23,6 +23,14 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
                     const temp = item.booklets.slice();
                     temp.push(arrayResult[0])
                     bookletDropdownStore.onChange(temp);
+                    try {
+                        var x = document.getElementsByName('dd_' + denominationType.name);
+                        var ce = $(x).find('.k-searchbar')[0];
+                        $(ce).children()[0].focus();
+                    }
+                    catch (ex) {
+                        console.log('Error finding elements...', ex);
+                    }
                 }
             },
             onChange: (value) => {
@@ -48,7 +56,7 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
                 <div className="form__group__label u-mar--bottom--sml">Booklet count</div>
                 {item.bookletCount}
             </div>
-            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml" name={'dd_' + denominationType.name}>
                 <div className="form__group__label">Booklet list</div>
                 <BaasicDropdown
                     store={bookletDropdownStore}
@@ -60,7 +68,7 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
                     <div className="validation__message">
                         <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>
                         Need to assign {item.bookletCount - item.booklets.length} more booklet/s.
-                        </div>
+                    </div>
                 }
             </div>
         </div>
