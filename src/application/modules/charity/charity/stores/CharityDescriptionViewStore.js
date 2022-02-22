@@ -29,6 +29,9 @@ class CharityDescriptionViewStore extends BaseEditViewStore{
                         resource.contactInformationName = data.contactInformation.name;
                         resource.contactInformationEmail = data.contactInformation.email;
                         resource.contactInformationNumber = data.contactInformation.number;
+                        resource.keepFundsUntilManuallyDistributedIsEnabled = data.keepFundsUntilManuallyDistributedIsEnabled;
+                        resource.keepFundsUntilAccumulatedAmountIsEnabled = data.keepFundsUntilAccumulatedAmountIsEnabled;
+                        resource.accumulatedAmountExceeding = data.accumulatedAmountExceeding;
 
                         await this.rootStore.application.charity.charityStore.updateCharity({ contactInformation: { name: resource.contactInformationName, email: resource.contactInformationEmail, number: resource.contactInformationNumber }, ...resource});
                         rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');

@@ -13,7 +13,7 @@ class CharityUploadLogoViewStore extends BaseEditViewStore{
             id: rootStore.userStore.applicationUser.id,
             actions: () => {
                 return {
-                    get: async () => { console.log("OK");
+                    get: async () => {
                     const data = await rootStore.application.charity.charityStore.getCharityMedia(rootStore.userStore.applicationUser.id, 'logo');
                     },
                     update: async () => {
@@ -34,19 +34,15 @@ class CharityUploadLogoViewStore extends BaseEditViewStore{
         }
         else {
             await this.fetch([
-                this.getCharityInfo()
+                this.getCharityMedia()
             ]);
-            if (this.charity.charityBankAccounts && this.charity.charityBankAccounts.length === 1) {
-                this.id = this.charity.charityBankAccounts[0].id;
-                await this.fetch([
-                    this.getResource(this.id)
-                ]);
-            }
-            this.form.$('routingNumber').onBlur = (event) => {
-                this.onBlurRoutingNumber(event.target.value)
-            };
+            
             this.imageUploadStore.setInitialItems(this.form.$('coreMediaVaultEntryId').value)
         }
+    }
+
+    async getCharityMedia() {
+        this.charityMedia = await rootStore.application.charity.charityStore.getCharityMedia(rootStore.userStore.applicationUser.id, 'logo')
     }
 
     @action.bound

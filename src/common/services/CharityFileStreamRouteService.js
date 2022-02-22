@@ -18,14 +18,14 @@ class CharityFileStreamRouteService extends BaseRouteService {
     }
 
     getCharityMedia(charityId, mediaType) {
-        return super.get(this.base + '/{charityId}/media-gallery/{mediaType}/{?embed}', { charityId: charityId, mediaType: mediaType });
+        return super.get(this.base + '/{charityId}/media-gallery/{mediaType}/{?embed}', charityId, { charityId: charityId, mediaType: mediaType });
     }
 
     create(resource) {
         return super.create(this.base, resource);
     }
 
-    uploadCharityBankAccount(charityId, bankAccountId, filename) {
+    uploadCharityBankAccount(charityId, bankAccountId, filename) { 
         return super.create(this.base + '/{charityId}/bank-account/{id}/{filename}/{?embed}', { charityId: charityId, id: bankAccountId, filename: filename });
     }
 
