@@ -171,7 +171,7 @@ class ReconcileViewStore extends BaseListViewStore {
                     return !isSome(item.isCashed);
                 },
                 onPrintReportRender: (item) => {
-                    return item.isCashed !== false;
+                    return item.isCashed !== false || item.isCashed !== null;
                 },
                 onPreviewRender: (item) => {
                     return item.isCashed && item.json;

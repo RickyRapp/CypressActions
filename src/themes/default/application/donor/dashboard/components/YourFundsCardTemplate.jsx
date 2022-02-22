@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 const YourFundsCardTemplate = (props) => {
     const { donor, newContributionOnClick, t } = props;
-
     return (
         <div className="dashboard-card">
             <h3 className="dashboard-card__title u-mar--bottom--sml">
@@ -27,7 +26,7 @@ const YourFundsCardTemplate = (props) => {
                 <div className="dashboard-card__body--amount--secondary">
                     {donor && (
                         <FormatterResolver
-                            item={{ balance: donor.availableBalance > 0 ? donor.availableBalance : "0.00" }}
+                            item={{ balance: donor.availableBalance }}
                             field="balance"
                             format={{ type: 'currency' }}
                         />
