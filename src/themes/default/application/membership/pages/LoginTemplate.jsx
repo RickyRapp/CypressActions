@@ -51,7 +51,7 @@ function LoginTemplate({ currentView, t }) {
 					</div>
 				</form>
 
-				<p className="type--color--opaque">{new Date().getFullYear()}. THE DONORS' FUND. ALL RIGHTS RESERVED.</p>
+				<p className="type--sml type--color--opaque">{new Date().getFullYear()}. THE DONORS' FUND. ALL RIGHTS RESERVED.</p>
 			</div>
 		</div>
 	);

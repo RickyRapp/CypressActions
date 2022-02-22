@@ -16,7 +16,7 @@ function PasswordRecoveryTemplate({ currentView, t }) {
 						<a href="/" ><img src={logo} alt="Logo" /></a>
 					</div>
 
-					<div>
+					<div className="login__wrapper">
 						<h4 className="login__title login__title--secondary">{t('PASSWORD_RECOVERY.TITLE')}</h4>
 						<p className="login__desc">{t('PASSWORD_RECOVERY.DESCRIPTION')}</p>
 
