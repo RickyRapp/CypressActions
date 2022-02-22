@@ -127,9 +127,14 @@ class CharityStore {
     }
 
     async uploadMedia(file, charityId, mediaType) {
-    const response = await this.fileStreamService.uploadCharityMedia(file, charityId, mediaType);
-    return response.data;
-}
+        const response = await this.fileStreamService.uploadCharityMedia(file, charityId, mediaType);
+        return response.data;
+    }   
+
+    async updateGeneralData(resource) {
+        const response = await this.charityService.updateGeneralData(resource);
+        return response.data;
+    }
 
 }
 export default CharityStore;

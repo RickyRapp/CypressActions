@@ -23,6 +23,7 @@ class CharityUploadLogoViewStore extends BaseEditViewStore{
             }
             },
             FormClass: CharityUploadLogoForm,
+            onAfterAction: () => { this.getResource(this.id); }
         });
         this.createImageUploadStore();
 

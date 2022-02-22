@@ -41,6 +41,10 @@ class CharityRouteService extends BaseRouteService {
         return super.update(this.base + '/{id}', resource);
     }
 
+    changeUsername(resource) {
+        return super.update(this.base + '/charity/{id}/general-data', resource);
+    }
+
     approve(id) {
         return super.update(this.base + '/approve/{id}', {id: id});
     }

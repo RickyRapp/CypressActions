@@ -23,9 +23,9 @@ class CharityUploadPhotoViewStore extends BaseEditViewStore{
             }
             },
             FormClass: CharityUploadPhotoForm,
+            onAfterAction: () => { this.getResource(this.id); }
         });
         this.createImageUploadStore();
-
     }
 
     @action.bound

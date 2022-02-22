@@ -9,7 +9,7 @@ export default class CharityChangeUsernameForm extends FormBase {
         return {
             fields: [
                 {
-                    name: 'charityChangeUsername',
+                    name: 'userName',
                     label: 'CHARITY.CHANGE_USERNAME.FIELDS.CHANGE_USERNAME_LABEL',
                     placeholder: 'CHARITY.CHANGE_USERNAME.FIELDS.CHANGE_USERNAME_PLACEHOLDER',
                     rules: 'required|string'

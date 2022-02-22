@@ -28,7 +28,7 @@ const CharityChangeUsernameTemplate = function ({t, charityChangeUsernameViewSto
                     {t("CHARITY.CHANGE_USERNAME.FIELDS.USERNAME")}
                 </div>
                 <div className="list--preferences__field">
-                    <BasicInput showLabel={false} field={form.$('charityChangeUsername')} />
+                    <BasicInput showLabel={false} field={form.$('userName')} />
                 </div>
             </div>
 
