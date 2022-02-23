@@ -243,8 +243,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 					<React.Fragment>
 						<div className="u-display--flex">
 							<div>
-								<span className="type--med type--wgt--medium">{rootStore.userStore.user.donor.fundName}</span>
-								<p className="type--base type--color--opaque">
+								<span className="header__profile__title">{rootStore.userStore.user.donor.fundName}</span>
+								<p className="header__profile__label">
 									Account Number: <span className="type--wgt--bold">{rootStore.userStore.user.donor.accountNumber}</span>
 								</p>
 							</div>

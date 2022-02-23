@@ -6,18 +6,25 @@ class AccountManagerTemplate extends Component {
     render() {
         const { rootStore } = this.props;
 
+        const imgUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU'
+
         return (
             <React.Fragment>
                 {rootStore.userStore.user && rootStore.userStore.user.donor ? (
                     <React.Fragment>
                         {rootStore.userStore.user.donor.accountManager ?
-                             <div className="u-mar--left--xlrg account-manager">
-                                <span className="type--base type--color--opaque">
-                                    Your Account Manager:
-                                </span>
-                                <p className="type--med type--wgt--medium">
-                                    {`${rootStore.userStore.user.donor.accountManager.firstName} ${rootStore.userStore.user.donor.accountManager.lastName}`}
-                                </p>
+                            <div className="u-display--flex u-mar--left--med">
+                                <div className="header__profile">
+                                    <img className="header__profile__img" src={imgUrl} alt="" />
+                                </div>
+                                <div>
+                                    <span className="header__profile__label">
+                                        Your Account Manager:
+                                    </span>
+                                    <p className="header__profile__title">
+                                        {`${rootStore.userStore.user.donor.accountManager.firstName} ${rootStore.userStore.user.donor.accountManager.lastName}`}
+                                    </p>
+                                </div>
                             </div >
                             :
                             null}

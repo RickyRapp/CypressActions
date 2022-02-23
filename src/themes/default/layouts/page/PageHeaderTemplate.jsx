@@ -41,7 +41,7 @@ function renderHeaderContent(children, props, routes, hideTitle, t, title) {
 
 	return (
 		<React.Fragment>
-			{!hideTitle && (
+			{!hideTitle && title && (
 				<h3
 					className={`u-mar--right--sml ${t(title) === 'Profile Settings' ? 'u-display--none--xlrg' : ''
 						}`}
@@ -61,7 +61,7 @@ function renderHeaderContent(children, props, routes, hideTitle, t, title) {
 			) : null}
 			{children && contentRender ? (
 				<div className="content__header u-mar--right--sml">
-					<div className="row">{contentRender}</div>
+					{contentRender}
 				</div>
 			) : null}
 		</React.Fragment>
