@@ -3,7 +3,7 @@ import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryP
 import { donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { BookletOrderListFilter } from 'application/administration/booklet-order/models';
-
+import moment from 'moment';
 class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
@@ -126,10 +126,18 @@ class BookletOrderViewStore extends BaseListViewStore {
                     return item.bookletOrderStatus.abrv === 'finished';
                 },
                 onCancelRender: (item) => {
-                    return item.bookletOrderStatus.abrv === 'pending';
+                    const dateFromEnabled = (new Date(2022, 1, 22)).toISOString(); 
+                    const moment1 = moment(item.dateCreated);
+                    const moment2 = moment(dateFromEnabled);
+
+                    return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2))
                 },
                 onEditRender: (item) => {
-                    return item.bookletOrderStatus.abrv === 'pending';
+                    const dateFromEnabled = (new Date(2022, 1, 22)).toISOString(); 
+                    const moment1 = moment(item.dateCreated);
+                    const moment2 = moment(dateFromEnabled);
+
+                    return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2))
                 }
             }
         }));

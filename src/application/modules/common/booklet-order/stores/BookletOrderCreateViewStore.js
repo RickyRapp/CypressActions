@@ -155,7 +155,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @computed get totalAmount() {
         return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount + (this.donor && !this.donor.isSessionFeePayedByCharity && parseFloat((this.totalPrepaidAmount * 0.029).toFixed(2))) + ((this.form.$('customizedName').value && this.form.$('customizedName').value.length > 0) || (this.form.$('customizedAddressLine1').value && this.form.$('customizedAddressLine1').value.length > 0) ? this.donor && this.donor.accountType && this.donor.accountType.abrv != 'private' && parseFloat(this.customizedFee) : 0) + ((this.deliveryMethodTypes && this.deliveryMethodTypes.length > 0 && this.deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == this.form.$('deliveryMethodTypeId').value) ? 25 : 0);
     }
-
+    
     @computed get customizedFee() {
         return this.orderContents.reduce((a,b) => a+b.bookletCount, 0)*5;
     }
@@ -414,7 +414,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
     @computed get needsProtectionPlan() {
         const blanks = this.orderContents.filter(x => x.denominationTypeId == this.blankDenomination.id);
-        return ((blanks.length > 0 && blanks[0].bookletCount > 0) || this.classicBookletAmount > 0 || this.mixed2000BookletAmount > 0 || this.mixed500BookletAmount > 0) && this.donor && !this.donor.hasProtectionPlan;
+        return ((blanks.length > 0 && blanks[0].bookletCount > 0) || ((this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount) - this.totalPrepaidAmount) > 0) && this.donor && !this.donor.hasProtectionPlan;
     }
     @computed get needsMoreFunds() {
         if(this.donor) {
