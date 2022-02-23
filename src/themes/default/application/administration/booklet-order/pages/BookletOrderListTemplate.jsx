@@ -147,7 +147,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--cancel u-icon--base"
+						icon="u-icon u-icon--cancel u-icon--base u-mar--right--tny"
 						label="BOOKLET_ORDER.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}
@@ -157,7 +157,7 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--edit u-icon--base"
+						icon="u-icon u-icon--edit u-icon--base u-mar--right--tny"
 						label="BOOKLET_ORDER.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -167,7 +167,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						authorization="theDonorsFundAdministrationSection.update"
 						className="btn btn--icon"
-						icon="u-icon u-icon--approve u-icon--base"
+						icon="u-icon u-icon--approve u-icon--base u-mar--right--tny"
 						label="BOOKLET_ORDER.LIST.BUTTON.REVIEW"
 						onlyIcon={true}
 						onClick={() => onReview(item.id)}
