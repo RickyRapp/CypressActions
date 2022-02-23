@@ -153,18 +153,8 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
     }
 
     createImageUploadStore() {
-		this.imageUploadStore = new BaasicUploadStore(null, {
-			onChange: value => {
-				this.form.$('coreMediaVaultEntryId').setDisabled(isSome(value));
-			},
-			onDelete: () => {
-				this.form.$('coreMediaVaultEntryId').setDisabled(false);
-			},
-			onRemoveFromBuffer: () => {
-				this.form.$('coreMediaVaultEntryId').setDisabled(false);
-			},
-		});
-	}
+        this.imageUploadStore = new BaasicUploadStore();
+    }
 
 }
 

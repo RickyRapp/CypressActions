@@ -1240,11 +1240,11 @@
             }
         },
         "CHANGE_PASSWORD" : {
-            "TITLE" : "Change Password",
+            "TITLE" : "Reset Password",
             "FIELDS" : {
                 "PASSWORD" : "Password",
-                "CHANGE_PASSWORD_LABEL" : "Change Password",
-                "CHANGE_PASSWORD_PLACEHOLDER" : "Change Password"
+                "CHANGE_PASSWORD_LABEL" : "Reset Password",
+                "CHANGE_PASSWORD_PLACEHOLDER" : "Reset Password"
             }
         },
         "DESCRIPTION" : {

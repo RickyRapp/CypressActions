@@ -74,7 +74,15 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
                         <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span> : null}
                     </div>
 				</div>
-
+				<div className="row row--form u-mar--bottom--med">
+					<div className="col col-sml-12 col-lrg-12">
+						<div className="row row__align--end">
+							<BaasicDropzone
+								store={imageUploadStore}
+							/>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div className="info-card--footer">
