@@ -14,7 +14,8 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                     placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT',
                     rules: 'required|boolean',
                     type: 'checkbox',
-                    disabled: true
+                    disabled: true,
+                    value: true
                 },
                 {
                     name: 'emailToNotify',
