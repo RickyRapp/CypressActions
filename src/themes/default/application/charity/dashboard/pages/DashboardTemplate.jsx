@@ -16,7 +16,7 @@ import {
 } from '@progress/kendo-react-charts';
 import { AllTransactionList } from 'application/charity/activity/pages';
 function DashboardTemplate({ dashboardViewStore, t }) {
-	const { charity, newContributionOnClick, redirectToWithdrawFundsPage, yearDropdownStore, notImplemented, manageAccount, balance, grantsPerYear } = dashboardViewStore;
+	const { charity, newContributionOnClick, redirectToWithdrawFundsPage, yearDropdownStore, notImplemented, manageAccount, balance, grantsPerYear, redirectToManageAccount } = dashboardViewStore;
 	
 	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	let dataGrants = [];
@@ -65,7 +65,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 									/>
 								</div></div>
 								<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
-									<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Manage Account" />
+									<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Manage Account" onClick={redirectToManageAccount} />
 								</div></div>
 
 							</div>

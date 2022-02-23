@@ -1,10 +1,12 @@
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { BaasicUploadStore, BaseEditViewStore } from 'core/stores';
 import { applicationContext, isSome } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/charity/charity/forms';
 
 @applicationContext
 class CharityBankAccountEditViewStore extends BaseEditViewStore {
+    @observable image = null;
+
     constructor(rootStore, props) {
         super(rootStore, {
             name: 'bank-account',
@@ -32,10 +34,13 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                 };
             },
                 update: async (resource) => {
-                    await this.rootStore.application.charity.charityStore.updateBankAccount({ id: props.editId, charityId: this.charityId, ...resource });
-                    if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
-                        await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, this.id);
+                    resource.coreMediaVaultEntryId = null;
+                    if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) { 
+                        const res =await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, this.id);
+                        resource.coreMediaVaultEntryId = res.id;
                     }
+
+                    await this.rootStore.application.charity.charityStore.updateBankAccount({ id: props.editId, charityId: this.charityId, ...resource });
                     rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                 },
                 create: async (resource) => {
@@ -75,12 +80,13 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
 		if (!initialLoad) {
 			this.rootStore.routerStore.goBack();
 		} else {
-			await this.fetch([this.getCharityInfo()]);
-
+			await this.fetch([
+                this.getCharityInfo()
+            ]);
+            
 			if (this.isEdit) {
 				if (this.form.$('coreMediaVaultEntryId').value) {
 					this.imageUploadStore.setInitialItems(this.form.$('coreMediaVaultEntryId').value);
-					this.form.$('coreMediaVaultEntryId').setDisabled(true);
 				}
 			}
 		}
@@ -153,7 +159,17 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
     }
 
     createImageUploadStore() {
-        this.imageUploadStore = new BaasicUploadStore();
+        this.imageUploadStore = new BaasicUploadStore(null, {
+            onChange: (value) => {
+                this.form.$('coreMediaVaultEntryId').setDisabled(isSome(value));
+            },
+            onDelete: () => {
+                this.form.$('coreMediaVaultEntryId').setDisabled(false);
+            },
+            onRemoveFromBuffer: () => {
+                this.form.$('coreMediaVaultEntryId').setDisabled(false);
+            }
+        });
     }
 
 }

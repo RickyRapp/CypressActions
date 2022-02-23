@@ -1,6 +1,7 @@
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { action, observable } from 'mobx';
+import { RouterState } from 'mobx-state-router';
 
 @applicationContext
 class DashboardViewStore extends BaseViewStore {
@@ -39,6 +40,11 @@ class DashboardViewStore extends BaseViewStore {
     @action.bound
     async redirectToWithdrawFundsPage(){
         //implementirati redirect na Withdraw funds page
+    }
+
+    @action.bound
+    async redirectToManageAccount() {
+        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.profile'));
     }
 }
 
