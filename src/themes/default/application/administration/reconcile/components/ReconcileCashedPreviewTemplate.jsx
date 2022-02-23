@@ -103,6 +103,11 @@ const ReconcileCashedPreviewTemplate = function ({ modalParams }){
 
             <br />
 
+            Repeating Records
+            <SimpleBaasicTable tableStore={repeatingRecordsPreviewTableStore} />
+
+            <br />
+
             Successfully Matched
             <SimpleBaasicTable tableStore={reconcileCashedSuccessfullyPreviewTableStore} />
         </section >
