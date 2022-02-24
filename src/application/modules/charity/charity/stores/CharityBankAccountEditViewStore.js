@@ -9,7 +9,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
 
     constructor(rootStore, props) {
         super(rootStore, {
-            name: 'bank-account',
+            name: 'charity-bank-account',
             id: props.editId,
             actions: {
                 get: async () => {
@@ -32,7 +32,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     number: data.accountHolder && data.accountHolder.number,
                     isPrimary: data.accountHolder && data.isPrimary
                 };
-            },
+            },    
                 update: async (resource) => {
                     resource.coreMediaVaultEntryId = null;
                     if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) { 
@@ -49,13 +49,18 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
 					}
                     let response;
                     try {
-                        response = await this.rootStore.application.charity.charityStore.createBankAccount({ charityId: this.charityId, ...resource }); 
+                        response = await this.rootStore.application.charity.charityStore.createBankAccount({ charityId: this.charityId, ...resource });
+
+                        if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
+                            const media = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, response);
+                            resource.coreMediaVaultEntryId = media.id; 
+                            await this.rootStore.application.charity.charityStore.updateBankAccount({ id: response, charityId: this.charityId, ...resource });
+                        }
+
                     } catch (error) {
                         rootStore.notificationStore.error('Create failed', error);
                     }
-                    if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
-                        await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, response.data);
-                    }
+                    
                     rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
                 }
             },
@@ -159,17 +164,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
     }
 
     createImageUploadStore() {
-        this.imageUploadStore = new BaasicUploadStore(null, {
-            onChange: (value) => {
-                this.form.$('coreMediaVaultEntryId').setDisabled(isSome(value));
-            },
-            onDelete: () => {
-                this.form.$('coreMediaVaultEntryId').setDisabled(false);
-            },
-            onRemoveFromBuffer: () => {
-                this.form.$('coreMediaVaultEntryId').setDisabled(false);
-            }
-        });
+        this.imageUploadStore = new BaasicUploadStore;
     }
 
 }
