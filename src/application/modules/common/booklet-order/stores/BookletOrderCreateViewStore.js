@@ -31,18 +31,18 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        if(!this.donor.hasProtectionPlan && (this.totalAmount - this.totalPrepaidAmount > 0) && (this.donor.presentBalance + this.donor.lineOfCredit) < this.totalAmount) {
-                            this.rootStore.notificationStore.error('Insufficient funds, please enroll in protection plan or deposit funds');
-                            this.form.invalidate('Insufficient funds');
-                            this.validForm = false;
-                            return;
-                        }
-                        if(this.totalPrepaidAmount > (this.donor.presentBalance + this.donor.lineOfCredit)) {
-                            this.rootStore.notificationStore.error('Insufficient funds, please deposit funds');
-                            this.form.invalidate('Insufficient funds');
-                            this.validForm = false;
-                            return;
-                        }
+                        // if(!this.donor.hasProtectionPlan && (this.totalAmount - this.totalPrepaidAmount > 0) && (this.donor.presentBalance + this.donor.lineOfCredit) < this.totalAmount) {
+                        //     this.rootStore.notificationStore.error('Insufficient funds, please enroll in protection plan or deposit funds');
+                        //     this.form.invalidate('Insufficient funds');
+                        //     this.validForm = false;
+                        //     return;
+                        // }
+                        // if(this.totalPrepaidAmount > (this.donor.presentBalance + this.donor.lineOfCredit)) {
+                        //     this.rootStore.notificationStore.error('Insufficient funds, please deposit funds');
+                        //     this.form.invalidate('Insufficient funds');
+                        //     this.validForm = false;
+                        //     return;
+                        // }
                         const data = await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
                             donorId: this.donorId,
                             checkOrderUrl: `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`,

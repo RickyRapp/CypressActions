@@ -58,12 +58,12 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
                             />
                         )
                     })}
-                    {orderContents && orderContents.length > 0 &&
+                    {/* {orderContents && orderContents.length > 0 &&
                         <BaasicButton 
                             className='btn btn--med btn--med--wide btn--primary u-mar--right--sml'
                             label="Update order"
                         />
-                    }  
+                    }   */}
                 </div>
             </Content>
         </ApplicationEditLayout >
