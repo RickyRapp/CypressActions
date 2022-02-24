@@ -75,6 +75,16 @@
 		}
 	}
 
+	&__separator {
+		display: inline-block;
+		width: 70px;
+
+		margin-left: calc($unit * 3);
+		margin-right: calc($unit * 3);
+
+		border-top: 1px solid $bali-hai;
+	}
+
 	&__desc {
 		width: 100%;
 

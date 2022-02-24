@@ -308,6 +308,7 @@
         "DESCRIPTION": "Login to app with your credentials. If you have problem with login, contact support.",
         "FORGOT_PASSWORD_BUTTON": "Forgot your Password?",
         "SIGNIN_BUTTON": "Sign In",
+        "SIGNUP_BUTTON": "Sign up now",
         "USERNAME_LABEL": "Email",
         "USERNAME_PLACEHOLDER": "Enter Email",
         "PASSWORD_LABEL": "Password",

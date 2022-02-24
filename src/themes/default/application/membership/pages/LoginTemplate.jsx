@@ -48,6 +48,18 @@ function LoginTemplate({ currentView, t }) {
 								label={t('LOGIN.SIGNIN_BUTTON')}
 							/>
 						</div>
+
+						<div className="type--center u-mar--top--lrg">
+							<div className="u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--bottom--xsml">
+								<span className="login__separator"></span>
+								<span className="type--sml type--color--opaque">OR</span>
+								<span className="login__separator"></span>
+							</div>
+
+							<a className="type--base btn--link" href="https://tdfcharitable.org/create-account.html" target="_blank">
+								{t('LOGIN.SIGNUP_BUTTON')}
+							</a>
+						</div>
 					</div>
 				</form>
 
