@@ -29,7 +29,7 @@ const ProgressLineTemplate = () => {
 
     return (
         <div className="progressbar">
-            <p className="progressbar__label">Amount given this year:</p>
+            <p className="progressbar__label">Giving goal:</p>
             <div className="progressbar__body">
                 <div style={{ 'width': `${progressTotal}%` }} className={`progressbar__progress${progressBarClassName}`}>
                 </div>
