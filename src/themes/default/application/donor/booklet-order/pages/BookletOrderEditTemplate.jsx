@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { ApplicationEditLayout, Content } from 'core/layouts';
+import { ApplicationEditLayout, Content, EditFormLayout } from 'core/layouts';
 import { BookletOrderEditRowTemplate } from 'themes/application/administration/booklet-order/components';
-import { BaasicInput, BasicInput } from 'core/components';
+import { BaasicButton, BaasicFormControls, BaasicInput, BasicInput } from 'core/components';
 
 const BookletOrderEditTemplate = function ({ bookletOrderEditViewStore }) {
     const {
@@ -14,10 +14,13 @@ const BookletOrderEditTemplate = function ({ bookletOrderEditViewStore }) {
         onAddBookletsChange,
         bookletTypes,
         form,
-        order
+        order,
+        needsMoreFunds, 
+        validateResource
     } = bookletOrderEditViewStore;
+    console.log(bookletOrderEditViewStore);
     return (
-        <ApplicationEditLayout store={bookletOrderEditViewStore} footerClassName={"container--base"}>
+        <EditFormLayout store={bookletOrderEditViewStore} layoutFooterVisible={false}>
             <Content loading={contentLoading} >
                 <div className="container--base">
                     <div className="card--primary card--med u-mar--bottom--med">
@@ -68,8 +71,11 @@ const BookletOrderEditTemplate = function ({ bookletOrderEditViewStore }) {
                         )
                     })}
                 </div>
+                <BaasicButton label="Submit" onClick={form.onSubmit} disabled={needsMoreFunds} className="btn btn--med btn--med--wide btn--secondary" />
+				<br />
+                {needsMoreFunds && <div>Insufficient funds, please deposit more funds to your account</div> }
             </Content>
-        </ApplicationEditLayout >
+        </EditFormLayout >
     )
 };
 
