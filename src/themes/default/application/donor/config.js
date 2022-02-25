@@ -47,10 +47,10 @@ import { moduleProviderFactory } from 'core/providers';
                 role: ['Users']
             },
             // {
-            //     title: 'MENU.INVESTMENTS',
+            //   title: 'MENU.INVESTMENTS',
             //     icon: 'investment',
-            //     order: 5,
-            //     route: 'master.app.main.donor.investment.donor',
+            //   order: 5,
+            //    route: 'master.app.main.donor.investment.donor',
             //     role: ['Users']
             // },
             {

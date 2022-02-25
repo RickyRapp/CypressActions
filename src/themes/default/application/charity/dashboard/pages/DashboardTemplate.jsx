@@ -16,7 +16,7 @@ import {
 } from '@progress/kendo-react-charts';
 import { AllTransactionList } from 'application/charity/activity/pages';
 function DashboardTemplate({ dashboardViewStore, t }) {
-	const { charity, newContributionOnClick, yearDropdownStore, notImplemented, manageAccount, balance, grantsPerYear } = dashboardViewStore;
+	const { charity, newContributionOnClick, redirectToWithdrawFundsPage, yearDropdownStore, notImplemented, manageAccount, balance, grantsPerYear, redirectToManageAccount } = dashboardViewStore;
 	
 	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	let dataGrants = [];
@@ -61,11 +61,11 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 									<BaasicButton
 										className="btn btn--med btn--100 btn--primary--light"
 										label="Withdraw Funds"
-										onClick={newContributionOnClick}
+										onClick={redirectToWithdrawFundsPage}
 									/>
 								</div></div>
 								<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
-									<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Manage Account" />
+									<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Manage Account" onClick={redirectToManageAccount} />
 								</div></div>
 
 							</div>
@@ -123,16 +123,6 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 									Finish setting up your account
 								</h3>
 								<div className="row type--center u-display--flex u-display--flex--justify--center">
-									{charity && (
-										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
-											<BaasicButton
-												className="btn btn--med btn--med--100 btn--tertiary "
-												icon="u-icon u-icon--arrow-forward u-icon--med"
-												label="ENROLL FOR DIRECT DEPOSIT"
-												onClick={() => alert(true)}
-											/>
-										</div>
-									)}
 									{charity && (
 										<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
 											<BaasicButton

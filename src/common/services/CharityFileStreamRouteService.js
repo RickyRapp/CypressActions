@@ -17,12 +17,20 @@ class CharityFileStreamRouteService extends BaseRouteService {
         return super.get(ApplicationSettings.useSSL ? 'https://' : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" + this.base + '/{id}/{?embed}', id, options);// eslint-disable-line
     }
 
+    getCharityMedia(charityId, mediaType) {
+        return super.find(this.base + '/{charityId}/media-gallery/{mediaType}', { charityId: charityId, mediaType: mediaType });
+    }
+
     create(resource) {
         return super.create(this.base, resource);
     }
 
-    uploadCharityBankAccount(charityId, bankAccountId, filename) {
-        return super.create(this.base + '/{charityId}/bank-account/{id}/{filename}/{?embed}', { charityId: charityId, id: bankAccountId, filename: filename });
+    uploadCharityBankAccount(charityId, bankAccountId, filename) { 
+        return super.create(this.base + '/{charityId}/bank-account/{id}/{filename}/', { charityId: charityId, id: bankAccountId, filename: filename });
+    }
+
+    uploadCharityMedia(charityId, filename, mediaType) {
+        return super.create(this.base + '/{charityId}/media-gallery/{filename}/{mediaType}/{?embed}', { charityId: charityId, filename: filename, mediaType: mediaType });
     }
 
     update(resource) {

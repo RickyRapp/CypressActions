@@ -2,104 +2,127 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    BaasicButton,
-    BaasicModal,
-    BaasicTable,
-    EmptyState,
-    ListContent
+    Address
 } from 'core/components';
-import EmptyIcon from 'themes/assets/img/building-modern.svg';
-import { isSome } from 'core/utils';
-import { Content } from 'core/layouts';
 import { CharityAddressEditForm } from 'application/charity/charity/components';
 
 const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }) {
     const {
-        tableStore,
-        routes,
-        authorization,
-        addressModal,
-        openAddressModal
+        addresses,
+        onEnableEditClick,
+        onCancelEditClick,
+        isEditEnabled,
+        form,
+        editId
     } = charityAddressViewStore;
 
-    const maxAddressesEntered = tableStore.data && tableStore.data.length >= 2;
+    let primaryAddress = null;
+	let secondaryAddress = null;
+	if (addresses.length > 0) {
+		primaryAddress = addresses.find(c => c.isPrimary);
+		if (addresses.some(c => !c.isPrimary)) {
+			secondaryAddress = addresses.find(c => !c.isPrimary);
+		}
+	}
 
     return (
         <div>
-            <ListContent>
-                <h3 className="type--med type--wgt--medium u-mar--bottom--med">
-                    {t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}
-                    {maxAddressesEntered ?
-                        <span className="u-icon u-icon--lock u-icon--base u-mar--left--tny" />
-                        :
-                        <BaasicButton
-                            authorization={authorization ? authorization.create : null}
-                            className="btn btn--icon"
-                            icon='u-icon u-icon--unlock u-icon--base'
-                            label='ADDRESS.LIST.BUTTON.CREATE'
-                            onlyIcon={true}
-                            onClick={() => openAddressModal()}>
-                        </BaasicButton>}
-                </h3>
-                <Content emptyRenderer={renderEmpty(routes)} >
-                    <BaasicTable
-                        authorization={authorization}
-                        tableStore={tableStore}
-                        actionsComponent={renderActions}
-                    />
-                </Content>
-            </ListContent>
-            <BaasicModal modalParams={addressModal}>
-                <CharityAddressEditForm />
-            </BaasicModal>
-        </div>
-    )
+			<div className="row">
+				<div className="col col-sml-12 col-lrg-3">
+					<h3 className=" u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}</h3>
+				</div>
+				<div
+					className={`col col-sml-12 col-lrg-${(isEditEnabled) || undefined === editId ? '12' : '9'
+						}`}
+				>
+					{isEditEnabled && primaryAddress && primaryAddress.id === editId ? (
+						<CharityAddressEditForm
+							form={form}
+							title="Primary"
+							onCancelEditClick={onCancelEditClick}
+							isAssignableAsPrimary={false}
+						/>
+					) : (
+						<div
+							className={`type--base type--wgt--bold ${(isEditEnabled && secondaryAddress === null) || (secondaryAddress && secondaryAddress.id === editId) ? "u-padd--x--med" : ""}`}
+							title="Click to edit"
+							onClick={() => onEnableEditClick(primaryAddress)}
+						>
+							{primaryAddress ? (
+								// <Address value={primaryAddress} format='full' />
+								<div className="row info-card--scale">
+									<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+											Address Line 1:
+										</p>
+										<p className="type--base type--wgt--bold"> {primaryAddress.addressLine1} </p>
+									</div>
+									<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+											Address Line 2:
+										</p>
+										<p className="type--base type--wgt--bold"> {primaryAddress.addressLine2} </p>
+									</div>
+									<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">City:</p>
+										<p className="type--base type--wgt--bold">{primaryAddress.city}</p>
+									</div>
+									<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">State:</p>
+										<p className="type--base type--wgt--bold">{primaryAddress.state}</p>
+									</div>
+									<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Zip Code:</p>
+										<p className="type--base type--wgt--bold">{primaryAddress.zipCode}</p>
+									</div>
+									<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+											Primary
+										</p>
+										<p className="type--base type--wgt--bold">{primaryAddress.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : 'No'}</p>
+									</div>
+								</div>
+							) : (
+								''
+							)}
+						</div>
+					)}
+
+					<div className={`u-mar--top--sml ${(isEditEnabled && primaryAddress === null) || (primaryAddress && primaryAddress.id === editId) ? "u-padd--x--med" : ""}`}>
+						{isEditEnabled && ((secondaryAddress && secondaryAddress.id === editId) || undefined === editId) ? (
+							<CharityAddressEditForm
+								form={form}
+								title="Secondary"
+								onCancelEditClick={onCancelEditClick}
+								isAssignableAsPrimary={true}
+							/>
+						) : (
+							<React.Fragment>
+								<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+									Secondary Address
+								</p>
+								<span
+									className="cursor--pointer type--base type--wgt--bold"
+									title={`Click to ${secondaryAddress ? 'edit' : 'insert'}`}
+									onClick={() => onEnableEditClick(secondaryAddress)}
+								>
+									{secondaryAddress ? (
+										< Address value={secondaryAddress} format="full" />
+									) : (
+										<button className="btn btn--link btn--sml">Add new address</button>
+									)}
+								</span>
+							</React.Fragment>
+						)}
+					</div>
+				</div>
+			</div>
+		</div>
+    );
 };
 
-function renderEmpty(routes) {
-    return <EmptyState image={EmptyIcon} title='ADDRESS.LIST.EMPTY_STATE.TITLE' actionLabel='ADDRESS.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
-}
 
 CharityAddressListTableTemplate.propTypes = {
-    charityAddressViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
-};
-
-function renderActions({ item, actions, authorization }) {
-    if (!isSome(actions)) return null;
-
-    const { onEdit, onMarkPrimary } = actions;
-    if (!isSome(onEdit, onMarkPrimary)) return null;
-
-    return (
-        <td>
-            <div className="type--right">
-                {isSome(onMarkPrimary) && !item.isPrimary ? (
-                    <BaasicButton
-                        authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
-                        icon='u-icon u-icon--approve u-icon--base' //TODO replace icon with mark primary icon
-                        label='ADDRESS.LIST.BUTTON.MARK_PRIMARY'
-                        onlyIcon={true}
-                        onClick={() => onMarkPrimary(item)}>
-                    </BaasicButton>
-                ) : null}
-                {isSome(onEdit) ? (
-                    <BaasicButton
-                        authorization={authorization ? authorization.update : null}
-                        className="btn btn--icon"
-                        icon='u-icon u-icon--edit u-icon--base'
-                        label='ADDRESS.LIST.BUTTON.EDIT'
-                        onlyIcon={true}
-                        onClick={() => onEdit(item)}>
-                    </BaasicButton>
-                ) : null}
-            </div>
-        </td>
-    )
-}
-
-renderActions.propTypes = {
     item: PropTypes.object,
     actions: PropTypes.object,
     authorization: PropTypes.any

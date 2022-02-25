@@ -12,43 +12,58 @@ function LoginTemplate({ currentView, t }) {
 
 			<div className="login__info">
 				<form className="login__form" onSubmit={loginForm.onSubmit}>
-					<div className="login__info--logo">
+					<div className="login__logo">
 						<a href="/" ><img src={logo} alt="Logo" /></a>
 					</div>
-					<h4 className="login__info--title">Welcome</h4>
 
-					<div className="login__info--input">
-						<BasicInput field={loginForm.$('email')} />
-					</div>
+					<div>
+						<h4 className="login__title">Welcome</h4>
 
-					<div className="login__info--input">
-						<BasicInput field={loginForm.$('password')} />
-					</div>
-					{loginForm.error && (
-						<div>
-							<p className="type--color--warning type--small u-mar--bottom--med">{loginForm.error}</p>
+						<div className="u-mar--bottom--med">
+							<BasicInput field={loginForm.$('email')} />
 						</div>
-					)}
 
-					<a className="type--sml btn--link" onClick={routes.forgotPassword}>
-						{t('LOGIN.FORGOT_PASSWORD_BUTTON')}
-					</a>
+						<div className="u-mar--bottom--sml">
+							<BasicInput field={loginForm.$('password')} />
+						</div>
+						{loginForm.error && (
+							<div>
+								<p className="type--color--warning type--small u-mar--bottom--med">{loginForm.error}</p>
+							</div>
+						)}
 
-					<div className="u-group u-mar--top--xlrg">
-						<BaasicButton
-							className="btn btn--100 btn--secondary"
-							onlyIconClassName="u-mar--right--sml"
-							type="submit"
-							disabled={loginForm.submitting}
-							icon={
-								loginForm.submitting || loginForm.validating ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : ''
-							}
-							label={t('LOGIN.SIGNIN_BUTTON')}
-						/>
+						<a className="type--base btn--link" onClick={routes.forgotPassword}>
+							{t('LOGIN.FORGOT_PASSWORD_BUTTON')}
+						</a>
+
+						<div className="u-mar--top--xlrg">
+							<BaasicButton
+								className="btn btn--100 btn--secondary"
+								onlyIconClassName="u-mar--right--sml"
+								type="submit"
+								disabled={loginForm.submitting}
+								icon={
+									loginForm.submitting || loginForm.validating ? 'u-icon u-icon--med u-icon--sync u-rotate--login' : ''
+								}
+								label={t('LOGIN.SIGNIN_BUTTON')}
+							/>
+						</div>
+
+						<div className="type--center u-mar--top--lrg">
+							<div className="u-display--flex u-display--flex--align--center u-display--flex--justify--center u-mar--bottom--xsml">
+								<span className="login__separator"></span>
+								<span className="type--sml type--color--opaque">OR</span>
+								<span className="login__separator"></span>
+							</div>
+
+							<a className="type--base btn--link" href="https://tdfcharitable.org/create-account.html" target="_blank">
+								{t('LOGIN.SIGNUP_BUTTON')}
+							</a>
+						</div>
 					</div>
 				</form>
 
-				<p className="login__info--rights">{new Date().getFullYear()}. THE DONORS' FUND. ALL RIGHTS RESERVED.</p>
+				<p className="type--sml type--color--opaque">{new Date().getFullYear()}. THE DONORS' FUND. ALL RIGHTS RESERVED.</p>
 			</div>
 		</div>
 	);

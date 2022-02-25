@@ -1,5 +1,10 @@
 import { RoutingNumberService } from 'application/administration/bank/services';
-import { CharityService, CharityBankAccountService, CharityAddressService } from 'application/common/charity/services';
+import { 
+    CharityService, 
+    CharityBankAccountService, 
+    CharityAddressService, 
+    CharityCommunicationPreferenceService
+ } from 'application/common/charity/services';
 import { DonationService } from 'application/donor/activity/services';
 import { CharityFileStreamService } from 'common/services';
 
@@ -12,6 +17,8 @@ class CharityStore {
         this.fileStreamService = moduleStore.rootStore.createApplicationService(CharityFileStreamService);
         this.donationService = moduleStore.rootStore.createApplicationService(DonationService);
         this.routingNumberService = moduleStore.rootStore.createApplicationService(RoutingNumberService);
+        this.charityCommunicationPreferenceService = moduleStore.rootStore.createApplicationService(CharityCommunicationPreferenceService);
+
     }
 
     async findCharity(params) {
@@ -39,8 +46,23 @@ class CharityStore {
         return response.data;
     }
 
-    async getCharityBank(id, options = {}) {
+    async getCharityBank(id, options) {
         const response = await this.bankAccountService.get(id, options);
+        return response.data;
+    }
+
+    async getCharityBankMedia(id){
+        const response = await this.fileStreamService.getCharityBankMedia(id);
+        return response.data;
+    }
+
+    async getCommunicationPreferences(id, options) {
+        const response = await this.charityCommunicationPreferenceService.get(id, options);
+        return response.data;
+    }
+    
+    async getCharityMedia(charityId, mediaType) {
+        const response = await this.fileStreamService.getCharityMedia(charityId, mediaType);
         return response.data;
     }
 
@@ -74,6 +96,11 @@ class CharityStore {
         return response.data;
     }
 
+    async updateCommunicationPreferences(resource) {
+        const response = await this.charityCommunicationPreferenceService.update(resource);
+        return response.data;
+    }
+
     async deleteCharityBank(resource) {
         const response = await this.bankAccountService.delete(resource);
         return response.data;
@@ -101,6 +128,16 @@ class CharityStore {
 
     async updateAddress(params) {
         const response = await this.charityAddressService.update(params);
+        return response.data;
+    }
+
+    async uploadMedia(file, charityId, mediaType) {
+        const response = await this.fileStreamService.uploadCharityMedia(file, charityId, mediaType);
+        return response.data;
+    }   
+
+    async updateGeneralData(resource) {
+        const response = await this.charityService.updateGeneralData(resource);
         return response.data;
     }
 

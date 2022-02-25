@@ -80,5 +80,7 @@ class CharityStore {
         const response = await this.fileStreamService.uploadCharityBankAccount(file, charityId, bankAccountId);
         return response.data;
     }
+
+
 }
 export default CharityStore;

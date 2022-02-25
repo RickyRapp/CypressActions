@@ -51,6 +51,11 @@ class CharityService extends BaseService {
         const url = this.routeService.createOnlineAccount(resource);
         return this.apiClient.post(url, resource);
     }
+
+    updateGeneralData(resource) {
+        const url = this.routeService.changeUsername(resource);
+        return this.apiClient.put(url, resource);
+    }
 }
 
 export default CharityService;

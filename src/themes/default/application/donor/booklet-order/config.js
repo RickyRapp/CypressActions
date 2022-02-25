@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { BookletOrderList, BookletOrderCreate, BookletOrderPreview } from 'application/donor/booklet-order/pages';
+import { BookletOrderList, BookletOrderCreate, BookletOrderPreview, BookletOrderEdit } from 'application/donor/booklet-order/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -33,6 +33,15 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderPreview } from 'appli
                         authorization: 'theDonorsFundBookletOrderSection.read',
                         data: {
                             title: "BOOKLET_ORDER.PREVIEW.TITLE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.donor.booklet-order.edit',
+                        pattern: '/edit/:id',
+                        component: BookletOrderEdit,
+                        authorization: 'theDonorsFundBookletOrderSection.update',
+                        data: {
+                            title: "BOOKLET_ORDER.EDIT.TITLE_TEMPLATE"
                         }
                     },
                 ]

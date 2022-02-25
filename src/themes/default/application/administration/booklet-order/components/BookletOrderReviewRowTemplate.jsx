@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicDropdownStore } from 'core/stores';
-import { BaasicDropdown } from 'core/components';
+import { BaasicDropdown, BaasicInput, BasicInput } from 'core/components';
 
 const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAddBookletsChange, fetchFunc, bookletTypes }) {
     const isMaxBookletsSelected = item.bookletCount === item.booklets.length;
@@ -49,12 +49,12 @@ const BookletOrderReviewRowTemplate = function ({ denominationTypes, item, onAdd
     return (
         <div className="row row--form">
             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                <div className="form__group__label u-mar--bottom--sml">Booklet price</div>
+                <div className="form__group__label u-mar--bottom--sml">Booklet denomination</div>
                 {item && bookletTypes && bookletType.abrv !== 'classic' && bookletType.name} {denominationType && denominationType.name}
             </div>
             <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
                 <div className="form__group__label u-mar--bottom--sml">Booklet count</div>
-                {item.bookletCount}
+                <BaasicInput value={item.bookletCount} onChange={(e, value) => item.bookletCount = parseInt(e.target.value)} />
             </div>
             <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml" name={'dd_' + denominationType.name}>
                 <div className="form__group__label">Booklet list</div>

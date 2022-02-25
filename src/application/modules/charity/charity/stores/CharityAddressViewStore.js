@@ -1,18 +1,20 @@
-import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore } from 'core/stores';
+import { action, observable } from 'mobx';
+import { BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { FilterParams, ModalParams } from 'core/models';
 import { CharityAddressEditForm } from 'application/charity/charity/forms';
 
 @applicationContext
-class CharityAddressViewStore extends BaseListViewStore {
+class CharityAddressViewStore extends BaseViewStore {
     addressService = null;
+    @observable isEditEnabled = false;
+    @observable editId = null;
+    @observable addresses = [];
 
-    formAddress = new CharityAddressEditForm({
+    form = new CharityAddressEditForm({
         onSuccess: async form => {
             const address = form.values();
 
-            if (address.id) {
+            if (this.editId) {
                 await this.updateAddressAsync(address);
             }
             else {
@@ -22,53 +24,51 @@ class CharityAddressViewStore extends BaseListViewStore {
     });
 
     constructor(rootStore) {
-        super(rootStore, {
-            name: 'charity-addresses',
-            routes: {
-            },
-            queryConfig: {
-                filter: new FilterParams(),
-                disableUpdateQueryParams: true
-            },
-            actions: () => {
-                return {
-                    find: async (params) => {
-                        params.charityId = this.charityId;
-                        params.orderBy = 'isPrimary';
-                        params.orderDirection = 'desc';
-                        return rootStore.application.charity.charityStore.findCharityAddress(params);
-                    }
-                }
-            }
-        });
-
+        super(rootStore)
         this.charityId = rootStore.userStore.applicationUser.id;
-        this.addressModal = new ModalParams({});
 
-        this.createTableStore();
+        this.loadAddress();
+    }
+
+    
+    async loadAddress() {
+        let params = {
+            charityId: this.charityId,
+            orderBy: 'isPrimary',
+            orderDirection: 'desc'
+        }
+        const data = await this.rootStore.application.charity.charityStore.findCharityAddress(params);
+        this.addresses = data.item;
     }
 
     @action.bound
-    openAddressModal(address) {
+    onEnableEditClick(address) {
+        this.form.clear();
+        this.editId = null;
         if (address) {
-            this.formAddress.update(address);
+            this.form.update(address);
+            this.editId = address.id;
         }
         else {
-            this.formAddress.clear();
+            this.editId = undefined;
         }
-        this.addressModal.open({
-            formAddress: this.formAddress
-        });
+        this.isEditEnabled = true;
+    }
+
+    @action.bound
+    onCancelEditClick() {
+        this.form.clear();
+        this.editId = null;
+        this.isEditEnabled = false;
     }
 
     @action.bound
     async updateAddressAsync(entity) {
-        try {
-            await this.rootStore.application.charity.charityStore.updateCharityAddress(entity);
-
+        try { console.log(this.editId);
+            await this.rootStore.application.charity.charityStore.updateCharityAddress({ ...entity, id: this.editId });
             this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
-            this.addressModal.close();
-            await this.queryUtility.fetch();
+            await this.loadAddress();
+            this.onCancelEditClick();
         }
         catch (err) {
             this.rootStore.notificationStore.error('Error', err);
@@ -84,8 +84,8 @@ class CharityAddressViewStore extends BaseListViewStore {
             });
 
             this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
-            this.addressModal.close();
-            await this.queryUtility.fetch();
+            await this.loadAddress();
+            this.onCancelEditClick();
         }
         catch (err) {
             this.rootStore.notificationStore.error('Error', err);
@@ -100,47 +100,17 @@ class CharityAddressViewStore extends BaseListViewStore {
         this.loaderStore.resume();
     }
 
-    createTableStore() {
-        this.setTableStore(new TableViewStore(this.queryUtility, {
-            columns: [
-                {
-                    key: 'addressLine1',
-                    title: 'ADDRESS.LIST.COLUMNS.ADDRESS_LINE_1_LABEL',
-                    onClick: (address) => this.openAddressModal(address)
-                },
-                {
-                    key: 'addressLine2',
-                    title: 'ADDRESS.LIST.COLUMNS.ADDRESS_LINE_2_LABEL',
-                },
-                {
-                    key: 'city',
-                    title: 'ADDRESS.LIST.COLUMNS.CITY_LABEL',
-                },
-                {
-                    key: 'state',
-                    title: 'ADDRESS.LIST.COLUMNS.STATE_LABEL',
-                },
-                {
-                    key: 'zipCode',
-                    title: 'ADDRESS.LIST.COLUMNS.ZIP_CODE_LABEL',
-                },
-                {
-                    key: 'isPrimary',
-                    title: 'ADDRESS.LIST.COLUMNS.PRIMARY_LABEL',
-                    format: {
-                        type: 'boolean',
-                        value: 'yes-no'
-                    }
-                }
-            ],
-            actions: {
-                onEdit: (address) => this.openAddressModal(address),
-                onMarkPrimary: (address) => this.markPrimary(address),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
-            },
-            disablePaging: true
-        }));
+    @action.bound
+    async deleteAddress(address) {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to delete address?`,
+            async () => {
+                address.isDeleted = true;
+                await this.updateAddressAsync(address, 'EDIT_FORM_LAYOUT.SUCCESS_DELETE');
+            }
+        );
     }
+
 }
 
 export default CharityAddressViewStore;

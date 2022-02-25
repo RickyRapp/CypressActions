@@ -9,7 +9,7 @@ function EditFormContentTemplate({ form, children }) {
             {shouldRenderContentChildren(children) ? (
                 children
             ) : (
-                    <form className="fullheight" onSubmit={form.onSubmit}>{children ? <React.Fragment>{children}</React.Fragment> : null}</form>
+                    <form className="u-mar--bottom--med" onSubmit={form.onSubmit}>{children ? <React.Fragment>{children}</React.Fragment> : null}</form>
                 )}
         </React.Fragment>
     );

@@ -3,7 +3,7 @@ import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryP
 import { donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { BookletOrderListFilter } from 'application/administration/booklet-order/models';
-
+import moment from 'moment';
 class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
@@ -18,6 +18,9 @@ class BookletOrderViewStore extends BaseListViewStore {
                 },
                 details: (id) => {
                     this.rootStore.routerStore.goTo('master.app.main.administration.booklet-order.details', { id: id });
+                },
+                edit: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.administration.booklet-order.edit', { id: id });
                 }
             },
             queryConfig: {
@@ -111,7 +114,9 @@ class BookletOrderViewStore extends BaseListViewStore {
             actions: {
                 onReview: (bookletOrderId) => this.routes.review(bookletOrderId),
                 onDetails: (bookletOrderId) => this.routes.details(bookletOrderId),
-                onSort: (column) => this.queryUtility.changeOrder(column.key)
+                onSort: (column) => this.queryUtility.changeOrder(column.key),
+                onCancel: async (item) => await this.cancelBookletOrder(item.id),
+                onEdit: (item) => this.routes.edit(item.id)
             },
             actionsRender: {
                 onReviewRender: (item) => {
@@ -119,9 +124,29 @@ class BookletOrderViewStore extends BaseListViewStore {
                 },
                 onDetailsRender: (item) => {
                     return item.bookletOrderStatus.abrv === 'finished';
+                },
+                onCancelRender: (item) => {
+                    const dateFromEnabled = (new Date(2022, 1, 25)).toISOString(); 
+                    const moment1 = moment(item.dateCreated);
+                    const moment2 = moment(dateFromEnabled);
+
+                    return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2))
+                },
+                onEditRender: (item) => {
+                    const dateFromEnabled = (new Date(2022, 1, 25)).toISOString(); 
+                    const moment1 = moment(item.dateCreated);
+                    const moment2 = moment(dateFromEnabled);
+
+                    return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2))
                 }
             }
         }));
+    }
+    
+    @action.bound
+    async cancelBookletOrder(id) {
+        await this.rootStore.application.administration.bookletOrderStore.cancelBookletOrder({id: id});
+        this.queryUtility.fetch();
     }
 
     createDonorSearchDropdownStore() {

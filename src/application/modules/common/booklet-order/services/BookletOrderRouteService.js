@@ -25,6 +25,10 @@ class BookletOrderRouteService extends BaseRouteService {
         return super.update(this.base + '/{id}', resource);
     }
 
+    cancel(resource) {
+        return super.update(this.base + '/cancel/{id}', resource);
+    }
+
     review(resource) {
         return super.update(this.base + '/review/{id}', resource);
     }

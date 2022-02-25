@@ -308,6 +308,7 @@
         "DESCRIPTION": "Login to app with your credentials. If you have problem with login, contact support.",
         "FORGOT_PASSWORD_BUTTON": "Forgot your Password?",
         "SIGNIN_BUTTON": "Sign In",
+        "SIGNUP_BUTTON": "Sign up now",
         "USERNAME_LABEL": "Email",
         "USERNAME_PLACEHOLDER": "Enter Email",
         "PASSWORD_LABEL": "Password",
@@ -329,7 +330,7 @@
         }
     },
     "PASSWORD_RECOVERY": {
-        "TITLE": "FORGOT YOUR PASSWORD?",
+        "TITLE": "Forgot your password?",
         "DESCRIPTION": "Enter your signup username or e-mail, and we'll send you a link to reset your password.",
         "RESET_BUTTON": "Reset Password",
         "CANCEL_BUTTON": "Cancel",
@@ -1218,6 +1219,97 @@
                 "SUBSCRIPTION_TYPE_LABEL": "Subscription type",
                 "SUBSCRIPTION_AMOUNT_LABEL": "Subscription amount",
                 "SUBSCRIPTION_NEXT_DATE_LABEL": "Date to renew"
+            }
+        },
+        "PAYMENT_OPTIONS": {
+            "TITLE" : "Payments",
+            "FIELDS" : {
+                "KEEP_UNTIL_MANUALLY" : "Keep funds at The Donors Fund until manually distributed",
+                "KEEP_UNTIL_MANUALLY_LABEL" : "Is enabled",
+                "DISTRIBUTE_WHEN_ACCUMULATED": "Only distribute funds when accumulated to ",
+                "DISTRIBUTE_WHEN_ACCUMULATED_LABEL": "Is enabled",
+                "ACCUMULATED_AMOUNT" : "Accumulated Amount",
+                "ACCUMULATED_AMOUNT_PLACEHOLDER": "$"
+            }
+        },
+        "CHANGE_USERNAME" : {
+            "TITLE" : "Change Username",
+            "FIELDS" : {
+                "USERNAME" : "Username",
+                "CHANGE_USERNAME_LABEL" : "Change Username",
+                "CHANGE_USERNAME_PLACEHOLDER" : "Change Username"
+            }
+        },
+        "CHANGE_PASSWORD" : {
+            "TITLE" : "Reset Password",
+            "FIELDS" : {
+                "PASSWORD" : "Password",
+                "CHANGE_PASSWORD_LABEL" : "Reset Password",
+                "CHANGE_PASSWORD_PLACEHOLDER" : "Reset Password"
+            }
+        },
+        "DESCRIPTION" : {
+            "TITLE" : "Description",
+            "FIELDS" : {
+                "CHANGE_DESCRIPTION_LABEL" : "Change description",
+                "CHANGE_DESCRIPTION_PLACEHOLDER" : "Change description"
+            }
+        },
+        "UPLOAD_LOGO" : {
+            "TITLE" : "Upload logo"
+        },
+        "UPLOAD_PHOTO" : {
+            "TITLE" : "Upload photo"
+        },
+        "CARD_PREFERENCES" : {
+            "CARD": {
+                "NAME" : "Card",
+                "FIELDS" : {
+                    "NOTIFY_ACH_PAYMENT" : "Notify ACH payment",
+                    "NOTIFY_ACH_PAYMENT_LABEL" : "Is enabled",
+                    "EMAIL_TO_NOTIFY": "Email to send notifications",
+                    "EMAIL_LABEL" : "Email",
+                    "EMAIL_PLACEHOLDER" : "Email address",
+                    "NOTIFY_CHECK_PAYMENT" : "Notify check payment",
+                    "NOTIFY_CHECK_PAYMENT_LABEL" : "Is enabled"
+                }
+            },
+            "CHECKS_REMOTE_DEPOSITS" : {
+                "NAME" : "Checks and remote deposits",
+                "FIELDS" : {
+                    "NOTIFY_CHECK_DONATION" : "Notify us for check donations exceeding",
+                    "CHECKBOX_LABEL" : "Is enabled",
+                    "AMOUNT_LABEL" : "Amount",
+                    "AMOUNT_PLACEHOLDER" : "$",
+                    "NOTIFY_PROCESSED_SESSION" : "Notify us when a session has been processed",
+                    "NOTIFY_APPROVED_SESSION" : "Notify us when a remote session has been approved",
+                    "NOTIFY_DELAYED_CHECK" : "Notify us when check is delayd due to insufficiend funds"
+                }
+            },
+            "API_WEBSITE_DONATIONS" : {
+                "NAME" : "API website donations",
+                "FIELDS" : {
+                    "NOTIFY_TRANSACTIONS_EXCEEDING" : "Notify us for transactions exceeding",
+                    "NOTIFY_TRANSACTIONS_EXCEEDING_LABEL" : "Is enabled",
+                    "AMOUNT_LABEL" : "Amount",
+                    "AMOUNT_PLACEHOLDER" :"$"
+                }
+            },
+            "GENERAL_NOTIFICATIONS" : {
+                "NAME" : "General notifications",
+                "FIELDS" : {
+                    "NOTIFY_APPROVED_GRANT" : "Notify us when a donor approves a grant request",
+                    "NOTIFY_APPROVED_GRANT_LABEL" : "Is enabled"
+                }
+            },
+            "INVESTMENT" : {
+                "NAME" : "Investment (coming soon)",
+                "FIELDS" : {
+                    "NOTIFY_INVESTMENT_DAILY" : "Notify us for investment daily percentage changes",
+                    "NOTIFY_INVESTMENT_DAILY_LABEL" : "Is enabled",
+                    "AMOUNT_LABEL" :"Percentage",
+                    "AMOUNT_PLACEHOLDER" : "%"
+                }
             }
         }
     },
@@ -2128,7 +2220,8 @@
             "BUTTON": {
                 "REVIEW": "Review",
                 "EDIT": "Edit",
-                "PREVIEW": "Details"
+                "PREVIEW": "Details",
+                "CANCEL": "Cancel"
             }
         },
         "CREATE": {
@@ -2202,6 +2295,7 @@
                 "IS_ACTIVE": "Is active"
             },
             "TITLE": "Create booklet",
+            "TITLE_TEMPLATE": "Edit booklet order",
             "FIELDS": {
                 "COUNT_LABEL": "Count",
                 "COUNT_PLACEHOLDER": "Count",

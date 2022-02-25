@@ -3,10 +3,6 @@ import { FormBase } from 'core/components';
 export const charityAddressFormProperties = {
     fields: [
         {
-            name: 'id',
-            rules: 'string'
-        },
-        {
             name: 'addressLine1',
             label: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_LABEL',
             placeholder: 'ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER',
@@ -37,10 +33,11 @@ export const charityAddressFormProperties = {
             rules: 'required|string'
         },
         {
-            name: 'description',
-            label: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_LABEL',
-            placeholder: 'ADDRESS.EDIT.FIELDS.DESCRIPTION_PLACEHOLDER',
-            rules: 'string'
+            name: 'isPrimary',
+            label: 'ADDRESS.EDIT.FIELDS.PRIMARY_LABEL',
+            placeholder: 'ADDRESS.EDIT.FIELDS.PRIMARY_PLACEHOLDER',
+            rules: 'boolean',
+            type: 'checkbox'
         }
     ]
 }

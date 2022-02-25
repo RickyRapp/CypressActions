@@ -22,6 +22,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable tableData = [];
     applicationDefaultSetting = null;
     @observable validForm = true;
+    blankDenomination = null;
 
     constructor(rootStore, { donorId, isDonor }) {
         super(rootStore, {
@@ -30,18 +31,18 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        if(!this.donor.hasProtectionPlan && (this.totalAmount - this.totalPrepaidAmount > 0) && (this.donor.presentBalance + this.donor.lineOfCredit) < this.totalAmount) {
-                            this.rootStore.notificationStore.error('Insufficient funds, please enroll in protection plan or deposit funds');
-                            this.form.invalidate('Insufficient funds');
-                            this.validForm = false;
-                            return;
-                        }
-                        if(this.totalPrepaidAmount > (this.donor.presentBalance + this.donor.lineOfCredit)) {
-                            this.rootStore.notificationStore.error('Insufficient funds, please deposit funds');
-                            this.form.invalidate('Insufficient funds');
-                            this.validForm = false;
-                            return;
-                        }
+                        // if(!this.donor.hasProtectionPlan && (this.totalAmount - this.totalPrepaidAmount > 0) && (this.donor.presentBalance + this.donor.lineOfCredit) < this.totalAmount) {
+                        //     this.rootStore.notificationStore.error('Insufficient funds, please enroll in protection plan or deposit funds');
+                        //     this.form.invalidate('Insufficient funds');
+                        //     this.validForm = false;
+                        //     return;
+                        // }
+                        // if(this.totalPrepaidAmount > (this.donor.presentBalance + this.donor.lineOfCredit)) {
+                        //     this.rootStore.notificationStore.error('Insufficient funds, please deposit funds');
+                        //     this.form.invalidate('Insufficient funds');
+                        //     this.validForm = false;
+                        //     return;
+                        // }
                         const data = await this.rootStore.application.donor.bookletOrderStore.createBookletOrder({
                             donorId: this.donorId,
                             checkOrderUrl: `${window.location.origin}/app/booklet-orders/?confirmationNumber={confirmationNumber}`,
@@ -77,6 +78,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
         this.donorId = donorId;
         this.isDonor = isDonor;
+        this.isAdmin = rootStore.userStore.applicationUser.roles.includes('Administrators');
         this.protectionPlanModalParams = new ModalParams({})
         this.createConfirmModalParams();
         this.createCustomizedExpirationDateDropdownStore();
@@ -118,6 +120,16 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
             this.setDefaultShippingAddress();
         }
+        console.log(this.rootStore);
+        this.blankDenomination = (await this.rootStore.application.lookup.denominationTypeStore.find()).find(x => x.abrv == 'blank');
+    }
+
+    @action.bound
+    goToNewDeposit() {
+        if(this.isAdmin)
+            this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', {id: this.donorId});
+        else
+            this.rootStore.routerStore.goTo('master.app.main.donor.contribution.create');
     }
 
     @action.bound
@@ -143,7 +155,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @computed get totalAmount() {
         return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount + (this.donor && !this.donor.isSessionFeePayedByCharity && parseFloat((this.totalPrepaidAmount * 0.029).toFixed(2))) + ((this.form.$('customizedName').value && this.form.$('customizedName').value.length > 0) || (this.form.$('customizedAddressLine1').value && this.form.$('customizedAddressLine1').value.length > 0) ? this.donor && this.donor.accountType && this.donor.accountType.abrv != 'private' && parseFloat(this.customizedFee) : 0) + ((this.deliveryMethodTypes && this.deliveryMethodTypes.length > 0 && this.deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == this.form.$('deliveryMethodTypeId').value) ? 25 : 0);
     }
-
+    
     @computed get customizedFee() {
         return this.orderContents.reduce((a,b) => a+b.bookletCount, 0)*5;
     }
@@ -398,6 +410,18 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                         { id: '3', name: '365 days' }]
                 }
             });
+    }
+
+    @computed get needsProtectionPlan() {
+        const blanks = this.orderContents.filter(x => x.denominationTypeId == this.blankDenomination.id);
+        return ((blanks.length > 0 && blanks[0].bookletCount > 0) || ((this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount) - this.totalPrepaidAmount) > 0) && this.donor && !this.donor.hasProtectionPlan;
+    }
+    @computed get needsMoreFunds() {
+        if(this.donor) {
+            const totalContributionsUpcoming = this.donor.contribution.map(item => item.amount).reduce((a, b) => a + b, 0);
+            return (this.totalPrepaidAmount > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
+        }
+        return false;
     }
 }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 import { BookletOrderReviewRowTemplate } from 'themes/application/administration/booklet-order/components';
-import { BasicInput } from 'core/components';
+import { BaasicButton, BasicInput } from 'core/components';
 
 const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
     const {
@@ -58,6 +58,12 @@ const BookletOrderReviewTemplate = function ({ bookletOrderReviewViewStore }) {
                             />
                         )
                     })}
+                    {/* {orderContents && orderContents.length > 0 &&
+                        <BaasicButton 
+                            className='btn btn--med btn--med--wide btn--primary u-mar--right--sml'
+                            label="Update order"
+                        />
+                    }   */}
                 </div>
             </Content>
         </ApplicationEditLayout >

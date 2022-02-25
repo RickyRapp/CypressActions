@@ -216,7 +216,7 @@ export default class CharityCreateForm extends FormBase {
                     name: 'password',
                     label: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_LABEL',
                     placeholder: 'CHARITY.CREATE.FIELDS.LOGIN_FORM_FIELDS.PASSWORD_PLACEHOLDER',
-                    rules: 'required_if:isNewOnlineAccount,true|string|min:8|regex:/([^a-zA-Z\\d])+([a-zA-Z\\d])+|([a-zA-Z\\d])+([^a-zA-Z\\d])+/',
+                    rules: 'required_if:isNewOnlineAccount,true|string|min:8',
                     type: 'password',
                     autoComplete: 'off',
                     disabled: true
