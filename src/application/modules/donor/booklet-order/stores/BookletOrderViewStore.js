@@ -1,5 +1,6 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { BookletOrderListFilter } from 'application/donor/booklet-order/models';
+import moment from 'moment';
 
 class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -52,6 +53,11 @@ class BookletOrderViewStore extends BaseListViewStore {
         this.createDateCreatedDateRangeQueryStore();
     }
 
+    async cancelBookletOrder(id) {
+        await this.rootStore.application.administration.bookletOrderStore.cancelBookletOrder({id: id});
+        this.queryUtility.fetch();
+    }
+
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
@@ -82,6 +88,7 @@ class BookletOrderViewStore extends BaseListViewStore {
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key),
                 onDetails: (bookletOrderId) => this.routes.details(bookletOrderId),
+                onCancel: async (item) => await this.cancelBookletOrder(item.id),
             },
             actionsRender: {
                 onDetailsRender: (item) => {
@@ -89,7 +96,15 @@ class BookletOrderViewStore extends BaseListViewStore {
                 },
                 onEditRender: (item) => {
                     return item.bookletOrderStatus.abrv === 'pending';
-                }
+                },
+                onCancelRender: (item) => {
+                    const dateToday = (new Date()).toISOString().slice(0, 10); 
+                    const moment1 = moment(item.dateCreated);
+                    const moment2 = moment(`${dateToday} 00:00:00`);
+                    const moment3 = moment(`${dateToday} 16:00:00`);
+                    console.log(moment1, moment2, moment3);
+                    return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2)) && moment3.isAfter(moment1)
+                },
             }
         }));
         
