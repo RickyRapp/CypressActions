@@ -126,14 +126,14 @@ class BookletOrderViewStore extends BaseListViewStore {
                     return item.bookletOrderStatus.abrv === 'finished';
                 },
                 onCancelRender: (item) => {
-                    const dateFromEnabled = (new Date(2022, 1, 24)).toISOString(); 
+                    const dateFromEnabled = (new Date(2022, 1, 25)).toISOString(); 
                     const moment1 = moment(item.dateCreated);
                     const moment2 = moment(dateFromEnabled);
 
                     return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2))
                 },
                 onEditRender: (item) => {
-                    const dateFromEnabled = (new Date(2022, 1, 24)).toISOString(); 
+                    const dateFromEnabled = (new Date(2022, 1, 25)).toISOString(); 
                     const moment1 = moment(item.dateCreated);
                     const moment2 = moment(dateFromEnabled);
 

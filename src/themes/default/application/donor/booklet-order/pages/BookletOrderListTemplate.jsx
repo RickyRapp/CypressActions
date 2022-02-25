@@ -106,13 +106,17 @@ function renderActions({ item, actions, actionsRender }) {
     if (!isSome(onDetails)) return null;
 
     let detailsRender = true;
-    let editRender = false;
 	if (isSome(actionsRender)) {
 		if (actionsRender.onDetailsRender) {
 			detailsRender = actionsRender.onDetailsRender(item);
 		}
 	}
-
+    let editRender = true;
+    if (isSome(actionsRender)) {
+		if (actionsRender.onEditRender) {
+			editRender = actionsRender.onEditRender(item);
+		}
+	}
     let cancelRender = true;
 	if (isSome(actionsRender)) {
 		if (actionsRender.onCancelRender) {

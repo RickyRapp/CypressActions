@@ -13,6 +13,9 @@ class BookletOrderViewStore extends BaseListViewStore {
                 },
                 details: (id) => {
                     this.rootStore.routerStore.goTo('master.app.main.donor.booklet-order.details', { id: id });
+                },
+                edit: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.donor.booklet-order.edit', { id: id });
                 }
             },
             queryConfig: {
@@ -89,20 +92,25 @@ class BookletOrderViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key),
                 onDetails: (bookletOrderId) => this.routes.details(bookletOrderId),
                 onCancel: async (item) => await this.cancelBookletOrder(item.id),
+                onEdit: (item) => this.routes.edit(item.id)
             },
             actionsRender: {
                 onDetailsRender: (item) => {
                     return item.bookletOrderStatus.abrv === 'finished';
                 },
                 onEditRender: (item) => {
-                    return item.bookletOrderStatus.abrv === 'pending';
+                    const dateToday = (new Date()).toISOString().slice(0, 10); 
+                    const moment1 = moment(item.dateCreated);
+                    const moment2 = moment(`${dateToday} 00:00:00`);
+                    const moment3 = moment(`${dateToday} 16:00:00`);
+                    return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2)) && moment3.isAfter(moment1)
+
                 },
                 onCancelRender: (item) => {
                     const dateToday = (new Date()).toISOString().slice(0, 10); 
                     const moment1 = moment(item.dateCreated);
                     const moment2 = moment(`${dateToday} 00:00:00`);
                     const moment3 = moment(`${dateToday} 16:00:00`);
-                    console.log(moment1, moment2, moment3);
                     return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2)) && moment3.isAfter(moment1)
                 },
             }
