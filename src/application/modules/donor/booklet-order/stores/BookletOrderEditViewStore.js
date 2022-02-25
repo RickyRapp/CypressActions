@@ -2,7 +2,7 @@ import { action, computed, observable } from 'mobx';
 import { BookletOrderEditForm, BookletOrderReviewForm } from 'application/administration/booklet-order/forms';
 import { BaseEditViewStore } from 'core/stores';
 import { applicationContext, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
-import { join, orderBy } from 'lodash';
+import { add, join, orderBy } from 'lodash';
 
 @applicationContext
 class BookletOrderEditViewStore extends BaseEditViewStore {
@@ -86,10 +86,16 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
     }
 
     @computed get needsMoreFunds() {
+        let additionalFees = 0;
+        if(this.order && this.order.deliveryMethodType.abrv == 'express-mail')
+            additionalFees += 25;
+        if(this.orderContents.findIndex(x => x.isSessionFeePayedByCharity == false) >= 0)
+            additionalFees += (this.originalPrepaidAmount * 0.029);
+        console.log(this.order, this.orderContents);
         if (this.donor) {
             if (this.prepaidBookletAmount <= this.originalPrepaidAmount) return false;
             const totalContributionsUpcoming = this.donor.contribution.map(item => item.amount).reduce((a, b) => a + b, 0);
-            return ((this.prepaidBookletAmount - this.originalPrepaidAmount) > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
+            return ((this.prepaidBookletAmount - this.originalPrepaidAmount) > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming + additionalFees));
         }
     }
 
