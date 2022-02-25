@@ -2,6 +2,8 @@ import { action, observable } from 'mobx';
 import { BaasicUploadStore, BaseEditViewStore } from 'core/stores';
 import { applicationContext, isSome } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/charity/charity/forms';
+import { saveAs } from '@progress/kendo-file-saver';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @applicationContext
 class CharityBankAccountEditViewStore extends BaseEditViewStore {
@@ -15,7 +17,21 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                 get: async () => {
                     const data = await rootStore.application.charity.charityStore.getCharityBank(props.editId, { 
                         embed: 'accountHolder'
-                     }); 
+                     });
+                    
+                    let charityMedia;
+                    let isImage = false;
+                    if(data.coreMediaVaultEntryId){
+                        charityMedia = await rootStore.application.charity.charityStore.getCharityBankMedia(data.coreMediaVaultEntryId); console.log(charityMedia);
+                        isImage = !(charityMedia.type === 'application/pdf') && !(charityMedia.type === 'application/octet-stream');
+
+                        if(!isImage){
+                            this.chariytBankFile = charityMedia;
+                            const fileExtensions = (charityMedia.type === 'application/pdf') ? 'pdf' : 'csv';
+                            this.fileName = `${data.name}-${data.routingNumber}.${fileExtensions}`;
+                        }
+                    }
+                    
                     return {
                     name: data.name,
                     accountNumber: data.accountNumber,
@@ -30,13 +46,15 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     zipCode: data.accountHolder && data.accountHolder.zipCode,
                     email: data.accountHolder && data.accountHolder.email,
                     number: data.accountHolder && data.accountHolder.number,
-                    isPrimary: data.accountHolder && data.isPrimary
+                    isPrimary: data.accountHolder && data.isPrimary,
+                    charityMedia : charityMedia,
+                    isImage : isImage
                 };
             },    
                 update: async (resource) => {
                     resource.coreMediaVaultEntryId = null;
                     if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) { 
-                        const res =await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, this.id);
+                        const res = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, this.id);
                         resource.coreMediaVaultEntryId = res.id;
                     }
 
@@ -78,6 +96,8 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.charityId = rootStore.userStore.applicationUser.id;
         this.createImageUploadStore();
         this.onCancelEditClick = props.onCancelEditClick;
+        this.chariytBankFile;
+        this.fileName;
     }
 
     @action.bound
@@ -89,11 +109,6 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                 this.getCharityInfo()
             ]);
             
-			if (this.isEdit) {
-				if (this.form.$('coreMediaVaultEntryId').value) {
-					this.imageUploadStore.setInitialItems(this.form.$('coreMediaVaultEntryId').value);
-				}
-			}
 		}
 	}
 
@@ -165,6 +180,16 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
 
     createImageUploadStore() {
         this.imageUploadStore = new BaasicUploadStore;
+    }
+
+
+    @action.bound
+    async exportFile(){
+        try {
+            saveAs(this.chariytBankFile, this.fileName);
+        } catch (err) {
+            this.rootStore.notificationStore.error("Error", err);
+        }
     }
 
 }

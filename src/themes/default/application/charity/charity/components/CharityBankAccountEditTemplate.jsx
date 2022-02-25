@@ -10,7 +10,6 @@ import {
 	BasicFieldCheckbox
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
-import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 
 const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStore, t }) {
 	const { 
@@ -19,7 +18,9 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
 		deleteBankAccount,
         bankAccountCount,
 		title,
-		onCancelEditClick
+		item,
+		onCancelEditClick,
+		exportFile
 	} = charityBankAccountEditViewStore;
 
 	return (
@@ -79,8 +80,24 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
 						<div className="row row__align--end">
 							<BaasicDropzone
 								store={imageUploadStore}
-								disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)}
 							/>
+								{
+                                    item ? (
+										(item.isImage) ?
+										(
+										<div className="imageheight_sml">
+											<img alt="" src={URL.createObjectURL(item.charityMedia)}  />
+										</div>
+										)
+											: (
+												<BaasicButton
+													className='btn btn--sml btn--primary'
+													label='Download'
+													onClick={() => exportFile()}
+												/>
+											)
+									) : null
+                                }
 						</div>
 					</div>
 				</div>

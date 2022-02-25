@@ -12,6 +12,15 @@ class CharityFileStreamService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    getCharityBankMedia(id) {
+        const url = this.routeService.get(id);
+        return this.apiClient.request({
+            method: 'GET',
+            url: url,
+            responseType: 'blob',
+        });
+    }
+
     getCharityMedia(charityId, mediaType) {
         const url = this.routeService.getCharityMedia(charityId, mediaType);
         return this.apiClient.get(url);
