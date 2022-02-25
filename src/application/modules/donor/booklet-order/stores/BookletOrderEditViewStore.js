@@ -89,7 +89,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         if (this.donor) {
             if (this.prepaidBookletAmount <= this.originalPrepaidAmount) return false;
             const totalContributionsUpcoming = this.donor.contribution.map(item => item.amount).reduce((a, b) => a + b, 0);
-            return ((this.prepaidBookletAmount - this.originalPrepaidAmount) > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
+            return ((this.prepaidBookletAmount - this.originalPrepaidAmount) >= (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
         }
     }
 
