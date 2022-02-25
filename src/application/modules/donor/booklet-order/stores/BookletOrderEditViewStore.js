@@ -9,6 +9,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
     @observable orderContents = [];
     @observable order;
     @observable donor = null;
+    @observable originalPrepaidAmount = 0;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -57,7 +58,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
         }
         const donorId = this.rootStore.userStore.applicationUser.id;
         this.donor = await this.rootStore.application.donor.bookletOrderStore.getDonorInformation(donorId);
-        console.log(this.prepaidBookletAmount);
+        this.originalPrepaidAmount = this.prepaidBookletAmount;
     }
 
     @action.bound
@@ -86,6 +87,7 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
 
     @computed get needsMoreFunds() {
         if (this.donor) {
+            if (this.prepaidBookletAmount < this.originalPrepaidAmount) return false;
             const totalContributionsUpcoming = this.donor.contribution.map(item => item.amount).reduce((a, b) => a + b, 0);
             return (this.prepaidBookletAmount > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
         }
