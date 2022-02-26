@@ -13,7 +13,7 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        if(resource.givingCardId === ""){
+                        if(!resource.givingCardId){
                             await rootStore.application.administration.donorStore.deleteGivingCardSetting({id: resource.id});
                         }else{
                             await rootStore.application.administration.donorStore.updateGivingCardSetting(resource);
