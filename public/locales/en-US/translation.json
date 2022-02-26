@@ -2251,7 +2251,7 @@
                 "REVIEW": "Review",
                 "EDIT": "Edit",
                 "DELETE": "Delete",
-                "ADD_PROTECTION_PLAN_MESSAGE": "You are not enrolled in our protection plan. If this order exceeds your account balance, you will have to deposit additional funds to your account or sign up for our automatic contributions options.",
+                "ADD_PROTECTION_PLAN_MESSAGE": "You must enroll to auto replenishment! For all non pre-paid check books (including Blank checks), you must be enrolled to auto replenishment. This would ensure that your checks are always in good standing.",
                 "ADD_PROTECTION_PLAN": "Enroll in protection plan"
             },
             "FIELDS": {

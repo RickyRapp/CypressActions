@@ -24,6 +24,7 @@ function DonorAutomaticContributionEditTemplate({ modalParams, t }) {
                 <div className="form__group col col-sml-12 col-lrg-6 col-xxxlrg-4">
                     <NumericInputField field={form.$('lowBalanceAmount')} />
                 </div>
+                <span className="u-mar--right--tny">Please note, should the auto replinsh not sufficiently cover the activity in your account, it will be subject to an automated increase</span>
             </div>
             <BaasicFormControls form={form} onSubmit={form.onSubmit} />
         </EditFormContent>

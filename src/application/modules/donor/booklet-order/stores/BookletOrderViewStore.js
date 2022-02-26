@@ -102,7 +102,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                     const dateToday = (new Date()).toISOString().slice(0, 10); 
                     const moment1 = moment(item.dateCreated);
                     const moment2 = moment(`${dateToday} 00:00:00`);
-                    const moment3 = moment(`${dateToday} 18:00:00`);
+                    const moment3 = moment(`${dateToday} 16:00:00`);
                     const moment4 = moment();
                     return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2)) && moment3.isAfter(moment1) && moment4.isBefore(moment3);
 
@@ -111,7 +111,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                     const dateToday = (new Date()).toISOString().slice(0, 10); 
                     const moment1 = moment(item.dateCreated);
                     const moment2 = moment(`${dateToday} 00:00:00`);
-                    const moment3 = moment(`${dateToday} 18:00:00`);
+                    const moment3 = moment(`${dateToday} 16:00:00`);
                     const moment4 = moment();
                     return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2)) && moment3.isAfter(moment1) && moment4.isBefore(moment3);
                 },

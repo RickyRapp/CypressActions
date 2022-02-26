@@ -417,9 +417,11 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         return ((blanks.length > 0 && blanks[0].bookletCount > 0) || ((this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount) - this.totalPrepaidAmount) > 0) && this.donor && !this.donor.hasProtectionPlan;
     }
     @computed get needsMoreFunds() {
+        let shipping = (this.deliveryMethodTypes && this.form.$('deliveryMethodTypeId').value && this.deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == this.form.$('deliveryMethodTypeId').value) ? 25 : 0;
+        let fees = parseFloat(this.donor && !this.donor.isSessionFeePayedByCharity ? this.totalPrepaidAmount * 0.029 : 0) + parseFloat(shipping); //TODO: Add customization fee
         if(this.donor) {
             const totalContributionsUpcoming = this.donor.contribution.map(item => item.amount).reduce((a, b) => a + b, 0);
-            return (this.totalPrepaidAmount > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
+            return ((this.totalPrepaidAmount + fees) > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
         }
         return false;
     }
