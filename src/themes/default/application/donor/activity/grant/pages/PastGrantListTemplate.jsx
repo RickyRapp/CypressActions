@@ -358,7 +358,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 								</div>
 							</TableFilter>
 						</div>
-						<div className="u-display--flex u-display--flex--justify--flex-end w--100">
+						{/* <div className="u-display--flex u-display--flex--justify--flex-end w--100">
 							<p className="type--sml">
 								Total amount:
 								<span className="type--med type--wgt--bold u-mar--left--tny">
@@ -369,7 +369,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 									/>
 								</span>
 							</p>
-						</div>
+						</div> */}
 						<BaasicTable
 							authorization={authorization}
 							tableStore={tableStore}

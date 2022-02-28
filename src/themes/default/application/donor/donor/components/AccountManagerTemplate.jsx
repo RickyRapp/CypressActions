@@ -14,9 +14,9 @@ class AccountManagerTemplate extends Component {
                     <React.Fragment>
                         {rootStore.userStore.user.donor.accountManager ?
                             <div className="u-display--flex u-mar--left--med">
-                                <div className="header__profile">
+                                {/* <div className="header__profile">
                                     <img className="header__profile__img" src={imgUrl} alt="" />
-                                </div>
+                                </div> */}
                                 <div>
                                     <span className="header__profile__label">
                                         Your Account Manager:
