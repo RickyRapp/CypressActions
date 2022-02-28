@@ -971,8 +971,8 @@
     "ACTIVITY": {
         "MY_GIVING": "My Giving",
         "TRANSACTIONS": "All Transactions",
-        "DEPOSITS": "Deposits",
-        "GRANTS": "Grants",
+        "DEPOSITS": "Deposits Insight",
+        "GRANTS": "Grants Insight",
         "TRANSACTION_TAB": {
             "ALL": "All Transactions",
             "STATEMENTS": "Statements & Reports"
