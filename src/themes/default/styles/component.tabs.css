@@ -29,6 +29,10 @@
                 color: $color-primary;
             }
 
+            &:first-child {
+                padding-left: 0;
+            }
+
             @media (--screen-to-sml) {
                 @mixin type-scale $type-small, 0.75;
                 padding: calc($unit * 1) calc($unit * 2);

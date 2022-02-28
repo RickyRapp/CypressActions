@@ -30,7 +30,7 @@
 		height: 40px;
 
 		@media (--screen-from-med) {
-			height: 53px;
+			height: 44px;
 		}
 	}
 
@@ -54,16 +54,16 @@
 
 		color: $color-text;
 
+		@media (--screen-to-sml) {
+			display: none;
+		}
+
 		&__img {
 			max-height: 48px;
 
 			margin-right: calc($unit * 2);
 			border-radius: $radius-full;
 			border: 1px solid color($color-text a(25%));
-
-			@media (--screen-to-sml) {
-				display: none;
-			}
 		}
 
 		&__title {
@@ -82,7 +82,8 @@
 		&__label {
 			color: $color-opaque;
 			@mixin type-scale $type-xsmall, 1;
-
+			line-height: 1;
+			
 			@media (--screen-from-lrg) {
 				@mixin type-scale $type-base, 1;
 			}

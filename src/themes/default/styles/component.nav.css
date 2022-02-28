@@ -58,6 +58,7 @@
 				height: $header-height;
 			}
 		}
+
 		@media (--screen-from-lrg) {
 			position: absolute;
 			top: 99px;
@@ -70,30 +71,44 @@
 			position: relative;
 			display: flex;
 			align-items: center;
+
 			padding: calc($unit * 3) calc($unit * 4);
 			margin: -1px 0;
 
 			font-weight: $type-weight-regular;
 			color: white;
+
 			transition: color, background-color 250ms ease-out;
 			cursor: pointer;
 
 			border-top: 1px solid color($scandal a(10%));
 			border-bottom: 1px solid color($scandal a(10%));
 
-			@media (--screen-from-med) {
-				padding: calc($unit * 5) calc($unit * 8.5);
+			&:hover {
+				background-color: color($color-text blackness(75%));
+
+				& .nav--secondary__text {
+					color: color($white a(100%));
+				}
 			}
 
 			&--give {
-				@mixin type-scale $type-medium, 1;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				padding: calc($unit * 3) calc($unit * 1);
+				
+				padding: calc($unit * 2) calc($unit * 1);
 				margin: calc($unit * 3) calc($unit * 4);
+				
+				@mixin type-scale $type-base, 1;
+
+				@media (--screen-from-med) {
+					@mixin type-scale $type-medium, 1;
+				}
+				
 				border: 1px solid color($scandal a(20%));
 				border-radius: calc($unit / 1.6);
+				
 				cursor: pointer;
 				transition: all 250ms ease-out;
 
@@ -101,29 +116,32 @@
 					color: color($color-note a(70%));
 					border-color: color($color-note a(70%));
 					background-color: $color-text !important;
+
+					& .u-icon--give {
+
+					}
 				}
 
 				&:before {
 					width: 0 !important;
 				}
-
-				@media (--screen-from-med) {
-					@mixin type-scale $type-large, 1.25;
-				}
 			}
 
 			&--logout {
-				@mixin type-scale $type-base, 1;
 				display: flex;
 				justify-content: center;
-				padding: calc($unit * 3) calc($unit * 1);
+				
+				padding: calc($unit * 2) calc($unit * 1);
 				margin: calc($unit * 3) calc($unit * 4);
-
+				
 				color: color($white a(80%));
-
+				
+				@mixin type-scale $type-base, 1;
 				text-transform: uppercase;
+				
 				border: 1px solid color($scandal a(20%));
 				border-radius: calc($unit / 1.6);
+				
 				cursor: pointer;
 				transition: all 250ms ease-out;
 
@@ -134,11 +152,6 @@
 					& .u-icon--logout {
 						background-image: svg-load('../styles/postcss-svg/logout.svg', stroke: $color-note);
 					}
-				}
-
-				@media (--screen-to-med) {
-					padding: calc($unit * 3) calc($unit * 1);
-					margin: calc($unit * 3) calc($unit * 4);
 				}
 			}
 
@@ -165,12 +178,6 @@
 				background-color: $smalt-blue;
 			}
 
-			&:hover {
-				& .nav--secondary__text {
-					color: color($white a(100%));
-				}
-			}
-
 			&:before {
 				content: '';
 				display: block;
@@ -183,11 +190,6 @@
 			}
 
 			& .u-icon {
-				&.u-icon--xmed {
-					width: 32px;
-					height: 32px;
-					background-size: 32px;
-				}
 
 				&--give {
 					background-image: svg-load('postcss-svg/give.svg', stroke: color($white a(50%)));
@@ -300,18 +302,9 @@
 			&.active,
 			&.selected {
 				color: $color-primary;
-				background-color: color($grey-8 a(15%));
-
-				/* &:before {
-					background-color: $scandal;
-				} */
+				background-color: color($color-text blackness(70%));
 
 				& .u-icon {
-					&.u-icon--xmed {
-						width: 32px;
-						height: 32px;
-						background-size: 32px;
-					}
 
 					&--give {
 						background-image: svg-load('postcss-svg/give.svg', stroke: color($color-note a(100%)));
@@ -455,16 +448,13 @@
 		&__text {
 			position: relative;
 			display: block;
+			
+			@mixin type-scale $type-base, 1;
 
-			@mixin type-scale $type-large, 1.5;
-
-			@media (--screen-to-xlrg) {
-				@mixin type-scale $type-base, 1;
-
-				@media (--screen-from-med) {
-					@mixin type-scale $type-medium, 1.25;
-				}
+			@media (--screen-from-med) {
+				@mixin type-scale $type-medium, 1;
 			}
+
 			font-weight: $type-weight-regular;
 			color: color($white a(100%));
 			transition: color, background-color 250ms ease-out;
@@ -482,17 +472,17 @@
 			@mixin type-scale $type-base, 1;
 			font-weight: $type-weight-light;
 
-			padding: calc($unit * 3) calc($unit * 4) calc($unit * 3) calc($unit * 13);
-			color: white;
+			padding: calc($unit * 2) calc($unit * 4) calc($unit * 2) calc($unit * 14);
+			color: color($white a(75%));
 			border-bottom: 1px solid color($white a(10%));
 			background-color: color($color-text a(15%));
-
+			
 			cursor: pointer;
 			transition: all 250ms ease-out;
-
+			
 			&:hover {
-				color: $white;
-				background-color: color($smalt-blue a(35%));
+				color: color($white a(100%));
+				background-color: color($smalt-blue a(50%));
 			}
 
 			&.active {
@@ -570,9 +560,6 @@
 		}
 
 		.nav--primary__icon {
-			/*position: absolute;
-			top: calc($unit * 2);
-			right: $unit;*/
 			display: none;
 		}
 

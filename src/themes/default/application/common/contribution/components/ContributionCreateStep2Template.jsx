@@ -108,7 +108,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                             <div className="flex--grow--1 u-mar--right--sml">
                                                 <i
                                                     className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
-                                                        'checked'}`}
+                                                        'checked'} u-mar--right--sml`}
                                                 ></i>
                                             </div>
                                             <div className="flex--grow--2">

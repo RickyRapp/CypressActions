@@ -4,7 +4,7 @@
 
 $aside-width: 362px;
 $aside-sml-width: 70px;
-$aside-secondary-width: 300px;
+$aside-secondary-width: 280px;
 $header-height: 96px;
 $header-height-mobile: 72px;
 
@@ -23,11 +23,7 @@ $header-height-mobile: 72px;
         }
 
         @media (--screen-from-lrg) {
-            left: calc($aside-width - calc($unit * 13));
-        }
-        
-        @media (--screen-from-xlrg) {
-            left: $aside-width;
+            left: $aside-secondary-width;
         }
     }
 
@@ -51,11 +47,7 @@ $header-height-mobile: 72px;
         }
 
         @media (--screen-from-lrg) {
-            width: calc($aside-width - calc($unit * 13));
-        }
-        
-        @media (--screen-from-xlrg) {
-            width: $aside-width;
+            width: $aside-secondary-width;
         }
 
         &--secondary {
@@ -91,7 +83,7 @@ $header-height-mobile: 72px;
             
             & .nav--primary__item--give {
                 margin: calc($unit * 3) calc($unit * 1);
-                padding: calc($unit * 3) calc($unit * 2);
+                padding: calc($unit * 2);
             }  
         }
 
@@ -109,6 +101,8 @@ $header-height-mobile: 72px;
         right: 0;
         left: 0;
         bottom: 0;
+
+        overflow-y: auto;
 
         @media (--screen-from-sml) {
             top: $header-height;
@@ -144,17 +138,12 @@ $header-height-mobile: 72px;
         }
         
         @media (--screen-from-lrg) {
-            left: calc($aside-width - calc($unit * 13));
+            left: $aside-secondary-width;
             padding: calc($unit * 3) calc($unit * 4);
         }
         
-        @media (--screen-from-xlrg) {
-            left: $aside-width;
-            padding: calc($unit * 3) calc($unit * 8);
-        }
-
         &__inner {
-            position: absolute;
+            /* position: absolute;
             top: 0;
             right: 0;
             left: 0;
@@ -170,7 +159,7 @@ $header-height-mobile: 72px;
             @media (--screen-from-xxlrg) {
                 padding: calc($unit * 3) calc($unit * 8);
                 padding-right: calc($unit * 4);
-            }
+            } */
         }
     }
 
