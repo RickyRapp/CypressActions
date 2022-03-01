@@ -388,12 +388,12 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 										<div className="summary__card__amount summary__card__amount--secondary--primary">
 											{summaryData && (
 												<FormatterResolver
-													item={{ amount: summaryData.totalMoneyGiven }}
+													item={{ amount: summaryData.totalMoneyGivenThisYear }}
 													field="amount"
 													format={{ type: 'currency' }}
 												/>
 											)}
-											<p className="type--xsml type--wgt--medium type--color--text">Total money given</p>
+											<p className="type--xsml type--wgt--medium type--color--text">Total money given this year</p>
 										</div>
 									</div>
 
