@@ -86,7 +86,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 									<FormatterResolver
 										item={{
 											balance: pendingTransactionTableStore.data
-												.map(c => c.paymentTransaction.amount)
+												.map(c => c.paymentTransaction.paymentTransactionType.abrv == 'credit' ? (c.paymentTransaction.amount * (-1)) :  c.paymentTransaction.amount)
 												.reduce((t, a) => t + a),
 										}}
 										field="balance"

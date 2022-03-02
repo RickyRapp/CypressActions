@@ -307,7 +307,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
 
                                     </div>
 
-                                    {((donor && !donor.hasProtectionPlan) || needsProtectionPlan) &&
+                                    {(donor && needsProtectionPlan) &&
                                         <div className="u-mar--top--med">
                                             <div className="message--enh">
                                                 <span className="u-mar--right--tny">
@@ -328,10 +328,10 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         <div className="u-mar--top--med">
                                             <div className="message--enh">
                                                 <span className="u-mar--right--tny">
-                                                    Insufficient funds, the order amount is greater than your available funds - 
+                                                You've selected pre-paid check books that exceed your account balance. Kindly initiate a deposit to proceed with this order. &nbsp;
                                                 </span>
                                                 <a href="#" className="u-anchor--underline" onClick={goToNewDeposit}>
-                                                    Create a new deposit
+                                                    Deposit Funds
                                                 </a>
                                                 {/* <BaasicButton
                                             className="btn btn--link"
