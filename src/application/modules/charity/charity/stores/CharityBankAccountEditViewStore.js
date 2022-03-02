@@ -19,15 +19,14 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                         embed: 'accountHolder'
                      });
                     
-                    let charityMedia;
                     let isImage = false;
                     if(data.coreMediaVaultEntryId){
-                        charityMedia = await rootStore.application.charity.charityStore.getCharityBankMedia(data.coreMediaVaultEntryId); console.log(charityMedia);
-                        isImage = !(charityMedia.type === 'application/pdf') && !(charityMedia.type === 'application/octet-stream');
+                        this.charityMedia = await rootStore.application.charity.charityStore.getCharityBankMedia(data.coreMediaVaultEntryId);
+                        isImage = !(this.charityMedia.type === 'application/pdf') && !(this.charityMedia.type === 'application/octet-stream');
 
                         if(!isImage){
-                            this.chariytBankFile = charityMedia;
-                            const fileExtensions = (charityMedia.type === 'application/pdf') ? 'pdf' : 'csv';
+                            this.chariytBankFile = this.charityMedia;
+                            const fileExtensions = (this.charityMedia.type === 'application/pdf') ? 'pdf' : 'csv';
                             this.fileName = `${data.name}-${data.routingNumber}.${fileExtensions}`;
                         }
                     }
@@ -47,12 +46,16 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     email: data.accountHolder && data.accountHolder.email,
                     number: data.accountHolder && data.accountHolder.number,
                     isPrimary: data.accountHolder && data.isPrimary,
-                    charityMedia : charityMedia,
+                    charityMedia : this.charityMedia,
                     isImage : isImage
                 };
             },    
                 update: async (resource) => {
-                    resource.coreMediaVaultEntryId = null;
+
+                    if(!resource.charityMedia){
+                        resource.charityMedia = this.charityMedia;
+                    }
+
                     if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) { 
                         const res = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, this.id);
                         resource.coreMediaVaultEntryId = res.id;
@@ -98,6 +101,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.onCancelEditClick = props.onCancelEditClick;
         this.chariytBankFile;
         this.fileName;
+        this.charityMedia;
     }
 
     @action.bound

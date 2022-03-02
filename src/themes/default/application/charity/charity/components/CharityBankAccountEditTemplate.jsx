@@ -83,19 +83,20 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
 							/>
 								{
                                     item ? (
+										item.charityMedia && (
 										(item.isImage) ?
 										(
 										<div className="imageheight_sml">
 											<img alt="" src={URL.createObjectURL(item.charityMedia)}  />
 										</div>
 										)
-											: (
-												<BaasicButton
-													className='btn btn--sml btn--primary'
-													label='Download'
-													onClick={() => exportFile()}
-												/>
-											)
+										: (
+											<BaasicButton
+												className='btn btn--sml btn--primary'
+												label='Download'
+												onClick={() => exportFile()}
+											/>
+											))
 									) : null
                                 }
 						</div>
