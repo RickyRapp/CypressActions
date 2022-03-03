@@ -1,0 +1,1 @@
+export { default as remoteDepositEditForm } from './remoteDepositEditForm';

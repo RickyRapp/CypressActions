@@ -42,7 +42,7 @@ import { moduleProviderFactory } from 'core/providers'
                 title: 'MENU.REMOTE_DEPOSIT',
                 icon: 'contribution',
                 order: 5,
-                route: 'master.app.main.charity.dashboard',
+                route: 'master.app.main.charity.remote-deposit.list',
                 role: ['Charities']
             },
             {
