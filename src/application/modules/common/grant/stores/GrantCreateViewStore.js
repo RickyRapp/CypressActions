@@ -671,7 +671,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 		this.asyncPlaceholder = charityFormatter.format(this.charity, { value: 'charity-name-display' });
 		console.log(this.charity);
-		if(this.charity && this.charity.item) {
+		if(this.charity && this.charity.item && this.charity.item.charityAddresses) {
+			this.setAddress(this.charity.item.charityAddresses.find(c => c.isPrimary));
+		} else if(this.charity && this.charity.item) {
 			this.setAddress(this.charity && this.charity.item);
 		} else {
 			this.setAddress(this.charity && this.charity.charityAddresses.find(c => c.isPrimary));
