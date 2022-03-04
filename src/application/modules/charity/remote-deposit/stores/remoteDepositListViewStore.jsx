@@ -1,7 +1,13 @@
 import { TableViewStore, BaseListViewStore } from "core/stores";
 import { remoteDepositService } from "application/charity/remote-deposit/services";
+import React from "react";
+import { FormatterResolver } from "core/components";
+import { action, observable } from "mobx";
 
 class remoteDepositListViewStore extends BaseListViewStore {
+	@observable checksOnHold = null;
+	@observable isChecksOnHoldVisible = false;
+
 	constructor(rootStore) {
 		const service = new remoteDepositService(rootStore.application.baasic.apiClient);
 		super(rootStore, {
@@ -20,7 +26,16 @@ class remoteDepositListViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						console.log(params);
+						params.charityId = this.rootStore.userStore.applicationUser.charityId;
+						params.isCharityAccount = true;
+						params.embed = [
+                            'charity',
+                            'grants',
+                            'grants.certificate',
+                            'grants.donationStatus',
+                            'grants.certificate.denominationType'
+                        ];
+
 						const response = await service.find(params);
 						return response.data;
 					},
@@ -28,8 +43,58 @@ class remoteDepositListViewStore extends BaseListViewStore {
 				};
 			},
 		});
+		this.createTableStore();
+		this.createChecksOnHoldTableStore();
+		this.fetchChecksOnHold();
+	}
 
-		this.setTableStore(
+	createChecksOnHoldTableStore() {
+		this.checksOnHoldTableStore = new TableViewStore(null, {
+            columns: [
+                {
+                    key: 'dateCreated',
+                    title: 'ACTIVITY.CHECK.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    format: {
+                        type: 'date',
+                        value: 'short'
+                    }
+                },
+                {
+                    key: 'certificate.booklet.bookletOrder.donor.donorName',
+                    title: 'ACTIVITY.CHECK.LIST.COLUMNS.DONOR_LABEL'
+                },
+                {
+                    key: 'certificate.code',
+                    title: 'ACTIVITY.CHECK.LIST.COLUMNS.CODE_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return `${item.certificate.booklet.code}-${item.certificate.code}`
+                        }
+                    }
+                },
+                {
+                    key: 'certificate.denominationType',
+                    title: 'ACTIVITY.CHECK.LIST.COLUMNS.AMOUNT_LABEL',
+                    format: {
+                        type: 'denomination',
+                        additionalField: 'certificate.openCertificateAmount',
+                        value: 'short'
+                    }
+                },
+            ],
+            actions: {},
+            actionsRender: {}
+        });
+	}
+
+	@action.bound
+    onExpandChecksOnHoldClick() {
+        this.isChecksOnHoldVisible = !this.isChecksOnHoldVisible;
+    }
+
+	createTableStore() {
+	this.setTableStore(
 			new TableViewStore(this.queryUtility, {
 				columns: [
 					{
@@ -81,14 +146,26 @@ class remoteDepositListViewStore extends BaseListViewStore {
 							value: 'short'
 						}
 					}
-				],
-				actions: {
-					onEdit: item => this.routes.edit(item.id),
-					onPreview: item => this.routes.preview(item.id),
-				},
+				]
 			})
 		);
 	}
+	async fetchChecksOnHold() {
+        const statuses = await this.rootStore.application.lookup.sessionPendingCertificateStatusStore.find();
+		
+		const response = await this.rootStore.application.charity.activityStore.activityService.findPendingCheck({
+			charityId: this.rootStore.userStore.applicationUser.charityId, //'45edabf2-1469-4f2a-9362-ad4800a5ab24'
+			sessionPendingCertificateStatusIds: statuses.find(c => c.abrv === 'pending').id,
+			embed: 'charity,certificate,certificate.booklet,certificate.denominationType,certificate.booklet.bookletOrder,certificate.booklet.bookletOrder.donor',
+			sort: 'dateCreated|desc',
+			page: 1,
+			rpp: 1000
+		});
+        this.checksOnHoldTableStore.setData(response.data.item);
+        if (!this.checksOnHoldTableStore.dataInitialized) {
+            this.checksOnHoldTableStore.dataInitialized = true;
+        }
+    }
 }
 
 export default remoteDepositListViewStore;

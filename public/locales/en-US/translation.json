@@ -1014,7 +1014,8 @@
                     "CHARITY_LABEL": "Charity",
                     "DATE_CREATED_LABEL": "Date created",
                     "CODE_LABEL": "Code",
-                    "AMOUNT_LABEL": "Amount"
+                    "AMOUNT_LABEL": "Amount",
+                    "DONOR_LABEL": "Donor"
                 }
             }
         }

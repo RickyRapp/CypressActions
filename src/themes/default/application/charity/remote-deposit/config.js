@@ -6,7 +6,7 @@ import { remoteDepositList, remoteDepositEdit, remoteDepositPreview } from "appl
 		routes: [
 			{
 				name: "master.app.main.charity.remote-deposit",
-				pattern: "/${route}",
+				pattern: "/remote-deposit",
 				children: [
 					{
 						name: "master.app.main.charity.remote-deposit.list",
@@ -14,7 +14,7 @@ import { remoteDepositList, remoteDepositEdit, remoteDepositPreview } from "appl
 						component: remoteDepositList,
 						authorization: "theDonorsFundCharitySection.read",
 						data: {
-							title: "REMOTEDEPOSIT.LIST.TITLE",
+							title: "Remote Deposits",
 						},
 					},
 					{
