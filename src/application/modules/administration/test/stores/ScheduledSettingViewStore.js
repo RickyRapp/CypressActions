@@ -87,6 +87,11 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 name: 'Process monthly grant fee',
                 description: `Generates fee from Acumulated monthly grant fee`,
                 abrv: 'monthly-grant-fee'
+            },
+            {
+                name: 'Process auto-replenish amount increment',
+                description: `Doubles the autoreplenish amount in case there are checks on hold for the donor`,
+                abrv: 'autoreplenish-increase'
             }
         ];
 
