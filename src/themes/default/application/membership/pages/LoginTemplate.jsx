@@ -56,7 +56,7 @@ function LoginTemplate({ currentView, t }) {
 								<span className="login__separator"></span>
 							</div>
 
-							<a className="type--base btn--link" onClick={routes.createAccount} target="_blank">
+							<a className="type--base btn--link" href="/create-account.html" target="_blank">
 								{t('LOGIN.SIGNUP_BUTTON')}
 							</a>
 						</div>
