@@ -76,6 +76,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
     async regenerateApiKey(){
         try {
             await this.rootStore.application.administration.charityStore.regenerateCharityApiKey({id: this.id});
+            this.getResource(this.id);
             this.rootStore.notificationStore.success('Successfully regenerated API key');
         } catch (e) {
             this.rootStore.notificationStore.error('API key was not regenerated');
