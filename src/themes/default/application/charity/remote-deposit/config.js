@@ -30,7 +30,7 @@ import { remoteDepositList, remoteDepositEdit, remoteDepositPreview } from "appl
 						name: "master.app.main.charity.remote-deposit.edit",
 						pattern: "/edit/:id",
 						component: remoteDepositEdit,
-						authorization: "theDonorsFundCharitySection.update",
+						authorization: "theDonorsFundCharitySection.read",
 						data: {
 							back: "master.app.main.charity.remotedeposit.preview",
 						},
@@ -39,9 +39,9 @@ import { remoteDepositList, remoteDepositEdit, remoteDepositPreview } from "appl
 						name: "master.app.main.charity.remote-deposit.preview",
 						pattern: "/preview/:id",
 						component: remoteDepositPreview,
-						authorization: "theDonorsFundCharitySection.update",
+						authorization: "theDonorsFundCharitySection.read",
 						data: {
-							back: "master.app.main.charity.remotedeposit.list",
+							back: "master.app.main.charity.remote-deposit.list",
 						},
 					},
 				],

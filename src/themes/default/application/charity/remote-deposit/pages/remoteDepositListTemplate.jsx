@@ -64,6 +64,7 @@ const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
+						actionsComponent={renderActions}
                     />
                 </div>
             </Content>
@@ -80,6 +81,58 @@ function renderEmpty(routes) {
         />
     );
 }
+
+function renderActions({ item, actions, authorization }) {
+	console.log(item, actions);
+    if (!isSome(actions)) return null;
+
+    const {
+        onEdit,
+        onPreview
+    } = actions;
+    if (
+        !isSome(onEdit) &&
+        !isSome(onPreview) 
+    )
+        return null;
+
+    return (
+        <td className="table__body--data right">
+            <div className="table__icons">
+                {isSome(onPreview) ? (
+                    <BaasicButton
+                        authorization={
+                            authorization ? authorization.read : null
+                        }
+                        className="btn btn--icon"
+                        icon="u-icon u-icon--preview u-icon--med"
+                        label="Preview"
+                        onlyIcon={true}
+                        onClick={() => onPreview(item)}
+                    ></BaasicButton>
+                ) : null}
+                {isSome(onEdit) ? (
+                    <BaasicButton
+                        authorization={
+                            authorization ? authorization.update : null
+                        }
+                        className="btn btn--icon"
+                        icon="u-icon u-icon--edit u-icon--sml"
+                        label="REMOTEDEPOSIT.LIST.BUTTON.EDIT"
+                        onlyIcon={true}
+                        onClick={() => onEdit(item)}
+                    ></BaasicButton>
+                ) : null}
+            </div>
+        </td>
+    );
+}
+
+renderActions.propTypes = {
+    item: PropTypes.object,
+    actions: PropTypes.object,
+    authorization: PropTypes.any
+};
 
 RemoteDepositListTemplate.propTypes = {
     remotedepositListViewStore: PropTypes.object.isRequired

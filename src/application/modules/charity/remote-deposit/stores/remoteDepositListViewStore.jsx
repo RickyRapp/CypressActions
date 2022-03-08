@@ -14,13 +14,13 @@ class remoteDepositListViewStore extends BaseListViewStore {
 			autoInit: true,
 			routes: {
 				edit: id => {
-					this.rootStore.routerStore.goTo("master.app.main.remotedeposit.edit", { id: id });
+					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.edit", { id: id });
 				},
 				create: () => {
-					this.rootStore.routerStore.goTo("master.app.main.remotedeposit.create");
+					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.create");
 				},
 				preview: id => {
-					this.rootStore.routerStore.goTo("master.app.main.remotedeposit.preview", { id: id });
+					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.preview", { id: id });
 				},
 			},
 			actions: () => {
@@ -146,7 +146,10 @@ class remoteDepositListViewStore extends BaseListViewStore {
 							value: 'short'
 						}
 					}
-				]
+				],
+				actions: {
+					onPreview: item => this.routes.preview(item.id),
+				},
 			})
 		);
 	}
