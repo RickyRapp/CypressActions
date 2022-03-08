@@ -23,7 +23,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         charityTypeDropdownStore,
         charityStatusDropdownStore,
         withdrawFundModalParams,
-        openWithdrawFundModalClick
+        openWithdrawFundModalClick,
+        regenerateApiKey
     } = charityGeneralDataViewStore;
 
     return (
@@ -62,6 +63,14 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                                 onlyIcon={true}
                                                 onClick={() => navigator.clipboard.writeText(item.apiKey)}
                                             ></BaasicButton>}
+
+                                            <div className="form__group__label">
+                                                <BaasicButton
+                                                    className="btn btn--secondary btn--sml btn--sml"
+                                                    label="Regenerate API Key"
+                                                    onClick={ regenerateApiKey }
+                                                ></BaasicButton>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="form__group">

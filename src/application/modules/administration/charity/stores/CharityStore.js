@@ -1,5 +1,5 @@
 import { RoutingNumberService } from 'application/administration/bank/services';
-import { CharityService, CharityBankAccountService, CharityAddressService } from 'application/common/charity/services';
+import { CharityService, CharityBankAccountService, CharityAddressService, CharityApiKeyService } from 'application/common/charity/services';
 import { CharityFileStreamService } from 'common/services';
 
 class CharityStore {
@@ -10,6 +10,7 @@ class CharityStore {
         this.fileStreamService = moduleStore.rootStore.createApplicationService(CharityFileStreamService);
         this.charityAddressService = moduleStore.rootStore.createApplicationService(CharityAddressService);
         this.routingNumberService = moduleStore.rootStore.createApplicationService(RoutingNumberService);
+        this.charityApiKeyService = moduleStore.rootStore.createApplicationService(CharityApiKeyService);
     }
 
     async findCharityBank(params) {
@@ -88,6 +89,11 @@ class CharityStore {
 
     async updateBankAccount(resource) {
         const response = await this.bankAccountService.update(resource);
+        return response.data;
+    }
+
+    async regenerateCharityApiKey(charityId){
+        const response = await this.charityApiKeyService.update(charityId);
         return response.data;
     }
 

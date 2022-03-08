@@ -5,3 +5,4 @@ export { default as CharityAddressRouteService } from './CharityAddressRouteServ
 export { default as CharityBankAccountService } from './CharityBankAccountService'
 export { default as CharityBankAccountRouteService } from './CharityBankAccountRouteService'
 export { default as CharityCommunicationPreferenceService } from './CharityCommunicationPreferenceService'
+export { default as CharityApiKeyService } from './CharityApiKeyService'

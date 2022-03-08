@@ -16,7 +16,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                         const params = {
                             embed: ['contactInformation', 'charityApiKey']
                         }
-                        const data = await rootStore.application.administration.charityStore.getCharity(id, params); console.log(data);
+                        const data = await rootStore.application.administration.charityStore.getCharity(id, params);
                         const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
                         return {
                             name: data.name,
@@ -70,6 +70,16 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                 this.createModal.close();
             }
         });
+    }
+
+    @action.bound
+    async regenerateApiKey(){
+        try {
+            await this.rootStore.application.administration.charityStore.regenerateCharityApiKey({id: this.id});
+            this.rootStore.notificationStore.success('Successfully regenerated API key');
+        } catch (e) {
+            this.rootStore.notificationStore.error('API key was not regenerated');
+        }
     }
 
     createCharityStatusDropdownStore() {
