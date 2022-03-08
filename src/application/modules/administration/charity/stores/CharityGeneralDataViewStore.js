@@ -14,9 +14,10 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                 return {
                     get: async (id) => {
                         const params = {
-                            embed: ['contactInformation']
+                            embed: ['contactInformation', 'charityApiKey']
                         }
-                        const data = await rootStore.application.administration.charityStore.getCharity(id, params);
+                        const data = await rootStore.application.administration.charityStore.getCharity(id, params); console.log(data);
+                        const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
                         return {
                             name: data.name,
                             taxId: data.taxId,
@@ -31,7 +32,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                                 number: data.contactInformation && data.contactInformation.number
                             },
                             presentBalance: data.presentBalance,
-                            apiKey: data.apiKey
+                            apiKey: charityApiKey
                         }
                     },
                     update: async (resource) => {
