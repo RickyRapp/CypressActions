@@ -69,6 +69,11 @@ import {
 							return Promise.resolve();
 						},
 					},
+					{
+						name: 'master.public.membership.create-account',
+						pattern: '/../create-account.html',
+						isPublic: true
+					},
 				],
 			},
 		],

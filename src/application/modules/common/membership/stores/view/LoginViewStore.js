@@ -7,6 +7,7 @@ import { localStorageProvider } from 'core/providers';
 class LoginViewStore extends BaseViewStore {
 	routes = {
 		forgotPassword: () => this.rootStore.routerStore.goTo('master.public.membership.password-recovery'),
+		createAccount: () => this.rootStore.routerStore.goTo('master.public.membership.create-account')
 	};
 
 	loaderStore = this.createLoaderStore();
