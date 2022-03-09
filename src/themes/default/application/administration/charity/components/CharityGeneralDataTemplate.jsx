@@ -50,11 +50,15 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                 <div className="flex flex--primary w--100">
                                     <div className="form__group">
                                         <div>
-                                            <label className="form__group__label">Tax Id: </label>
+                                            <label className="form__group__label">{t('CHARITY.EDIT.FIELDS.CHARITY_ACCOUNT_NUMBER')} </label>
+                                            {item &&
+                                                <NumberFormat displayType="text" value={item.charityAccountNumber} />}
+                                            <br />
+                                            <label className="form__group__label">{t('CHARITY.EDIT.FIELDS.CHARITY_TAX_ID')} </label>
                                             {item &&
                                                 <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
                                             <br />
-                                            <label className="form__group__label">Api Key: </label>
+                                            <label className="form__group__label"> {t('CHARITY.EDIT.FIELDS.CHARITY_API_KEY')} </label>
                                             {item && item.apiKey}&nbsp; 
                                             {item && item.apiKey && <BaasicButton
                                                 className="btn btn--icon"

@@ -16,7 +16,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                 return {
                     get: async (id) => {
                         const params = {
-                            embed: ['contactInformation', 'charityApiKey']
+                            embed: ['contactInformation', 'charityApiKey', 'charityAccountNumber']
                         }
                         const data = await rootStore.application.charity.charityStore.getCharity(id, params);
                         const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
@@ -24,6 +24,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                         return {
                             name: data.name,
                             taxId: data.taxId,
+                            charityAccountNumber : data.charityAccountNumber.accountNumber,
                             charityStatusId: data.charityStatusId,
                             charityTypeId: data.charityTypeId,
                             contactInformationName: data.contactInformation.name,

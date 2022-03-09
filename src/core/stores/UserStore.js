@@ -84,7 +84,7 @@ class UserStore {
                 const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
                 if (data) {
                     user.charityId = data.id;
-                    user.charity = { name: data.name, taxId: data.taxId, apiKey: charityApiKey };
+                    user.charity = { name: data.name, taxId: data.taxId, apiKey: charityApiKey, accountNumber: data.charityAccountNumber.accountNumber};
                 }
             }
         } catch (ex) {

@@ -1196,7 +1196,10 @@
                 "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
                 "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
                 "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
-                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number",
+                "CHARITY_TAX_ID" : "Tax id: ",
+                "CHARITY_ACCOUNT_NUMBER": "Account Number: ",
+                "CHARITY_API_KEY" : "Api Key: "
             }
         },
         "WITHDRAW_FUND": {

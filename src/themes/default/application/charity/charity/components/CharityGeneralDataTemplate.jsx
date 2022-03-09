@@ -61,11 +61,15 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                     <div className="row row--form">
                                         <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-2 u-mar--bottom--sml">
                                             <div className="">
-                                                <label className="form__group__label u-mar--right--tny">Tax ID:</label>
+                                                <label className="form__group__label u-mar--right--tny">{t('CHARITY.EDIT.FIELDS.CHARITY_ACCOUNT_NUMBER')}</label>
+                                                {item &&
+                                                    <NumberFormat displayType="text" value={item.charityAccountNumber} />}
+                                                <br />
+                                                <label className="form__group__label u-mar--right--tny">{t('CHARITY.EDIT.FIELDS.CHARITY_TAX_ID')}</label>
                                                 {item &&
                                                     <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
                                                 <br />
-                                                <label className="form__group__label">Api Key: </label>
+                                                <label className="form__group__label">{t('CHARITY.EDIT.FIELDS.CHARITY_API_KEY')} </label>
                                                 {item && item.apiKey}&nbsp;
                                                 {item && item.apiKey && <BaasicButton
                                                     className="btn btn--icon"
@@ -146,14 +150,14 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                     </p>
                                 </div>
                                 <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Tax Id:</p>
+                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">{t('CHARITY.EDIT.FIELDS.CHARITY_ACCOUNT_NUMBER')}</p>
                                     <p className="type--base type--wgt--bold">
-                                        {item && item.taxId}
+                                        {item && item.charityAccountNumber}
                                     </p>
                                 </div>
                                 <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Account Number:</p>
-                                    <p className="type--base type--wgt--bold"> {item && ''}&nbsp; </p>
+                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">{t('CHARITY.EDIT.FIELDS.CHARITY_TAX_ID')}</p>
+                                    <p className="type--base type--wgt--bold"> {item && item.taxId}&nbsp; </p>
                                 </div>
                                 <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
                                     <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Contact Name:</p>
