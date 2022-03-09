@@ -19,6 +19,8 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             embed: ['contactInformation', 'charityApiKey']
                         }
                         const data = await rootStore.application.charity.charityStore.getCharity(id, params);
+                        const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
+                        this.apiKey = charityApiKey;
                         return {
                             name: data.name,
                             taxId: data.taxId,
@@ -28,7 +30,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             contactInformationEmail: data.contactInformation.email,
                             contactInformationNumber: data.contactInformation.number,
                             presentBalance: data.presentBalance,
-                            apiKey: data.charityApiKey.apiKey,
+                            apiKey: charityApiKey,
                             dba: data.dba,
                             description : data.description
                         }
@@ -105,6 +107,13 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
+    }
+
+    @action.bound
+    async copyToClipboard(){
+        await navigator.clipboard.writeText(this.apiKey);
+        this.rootStore.notificationStore.success('API key copied to clipboard');
+        this.getResource(this.id);
     }
 
 }

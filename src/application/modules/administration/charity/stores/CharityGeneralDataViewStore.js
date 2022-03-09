@@ -18,6 +18,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                         }
                         const data = await rootStore.application.administration.charityStore.getCharity(id, params);
                         const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
+                        this.apiKey = charityApiKey;
                         return {
                             name: data.name,
                             taxId: data.taxId,
@@ -55,6 +56,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
             onAfterAction: () => { this.getResource(this.id); }
         });
 
+        this.apiKey;
         this.createCharityTypeDropdownStore();
         this.createCharityStatusDropdownStore();
         this.createWithdrawFundModalParams();
@@ -103,6 +105,13 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
 
     createWithdrawFundModalParams() {
         this.withdrawFundModalParams = new ModalParams({});
+    }
+
+    @action.bound
+    async copyToClipboard(){
+        await navigator.clipboard.writeText(this.apiKey);
+        this.rootStore.notificationStore.success('API key copied to clipboard');
+        this.getResource(this.id);
     }
 }
 

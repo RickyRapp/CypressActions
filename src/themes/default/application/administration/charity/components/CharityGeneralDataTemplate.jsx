@@ -24,7 +24,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         charityStatusDropdownStore,
         withdrawFundModalParams,
         openWithdrawFundModalClick,
-        regenerateApiKey
+        regenerateApiKey,
+        copyToClipboard
     } = charityGeneralDataViewStore;
 
     return (
@@ -61,7 +62,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                                 icon="u-icon u-icon--clipboard u-icon--base"
                                                 label="Copy to clipboard"
                                                 onlyIcon={true}
-                                                onClick={() => navigator.clipboard.writeText(item.apiKey)}
+                                                onClick={ copyToClipboard }
                                             ></BaasicButton>}
                                             {item && (item.apiKey && (
                                                 <div className="form__group__label">

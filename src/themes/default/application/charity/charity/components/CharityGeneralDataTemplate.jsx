@@ -34,7 +34,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         openWithdrawFundModalClick,
         isEditEnabled,
         onEnableEditClick,
-        downloadQrCode
+        downloadQrCode,
+        copyToClipboard
     } = charityGeneralDataViewStore;
 
     return (
@@ -72,7 +73,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                                     icon="u-icon u-icon--clipboard u-icon--base"
                                                     label="Copy to clipboard"
                                                     onlyIcon={true}
-                                                    onClick={() => navigator.clipboard.writeText(item.apiKey)}
+                                                    onClick={ copyToClipboard }
                                                 ></BaasicButton>}
                                             </div>
                                         </div>
@@ -151,8 +152,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                     </p>
                                 </div>
                                 <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Api Key:</p>
-                                    <p className="type--base type--wgt--bold"> {item && item.apiKey}&nbsp; </p>
+                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Account Number:</p>
+                                    <p className="type--base type--wgt--bold"> {item && ''}&nbsp; </p>
                                 </div>
                                 <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
                                     <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Contact Name:</p>

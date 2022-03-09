@@ -80,9 +80,6 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         </EditFormContent >
 
         <div className="type--right">
-        <button className='btn btn--med btn--ghost search__wrapper__item' onClick={deleteBankAccount} disabled={!id}>
-            {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')}
-        </button>
         {
         verifiedByPlaid ?   <button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
                                 Get Bank Account
