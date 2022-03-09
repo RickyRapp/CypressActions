@@ -1,9 +1,9 @@
-import { TableViewStore, BaseListViewStore } from "core/stores";
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from "core/stores";
 import { remoteDepositService } from "application/charity/remote-deposit/services";
 import React from "react";
 import { FormatterResolver } from "core/components";
 import { action, observable } from "mobx";
-
+import { SessionListFilter } from "application/charity/remote-deposit/models";
 class remoteDepositListViewStore extends BaseListViewStore {
 	@observable checksOnHold = null;
 	@observable isChecksOnHoldVisible = false;
@@ -17,12 +17,22 @@ class remoteDepositListViewStore extends BaseListViewStore {
 					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.edit", { id: id });
 				},
 				create: () => {
-					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.create");
+					rootStore.notificationStore.warning("Not implemented");
+					//this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.create");
 				},
 				preview: id => {
 					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.preview", { id: id });
 				},
 			},
+			queryConfig: {
+                filter: new SessionListFilter('dateCreated', 'desc'),
+                onResetFilter: (filter) => {
+                    filter.reset();
+                    this.paymentTypeDropdownStore.setValue(null);
+                    this.donationStatusDropdownStore.setValue(null);
+                    this.dateCreatedDateRangeQueryStore.reset();
+                }
+            },
 			actions: () => {
 				return {
 					find: async params => {
@@ -35,7 +45,7 @@ class remoteDepositListViewStore extends BaseListViewStore {
                             'grants.donationStatus',
                             'grants.certificate.denominationType'
                         ];
-
+						
 						const response = await service.find(params);
 						return response.data;
 					},
@@ -46,6 +56,9 @@ class remoteDepositListViewStore extends BaseListViewStore {
 		this.createTableStore();
 		this.createChecksOnHoldTableStore();
 		this.fetchChecksOnHold();
+		this.createPaymentTypeDropdownStore();
+		this.createDonationStatusDropdownStore();
+		this.createDateCreatedDateRangeQueryStore();
 	}
 
 	createChecksOnHoldTableStore() {
@@ -100,6 +113,7 @@ class remoteDepositListViewStore extends BaseListViewStore {
 					{
 						key: 'confirmationNumber',
 						title: 'SESSION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
+						onClick: (item) => this.routes.preview(item.id),
 					},
 					{
 						key: 'charity.name',
@@ -168,6 +182,37 @@ class remoteDepositListViewStore extends BaseListViewStore {
         if (!this.checksOnHoldTableStore.dataInitialized) {
             this.checksOnHoldTableStore.dataInitialized = true;
         }
+    }
+	createPaymentTypeDropdownStore() {
+        this.paymentTypeDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                fetchFunc: async () => {
+                    return this.rootStore.application.lookup.paymentTypeStore.find();
+                },
+                onChange: (paymentType) => {
+                    this.queryUtility.filter.paymentTypeIds = paymentType.map((type) => { return type.id });
+                }
+            });
+    }
+
+    createDonationStatusDropdownStore() {
+        this.donationStatusDropdownStore = new BaasicDropdownStore({
+            multi: true
+        },
+            {
+                fetchFunc: async () => {
+                    return this.rootStore.application.lookup.donationStatusStore.find();
+                },
+                onChange: (donationStatus) => {
+                    this.queryUtility.filter.donationStatusIds = donationStatus.map((status) => { return status.id });
+                }
+            });
+    }
+
+    createDateCreatedDateRangeQueryStore() {
+        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore();
     }
 }
 

@@ -11,7 +11,7 @@ class remoteDepositRouteService extends BaseRouteService {
     }
 
     get(id, options) {
-        return super.get(this.base + '/{id}/{?embed,fields}', id, options);
+        return super.get(this.base + '/charity/{id}/{?embed,fields}', id, options);
     }
 
     create() {

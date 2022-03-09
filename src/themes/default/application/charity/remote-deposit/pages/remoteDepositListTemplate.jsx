@@ -4,21 +4,27 @@ import { defaultTemplate } from "core/hoc";
 import {
     BaasicButton,
     BaasicTable,
+    BaasicInput,
+    BaasicDropdown,
+    NumberFormatInput,
+    DateRangeQueryPicker,
     TableFilter,
     EmptyState,
     SimpleBaasicTable,
     FormatterResolver
 } from "core/components";
 import { isSome } from "core/utils";
-import { ApplicationListLayout, Content } from "core/layouts";
+import { ApplicationListLayout, Content, PageHeader } from "core/layouts";
 
 const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
-    const { tableStore, routes, queryUtility, authorization, checksOnHoldTableStore, onExpandChecksOnHoldClick, isChecksOnHoldVisible } = remoteDepositListViewStore;
+    const { tableStore, routes, queryUtility, authorization, checksOnHoldTableStore, onExpandChecksOnHoldClick, isChecksOnHoldVisible,
+        paymentTypeDropdownStore, donationStatusDropdownStore, dateCreatedDateRangeQueryStore } = remoteDepositListViewStore;
     return (
         <ApplicationListLayout
             store={remoteDepositListViewStore}
             authorization={authorization}
         >
+			<PageHeader routes={routes}></PageHeader>
             <Content emptyRenderer={renderEmpty(routes)}>
             <div className="col-sml-12 u-mar--bottom--sml">
 					<div className="transaction__show">
@@ -57,9 +63,104 @@ const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
 						)}
 					</div>
 				</div>
-                <div className="u-mar--bottom--sml">
+                {/* <div className="u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility}></TableFilter>
-                </div>
+                </div> */}
+                <div className="u-mar--bottom--med">
+						<TableFilter colClassName={"col col-sml-12 col-lrg-10"} queryUtility={queryUtility}>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
+									id="confirmationNumber"
+									className="input input--lrg"
+									value={queryUtility.filter.confirmationNumber || ''}
+									onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
+									placeholder="SESSION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
+									id="paymentNumber"
+									className="input input--lrg"
+									value={queryUtility.filter.paymentNumber || ''}
+									onChange={event => (queryUtility.filter.paymentNumber = event.target.value)}
+									placeholder="SESSION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown
+									store={paymentTypeDropdownStore}
+									placeholder="SESSION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown
+									store={donationStatusDropdownStore}
+									placeholder="SESSION.LIST.FILTER.SESSION_STATUS_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<NumberFormatInput
+									className="input input--lrg"
+									value={queryUtility.filter.bookletCertificateCode}
+									onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
+									format="#####-##"
+									mask=""
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="dollarRange"
+                                    value={queryUtility.filter.dollarRange || ''}
+                                    onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="fundraiserName"
+                                    value={queryUtility.filter.fundraiserName || ''}
+                                    onChange={event => (queryUtility.filter.fundraiserName = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.FUNDRAISER_NAME_PLACEHOLDER"
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="phoneNumber"
+                                    value={queryUtility.filter.phoneNumber || ''}
+                                    onChange={event => (queryUtility.filter.phoneNumber = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.PHONE_NUMBER_PLACEHOLDER"
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="sessionEmail"
+                                    value={queryUtility.filter.sessionEmail || ''}
+                                    onChange={event => (queryUtility.filter.sessionEmail = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.EMAIL_PLACEHOLDER"
+                                />
+                            </div>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                                <BaasicInput
+                                    id="usernameCreatedSession"
+                                    value={queryUtility.filter.usernameCreatedSession || ''}
+                                    onChange={event => (queryUtility.filter.usernameCreatedSession = event.target.value)}
+                                    placeholder="SESSION.LIST.FILTER.USERNAME_CREATED_SESSION_PLACEHOLDER"
+                                />
+                            </div>
+							<div className="col col-sml-12 u-mar--bottom--sml">
+								<div className="row row--form">
+									<div className="col col-sml-12 col-lrg-8">
+										<DateRangeQueryPicker
+											queryUtility={queryUtility}
+											store={dateCreatedDateRangeQueryStore}
+											fromPropertyName="dateCreatedFrom"
+											toPropertyName="dateCreatedTo"
+										/>
+									</div>
+								</div>
+							</div>
+						</TableFilter>
+					</div>
                 <div className="card--form card--primary card--med">
                     <BaasicTable
                         authorization={authorization}

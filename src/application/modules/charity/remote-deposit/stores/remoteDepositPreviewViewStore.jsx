@@ -1,4 +1,5 @@
 import { BasePreviewViewStore, TableViewStore } from 'core/stores';
+import { remoteDepositService } from "application/charity/remote-deposit/services";
 import { applicationContext } from 'core/utils';
 import _ from 'lodash';
 
@@ -27,13 +28,14 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
                                 'grants.certificate.booklet'
                             ]
                         }
-                        const data = await rootStore.application.administration.sessionStore.getSession(id, params);
-                        this.session = data;
+                        const service = new remoteDepositService(rootStore.application.baasic.apiClient);
+                        const response = await service.get(id, params);
+                        this.session = response.data;
                         this.tableStore.setData(_.orderBy(this.session.grants, g => g.certificate.denominationType.value, "asc"));
                         if (!this.tableStore.dataInitialized) {
                             this.tableStore.dataInitialized = true;
                         }
-                        return data;
+                        return response.data;
                     }
                 }
             }
