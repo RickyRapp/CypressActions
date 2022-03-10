@@ -421,6 +421,8 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
         let fees = parseFloat(this.donor && !this.donor.isSessionFeePayedByCharity ? this.totalPrepaidAmount * 0.029 : 0) + parseFloat(shipping); //TODO: Add customization fee
         if(this.donor) {
             const totalContributionsUpcoming = this.donor.contribution.map(item => item.amount).reduce((a, b) => a + b, 0);
+            if((this.totalPrepaidAmount + fees) == 0)
+                return false; 
             return ((this.totalPrepaidAmount + fees) > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
         }
         return false;
