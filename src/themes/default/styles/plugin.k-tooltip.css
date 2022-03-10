@@ -20,7 +20,7 @@
 .__react_component_tooltip {
     max-width: 400px;
     
-    opacity: 1;
+    opacity: 1 !important;
 
     background-color: $bali-hai !important;
     text-align: center;
