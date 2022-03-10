@@ -20,6 +20,7 @@ import { CharityAdvancedSearch } from 'application/donor/charity/components';
 import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
 import AsyncSelect from 'react-select/async';
 import { GrantConfirmTemplate } from 'themes/application/administration/grant/components';
+import ReactTooltip from 'react-tooltip';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 	const {
@@ -89,6 +90,15 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											store={charityDropdownStore}
 											additionalLabel="My Favorite Charities"
 										/> */}
+										<div className="type--right u-mar--bottom--tny">
+											<span
+												data-tip={`If the first part of charity name is unknown than '%' should be added in front of the charity name, example %charity`}
+												data-type="info"
+												style={{ cursor: 'pointer' }}>
+												<i className="u-icon u-icon--base u-icon--info--link u-mar--left--tny cursor--pointer"></i>
+												<ReactTooltip className='tooltip--primary' />
+											</span>
+										</div>
 										{
 											isGrantAgain ?
 												<div>
@@ -98,7 +108,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												// onKeyDown={() => countdown()}
 												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID'} value={asyncPlaceholder} />
 										}
-
 									</div>
 								</div>
 								{isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) && (
@@ -307,7 +316,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 
 								</div>
 
-								<div className="u-mar--top--sml u-mar--bottom--sml type--right">
+								<div className="type--right">
 									<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
 								</div>
 

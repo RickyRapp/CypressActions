@@ -3,16 +3,39 @@
 \*------------------------------------*/
 
 .k-tooltip {
-    background-color: color(#000000 a(0.8));
+	background-color: color(#000000 a(0.8));
+	text-align: center;
+	border-radius: $radius-base;
+	max-width: 320px;
+
+	.k-callout {
+		color: color(#000000 a(0.8));
+	}
+
+	.k-tooltip-content {
+		@mixin type-scale $type-xsmall, 1;
+	}
+}
+
+.__react_component_tooltip {
+    max-width: 400px;
+    
+    opacity: 1;
+
+    background-color: $bali-hai !important;
     text-align: center;
-    border-radius: $radius-base;
-    max-width: 320px;
     
-    .k-callout {
-        color: color(#000000 a(0.8));
-    }
-    
-    .k-tooltip-content {
-        @mixin type-scale $type-xsmall, 1;
-    }
+	&::after {
+		border-top-color: $bali-hai !important;
+	}
+}
+
+.tooltip {
+    &--primary {
+		background-color: $zest !important;
+
+		&::after {
+			border-top-color: $zest !important;
+		}
+	}
 }
