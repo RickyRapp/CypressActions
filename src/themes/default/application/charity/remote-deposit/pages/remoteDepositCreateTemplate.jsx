@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { StepCounter, Step1Template, Step2Template, Step3Template, Step4Template } from 'themes/application/administration/session/components';
+import { StepCounter, Step1Template, Step2Template, Step3Template, Step4Template } from 'themes/application/charity/remote-deposit/pages';
 
 const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
     const {

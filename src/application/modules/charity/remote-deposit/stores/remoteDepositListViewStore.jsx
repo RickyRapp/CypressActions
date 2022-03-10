@@ -17,8 +17,7 @@ class remoteDepositListViewStore extends BaseListViewStore {
 					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.edit", { id: id });
 				},
 				create: () => {
-					rootStore.notificationStore.warning("Not implemented");
-					//this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.create");
+					this.rootStore.routerStore.goTo("master.app.session");
 				},
 				preview: id => {
 					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.preview", { id: id });

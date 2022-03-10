@@ -36,7 +36,7 @@ import { Unauthorized, DisplayError } from 'common/pages';
                 name: 'master.app.session',
                 pattern: '/new-session',
                 component: [PublicLayout, SessionCreate],
-                role: ['Administrators', 'Scanners']
+                role: ['Administrators', 'Scanners', 'Charities']
             },
         ],
         moduleStore: function (context) {

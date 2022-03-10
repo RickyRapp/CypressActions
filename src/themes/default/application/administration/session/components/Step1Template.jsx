@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, BaasicModal } from 'core/components'
 import { GivingCardModal } from '.';
 
-const Step1Template = function ({ onNextStepClick, createGivingCardGrant, t, givingCardModal }) {
+const Step1Template = function ({ onNextStepClick, createGivingCardGrant, t, givingCardModal, isCharityAccount }) {
     return (
         <div className="card--med type--center">
             <div className="u-mar--bottom--tny">
@@ -19,11 +19,15 @@ const Step1Template = function ({ onNextStepClick, createGivingCardGrant, t, giv
                     label='SESSION.CREATE.STEP1.DEPOSIT_CHECKS'
                     onClick={() => onNextStepClick('eng')}
                 />
-                <BaasicButton
-                    className="btn btn--med btn--med--wide btn--secondary"
-                    label='SESSION.CREATE.STEP1.ACCEPT_CARD'
-                    onClick={() => createGivingCardGrant()}
-                />
+                {
+                    !isCharityAccount && 
+                    <BaasicButton
+                        className="btn btn--med btn--med--wide btn--secondary"
+                        label='SESSION.CREATE.STEP1.ACCEPT_CARD'
+                        onClick={() => createGivingCardGrant()}
+                    />
+                }
+                
             </div>
             <BaasicModal modalParams={givingCardModal} showClose={true} modalClassName={"modal__content--sml"}>
 				<GivingCardModal />

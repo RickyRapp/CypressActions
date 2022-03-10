@@ -21,6 +21,7 @@ class SessionViewStore extends BaseEditViewStore {
 	@observable filteredCharities = [];
     @observable isCharitySelected = false;
     @observable cardNumber = null;
+    @observable isCharityAccount = false;
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -52,7 +53,10 @@ class SessionViewStore extends BaseEditViewStore {
                 this.nextStep(4);
             }
         });
-
+        if(this.rootStore.userStore.applicationUser.roles.includes('Charities')){
+            this.currentStep = 2;
+            this.isCharityAccount = true;
+        }
         this.createCharityDropdownStore();
         this.blankCertificateModal = new ModalParams({});
         this.givingCardModal = new ModalParams({});

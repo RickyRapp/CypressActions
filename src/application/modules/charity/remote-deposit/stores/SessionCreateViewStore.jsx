@@ -1,6 +1,6 @@
 import { action, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
-import { SessionCreateForm } from 'application/administration/session/forms';
+import { SessionCreateForm } from 'application/charity/remote-deposit/forms';
 import { remoteDepositService } from 'application/charity/remote-deposit/services';
 import { GrantService } from 'application/common/grant/services';
 import { charityFormatter } from 'core/utils';
@@ -25,7 +25,7 @@ class SessionViewStore extends BaseEditViewStore {
     constructor(rootStore) {
         const service = new remoteDepositService(rootStore.application.baasic.apiClient);
         super(rootStore, {
-            name: 'session-create',
+            name: 'remote-deposit-create',
             id: undefined,
             autoInit: false,
             actions: () => {

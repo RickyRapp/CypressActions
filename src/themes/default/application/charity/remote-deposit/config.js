@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from "core/providers";
-import { remoteDepositList, remoteDepositEdit, remoteDepositPreview } from "application/charity/remote-deposit/pages";
+import { remoteDepositList, remoteDepositEdit, remoteDepositPreview, remoteDepositCreate } from "application/charity/remote-deposit/pages";
 
 (function() {
 	moduleProviderFactory.application.register({
@@ -20,7 +20,7 @@ import { remoteDepositList, remoteDepositEdit, remoteDepositPreview } from "appl
 					{
 						name: "master.app.main.charity.remote-deposit.create",
 						pattern: "/create",
-						component: remoteDepositEdit,
+						component: remoteDepositCreate,
 						authorization: "theDonorsFundCharitySection.create",
 						data: {
 							back: "master.app.main.charity.remote-deposit.list",

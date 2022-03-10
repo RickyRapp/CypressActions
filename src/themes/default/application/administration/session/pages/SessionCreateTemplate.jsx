@@ -32,7 +32,8 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         insufficientAmount,
         isCharitySelected,
         givingCardModal,
-        createGivingCardGrant
+        createGivingCardGrant, 
+        isCharityAccount
     } = sessionCreateViewStore;
 
     return (
@@ -51,6 +52,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             onNextStepClick={onNextStep1Click}
                             givingCardModal={givingCardModal}
                             createGivingCardGrant={createGivingCardGrant}
+                            isCharityAccount={isCharityAccount}
                         />
                     </div>}
 
@@ -66,6 +68,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             filterCharities={filterCharities}
                             setCharityId={setCharityId}
                             isCharitySelected={isCharitySelected}
+                            isCharityAccount={isCharityAccount}
                         />
                     </div>}
 

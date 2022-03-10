@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BasicInput, BaasicButton, NumberFormatInputField } from 'core/components';
 import AsyncSelect from 'react-select/async';
-function Step2Template({ form, onPreviousStepClick, onNextStepClick, isCharitySelected, isChangedDefaultAddress, onChangeDefaultAddressClick, filterCharities, setCharityId }) {
+function Step2Template({ form, onPreviousStepClick, onNextStepClick, isCharitySelected, isChangedDefaultAddress, onChangeDefaultAddressClick, filterCharities, setCharityId, isCharityAccount }) {
     let promiseOptions = (inputValue) =>
 		new Promise(resolve => {
 			setTimeout(() => {
@@ -25,7 +25,11 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, isCharitySe
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							{/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} /> */}
-							<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
+							{
+								isCharityAccount ? 
+								<p>Charity name: <b>Charity name</b></p> :
+									<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
+							}
 							{isCharitySelected &&
 								<BaasicButton
 									className="btn btn--sml btn--link u-mar--bottom--sml"
