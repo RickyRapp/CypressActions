@@ -104,6 +104,7 @@ const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
 									value={queryUtility.filter.bookletCertificateCode}
 									onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
 									format="#####-##"
+                                    placeHolder="Check number #####-##"
 									mask=""
 								/>
 							</div>
