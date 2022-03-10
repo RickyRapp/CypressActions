@@ -199,6 +199,10 @@
 		&--all {
 			word-break: break-all;
 		}
+
+		&--word {
+			word-break: break-word;
+		}
 	}
 
 	&--ellipsis {
