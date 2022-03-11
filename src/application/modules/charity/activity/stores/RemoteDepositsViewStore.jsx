@@ -5,7 +5,7 @@ import { FormatterResolver } from "core/components";
 import { action, observable } from "mobx";
 import { SessionListFilter } from "application/charity/remote-deposit/models";
 import { donorFormatter } from "core/utils";
-class remoteDepositListViewStore extends BaseListViewStore {
+class RemoteDepositsViewStore extends BaseListViewStore {
 	@observable checksOnHold = null;
 	@observable isChecksOnHoldVisible = false;
 
@@ -224,10 +224,7 @@ class remoteDepositListViewStore extends BaseListViewStore {
 							value: 'short'
 						}
 					}
-				],
-				actions: {
-					onPreview: item => this.routes.preview(item.id),
-				},
+				]
 			})
 		);
 	}
@@ -280,4 +277,4 @@ class remoteDepositListViewStore extends BaseListViewStore {
     }
 }
 
-export default remoteDepositListViewStore;
+export default RemoteDepositsViewStore;
