@@ -22,9 +22,15 @@ export default class APITestingForm extends FormBase {
                     rules: 'string',
                 },
                 {
-                    name: 'taxId',
-                    label: 'TEST.API_TESTING.FIELDS.TAXID',
-                    placeholder: 'TEST.API_TESTING.FIELDS.TAXID',
+                    name: 'accountNumber',
+                    label: 'TEST.API_TESTING.FIELDS.ACCOUNT_NUMBER',
+                    placeholder: 'TEST.API_TESTING.FIELDS.ACCOUNT_NUMBER',
+                    rules: 'numeric|min:0'
+                },
+                {
+                    name: 'apiKey',
+                    label: 'TEST.API_TESTING.FIELDS.API_KEY',
+                    placeholder: 'TEST.API_TESTING.FIELDS.API_KEY',
                     rules: 'string'
                 },
                 {

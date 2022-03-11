@@ -39,7 +39,10 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                 {form.$('requestType').value == 1 ?
                                 <React.Fragment>
                                     <div className="form__group col col-sml-12 col-lrg-12">
-                                        <BasicInput field={form.$('taxId')} />
+                                        <BasicInput field={form.$('accountNumber')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BasicInput field={form.$('apiKey')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <NumericInputField field={form.$('amount')} />
@@ -88,7 +91,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                     />
                                      </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
-                                        <BasicInput field={form.$('taxId')} />
+                                        <BasicInput field={form.$('accountNumber')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <NumericInputField field={form.$('amount')} />
@@ -141,6 +144,9 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         <div className="u-separator--primary u-mar--bottom--sml"></div>
                                         <strong>Headers:</strong>
                                         <p>"Validation-Token": {validationToken}</p>
+                                        {form.$('requestType').value == 1 ? 
+                                        <p>"API-Key": {form.$('apiKey').value} </p> 
+                                        : ''}
                                     </div>
                                 </div>
                                 <div className="row row--form u-padd--top--med">
@@ -150,7 +156,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         <p>{"{"}</p>
                                         {form.$('requestType').value == 1 ?
                                         <React.Fragment>
-                                            <p>"taxId": "{form.$('taxId').value}",</p>
+                                            <p>"accountNumber": "{form.$('accountNumber').value}",</p>
                                             <p>"amount": {form.$('amount').value},</p>
                                             <p>"startFutureDate":"{moment(form.$('startFutureDate').$value).format('YYYY-MM-DD')}",</p>
                                             <p>"noEndDate": {form.$('noEndDate').value ? 'true': 'false'},</p>
@@ -163,7 +169,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                             <p>"IsRecurring": {form.$('isRecurring').value ? 'true': 'false'}</p>
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <p>"taxId": "{form.$('taxId').value}",</p>
+                                            <p>"accountNumber": "{form.$('accountNumber').value}",</p>
                                             <p>"amount": {form.$('amount').value},</p>
                                             <p>"cardNumber": {form.$('cardNumber').value},</p>
                                             <p>"description": {form.$('description').value}</p>

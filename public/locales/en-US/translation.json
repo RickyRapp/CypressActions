@@ -2981,7 +2981,8 @@
         },
         "API_TESTING": {
             "FIELDS": {
-                "TAXID": "Tax ID",
+                "ACCOUNT_NUMBER": "Account number",
+                "API_KEY" : "Charity API key",
                 "GRANT_SCHEDULE_TYPE": "Grant Schedule Type",
                 "START_FUTURE_DATE": "Start Future Date",
                 "DONOR": "Donor",

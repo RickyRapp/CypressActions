@@ -16,7 +16,6 @@ class GrantGivingCardCreateViewStore extends BaseEditViewStore {
                         if(!resource.isRecurring)
                             await rootStore.application.charity.grantStore.createGrantGivingCard({ charityId: this.charityId, ...resource });
                         else {
-                            console.log(await rootStore.application.charity.grantStore.getDonorFromCard({id: null, ...resource}));
                             resource.grantPurposeTypeId = this.grantPurposeTypeId;
                             resource.grantAcknowledgmentTypeId = this.grantAcknowledgmentTypeId;
                             try{
