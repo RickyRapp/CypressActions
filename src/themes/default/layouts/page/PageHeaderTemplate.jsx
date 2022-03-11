@@ -42,13 +42,7 @@ function renderHeaderContent(children, props, routes, hideTitle, t, title) {
 	return (
 		<React.Fragment>
 			{!hideTitle && title && (
-				<h3
-					className={`u-mar--right--sml ${t(title) === 'Profile Settings' ? 'u-display--none--xlrg' : ''
-						}`}
-				>
-					{t(title) === "Booklets" &&
-						<i className="u-icon u-icon--med u-icon--arrow-left u-mar--right--sml cursor--pointer"></i>
-					}
+				<h3 className={`u-mar--right--sml ${t(title) === 'Profile Settings' ? 'u-display--none--xlrg' : ''}`}>
 					{t(title)}
 				</h3>
 			)}
