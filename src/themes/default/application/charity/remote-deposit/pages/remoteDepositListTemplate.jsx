@@ -18,7 +18,7 @@ import { ApplicationListLayout, Content, PageHeader } from "core/layouts";
 
 const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
     const { tableStore, routes, queryUtility, authorization, checksOnHoldTableStore, onExpandChecksOnHoldClick, isChecksOnHoldVisible,
-        paymentTypeDropdownStore, donationStatusDropdownStore, dateCreatedDateRangeQueryStore } = remoteDepositListViewStore;
+        searchDonorDropdownStore, donationStatusDropdownStore, dateCreatedDateRangeQueryStore } = remoteDepositListViewStore;
     return (
         <ApplicationListLayout
             store={remoteDepositListViewStore}
@@ -67,7 +67,7 @@ const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
                     <TableFilter queryUtility={queryUtility}></TableFilter>
                 </div> */}
                 <div className="u-mar--bottom--med">
-						<TableFilter colClassName={"col col-sml-12 col-lrg-10"} queryUtility={queryUtility}>
+						<TableFilter colClassName={"col col-sml-12 col-lrg-12"} queryUtility={queryUtility}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput
 									id="confirmationNumber"
@@ -77,20 +77,8 @@ const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
 									placeholder="SESSION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
 								/>
 							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="paymentNumber"
-									className="input input--lrg"
-									value={queryUtility.filter.paymentNumber || ''}
-									onChange={event => (queryUtility.filter.paymentNumber = event.target.value)}
-									placeholder="SESSION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={paymentTypeDropdownStore}
-									placeholder="SESSION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
-								/>
+                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown store={searchDonorDropdownStore} />
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown
@@ -104,8 +92,7 @@ const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
 									value={queryUtility.filter.bookletCertificateCode}
 									onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
 									format="#####-##"
-                                    placeHolder="Check number #####-##"
-									mask=""
+                                    placeholder="Check Number"
 								/>
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
@@ -125,39 +112,22 @@ const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
                                 />
                             </div>
                             <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
+                                <NumberFormatInput
                                     id="phoneNumber"
-                                    value={queryUtility.filter.phoneNumber || ''}
-                                    onChange={event => (queryUtility.filter.phoneNumber = event.target.value)}
+                                    value={queryUtility.filter.phoneNumber}
+                                    onChange={event => (queryUtility.filter.phoneNumber = event.formattedValue)}
                                     placeholder="SESSION.LIST.FILTER.PHONE_NUMBER_PLACEHOLDER"
+                                    format="(###)(###)-(####)"
                                 />
                             </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id="sessionEmail"
-                                    value={queryUtility.filter.sessionEmail || ''}
-                                    onChange={event => (queryUtility.filter.sessionEmail = event.target.value)}
-                                    placeholder="SESSION.LIST.FILTER.EMAIL_PLACEHOLDER"
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id="usernameCreatedSession"
-                                    value={queryUtility.filter.usernameCreatedSession || ''}
-                                    onChange={event => (queryUtility.filter.usernameCreatedSession = event.target.value)}
-                                    placeholder="SESSION.LIST.FILTER.USERNAME_CREATED_SESSION_PLACEHOLDER"
-                                />
-                            </div>
-							<div className="col col-sml-12 u-mar--bottom--sml">
-								<div className="row row--form">
-									<div className="col col-sml-12 col-lrg-8">
-										<DateRangeQueryPicker
-											queryUtility={queryUtility}
-											store={dateCreatedDateRangeQueryStore}
-											fromPropertyName="dateCreatedFrom"
-											toPropertyName="dateCreatedTo"
-										/>
-									</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-8 u-mar--bottom--sml">
+                                <div className="col col-sml-12">
+                                    <DateRangeQueryPicker
+                                        queryUtility={queryUtility}
+                                        store={dateCreatedDateRangeQueryStore}
+                                        fromPropertyName="dateCreatedFrom"
+                                        toPropertyName="dateCreatedTo"
+                                    />
 								</div>
 							</div>
 						</TableFilter>
@@ -185,7 +155,6 @@ function renderEmpty(routes) {
 }
 
 function renderActions({ item, actions, authorization }) {
-	console.log(item, actions);
     if (!isSome(actions)) return null;
 
     const {

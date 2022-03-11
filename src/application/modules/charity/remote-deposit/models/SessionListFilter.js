@@ -17,7 +17,8 @@ class SessionListFilter extends FilterParams {
     @observable sessionEmail;
     @observable usernameCreatedSession;
     @observable fundraiserName;
-
+    @observable donorId;
+    
     constructor(orderBy, orderDirection) {
         super();
         this.reset();
@@ -44,6 +45,7 @@ class SessionListFilter extends FilterParams {
         this.sessionEmail = null;
         this.username = null;
         this.fundraiserName = null;
+        this.donorId = null;
     }
 }
 

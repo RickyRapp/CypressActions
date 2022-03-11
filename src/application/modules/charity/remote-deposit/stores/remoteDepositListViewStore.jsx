@@ -4,6 +4,7 @@ import React from "react";
 import { FormatterResolver } from "core/components";
 import { action, observable } from "mobx";
 import { SessionListFilter } from "application/charity/remote-deposit/models";
+import { donorFormatter } from "core/utils";
 class remoteDepositListViewStore extends BaseListViewStore {
 	@observable checksOnHold = null;
 	@observable isChecksOnHoldVisible = false;
@@ -30,11 +31,16 @@ class remoteDepositListViewStore extends BaseListViewStore {
                     this.paymentTypeDropdownStore.setValue(null);
                     this.donationStatusDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
+                    this.searchDonorDropdownStore.setValue(null);
                 }
             },
 			actions: () => {
 				return {
 					find: async params => {
+						console.log(params);
+						if(params && params.phoneNumber) {
+							params.phoneNumber = (params.phoneNumber.match(/\d/g)).join('');
+						}
 						params.charityId = this.rootStore.userStore.applicationUser.charityId;
 						params.isCharityAccount = true;
 						params.embed = [
@@ -58,7 +64,67 @@ class remoteDepositListViewStore extends BaseListViewStore {
 		this.createPaymentTypeDropdownStore();
 		this.createDonationStatusDropdownStore();
 		this.createDateCreatedDateRangeQueryStore();
+		this.createDonorSearchDropdownStore();
 	}
+
+	createDonorSearchDropdownStore() {
+        this.searchDonorDropdownStore = new BaasicDropdownStore({
+            placeholder: 'BOOKLET_ORDER.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: true,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const data = await this.rootStore.application.administration.donorStore.searchDonor({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'firstName|asc',
+                        embed: [
+                            'donorAddresses'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName',
+                            'securityPin',
+                            'donorAddresses',
+                        ]
+                    });
+                    return data.item.map(x => {
+                        return {
+                            id: x.id,
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
+                },
+                initValueFunc: async () => {
+                    if (this.rootStore.routerStore.routerState.queryParams && this.rootStore.routerStore.routerState.queryParams.donorId) {
+                        const id = this.rootStore.routerStore.routerState.queryParams.donorId;
+                        const params = {
+                            embed: [
+                                'donorAddresses'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName',
+                                'securityPin',
+                                'donorAddresses',
+                            ]
+                        }
+                        const data = await this.rootStore.application.administration.donorStore.getDonor(id, params);
+                        return { id: data.id, name: donorFormatter.format(data, { type: 'donor-name', value: 'dropdown' }) };
+                    }
+                    else {
+                        return null;
+                    }
+                },
+                onChange: (donorId) => {
+                    this.queryUtility.filter.donorId = donorId;
+                }
+            });
+    }
 
 	createChecksOnHoldTableStore() {
 		this.checksOnHoldTableStore = new TableViewStore(null, {

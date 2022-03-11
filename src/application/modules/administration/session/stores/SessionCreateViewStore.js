@@ -22,6 +22,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable isCharitySelected = false;
     @observable cardNumber = null;
     @observable isCharityAccount = false;
+    @observable charityName = 'N/A';
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -56,13 +57,18 @@ class SessionViewStore extends BaseEditViewStore {
         if(this.rootStore.userStore.applicationUser.roles.includes('Charities')){
             this.currentStep = 2;
             this.isCharityAccount = true;
+            this.charityName = this.rootStore.userStore.applicationUser.charity.name;
+            this.form.$('charityId').value = this.rootStore.userStore.applicationUser.charityId;
         }
         this.createCharityDropdownStore();
         this.blankCertificateModal = new ModalParams({});
         this.givingCardModal = new ModalParams({});
         this.service = service;
     }
-
+    @action.bound
+    goToCharityDashboard() {
+        this.rootStore.routerStore.goTo('master.app.main.charity.dashboard');
+    }
     @action.bound
     async cancelCertificate(barcode) {
         // this.modalStore.showConfirm(
@@ -91,7 +97,12 @@ class SessionViewStore extends BaseEditViewStore {
         // );
         await this.service.inActivateSession({ key: this.form.$('key').value });
         await this.service.removeSessionFromCache({ key: this.form.$('key').value });
-        this.rootStore.routerStore.goTo('master.app.main.administration.session.tab');
+        if(this.rootStore.userStore.applicationUser.roles.includes('Charities')) {
+            this.rootStore.routerStore.goTo('master.app.main.charity.remote-deposit.list');
+        } else {
+            this.rootStore.routerStore.goTo('master.app.main.administration.session.tab');
+        }
+        
         this.rootStore.notificationStore.success(`Successfully removed from cache`);
     }
 
@@ -156,7 +167,16 @@ class SessionViewStore extends BaseEditViewStore {
 
     @action.bound
     async onNextStep2Click() {
-        if (!this.isChangedDefaultAddress) {
+        if(this.isCharityAccount) {
+            const params = {
+                embed: ['contactInformation', 'charityAddresses']
+            }
+            const charityId = this.rootStore.userStore.applicationUser.charityId;
+            const data = await this.rootStore.application.charity.charityStore.getCharity(charityId, params);
+            const primaryAddress = data && data.charityAddresses && data.charityAddresses.find(c => c.isPrimary);
+            this.setAddress(primaryAddress);
+            this.charity = {label: charityFormatter.format(data, {value: 'charity-name-display'}), value: charityId};
+        } else if (!this.isChangedDefaultAddress) {
             const address = this.charity.item;
             this.setAddress(address);
         }

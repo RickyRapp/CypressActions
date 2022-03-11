@@ -2392,6 +2392,7 @@
                 "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
                 "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "DONOR_NAME_PLACEHOLDER": "Donor name",
                 "DOLLAR_RANGE_PLACEHOLDER": "Amount e.g. $100 or $100-$500",
                 "FUNDRAISER_NAME_PLACEHOLDER": "Fundraiser name",
                 "PHONE_NUMBER_PLACEHOLDER": "Phone number",
