@@ -363,7 +363,7 @@ class PastGrantViewStore extends BaseListViewStore {
 				}
 				return item.grantPurposeType.name;
 			} else if (item.donationType.abrv === 'charity-website') {
-				return item.thirdPartyWebsite.url;
+				return item.thirdPartyWebsite ? item.thirdPartyWebsite.url : '';
 			}
 			else if (item.donationType.abrv === "giving-card"){
 				return item.givingCardType.name;
