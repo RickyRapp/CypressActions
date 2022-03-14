@@ -18,7 +18,6 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
         form,
         id,
         validateIPaddress,
-        //charityDropdownStore,
         debouncedSearchCharities,
         setCharityId,
     } = charityWebsiteCreateViewStore;
@@ -60,14 +59,20 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
                                 field={ form.$('websiteType') }
                             />
                         </div>
+                        <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
+                            <BasicRadio
+                                label={ 'Fundraising platforms' }
+                                value={ 'FundraisingPlatforms' }
+                                field={ form.$('websiteType') }
+                            />
+                        </div>
                     </div>
-                    <div className="u-mar--bottom--sml col col-lrg-12">
-                        {/* <BaasicFieldDropdown
-                            field={form.$('charityId')}
-                            store={charityDropdownStore}
-                        /> */}
-						<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
-                    </div>
+                    {form.$('websiteType').value !== 'FundraisingPlatforms' &&
+                        <div className="u-mar--bottom--sml col col-lrg-12">
+                            <AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
+                        </div>
+                    }
+                    
                 </div>
             </EditFormContent>
             <PageFooter>
