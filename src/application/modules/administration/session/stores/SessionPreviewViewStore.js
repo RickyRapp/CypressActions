@@ -105,7 +105,8 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                                 //             <img alt="" src={URL.createObjectURL(res.data)}  />
                                 //         </div>}
                                 //     </React.Fragment>);
-                                const url="http://api.thedonorsfund.local/thedonorsfund/charity-file-streams/"+item.certificate.coreMediaVaultEntryId;
+                                //TODO: dynamic routing
+                                const url="http://api.thedonorsfund.dev.local/thedonorsfund/charity-file-streams/"+item.certificate.coreMediaVaultEntryId;
                                 console.log(url);
                                 return <b><a href={url}>&#x21E9; Blank Certificate</a></b>
                                 

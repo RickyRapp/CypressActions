@@ -2,6 +2,7 @@ import { BasePreviewViewStore, TableViewStore } from 'core/stores';
 import { remoteDepositService } from "application/charity/remote-deposit/services";
 import { applicationContext } from 'core/utils';
 import _ from 'lodash';
+import React from 'react';
 
 @applicationContext
 class remoteDepositPreviewViewStore extends BasePreviewViewStore {
@@ -75,6 +76,25 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
                     title: 'SESSION.EDIT.LIST.COLUMNS.AMOUNT_AFTER_FEE_LABEL',
                     format: {
                         type: 'currency'
+                    }
+                },
+                {
+                    key: 'certificate.coreMediaVaultEntryId',
+                    title: 'Media',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            console.log(item);
+                            try{
+                                const url="http://api.thedonorsfund.dev.local/thedonorsfund/charity-file-streams/"+item.certificate.coreMediaVaultEntryId;
+                                console.log(url);
+                                return <b><a href={url}>&#x21E9; Blank Certificate</a></b>
+                                
+                            }catch(e) {
+                                console.log('ex')
+                            }
+                            return ' ';
+                        }
                     }
                 }
             ],
