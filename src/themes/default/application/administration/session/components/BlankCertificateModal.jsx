@@ -9,7 +9,8 @@ import {
 const RemoveSessionCertificateModal = function ({ modalParams, t }) {
     const {
         certificate,
-        onClick
+        onClick, 
+        isCharityAccount
     } = modalParams.data;
 
     return (
@@ -33,6 +34,7 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                         required={true}>
                     </NumericInput>
                 </div>
+                {isCharityAccount && <p>You are required to upload the images for the blank checks or alternatively you can remove them and submit them by mail</p> }
                 <div className="form__group col col-lrg-12 u-mar--top--med">
                     <BaasicButton
                         className="btn btn--base btn--primary"

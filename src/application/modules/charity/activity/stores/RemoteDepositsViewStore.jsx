@@ -224,7 +224,10 @@ class RemoteDepositsViewStore extends BaseListViewStore {
 							value: 'short'
 						}
 					}
-				]
+				],
+				actions: {
+					onPreview: item => this.routes.preview(item.id),
+				},
 			})
 		);
 	}
