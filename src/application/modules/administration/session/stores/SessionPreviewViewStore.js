@@ -1,10 +1,15 @@
-import { BasePreviewViewStore, TableViewStore } from 'core/stores';
+import service from 'core/services/validatorService';
+import { BaasicUploadStore, BasePreviewViewStore, TableViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
+import { SessionService } from 'application/administration/session/services';
 import _ from 'lodash';
+import React from 'react';
 
 @applicationContext
 class SessionPreviewViewStore extends BasePreviewViewStore {
     constructor(rootStore) {
+        const sessionService = new SessionService(rootStore.application.baasic.apiClient);
+
         super(rootStore, {
             name: 'session',
             autoInit: true,
@@ -38,11 +43,12 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                 }
             }
         });
-
+        this.sessionService = sessionService;
+        this.createImageUploadStore();
         this.createTableStore();
     }
 
-    createTableStore() {
+    async createTableStore() {
         this.tableStore = new TableViewStore(null, {
             columns: [
                 {
@@ -74,11 +80,55 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                     format: {
                         type: 'currency'
                     }
+                },
+                {
+                    key: 'certificate.coreMediaVaultEntryId',
+                    title: 'Media',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            let response=null;
+                            try{
+                                // this.sessionService.getBlank(item.certificate.coreMediaVaultEntryId)
+                                // .then((res) => console.log(res))
+                                // .then((r) => {
+                                //     console.log(r); 
+                                //     return <React.Fragment>
+                                // {item.coreMediaVaultEntryId && 
+                                //     <div className="imageheight_sml">
+                                //         <img alt="" src="http://api.thedonorsfund.local/thedonorsfund/charity-file-streams"  />
+                                //     </div>}
+                                // </React.Fragment>});
+                                // <React.Fragment>
+                                //     {item.coreMediaVaultEntryId && 
+                                //         <div className="imageheight_sml">
+                                //             <img alt="" src={URL.createObjectURL(res.data)}  />
+                                //         </div>}
+                                //     </React.Fragment>);
+                                const url="http://api.thedonorsfund.local/thedonorsfund/charity-file-streams/"+item.certificate.coreMediaVaultEntryId;
+                                console.log(url);
+                                return <b><a href={url}>&#x21E9; Blank Certificate</a></b>
+                                
+                            }catch(e) {
+                                console.log(e)
+                            }
+                            return '-';
+                        }
+                    }
                 }
             ],
             actions: {},
             actionsRender: {}
         });
+    }
+    createImageUploadStore() {
+        this.imageUploadStore = new BaasicUploadStore(null, {
+            onDelete: () => { // eslint-disable-line
+                //async call to delete if needed
+                this.form.$('coreMediaVaultEntryId').clear();
+            }
+        });
+
     }
 }
 

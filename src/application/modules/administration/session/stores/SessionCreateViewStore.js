@@ -1,9 +1,9 @@
 import { action, computed, observable } from 'mobx';
-import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
+import { BaasicDropdownStore, BaasicUploadStore, BaseEditViewStore } from 'core/stores';
 import { SessionCreateForm } from 'application/administration/session/forms';
 import { SessionService } from 'application/administration/session/services';
 import { GrantService } from 'application/common/grant/services';
-import { charityFormatter } from 'core/utils';
+import { charityFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 
 class SessionViewStore extends BaseEditViewStore {
@@ -23,6 +23,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable cardNumber = null;
     @observable isCharityAccount = false;
     @observable charityName = 'N/A';
+    @observable blankScans = [];
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -61,6 +62,7 @@ class SessionViewStore extends BaseEditViewStore {
             this.form.$('charityId').value = this.rootStore.userStore.applicationUser.charityId;
         }
         this.createCharityDropdownStore();
+        this.createImageUploadStore();
         this.blankCertificateModal = new ModalParams({});
         this.givingCardModal = new ModalParams({});
         this.service = service;
@@ -214,6 +216,19 @@ class SessionViewStore extends BaseEditViewStore {
         }
     }
 
+    createImageUploadStore() {
+        this.imageUploadStore = new BaasicUploadStore(null, {
+            onDelete: () => { // eslint-disable-line
+                //async call to delete if needed
+            },
+            onChange: value => {
+			},
+			onRemoveFromBuffer: () => {
+			},
+        });
+
+    }
+
     @action.bound
     async onBarcodeChange(event) {
         this.barcode = event.target.value;
@@ -230,6 +245,7 @@ class SessionViewStore extends BaseEditViewStore {
                     this.blankCertificateModal.open({
                         certificate: data.certificate,
                         isCharityAccount: this.isCharityAccount,
+                        imageUploadStore: this.imageUploadStore,
                         onClick: (certificate) => {
                             certificate.isBlank = true;
                             this.setBlankCertificate(certificate);
@@ -254,7 +270,8 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     async setBlankCertificate(certificate) {
         try {
-            const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue });
+            const mediaEntry = await this.service.uploadBlankCertificate(this.imageUploadStore.files[0], certificate.certificateId);
+            const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue, coreMediaVaultEntryId: mediaEntry.data.id });
             data.response.isBlank = true;
             // let existingCertificateInSession = this.sessionCertificates.find(c => c.barcode == certificate.barcode);
             let existingCertificateInSession = this.sessionCertificates.map(c => c.barcode).indexOf(certificate.barcode);

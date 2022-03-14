@@ -86,6 +86,15 @@ class remoteDepositService extends BaseService {
         const url = this.routeService.reviewToken(resource);
         return this.apiClient.put(url, resource);
     }
+
+    uploadBlankCertificate(file, certificateId) {
+        let formData = new FormData();
+        formData.append('file', file.getRawFile(), file.name);
+        console.log(formData);
+        const url = this.routeService.uploadBlankCertificate(certificateId, file.name);
+        console.log(url);
+        return this.apiClient.post(url, formData);
+    }
 }
 
 export default remoteDepositService;
