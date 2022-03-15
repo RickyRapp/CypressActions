@@ -2996,6 +2996,7 @@
                 "CARDNUMBER": "Card Number",
                 "DESCRIPTION": "Description",
                 "REQUEST_TYPE": "Request Type",
+                "FUNDRAISING_PLATFORM" : "Fundraising  platforms",
                 "PROCESS_REQUEST": "Process request",
                 "STARTFUTUREDATE": "Start future date",
                 "PURPOSE_NOTE": "Purpose Note",

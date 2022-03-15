@@ -17,7 +17,8 @@ function APITestingTemplate({ apiTestingViewStore}) {
         url,
         grantScheduleTypeDropdownStore,
         grantPurposeTypeDropdownStore,
-        processRequestDropdownStore
+        processRequestDropdownStore,
+        fundraisingPlatformDropdownStore
     } = apiTestingViewStore;
 
     return (
@@ -36,17 +37,26 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         store={requestTypeDropdownStore}
                                     />
                                 </div>
-                                {form.$('requestType').value == 1 ?
+                                { form.$('requestType').value == 1 || form.$('requestType').value == 3 ?
                                 <React.Fragment>
+                                    {form.$('requestType').value == 3 ? 
+                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                        <BaasicFieldDropdown
+                                            field={form.$('fundraisingPlatform')}
+                                            store={fundraisingPlatformDropdownStore}
+                                        />
+                                     </div>
+                                    :''}
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <BasicInput field={form.$('taxId')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <BasicInput field={form.$('accountNumber')} />
                                     </div>
+                                    { form.$('requestType').value == 1 ?
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <BasicInput field={form.$('apiKey')} />
-                                    </div>
+                                    </div> : '' }
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
@@ -160,7 +170,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         <div className="u-separator--primary u-mar--bottom--sml"></div>
                                         <strong>Body:</strong>
                                         <p>{"{"}</p>
-                                        {form.$('requestType').value == 1 ?
+                                        {form.$('requestType').value == 1 || form.$('requestType').value == 3 ?
                                         <React.Fragment>
                                             <p>"accountNumber": "{form.$('accountNumber').value}",</p>
                                             <p>"amount": {form.$('amount').value},</p>

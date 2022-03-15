@@ -16,6 +16,12 @@ export default class APITestingForm extends FormBase {
                     rules: 'string',
                 },
                 {
+                    name: 'fundraisingPlatform',
+                    label: 'TEST.API_TESTING.FIELDS.FUNDRAISING_PLATFORM',
+                    placeholder: 'TEST.API_TESTING.FIELDS.FUNDRAISING_PLATFORM',
+                    rules: 'string',
+                },
+                {
                     name: 'processRequest',
                     label: 'TEST.API_TESTING.FIELDS.PROCESS_REQUEST',
                     placeholder: 'TEST.API_TESTING.FIELDS.PROCESS_REQUEST',

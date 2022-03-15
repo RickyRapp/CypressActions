@@ -22,6 +22,7 @@ class APITestingViewStore extends BaseEditViewStore {
         this.createProcessRequestDropdownStore();
         this.createGrantScheduleTypeDropdownStore();
         this.createGrantPurposeTypeDropdownStore();
+        this.createFundraisingPlatformDropdownStore();
         this.validationToken = '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5';
         this.baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
         this.url = this.baseUrl + 'third-party/create-grant';
@@ -51,11 +52,13 @@ class APITestingViewStore extends BaseEditViewStore {
 				return [
 					{ id: '1', name: 'Third party request' },
 					{ id: '2', name: 'Terminal machine API' },
+                    { id: '3', name: 'Fundraising platforms' },
 				];
 			},
             onChange: async () => {
-                this.validationToken =  this.form.$('requestType').value == 1 ? '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5': '27a1c6fd-9287-4ce1-8c0f-cec958e3d3c5';
-                this.url  =  this.form.$('requestType').value == 1 ? this.baseUrl + 'third-party/create-grant' : this.baseUrl + 'grant/create';
+                this.validationToken =  this.form.$('requestType').value == 1 ? '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5'
+                    : (this.form.$('requestType').value == 2 ? '27a1c6fd-9287-4ce1-8c0f-cec958e3d3c5' : '');
+                this.url  =  (this.form.$('requestType').value == 1 ||  this.form.$('requestType').value == 3) ? this.baseUrl + 'third-party/create-grant' : this.baseUrl + 'grant/create';
             }
 		});
 
@@ -65,6 +68,7 @@ class APITestingViewStore extends BaseEditViewStore {
         })
         this.response = null;
         this.form.$('requestType').set('1');
+
 	}
 
     createProcessRequestDropdownStore() {
@@ -88,6 +92,27 @@ class APITestingViewStore extends BaseEditViewStore {
         this.response = null;
         this.form.$('processRequest').set('1');
 	}
+
+    async createFundraisingPlatformDropdownStore() {
+        let params = {};
+        params.type = 'FundraisingPlatforms';
+        var data = await this.rootStore.application.administration.charityWebsiteStore.findCharityWebsite(params);
+
+		this.fundraisingPlatformDropdownStore = new BaasicDropdownStore(null, {
+			fetchFunc: async () => {
+				return data.item.map( x => {
+                    return {
+                        id : x.validationToken,
+                        name : x.name,
+                        item : x
+                    }
+                });
+			},
+            onChange: async () => {
+                this.validationToken =  this.fundraisingPlatformDropdownStore.value.item.validationToken;
+            }
+		});
+    }
 
 
     @action.bound
