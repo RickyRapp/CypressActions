@@ -108,7 +108,7 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                                 this.baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
 
                                 const url = this.baseUrl + "charity-file-streams/"+ item.certificate.coreMediaVaultEntryId;
-                                return <b><a href={url} target="_blank">&#x21E9; Blank Certificate</a></b>
+                                return item.certificate.coreMediaVaultEntryId == '00000000-0000-0000-0000-000000000000' ? null : <b><a href={url} target="_blank">&#x21E9; Blank Certificate</a></b>
                                 
                             }catch(e) {
                                 console.log(e)
