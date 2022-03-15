@@ -98,6 +98,7 @@ class APITestingViewStore extends BaseEditViewStore {
                 {
                     requestData = {
                         accountNumber: this.form.$('accountNumber').value,
+                        taxId: this.form.$('taxId').value,
                         amount: this.form.$('amount').value ? this.form.$('amount').value : 0,
                         startFutureDate: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == 'Invalid date' ? null : moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
                         noEndDate: this.form.$('noEndDate').value,
@@ -112,6 +113,7 @@ class APITestingViewStore extends BaseEditViewStore {
                 } else {
                     requestData = {
                         accountNumber: this.form.$('accountNumber').value,
+                        taxId: this.form.$('taxId').value,
                         amount: this.form.$('amount').value ? this.form.$('amount').value : 0,
                         startFutureDate: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == 'Invalid date' ? null : moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
                         noEndDate: this.form.$('noEndDate').value,
@@ -127,6 +129,7 @@ class APITestingViewStore extends BaseEditViewStore {
             } else if (this.form.$('requestType').value == 2){
                 requestData = {
                     accountNumber: this.form.$('accountNumber').value,
+                    taxId: this.form.$('taxId').value,
                     amount: this.form.$('amount').value,
                     cardNumber: this.form.$('cardNumber').value,
                     description: this.form.$('description').value
@@ -135,6 +138,7 @@ class APITestingViewStore extends BaseEditViewStore {
                 if(this.grantPurposeTypeDropdownStore.value && (this.grantPurposeTypeDropdownStore.value.abrv == 'in-honor-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'in-memory-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'solicited-by' || this.grantPurposeTypeDropdownStore.value.abrv == 'other')) {
                 requestData = {
                     accountNumber: this.form.$('accountNumber').value,
+                    taxId: this.form.$('taxId').value,
                     amount: this.form.$('amount').value ? this.form.$('amount').value : 0,
                     noEndDate: this.form.$('noEndDate').value,
                     donor: this.form.$('donor').value,
@@ -146,6 +150,7 @@ class APITestingViewStore extends BaseEditViewStore {
             } else {
                 requestData = {
                     accountNumber: this.form.$('accountNumber').value,
+                    taxId: this.form.$('taxId').value,
                     amount: this.form.$('amount').value ? this.form.$('amount').value : 0,
                     noEndDate: this.form.$('noEndDate').value,
                     donor: this.form.$('donor').value,

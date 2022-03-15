@@ -39,6 +39,9 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                 {form.$('requestType').value == 1 ?
                                 <React.Fragment>
                                     <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BasicInput field={form.$('taxId')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-12">
                                         <BasicInput field={form.$('accountNumber')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
@@ -90,6 +93,9 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         store={processRequestDropdownStore}
                                     />
                                      </div>
+                                     <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BasicInput field={form.$('taxId')} />
+                                    </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <BasicInput field={form.$('accountNumber')} />
                                     </div>

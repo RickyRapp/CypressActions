@@ -2987,6 +2987,7 @@
             "FIELDS": {
                 "ACCOUNT_NUMBER": "Account number",
                 "API_KEY" : "Charity API key",
+                "TAX_ID" : "Tax Id",
                 "GRANT_SCHEDULE_TYPE": "Grant Schedule Type",
                 "START_FUTURE_DATE": "Start Future Date",
                 "DONOR": "Donor",

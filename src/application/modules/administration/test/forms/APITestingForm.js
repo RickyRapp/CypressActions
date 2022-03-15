@@ -28,6 +28,12 @@ export default class APITestingForm extends FormBase {
                     rules: 'numeric|min:0'
                 },
                 {
+                    name: 'taxId',
+                    label: 'TEST.API_TESTING.FIELDS.TAX_ID',
+                    placeholder: 'TEST.API_TESTING.FIELDS.TAX_ID',
+                    rules: 'string'
+                },
+                {
                     name: 'apiKey',
                     label: 'TEST.API_TESTING.FIELDS.API_KEY',
                     placeholder: 'TEST.API_TESTING.FIELDS.API_KEY',
