@@ -28,7 +28,7 @@ const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) 
                 </div>
                 <div className="form__group col col-lrg-12">
                     <NumericInput
-                        value={sessionCertificate.blankCertificateValue}
+                        value={certificate.certificateValue ? certificate.certificateValue : 0}
                         onChange={(event) => sessionCertificate.blankCertificateValue = event.target.value}
                         label='SESSION.EDIT.CERTIFICATE_VALUE_LABEL'
                         placeholder='SESSION.EDIT.CERTIFICATE_VALUE_PLACEHOLDER'
