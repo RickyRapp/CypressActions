@@ -76,7 +76,7 @@ function RemoteDepositPreviewTemplate({ remoteDepositPreviewViewStore, t }) {
                             field='amount'
                             format={{ type: 'currency' }}
                         />
-                        <b>&nbsp;{item && (item.amount - item.estimatedAmount > 0 ? '(↑)' : (item.amount - item.estimatedAmount == 0 ? '(=)' : '(↓)'))}</b>
+                        <b>&nbsp;{item && item.estimatedAmount && (item.amount - item.estimatedAmount > 0 ? '(↑)' : (item.amount - item.estimatedAmount == 0 ? '(=)' : '(↓)'))}</b>
                         </span>
                     </div>
                 </div>

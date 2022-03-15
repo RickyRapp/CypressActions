@@ -86,9 +86,11 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
                         value: (item) => {
                             console.log(item);
                             try{
-                                const url="http://api.thedonorsfund.dev.local/thedonorsfund/charity-file-streams/"+item.certificate.coreMediaVaultEntryId;
-                                console.log(url);
-                                return <b><a href={url}>&#x21E9; Blank Certificate</a></b>
+                                this.baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
+
+                                const url = this.baseUrl + "charity-file-streams/"+ item.certificate.coreMediaVaultEntryId;
+                                
+                                return <b><a href={url} target="_blank">&#x21E9; Blank Certificate</a></b>
                                 
                             }catch(e) {
                                 console.log('ex')

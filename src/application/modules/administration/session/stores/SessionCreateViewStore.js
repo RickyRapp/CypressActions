@@ -112,6 +112,7 @@ class SessionViewStore extends BaseEditViewStore {
     async editCheck(item) {
         this.blankCertificateModal.open({
             certificate: item,
+            imageUploadStore: this.imageUploadStore,
             isCharityAccount: this.isCharityAccount,
             onClick: (certificate) => {
                 this.setBlankCertificate(certificate);
