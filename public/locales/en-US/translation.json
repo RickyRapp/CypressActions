@@ -2359,7 +2359,8 @@
         "TAB": {
             "LIST": "Sessions",
             "IN_PROGRESS": "In progress",
-            "PENDING_CERTIFICATE": "Pending certificates"
+            "PENDING_CERTIFICATE": "Pending certificates",
+            "ADMIN_REVIEW": "Admin review"
         },
         "PREVIEW": {
             "TITLE": "Details",
