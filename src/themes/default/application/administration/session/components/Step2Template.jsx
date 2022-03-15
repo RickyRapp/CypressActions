@@ -61,13 +61,13 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, isCharitySe
 							<BasicInput field={form.$('description')} />
 						</div>
 
-						
+						{isCharityAccount &&
 						<div className="form__group col col-sml-12 u-mar--bottom--sml">
 							<NumericInputField field={form.$('checkCount')} />
-						</div>
-						<div className="form__group col col-sml-12 u-mar--bottom--lrg">
+						</div>}
+						{isCharityAccount && <div className="form__group col col-sml-12 u-mar--bottom--lrg">
 							<NumericInputField field={form.$('estimatedAmount')} />
-						</div>
+						</div>}
 						
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							<p className="type--med type--wgt--regular type--color--opaque u-mar--bottom--med">

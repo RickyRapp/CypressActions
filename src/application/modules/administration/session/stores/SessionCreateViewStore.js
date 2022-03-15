@@ -112,6 +112,7 @@ class SessionViewStore extends BaseEditViewStore {
     async editCheck(item) {
         this.blankCertificateModal.open({
             certificate: item,
+            isCharityAccount: this.isCharityAccount,
             imageUploadStore: this.imageUploadStore,
             isCharityAccount: this.isCharityAccount,
             onClick: (certificate) => {
@@ -271,8 +272,11 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     async setBlankCertificate(certificate) {
         try {
-            const mediaEntry = await this.service.uploadBlankCertificate(this.imageUploadStore.files[0], certificate.certificateId);
-            const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue, coreMediaVaultEntryId: mediaEntry.data.id });
+            let mediaEntry = null;
+            if(this.imageUploadStore.files.length > this.imageUploadStore.originalFiles.length) {
+                mediaEntry = await this.service.uploadBlankCertificate(this.imageUploadStore.files[0], certificate.certificateId);
+            }
+            const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue, coreMediaVaultEntryId: mediaEntry ? mediaEntry.data.id : null });
             data.response.isBlank = true;
             // let existingCertificateInSession = this.sessionCertificates.find(c => c.barcode == certificate.barcode);
             let existingCertificateInSession = this.sessionCertificates.map(c => c.barcode).indexOf(certificate.barcode);
