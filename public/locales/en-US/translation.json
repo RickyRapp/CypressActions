@@ -1198,7 +1198,7 @@
                 "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
                 "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
                 "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number",
-                "CHARITY_TAX_ID" : "Tax id: ",
+                "CHARITY_TAX_ID" : "Tax Id: ",
                 "CHARITY_ACCOUNT_NUMBER": "Account Number: ",
                 "CHARITY_API_KEY" : "Api Key: ",
                 "CHARITY_QR_CODE" : "QR Code: "

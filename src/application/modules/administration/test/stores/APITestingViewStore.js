@@ -118,7 +118,7 @@ class APITestingViewStore extends BaseEditViewStore {
     @action.bound
 	sendRequest = async () => { 
             var requestData = null;
-            if (this.form.$('requestType').value == 1 && this.grantScheduleTypeDropdownStore.value){
+            if ((this.form.$('requestType').value == 1 || this.form.$('requestType').value == 3 ) && this.grantScheduleTypeDropdownStore.value){
                 if(this.grantPurposeTypeDropdownStore.value && (this.grantPurposeTypeDropdownStore.value.abrv == 'in-honor-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'in-memory-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'solicited-by' || this.grantPurposeTypeDropdownStore.value.abrv == 'other'))
                 {
                     requestData = {
