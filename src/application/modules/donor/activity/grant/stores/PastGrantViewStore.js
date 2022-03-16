@@ -363,16 +363,17 @@ class PastGrantViewStore extends BaseListViewStore {
 				}
 				return item.grantPurposeType.name;
 			} else if (item.donationType.abrv === 'charity-website') {
-				return item.thirdPartyWebsite ? item.thirdPartyWebsite.url : '';
+				if(item.thirdPartyWebsite){
+					return item.thirdPartyWebsite.url;
+				}else{
+					return item.charity.url;
+				}
 			}
 			else if (item.donationType.abrv === "giving-card"){
 				return item.givingCardType.name;
 			}
 			else if (item.donationType.abrv === "session") {
 				return item.session.fullName;
-			}
-			else if (item.donationType.abrv === "fundraiser") {
-				return item.thirdPartyWebsite.url;
 			}
 			else {
 				return `Grant: ${item.charity.name}`;
