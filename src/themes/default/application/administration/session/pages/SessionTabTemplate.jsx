@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
-import { SessionList, SessionPendingCertificateList } from 'application/administration/session/pages';
+import { SessionList, SessionPendingCertificateList, AdminReviewList } from 'application/administration/session/pages';
 
 function SessionTabTemplate({ sessionTabViewStore }) {
     const {
@@ -23,7 +23,7 @@ function SessionTabTemplate({ sessionTabViewStore }) {
                         <SessionPendingCertificateList />
                     </div>
                     <div label={'SESSION.TAB.ADMIN_REVIEW'} className="u-mar--top--sml">
-                        <SessionPendingCertificateList />
+                        <AdminReviewList />
                     </div>
                 </TabLayout>
             </div>
