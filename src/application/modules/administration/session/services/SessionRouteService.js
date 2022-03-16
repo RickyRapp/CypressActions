@@ -8,7 +8,7 @@ class SessionRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,confirmationNumber,donationStatusIds,paymentTypeIds,paymentNumber,bookletCertificateCode,dollarRange,phoneNumber,sessionEmail,usernameCreatedSession,fundraiserName,dateCreatedFrom,dateCreatedTo,name,charityId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,confirmationNumber,donationStatusIds,paymentTypeIds,paymentNumber,bookletCertificateCode,dollarRange,phoneNumber,sessionEmail,usernameCreatedSession,fundraiserName,dateCreatedFrom,dateCreatedTo,name,charityId,donorId,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {

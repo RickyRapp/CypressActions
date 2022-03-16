@@ -2,7 +2,7 @@ import React from 'react';
 import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionListFilter } from 'application/administration/session/models';
-import { applicationContext } from 'core/utils';
+import { applicationContext, donorFormatter } from 'core/utils';
 import { FormatterResolver } from 'core/components';
 import { charityFormatter } from 'core/utils';
 import ReactTooltip from 'react-tooltip';
@@ -37,16 +37,16 @@ class SessionViewStore extends BaseListViewStore {
                     this.paymentTypeDropdownStore.setValue(null);
                     this.donationStatusDropdownStore.setValue(null);
                     this.searchCharityDropdownStore.setValue(null);
+                    this.searchDonorDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
                 }
             },
             actions: () => {
                 return {
                     find: async (params) => {
-                        if(params.dateCreatedFrom)
-                            params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
-                        if(params.dateCreatedTo)
-                            params.dateCreatedTo = `${params.dateCreatedTo} 23:59:59`;
+                        if(params && params.phoneNumber) {
+							params.phoneNumber = (params.phoneNumber.match(/\d/g)).join('');
+						}
                         params.embed = [
                             'charity',
                             'grants',
@@ -65,6 +65,66 @@ class SessionViewStore extends BaseListViewStore {
         this.createPaymentTypeDropdownStore();
         this.createDonationStatusDropdownStore();
         this.createDateCreatedDateRangeQueryStore();
+        this.createDonorSearchDropdownStore();
+    }
+
+    createDonorSearchDropdownStore() {
+        this.searchDonorDropdownStore = new BaasicDropdownStore({
+            placeholder: 'BOOKLET_ORDER.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: true,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const data = await this.rootStore.application.administration.donorStore.searchDonor({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'firstName|asc',
+                        embed: [
+                            'donorAddresses'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName',
+                            'securityPin',
+                            'donorAddresses',
+                        ]
+                    });
+                    return data.item.map(x => {
+                        return {
+                            id: x.id,
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
+                },
+                initValueFunc: async () => {
+                    if (this.rootStore.routerStore.routerState.queryParams && this.rootStore.routerStore.routerState.queryParams.donorId) {
+                        const id = this.rootStore.routerStore.routerState.queryParams.donorId;
+                        const params = {
+                            embed: [
+                                'donorAddresses'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName',
+                                'securityPin',
+                                'donorAddresses',
+                            ]
+                        }
+                        const data = await this.rootStore.application.administration.donorStore.getDonor(id, params);
+                        return { id: data.id, name: donorFormatter.format(data, { type: 'donor-name', value: 'dropdown' }) };
+                    }
+                    else {
+                        return null;
+                    }
+                },
+                onChange: (donorId) => {
+                    this.queryUtility.filter.donorId = donorId;
+                }
+            });
     }
 
     createTableStore() {
