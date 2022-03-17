@@ -71,7 +71,7 @@ class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
             });
     }
 
-    createGrantAcknowledgmentTypeDropdownStore() {
+    createGrantAcknowledgmentTypeDropdownStore() { 
         this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
