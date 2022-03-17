@@ -29,34 +29,36 @@ class CharityPlaid extends Component {
 
   handleOnSuccess = async (public_token) => {
     // send token to client server
-    var data = {
-      client_id: ApplicationSettings.plaidClientId,
-      secret: ApplicationSettings.plaidSecret,
-      public_token: public_token
-    }
-    var response = await axios.post(ApplicationSettings.plaidPath + "/item/public_token/exchange", data);
-    if (response.data["access_token"] == null || response.data["access_token"] == undefined) {
-      //ToDo - access_token = null/undefined
-      this.notificationStore.error('Access token error');
-    } else {
-      //to do set accessToken into sessionStorage then move onto UI calls in other components.
-      sessionStorage.setItem("plaidAccessToken", response.data["access_token"]);
-
-      var userInfo = localStorageProvider.get("baasic-user-info-thedonorsfund");
-      var resource = {
-        verifiedByPlaid: true,
-        accessToken: response.data["access_token"]
-      }
-      var updateResponse = await this.charityStore.updateWithPlaidCharity({ id: userInfo.id, ...resource });
-      if (updateResponse.statusCode == 200) {
-        this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid = resource.verifiedByPlaid;
-        this.notificationStore.rootStore.userStore.applicationUser.charity.accessToken = resource.accessToken;
-        this.notificationStore.success('Charity is updated successfully - Bank Account is verified!');
-        this.forceUpdate();
-      } else if (updateResponse.error != null) {
-        this.notificationStore.error('Charity is not updated successfully');
-      }
-    }
+    var r = await this.plaidService.exchangeToken(public_token);
+    console.log("exchange: ", r);
+    /*    var data = {
+          client_id: ApplicationSettings.plaidClientId,
+          secret: ApplicationSettings.plaidSecret,
+          public_token: public_token
+        }
+        var response = await axios.post(ApplicationSettings.plaidPath + "/item/public_token/exchange", data);
+        if (response.data["access_token"] == null || response.data["access_token"] == undefined) {
+          //ToDo - access_token = null/undefined
+          this.notificationStore.error('Access token error');
+        } else {
+          //to do set accessToken into sessionStorage then move onto UI calls in other components.
+          sessionStorage.setItem("plaidAccessToken", response.data["access_token"]);
+    
+          var userInfo = localStorageProvider.get("baasic-user-info-thedonorsfund");
+          var resource = {
+            verifiedByPlaid: true,
+            accessToken: response.data["access_token"]
+          }
+          var updateResponse = await this.charityStore.updateWithPlaidCharity({ id: userInfo.id, ...resource });
+          if (updateResponse.statusCode == 200) {
+            this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid = resource.verifiedByPlaid;
+            this.notificationStore.rootStore.userStore.applicationUser.charity.accessToken = resource.accessToken;
+            this.notificationStore.success('Charity is updated successfully - Bank Account is verified!');
+            this.forceUpdate();
+          } else if (updateResponse.error != null) {
+            this.notificationStore.error('Charity is not updated successfully');
+          }
+        }*/
   }
 
   handleOnExit = async () => {
