@@ -34,6 +34,10 @@ class AdminReviewViewStore extends BaseListViewStore {
                     }
                 },
                 {
+                    key: 'checkNumber',
+                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CHECK_NUMBER_LABEL'
+                },
+                {
                     key: 'donorName',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DONOR_LABEL',
                 },

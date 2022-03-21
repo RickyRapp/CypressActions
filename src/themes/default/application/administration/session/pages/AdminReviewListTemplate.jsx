@@ -5,7 +5,8 @@ import {
     BaasicButton,
     BaasicModal,
     BaasicTable,
-    EmptyState
+    EmptyState,
+    TableFilter
 } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { Content } from 'core/layouts';
@@ -16,13 +17,15 @@ const AdminReviewListTemplate = function ({ adminReviewViewStore }) {
         tableStore,
         routes,
         authorization,
-        adminReviewModal
+        adminReviewModal,
+        queryUtility
     } = adminReviewViewStore;
 
     return (
         <React.Fragment>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--primary card--med">
+					<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility} />
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}

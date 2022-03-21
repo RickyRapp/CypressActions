@@ -2351,7 +2351,8 @@
                 "DENOMINATION_LABEL": "Denomination",
                 "AMOUNT_LABEL": "Amount",
                 "DONOR_LABEL": "Donor",
-                "CONFIRMATION_LABEL": "Confirmation Number"
+                "CONFIRMATION_LABEL": "Confirmation Number",
+                "CHECK_NUMBER_LABEL": "Check Number"
             }
         }
     },
