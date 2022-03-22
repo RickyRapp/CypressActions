@@ -33,10 +33,10 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                             ]
                         }
                         const data = await rootStore.application.administration.sessionStore.getSession(id, params);
-                        const discarded = data;
-                        const pending = data;
                         data.grants = data.grants.filter(c => (c.certificate.openCertificateAmount && c.certificate.isBlankApprovedByAdmin) || !c.certificate.openCertificateAmount)
+                        const discarded = await rootStore.application.administration.sessionStore.getSession(id, params);
                         discarded.grants = discarded.grants.filter(c => (c.certificate.openCertificateAmount && c.certificate.isBlankApprovedByAdmin == false))
+                        const pending = await rootStore.application.administration.sessionStore.getSession(id, params);
                         pending.grants = pending.grants.filter(c => (c.certificate.openCertificateAmount && c.certificate.isBlankApprovedByAdmin == null))
                         this.session = data;
                         this.tableStore.setData(_.orderBy(this.session.grants, g => g.certificate.denominationType.value, "asc"));
