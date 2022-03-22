@@ -131,7 +131,7 @@ class CharityWebsiteCreateViewStore extends BaseEditViewStore {
 	};
 
     @action.bound
-    validateIPaddress(value) { console.log(value);
+    validateIPaddress(value) {
         const ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
         if (value.match(ipformat)) {
             this.form.$('ip').resetValidation()

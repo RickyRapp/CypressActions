@@ -47,8 +47,8 @@ const CharityWebsiteCreateTemplate = function ({ t, charityWebsiteCreateViewStor
                     <div className="u-mar--bottom--sml col col-lrg-12">
                         <div className="form__group col col-sml-6 col-lrg-6 u-mar--bottom--sml">
                             <BasicRadio
-                                label={ 'Third pary API' }  
-                                value={ 'ThirdParyAPI' }
+                                label={ 'Third party API' }  
+                                value={ 'ThirdPartyAPI' }
                                 field={ form.$('websiteType') }
                             />
                         </div>

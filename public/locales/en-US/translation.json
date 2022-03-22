@@ -2835,7 +2835,7 @@
         },
         "TAB":{
             "LIST":{
-                "THIRD_PARTY_API" : "Third pary API",
+                "THIRD_PARTY_API" : "Third party API",
                 "PROCESSING_COMPANY" : "Processing company",
                 "FUNDRAISING_PLATFORMS" : "Fundraising platforms"
             }

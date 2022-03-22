@@ -213,7 +213,7 @@ class GrantViewStore extends BaseListViewStore {
                     title: 'GRANT.LIST.COLUMNS.GRANT_TYPE_NAME_LABEL',
                     format: {
                         type: 'function',
-                        value: (item) => { console.log(item);
+                        value: (item) => {
                             if(item.donationType.abrv === 'giving-card'){
                                 return `${item.donationType.name} - ${item.givingCardType.name}`;
                             }else{

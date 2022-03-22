@@ -23,7 +23,7 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        console.log(params);
+                        //console.log(params);
                         params.embed = [
                             'charity',
                             'certificate',

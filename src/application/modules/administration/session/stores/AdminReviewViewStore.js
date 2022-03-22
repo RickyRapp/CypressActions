@@ -65,7 +65,7 @@ class AdminReviewViewStore extends BaseListViewStore {
         this.baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
         const url = this.baseUrl + "charity-file-streams/"+ item.coreMediaVaultEntryId;
 
-        console.log(url);
+        //console.log(url);
 
         this.adminReviewModal.open({
             imgSrc: url,
