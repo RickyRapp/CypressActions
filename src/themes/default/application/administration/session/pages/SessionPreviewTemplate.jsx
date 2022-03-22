@@ -10,7 +10,9 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
     const {
         item,
         tableStore,
-        loaderStore
+        loaderStore,
+        discardedTableStore,
+        pendingTableStore
     } = sessionPreviewViewStore;
 
     return (
@@ -83,9 +85,17 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
             </div>
 
             <div className="card--primary card--med u-mar--bottom--med">
-                <h3 className="u-mar--bottom--med">Certificates</h3>
+                <h3 className="u-mar--bottom--med">Approved Certificates</h3>
                 <SimpleBaasicTable
                     tableStore={tableStore}
+                />
+                <h3 className="u-mar--bottom--med u-mar--top--med">Disapproved Certificates</h3>
+                <SimpleBaasicTable
+                    tableStore={discardedTableStore}
+                />
+                <h3 className="u-mar--bottom--med u-mar--top--med">Pending Certificates</h3>
+                <SimpleBaasicTable
+                    tableStore={pendingTableStore}
                 />
                 <div className="row u-mar--top--lrg">
                     <div className="form__group col col-lrg-12">

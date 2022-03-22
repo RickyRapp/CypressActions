@@ -52,7 +52,7 @@ const SessionPendingCertificateListTemplate = function ({ sessionPendingCertific
 									className="input input--lrg"
 									value={queryUtility.filter.bookletCertificateCode}
 									onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
-									format="#####-##"
+									format="######-##"
 									mask=""
 								/>
 							</div>

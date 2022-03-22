@@ -1,6 +1,6 @@
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { FilterParams } from 'core/models';
-import { donorFormatter } from 'core/utils';
+import { charityFormatter, donorFormatter } from 'core/utils';
 import { SessionListFilter } from '../models';
 
 class SessionPendingCertificateViewStore extends BaseListViewStore {
@@ -175,7 +175,7 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                         ],
                         fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
                     });
-                    return data.item.map(x => { return { id: x.id, name: x.name } });
+                    return data.item.map(x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }) } });
                 },
                 onChange: (charityId) => {
                     this.queryUtility.filter.charityId = charityId;
