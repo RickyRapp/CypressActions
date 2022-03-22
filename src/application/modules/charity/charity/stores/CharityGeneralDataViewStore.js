@@ -20,11 +20,12 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                         }
                         const data = await rootStore.application.charity.charityStore.getCharity(id, params);
                         const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
+                        const charityAccNumber = data.charityAccountNumber ? data.charityAccountNumber.accountNumber : '';
                         this.apiKey = charityApiKey;
                         return {
                             name: data.name,
                             taxId: data.taxId,
-                            charityAccountNumber : data.charityAccountNumber.accountNumber,
+                            charityAccountNumber : charityAccNumber,
                             charityStatusId: data.charityStatusId,
                             charityTypeId: data.charityTypeId,
                             contactInformationName: data.contactInformation.name,
