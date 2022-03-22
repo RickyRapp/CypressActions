@@ -107,14 +107,27 @@ class DonorGivingCardSettingEditViewStore extends BaseEditViewStore {
             });
     }
 
-    createGrantAcknowledgmentTypeDropdownStore() {
+    async createGrantAcknowledgmentTypeDropdownStore() {
         this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
                     return this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
                 },
             });
+        
+        this.LoadDefaultLookups();
     }
+
+    async LoadDefaultLookups(){
+		this.grantAcknowledgmentTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
+        const defaultGrantAcknowledgmentTypeId = this.grantAcknowledgmentTypes.find(
+			c => c.abrv === 'name-and-address'
+		).id;
+		this.grantAcknowledgmentTypeDropdownStore.setValue(defaultGrantAcknowledgmentTypeId);
+		this.form.$('grantAcknowledgmentTypeId').set(defaultGrantAcknowledgmentTypeId);
+    }
+
+    
 }
 
 export default DonorGivingCardSettingEditViewStore;
