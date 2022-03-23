@@ -2536,7 +2536,10 @@
                     "AMOUNT_AFTER_FEE_LABEL": "Amount after fee",
                     "DENOMINATION_LABEL": "Denomination",
                     "DONOR_LABEL": "Donor",
-                    "VALUE_LABEL": "Value"
+                    "VALUE_LABEL": "Value",
+                    "NEEDS_APPROVAL_LABEL": "Needs admin review",
+                    "APPROVED_BY_ADMIN_LABEL": "Approved by admin",
+                    "STATUS_LABEL": "Donation Status"
                 }
             },
             "FIELDS": {
