@@ -3,9 +3,12 @@ import { remoteDepositService } from "application/charity/remote-deposit/service
 import { applicationContext } from 'core/utils';
 import _ from 'lodash';
 import React from 'react';
+import { observable } from 'mobx';
 
 @applicationContext
 class remoteDepositPreviewViewStore extends BasePreviewViewStore {
+    @observable donationStatuses;
+
     constructor(rootStore) {
         super(rootStore, {
             name: 'remote-deposit',
@@ -15,6 +18,8 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
             actions: () => {
                 return {
                     get: async (id) => {
+                        this.donationStatuses = await rootStore.application.lookup.donationStatusStore.find();
+
                         let params = {
                             embed: [
                                 'charity',
@@ -69,6 +74,21 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
                     title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL',
                     format: {
                         type: 'currency'
+                    }
+                },
+                {
+                    key: 'certificate.isBlankApprovedByAdmin',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.APPROVED_BY_ADMIN_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            if(item.certificate.isBlankApprovedByAdmin) {
+                                return <React.Fragment><i className="u-icon u-icon--approve u-icon--base"></i></React.Fragment>;
+                            } else if(item.certificate.isBlankApprovedByAdmin == false) {
+                                return <React.Fragment><i className="u-icon u-icon--decline u-icon--base"></i></React.Fragment>;
+                            } 
+                            return '';
+                        }
                     }
                 },
                 {
