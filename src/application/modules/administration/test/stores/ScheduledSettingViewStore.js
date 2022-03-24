@@ -92,6 +92,12 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 name: 'Process auto-replenish amount increment',
                 description: `Doubles the autoreplenish amount in case there are checks on hold for the donor`,
                 abrv: 'autoreplenish-increase'
+            },
+            {
+                name: 'Process auto-replenish with setting amount and checks on hold amount',
+                description: `Creates a new auto-replenish contribution as a sum of the automatic contribution setting amount 
+                and the total checks on hold amount for the donor`,
+                abrv: 'autoreplenish-with-checks-on-hold'
             }
         ];
 
