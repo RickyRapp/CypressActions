@@ -120,7 +120,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
             this.setDefaultShippingAddress();
         }
-        console.log(this.rootStore);
         this.blankDenomination = (await this.rootStore.application.lookup.denominationTypeStore.find()).find(x => x.abrv == 'blank');
     }
 

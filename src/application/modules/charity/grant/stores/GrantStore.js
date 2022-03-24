@@ -19,7 +19,6 @@ class GrantStore {
     }
 
     async getDonorFromCard(resource) {
-        console.log(resource);
         const response = await this.grantService.getDonorFromCard(resource);
         return response.data;
     }

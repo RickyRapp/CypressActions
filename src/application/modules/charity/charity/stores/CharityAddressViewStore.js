@@ -64,7 +64,7 @@ class CharityAddressViewStore extends BaseViewStore {
 
     @action.bound
     async updateAddressAsync(entity) {
-        try { console.log(this.editId);
+        try { 
             await this.rootStore.application.charity.charityStore.updateCharityAddress({ ...entity, id: this.editId });
             this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             await this.loadAddress();

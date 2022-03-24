@@ -91,6 +91,11 @@ class CharityStore {
         return response.data;
     }
 
+    async updateWithPlaidCharity(resource) {
+        const response = await this.charityService.updateWithPlaid(resource);
+        return response.data;
+    }
+
     async updateBankAccount(resource) {
         const response = await this.bankAccountService.update(resource);
         return response.data;

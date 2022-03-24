@@ -11,7 +11,10 @@ class ActivityService extends BaseService {
         const url = this.routeService.findCharityTransactions(filter);
         return this.apiClient.get(url);
     }
-
+    findPendingCheck(filter) {
+        const url = this.routeService.findPendingCheck(filter);
+        return this.apiClient.get(url);
+    }
 }
 
 export default ActivityService;

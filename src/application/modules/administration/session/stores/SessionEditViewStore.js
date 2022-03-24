@@ -4,6 +4,7 @@ import { applicationContext, charityFormatter } from 'core/utils';
 import { SessionEditForm } from 'application/administration/session/forms';
 import { ModalParams } from 'core/models';
 import _ from 'lodash';
+import React from 'react';
 
 @applicationContext
 class SessionEditViewStore extends BaseEditViewStore {
@@ -11,6 +12,7 @@ class SessionEditViewStore extends BaseEditViewStore {
     @observable makeRefund = false;
     @observable makeRefundFee = false;
     @observable maxAmountError = false;
+    @observable donationStatuses;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -63,6 +65,8 @@ class SessionEditViewStore extends BaseEditViewStore {
 
     @action.bound
     async onInit({ initialLoad }) {
+        this.donationStatuses = await this.rootStore.application.lookup.donationStatusStore.find();
+
         if (!initialLoad) {
             this.rootStore.routerStore.goBack();
         }
@@ -149,6 +153,45 @@ class SessionEditViewStore extends BaseEditViewStore {
                     title: 'SESSION.EDIT.LIST.COLUMNS.VALUE_LABEL',
                     format: {
                         type: 'currency'
+                    }
+                },
+                {
+                    key: 'certificate.isBlankApprovedByAdmin',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.APPROVED_BY_ADMIN_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            if(item.certificate.isBlankApprovedByAdmin) {
+                                return <React.Fragment><i className="u-icon u-icon--approve u-icon--base"></i></React.Fragment>;
+                            }
+                            return '';
+                        }
+                    }
+                },
+                {
+                    key: 'certificate.needsAdminReview',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.NEEDS_APPROVAL_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            if(item.certificate.needsAdminReview) {
+                                return <React.Fragment><i className="u-icon u-icon--approve u-icon--base"></i></React.Fragment>;
+                            }
+                            return '';
+                        }
+                    }
+                },
+                {
+                    key: 'donationStatusId',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.STATUS_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            console.log(this.donationStatuses);
+                            if(this.donationStatuses) 
+                                return this.donationStatuses.find(c => c.id == item.donationStatusId).name;
+                            return '';
+                        }
                     }
                 },
                 {

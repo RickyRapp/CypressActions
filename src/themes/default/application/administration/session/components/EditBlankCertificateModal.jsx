@@ -12,7 +12,9 @@ const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) 
     const {
         sessionCertificate,
         onSubmit,
-        sendApproveEmail
+        sendApproveEmail,
+        imageUploadStore,
+        isCharityAccount
     } = modalParams.data;
 
     return (
@@ -27,7 +29,7 @@ const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) 
                 </div>
                 <div className="form__group col col-lrg-12">
                     <NumericInput
-                        value={sessionCertificate.blankCertificateValue}
+                        value={certificate.certificateValue ? certificate.certificateValue : 0}
                         onChange={(event) => sessionCertificate.blankCertificateValue = event.target.value}
                         label='SESSION.EDIT.CERTIFICATE_VALUE_LABEL'
                         placeholder='SESSION.EDIT.CERTIFICATE_VALUE_PLACEHOLDER'
@@ -69,6 +71,11 @@ const EditBlankCertificateModal = function ({ modalParams, t, maxAmountError }) 
                             }
                         </div>
                     </div>}
+                    {isCharityAccount && <p className="form__group col col-lrg-12">You are required to upload the images for the blank checks or alternatively you can remove them and submit them by mail</p> }
+                    {isCharityAccount &&<div className="form__Group col col-lrg-6">
+                {/* disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)}  */}
+                    <BaasicDropzone store={imageUploadStore} />
+                </div>}
                 <div className="form__group col col-lrg-12 u-mar--top--med">
                     <BaasicButton
                         className="btn btn--base btn--primary"

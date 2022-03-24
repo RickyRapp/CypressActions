@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
     NumericInput,
-    BaasicButton
+    BaasicButton,
+    BaasicDropzone
 } from 'core/components'
 
 const RemoveSessionCertificateModal = function ({ modalParams, t }) {
     const {
         certificate,
-        onClick
+        onClick, 
+        isCharityAccount,
+        imageUploadStore
     } = modalParams.data;
 
     return (
@@ -25,7 +28,7 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                 </div>
                 <div className="form__group col col-lrg-12">
                     <NumericInput
-                        value={certificate.denominationTypeValue}
+                        value={certificate.certificateValue ? certificate.certificateValue : 0}
                         onChange={(event) => certificate.certificateValue = event.target.value}
                         label='SESSION.CREATE.STEP3.CERTIFICATE_VALUE_LABEL'
                         placeholder='SESSION.CREATE.STEP3.CERTIFICATE_VALUE_PLACEHOLDER'
@@ -33,6 +36,12 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                         required={true}>
                     </NumericInput>
                 </div>
+                
+                {isCharityAccount && <p className="form__group col col-lrg-12">You are required to upload the images for the blank checks or alternatively you can remove them and submit them by mail</p> }
+                {isCharityAccount && <div className="form__Group col col-lrg-6">
+                {/* disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)}  */}
+                    <BaasicDropzone store={imageUploadStore} />
+                </div>}
                 <div className="form__group col col-lrg-12 u-mar--top--med">
                     <BaasicButton
                         className="btn btn--base btn--primary"

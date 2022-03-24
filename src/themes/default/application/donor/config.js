@@ -49,9 +49,9 @@ import { moduleProviderFactory } from 'core/providers';
             // {
             //   title: 'MENU.INVESTMENTS',
             //     icon: 'investment',
-            //   order: 5,
+           //    order: 5,
             //    route: 'master.app.main.donor.investment.donor',
-            //     role: ['Users']
+            //    role: ['Users']
             // },
             {
                 title: 'MENU.MANAGE_FUND',

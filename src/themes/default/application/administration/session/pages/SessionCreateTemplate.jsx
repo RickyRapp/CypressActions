@@ -32,11 +32,18 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
         insufficientAmount,
         isCharitySelected,
         givingCardModal,
-        createGivingCardGrant
+        createGivingCardGrant, 
+        isCharityAccount,
+        charityName,
+        goToCharityDashboard
     } = sessionCreateViewStore;
 
     return (
         <React.Fragment>
+            {
+                isCharityAccount && 
+                    <a onClick={goToCharityDashboard}>&nbsp;&lt; Back to dashboard</a>
+            }
             <div className="container u-mar--bottom--sml">
                 <StepCounter
                     steps={steps}
@@ -51,6 +58,7 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             onNextStepClick={onNextStep1Click}
                             givingCardModal={givingCardModal}
                             createGivingCardGrant={createGivingCardGrant}
+                            isCharityAccount={isCharityAccount}
                         />
                     </div>}
 
@@ -66,6 +74,8 @@ const SessionCreateTemplate = function ({ sessionCreateViewStore }) {
                             filterCharities={filterCharities}
                             setCharityId={setCharityId}
                             isCharitySelected={isCharitySelected}
+                            isCharityAccount={isCharityAccount}
+                            charityName={charityName}
                         />
                     </div>}
 

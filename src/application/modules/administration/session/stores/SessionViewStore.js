@@ -2,7 +2,7 @@ import React from 'react';
 import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { SessionListFilter } from 'application/administration/session/models';
-import { applicationContext } from 'core/utils';
+import { applicationContext, donorFormatter } from 'core/utils';
 import { FormatterResolver } from 'core/components';
 import { charityFormatter } from 'core/utils';
 import ReactTooltip from 'react-tooltip';
@@ -37,16 +37,16 @@ class SessionViewStore extends BaseListViewStore {
                     this.paymentTypeDropdownStore.setValue(null);
                     this.donationStatusDropdownStore.setValue(null);
                     this.searchCharityDropdownStore.setValue(null);
+                    this.searchDonorDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
                 }
             },
             actions: () => {
                 return {
                     find: async (params) => {
-                        if(params.dateCreatedFrom)
-                            params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
-                        if(params.dateCreatedTo)
-                            params.dateCreatedTo = `${params.dateCreatedTo} 23:59:59`;
+                        if(params && params.phoneNumber) {
+							params.phoneNumber = (params.phoneNumber.match(/\d/g)).join('');
+						}
                         params.embed = [
                             'charity',
                             'grants',
@@ -65,6 +65,66 @@ class SessionViewStore extends BaseListViewStore {
         this.createPaymentTypeDropdownStore();
         this.createDonationStatusDropdownStore();
         this.createDateCreatedDateRangeQueryStore();
+        this.createDonorSearchDropdownStore();
+    }
+
+    createDonorSearchDropdownStore() {
+        this.searchDonorDropdownStore = new BaasicDropdownStore({
+            placeholder: 'BOOKLET_ORDER.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
+            initFetch: true,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const data = await this.rootStore.application.administration.donorStore.searchDonor({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'firstName|asc',
+                        embed: [
+                            'donorAddresses'
+                        ],
+                        fields: [
+                            'id',
+                            'accountNumber',
+                            'donorName',
+                            'securityPin',
+                            'donorAddresses',
+                        ]
+                    });
+                    return data.item.map(x => {
+                        return {
+                            id: x.id,
+                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
+                        }
+                    });
+                },
+                initValueFunc: async () => {
+                    if (this.rootStore.routerStore.routerState.queryParams && this.rootStore.routerStore.routerState.queryParams.donorId) {
+                        const id = this.rootStore.routerStore.routerState.queryParams.donorId;
+                        const params = {
+                            embed: [
+                                'donorAddresses'
+                            ],
+                            fields: [
+                                'id',
+                                'accountNumber',
+                                'donorName',
+                                'securityPin',
+                                'donorAddresses',
+                            ]
+                        }
+                        const data = await this.rootStore.application.administration.donorStore.getDonor(id, params);
+                        return { id: data.id, name: donorFormatter.format(data, { type: 'donor-name', value: 'dropdown' }) };
+                    }
+                    else {
+                        return null;
+                    }
+                },
+                onChange: (donorId) => {
+                    this.queryUtility.filter.donorId = donorId;
+                }
+            });
     }
 
     createTableStore() {
@@ -107,7 +167,28 @@ class SessionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return item.grants && item.grants.length > 0 && item.grants[0].donationStatus.name
+                            if(item.grants && item.grants.length > 0) {
+                                const isPending = (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0;
+                                const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0;
+                                const isCanceled = (item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length;
+                                const isPaymentSubmited = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
+                                const isPaymentReceived = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
+                            
+                                if(isPending) {
+                                    return 'Pending';
+                                } else if (isApproved) {
+                                    return 'Approved';
+                                } else if (isCanceled) {
+                                    return 'Canceled';
+                                } else if (isPaymentSubmited) {
+                                    return 'Payment Submitted';
+                                } else if (isPaymentReceived) {
+                                    return 'Payment Received';
+                                } else {
+                                    return 'Pending';
+                                }
+                            }
+                            return '';
                         }
                     }
                 },
@@ -126,8 +207,14 @@ class SessionViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
             actionsRender: {
-                onEditRender: (session) => {
-                    return session.grants && session.grants.length > 0 && (session.grants[0].donationStatus.abrv === 'pending' || session.grants[0].donationStatus.abrv === 'approved')
+                onEditRender: (item) => {
+                    if(item.grants && item.grants.length > 0) {
+                        const isPending = (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0;
+                        const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0;
+                                
+                        return isPending || isApproved;
+                    }
+                    return false;
                 }
             }
         }));

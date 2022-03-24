@@ -4,10 +4,11 @@ class SessionRouteService extends BaseRouteService {
     constructor() {
         super('session');
         this.sessionScanBase = 'session-scan';
+        this.fileStreamBase = 'charity-file-streams';
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,confirmationNumber,donationStatusIds,paymentTypeIds,paymentNumber,bookletCertificateCode,dollarRange,phoneNumber,sessionEmail,usernameCreatedSession,fundraiserName,dateCreatedFrom,dateCreatedTo,name,charityId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,confirmationNumber,donationStatusIds,paymentTypeIds,paymentNumber,bookletCertificateCode,dollarRange,phoneNumber,sessionEmail,usernameCreatedSession,fundraiserName,dateCreatedFrom,dateCreatedTo,name,charityId,donorId,page,rpp,sort,embed,fields}', filter);
     }
 
     get(id, options) {
@@ -80,6 +81,13 @@ class SessionRouteService extends BaseRouteService {
 
     removeSessionFromCache(resource) {
         return super.update(this.base + '/remove-existing-session/{key}', resource);
+    }
+
+    uploadBlankCertificate(certificateId, filename) {
+        return super.create(this.fileStreamBase + '/certificate/{certificateId}/{filename}/', { certificateId: certificateId, filename: filename });
+    }
+    getBlank(id, options) {
+        return super.get(this.fileStreamBase + '/{id}/{?embed,fields}', id, options);
     }
 }
 

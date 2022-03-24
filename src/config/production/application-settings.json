@@ -4,5 +4,10 @@
     "apiVersion": "1.0.1",
     "appVersion": "",
     "useSSL": true,
-    "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v"
+    "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v",
+    "plaidClientId": "6014307bf66e29000fb5c2bf",
+    "plaidSecret": "22f92089d8035e292aaad09ee04f86",
+    "plaidEnv": "production",
+    "plaidClientName": "The Donors' Fund Production",
+    "plaidPath": "https://production.plaid.com"
 }

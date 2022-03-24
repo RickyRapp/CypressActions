@@ -29,7 +29,7 @@ class CharityWebsiteViewStore extends BaseListViewStore {
                 }
             }
         });
-
+        
         this.createTableStore();
         this.createModal = new ModalParams({});
     }
@@ -45,7 +45,7 @@ class CharityWebsiteViewStore extends BaseListViewStore {
         });
     }
 
-    createTableStore() {
+    createTableStore() { 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {

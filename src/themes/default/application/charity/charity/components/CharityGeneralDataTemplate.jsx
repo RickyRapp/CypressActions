@@ -34,7 +34,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         openWithdrawFundModalClick,
         isEditEnabled,
         onEnableEditClick,
-        downloadQrCode
+        downloadQrCode,
+        copyToClipboard
     } = charityGeneralDataViewStore;
 
     return (
@@ -57,27 +58,58 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                             label="CHARITY.EDIT.BUTTON.WITHDRAW_FUNDS"
                                             onClick={openWithdrawFundModalClick}
                                         />}
-                                    <div className="row row--form">
-                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-2 u-mar--bottom--sml">
-                                            <div className="">
-                                                <label className="form__group__label u-mar--right--tny">Tax ID:</label>
-                                                {item &&
-                                                    <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
-                                                <br />
-                                                <label className="form__group__label">Api Key: </label>
-                                                {item && item.apiKey}&nbsp;
-                                                {item && item.apiKey && <BaasicButton
-                                                    className="btn btn--icon"
-                                                    onlyIconClassName="u-mar--right--tny"
-                                                    icon="u-icon u-icon--clipboard u-icon--base"
-                                                    label="Copy to clipboard"
-                                                    onlyIcon={true}
-                                                    onClick={() => navigator.clipboard.writeText(item.apiKey)}
-                                                ></BaasicButton>}
+                                    <div className="row row--form u-mar--bottom--med">
+                                        <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+                                            <div>
+                                                <div className="u-mar--bottom--sml">
+                                                    <label className="form__group__label u-mar--right--tny">{t('CHARITY.EDIT.FIELDS.CHARITY_ACCOUNT_NUMBER')}</label>
+                                                    <p>
+                                                        {item &&
+                                                            <NumberFormat displayType="text" value={item.charityAccountNumber} />}
+                                                    </p>
+                                                </div>
+
+                                                <div className="u-mar--bottom--sml">
+                                                    <label className="form__group__label u-mar--right--tny">{t('CHARITY.EDIT.FIELDS.CHARITY_TAX_ID')}</label>
+                                                    <p>
+                                                        {item &&
+                                                            <NumberFormat format="##-#######" displayType="text" value={item.taxId} />}
+                                                    </p>
+                                                </div>
+
+                                                <div className="u-mar--bottom--sml">
+                                                    <label className="form__group__label">
+                                                        {t('CHARITY.EDIT.FIELDS.CHARITY_API_KEY')}
+                                                        {item && item.apiKey && <BaasicButton
+                                                            className="btn btn--icon"
+                                                            onlyIconClassName="u-mar--left--tny"
+                                                            icon="u-icon u-icon--clipboard u-icon--base"
+                                                            label="Copy to clipboard"
+                                                            onlyIcon={true}
+                                                            onClick={copyToClipboard}
+                                                            ></BaasicButton>} </label>
+                                                    <p className="type--break--word">
+                                                        {item && item.apiKey}
+                                                    </p>
+
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-2 u-mar--bottom--sml">
-                                            <div className="u-display--flex">
+                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                            <label className="form__group__label ">
+                                                {t('CHARITY.EDIT.FIELDS.CHARITY_QR_CODE')}
+                                                <BaasicButton
+                                                type="button"
+                                                onlyIconClassName="u-mar--left--tny"
+                                                className="btn btn--icon"
+                                                onClick={downloadQrCode}
+                                                onlyIcon={true}
+                                                label="Download"
+                                                icon="u-icon u-icon--download u-icon--base"
+                                                />
+
+                                            </label>
+                                            <div className="u-mar--top--sml">
                                                 {item &&
                                                     <QRCode
                                                         id='charity-qr'
@@ -85,26 +117,20 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                                         size={70}
                                                         includeMargin={false}
                                                     />}
-                                                <BaasicButton
-                                                    type="button"
-                                                    className="btn btn--sml btn--sml btn--ghost u-mar--left--sml"
-                                                    onClick={downloadQrCode}
-                                                    label="Download"
-                                                />
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="row row--form">
-                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-3 u-mar--bottom--sml">
+                                    <div className="row row--form u-mar--bottom--med">
+                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                                             <BasicInput field={form.$('name')} disabled={true} />
                                         </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-3 u-mar--bottom--sml">
+                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                                             <BasicInput field={form.$('dba')} />
                                         </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-3 u-mar--bottom--sml">
+                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                                             <BaasicFieldDropdown field={form.$('charityTypeId')} store={charityTypeDropdownStore} />
                                         </div>
-                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-3 u-mar--bottom--sml">
+                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                                             <BaasicFieldDropdown field={form.$('charityStatusId')} store={charityStatusDropdownStore} />
                                         </div>
                                     </div>
@@ -145,14 +171,14 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                     </p>
                                 </div>
                                 <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Tax Id:</p>
+                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">{t('CHARITY.EDIT.FIELDS.CHARITY_ACCOUNT_NUMBER')}</p>
                                     <p className="type--base type--wgt--bold">
-                                        {item && item.taxId}
+                                        {item && item.charityAccountNumber}
                                     </p>
                                 </div>
                                 <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Api Key:</p>
-                                    <p className="type--base type--wgt--bold"> {item && item.apiKey}&nbsp; </p>
+                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">{t('CHARITY.EDIT.FIELDS.CHARITY_TAX_ID')}</p>
+                                    <p className="type--base type--wgt--bold"> {item && item.taxId}&nbsp; </p>
                                 </div>
                                 <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
                                     <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Contact Name:</p>

@@ -192,7 +192,7 @@ class PastGrantViewStore extends BaseListViewStore {
 						pageSize: 10,
 						search: searchQuery,
 						sort: 'name|asc',
-						embed: ['charityAddresses'],
+						embed: ['charityAddresses', 'thirdPartyWebsite'],
 						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
 					});
 					return data.item.map(x => {
@@ -363,7 +363,11 @@ class PastGrantViewStore extends BaseListViewStore {
 				}
 				return item.grantPurposeType.name;
 			} else if (item.donationType.abrv === 'charity-website') {
-				return item.thirdPartyWebsite.url;
+				if(item.thirdPartyWebsite){
+					return item.thirdPartyWebsite.url;
+				}else{
+					return item.charity.url;
+				}
 			}
 			else if (item.donationType.abrv === "giving-card"){
 				return item.givingCardType.name;

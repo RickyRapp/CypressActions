@@ -1014,7 +1014,8 @@
                     "CHARITY_LABEL": "Charity",
                     "DATE_CREATED_LABEL": "Date created",
                     "CODE_LABEL": "Code",
-                    "AMOUNT_LABEL": "Amount"
+                    "AMOUNT_LABEL": "Amount",
+                    "DONOR_LABEL": "Donor"
                 }
             }
         }
@@ -1196,7 +1197,11 @@
                 "ACCOUNT_HOLDER_EMAIL_LABEL": "Email",
                 "ACCOUNT_HOLDER_EMAIL_PLACEHOLDER": "Email",
                 "ACCOUNT_HOLDER_NUMBER_LABEL": "Number",
-                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number"
+                "ACCOUNT_HOLDER_NUMBER_PLACEHOLDER": "Number",
+                "CHARITY_TAX_ID" : "Tax Id: ",
+                "CHARITY_ACCOUNT_NUMBER": "Account Number: ",
+                "CHARITY_API_KEY" : "Api Key: ",
+                "CHARITY_QR_CODE" : "QR Code: "
             }
         },
         "WITHDRAW_FUND": {
@@ -2346,15 +2351,17 @@
                 "DENOMINATION_LABEL": "Denomination",
                 "AMOUNT_LABEL": "Amount",
                 "DONOR_LABEL": "Donor",
-                "CONFIRMATION_LABEL": "Confirmation Number"
+                "CONFIRMATION_LABEL": "Confirmation Number",
+                "CHECK_NUMBER_LABEL": "Check Number"
             }
         }
     },
     "SESSION": {
         "TAB": {
-            "LIST": "Sessions",
+            "LIST": "In overall",
             "IN_PROGRESS": "In progress",
-            "PENDING_CERTIFICATE": "Pending certificates"
+            "PENDING_CERTIFICATE": "Checks on hold",
+            "ADMIN_REVIEW": "Admin review"
         },
         "PREVIEW": {
             "TITLE": "Details",
@@ -2363,10 +2370,13 @@
                 "CHARITY_LABEL": "Charity",
                 "ORGANIZATION_NAME_LABEL": "Name / Email / Tax ID",
                 "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
+                "ORIGINAL_CONFIRMATION_NUMBER_LABEL": "Original confirmation number",
                 "DATE_CREATED_LABEL": "Date created",
                 "FULL_NAME_LABEL": "Full name",
                 "PHONE_NUMBER_LABEL": "Phone number",
-                "EMAIL_LABEL": "Email"
+                "EMAIL_LABEL": "Email",
+                "ESTIMATED_AMOUNT_LABEL": "Estimated Amount",
+                "CHECK_COUNT_LABEL": "Predicted Check Count"
             }
         },
         "LIST": {
@@ -2387,6 +2397,7 @@
                 "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
                 "PAYMENT_NUMBER_PLACEHOLDER": "Payment number",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "DONOR_NAME_PLACEHOLDER": "Donor name",
                 "DOLLAR_RANGE_PLACEHOLDER": "Amount e.g. $100 or $100-$500",
                 "FUNDRAISER_NAME_PLACEHOLDER": "Fundraiser name",
                 "PHONE_NUMBER_PLACEHOLDER": "Phone number",
@@ -2526,7 +2537,10 @@
                     "AMOUNT_AFTER_FEE_LABEL": "Amount after fee",
                     "DENOMINATION_LABEL": "Denomination",
                     "DONOR_LABEL": "Donor",
-                    "VALUE_LABEL": "Value"
+                    "VALUE_LABEL": "Value",
+                    "NEEDS_APPROVAL_LABEL": "Needs admin review",
+                    "APPROVED_BY_ADMIN_LABEL": "Approved by admin",
+                    "STATUS_LABEL": "Donation Status"
                 }
             },
             "FIELDS": {
@@ -2825,8 +2839,9 @@
         },
         "TAB":{
             "LIST":{
-                "THIRD_PARTY_API" : "Third pary API",
-                "PROCESSING_COMPANY" : "Processing company"
+                "THIRD_PARTY_API" : "Third party API",
+                "PROCESSING_COMPANY" : "Processing company",
+                "FUNDRAISING_PLATFORMS" : "Fundraising platforms"
             }
         }
     },
@@ -2977,7 +2992,9 @@
         },
         "API_TESTING": {
             "FIELDS": {
-                "TAXID": "Tax ID",
+                "ACCOUNT_NUMBER": "Account number",
+                "API_KEY" : "Charity API key",
+                "TAX_ID" : "Tax Id",
                 "GRANT_SCHEDULE_TYPE": "Grant Schedule Type",
                 "START_FUTURE_DATE": "Start Future Date",
                 "DONOR": "Donor",
@@ -2985,6 +3002,7 @@
                 "CARDNUMBER": "Card Number",
                 "DESCRIPTION": "Description",
                 "REQUEST_TYPE": "Request Type",
+                "FUNDRAISING_PLATFORM" : "Fundraising  platforms",
                 "PROCESS_REQUEST": "Process request",
                 "STARTFUTUREDATE": "Start future date",
                 "PURPOSE_NOTE": "Purpose Note",

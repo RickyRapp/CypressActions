@@ -14,12 +14,16 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                 return {
                     get: async (id) => {
                         const params = {
-                            embed: ['contactInformation']
+                            embed: ['contactInformation', 'charityApiKey', 'charityAccountNumber']
                         }
                         const data = await rootStore.application.administration.charityStore.getCharity(id, params);
+                        const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
+                        const charityAccNumber = data.charityAccountNumber ? data.charityAccountNumber.accountNumber : '';
+                        this.apiKey = charityApiKey;
                         return {
                             name: data.name,
                             taxId: data.taxId,
+                            charityAccountNumber : charityAccNumber,
                             charityStatusId: data.charityStatusId,
                             charityTypeId: data.charityTypeId,
                             contactInformationName: data.contactInformation && data.contactInformation.name,
@@ -31,7 +35,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                                 number: data.contactInformation && data.contactInformation.number
                             },
                             presentBalance: data.presentBalance,
-                            apiKey: data.apiKey
+                            apiKey: charityApiKey
                         }
                     },
                     update: async (resource) => {
@@ -54,6 +58,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
             onAfterAction: () => { this.getResource(this.id); }
         });
 
+        this.apiKey;
         this.createCharityTypeDropdownStore();
         this.createCharityStatusDropdownStore();
         this.createWithdrawFundModalParams();
@@ -69,6 +74,17 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                 this.createModal.close();
             }
         });
+    }
+
+    @action.bound
+    async regenerateApiKey(){
+        try {
+            await this.rootStore.application.administration.charityStore.regenerateCharityApiKey({id: this.id});
+            this.getResource(this.id);
+            this.rootStore.notificationStore.success('Successfully regenerated API key');
+        } catch (e) {
+            this.rootStore.notificationStore.error('API key was not regenerated');
+        }
     }
 
     createCharityStatusDropdownStore() {
@@ -91,6 +107,13 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
 
     createWithdrawFundModalParams() {
         this.withdrawFundModalParams = new ModalParams({});
+    }
+
+    @action.bound
+    async copyToClipboard(){
+        await navigator.clipboard.writeText(this.apiKey);
+        this.rootStore.notificationStore.success('API key copied to clipboard');
+        this.getResource(this.id);
     }
 }
 

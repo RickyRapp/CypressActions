@@ -29,6 +29,10 @@ class CharityRouteService extends BaseRouteService {
         return super.get(this.base + '/process-update-file/{id}', id);
     }
 
+    updateWithPlaid(resource) {
+        return super.update(this.base + '/plaid/{id}', resource);
+    }
+
     create() {
         return super.create(this.base);
     }

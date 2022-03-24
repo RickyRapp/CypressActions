@@ -17,12 +17,15 @@ class CharityWebsiteCreateViewStore extends BaseEditViewStore {
             autoInit: true,
             actions: () => {
                 return {
-                    update: async (resource) => {
-                        resource.ip = resource.ip.slice(0, 3) + '.' + resource.ip.slice(3);
-                        resource.ip = resource.ip.slice(0, 7) + '.' + resource.ip.slice(7);
-                        resource.ip = resource.ip.slice(0, 11) + '.' + resource.ip.slice(11);
+                    update: async (resource) => { 
+                        if(resource.ip){
+                            resource.ip = resource.ip.slice(0, 3) + '.' + resource.ip.slice(3);
+                            resource.ip = resource.ip.slice(0, 7) + '.' + resource.ip.slice(7);
+                            resource.ip = resource.ip.slice(0, 11) + '.' + resource.ip.slice(11);
 
-                        this.validateIPaddress(resource.ip);
+                            this.validateIPaddress(resource.ip);
+                        }
+
                         await this.validateCharitySetting(resource.charityId)
 
                         if (!this.form.isValid) {
@@ -31,11 +34,13 @@ class CharityWebsiteCreateViewStore extends BaseEditViewStore {
                         await rootStore.application.administration.charityWebsiteStore.updateCharityWebsite({ id: id, ...resource });
                     },
                     create: async (resource) => {
-                        resource.ip = resource.ip.slice(0, 3) + '.' + resource.ip.slice(3);
-                        resource.ip = resource.ip.slice(0, 7) + '.' + resource.ip.slice(7);
-                        resource.ip = resource.ip.slice(0, 11) + '.' + resource.ip.slice(11);
+                        if(resource.ip){
+                            resource.ip = resource.ip.slice(0, 3) + '.' + resource.ip.slice(3);
+                            resource.ip = resource.ip.slice(0, 7) + '.' + resource.ip.slice(7);
+                            resource.ip = resource.ip.slice(0, 11) + '.' + resource.ip.slice(11);
 
-                        this.validateIPaddress(resource.ip);
+                            this.validateIPaddress(resource.ip);
+                        }
                         //await this.validateCharitySetting(resource.charityId)
 
                         if (!this.form.isValid) {

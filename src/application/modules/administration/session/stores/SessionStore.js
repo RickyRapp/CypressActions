@@ -17,6 +17,16 @@ class SessionStore {
         return response.data;
     }
 
+    async findAdminReviewCertificate(params) {
+        const response = await this.sessionPendingCertificateService.getAdminReviewCertificates(params);
+        return response.data;
+    }
+
+    async updateAdminReviewCertificate(params) {
+        const response = await this.sessionPendingCertificateService.putAdminReviewCertificates(params);
+        return response.data;
+    }
+
     async getSession(id, params) {
         const response = await this.sessionService.get(id, params);
         return response.data;

@@ -14,13 +14,14 @@ function CharityWebsiteTabTemplate({ charitiyWebsiteTabViewStore }) {
             <div className='u-mar--bottom--med'>
                 <TabLayout store={charitiyWebsiteTabViewStore}>
                         <div label={'CHARITY_WEBSITE.TAB.LIST.THIRD_PARTY_API'} className="u-mar--top--sml layout--nested">
-                            <CharityWebsiteList websiteType={ "ThirdParyAPI" } />
+                            <CharityWebsiteList websiteType={ "ThirdPartyAPI" } />
                         </div>
-                    <div label={'CHARITY_WEBSITE.TAB.LIST.PROCESSING_COMPANY'} className="u-mar--top--sml layout--nested">
-                         <div>
+                        <div label={'CHARITY_WEBSITE.TAB.LIST.PROCESSING_COMPANY'} className="u-mar--top--sml layout--nested">
                             <CharityWebsiteList websiteType={ "ProcessingCompany" } />
-                         </div>
-                    </div>
+                        </div>
+                        <div label={'CHARITY_WEBSITE.TAB.LIST.FUNDRAISING_PLATFORMS'} className="u-mar--top--sml layout--nested">
+                            <CharityWebsiteList websiteType={ "FundraisingPlatforms" } />
+                        </div>
                 </TabLayout>
             </div>
         </Page>

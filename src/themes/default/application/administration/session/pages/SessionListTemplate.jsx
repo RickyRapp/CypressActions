@@ -23,6 +23,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 		paymentTypeDropdownStore,
 		donationStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
+		searchDonorDropdownStore,
 		debouncedSearchCharities,
         setCharityId,
     } = sessionViewStore;
@@ -78,7 +79,7 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 									className="input input--lrg"
 									value={queryUtility.filter.bookletCertificateCode}
 									onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
-									format="#####-##"
+									format="######-##"
 									mask=""
 								/>
 							</div>
@@ -99,11 +100,12 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                                 />
                             </div>
                             <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
+								<NumberFormatInput
                                     id="phoneNumber"
-                                    value={queryUtility.filter.phoneNumber || ''}
-                                    onChange={event => (queryUtility.filter.phoneNumber = event.target.value)}
+                                    value={queryUtility.filter.phoneNumber}
+                                    onChange={event => (queryUtility.filter.phoneNumber = event.formattedValue)}
                                     placeholder="SESSION.LIST.FILTER.PHONE_NUMBER_PLACEHOLDER"
+                                    format="(###)(###)-(####)"
                                 />
                             </div>
                             <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
@@ -114,14 +116,17 @@ const SessionListTemplate = function ({ sessionViewStore }) {
                                     placeholder="SESSION.LIST.FILTER.EMAIL_PLACEHOLDER"
                                 />
                             </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+                            {/* <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                                 <BaasicInput
                                     id="usernameCreatedSession"
                                     value={queryUtility.filter.usernameCreatedSession || ''}
                                     onChange={event => (queryUtility.filter.usernameCreatedSession = event.target.value)}
                                     placeholder="SESSION.LIST.FILTER.USERNAME_CREATED_SESSION_PLACEHOLDER"
                                 />
-                            </div>
+                            </div> */}
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown store={searchDonorDropdownStore} />
+							</div>
 							<div className="col col-sml-12 u-mar--bottom--sml">
 								<div className="row row--form">
 									<div className="col col-sml-12 col-lrg-8">

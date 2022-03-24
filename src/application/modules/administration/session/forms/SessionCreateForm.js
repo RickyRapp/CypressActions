@@ -98,6 +98,21 @@ export default class SessionCreateForm extends FormBase {
                     }
                 },
                 {
+                    name: 'checkCount',
+                    label: 'Check Count',
+                    placeholder: 'Check Count',
+                    rules: 'numeric|min:1',
+                },
+                {
+                    name: 'estimatedAmount',
+                    label: 'Estimated $ Amount',
+                    placeholder: 'Estimated $ Amount',
+                    rules: 'numeric|min:0',
+                    extra: {
+                        type: 'c2'
+                    }
+                },
+                {
                     name: 'note',
                     label: 'Note',
                     placeholder: 'Note',

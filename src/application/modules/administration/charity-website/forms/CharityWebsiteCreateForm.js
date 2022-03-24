@@ -23,7 +23,7 @@ export default class CharityWebsiteCreateForm extends FormBase {
                 {
                     name: 'ip',
                     label: 'CHARITY_WEBSITE.CREATE.FIELDS.IP_LABEL',
-                    rules: 'required|string',
+                    rules: 'string',
                     extra: {
                         format: '###.###.###.###',
                         mask: '_'

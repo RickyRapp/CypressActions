@@ -16,19 +16,23 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                 return {
                     get: async (id) => {
                         const params = {
-                            embed: ['contactInformation']
+                            embed: ['contactInformation', 'charityApiKey', 'charityAccountNumber']
                         }
                         const data = await rootStore.application.charity.charityStore.getCharity(id, params);
+                        const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
+                        const charityAccNumber = data.charityAccountNumber ? data.charityAccountNumber.accountNumber : '';
+                        this.apiKey = charityApiKey;
                         return {
                             name: data.name,
                             taxId: data.taxId,
+                            charityAccountNumber : charityAccNumber,
                             charityStatusId: data.charityStatusId,
                             charityTypeId: data.charityTypeId,
                             contactInformationName: data.contactInformation.name,
                             contactInformationEmail: data.contactInformation.email,
                             contactInformationNumber: data.contactInformation.number,
                             presentBalance: data.presentBalance,
-                            apiKey: data.apiKey,
+                            apiKey: charityApiKey,
                             dba: data.dba,
                             description : data.description
                         }
@@ -105,6 +109,13 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
+    }
+
+    @action.bound
+    async copyToClipboard(){
+        await navigator.clipboard.writeText(this.apiKey);
+        this.rootStore.notificationStore.success('API key copied to clipboard');
+        this.getResource(this.id);
     }
 
 }

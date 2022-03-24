@@ -1,9 +1,9 @@
 import { action, computed, observable } from 'mobx';
-import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
+import { BaasicDropdownStore, BaasicUploadStore, BaseEditViewStore } from 'core/stores';
 import { SessionCreateForm } from 'application/administration/session/forms';
 import { SessionService } from 'application/administration/session/services';
 import { GrantService } from 'application/common/grant/services';
-import { charityFormatter } from 'core/utils';
+import { charityFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 
 class SessionViewStore extends BaseEditViewStore {
@@ -21,6 +21,9 @@ class SessionViewStore extends BaseEditViewStore {
 	@observable filteredCharities = [];
     @observable isCharitySelected = false;
     @observable cardNumber = null;
+    @observable isCharityAccount = false;
+    @observable charityName = 'N/A';
+    @observable blankScans = [];
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -52,13 +55,22 @@ class SessionViewStore extends BaseEditViewStore {
                 this.nextStep(4);
             }
         });
-
+        if(this.rootStore.userStore.applicationUser.roles.includes('Charities')){
+            this.currentStep = 2;
+            this.isCharityAccount = true;
+            this.charityName = this.rootStore.userStore.applicationUser.charity.name;
+            this.form.$('charityId').value = this.rootStore.userStore.applicationUser.charityId;
+        }
         this.createCharityDropdownStore();
+        this.createImageUploadStore();
         this.blankCertificateModal = new ModalParams({});
         this.givingCardModal = new ModalParams({});
         this.service = service;
     }
-
+    @action.bound
+    goToCharityDashboard() {
+        this.rootStore.routerStore.goTo('master.app.main.charity.dashboard');
+    }
     @action.bound
     async cancelCertificate(barcode) {
         // this.modalStore.showConfirm(
@@ -87,7 +99,12 @@ class SessionViewStore extends BaseEditViewStore {
         // );
         await this.service.inActivateSession({ key: this.form.$('key').value });
         await this.service.removeSessionFromCache({ key: this.form.$('key').value });
-        this.rootStore.routerStore.goTo('master.app.main.administration.session.tab');
+        if(this.rootStore.userStore.applicationUser.roles.includes('Charities')) {
+            this.rootStore.routerStore.goTo('master.app.main.charity.remote-deposit.list');
+        } else {
+            this.rootStore.routerStore.goTo('master.app.main.administration.session.tab');
+        }
+        
         this.rootStore.notificationStore.success(`Successfully removed from cache`);
     }
 
@@ -95,6 +112,9 @@ class SessionViewStore extends BaseEditViewStore {
     async editCheck(item) {
         this.blankCertificateModal.open({
             certificate: item,
+            isCharityAccount: this.isCharityAccount,
+            imageUploadStore: this.imageUploadStore,
+            isCharityAccount: this.isCharityAccount,
             onClick: (certificate) => {
                 this.setBlankCertificate(certificate);
                 this.blankCertificateModal.close();
@@ -152,7 +172,16 @@ class SessionViewStore extends BaseEditViewStore {
 
     @action.bound
     async onNextStep2Click() {
-        if (!this.isChangedDefaultAddress) {
+        if(this.isCharityAccount) {
+            const params = {
+                embed: ['contactInformation', 'charityAddresses']
+            }
+            const charityId = this.rootStore.userStore.applicationUser.charityId;
+            const data = await this.rootStore.application.charity.charityStore.getCharity(charityId, params);
+            const primaryAddress = data && data.charityAddresses && data.charityAddresses.find(c => c.isPrimary);
+            this.setAddress(primaryAddress);
+            this.charity = {label: charityFormatter.format(data, {value: 'charity-name-display'}), value: charityId};
+        } else if (!this.isChangedDefaultAddress) {
             const address = this.charity.item;
             this.setAddress(address);
         }
@@ -189,6 +218,19 @@ class SessionViewStore extends BaseEditViewStore {
         }
     }
 
+    createImageUploadStore() {
+        this.imageUploadStore = new BaasicUploadStore(null, {
+            onDelete: () => { // eslint-disable-line
+                //async call to delete if needed
+            },
+            onChange: value => {
+			},
+			onRemoveFromBuffer: () => {
+			},
+        });
+
+    }
+
     @action.bound
     async onBarcodeChange(event) {
         this.barcode = event.target.value;
@@ -204,6 +246,8 @@ class SessionViewStore extends BaseEditViewStore {
                 if (data.certificate.denominationTypeValue === 0) {
                     this.blankCertificateModal.open({
                         certificate: data.certificate,
+                        isCharityAccount: this.isCharityAccount,
+                        imageUploadStore: this.imageUploadStore,
                         onClick: (certificate) => {
                             certificate.isBlank = true;
                             this.setBlankCertificate(certificate);
@@ -228,7 +272,11 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     async setBlankCertificate(certificate) {
         try {
-            const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue });
+            let mediaEntry = null;
+            if(this.imageUploadStore.files.length > this.imageUploadStore.originalFiles.length) {
+                mediaEntry = await this.service.uploadBlankCertificate(this.imageUploadStore.files[0], certificate.certificateId);
+            }
+            const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue, coreMediaVaultEntryId: mediaEntry ? mediaEntry.data.id : null });
             data.response.isBlank = true;
             // let existingCertificateInSession = this.sessionCertificates.find(c => c.barcode == certificate.barcode);
             let existingCertificateInSession = this.sessionCertificates.map(c => c.barcode).indexOf(certificate.barcode);

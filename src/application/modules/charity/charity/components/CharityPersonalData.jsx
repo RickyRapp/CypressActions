@@ -7,6 +7,7 @@ import {
 } from 'application/charity/charity/components';
 
 function CharityPersonalDataTemplate() {
+    
     return (
         <div className="card--primary card--med">
             <div className="row">

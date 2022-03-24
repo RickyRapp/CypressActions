@@ -4,6 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, BaasicDropdown } from 'core/components';
 import PropTypes from 'prop-types';
 import { DashboardHeader } from 'application/charity/dashboard/components';
+import CharityPlaid from 'application/charity/charity/components/CharityPlaid';
 import { Transaction } from 'application/donor/activity/transaction/components';
 import {
 	Chart,
@@ -15,6 +16,7 @@ import {
 	ChartTooltip,
 } from '@progress/kendo-react-charts';
 import { AllTransactionList } from 'application/charity/activity/pages';
+
 function DashboardTemplate({ dashboardViewStore, t }) {
 	const { charity, newContributionOnClick, redirectToWithdrawFundsPage, yearDropdownStore, notImplemented, manageAccount, balance, grantsPerYear, redirectToManageAccount } = dashboardViewStore;
 	
@@ -67,7 +69,9 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 								<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
 									<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Manage Account" onClick={redirectToManageAccount} />
 								</div></div>
-
+								<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
+									<CharityPlaid/>
+								</div></div>
 							</div>
 						</div>
 					) : (

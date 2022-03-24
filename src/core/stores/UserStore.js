@@ -81,9 +81,10 @@ class UserStore {
         try {
             if (user.roles.includes('Charities')) {
                 const data = await charity.charity.charityStore.getCharityLoginProfile(user.id);
+                const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
                 if (data) {
                     user.charityId = data.id;
-                    user.charity = { name: data.name, taxId: data.taxId, apiKey: data.apiKey };
+                    user.charity = { name: data.name, taxId: data.taxId, apiKey: charityApiKey, accountNumber: data.charityAccountNumber.accountNumber};
                 }
             }
         } catch (ex) {

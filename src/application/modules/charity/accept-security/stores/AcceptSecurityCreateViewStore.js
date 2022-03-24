@@ -21,7 +21,7 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
 				return {
 					create: async (resource) => {
                         // eslint-disable-next-line
-                        console.log(resource);
+                        //console.log(resource);
 					},
 				};
 			},
@@ -147,7 +147,7 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
                 },
                 onChange: async (donorId) => {
                     // eslint-disable-next-line
-                    console.log(donorId);
+                    //console.log(donorId);
                 }
             });
     }

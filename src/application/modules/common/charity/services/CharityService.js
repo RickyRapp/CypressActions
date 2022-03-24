@@ -56,6 +56,11 @@ class CharityService extends BaseService {
         const url = this.routeService.changeUsername(resource);
         return this.apiClient.put(url, resource);
     }
+
+    updateWithPlaid(resource) {
+        const url = this.routeService.updateWithPlaid(resource);
+        return this.apiClient.put(url, resource);
+    }
 }
 
 export default CharityService;
