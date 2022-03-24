@@ -214,10 +214,10 @@ class RemoteDepositsViewStore extends BaseListViewStore {
 							value: (item) => {
                                 if(item.grants && item.grants.length > 0) {
                                     const isPending = (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0;
-                                    const isApproved = ((item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0 && ((item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && ((item.grants.filter(c => c.donationStatus.abrv != 'approved')).length < item.grants.length || (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length == item.grants.length)));
+                                    const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0;
                                     const isCanceled = (item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length;
-                                    const isPaymentSubmited = (item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length == item.grants.length;
-                                    const isPaymentReceived = (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length == item.grants.length;
+                                    const isPaymentSubmited = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
+                                    const isPaymentReceived = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
                                 
                                     if(isPending) {
                                         return 'Pending';

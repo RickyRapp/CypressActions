@@ -99,6 +99,19 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
                     }
                 },
                 {
+                    key: 'donationStatusId',
+                    title: 'SESSION.EDIT.LIST.COLUMNS.STATUS_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            console.log(this.donationStatuses);
+                            if(this.donationStatuses) 
+                                return this.donationStatuses.find(c => c.id == item.donationStatusId).name;
+                            return '';
+                        }
+                    }
+                },
+                {
                     key: 'certificate.coreMediaVaultEntryId',
                     title: 'Media',
                     format: {
