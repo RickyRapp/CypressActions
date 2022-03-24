@@ -57,6 +57,12 @@ function RemoteDepositPreviewTemplate({ remoteDepositPreviewViewStore, t }) {
                         </span>
                     </div>
                     <div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
+                        <div className="type--med type--wgt--medium">{t('SESSION.PREVIEW.FIELDS.ORIGINAL_CONFIRMATION_NUMBER_LABEL')}</div>
+                        <span className="type--base type--color--opaque">
+                            {item && item.originalConfirmationNumber}
+                        </span>
+                    </div>
+                    <div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
                         <div className="type--med type--wgt--medium">{t('SESSION.PREVIEW.FIELDS.DATE_CREATED_LABEL')}</div>
                         <span className="type--base type--color--opaque">
                             {item && <Date format="full" value={item.dateCreated} />}
