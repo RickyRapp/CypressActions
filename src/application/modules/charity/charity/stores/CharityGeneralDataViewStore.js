@@ -34,6 +34,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             presentBalance: data.presentBalance,
                             apiKey: charityApiKey,
                             dba: data.dba,
+                            url: data.url,
                             description : data.description
                         }
                     },

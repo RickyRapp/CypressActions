@@ -29,6 +29,8 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             contactInformationName: data.contactInformation && data.contactInformation.name,
                             contactInformationEmail: data.contactInformation && data.contactInformation.email,
                             contactInformationNumber: data.contactInformation && data.contactInformation.number,
+                            url: data.url,
+                            dba: data.dba,
                             contactInformation: {
                                 name: data.contactInformation && data.contactInformation.name,
                                 email: data.contactInformation && data.contactInformation.email,

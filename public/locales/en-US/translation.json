@@ -1058,7 +1058,9 @@
                 "ADDRESS_PLACEHOLDER": "Address",
                 "TAX_ID_PLACEHOLDER": "Tax ID",
                 "CHARITY_TYPE_PLACEHOLDER": "Charity type",
-                "DBA_PLACEHOLDER": "DBA"
+                "DBA_PLACEHOLDER": "DBA",
+                "URL_PLACEHOLDER" : "URL",
+                "URL_LABEL": "URL"
             },
             "EMPTY_STATE": {
                 "TITLE": "No charities",
@@ -1089,6 +1091,8 @@
                 "TAX_ID_PLACEHOLDER": "Tax ID",
                 "DBA_LABEL": "DBA",
                 "DBA_PLACEHOLDER": "DBA",
+                "URL_PLACEHOLDER" : "URL",
+                "URL_LABEL": "URL",
                 "CHARITY_TYPE_LABEL": "Category",
                 "CHARITY_TYPE_PLACEHOLDER": "Type",
                 "CHARITY_STATUS_LABEL": "Status",
@@ -1158,6 +1162,8 @@
                 "TAX_ID_PLACEHOLDER": "Tax ID",
                 "DBA_LABEL": "DBA",
                 "DBA_PLACEHOLDER": "DBA",
+                "URL_PLACEHOLDER" : "URL",
+                "URL_LABEL": "URL",
                 "CHARITY_TYPE_LABEL": "Type",
                 "CHARITY_TYPE_PLACEHOLDER": "Type",
                 "CHARITY_STATUS_LABEL": "Status",

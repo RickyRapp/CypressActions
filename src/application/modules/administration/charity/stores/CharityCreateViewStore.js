@@ -19,6 +19,7 @@ class CharityCreateViewStore extends BaseEditViewStore {
                             name: resource.name,
                             taxId: resource.taxId,
                             dba: resource.dba,
+                            url: resource.url,
                             charityTypeId: resource.charityTypeId,
                             charityStatusId: resource.charityStatusId,
                             suggestedById: null,

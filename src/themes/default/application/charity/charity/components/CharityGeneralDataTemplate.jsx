@@ -133,6 +133,9 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                         <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
                                             <BaasicFieldDropdown field={form.$('charityStatusId')} store={charityStatusDropdownStore} />
                                         </div>
+                                        <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
+                                            <BasicInput field={form.$('url')} />
+                                        </div>
                                     </div>
                                     <div className="u-mar--bottom--sml">
                                         <h3 className="type--med type--wgt--medium">Contact info</h3>

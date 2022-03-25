@@ -75,6 +75,12 @@ export default class CharityCreateForm extends FormBase {
                     rules: 'required|string'
                 },
                 {
+                    name: 'url',
+                    label: 'CHARITY.CREATE.FIELDS.URL_LABEL',
+                    placeholder: 'CHARITY.CREATE.FIELDS.URL_PLACEHOLDER',
+                    rules: 'string|url'
+                },
+                {
                     name: 'addressDescription',
                     label: 'CHARITY.CREATE.FIELDS.DESCRIPTION_LABEL',
                     placeholder: 'CHARITY.CREATE.FIELDS.DESCRIPTION_PLACEHOLDER',

@@ -21,6 +21,12 @@ export default class CharityEditForm extends FormBase {
                     rules: 'string'
                 },
                 {
+                    name: 'url',
+                    label: 'CHARITY.EDIT.FIELDS.URL_LABEL',
+                    placeholder: 'CHARITY.EDIT.FIELDS.URL_PLACEHOLDER',
+                    rules: 'string|url'
+                },
+                {
                     name: 'charityTypeId',
                     label: 'CHARITY.EDIT.FIELDS.CHARITY_TYPE_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.CHARITY_TYPE_PLACEHOLDER',

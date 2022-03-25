@@ -55,6 +55,9 @@ const CharityCreateTemplate = function({ charityCreateViewStore, t }) {
 						<div className="col col-sml-12 col-med-6 col-xlrg-4 u-mar--bottom--sml">
 							<BasicInput field={form.$('addressZipCode')} />
 						</div>
+						<div className="col col-sml-12 col-med-6 col-xlrg-4 u-mar--bottom--sml">
+							<BasicInput field={form.$('url')} />
+						</div>
 					</div>
 				</div>
 				<div className="card--primary card--med u-mar--bottom--med">
