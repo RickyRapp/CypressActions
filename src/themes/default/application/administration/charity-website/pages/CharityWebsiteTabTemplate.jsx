@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
-import { CharityWebsiteList } from 'application/administration/charity-website/pages'
+import { CharityWebsiteList, ProcessorsCompaniesList } from 'application/administration/charity-website/pages'
 
 function CharityWebsiteTabTemplate({ charitiyWebsiteTabViewStore }) {
     const {
@@ -21,6 +21,9 @@ function CharityWebsiteTabTemplate({ charitiyWebsiteTabViewStore }) {
                         </div>
                         <div label={'CHARITY_WEBSITE.TAB.LIST.FUNDRAISING_PLATFORMS'} className="u-mar--top--sml layout--nested">
                             <CharityWebsiteList websiteType={ "FundraisingPlatforms" } />
+                        </div>
+                        <div label={'CHARITY_WEBSITE.TAB.LIST.PROCESSING_COMPANIES_INFO'} className="u-mar--top--sml layout--nested">
+                            <ProcessorsCompaniesList />
                         </div>
                 </TabLayout>
             </div>
