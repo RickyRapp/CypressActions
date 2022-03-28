@@ -28,7 +28,7 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, isCharitySe
 							{
 								isCharityAccount ? 
 								<p>Charity name: <b>{charityName}</b></p> :
-									<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
+									<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder="EIN (Tax Id)"/>
 							}
 							{isCharitySelected &&
 								<BaasicButton
