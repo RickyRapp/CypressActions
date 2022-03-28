@@ -11,9 +11,9 @@ class PlaidService extends BaseService {
         return this.apiClient.get(url);
     }
 
-    exchangeToken(public_token) {
-        const url = 'http://api.thedonorsfund.local/thedonorsfund/plaid/exchange';
-        return this.apiClient.post(url, public_token);
+    validateAccount(public_token, accountId) {
+        const url = 'http://api.thedonorsfund.local/thedonorsfund/plaid/validate';
+        return this.apiClient.post(url, { token: public_token, accountId });
     }
 }
 

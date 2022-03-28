@@ -4,6 +4,7 @@ import axios from 'axios';
 import { inject } from 'mobx-react';
 import { localStorageProvider } from "core/providers";
 import { PlaidService } from "common/services";
+import { async } from "rxjs/internal/scheduler/async";
 
 @inject(i => ({
   notificationStore: i.rootStore.notificationStore,
@@ -11,27 +12,28 @@ import { PlaidService } from "common/services";
 }))
 
 class CharityPlaid extends Component {
-  constructor(rootStore) {
-    super(rootStore);
-    this.notificationStore = rootStore.notificationStore;
-    this.plaidService = new PlaidService(rootStore.application.baasic.apiClient);
+  constructor(props) {
+    super(props);
+    this.notificationStore = this.props.notificationStore;
+    this.plaidService = new PlaidService(this.props.application.baasic.apiClient);
     this.state = {
       linkToken: "",
+      charity: this.props.charity
     };
   }
 
   getLinkToken = async () => {
-    //initiate link token for later usage
     var r = await this.plaidService.getLinkToken();
-    console.log('plaid result: ', r);
-    this.setState({ linkToken: JSON.parse(r.data.response)["link_token"] });
+    this.setState({ linkToken: r.data.response });
   }
 
   handleOnSuccess = async (public_token) => {
     // send token to client server
-    var r = await this.plaidService.exchangeToken(public_token);
-    console.log("exchange: ", r);
-
+    var r = await this.plaidService.validateAccount(public_token, null); //validate primary account
+    var c = this.state.charity;
+    c.verifiedByPlaid = r;
+    this.setState({ charity: c });
+    this.state.charity.verifiedByPlaid = r;
   }
 
   handleOnExit = async () => {
@@ -42,10 +44,14 @@ class CharityPlaid extends Component {
   }
 
   render() {
-    const { linkToken } = this.state
+    const { linkToken, charity } = this.state
+    console.log("render plaid", linkToken, charity);
+    if (!charity.verifiedByPlaid && !linkToken) {
+      this.getLinkToken();
+    }
 
     return (
-      !this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid ?
+      !charity.verifiedByPlaid ?
         <div>
           {linkToken && linkToken.toString() !== 'undefined' ?
             <PlaidLink
