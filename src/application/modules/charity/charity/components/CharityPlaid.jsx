@@ -31,9 +31,9 @@ class CharityPlaid extends Component {
     // send token to client server
     var r = await this.plaidService.validateAccount(public_token, null); //validate primary account
     var c = this.state.charity;
-    c.verifiedByPlaid = r;
+    c.verifiedByPlaid = r.data;
     this.setState({ charity: c });
-    this.state.charity.verifiedByPlaid = r;
+    this.state.charity.verifiedByPlaid = r.data;
   }
 
   handleOnExit = async () => {
