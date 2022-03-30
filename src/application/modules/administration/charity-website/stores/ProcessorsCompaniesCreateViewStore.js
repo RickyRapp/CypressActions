@@ -17,17 +17,17 @@ class ProcessorsCompaniesCreateViewStore extends BaseEditViewStore {
                         if (!this.form.isValid) {
                             throw { data: { message: "There is a problem with form." } };
                         }
-                        await rootStore.application.administration.charityWebsiteStore.updateCharityWebsite({ id: id, ...resource });
+                        await rootStore.application.administration.charityWebsiteStore.updateProcessingCompany({ id: id, ...resource });
                     },
                     create: async (resource) => {
 
                         if (!this.form.isValid) {
                             throw { data: { message: "There is a problem with form." } };
                         }
-                        await rootStore.application.administration.charityWebsiteStore.createCharityWebsite(resource);
+                        await rootStore.application.administration.charityWebsiteStore.createProcessingCompany(resource);
                     },
-                    get: async (id) => {
-                        return rootStore.application.administration.charityWebsiteStore.getCharityWebsite(id, params);
+                    get: async (id) => { 
+                        return rootStore.application.administration.charityWebsiteStore.getProcessingCompany(id);
                     }
                 }
             },

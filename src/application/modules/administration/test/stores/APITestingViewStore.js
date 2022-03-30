@@ -56,8 +56,7 @@ class APITestingViewStore extends BaseEditViewStore {
 				];
 			},
             onChange: async () => {
-                this.validationToken =  this.form.$('requestType').value == 1 ? '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5'
-                    : (this.form.$('requestType').value == 2 ? '27a1c6fd-9287-4ce1-8c0f-cec958e3d3c5' : '');
+                this.validationToken =  this.form.$('requestType').value == 1 ? '276b0b1c-e4a9-41c7-83d3-a1c9836b40c5' : (this.form.$('requestType').value == 2 ? this.form.$('processRequest').value : '');
                 this.url  =  (this.form.$('requestType').value == 1 ||  this.form.$('requestType').value == 3) ? this.baseUrl + 'third-party/create-grant' : this.baseUrl + 'grant/create';
             }
 		});
@@ -71,26 +70,23 @@ class APITestingViewStore extends BaseEditViewStore {
 
 	}
 
-    createProcessRequestDropdownStore() {
+    async createProcessRequestDropdownStore() {
+        var data = await this.rootStore.application.administration.charityWebsiteStore.findProcessingCompany();
+        var items = data.item.filter(x => x.name != 'Internal');
 		this.processRequestDropdownStore = new BaasicDropdownStore(null, {
 			fetchFunc: async () => {
-				return [
-					{ id: '1', name: 'Fidelity' },
-					{ id: '2', name: 'Banquest' },
-				];
+				return items.map( x => {
+                    return {
+                        id : x.validationToken,
+                        name : x.name,
+                        item : x
+                    }
+                });
 			},
             onChange: async () => {
-                this.validationToken =  this.form.$('processRequest').value == 1 ? '27a1c6fd-9287-4ce1-8c0f-cec958e3d3c5' : '2a4efc98-ce15-4c6f-a8e7-0255c3c60bad';
-                this.url  = this.baseUrl + 'grant/create';
+                this.validationToken =  this.processRequestDropdownStore.value.item.validationToken;
             }
 		});
-
-        this.processRequestDropdownStore.setValue({
-            id: '1',
-            name: 'Fidelity' 
-        })
-        this.response = null;
-        this.form.$('processRequest').set('1');
 	}
 
     async createFundraisingPlatformDropdownStore() {

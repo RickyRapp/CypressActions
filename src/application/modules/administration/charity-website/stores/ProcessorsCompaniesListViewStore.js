@@ -22,7 +22,7 @@ class ProcessorsCompaniesListViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        return rootStore.application.administration.charityWebsiteStore.findCharityWebsite(params);
+                        return rootStore.application.administration.charityWebsiteStore.findProcessingCompany(params);
                     }
                 }
             }
