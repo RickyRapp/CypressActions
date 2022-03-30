@@ -2802,6 +2802,25 @@
             }
         }
     },
+    "PROCESSING_COMPANY": {
+        "LIST" : {
+            "COLUMNS": {
+                "NAME_LABEL" : "Name",
+                "DESCRIPTION_LABEL" : "Desciption",
+                "DATE_CREATED_LABEL" : "Date Created"
+            }
+        },
+        "CREATE" : {
+            "TITLE" : "Create processing company",
+            "NAME_LABEL" : "Name",
+            "NAME_PLACEHOLDER" : "Name",
+            "DESCRIPTION_LABEL" : "Desciption",
+            "DESCRIPTION_PLACEHOLDER" : "Description"
+        },
+        "EDIT" : {
+            "TITLE" : "Edit processing company"
+        }
+    },
     "CHARITY_WEBSITE": {
         "LIST": {
             "TITLE": "Charity websites",
@@ -2847,7 +2866,8 @@
             "LIST":{
                 "THIRD_PARTY_API" : "Third party API",
                 "PROCESSING_COMPANY" : "Processing company",
-                "FUNDRAISING_PLATFORMS" : "Fundraising platforms"
+                "FUNDRAISING_PLATFORMS" : "Fundraising platforms",
+                "PROCESSING_COMPANIES_INFO": "Processing companies info"
             }
         }
     },

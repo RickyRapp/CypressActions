@@ -172,6 +172,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                         <p>{"{"}</p>
                                         {form.$('requestType').value == 1 || form.$('requestType').value == 3 ?
                                         <React.Fragment>
+                                            <p>"taxId": "{form.$('taxId').value}",</p>
                                             <p>"accountNumber": "{form.$('accountNumber').value}",</p>
                                             <p>"amount": {form.$('amount').value},</p>
                                             <p>"startFutureDate":"{moment(form.$('startFutureDate').$value).format('YYYY-MM-DD')}",</p>
@@ -185,6 +186,7 @@ function APITestingTemplate({ apiTestingViewStore}) {
                                             <p>"IsRecurring": {form.$('isRecurring').value ? 'true': 'false'}</p>
                                         </React.Fragment> :
                                         <React.Fragment>
+                                            <p>"taxId": "{form.$('taxId').value}",</p>
                                             <p>"accountNumber": "{form.$('accountNumber').value}",</p>
                                             <p>"amount": {form.$('amount').value},</p>
                                             <p>"cardNumber": {form.$('cardNumber').value},</p>
