@@ -12,7 +12,8 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
         certificate,
         onClick, 
         isCharityAccount,
-        imageUploadStore
+        imageUploadStore,
+        isEdit
     } = modalParams.data;
 
     return (
@@ -28,7 +29,7 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                 </div>
                 <div className="form__group col col-lrg-12">
                     <NumericInput
-                        value={certificate.certificateValue ? certificate.certificateValue : 0}
+                        value={isEdit ? certificate.denominationTypeValue : (certificate.certificateValue ? certificate.certificateValue : 0)}
                         onChange={(event) => certificate.certificateValue = event.target.value}
                         label='SESSION.CREATE.STEP3.CERTIFICATE_VALUE_LABEL'
                         placeholder='SESSION.CREATE.STEP3.CERTIFICATE_VALUE_PLACEHOLDER'

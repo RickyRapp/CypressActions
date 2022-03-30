@@ -111,10 +111,10 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     async editCheck(item) {
         this.blankCertificateModal.open({
-            certificate: item,
+            certificate: {... item, certificateValue: item.denominationTypeValue},
             isCharityAccount: this.isCharityAccount,
             imageUploadStore: this.imageUploadStore,
-            isCharityAccount: this.isCharityAccount,
+            isEdit: this.sessionCertificates.map(c => c.barcode).indexOf(item.barcode) >= 0,
             onClick: (certificate) => {
                 this.setBlankCertificate(certificate);
                 this.blankCertificateModal.close();
@@ -248,6 +248,7 @@ class SessionViewStore extends BaseEditViewStore {
                         certificate: data.certificate,
                         isCharityAccount: this.isCharityAccount,
                         imageUploadStore: this.imageUploadStore,
+                        isEdit: false,
                         onClick: (certificate) => {
                             certificate.isBlank = true;
                             this.setBlankCertificate(certificate);
