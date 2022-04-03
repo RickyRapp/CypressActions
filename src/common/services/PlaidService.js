@@ -7,12 +7,12 @@ class PlaidService extends BaseService {
     }
 
     getLinkToken() {
-        const url = '/plaid/token';
+        const url = 'plaid/token';
         return this.apiClient.get(url);
     }
 
     validateAccount(public_token, accountId) {
-        const url = '/plaid/validate';
+        const url = 'plaid/validate';
         return this.apiClient.post(url, { token: public_token, accountId });
     }
 }
