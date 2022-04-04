@@ -22,6 +22,11 @@ class SessionService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    findSessionForDonorReview(resource) {
+        var url = this.routeService.findSessionForDonorReview(resource);
+        return this.apiClient.get(url);
+    }
+
     setConnectionId(resource) {
         var url = this.routeService.setConnectionId(resource);
         return this.apiClient.post(url);

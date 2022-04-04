@@ -11,6 +11,10 @@ class SessionRouteService extends BaseRouteService {
         return super.find(this.base + '/{?search,confirmationNumber,donationStatusIds,paymentTypeIds,paymentNumber,bookletCertificateCode,dollarRange,phoneNumber,sessionEmail,usernameCreatedSession,fundraiserName,dateCreatedFrom,dateCreatedTo,name,charityId,donorId,page,rpp,sort,embed,fields}', filter);
     }
 
+    findSessionForDonorReview(filter) {
+        return super.find(this.base + '/donor-review/{?search,dateCreatedFrom,dateCreatedTo,name,page,rpp,sort,embed,fields}', filter);
+    }
+
     get(id, options) {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }

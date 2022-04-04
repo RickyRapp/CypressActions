@@ -2381,7 +2381,8 @@
             "LIST": "In overall",
             "IN_PROGRESS": "In progress",
             "PENDING_CERTIFICATE": "Checks on hold",
-            "ADMIN_REVIEW": "Admin review"
+            "ADMIN_REVIEW": "Admin review",
+            "DONOR_REVIEW": "Donor review"
         },
         "PREVIEW": {
             "TITLE": "Details",

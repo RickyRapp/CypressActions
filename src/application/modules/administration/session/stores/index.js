@@ -10,3 +10,4 @@ export { default as RemoveSessionCertificateViewStore } from './RemoveSessionCer
 export { default as SessionPendingCertificateViewStore } from './SessionPendingCertificateViewStore'
 export { default as SessionStore } from './SessionStore'
 export { default as AdminReviewViewStore } from './AdminReviewViewStore'
+export { default as SessionForDonorReviewViewStore } from './SessionForDonorReviewViewStore'
