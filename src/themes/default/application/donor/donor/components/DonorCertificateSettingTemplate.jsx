@@ -47,7 +47,7 @@ const DonorCertificateSettingTemplate = function ({ t, donorCertificateSettingVi
             </div> */}
             <div className="list--preferences">
                 <div className="list--preferences__label is-dropdown">
-                    I would like to verify and approve checks that exceed <span className="type--color--note u-mar--left--tny">*</span>
+                    I would like to verify and approve blank checks that exceed <span className="type--color--note u-mar--left--tny">*</span>
                 </div>
                 <div className="list--preferences__field">
                     <NumericInputField showLabel={false} field={form.$('verificationLimitAmount')} />
