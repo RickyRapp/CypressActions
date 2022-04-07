@@ -6,7 +6,7 @@ class ProcessCompanyRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?searchQuery,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?searchQuery,page,rpp,sort,embed,fields,isApiTesting}', filter);
     }
 
     get(id, options) {

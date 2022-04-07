@@ -71,7 +71,9 @@ class APITestingViewStore extends BaseEditViewStore {
 	}
 
     async createProcessRequestDropdownStore() {
-        var data = await this.rootStore.application.administration.charityWebsiteStore.findProcessingCompany();
+        let params = {};
+        params.isApiTesting = true;
+        var data = await this.rootStore.application.administration.charityWebsiteStore.findProcessingCompany(params);
         var items = data.item.filter(x => x.name != 'Internal');
 		this.processRequestDropdownStore = new BaasicDropdownStore(null, {
 			fetchFunc: async () => {
@@ -92,6 +94,7 @@ class APITestingViewStore extends BaseEditViewStore {
     async createFundraisingPlatformDropdownStore() {
         let params = {};
         params.type = 'FundraisingPlatforms';
+        params.isApiTesting = true;
         var data = await this.rootStore.application.administration.charityWebsiteStore.findCharityWebsite(params);
 
 		this.fundraisingPlatformDropdownStore = new BaasicDropdownStore(null, {
