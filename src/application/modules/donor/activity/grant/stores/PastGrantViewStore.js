@@ -8,6 +8,7 @@ import { GrantRouteService } from 'application/common/grant/services';
 import moment from 'moment';
 import { applicationContext } from 'core/utils';
 import { CharityNameCell, DescriptionCell } from '../components'
+import { ModalParams } from 'core/models';
 @applicationContext
 class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
@@ -71,6 +72,8 @@ class PastGrantViewStore extends BaseListViewStore {
 		this.createExportConfig();
 		this.createYearDropdownStore();
 
+        this.reviewModal = new ModalParams({});
+
 		this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
 	}
 
@@ -85,6 +88,26 @@ class PastGrantViewStore extends BaseListViewStore {
 			]);
 		}
 	}
+
+	@action.bound
+	openReviewModal(item) {
+        this.reviewModal.open({
+            item: item,
+			reviewConfirm: async (item) => {
+				try {
+					await this.rootStore.application.donor.grantStore.updateGrant(item);					
+					this.rootStore.notificationStore.success('Successfully reviewed grant.');			
+				} catch (e) {
+					this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
+				}
+			},
+            onAfterAction: (item) => {
+                this.queryUtility.fetch();
+                this.reviewModal.close();
+            }
+        });
+    }
+
 
 	@action.bound
 	async cancelGrant(grant) {
@@ -328,7 +351,8 @@ class PastGrantViewStore extends BaseListViewStore {
 						onPreview: (grant) => this.routes.preview(grant.id),
 						onSort: column => this.queryUtility.changeOrder(column.key),
 						onCancel: grant => this.cancelGrant(grant),
-						onGrantAgain: grant => this.grantAgain(grant)
+						onGrantAgain: grant => this.grantAgain(grant),
+						onReview: (grant) => this.openReviewModal(grant)
 					},
 					actionsRender: {
 						onEditRender: grant => {
@@ -347,6 +371,9 @@ class PastGrantViewStore extends BaseListViewStore {
 							}
 							return false;
 						},
+						onReviewRender: (grant) => {
+							return (grant.donationStatus.abrv == 'donor-review-first' || grant.donationStatus.abrv == 'donor-review-second');
+						}
 					},
 				},
 				true

@@ -1789,7 +1789,8 @@
                 "DONOR_NAME_LABEL": "Donor",
                 "SCHEDULED_LABEL": "Scheduled",
                 "CHARITY_WEBSITE_LABEL": "Created over charity website",
-                "ADDRESS": "Address"
+                "ADDRESS": "Address",
+                "DECLINATION_REASON": "Check disapproval reason"
             }
         },
         "SCHEDULED_GRANT": {
