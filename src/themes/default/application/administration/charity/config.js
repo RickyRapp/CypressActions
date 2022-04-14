@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { CharityListTab, CharityCreate, CharityTab } from 'application/administration/charity/pages';
+import { CharityListTab, CharityCreate, CharityTab, CharityPendingTab } from 'application/administration/charity/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -21,6 +21,15 @@ import { CharityListTab, CharityCreate, CharityTab } from 'application/administr
                         name: 'master.app.main.administration.charity.edit',
                         pattern: '/edit/:id',
                         component: CharityTab,
+                        authorization: 'theDonorsFundAdministrationSection.update',
+                        data: {
+                            title: "CHARITY.EDIT.TITLE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.administration.charity.edit.pending',
+                        pattern: '/edit/pending/:id',
+                        component: CharityPendingTab,
                         authorization: 'theDonorsFundAdministrationSection.update',
                         data: {
                             title: "CHARITY.EDIT.TITLE"

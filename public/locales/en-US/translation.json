@@ -1042,7 +1042,8 @@
             "PERSONAL_DATA": "Personal data",
             "SECURITY_AND_PREFERENCES": "Security And Preferences",
             "COMMUNICATION_PREFERENCE":"Communication Preferences",
-            "EMAIL": "Emails"
+            "EMAIL": "Emails",
+            "QUESTIONNAIRE_ANSWERS" : "Questionnaire Answers"
         },
         "LIST": {
             "TITLE": "Charities",

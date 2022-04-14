@@ -47,6 +47,11 @@ class CharityStore {
         return response.data;
     }
 
+    async getCharityQuestionnaireAnswers(id, options = {}) {
+        const response = await this.charityService.getCharityQuestionnaireAnswers(id, options);
+        return response.data;
+    }
+
     async getCharityLoginProfile(id) {
         const response = await this.charityService.getCharityLoginProfile(id);
         return response.data;

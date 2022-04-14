@@ -10,7 +10,7 @@ class CharityPendingListViewStore extends BaseListViewStore {
             routes: {
                 edit: (id) => {
                     this.setChildNavigationTitle(i => i.id === id, item => item.name);
-                    this.rootStore.routerStore.goTo('master.app.main.administration.charity.edit', { id: id });
+                    this.rootStore.routerStore.goTo('master.app.main.administration.charity.edit.pending', { id: id });
                 },
                 create: () =>
                     this.rootStore.routerStore.goTo('master.app.main.administration.charity.create')

@@ -5,3 +5,5 @@ export { default as CharityCertificatesListTemplate } from './CharityCertificate
 export { default as CharityTabTemplate } from './CharityTabTemplate'
 export { default as CharityListTabTemplate } from './CharityListTabTemplate'
 export { default as CharityPendingListTemplate } from './CharityPendingListTemplate'
+export { default as CharityPendingTabTemplate } from './CharityPendingTabTemplate'
+export { default as CharityQuestionnaireAnswersTemplate } from './CharityQuestionnaireAnswersTemplate' 

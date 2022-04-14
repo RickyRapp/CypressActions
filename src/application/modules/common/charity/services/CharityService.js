@@ -66,6 +66,11 @@ class CharityService extends BaseService {
         const url = this.routeService.updateWithPlaid(resource);
         return this.apiClient.put(url, resource);
     }
+    
+    async getCharityQuestionnaireAnswers(id, options = {}) { 
+        const url = this.routeService.getCharityQuestionnaireAnswers(id, options);
+        return this.apiClient.get(url);
+    }
 }
 
 export default CharityService;
