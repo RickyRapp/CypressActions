@@ -13,6 +13,10 @@ class CharityRouteService extends BaseRouteService {
         return super.find(this.base + '/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
     }
 
+    findPending(filter) { console.log("2");
+        return super.find(this.base + '/get-pending/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
+    }
+
     findGrants(filter) {
         return super.find(this.base + '/grants/{?page,rpp,sort,embed,fields}', filter);
     }

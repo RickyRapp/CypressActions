@@ -17,6 +17,11 @@ class CharityService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    findPending(filter) {
+        const url = this.routeService.findPending(filter);
+        return this.apiClient.get(url);
+    }
+
     findCertificates(filter) {
         const url = this.routeService.findCertificates(filter);
         return this.apiClient.get(url);

@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { CharityList, CharityCreate, CharityTab } from 'application/administration/charity/pages';
+import { CharityListTab, CharityCreate, CharityTab } from 'application/administration/charity/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -11,7 +11,7 @@ import { CharityList, CharityCreate, CharityTab } from 'application/administrati
                     {
                         name: 'master.app.main.administration.charity.list',
                         pattern: '',
-                        component: CharityList,
+                        component: CharityListTab,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
                             title: "CHARITY.LIST.TITLE"
