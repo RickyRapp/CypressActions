@@ -9,6 +9,10 @@ class BookletRouteService extends BaseRouteService {
         return super.find(this.base + '/{?donorId,exceptIds,trackingNumber,deliveryMethodTypeIds,bookletStatusIds,bookletTypeIds,denominationTypeIds,donorsName,codes,certificateBarcodes,dateCreatedStartDate,dateCreatedEndDate,page,rpp,sort,embed,fields}', filter);
     }
 
+    remainingAmount(donorId) {
+        return super.get(this.base + '/remaining/{id}', donorId);
+    }
+
     get(id, options) {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
     }

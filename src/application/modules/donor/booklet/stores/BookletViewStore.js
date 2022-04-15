@@ -8,7 +8,9 @@ import { saveAs } from '@progress/kendo-file-saver';
 
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
-    @observable resourcesModel = {codeEnd: 0, codeStart: 0};
+    @observable resourcesModel = { codeEnd: 0, codeStart: 0 };
+    @observable remainingAmount;
+
     // @observable form = new BookletExportForm({
     //     onSuccess: async form => {
     //         this.loaderStore.suspend();
@@ -25,8 +27,6 @@ class BookletViewStore extends BaseListViewStore {
             name: 'booklet',
             authorization: 'theDonorsFundBookletSection',
             routes: {
-                // edit: (id) => { this.rootStore.routerStore.goTo('master.app.main.administration.booklet.edit', { id: id }) },
-                // create: () => { this.rootStore.routerStore.goTo('master.app.main.administration.booklet.create') },
             },
             queryConfig: {
                 filter: new BookletListFilter('code', 'desc'),
@@ -48,6 +48,8 @@ class BookletViewStore extends BaseListViewStore {
                             'certificates.certificateStatus'
                         ];
                         params.donorId = rootStore.userStore.applicationUser.id;
+                        this.remainingAmount = await rootStore.application.administration.bookletStore.remainingAmount(rootStore.userStore.applicationUser.id);
+                        console.log('remaining', this.remainingAmount);                
                         return rootStore.application.administration.bookletStore.findBooklet(params);
                     }
                 }
@@ -111,11 +113,15 @@ class BookletViewStore extends BaseListViewStore {
                         type: 'function',
                         value: (item) => {
                             const clean = item.certificates.filter(c => c.certificateStatus.abrv === 'clean').length;
-                            // const used = item.certificates.filter(c => c.certificateStatus.abrv === 'used').length;
-                            // const canceled = item.certificates.filter(c => c.certificateStatus.abrv === 'canceled').length;
-                            // const active = item.certificates.filter(c => c.isActive).length;
                             return `${clean} / ${item.certificateCount}`;
                         }
+                    }
+                },
+                {
+                    key: 'remainingAmount',
+                    title: 'BOOKLET.LIST.COLUMNS.REMAININGAMOUNT_LABEL',
+                    format: {
+                        type: 'currency'
                     }
                 },
                 {
@@ -143,7 +149,7 @@ class BookletViewStore extends BaseListViewStore {
                 }
             });
     }
-    
+
     createBookletStatusDropdownStore() {
         this.bookletStatusDropdownStore = new BaasicDropdownStore({
             multi: true
@@ -157,7 +163,7 @@ class BookletViewStore extends BaseListViewStore {
                 }
             });
     }
-    
+
     createBookletTypeDropdownStore() {
         this.bookletTypeDropdownStore = new BaasicDropdownStore({
             multi: true

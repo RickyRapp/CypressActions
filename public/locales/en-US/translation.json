@@ -2105,6 +2105,7 @@
             "BOOKLET_ORDER": "Orders",
             "SCANNED_CERTIFICATES": "Scanned"
         },
+        "TOTALREMAININGAMOUNT_LABEL": "Remaining",
         "LIST": {
             "TITLE": "Booklets",
             "COLUMNS": {
@@ -2116,6 +2117,7 @@
                 "DATE_ORDERED_LABEL": "Date ordered",
                 "STATUS_LABEL": "Status",
                 "TYPE_LABEL": "Type",
+                "REMAININGAMOUNT_LABEL": "Remaining",
                 "SHARE_NAME_LABEL": "Share name",
                 "CERTIFICATES_LABEL": "Certificates",
                 "CERTIFICATES_TOOLTIP_LABEL": "(clean/used/canceled | active)"

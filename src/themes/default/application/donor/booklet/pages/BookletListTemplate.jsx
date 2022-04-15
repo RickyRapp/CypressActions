@@ -5,15 +5,15 @@ import { BaasicButton, BaasicTable, TableFilter, BaasicInput, BaasicDropdown } f
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 
-const BookletListTemplate = function({ bookletViewStore }) {
+const BookletListTemplate = function ({ bookletViewStore }) {
 	const { routes, tableStore, queryUtility, authorization, denominationTypeDropdownStore,
-	bookletStatusDropdownStore } = bookletViewStore;
+		bookletStatusDropdownStore, remainingAmount } = bookletViewStore;
 
 	return (
 		<ApplicationListLayout store={bookletViewStore} authorization={authorization}>
 			<PageHeader routes={routes} />
 			<Content>
-			{/* <div className="row row__align--end" style={{marginBottom: '15px'}}>
+				{/* <div className="row row__align--end" style={{marginBottom: '15px'}}>
 				<div className="col col-sml-12 col-lrg-5 col-xxlrg-5 u-mar--top--sml">
 					<label className="form__group__label">Starting Code</label>
 					<BaasicInput field={resourcesModel.codeStart} onChange={e => {resourcesModel.codeStart = parseInt(e.target.value)}}/>
@@ -48,12 +48,6 @@ const BookletListTemplate = function({ bookletViewStore }) {
 									placeholder="BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER"
 								/>
 							</div>
-							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={bookletStatusDropdownStore}
-									placeholder="BOOKLET.LIST.FILTER.BOOKLET_STATUS_PLACEHOLDER"
-								/>
-							</div>
 							{/* <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
 								<BaasicDropdown
 									store={bookletTypeDropdownStore}
@@ -71,6 +65,9 @@ const BookletListTemplate = function({ bookletViewStore }) {
 							</div> */}
 						</TableFilter>
 					</div>
+					{remainingAmount &&
+						<div>Total remaining amount: ${remainingAmount.toFixed(2)}</div>
+					}
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 				</div>
 			</Content>
