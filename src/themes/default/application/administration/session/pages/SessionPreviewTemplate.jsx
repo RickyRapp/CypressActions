@@ -13,7 +13,8 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
         tableStore,
         loaderStore,
         discardedTableStore,
-        pendingTableStore
+        pendingTableStore,
+        donorReviewTableStore
     } = sessionPreviewViewStore;
 
     return (
@@ -99,9 +100,13 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
                 <SimpleBaasicTable
                     tableStore={discardedTableStore}
                 />
-                <h3 className="u-mar--bottom--med u-mar--top--med">Pending Certificates</h3>
+                <h3 className="u-mar--bottom--med u-mar--top--med">Certificates on Admin Review</h3>
                 <SimpleBaasicTable
                     tableStore={pendingTableStore}
+                />
+                <h3 className="u-mar--bottom--med u-mar--top--med">Certificates on Donor Review</h3>
+                <SimpleBaasicTable
+                    tableStore={donorReviewTableStore}
                 />
                 <div className="row u-mar--top--lrg">
                     <div className="form__group col col-lrg-12">

@@ -169,10 +169,12 @@ class SessionViewStore extends BaseListViewStore {
                         value: (item) => {
                             if(item.grants && item.grants.length > 0) {
                                 const isPending = (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0;
-                                const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0;
+                                const isDonorReview = (item.grants.filter(c => c.donationStatus.abrv == 'donor-review-first' || c.donationStatus.abrv == 'donor-review-second')).length > 0;
+                                const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0 && !isDonorReview;
                                 const isCanceled = (item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length;
                                 const isPaymentSubmited = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
                                 const isPaymentReceived = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
+                                const isDonorDeclined = (item.grants.filter(c => c.donationStatus.abrv == 'donor-review-declined')).length > 0;
                             
                                 if(isPending) {
                                     return 'Pending';
@@ -184,7 +186,12 @@ class SessionViewStore extends BaseListViewStore {
                                     return 'Payment Submitted';
                                 } else if (isPaymentReceived) {
                                     return 'Payment Received';
-                                } else {
+                                } else if (isDonorDeclined) {
+                                    return 'Declined by Donor';
+                                } else if(isDonorReview) {
+                                    return 'Donor Review';
+                                }
+                                else {
                                     return 'Pending';
                                 }
                             }
@@ -211,8 +218,9 @@ class SessionViewStore extends BaseListViewStore {
                     if(item.grants && item.grants.length > 0) {
                         const isPending = (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0;
                         const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0;
+                        const isDonorReview = (item.grants.filter(c => c.donationStatus.abrv == 'donor-review-first' || c.donationStatus.abrv == 'donor-review-second')).length > 0;
                                 
-                        return isPending || isApproved;
+                        return isPending || isApproved || isDonorReview;
                     }
                     return false;
                 }
