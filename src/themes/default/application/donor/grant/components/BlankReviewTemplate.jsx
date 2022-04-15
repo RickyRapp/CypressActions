@@ -48,7 +48,7 @@ class BlankReviewTemplate extends React.Component {
                             className="input input--lrg u-mar--bottom--med"
                             value={item.checkDeclinationReason}
                             onChange={event => item.checkDeclinationReason = (event.target.value)}
-                            label="Please enter your reason for declining the check"
+                            label="Please enter your reason for declining the check *"
                             placeholder="Description"
                         />
                     }

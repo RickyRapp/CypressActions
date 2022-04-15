@@ -95,16 +95,18 @@ class PastGrantViewStore extends BaseListViewStore {
             item: item,
 			reviewConfirm: async (item) => {
 				try {
-					await this.rootStore.application.donor.grantStore.updateGrant(item);					
-					this.rootStore.notificationStore.success('Successfully reviewed grant.');			
+					if(item.isCertificateApproved == false && (!item.checkDeclinationReason)) {
+						this.rootStore.notificationStore.error('No declination reason given');
+					} else {
+						await this.rootStore.application.donor.grantStore.updateGrant(item);
+						this.rootStore.notificationStore.success('Successfully reviewed grant.');
+						this.reviewModal.close();
+                		this.queryUtility.fetch();
+					}			
 				} catch (e) {
 					this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
 				}
-			},
-            onAfterAction: (item) => {
-                this.queryUtility.fetch();
-                this.reviewModal.close();
-            }
+			}
         });
     }
 
