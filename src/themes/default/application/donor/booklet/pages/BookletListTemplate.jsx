@@ -66,7 +66,7 @@ const BookletListTemplate = function ({ bookletViewStore }) {
 						</TableFilter>
 					</div>
 					{remainingAmount &&
-						<div>Total remaining amount: ${remainingAmount.toFixed(2)}</div>
+						<div className="type--right u-mar--bottom--sml">Total remaining amount: <span className="type--wgt--bold">${remainingAmount.toFixed(2)}</span></div>
 					}
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 				</div>
