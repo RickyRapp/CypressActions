@@ -10,10 +10,15 @@ function CharityQuestionnaireAnswersTemplate({ charityQuestionnaireAnswersViewSt
     return (
         <React.Fragment>
             <div className="card--primary card--med">
-                <Content >
+                <Content>
                     { item && (
-                        item.map( (anwser) => {
-                            return <li>{anwser.numberOfQuestion}: {anwser.charitySignUpQuestion.text}  - {anwser.answer}</li>
+                        item.map( (answer) => {
+                            return (
+                                <div key={answer.id} className="u-mar--bottom--base">
+                                    <p className="type--color--opaque"><span className="u-display--ib w--30--px">{answer.numberOfQuestion}.</span>{answer.charitySignUpQuestion.text}</p>
+                                    <p className="type--wgt--bold"><span className="u-display--ib w--30--px">{" "}</span>{answer.answer}</p>
+                                </div>
+                                ) 
                         } )
                     )
                     }
