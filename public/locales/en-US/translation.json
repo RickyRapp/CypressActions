@@ -1025,6 +1025,7 @@
         "ALL_TRANSACTIONS": "All Transactions",
         "GRANTS": "Grants",
         "REMOTE DEPOSITS": "Remote Deposits",
+        "PAYMENTS": "Payments",
         "LIST": {
             "COLUMNS": {
                 "DATE_CREATED_LABEL": "Date created",
