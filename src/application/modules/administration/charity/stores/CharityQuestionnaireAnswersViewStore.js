@@ -17,6 +17,9 @@ class CharityQuestionnaireAnswersViewStore extends BasePreviewViewStore {
                 }
             }
         });
+
+        const baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
+        this.url = baseUrl + "charity-file-streams/";
     }
 
 }

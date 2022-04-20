@@ -5,7 +5,8 @@ import { Content } from 'core/layouts';
 
 function CharityQuestionnaireAnswersTemplate({ charityQuestionnaireAnswersViewStore, rootStore }) {
     const {
-        item
+        item,
+        url
     } = charityQuestionnaireAnswersViewStore;
     return (
         <React.Fragment>
@@ -13,10 +14,14 @@ function CharityQuestionnaireAnswersTemplate({ charityQuestionnaireAnswersViewSt
                 <Content>
                     { item && (
                         item.map( (answer) => {
-                            return (
+                            return ( 
                                 <div key={answer.id} className="u-mar--bottom--base">
                                     <p className="type--color--opaque"><span className="u-display--ib w--30--px">{answer.numberOfQuestion}.</span>{answer.charitySignUpQuestion.text}</p>
+                                    {answer.coreMediaVaultEntryId ? 
+                                    <a href={url+answer.coreMediaVaultEntry.id} target="_blank" className="type--wgt--bold"><span className="u-display--ib w--30--px">{" "}</span>{answer.coreMediaVaultEntry.fileName}</a>
+                                    :
                                     <p className="type--wgt--bold"><span className="u-display--ib w--30--px">{" "}</span>{answer.answer}</p>
+                                    }
                                 </div>
                                 ) 
                         } )
