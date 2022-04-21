@@ -32,7 +32,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
 
     return (
         <React.Fragment>
-            <EditFormContent form={form}> {console.log(item)}
+            <EditFormContent form={form}>
                 <div className="card--primary card--med u-mar--bottom--sml u-mar--top--sml">
                     <div className="row">
                         <div className="col col-sml-12 col-lrg-12">
