@@ -1,7 +1,9 @@
 import React from 'react';
+import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { ReconcileListFilter } from 'application/administration/reconcile/models';
 import { SelectTableWithLoadOnDemand } from 'application/administration/donation/stores';
+import SelectTableWithLoadOnDemandCharityReconcile from './SelectTableWithLoadOnDemandCharityReconcile';
 
 
 class PaymentsViewStore extends BaseListViewStore {
@@ -20,8 +22,7 @@ class PaymentsViewStore extends BaseListViewStore {
                         params.embed = [
                             'charity',
                             'paymentTransaction',
-                            'paymentType',
-                            'grants'
+                            'paymentType'
                         ];
                         return await rootStore.application.administration.reconcileStore.findReconcile(params);
                     }
@@ -31,12 +32,12 @@ class PaymentsViewStore extends BaseListViewStore {
 
         this.charityId = rootStore.userStore.applicationUser.id;
 
-        this.createTableStore();
+        this.createTableStore(this.getGrantsByCwtId);
         this.createPaymentTypeDropodownStore();
     }
 
-    createTableStore() {
-        this.setTableStore(new SelectTableWithLoadOnDemand(this.queryUtility, {
+    createTableStore(loadMethod) {
+        this.setTableStore(new SelectTableWithLoadOnDemandCharityReconcile(this.queryUtility, {
             columns: [
                 {
                     key: 'paymentNumber',
@@ -115,7 +116,7 @@ class PaymentsViewStore extends BaseListViewStore {
             ],
             actions: {},
             disablePaging: false,
-        }));
+        }, true, loadMethod));
     }
     createPaymentTypeDropodownStore() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
@@ -131,6 +132,12 @@ class PaymentsViewStore extends BaseListViewStore {
             });
 
         }
+
+    @action.bound
+    async getGrantsByCwtId(id) {
+        console.log(id);
+    }
+    
 
 }
 

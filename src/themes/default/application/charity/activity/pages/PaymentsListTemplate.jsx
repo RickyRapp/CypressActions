@@ -5,7 +5,7 @@ import { Content, ApplicationListLayout } from 'core/layouts';
 import { BaasicTable, TableFilter, BaasicDropdown, BaasicTableWithRowDetails, FormatterResolver } from 'core/components';
 
 
-const PaymentsListTemplate = function ({ paymentsViewStore }) {
+const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
     const {
         tableStore, 
 		queryUtility, 
@@ -14,28 +14,19 @@ const PaymentsListTemplate = function ({ paymentsViewStore }) {
     } = paymentsViewStore;
 
     const DetailComponent = ({ dataItem }) => {
-        {
+        { console.log(dataItem)
             return (
                 <table>
                     <thead>
                         <tr>
                             <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DONOR_NAME')}</th>
                             <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.CHARITY_AMOUNT')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DATE_CREATED')}</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        {dataItem && dataItem.charity.map((item, index) => {
-                            return (console.log(dataItem)
-                                /*<tr key={item.id}>
-                                    <td>{item.name}</td>
-                                    <td><FormatterResolver
-                                        item={{ charityAmount: item.charityAmount }}
-                                        field='charityAmount'
-                                        format={{ type: 'currency' }}
-                                    /></td>
-                                </tr> */
-                            );
-                        })}
+                        
                     </tbody>
                 </table>)
         }

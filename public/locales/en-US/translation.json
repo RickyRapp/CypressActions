@@ -1991,7 +1991,8 @@
                     "COLUMNS": {
                         "CHECKED": "",
                         "DONOR_NAME": "Donor",
-                        "CHARITY_AMOUNT": "Amount for charity"
+                        "CHARITY_AMOUNT": "Amount for charity",
+                        "DATE_CREATED": "Date created"
                     },
                     "FIELDS": {
                         "IS_TRANSFER_TO_CHARITY_ACCOUNT": "Transfer to charity account",
