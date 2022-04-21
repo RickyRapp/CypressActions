@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
 import { CharityGeneralData, CharityPersonalData } from 'application/administration/charity/components';
+import { CharityQuestionnaireAnswers }from 'application/administration/charity/pages';
 import { EmailList } from 'application/administration/email/pages';
 
 function CharityTabTemplate({ charityTabViewStore, rootStore }) {
@@ -22,6 +23,9 @@ function CharityTabTemplate({ charityTabViewStore, rootStore }) {
                     </div>
                     <div label={'CHARITY.TAB.EMAIL'} className="u-mar--top--sml">
                         <EmailList charityId={rootStore.routerStore.routerState.params.id} />
+                    </div>
+                    <div label={'CHARITY.TAB.QUESTIONNAIRE_ANSWERS'} className="u-mar--top--sml">
+                        <CharityQuestionnaireAnswers/>
                     </div>
                 </TabLayout>
             </div>
