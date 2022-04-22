@@ -9,5 +9,13 @@
         display: block;
         color: $color-warning;
         margin-top: calc($unit * 1);
+
+        &--note {
+            padding: calc($unit * 2);
+
+            border-radius: $radius-base;
+            background-color: color($almond a(0.2));
+            color: $color-primary;
+        }
     }
 }
