@@ -7,7 +7,7 @@ import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 
 const BookletListTemplate = function ({ bookletViewStore }) {
 	const { routes, tableStore, queryUtility, authorization, denominationTypeDropdownStore,
-		bookletStatusDropdownStore, remainingAmount } = bookletViewStore;
+		remainingAmount } = bookletViewStore;
 
 	return (
 		<ApplicationListLayout store={bookletViewStore} authorization={authorization}>
@@ -66,7 +66,7 @@ const BookletListTemplate = function ({ bookletViewStore }) {
 						</TableFilter>
 					</div>
 					{remainingAmount &&
-						<div className="type--right u-mar--bottom--sml">Total remaining amount: <span className="type--wgt--bold">${remainingAmount.toFixed(2)}</span></div>
+						<div className="type--right u-mar--bottom--sml">Total remaining $ amount: <span className="type--wgt--bold">{Number(remainingAmount).toFixed(2)}</span></div>
 					}
 					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 				</div>

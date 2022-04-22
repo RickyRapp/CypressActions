@@ -9,7 +9,7 @@ import { saveAs } from '@progress/kendo-file-saver';
 @applicationContext
 class BookletViewStore extends BaseListViewStore {
     @observable resourcesModel = { codeEnd: 0, codeStart: 0 };
-    @observable remainingAmount;
+    @observable remainingAmount = 0;
 
     // @observable form = new BookletExportForm({
     //     onSuccess: async form => {
@@ -48,8 +48,7 @@ class BookletViewStore extends BaseListViewStore {
                             'certificates.certificateStatus'
                         ];
                         params.donorId = rootStore.userStore.applicationUser.id;
-                        this.remainingAmount = await rootStore.application.administration.bookletStore.remainingAmount(rootStore.userStore.applicationUser.id);
-                        console.log('remaining', this.remainingAmount);                
+                        this.remainingAmount = (await rootStore.application.administration.bookletStore.remainingAmount(rootStore.userStore.applicationUser.id)).toFixed(2);
                         return rootStore.application.administration.bookletStore.findBooklet(params);
                     }
                 }
@@ -121,12 +120,11 @@ class BookletViewStore extends BaseListViewStore {
                     key: 'remainingAmount',
                     title: 'BOOKLET.LIST.COLUMNS.REMAININGAMOUNT_LABEL',
                     format: {
-                        type: 'currency'
+                        type: 'function',
+                        value: (item) => {
+                            return (item.remainingAmount ? item.remainingAmount.toFixed(2) : '0.00');
+                        }
                     }
-                },
-                {
-                    key: 'bookletStatus.name',
-                    title: 'BOOKLET.LIST.COLUMNS.STATUS_LABEL'
                 }
             ],
             actions: {
