@@ -1,6 +1,6 @@
 import React from 'react';
 import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { ReconcileListFilter } from 'application/administration/reconcile/models';
 import { SelectTableWithLoadOnDemand } from 'application/administration/donation/stores';
 import SelectTableWithLoadOnDemandCharityReconcile from './SelectTableWithLoadOnDemandCharityReconcile';
@@ -135,9 +135,9 @@ class PaymentsViewStore extends BaseListViewStore {
 
     @action.bound
     async getGrantsByCwtId(id) {
-        console.log(id);
+        var data = await this.rootStore.application.administration.reconcileStore.getGrantsByReconcileId(id);
+        return data;
     }
-    
 
 }
 

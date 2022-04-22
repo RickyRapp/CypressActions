@@ -35,5 +35,10 @@ class ReconcileStore {
         const response = await this.reconcileService.uploadFile(resource);
         return response.data;
     }
+
+    async getGrantsByReconcileId(resource){
+        const response = await this.reconcileService.getGrantsByReconcileId(resource);
+        return response.data;
+    }
 }
 export default ReconcileStore;

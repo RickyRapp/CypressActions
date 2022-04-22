@@ -28,6 +28,10 @@ class ReconcileRouteService extends BaseRouteService {
 		});
     }
 
+    getGrants(resource){
+        return super.get(this.base + '/charity/reconcile-grants/' + '{id}', resource);
+    }
+
 }
 
 export default ReconcileRouteService;

@@ -12,7 +12,6 @@ class SelectTableWithLoadOnDemandCharityReconcile extends SelectTableWithRowDeta
 
     @action.bound
     onExpand = async event => {
-        //TODO leave only generic code
         if (!event.dataItem.allGrants) {
             var data = await this.loadChildData(event.dataItem.id);
             if (data) {

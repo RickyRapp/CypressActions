@@ -9,12 +9,12 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
     const {
         tableStore, 
 		queryUtility, 
-		paymentTypeDropdownStore, 
-		authorization
+		paymentTypeDropdownStore,
+		authorization,
     } = paymentsViewStore;
 
     const DetailComponent = ({ dataItem }) => {
-        { console.log(dataItem)
+        {
             return (
                 <table>
                     <thead>
@@ -26,7 +26,27 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        {dataItem 
+                            && dataItem.allGrants.charityVirtualTransactions
+                            && dataItem.allGrants.charityVirtualTransactions.map((item) => { 
+                            return (
+                                <tr key={item.grants[0].id}>
+                                    <td>{item.grants[0].donor.donorName}</td>
+                                    <td><FormatterResolver
+                                        item={{amount: item.grants[0].amount}}
+                                        field='amount'
+                                        format={{type: 'currency'}}
+                                    /></td>
+                                    <td> {item.grants[0].isSession ?
+                                     <FormatterResolver
+                                        item={{ dateCreated: item.grants[0].dateCreated }}
+                                        field='dateCreated'
+                                        format={{ type: 'date', value: 'short' }}
+                                    />
+                                     : ''} </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>)
         }
@@ -57,7 +77,6 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
                         tableStore={tableStore}
                         detailComponent={DetailComponent}
                         loading={tableStore.loading}
-                        className="k-grid--actions"
                     />
                 </div>
     </Content>
