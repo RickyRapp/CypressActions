@@ -1213,7 +1213,8 @@
                 "CHARITY_TAX_ID" : "Tax Id: ",
                 "CHARITY_ACCOUNT_NUMBER": "Account Number: ",
                 "CHARITY_API_KEY" : "Api Key: ",
-                "CHARITY_QR_CODE" : "QR Code: "
+                "CHARITY_QR_CODE" : "QR Code: ",
+                "CHARITY_VERIFICATION_DOCUMENT" : "Charity verification document: "
             }
         },
         "WITHDRAW_FUND": {

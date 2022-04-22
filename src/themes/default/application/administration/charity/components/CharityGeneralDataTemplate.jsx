@@ -27,7 +27,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         withdrawFundModalParams,
         openWithdrawFundModalClick,
         regenerateApiKey,
-        copyToClipboard
+        copyToClipboard,
+        url
     } = charityGeneralDataViewStore;
 
     return (
@@ -79,8 +80,15 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                                 ></BaasicButton>
                                             </div>
                                             ))}
-                                            
+                                    {item && item.verificationDocumentId &&
+                                        <div>
+                                            <label className="type--color--opaque">
+                                                {t('CHARITY.EDIT.FIELDS.CHARITY_VERIFICATION_DOCUMENT')}
+                                            </label>
+                                            <a href={url+item.verificationDocumentId} target="_blank" className="type--wgt--bold">{item.verificationDocumentName}</a>
                                         </div>
+                                    }
+                                    </div>
                                     </div>
                                     <div className="form__group">
                                         {item &&

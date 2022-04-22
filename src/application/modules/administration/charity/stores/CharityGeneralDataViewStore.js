@@ -14,7 +14,13 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                 return {
                     get: async (id) => {
                         const params = {
-                            embed: ['contactInformation', 'charityApiKey', 'charityAccountNumber', "coreUser"]
+                            embed: [
+                                'contactInformation', 
+                                'charityApiKey',
+                                'charityAccountNumber',
+                                'coreUser',
+                                'coreMediaVaultEntry'
+                            ]
                         }
                         const data = await rootStore.application.administration.charityStore.getCharity(id, params);
                         const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
@@ -39,7 +45,9 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             presentBalance: data.presentBalance,
                             apiKey: charityApiKey,
                             hasCoreUser : data.coreUserId ? true : false,
-                            coreUsername : data.coreUser ? data.coreUser.userName : ''
+                            coreUsername : data.coreUser ? data.coreUser.userName : '',
+                            verificationDocumentId : data.coreMediaVaultEntry && data.coreMediaVaultEntry.id,
+                            verificationDocumentName : data.coreMediaVaultEntry && data.coreMediaVaultEntry.id
                         }
                     },
                     update: async (resource) => {
@@ -66,6 +74,9 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
         this.createCharityTypeDropdownStore();
         this.createCharityStatusDropdownStore();
         this.createWithdrawFundModalParams();
+
+        const baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
+        this.url = baseUrl + "charity-file-streams/";
     }
 
     @action.bound
