@@ -1025,7 +1025,7 @@
         "ALL_TRANSACTIONS": "All Transactions",
         "GRANTS": "Grants",
         "REMOTE DEPOSITS": "Remote Deposits",
-        "PAYMENTS": "Payments",
+        "PAYMENTS": "Payments Holding",
         "LIST": {
             "COLUMNS": {
                 "DATE_CREATED_LABEL": "Date created",
@@ -1992,6 +1992,7 @@
                         "CHECKED": "",
                         "DONOR_NAME": "Donor",
                         "CHARITY_AMOUNT": "Amount for charity",
+                        "GRANT_CONFIRMATION_NUMBER": "Confirmation Number",
                         "DATE_CREATED": "Date created"
                     },
                     "FIELDS": {

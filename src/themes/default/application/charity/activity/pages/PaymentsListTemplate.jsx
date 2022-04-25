@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { Content, ApplicationListLayout } from 'core/layouts';
-import { BaasicTable, TableFilter, BaasicDropdown, BaasicTableWithRowDetails, FormatterResolver } from 'core/components';
+import { Content } from 'core/layouts';
+import { TableFilter, BaasicDropdown, BaasicTableWithRowDetails, FormatterResolver } from 'core/components';
 
 
 const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
@@ -21,6 +21,7 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
                         <tr>
                             <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DONOR_NAME')}</th>
                             <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.CHARITY_AMOUNT')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.GRANT_CONFIRMATION_NUMBER')}</th>
                             <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DATE_CREATED')}</th>
 
                         </tr>
@@ -37,6 +38,9 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
                                         field='amount'
                                         format={{type: 'currency'}}
                                     /></td>
+                                    <td>
+                                        {item.grants[0].confirmationNumber}
+                                    </td>
                                     <td> {item.grants[0].isSession ?
                                      <FormatterResolver
                                         item={{ dateCreated: item.grants[0].dateCreated }}

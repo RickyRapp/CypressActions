@@ -1,9 +1,9 @@
 import React from 'react';
-import { action } from 'mobx';
 import { BaseListViewStore, BaasicDropdownStore } from 'core/stores';
 import { ReconcileListFilter } from 'application/administration/reconcile/models';
 import { SelectTableWithLoadOnDemand } from 'application/administration/donation/stores';
 import SelectTableWithLoadOnDemandCharityReconcile from './SelectTableWithLoadOnDemandCharityReconcile';
+import { action } from 'mobx';
 
 
 class PaymentsViewStore extends BaseListViewStore {
@@ -116,7 +116,7 @@ class PaymentsViewStore extends BaseListViewStore {
             ],
             actions: {},
             disablePaging: false,
-        }, true, loadMethod));
+        }, false, loadMethod));
     }
     createPaymentTypeDropodownStore() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
