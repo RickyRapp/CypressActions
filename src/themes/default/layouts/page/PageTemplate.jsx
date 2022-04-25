@@ -59,7 +59,6 @@ const MainContent = defaultTemplate(({ loading, content, isError }) => {
                     <div className="content__main">
                         {content.children}
                     </div>
-
                     {
                         content.footer &&
                         <div className="content__footer">

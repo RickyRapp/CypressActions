@@ -20,10 +20,15 @@ class UserStore {
     async resolveUser() {
         this.loaderStore.suspend();
         const applicationUser = await this.resolveApplicationUser();
+        if (!applicationUser || (applicationUser && applicationUser.roles.find(e => e === "Administrators"))) {
+            document.getElementById('trengo-web-widget').style.display = 'none';
+        }
+        else {
+            document.getElementById('trengo-web-widget').style.display = '';
+        }
 
         runInAction(() => {
             this.applicationUser = applicationUser;
-
             this.loaderStore.resume();
         })
     }
@@ -84,7 +89,7 @@ class UserStore {
                 const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
                 if (data) {
                     user.charityId = data.id;
-                    user.charity = { name: data.name, taxId: data.taxId, apiKey: charityApiKey, accountNumber: data.charityAccountNumber.accountNumber};
+                    user.charity = { name: data.name, taxId: data.taxId, apiKey: charityApiKey, accountNumber: data.charityAccountNumber.accountNumber };
                 }
             }
         } catch (ex) {
