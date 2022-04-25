@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 import { ReconcileListFilter } from 'application/administration/reconcile/models';
 import { SelectTableWithLoadOnDemand } from 'application/administration/donation/stores';
 import SelectTableWithLoadOnDemandCharityReconcile from './SelectTableWithLoadOnDemandCharityReconcile';
@@ -22,7 +22,8 @@ class PaymentsViewStore extends BaseListViewStore {
                         params.embed = [
                             'charity',
                             'paymentTransaction',
-                            'paymentType'
+                            'paymentType',
+                            'grants'
                         ];
                         return await rootStore.application.administration.reconcileStore.findReconcile(params);
                     }
@@ -32,12 +33,12 @@ class PaymentsViewStore extends BaseListViewStore {
 
         this.charityId = rootStore.userStore.applicationUser.id;
 
-        this.createTableStore(this.getGrantsByCwtId);
+        this.createTableStore();
         this.createPaymentTypeDropodownStore();
     }
 
     createTableStore(loadMethod) {
-        this.setTableStore(new SelectTableWithLoadOnDemandCharityReconcile(this.queryUtility, {
+        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'paymentNumber',
@@ -73,11 +74,11 @@ class PaymentsViewStore extends BaseListViewStore {
                             return <div>
                                 {item.charity.name} 
                                 <small style={{ display: "block" }}>
-                                    {item.charity.charityAddress.addressLine1}, 
-                                    {item.charity.charityAddress.addressLine2}, 
-                                    {item.charity.charityAddress.city}, 
-                                    {item.charity.charityAddress.state}, 
-                                    {item.charity.charityAddress.zipCode}
+                                    {item.charityVirtualTransactions[0].grants[0].addressLine1}, 
+                                    {item.charityVirtualTransactions[0].grants[0].addressLine2}, 
+                                    {item.charityVirtualTransactions[0].grants[0].city}, 
+                                    {item.charityVirtualTransactions[0].grants[0].state}, 
+                                    {item.charityVirtualTransactions[0].grants[0].zipCode}
                                     </small>
                             </div>
                         }
@@ -116,7 +117,7 @@ class PaymentsViewStore extends BaseListViewStore {
             ],
             actions: {},
             disablePaging: false,
-        }, false, loadMethod));
+        }, false));
     }
     createPaymentTypeDropodownStore() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
@@ -132,13 +133,6 @@ class PaymentsViewStore extends BaseListViewStore {
             });
 
         }
-
-    @action.bound
-    async getGrantsByCwtId(id) {
-        var data = await this.rootStore.application.administration.reconcileStore.getGrantsByReconcileId(id);
-        return data;
-    }
-
 }
 
 export default PaymentsViewStore;

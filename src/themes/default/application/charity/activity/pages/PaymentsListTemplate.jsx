@@ -14,7 +14,7 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
     } = paymentsViewStore;
 
     const DetailComponent = ({ dataItem }) => {
-        {
+        { console.log(dataItem)
             return (
                 <table>
                     <thead>
@@ -28,8 +28,8 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
                     </thead>
                     <tbody>
                         {dataItem 
-                            && dataItem.allGrants.charityVirtualTransactions
-                            && dataItem.allGrants.charityVirtualTransactions.map((item) => { 
+                            && dataItem.charityVirtualTransactions
+                            && dataItem.charityVirtualTransactions.map((item) => { 
                             return (
                                 <tr key={item.grants[0].id}>
                                     <td>{item.grants[0].donor.donorName}</td>
