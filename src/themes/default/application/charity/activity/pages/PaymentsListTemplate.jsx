@@ -14,7 +14,7 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
     } = paymentsViewStore;
 
     const DetailComponent = ({ dataItem }) => {
-        { console.log(dataItem)
+        {
             return (
                 <table>
                     <thead>

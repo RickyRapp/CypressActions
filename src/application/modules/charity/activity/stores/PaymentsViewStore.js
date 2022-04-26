@@ -1,9 +1,6 @@
 import React from 'react';
 import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 import { ReconcileListFilter } from 'application/administration/reconcile/models';
-import { SelectTableWithLoadOnDemand } from 'application/administration/donation/stores';
-import SelectTableWithLoadOnDemandCharityReconcile from './SelectTableWithLoadOnDemandCharityReconcile';
-import { action } from 'mobx';
 
 
 class PaymentsViewStore extends BaseListViewStore {
@@ -71,14 +68,15 @@ class PaymentsViewStore extends BaseListViewStore {
                     format:  {
                         type: 'function',
                         value: (item) => {
+                            const grant = item.charityVirtualTransactions[0].grants[0];
                             return <div>
                                 {item.charity.name} 
                                 <small style={{ display: "block" }}>
-                                    {item.charityVirtualTransactions[0].grants[0].addressLine1}, 
-                                    {item.charityVirtualTransactions[0].grants[0].addressLine2}, 
-                                    {item.charityVirtualTransactions[0].grants[0].city}, 
-                                    {item.charityVirtualTransactions[0].grants[0].state}, 
-                                    {item.charityVirtualTransactions[0].grants[0].zipCode}
+                                    {grant.addressLine1}, 
+                                    {grant.addressLine2 && grant.addressLine2+ ','}
+                                    {grant.city}, 
+                                    {grant.state}, 
+                                    {grant.zipCode}
                                     </small>
                             </div>
                         }
