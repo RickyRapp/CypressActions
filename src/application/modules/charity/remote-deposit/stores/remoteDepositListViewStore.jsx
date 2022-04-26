@@ -214,10 +214,13 @@ class remoteDepositListViewStore extends BaseListViewStore {
 							value: (item) => {
                                 if(item.grants && item.grants.length > 0) {
                                     const isPending = (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0;
-                                    const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0;
+                                    const isDonorReview = (item.grants.filter(c => c.donationStatus.abrv == 'donor-review-first' || c.donationStatus.abrv == 'donor-review-second')).length > 0;
+                                    const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0 && !isDonorReview;
                                     const isCanceled = (item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length;
                                     const isPaymentSubmited = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
                                     const isPaymentReceived = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
+                                    const isDonorDeclined = (item.grants.filter(c => c.donationStatus.abrv == 'donor-review-declined')).length > 0;
+                                    const isDeclined = (item.grants.filter(c => c.donationStatus.abrv == 'declined')).length == item.grants.length;
                                 
                                     if(isPending) {
                                         return 'Pending';
@@ -229,7 +232,14 @@ class remoteDepositListViewStore extends BaseListViewStore {
                                         return 'Payment Submitted';
                                     } else if (isPaymentReceived) {
                                         return 'Payment Received';
-                                    } else {
+                                    } else if (isDonorDeclined) {
+                                        return 'Declined by Donor';
+                                    } else if(isDonorReview) {
+                                        return 'Donor Review';
+                                    } else if(isDeclined) {
+                                        return 'Declined';
+                                    }
+                                    else {
                                         return 'Pending';
                                     }
                                 }

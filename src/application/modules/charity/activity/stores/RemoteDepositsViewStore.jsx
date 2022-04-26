@@ -220,6 +220,7 @@ class RemoteDepositsViewStore extends BaseListViewStore {
                                     const isPaymentSubmited = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
                                     const isPaymentReceived = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
                                     const isDonorDeclined = (item.grants.filter(c => c.donationStatus.abrv == 'donor-review-declined')).length > 0;
+                                    const isDeclined = (item.grants.filter(c => c.donationStatus.abrv == 'declined')).length == item.grants.length;
                                 
                                     if(isPending) {
                                         return 'Pending';
@@ -235,6 +236,8 @@ class RemoteDepositsViewStore extends BaseListViewStore {
                                         return 'Declined by Donor';
                                     } else if(isDonorReview) {
                                         return 'Donor Review';
+                                    } else if(isDeclined) {
+                                        return 'Declined';
                                     }
                                     else {
                                         return 'Pending';
