@@ -33,13 +33,14 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                             ]
                         }
                         const data = await rootStore.application.administration.sessionStore.getSession(id, params);
-                        data.grants = data.grants.filter(c => c.donationStatus.abrv != 'pending' && c.certificate.isBlankApprovedByAdmin != false && (c.certificate.openCertificateAmount && c.certificate.isBlankApprovedByAdmin) || !c.certificate.openCertificateAmount || (c.certificate.openCertificateAmount && (c.certificate.needsAdminReview == null || c.certificate.needsAdminReview == false)))
+                        data.grants = data.grants.filter(c => c.donationStatus.abrv != 'pending' && c.certificate.isBlankApprovedByAdmin != false && ((c.certificate.openCertificateAmount && c.certificate.isBlankApprovedByAdmin) || !c.certificate.openCertificateAmount || (c.certificate.openCertificateAmount && (c.certificate.needsAdminReview == null || c.certificate.needsAdminReview == false))))
                         const discarded = await rootStore.application.administration.sessionStore.getSession(id, params);
                         discarded.grants = discarded.grants.filter(c => (c.certificate.openCertificateAmount && c.certificate.isBlankApprovedByAdmin == false))
                         const pending = await rootStore.application.administration.sessionStore.getSession(id, params);
                         pending.grants = pending.grants.filter(c => c.donationStatus.abrv == 'pending' || (c.certificate.openCertificateAmount && c.certificate.isBlankApprovedByAdmin == null && c.certificate.needsAdminReview))
                         this.session = data;
-                        this.tableStore.setData(_.orderBy(this.session.grants, g => g.certificate.denominationType.value, "asc"));
+                        
+                        this.tableStore.setData(_.orderBy(data.grants, g => g.certificate.denominationType.value, "asc"));
                         if (!this.tableStore.dataInitialized) {
                             this.tableStore.dataInitialized = true;
                         }
