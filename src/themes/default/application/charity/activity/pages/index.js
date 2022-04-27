@@ -3,3 +3,4 @@ export { default as AllTransactionListTemplate } from './AllTransactionListTempl
 export { default as GrantsListTemplate } from './GrantsListTemplate'
 export { default as RemoteDepositListTemplate } from './remoteDepositListTemplate'
 export { default as PaymentsListTemplate } from './PaymentsListTemplate'
+export { default as DepositsInsightTemplate } from './DepositsInsightTemplate'

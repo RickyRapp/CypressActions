@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Page, PageHeader } from 'core/layouts';
-import { AllTransactionList, GrantsList, RemoteDepositsList, PaymentsList } from 'application/charity/activity/pages';
+import { AllTransactionList, GrantsList, RemoteDepositsList, PaymentsList, DepositsInsight } from 'application/charity/activity/pages';
 import { TabsHeader } from 'core/components';
 import renderTabsContent from 'core/utils/renderTabsContent';
 
@@ -23,6 +23,9 @@ const ActivityTabTemplate = function ({ activityTabViewStore }) {
                 </div>
                 <div label={'CHARITY_ACTIVITY.PAYMENTS'}>
                     <PaymentsList />
+                </div>
+                <div label={'CHARITY_ACTIVITY.DEPOSITS_INSIGHT'}>
+                    <DepositsInsight />
                 </div>
             </React.Fragment>
         )

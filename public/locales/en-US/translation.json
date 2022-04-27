@@ -1023,8 +1023,9 @@
     "CHARITY_ACTIVITY": {
         "TAB_TITLE": "Activity",
         "ALL_TRANSACTIONS": "All Transactions",
-        "GRANTS": "Grants",
+        "GRANTS": "Giving Insight",
         "REMOTE DEPOSITS": "Remote Deposits",
+        "DEPOSITS_INSIGHT": "Deposits Insight",
         "PAYMENTS": "Payments Holding",
         "LIST": {
             "COLUMNS": {

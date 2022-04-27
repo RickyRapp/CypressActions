@@ -21,6 +21,10 @@ class ActivityRouteService extends BaseRouteService {
         return super.find('session-pending-certificate' + '/{?sessionPendingCertificateStatusIds,donorId,page,rpp,sort,embed,fields}', filter);
     }
 
+    findPendingCharityCheck(filter) {
+        return super.find('session-pending-certificate' + '/{?sessionPendingCertificateStatusIds,charityId,page,rpp,sort,embed,fields}', filter);
+    }
+
     findCharityTransactions(filter) {
         return super.find(this.base + '/charity-transactions/{?charityId,dateCreatedFrom,dateCreatedTo,page,rpp,sort,embed,fields}', filter);
     }
