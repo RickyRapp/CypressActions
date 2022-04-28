@@ -22,9 +22,9 @@ function SessionTabTemplate({ sessionTabViewStore }) {
                     <div label={'SESSION.TAB.PENDING_CERTIFICATE'} className="u-mar--top--sml">
                         <SessionPendingCertificateList />
                     </div>
-                    {/* <div label={'SESSION.TAB.ADMIN_REVIEW'} className="u-mar--top--sml">
+                    <div label={'SESSION.TAB.ADMIN_REVIEW'} className="u-mar--top--sml">
                         <AdminReviewList />
-                    </div> */}
+                    </div>
                     <div label={'SESSION.TAB.DONOR_REVIEW'} className="u-mar--top--sml">
                         <SessionForDonorReview />
                     </div>
