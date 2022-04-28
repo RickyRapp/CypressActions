@@ -4,7 +4,6 @@ import { action, observable } from 'mobx';
 
 class AllTransactionViewStore extends BaseListViewStore {
 	@observable isChecksOnHoldVisible = false;
-    @observable isPendingTransactionVisible = null;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -39,42 +38,6 @@ class AllTransactionViewStore extends BaseListViewStore {
         this.createDonationStatusDropdownStore();
         this.createDonationTypeDropdownStore();
         this.fetchChecksOnHold();
-        this.createModalStore();
-        this.fetchCharityData();
-
-        this.pendingTransactionTableStore = new TableViewStore(null, {
-            columns: [
-                {
-                    key: 'paymentTransaction.dateUpdated',
-                    title: 'ACTIVITY.LIST.COLUMNS.DATE_CREATED_LABEL',
-                    format: {
-                        type: 'date',
-                        value: 'short',
-                        cellClass: 'table__cell--date'
-                    }
-                },
-                {
-                    key: 'description',
-                    title: 'ACTIVITY.LIST.COLUMNS.PENDING_TRANSACTION_DESCRIPTION_LABEL'
-                },
-                {
-                    key: 'paymentTransaction',
-                    title: 'ACTIVITY.LIST.COLUMNS.PENDING_TRANSACTION_AMOUNT_LABEL',
-                    format: {
-                        type: 'transaction-currency',
-                        value: '$',
-                    }
-                },
-            ],
-            actions: {
-                onPreview: (item) => this.openModalStore(item),
-            },
-            actionsRender: {
-                onPreviewRender: (item) => {
-                    return !isNullOrWhiteSpacesOrUndefinedOrEmpty(item.json);
-                }
-            }
-        });
 
         this.checksOnHoldTableStore = new TableViewStore(null, {
             columns: [
@@ -213,32 +176,13 @@ class AllTransactionViewStore extends BaseListViewStore {
         }
     }
 
-    @action.bound
-    async fetchCharityData() {
-        this.donor = await this.rootStore.application.donor.transactionStore.loadDonorData(this.rootStore.userStore.applicationUser.id);
-        this.pendingTransactionTableStore.setData(this.donor.pendingTransactions.sort((a, b) => { return new Date(b.paymentTransaction.dateCreated) - new Date(a.paymentTransaction.dateCreated); }));
-        if (!this.pendingTransactionTableStore.dataInitialized) {
-            this.pendingTransactionTableStore.dataInitialized = true;
-        }
-    }
+
     
 	@action.bound
     onExpandChecksOnHoldClick() {
         this.isChecksOnHoldVisible = !this.isChecksOnHoldVisible;
     }
 
-    @action.bound
-    onExpandPendingTransactionClick() {
-        this.isPendingTransactionVisible = !this.isPendingTransactionVisible;
-    }
-
-    createModalStore() {
-        this.previewFeesModal = new ModalParams({});
-    }
-
-    openModalStore(item) {
-        this.previewFeesModal.open(item);
-    }
 }
 
 export default AllTransactionViewStore;

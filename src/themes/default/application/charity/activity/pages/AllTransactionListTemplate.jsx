@@ -21,50 +21,10 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
         checksOnHoldTableStore,
         isChecksOnHoldVisible,
         onExpandChecksOnHoldClick,
-        pendingTransactionTableStore,
-        isPendingTransactionVisible,
-        onExpandPendingTransactionClick
     } = allTransactionViewStore;
 
     return (
         <Content>
-            <div className="col col-sml-12 u-mar--bottom--sml">
-					<div className="transaction__show">
-						<div className="transaction__show--body">
-							<span className="type--base type--wgt--medium type--color--text">
-								Pending Transaction:{' '}
-								{pendingTransactionTableStore.data.length > 0 && (
-									<FormatterResolver
-										item={{
-											balance: pendingTransactionTableStore.data
-												.map(c => c.paymentTransaction.paymentTransactionType.abrv == 'credit' ? (c.paymentTransaction.amount * (-1)) :  c.paymentTransaction.amount)
-												.reduce((t, a) => t + a),
-										}}
-										field="balance"
-										format={{ type: 'currency' }}
-									/>
-								)}
-							</span>
-							<BaasicButton
-								className="btn btn--icon"
-								onlyIconClassName="u-mar--right--sml"
-								icon={`u-icon ${isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
-									} u-icon--base`}
-								label="EXPAND"
-								onlyIcon={true}
-								onClick={() => onExpandPendingTransactionClick()}
-							></BaasicButton>
-						</div>
-
-						{isPendingTransactionVisible && (
-							<div className="row">
-								<div className="col col-sml-12 u-mar--top--sml">
-									<SimpleBaasicTable className="table--transaction" tableStore={pendingTransactionTableStore} actionsComponent={renderActions} />
-								</div>
-							</div>
-						)}
-					</div>
-				</div>
             <div className="col-sml-12 u-mar--bottom--sml">
 					<div className="transaction__show">
 						<div className="transaction__show--body">
