@@ -13,7 +13,8 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
         onClick, 
         isCharityAccount,
         imageUploadStore,
-        isEdit
+        isEdit,
+        isScannerAccount
     } = modalParams.data;
 
     return (
@@ -38,8 +39,8 @@ const RemoveSessionCertificateModal = function ({ modalParams, t }) {
                     </NumericInput>
                 </div>
                 
-                {isCharityAccount && <p className="form__group col col-lrg-12">You are required to upload the images for the blank checks or alternatively you can remove them and submit them by mail</p> }
-                {isCharityAccount && <div className="form__Group col col-lrg-6">
+                {(isCharityAccount || isScannerAccount) && <p className="form__group col col-lrg-12">You are required to upload the images for the blank checks or alternatively you can remove them and submit them by mail</p> }
+                {(isCharityAccount || isScannerAccount) && <div className="form__Group col col-lrg-6">
                 {/* disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)}  */}
                     <BaasicDropzone store={imageUploadStore} />
                 </div>}
