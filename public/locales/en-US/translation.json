@@ -1030,9 +1030,9 @@
         "LIST": {
             "COLUMNS": {
                 "DATE_CREATED_LABEL": "Date created",
-                "AMOUNT_LABEL": "Balance",
+                "AMOUNT_LABEL": "Amount",
                 "TRANSACTION_TYPE_LABEL": "Transaction Type",
-                "PRESENT_BALANCE_LABEL": "Present Balance"
+                "PRESENT_BALANCE_LABEL": "Balance"
             }
         }
     },

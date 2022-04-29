@@ -23,7 +23,8 @@ class AllTransactionViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'donationType',
-                            'donationStatus'
+                            'donationStatus',
+                            'donor'
                         ];
                         return rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
                     }
@@ -121,8 +122,24 @@ class AllTransactionViewStore extends BaseListViewStore {
                     }
                 },
                 {
+                    key:'description',
+                    title: 'Description',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return item.paymentTransaction.description ? ('Grant: '+ item.donor.donorName) : item.paymentTransaction.paymentTransactionType.description;
+                        }
+                    }
+                },
+                {
                     key: 'type',
                     title: 'CHARITY_ACTIVITY.LIST.COLUMNS.TRANSACTION_TYPE_LABEL',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return item.type === "Withdraw" ? "Withdraw" :  item.paymentTransaction.charityVirtualTransactions[0].grants[0].grantType + ' ' +item.paymentTransaction.charityVirtualTransactions[0].grants[0].confirmationNumber;
+                        }
+                    }
                 },
                 {
                     key: 'paymentTransaction',
@@ -130,16 +147,6 @@ class AllTransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'transaction-currency',
                         value: '$'
-                    }
-                },
-                {
-                    key:'description',
-                    title: 'Description',
-                    format: {
-                        type: 'function',
-                        value: (item) => {
-                            return item.paymentTransaction.description ? item.paymentTransaction.description : item.paymentTransaction.paymentTransactionType.description;
-                        }
                     }
                 },
                 {
