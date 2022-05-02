@@ -161,8 +161,17 @@ class AllTransactionViewStore extends BaseListViewStore {
                     key: 'paymentTransaction.presentBalance',
                     title: 'CHARITY_ACTIVITY.LIST.COLUMNS.PRESENT_BALANCE_LABEL',
                     format: {
-                        type: 'currency',
-                        value: '$'
+                        type: 'function',
+                            value: (item) => {
+                                if(!this.showPresentBalance) 
+                                    return null;
+    
+                                let formatter = new Intl.NumberFormat('en-US', {
+                                    style: 'currency',
+                                    currency: 'USD',
+                                    });
+                                return formatter.format(item.paymentTransaction.presentBalance);
+                            }
                     }
                 }
             ],
