@@ -7,7 +7,8 @@ import {
     BaasicDropdown,
     BaasicButton,
     SimpleBaasicTable,
-    FormatterResolver
+    FormatterResolver,
+    DateRangeQueryPicker
 } from 'core/components';
 import { Content } from 'core/layouts';
 
@@ -16,11 +17,12 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
         tableStore,
         queryUtility,
         authorization,
-        donationTypeDropdownStore,
-        donationStatusDropdownStore,
         checksOnHoldTableStore,
         isChecksOnHoldVisible,
         onExpandChecksOnHoldClick,
+        dateCreatedDateRangeQueryStore,
+        transactionTypeStore,
+        transactionPeriod
     } = allTransactionViewStore;
 
     return (
@@ -64,18 +66,25 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
 				</div>
 
 
-            { !hideSearch && (
                 <div className="card--tertiary card--med u-mar--bottom--sml">
-                <TableFilter queryUtility={queryUtility}>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown store={donationTypeDropdownStore} />
+                    <div className="row row--form u-mar--bottom--base">
+                        <div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
+                                <div>
+                                    <TableFilter queryUtility={queryUtility}>
+                                        <div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
+                                            <DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
+                                        </div>
+                                        <div className="col col-sml-12 col-xxlrg-6">
+                                            <BaasicDropdown store={transactionTypeStore} className="input--dropdown--secondary" />
+                                        </div>
+                                    </TableFilter>
+                                </div>
+                        </div>
+                        <div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
+                            <BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} className="input--dropdown--secondary" />
+                        </div>
                     </div>
-                    <div className="col col-sml-12 col-med-6 col-lrg-3 u-mar--bottom--sml">
-                        <BaasicDropdown store={donationStatusDropdownStore} />
-                    </div>
-                </TableFilter>
             </div>
-            )}
             
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">

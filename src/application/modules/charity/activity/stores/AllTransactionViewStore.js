@@ -1,6 +1,8 @@
-import { FilterParams, ModalParams } from 'core/models';
-import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore, TableViewStore } from 'core/stores';
+import { TransactionListFilter } from 'application/donor/activity/transaction/models';
+import { BaseListViewStore, BaasicDropdownStore,  TableViewStore, DateRangeQueryPickerStore } from 'core/stores';
 import { action, observable } from 'mobx';
+import moment from 'moment';
+
 
 class AllTransactionViewStore extends BaseListViewStore {
 	@observable isChecksOnHoldVisible = false;
@@ -11,11 +13,13 @@ class AllTransactionViewStore extends BaseListViewStore {
             authorization: 'theDonorsFundDonationSection',
             routes: {},
             queryConfig: {
-                filter: new FilterParams(),
+                filter: new TransactionListFilter(),
                 onResetFilter: (filter) => {
                     filter.reset();
-                    this.donationStatusDropdownStore.setValue(null);
-                    this.donationTypeDropdownStore.setValue(null);
+                    this.dateCreatedDateRangeQueryStore.reset();
+                    this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
+                    this.transactionPeriod.setValue(_.find(this.transactionPeriod.items, { id: 0 }))
+                    this.showPresentBalance = true;
                 }
             },
             actions: () => {
@@ -34,11 +38,15 @@ class AllTransactionViewStore extends BaseListViewStore {
 
         this.charityId = rootStore.userStore.applicationUser.id;
         this.showSearchFilter = true;
+        this.showPresentBalance = true;
 
         this.createTableStore();
         this.createDonationStatusDropdownStore();
         this.createDonationTypeDropdownStore();
         this.fetchChecksOnHold();
+        this.createDateCreatedDateRangeQueryStore();
+        this.createTransactionTypeStore();
+        this.createTransactionPeriodStore();
 
         this.checksOnHoldTableStore = new TableViewStore(null, {
             columns: [
@@ -160,7 +168,8 @@ class AllTransactionViewStore extends BaseListViewStore {
             ],
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
-            }
+            },
+            disableSorting: true,
         },
             true));
     }
@@ -183,11 +192,82 @@ class AllTransactionViewStore extends BaseListViewStore {
         }
     }
 
-
-    
 	@action.bound
     onExpandChecksOnHoldClick() {
         this.isChecksOnHoldVisible = !this.isChecksOnHoldVisible;
+    }
+
+    createDateCreatedDateRangeQueryStore() {
+        this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
+    }
+
+    createTransactionPeriodStore() {
+        const transactionPeriod = [
+            { id: 0, name: 'Past month', key: 0 },
+            { id: 1, name: 'Year to date', key: 1 },
+            { id: 2, name: 'Past 12 months', key: 2 },
+            { id: 3, name: 'All time', key: 3 }
+        ];
+        
+        this.transactionPeriod = new BaasicDropdownStore(
+            {
+                placeholder: 'CHOOSE_TRANSACTION_TYPE'
+            },
+            {
+                onChange: type => {
+                    const currentDate = new Date();
+                    const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
+                    let start = null;
+                    let end = null;
+                    if (type === 0) {
+                        start = moment(new Date(now_utc)).add(-1, 'months').startOf('month').toDate();
+                        end = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate();
+                    }
+                    else if (type == 1) {
+                        start = moment(new Date(now_utc)).startOf('year').toDate();
+                        end = moment(new Date(now_utc)).toDate();
+                    }
+                    else if (type === 2) {
+                        start = moment(new Date(now_utc)).add(-12, 'months').startOf('month').toDate();
+                        end = moment(new Date(now_utc)).toDate();
+                    }
+                    else if (type == 3) {
+                        start = moment(new Date(2000, 1, 1));
+                        end = moment();
+                    }
+                    this.queryUtility.filter.dateCreatedFrom = start.toISOString();
+                    this.queryUtility.filter.dateCreatedTo = end.toISOString();
+                    this.queryUtility.fetch();
+                },
+            },
+            transactionPeriod);
+        this.transactionPeriod.setValue(_.find(this.transactionPeriod.items, { id: 0 }))
+    }
+
+    createTransactionTypeStore() {
+        const transactionTypes = [
+            { id: 0, name: 'Transactions Type', key: 'all' },
+            { id: 1, name: 'Credit transactions', key: 'credit' },
+            { id: 2, name: 'Debit transaction', key: 'debit' },
+            { id: 3, name: 'Investments', key: 'investments' },
+        ];
+        this.transactionTypeStore = new BaasicDropdownStore(
+            {
+                placeholder: 'CHOOSE_TRANSACTION_TYPE'
+            },
+            {
+                onChange: type => {
+                    this.queryUtility.filter.paymentTransactionType = transactionTypes[type].key;
+                    this.showPresentBalance = type > 0 ? false : true;
+                },
+            },
+            transactionTypes);
+        this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
+    }
+
+    @action.bound
+    async onInit({ initialLoad }) {
+        filter.reset();
     }
 
 }

@@ -28,7 +28,7 @@ const GrantListTemplate = function ({ grantsViewStore }) {
 		<Content>
 			<div className="card--tertiary card--med u-mar--bottom--sml">
 				<div className="row row--form u-mar--bottom--med">
-					<div className="col col-sml-12 col-xxlrg-9">
+					<div className="col col-sml-12 col-xxlrg-12">
 						<TableFilter colClassName={"col col-sml-12 col-xxlrg-9"} btnClassName={"col col-sml-6 col-med-4 col-xxlrg-3"} queryUtility={queryUtility}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={searchDonorDropdownStore} />
