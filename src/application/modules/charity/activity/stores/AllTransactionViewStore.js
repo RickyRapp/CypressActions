@@ -247,9 +247,12 @@ class AllTransactionViewStore extends BaseListViewStore {
                         end = moment(new Date(now_utc)).toDate();
                     }
                     else if (type == 3) {
-                        start = moment(new Date(2000, 1, 1));
-                        end = moment();
+                        start = moment(new Date(2000, 1, 1)).toDate();
+                        end = moment().toDate();
                     }
+                    this.dateCreatedDateRangeQueryStore.value.start = start;
+                    this.dateCreatedDateRangeQueryStore.value.end = end;
+
                     this.queryUtility.filter.dateCreatedFrom = start.toISOString();
                     this.queryUtility.filter.dateCreatedTo = end.toISOString();
                     this.queryUtility.fetch();
