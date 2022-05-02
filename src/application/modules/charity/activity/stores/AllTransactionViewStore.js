@@ -151,7 +151,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return item.type === "Withdraw" ? "Withdraw" :  item.paymentTransaction.charityVirtualTransactions[0].grants[0].grantType + ' ' +item.paymentTransaction.charityVirtualTransactions[0].grants[0].confirmationNumber;
+                            return item.type === "Withdraw" ? "Withdraw" :  this.getTransactionType(item.paymentTransaction.charityVirtualTransactions[0].grants[0]);
                         }
                     }
                 },
@@ -218,7 +218,7 @@ class AllTransactionViewStore extends BaseListViewStore {
 
     createTransactionPeriodStore() {
         const transactionPeriod = [
-            { id: 0, name: 'Recent transactions', key: 0 },
+            { id: 0, name: 'Past month', key: 0 },
             { id: 1, name: 'Year to date', key: 1 },
             { id: 2, name: 'Past 12 months', key: 2 },
             { id: 3, name: 'All time', key: 3 }
@@ -256,7 +256,6 @@ class AllTransactionViewStore extends BaseListViewStore {
                 },
             },
             transactionPeriod);
-        this.transactionPeriod.setValue(_.find(this.transactionPeriod.items, { id: 0 }))
     }
 
     createTransactionTypeStore() {
@@ -277,13 +276,19 @@ class AllTransactionViewStore extends BaseListViewStore {
                 },
             },
             transactionTypes);
-        this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }))
+        this.transactionTypeStore.setValue(_.find(this.transactionTypeStore.items, { id: 0 }));
     }
 
-    @action.bound
-    async onInit({ initialLoad }) {
-        filter.reset();
-    }
+    getTransactionType(grant) {
+		if (grant.grantType === "Check") {
+			return `${grant.grantType}  ${grant.certificate.booklet.code}-${grant.certificate.code}`;
+		} else if (grant.grantType === 'Charity Website') {
+			return `Charity website `+ (grant.charity.url && `- ${grant.charity.url} `)+ grant.confirmationNumber;
+		}
+		else {
+			return `${grant.grantType} ${grant.confirmationNumber}`;
+		}
+	}
 
 }
 

@@ -3180,6 +3180,7 @@
         "FINISH_SETTING_UP_YOUR_ACCOUNT": "Finish setting up your account",
         "RECENT_ACTIVITY": "Recent Activity",
         "AVAILABLE_BALANCE": "Available balance",
+        "ACCOUNT_BALANCE": "Account Balance",
         "AVAILABLE_BALANCE_DESCRIPTION": "Not including investment pool",
         "PRESENT_BALANCE": "Present Balance",
         "PRESENT_BALANCE_DESCRIPTION": "Includes pending grants",

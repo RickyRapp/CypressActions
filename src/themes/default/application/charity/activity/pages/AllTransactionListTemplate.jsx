@@ -10,7 +10,6 @@ import {
     FormatterResolver,
     DateRangeQueryPicker
 } from 'core/components';
-import { Content } from 'core/layouts';
 
 const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSearch, t }) {
     const {
@@ -27,7 +26,9 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
 
     return (
         <React.Fragment>
-            <div className="card--tertiary u-mar--bottom--sml">
+            {!hideSearch && (
+                <div>
+                <div className="card--tertiary u-mar--bottom--sml">
                 <div className="col col-sml-12 u-mar--bottom--sml">
 						<div className="row row--form">
 							<div className="col col-sml-4">
@@ -39,36 +40,7 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
 												format={{ type: 'currency' }}
 											/>
 										</div>
-									<h5 className="transaction__card--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5>
-
-								</div>
-							</div>
-							<div className="col col-sml-4">
-								<div className="transaction__card transaction__card--center">
-										<div
-											className={`transaction__card--amount transaction__card--amount--plus`}
-										>
-											<FormatterResolver
-												item={{ balance: 1000 }}
-												field="balance"
-												format={{ type: 'currency' }}
-											/>
-										</div>
-									<h5 className="transaction__card--title">{t('DASHBOARD.PRESENT_BALANCE')}</h5>
-
-								</div>
-							</div>
-							<div className="col col-sml-4">
-								<div className="transaction__card transaction__card--last">
-										<div
-											className={`transaction__card--amount transaction__card--amount--plus`}>
-											<FormatterResolver 
-                                                item={{ balance: 0 }} 
-                                                field="balance" 
-                                                format={{ type: 'currency' }} 
-                                            />
-										</div>
-									<h5 className="transaction__card--title">Investments balance</h5>
+									<h5 className="transaction__card--title">{t('DASHBOARD.ACCOUNT_BALANCE')}</h5>
 
 								</div>
 							</div>
@@ -131,10 +103,13 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
                                 </div>
                         </div>
                         <div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
-                            <BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} className="input--dropdown--secondary" />
+                            <BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} placeholder="Recent transactions" className="input--dropdown--secondary" />
                         </div>
                     </div>
             </div>
+            </div>
+            )}
+            
             
             <div className="row">
                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
