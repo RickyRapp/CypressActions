@@ -12,7 +12,7 @@ import {
 } from 'core/components';
 import { Content } from 'core/layouts';
 
-const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSearch }) {
+const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSearch, t }) {
     const {
         tableStore,
         queryUtility,
@@ -26,7 +26,57 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
     } = allTransactionViewStore;
 
     return (
-        <Content>
+        <React.Fragment>
+            <div className="card--tertiary u-mar--bottom--sml">
+                <div className="col col-sml-12 u-mar--bottom--sml">
+						<div className="row row--form">
+							<div className="col col-sml-4">
+								<div className="transaction__card">
+										<div className={`transaction__card--amount transaction__card--amount--plus`} >
+											<FormatterResolver
+												item={{ balance: 1000 }}
+												field="balance"
+												format={{ type: 'currency' }}
+											/>
+										</div>
+									<h5 className="transaction__card--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5>
+
+								</div>
+							</div>
+							<div className="col col-sml-4">
+								<div className="transaction__card transaction__card--center">
+										<div
+											className={`transaction__card--amount transaction__card--amount--plus`}
+										>
+											<FormatterResolver
+												item={{ balance: 1000 }}
+												field="balance"
+												format={{ type: 'currency' }}
+											/>
+										</div>
+									<h5 className="transaction__card--title">{t('DASHBOARD.PRESENT_BALANCE')}</h5>
+
+								</div>
+							</div>
+							<div className="col col-sml-4">
+								<div className="transaction__card transaction__card--last">
+										<div
+											className={`transaction__card--amount transaction__card--amount--plus`}>
+											<FormatterResolver 
+                                                item={{ balance: 0 }} 
+                                                field="balance" 
+                                                format={{ type: 'currency' }} 
+                                            />
+										</div>
+									<h5 className="transaction__card--title">Investments balance</h5>
+
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+
+
             <div className="col-sml-12 u-mar--bottom--sml">
 					<div className="transaction__show">
 						<div className="transaction__show--body">
@@ -96,7 +146,7 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
                     </div>
                 </div>
             </div>
-        </Content>
+        </React.Fragment>
     )
 };
 

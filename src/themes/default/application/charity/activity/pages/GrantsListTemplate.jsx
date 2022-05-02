@@ -8,6 +8,7 @@ import {
 	BaasicInput,
 	BaasicModal,
 	DateRangeQueryPicker,
+	NumberFormatInput,
 } from 'core/components';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
@@ -43,12 +44,12 @@ const GrantListTemplate = function ({ grantsViewStore }) {
 								/>
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="checkNumber"
+								<NumberFormatInput
 									className="input input--lrg"
-									value={queryUtility.filter.checkNumber || ''}
-									onChange={event => (queryUtility.filter.checkNumber = event.target.value)}
-									placeholder="GRANT.LIST.FILTER.CHECK_NUMBER_PLACEHOLDER"
+									value={queryUtility.filter.bookletCertificateCode}
+									onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
+									format="######-##"
+                                    placeholder="Check Number"
 								/>
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">

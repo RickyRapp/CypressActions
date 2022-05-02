@@ -30,6 +30,12 @@ class AllTransactionViewStore extends BaseListViewStore {
                             'donationStatus',
                             'donor'
                         ];
+                        if(!params.dateCreatedFrom){
+                            const currentDate = new Date();
+                            const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
+                            params.dateCreatedFrom = moment(new Date(now_utc)).add(-1, 'months').startOf('month').toDate().toISOString();
+                            params.dateCreatedTo = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate().toISOString();
+                        }
                         return rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
                     }
                 }
@@ -212,7 +218,7 @@ class AllTransactionViewStore extends BaseListViewStore {
 
     createTransactionPeriodStore() {
         const transactionPeriod = [
-            { id: 0, name: 'Past month', key: 0 },
+            { id: 0, name: 'Recent transactions', key: 0 },
             { id: 1, name: 'Year to date', key: 1 },
             { id: 2, name: 'Past 12 months', key: 2 },
             { id: 3, name: 'All time', key: 3 }
@@ -255,7 +261,7 @@ class AllTransactionViewStore extends BaseListViewStore {
 
     createTransactionTypeStore() {
         const transactionTypes = [
-            { id: 0, name: 'Transactions Type', key: 'all' },
+            { id: 0, name: 'All transactions', key: 'all' },
             { id: 1, name: 'Credit transactions', key: 'credit' },
             { id: 2, name: 'Debit transaction', key: 'debit' },
             { id: 3, name: 'Investments', key: 'investments' },
