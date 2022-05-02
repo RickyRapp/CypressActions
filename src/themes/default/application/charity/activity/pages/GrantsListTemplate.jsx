@@ -44,6 +44,15 @@ const GrantListTemplate = function ({ grantsViewStore }) {
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicInput
+									id="checkNumber"
+									className="input input--lrg"
+									value={queryUtility.filter.checkNumber || ''}
+									onChange={event => (queryUtility.filter.checkNumber = event.target.value)}
+									placeholder="GRANT.LIST.FILTER.CHECK_NUMBER_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
 									id="dollarRange"
 									className="input input--lrg"
 									value={queryUtility.filter.dollarRange || ''}

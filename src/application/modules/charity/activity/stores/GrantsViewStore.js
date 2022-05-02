@@ -46,6 +46,7 @@ class GrantViewStore extends BaseListViewStore {
                             'donor.donorName',
                             'amount',
                             'confirmationNumber',
+                            'checkNumber',
                             'donationStatus',
                             'donationType',
                             'grantPurposeType',
@@ -64,7 +65,7 @@ class GrantViewStore extends BaseListViewStore {
                             let toDate = params.dateCreatedTo.replace(' 23:59:59','');
                             params.dateCreatedTo = `${toDate} 23:59:59`;
                         }
-                        params.charityId = this.charityId;
+                        params.charityId = this.charityId; console.log(params);
                         return this.rootStore.application.administration.grantStore.findGrant(params);
                     }
                 }

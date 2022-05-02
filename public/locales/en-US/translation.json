@@ -1751,6 +1751,7 @@
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
                 "SELECT_CHARITY_PLACEHOLDER": "Charity",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "CHECK_NUMBER_PLACEHOLDER": "Check number",
                 "GRANT_STATUS_PLACEHOLDER": "Grant status",
                 "GRANT_TYPE_PLACEHOLDER": "Grant type",
                 "GRANT_MEMO_PLACEHOLDER": "Grant memo",
