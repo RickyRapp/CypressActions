@@ -27,7 +27,9 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
         confirmModal,
         addAnotherRecipientForm,
         openFAQ,
-        summaryInfo
+        summaryInfo,
+        errorMessage,
+        additionalErrorMessage
     } = donorToDonorCreateViewStore;
 
     return (
@@ -62,6 +64,7 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                 <div className="row row--form">
                                     <div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('emailOrAccountNumber')} />
+                                        <p className="validation__message">{errorMessage}</p>
                                     </div>
                                     <div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
                                         <BasicInput field={form.$('contactInformationName')} />
@@ -78,6 +81,7 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                     <div className="row row--form u-mar--bottom--med">
                                         <div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('emailOrAccountNumberAnother')} />
+                                            <p className="validation__message">{additionalErrorMessage}</p>
                                         </div>
                                         <div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
                                             <BasicInput field={form.$('contactInformationNameAnother')} />
@@ -141,6 +145,7 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                                         <span className="js-faq-hidden list--faq__answer whatIsGift is-expanded">{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT_ANSWER')}</span>
                                                     </div>
                                                 </li>
+                                                {/* 
                                                 <li className="list--faq__item js-faq-item">
                                                     <i className="list--faq__icon js-faq-icon existingDonor cursor--pointer" onClick={() => openFAQ('existingDonor')}></i>
                                                     <div className="list--faq__text">
@@ -155,6 +160,8 @@ const DonorToDonorCreateTemplate = function ({ donorToDonorCreateViewStore, t })
                                                         <span className="js-faq-hidden list--faq__answer wrongEmail">{t('DONOR-DONOR.CREATE.FAQ_WRONG_EMAIL_ADDRESS_ANSWER')}</span>
                                                     </div>
                                                 </li>
+                                                */}
+                                                
                                             </ul>
                                         </div>
                                     </div>

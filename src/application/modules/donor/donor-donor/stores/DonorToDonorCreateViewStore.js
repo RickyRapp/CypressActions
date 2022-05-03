@@ -9,6 +9,8 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	@observable grantAcknowledgmentName = null;
 	@observable addAnotherRecipientForm = null;
 	@observable summaryInfo = false;
+	@observable errorMessage = null;
+	@observable additionalErrorMessage = null;
 	donor = null;
 	donorBalance = null;
 	applicationDefaultSetting = {};
@@ -86,6 +88,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onSubmitClick() {
+		this.errorMessage = null;
 		const { isValid } = await this.form.validate({ showErrors: true });
 		if (isValid) {
 			let searchCriteria = this.form.$('emailOrAccountNumber').value;
@@ -117,6 +120,9 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 				this.donorRecipientId = data.item[0].id;
 				let splitedNames = data.item[0].donorName.split(' ');
 				this.item = splitedNames.slice(0, 1).join(' ') + ' ' + splitedNames.slice(-1).join(' ').charAt(0) + '.';
+			}else{
+				this.errorMessage = "Donnor could not be found";
+				return false;
 			}
 
 			if (this.addAnotherRecipientForm) {
@@ -151,6 +157,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 					let splitedNames2 = data2.item[0].donorName.split(' ');
 					this.item2 = splitedNames2.slice(0, 1).join(' ') + ' ' + splitedNames2.slice(-1).join(' ').charAt(0) + '.';
 				} else {
+					this.additionalErrorMessage = "Donnor could not be found";
 					this.item2 = null;
 				}
 			}
