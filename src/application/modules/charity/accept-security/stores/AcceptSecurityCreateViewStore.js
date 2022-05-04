@@ -19,7 +19,6 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        debugger;
                         try {
                             resource.paymentTypeId = await this.getPaymentTypeId();
                             resource.partyId = rootStore.userStore.applicationUser.id; //charityId
@@ -55,7 +54,6 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
     async onSubmitClick() {
         const { isValid } = await this.form.validate({ showErrors: true });
         if (isValid) {
-            console.log('modal for new contribution...');
             this.confirmModal.open({
                 onCancel: () => {
                     this.confirmModal.close();

@@ -161,7 +161,6 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 		const { isValid } = await this.form.validate({ showErrors: true });
 		
 		if (isValid) {
-			console.log('modal for new contribution...');
 			this.confirmModal.open({
 				onCancel: () => {
 					this.confirmModal.close();
