@@ -36,7 +36,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 							resource.number = this.donor.donorPhoneNumber.number;
 							resource.isAdmin = rootStore.userStore.user.roles.includes('Administrators');
 						}
-						return this.contributionStore.createContribution({ donorId: this.donorId, ...resource });
+						return this.contributionStore.createContribution({ partyId: this.donorId, ...resource });
 					},
 				};
 			},

@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
-import { applicationContext, donorFormatter } from 'core/utils';
+import { applicationContext } from 'core/utils';
 import { AcceptSecurityCreateForm } from 'application/charity/accept-security/forms';
 import { ModalParams } from 'core/models';
 
@@ -10,7 +10,6 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
     @observable grantAcknowledgmentName = 'Development';
     @observable summaryInfo = false;
     @observable balance = 0;
-    @observable donor = null;
 
     constructor(rootStore, { contributionStore }) {
         super(rootStore, {
@@ -23,7 +22,7 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
                         debugger;
                         try {
                             resource.paymentTypeId = await this.getPaymentTypeId();
-                            //resource.donorId = 'e21a109d-23d6-45d7-9abf-e89be40c0131'; //just dummy guid to pass validation rules. we don't need donorId for Stock and Securities
+                            resource.partyId = rootStore.userStore.applicationUser.id; //charityId
                             console.log("creating contribution...", resource);
                             return contributionStore.createContribution(resource);
                         } catch (error) {
@@ -40,7 +39,6 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
         });
         this.createConfirmModalParams();
         this.createSecurityTypeDropdownStore();
-        this.createDonorSearchDropdownStore();
         this.createBrokerageInstitutionDropdownStore();
     }
 
@@ -113,67 +111,6 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
             },
         });
     }
-    createDonorSearchDropdownStore() {
-        this.searchDonorDropdownStore = new BaasicDropdownStore({
-            placeholder: 'BOOKLET_ORDER.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
-            initFetch: true,
-            filterable: true
-        },
-            {
-                fetchFunc: async (searchQuery) => {
-                    const data = await this.rootStore.application.charity.donorStore.searchDonor({
-                        pageNumber: 1,
-                        pageSize: 10,
-                        search: searchQuery,
-                        sort: 'firstName|asc',
-                        embed: [
-                            'donorAddresses'
-                        ],
-                        fields: [
-                            'id',
-                            'accountNumber',
-                            'donorName',
-                            'securityPin',
-                            'donorAddresses',
-                        ]
-                    });
-                    return data.item.map(x => {
-                        return {
-                            id: x.id,
-                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                        }
-                    });
-                },
-                initValueFunc: async () => {
-                    if (this.rootStore.routerStore.routerState.queryParams && this.rootStore.routerStore.routerState.queryParams.donorId) {
-                        const id = this.rootStore.routerStore.routerState.queryParams.donorId;
-                        const params = {
-                            embed: [
-                                'donorAddresses'
-                            ],
-                            fields: [
-                                'id',
-                                'accountNumber',
-                                'donorName',
-                                'securityPin',
-                                'donorAddresses',
-                            ]
-                        }
-                        const data = await this.rootStore.application.charity.donorStore.getDonor(id, params);
-                        this.donor = donorFormatter.format(data, { type: 'donor-name', value: 'dropdown' });
-                        return { id: data.id, name: donorFormatter.format(data, { type: 'donor-name', value: 'dropdown' }) };
-                    }
-                    else {
-                        return null;
-                    }
-                },
-                onChange: async (donorId) => {
-                    // eslint-disable-next-line
-                    //console.log(donorId);
-                }
-            });
-    }
-
 }
 
 export default AcceptSecurityCreateViewStore;
