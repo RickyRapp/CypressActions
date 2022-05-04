@@ -20,7 +20,8 @@ function GrantConfirmTemplate({ modalParams, t }) {
         date,
         recurring,
         purpose,
-        onCancel
+        onCancel,
+        isChangedDefaultAddress
     } = modalParams.data;
     return (
         <div className="modal__list__wrap">
@@ -47,6 +48,18 @@ function GrantConfirmTemplate({ modalParams, t }) {
                     />
                 </div>
             </section>
+            { isChangedDefaultAddress && 
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('GRANT.CONFIRM.ALT_ADDRESS')}</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount">
+                        <FormatterResolver
+                            item={{ amount: 5 }}
+                            field='amount'
+                            format={{ type: 'currency' }}
+                        />
+                    </div>
+                </section> }
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.SCHEDULED_DATE')}</div>
                 <div className="modal__list__divider"></div>

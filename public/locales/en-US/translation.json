@@ -1727,7 +1727,8 @@
             "GIVE_GRANT" : "Give Grant",
             "RECURRING" : "Recurring Grant?",
             "SCHEDULED_DATE" : "Scheduled Date",
-            "PURPOSE" : "Purpose"
+            "PURPOSE" : "Purpose",
+            "ALT_ADDRESS": "Alternative Address Fee"
         },
         "TAB": {
             "LIST": "Grants",
@@ -2116,7 +2117,7 @@
             "BOOKLET_ORDER": "Orders",
             "SCANNED_CERTIFICATES": "Scanned"
         },
-        "TOTALREMAININGAMOUNT_LABEL": "Total remaining $ amount",
+        "TOTALREMAININGAMOUNT_LABEL": "Total remaining amount",
         "LIST": {
             "TITLE": "Booklets",
             "COLUMNS": {
@@ -2128,9 +2129,9 @@
                 "DATE_ORDERED_LABEL": "Date ordered",
                 "STATUS_LABEL": "Status",
                 "TYPE_LABEL": "Type",
-                "REMAININGAMOUNT_LABEL": "Remaining $ amount",
+                "REMAININGAMOUNT_LABEL": "Remaining amount",
                 "SHARE_NAME_LABEL": "Share name",
-                "CERTIFICATES_LABEL": "Certificates",
+                "CERTIFICATES_LABEL": "Available Certificates",
                 "CERTIFICATES_TOOLTIP_LABEL": "(clean/used/canceled | active)"
             },
             "FILTER": {

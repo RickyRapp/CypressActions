@@ -111,7 +111,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										}
 										{charity && charity.item.charityTypeId === educationType &&
 											<div className="validation__message validation__message--note">
-												This charity is an educational institution. Please be aware that you can't pay tuition through the Donors fund.
+												You have selected a charity that operates as an educational institution. Please note, that tuition payments are prohibited by the IRS through donor-advised funds.
 											</div>
 										}
 									</div>

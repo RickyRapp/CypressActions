@@ -122,7 +122,10 @@ class BookletViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return (item.remainingAmount ? item.remainingAmount.toFixed(2) : '0.00');
+                            const currencyFormat = (e) => {
+                                return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+                            };                        
+                            return (item.remainingAmount ? currencyFormat(item.remainingAmount) : '$0.00');
                         }
                     }
                 }

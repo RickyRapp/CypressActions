@@ -9,6 +9,10 @@ const BookletListTemplate = function ({ bookletViewStore }) {
 	const { routes, tableStore, queryUtility, authorization, denominationTypeDropdownStore,
 		remainingAmount } = bookletViewStore;
 
+	const currencyFormat = (e) => {
+		return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+	};    
+
 	return (
 		<ApplicationListLayout store={bookletViewStore} authorization={authorization}>
 			<PageHeader routes={routes} />
@@ -66,9 +70,9 @@ const BookletListTemplate = function ({ bookletViewStore }) {
 						</TableFilter>
 					</div>
 					{remainingAmount &&
-						<div className="type--right u-mar--bottom--sml">Total remaining $ amount: <span className="type--wgt--bold">{Number(remainingAmount).toFixed(2)}</span></div>
+						<div className="type--right u-mar--bottom--sml">Total remaining amount: <span className="type--wgt--bold">{currencyFormat(parseFloat(remainingAmount))}</span></div>
 					}
-					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+					<BaasicTable authorization={authorization} tableStore={tableStore} />
 				</div>
 			</Content>
 		</ApplicationListLayout>
