@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, TableFilter, BaasicModal, BaasicDropdown } from 'core/components';
+import { BaasicButton, TableFilter, BaasicModal, BaasicDropdown, BaasicTableWithRowDetails, FormatterResolver } from 'core/components';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { isSome } from 'core/utils';
 import { ReconcileEdit } from 'application/administration/reconcile/components';
 import { ReconcilePreviewTemplate } from 'themes/application/administration/reconcile/components';
 import { ReconcileUploadFile } from 'application/administration/reconcile/components';
 
-const ReconcileListTemplate = function ({ reconcileViewStore }) {
+const ReconcileListTemplate = function ({ reconcileViewStore, t }) {
 	const { 
 		tableStore, 
 		queryUtility, 
@@ -19,6 +19,54 @@ const ReconcileListTemplate = function ({ reconcileViewStore }) {
 		uploadFileTemplateModal, 
 		openUploadFileTemplateModal
 	 } = reconcileViewStore;
+
+
+	 const DetailComponent = ({ dataItem }) => {
+        {
+            return (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DONOR_NAME')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.CHARITY_AMOUNT')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.GRANT_CONFIRMATION_NUMBER')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DATE_CREATED')}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dataItem 
+                            && dataItem.charityVirtualTransactions
+                            && dataItem.charityVirtualTransactions.map((item) => { 
+                            return (
+                                <tr key={item.grants[0].id}>
+                                    <td>{item.grants[0].donor.donorName}</td>
+                                    <td><FormatterResolver
+                                        item={{amount: item.grants[0].amount}}
+                                        field='amount'
+                                        format={{type: 'currency'}}
+                                    /></td>
+                                    <td>
+                                        {item.grants[0].confirmationNumber}
+                                    </td>
+                                    <td> {item.grants[0].isSession ?
+                                     <FormatterResolver
+                                        item={{ dateCreated: item.grants[0].dateCreated }}
+                                        field='dateCreated'
+                                        format={{ type: 'date', value: 'short' }}
+                                    />
+                                     : ''} </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>)
+        }
+    }
+
+    DetailComponent.propTypes = {
+        dataItem: PropTypes.object.isRequired
+    };
 
 	return (
 		<ApplicationListLayout store={reconcileViewStore} authorization={authorization}>
@@ -43,7 +91,13 @@ const ReconcileListTemplate = function ({ reconcileViewStore }) {
 							/>
 						</div>
 					</div>
-					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+					<BaasicTableWithRowDetails 
+						authorization={authorization} 
+						tableStore={tableStore} 
+						actionsComponent={renderActions} 
+						detailComponent={DetailComponent}
+                        loading={tableStore.loading}
+					/>
 				</div>
 			</Content>
 			<BaasicModal modalParams={editModal}>

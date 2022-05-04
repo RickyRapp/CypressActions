@@ -6,7 +6,7 @@ class ReconcileRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?search,paymentTypeIds,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?search,paymentTypeIds,page,rpp,sort,embed,fields,charityId}', filter);
     }
 
     checkUpdate(resource) {
@@ -26,6 +26,10 @@ class ReconcileRouteService extends BaseRouteService {
         {
             'content-type': 'multipart/form-data'
 		});
+    }
+
+    getGrants(resource){
+        return super.get(this.base + '/charity/reconcile-grants/' + '{id}', resource);
     }
 
 }

@@ -54,7 +54,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		moreSettings,
 		toggleSettings,
 		isAdvancedInput,
-		debouncedSearchCharities
+		debouncedSearchCharities,
+		educationType,
 		//inputCharity,
 		//setInputValue
 	} = grantCreateViewStore;
@@ -107,6 +108,11 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												:
 												// onKeyDown={() => countdown()}
 												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID'} value={asyncPlaceholder} />
+										}
+										{charity && charity.item.charityTypeId === educationType &&
+											<div className="validation__message validation__message--note">
+												You have selected a charity that operates as an educational institution. Please note, that tuition payments are prohibited by the IRS through donor-advised funds.
+											</div>
 										}
 									</div>
 								</div>

@@ -30,5 +30,10 @@ class BookletStore {
         const response = await this.bookletService.export(resource);
         return response.data;
     }
+
+    async remainingAmount(donorId) {
+        const response = await this.bookletService.remainingAmount(donorId);
+        return response.data;
+    }
 }
 export default BookletStore;

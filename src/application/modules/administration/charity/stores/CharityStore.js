@@ -22,6 +22,10 @@ class CharityStore {
         const response = await this.charityService.find(params);
         return response.data;
     }
+    async findPendingCharity(params) {
+        const response = await this.charityService.findPending(params);
+        return response.data;
+    }
     
     async searchCharity(params) {
         const response = await this.charityService.search(params);
@@ -40,6 +44,11 @@ class CharityStore {
 
     async getCharity(id, options = {}) {
         const response = await this.charityService.get(id, options);
+        return response.data;
+    }
+
+    async getCharityQuestionnaireAnswers(id, options = {}) {
+        const response = await this.charityService.getCharityQuestionnaireAnswers(id, options);
         return response.data;
     }
 

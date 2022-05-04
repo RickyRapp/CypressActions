@@ -14,7 +14,7 @@ import {
     FormatterResolver
 } from "core/components";
 import { isSome } from "core/utils";
-import { ApplicationListLayout, Content, PageHeader } from "core/layouts";
+import { Content } from "core/layouts";
 
 const RemoteDepositListTemplate = function({ remoteDepositsViewStore }) {
     const { tableStore, routes, queryUtility, authorization, checksOnHoldTableStore, onExpandChecksOnHoldClick, isChecksOnHoldVisible,

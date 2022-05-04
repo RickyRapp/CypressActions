@@ -11,6 +11,7 @@ class GrantListFilter extends FilterParams {
     @observable donationStatusIds;
     @observable donationTypeIds;
     @observable purposeNote;
+    @observable bookletCertificateCode;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -26,6 +27,7 @@ class GrantListFilter extends FilterParams {
         this.charityId = null;
         this.dollarRange = null;
         this.confirmationNumber = null;
+        this.bookletCertificateCode = null;
         this.dateCreatedFrom = null;
         this.dateCreatedTo = null;
         this.donationStatusIds = null;

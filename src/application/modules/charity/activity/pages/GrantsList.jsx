@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { setCurrentView } from 'core/utils';
-import { GrantsListTemplate } from 'themes/application/charity/activity/pages';
 import { GrantsViewStore } from 'application/charity/activity/stores';
+import { GrantsListTemplate } from 'themes/application/charity/activity/pages';
 
 @setCurrentView((rootStore) => new GrantsViewStore(rootStore), 'grantsViewStore')
 @observer

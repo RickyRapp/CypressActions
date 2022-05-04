@@ -40,10 +40,14 @@ class PastGrantViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						if (params.dateCreatedFrom)
-							params.dateCreatedFrom = `${params.dateCreatedFrom} 00:00:00`;
-						if (params.dateCreatedTo)
-							params.dateCreatedTo = `${params.dateCreatedTo} 23:59:59`;
+						if(params.dateCreatedFrom){
+                            let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
+                            params.dateCreatedFrom = `${fromDate} 00:00:00`;
+                        }
+                        if(params.dateCreatedTo){
+                            let toDate = params.dateCreatedTo.replace(' 23:59:59','');
+                            params.dateCreatedTo = `${toDate} 23:59:59`;
+                        }
 						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet', 'thirdPartyWebsite', 'charity.charityAddresses', 'givingCardType'];
 						const tableData = await rootStore.application.donor.grantStore.findPastGrant({
 							donorId: this.donorId,

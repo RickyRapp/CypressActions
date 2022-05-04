@@ -13,6 +13,10 @@ class CharityRouteService extends BaseRouteService {
         return super.find(this.base + '/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
     }
 
+    findPending(filter) { 
+        return super.find(this.base + '/get-pending/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
+    }
+
     findGrants(filter) {
         return super.find(this.base + '/grants/{?page,rpp,sort,embed,fields}', filter);
     }
@@ -23,6 +27,10 @@ class CharityRouteService extends BaseRouteService {
 
     get(id, options) {
         return super.get(this.base + '/{id}/{?embed,fields}', id, options);
+    }
+
+    getCharityQuestionnaireAnswers(id, options) { 
+        return super.get(this.base + '/answers/{id}/{?embed,fields}', id, options);
     }
 
     processUpdateFile(id) {

@@ -27,6 +27,11 @@ class ReconcileService extends BaseService {
         const url = this.routeService.uploadFile(resource);
         return this.apiClient.put(url, resource);
     }
+
+    getGrantsByReconcileId(resource){
+        const url = this.routeService.getGrants(resource);
+        return this.apiClient.get(url);
+    }
     
 }
 

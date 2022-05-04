@@ -1,5 +1,6 @@
+import React from 'react';
 import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore } from 'core/stores';
+import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 import { ReconcileListFilter } from 'application/administration/reconcile/models';
 import { ModalParams } from 'core/models';
 import { isSome } from 'core/utils';
@@ -21,7 +22,8 @@ class ReconcileViewStore extends BaseListViewStore {
                         params.embed = [
                             'charity',
                             'paymentTransaction',
-                            'paymentType'
+                            'paymentType',
+                            'grants'
                         ]
                         return rootStore.application.administration.reconcileStore.findReconcile(params);
                     }
@@ -93,8 +95,8 @@ class ReconcileViewStore extends BaseListViewStore {
         this.rootStore.notificationStore.success("Report generated.");
     }
 
-    createTableStore() {
-        this.setTableStore(new TableViewStore(this.queryUtility, {
+    createTableStore(loadMethod) {
+        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'paymentNumber',
@@ -123,7 +125,23 @@ class ReconcileViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'charity.name',
-                    title: 'RECONCILE.LIST.COLUMNS.CHARITY_NAME_LABEL'
+                    title: 'RECONCILE.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                    format:  {
+                        type: 'function',
+                        value: (item) => {
+                            const grant = item.charityVirtualTransactions[0].grants[0];
+                            return <div>
+                                {item.charity.name} 
+                                <small style={{ display: "block" }}>
+                                    {grant.addressLine1}, 
+                                    {grant.addressLine2 && grant.addressLine2+ ','}
+                                    {grant.city}, 
+                                    {grant.state}, 
+                                    {grant.zipCode}
+                                    </small>
+                            </div>
+                        }
+                    },
                 },
                 {
                     key: 'isCashed',

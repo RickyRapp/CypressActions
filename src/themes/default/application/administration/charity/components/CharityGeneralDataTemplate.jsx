@@ -9,7 +9,9 @@ import {
     NumberFormatInputField,
     Barcode,
     BaasicButton,
-    BaasicModal
+    BaasicModal,
+    BasicFieldCheckbox,
+    BasicCheckbox
 } from 'core/components';
 import NumberFormat from 'react-number-format';
 import { BarcodeFormat } from '@zxing/library';
@@ -25,7 +27,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         withdrawFundModalParams,
         openWithdrawFundModalClick,
         regenerateApiKey,
-        copyToClipboard
+        copyToClipboard,
+        url
     } = charityGeneralDataViewStore;
 
     return (
@@ -77,8 +80,15 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                                 ></BaasicButton>
                                             </div>
                                             ))}
-                                            
+                                    {item && item.verificationDocumentId &&
+                                        <div>
+                                            <label className="type--color--opaque">
+                                                {t('CHARITY.EDIT.FIELDS.CHARITY_VERIFICATION_DOCUMENT')}
+                                            </label>
+                                            <a href={url+item.verificationDocumentId} target="_blank" className="type--wgt--bold">{item.verificationDocumentName}</a>
                                         </div>
+                                    }
+                                    </div>
                                     </div>
                                     <div className="form__group">
                                         {item &&
@@ -119,6 +129,33 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                     </div>
                                     <div className="form__group col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
                                         <NumberFormatInputField field={form.$('contactInformationNumber')} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="u-mar--bottom--sml ">
+                                <h3 className="type--med type--wgt--medium u-mar--bottom--med">Online User</h3>
+
+                                <h3 className=" u-mar--bottom--med">
+                                    {item &&
+                                        <BasicCheckbox
+                                            checked={item.hasCoreUser}
+                                            label={t("CHARITY.CREATE.FIELDS.IS_ONLINE_ACCOUNT_ENABLED_LABEL")}
+                                            showLabel={true}
+                                        />
+                                    }
+                                    </h3>
+                                <div className="row row--form">
+                                    <div className="col col-sml-12 col-lrg-4">
+                                    <label className="form__group__label" htmlFor="userName">
+                                        UserName
+                                    </label>
+                                    {item && 
+                                        <input
+                                            className="input input--lrg input--text"
+                                            id="userName"
+                                            value={item.coreUsername}
+                                            disabled={true}
+                                        />}
                                     </div>
                                 </div>
                             </div>

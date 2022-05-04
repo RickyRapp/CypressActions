@@ -17,6 +17,11 @@ class CharityService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    findPending(filter) {
+        const url = this.routeService.findPending(filter);
+        return this.apiClient.get(url);
+    }
+
     findCertificates(filter) {
         const url = this.routeService.findCertificates(filter);
         return this.apiClient.get(url);
@@ -60,6 +65,11 @@ class CharityService extends BaseService {
     updateWithPlaid(resource) {
         const url = this.routeService.updateWithPlaid(resource);
         return this.apiClient.put(url, resource);
+    }
+    
+    async getCharityQuestionnaireAnswers(id, options = {}) { 
+        const url = this.routeService.getCharityQuestionnaireAnswers(id, options);
+        return this.apiClient.get(url);
     }
 }
 

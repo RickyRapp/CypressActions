@@ -1023,14 +1023,16 @@
     "CHARITY_ACTIVITY": {
         "TAB_TITLE": "Activity",
         "ALL_TRANSACTIONS": "All Transactions",
-        "GRANTS": "Grants",
+        "GRANTS": "Giving Insight",
         "REMOTE DEPOSITS": "Remote Deposits",
+        "DEPOSITS_INSIGHT": "Deposits Insight",
+        "PAYMENTS": "Payments Holding",
         "LIST": {
             "COLUMNS": {
                 "DATE_CREATED_LABEL": "Date created",
-                "AMOUNT_LABEL": "Balance",
+                "AMOUNT_LABEL": "Amount",
                 "TRANSACTION_TYPE_LABEL": "Transaction Type",
-                "PRESENT_BALANCE_LABEL": "Present Balance"
+                "PRESENT_BALANCE_LABEL": "Balance"
             }
         }
     },
@@ -1041,10 +1043,15 @@
             "PERSONAL_DATA": "Personal data",
             "SECURITY_AND_PREFERENCES": "Security And Preferences",
             "COMMUNICATION_PREFERENCE":"Communication Preferences",
-            "EMAIL": "Emails"
+            "EMAIL": "Emails",
+            "QUESTIONNAIRE_ANSWERS" : "Questionnaire Answers"
         },
         "LIST": {
             "TITLE": "Charities",
+            "TAB" : {
+                "ALL_CHARITY": "All Charities",
+                "PENDING_CHARITY" : "Pending Charities"
+            },
             "COLUMNS": {
                 "NAME_LABEL": "Name",
                 "TAX_ID_LABEL": "Tax ID",
@@ -1207,7 +1214,8 @@
                 "CHARITY_TAX_ID" : "Tax Id: ",
                 "CHARITY_ACCOUNT_NUMBER": "Account Number: ",
                 "CHARITY_API_KEY" : "Api Key: ",
-                "CHARITY_QR_CODE" : "QR Code: "
+                "CHARITY_QR_CODE" : "QR Code: ",
+                "CHARITY_VERIFICATION_DOCUMENT" : "Charity verification document: "
             }
         },
         "WITHDRAW_FUND": {
@@ -1719,7 +1727,8 @@
             "GIVE_GRANT" : "Give Grant",
             "RECURRING" : "Recurring Grant?",
             "SCHEDULED_DATE" : "Scheduled Date",
-            "PURPOSE" : "Purpose"
+            "PURPOSE" : "Purpose",
+            "ALT_ADDRESS": "Alternative Address Fee"
         },
         "TAB": {
             "LIST": "Grants",
@@ -1743,6 +1752,7 @@
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
                 "SELECT_CHARITY_PLACEHOLDER": "Charity",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
+                "CHECK_NUMBER_PLACEHOLDER": "Check number",
                 "GRANT_STATUS_PLACEHOLDER": "Grant status",
                 "GRANT_TYPE_PLACEHOLDER": "Grant type",
                 "GRANT_MEMO_PLACEHOLDER": "Grant memo",
@@ -1990,7 +2000,9 @@
                     "COLUMNS": {
                         "CHECKED": "",
                         "DONOR_NAME": "Donor",
-                        "CHARITY_AMOUNT": "Amount for charity"
+                        "CHARITY_AMOUNT": "Amount for charity",
+                        "GRANT_CONFIRMATION_NUMBER": "Confirmation Number",
+                        "DATE_CREATED": "Date created"
                     },
                     "FIELDS": {
                         "IS_TRANSFER_TO_CHARITY_ACCOUNT": "Transfer to charity account",
@@ -2105,6 +2117,7 @@
             "BOOKLET_ORDER": "Orders",
             "SCANNED_CERTIFICATES": "Scanned"
         },
+        "TOTALREMAININGAMOUNT_LABEL": "Total remaining amount",
         "LIST": {
             "TITLE": "Booklets",
             "COLUMNS": {
@@ -2116,8 +2129,9 @@
                 "DATE_ORDERED_LABEL": "Date ordered",
                 "STATUS_LABEL": "Status",
                 "TYPE_LABEL": "Type",
+                "REMAININGAMOUNT_LABEL": "Remaining amount",
                 "SHARE_NAME_LABEL": "Share name",
-                "CERTIFICATES_LABEL": "Certificates",
+                "CERTIFICATES_LABEL": "Available Certificates",
                 "CERTIFICATES_TOOLTIP_LABEL": "(clean/used/canceled | active)"
             },
             "FILTER": {
@@ -3167,6 +3181,7 @@
         "FINISH_SETTING_UP_YOUR_ACCOUNT": "Finish setting up your account",
         "RECENT_ACTIVITY": "Recent Activity",
         "AVAILABLE_BALANCE": "Available balance",
+        "ACCOUNT_BALANCE": "Account Balance",
         "AVAILABLE_BALANCE_DESCRIPTION": "Not including investment pool",
         "PRESENT_BALANCE": "Present Balance",
         "PRESENT_BALANCE_DESCRIPTION": "Includes pending grants",

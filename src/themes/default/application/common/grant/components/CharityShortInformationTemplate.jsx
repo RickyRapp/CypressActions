@@ -39,7 +39,7 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
             {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
                 <a href="#" onClick={onChangeDefaultAddressClick} className="u-mar--bottom--med u-display--b type--underline">
                     <i className="u-icon u-icon--base u-icon--pin u-mar--right--sml"></i>
-                    {isChangedDefaultAddress ? t('GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS') : t('GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS')}
+                    {isChangedDefaultAddress ? t('GRANT.CREATE.BUTTON.SET_DEFAULT_DEFAULT_ADDRESS') : `${t('GRANT.CREATE.BUTTON.CHANGE_DEFAULT_ADDRESS')} ($5 fee)`}
                 </a>
             }
         </React.Fragment>
