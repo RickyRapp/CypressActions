@@ -42,6 +42,11 @@ class ContributionService extends BaseService {
             responseType: 'blob',
         });
     }
+    
+    create(resource){
+        const url=this.routeService.create(resource);
+        return this.apiClient.post(url, resource);
+    }
 }
 
 export default ContributionService;

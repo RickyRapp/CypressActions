@@ -7,8 +7,7 @@ import {
     FormatterResolver,
     BaasicButton,
     BasicInput,
-    BaasicModal,
-    BaasicDropdown
+    BaasicModal
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
@@ -19,7 +18,6 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
         form,
         summaryInfo,
         brokerageInstitutionDropdownStore,
-        searchDonorDropdownStore,
         securityTypeDropdownStore,
         balance,
         confirmModal,
@@ -45,7 +43,7 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                                                         field="balance"
                                                         format={{ type: 'currency' }}
                                                     />
-                                                )} 
+                                                )}
                                             </div>
                                             <p className="type--uppercase">{t('DONOR-DONOR.CREATE.BALANCE')}</p>
                                         </div>
@@ -56,12 +54,35 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                                 <h2>{t('ACCEPT-SECURITY.CREATE.DONOR_INFO')}</h2>
                                 <h4 className=" u-mar--bottom--med">{t('ACCEPT-SECURITY.CREATE.DONOR_INFO_DESCRIPTION')}</h4>
                                 <div className="row row--form">
-                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                        <div className="form__group__label">Donor<span className="type--color--note u-mar--left--tny">*</span></div>
-                                        <BaasicDropdown store={searchDonorDropdownStore} />
+                                    <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BasicInput field={form.$('name')} />
                                     </div>
                                 </div>
-                                
+                                <div className="row row--form">
+                                    <div className="form__group col col-sml-12 col-lrg-6">
+                                        <BasicInput field={form.$('addressLine1')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-6">
+                                        <BasicInput field={form.$('addressLine2')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-3">
+                                        <BasicInput field={form.$('city')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-3">
+                                        <BasicInput field={form.$('state')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-3">
+                                        <BasicInput field={form.$('zipCode')} />
+                                    </div>
+                                </div>
+                                <div className="row row--form">
+                                    <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BasicInput field={form.$('email')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BasicInput field={form.$('number')} />
+                                    </div>
+                                </div>
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12">
                                         <BaasicFieldDropdown field={form.$('brokerageInstitutionId')} store={brokerageInstitutionDropdownStore} />
