@@ -121,7 +121,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 				let splitedNames = data[0].donorName.split(' ');
 				this.item = splitedNames.slice(0, 1).join(' ') + ' ' + splitedNames.slice(-1).join(' ').charAt(0) + '.';
 			}else{
-				this.errorMessage = "Donnor could not be found";
+				this.errorMessage = "Donor could not be found";
 				return false;
 			}
 
@@ -156,7 +156,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 					let splitedNames2 = data2[0].donorName.split(' ');
 					this.item2 = splitedNames2.slice(0, 1).join(' ') + ' ' + splitedNames2.slice(-1).join(' ').charAt(0) + '.';
 				} else {
-					this.additionalErrorMessage = "Donnor could not be found";
+					this.additionalErrorMessage = "Donor could not be found";
 					this.item2 = null;
 					return false;
 				}
