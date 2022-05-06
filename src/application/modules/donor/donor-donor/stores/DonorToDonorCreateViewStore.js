@@ -29,6 +29,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 						resource.donorSenderId = this.donorId;
 						resource.createdBy = this.donorId;
 						resource.fullName = resource.contactInformationName;
+						resource.fullName2 = resource.contactInformationNameAnother;
 						if (this.donorRecipientId)
 							resource.donorRecipientId = this.donorRecipientId;
 						if (this.donorRecipientId2)
