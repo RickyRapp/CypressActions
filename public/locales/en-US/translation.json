@@ -1701,12 +1701,12 @@
         },
         "CONFIRM": {
             "TITLE": "Confirm Details",
-            "EMAIL": "Email",
+            "EMAIL": "Username Email",
             "AMOUNT": "Transfer Amount",
-            "DONOR_NAME": "Donor Name:",
+            "DONOR_NAME": "Recipient:",
             "ACCOUNT_NUMBER": "Account Number",
-            "SECOND_DONOR_NAME": "Second recipient",
-            "SECOND_EMAIL": "Second email"
+            "SECOND_DONOR_NAME": "Second Recipient:",
+            "SECOND_EMAIL": "Second Username Email"
         },
         "CONFIRMATION": {
             "SUCCESS": "Success! You've successfully sent your Gift!",
