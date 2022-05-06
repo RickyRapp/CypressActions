@@ -29,6 +29,12 @@ class DonorStore {
         return response.data;
     }
 
+    async findDonorByUsernameOrAccNumber(params) {
+        const response = await this.donorService.searchDonor(params);
+        return response.data;
+    }
+
+
     async findAddress(params) {
         const response = await this.donorAddressService.find(params);
         return response.data;

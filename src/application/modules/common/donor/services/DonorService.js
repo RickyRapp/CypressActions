@@ -101,6 +101,11 @@ class DonorService extends BaseService {
     const url = this.routeService.loadDashboardData(id);
     return this.apiClient.get(url);
   }
+
+  searchDonor(filter) {
+    const url = this.routeService.findByUsernameOrAccNumber(filter);
+    return this.apiClient.get(url, filter);
+  }
 }
 
 export default DonorService;

@@ -9,6 +9,10 @@ class DonorRouteService extends BaseRouteService {
     return super.find(this.base + '/{?search,firstName,lastName,emails,accountNumber,accountTypeId,page,rpp,sort,embed,fields,pin,phone,address}', filter);
   }
 
+  findByUsernameOrAccNumber(filter) {
+    return super.find(this.base + '/find-donor/{?search,firstName,lastName,emails,accountNumber,accountTypeId,page,rpp,sort,embed,fields,pin,phone,address}', filter);
+  }
+
   get(id, options) {
     return super.get(this.base + '/{id}/{?embed,fields}', id, options);
   }

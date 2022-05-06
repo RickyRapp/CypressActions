@@ -9,6 +9,8 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 	@observable grantAcknowledgmentName = null;
 	@observable addAnotherRecipientForm = null;
 	@observable summaryInfo = false;
+	@observable errorMessage = null;
+	@observable additionalErrorMessage = null;
 	donor = null;
 	donorBalance = null;
 	applicationDefaultSetting = {};
@@ -27,6 +29,7 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 						resource.donorSenderId = this.donorId;
 						resource.createdBy = this.donorId;
 						resource.fullName = resource.contactInformationName;
+						resource.fullName2 = resource.contactInformationNameAnother;
 						if (this.donorRecipientId)
 							resource.donorRecipientId = this.donorRecipientId;
 						if (this.donorRecipientId2)
@@ -86,6 +89,8 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onSubmitClick() {
+		this.errorMessage = null;
+		this.additionalErrorMessage = null;
 		const { isValid } = await this.form.validate({ showErrors: true });
 		if (isValid) {
 			let searchCriteria = this.form.$('emailOrAccountNumber').value;
@@ -96,11 +101,10 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 				this.email = null;
 			}
 
-			const data = await this.rootStore.application.administration.donorStore.findDonors(
+			const data = await this.rootStore.application.administration.donorStore.findDonorByUsernameOrAccNumber(
 				{
 					emails: this.email,
 					accountNumber: this.accNumber,
-					embed: ['accountType'],
 					fields: [
 						'id',
 						'donorName',
@@ -112,11 +116,14 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 						'presentBalance',
 					]
 				});
-
-			if (data.item.length > 0) {
-				this.donorRecipientId = data.item[0].id;
-				let splitedNames = data.item[0].donorName.split(' ');
+				
+			if (data.length > 0) {
+				this.donorRecipientId = data[0].id;
+				let splitedNames = data[0].donorName.split(' ');
 				this.item = splitedNames.slice(0, 1).join(' ') + ' ' + splitedNames.slice(-1).join(' ').charAt(0) + '.';
+			}else{
+				this.errorMessage = "Donor could not be found";
+				return false;
 			}
 
 			if (this.addAnotherRecipientForm) {
@@ -129,11 +136,10 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 					this.email2 = null;
 				}
 
-				const data2 = await this.rootStore.application.administration.donorStore.findDonors(
+				const data2 = await this.rootStore.application.administration.donorStore.findDonorByUsernameOrAccNumber(
 					{
 						emails: this.email2,
 						accountNumber: this.accNumber2,
-						embed: ['accountType'],
 						fields: [
 							'id',
 							'donorName',
@@ -146,12 +152,14 @@ class DonorToDonorCreateViewStore extends BaseEditViewStore {
 						]
 					});
 
-				if (data2.item.length > 0) {
-					this.donorRecipientId2 = data2.item[0].id;
-					let splitedNames2 = data2.item[0].donorName.split(' ');
+				if (data2.length > 0) {
+					this.donorRecipientId2 = data2[0].id;
+					let splitedNames2 = data2[0].donorName.split(' ');
 					this.item2 = splitedNames2.slice(0, 1).join(' ') + ' ' + splitedNames2.slice(-1).join(' ').charAt(0) + '.';
 				} else {
+					this.additionalErrorMessage = "Donor could not be found";
 					this.item2 = null;
+					return false;
 				}
 			}
 
