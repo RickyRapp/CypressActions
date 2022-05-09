@@ -128,13 +128,20 @@ class ReconcileViewStore extends BaseListViewStore {
                     format:  {
                         type: 'function',
                         value: (item) => {
-                            const grant = item.grants[0];
-                            return <div>
-                                {item.charity.name} 
-                                <small style={{ display: "block" }}>
-                                    {grant.address}
-                                    </small>
-                            </div>
+                            if(item.grants){
+                                const grant = item.grants[0];
+                                return <div>
+                                    {item.charity.name} 
+                                    <small style={{ display: "block" }}>
+                                        {grant.address}
+                                        </small>
+                                </div>
+                            } else {
+                                return <div>
+                                    {item.charity.name} 
+                                </div>
+                            }
+                            
                         }
                     },
                 },
