@@ -23,7 +23,6 @@ class ReconcileViewStore extends BaseListViewStore {
                             'charity',
                             'paymentTransaction',
                             'paymentType',
-                            'grants'
                         ]
                         return rootStore.application.administration.reconcileStore.findReconcile(params);
                     }
@@ -129,15 +128,11 @@ class ReconcileViewStore extends BaseListViewStore {
                     format:  {
                         type: 'function',
                         value: (item) => {
-                            const grant = item.charityVirtualTransactions[0].grants[0];
+                            const grant = item.grants[0];
                             return <div>
                                 {item.charity.name} 
                                 <small style={{ display: "block" }}>
-                                    {grant.addressLine1}, 
-                                    {grant.addressLine2 && grant.addressLine2+ ','}
-                                    {grant.city}, 
-                                    {grant.state}, 
-                                    {grant.zipCode}
+                                    {grant.address}
                                     </small>
                             </div>
                         }

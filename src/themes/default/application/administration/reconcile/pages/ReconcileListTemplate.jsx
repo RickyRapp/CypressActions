@@ -36,22 +36,22 @@ const ReconcileListTemplate = function ({ reconcileViewStore, t }) {
                     </thead>
                     <tbody>
                         {dataItem 
-                            && dataItem.charityVirtualTransactions
-                            && dataItem.charityVirtualTransactions.map((item) => { 
+                            && dataItem.grants
+                            && dataItem.grants.map((item) => { 
                             return (
-                                <tr key={item.grants[0].id}>
-                                    <td>{item.grants[0].donor.donorName}</td>
+                                <tr key={item.id}>
+                                    <td>{item.donorName}</td>
                                     <td><FormatterResolver
-                                        item={{amount: item.grants[0].amount}}
+                                        item={{amount: item.amount}}
                                         field='amount'
                                         format={{type: 'currency'}}
                                     /></td>
                                     <td>
-                                        {item.grants[0].confirmationNumber}
+                                        {item.confirmationNumber}
                                     </td>
-                                    <td> {item.grants[0].isSession ?
+                                    <td> {item.donorName.includes('Session') ?
                                      <FormatterResolver
-                                        item={{ dateCreated: item.grants[0].dateCreated }}
+                                        item={{ dateCreated: item.dateCreated }}
                                         field='dateCreated'
                                         format={{ type: 'date', value: 'short' }}
                                     />
