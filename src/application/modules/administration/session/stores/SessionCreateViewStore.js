@@ -110,8 +110,6 @@ class SessionViewStore extends BaseEditViewStore {
 
     @action.bound
     async editCheck(item) {
-        this.blankCertificateModal.onClose = (() => this.cancelCertificate(data.certificate.barcode));
-
         this.blankCertificateModal.open({
             certificate: {... item, certificateValue: item.denominationTypeValue},
             isCharityAccount: this.isCharityAccount,
@@ -255,6 +253,7 @@ class SessionViewStore extends BaseEditViewStore {
                         onClick: (certificate) => {
                             certificate.isBlank = true;
                             this.setBlankCertificate(certificate);
+                            this.blankCertificateModal.onClose = null;
                             this.blankCertificateModal.close();
                         },
                         onClose: () => {
