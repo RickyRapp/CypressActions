@@ -34,29 +34,35 @@ class BlankReviewTemplate extends React.Component {
                             className="modal__list__amount"
                         />}
                     </section>
-                    <div className="form__group u-mar--bottom--med">
+                    {/* <div className="form__group u-mar--bottom--med">
                         <NullableSwitch
                             value={item && item.isCertificateApproved}
                             onChange={(value) => item.isCertificateApproved = value}
                             yesLabel="SESSION.EDIT.DONOR_APPROVES"
                             noLabel="SESSION.EDIT.DONOR_DOES_NOT_APPROVE"
                         />
-                    </div>
+                    </div> */}
                     {item && !item.isCertificateApproved &&
                         <BaasicInput
                             id="checkDeclinationReason"
                             className="input input--lrg u-mar--bottom--med"
                             value={item.checkDeclinationReason}
                             onChange={event => item.checkDeclinationReason = (event.target.value)}
-                            label="Please enter your reason for declining the check *"
+                            label="If disapproving, please provide your reason"
                             placeholder="Description"
                         />
                     }
                     <BaasicButton
                         type="button"
                         className="btn btn--base btn--primary u-mar--right--sml"
-                        onClick={() => reviewConfirm(item)}
-                        label="Confirm Review"
+                        onClick={() => reviewConfirm(item, true)}
+                        label="Approve"
+                    />
+                    <BaasicButton
+                        type="button"
+                        className="btn btn--base btn--primary u-mar--right--sml"
+                        onClick={() => reviewConfirm(item, false)}
+                        label="Disapprove"
                     />
                 </div>
 

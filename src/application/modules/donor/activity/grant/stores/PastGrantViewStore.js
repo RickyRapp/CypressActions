@@ -93,9 +93,10 @@ class PastGrantViewStore extends BaseListViewStore {
 	openReviewModal(item) {
         this.reviewModal.open({
             item: item,
-			reviewConfirm: async (item) => {
+			reviewConfirm: async (item, approved) => {
 				try {
-					if(item.isCertificateApproved == false && (!item.checkDeclinationReason)) {
+					item.isCertificateApproved = approved;
+					if(approved == false && (!item.checkDeclinationReason)) {
 						this.rootStore.notificationStore.error('No declination reason given');
 					} else {
 						await this.rootStore.application.donor.grantStore.updateGrant(item);
@@ -245,7 +246,19 @@ class PastGrantViewStore extends BaseListViewStore {
 			},
 			{
 				fetchFunc: async () => {
-					return this.rootStore.application.lookup.donationStatusStore.find();
+					let result = await this.rootStore.application.lookup.donationStatusStore.find();
+					
+					const firstIndex = result.map(obj => obj.abrv).indexOf('donor-review-first');
+					const secondIndex = result.map(obj => obj.abrv).indexOf('donor-review-first');
+					
+					const ids = `${result[firstIndex].id},${result[secondIndex].id}`;
+					
+					result.splice(firstIndex, 1);
+					result.splice(secondIndex, 1);
+					
+					result.push({abrv: 'check-approval', id: ids, name: 'Check Approval', description: 'CheckApproval'})
+					
+					return result;
 				},
 				onChange: donationStatus => {
 					this.queryUtility.filter.donationStatusIds = donationStatus.map(status => {
@@ -327,6 +340,8 @@ class PastGrantViewStore extends BaseListViewStore {
 								value: (item) => {
 									if (item.declinationTypeId != null && typeof item.declinationTypeId != 'undefined') {
 										return `Declined - ${(declinationReason.filter(x => x.id == item.declinationTypeId)).length > 0 ? declinationReason.filter(x => x.id == item.declinationTypeId)[0].name : 'other'}`;
+									} else if (item.donationStatus.abrv == 'donor-review-first' || item.donationStatus.abrv == 'donor-review-second') {
+										return 'Check Approval';
 									} else {
 										return item.donationStatus.name;
 									}
