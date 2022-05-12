@@ -10,8 +10,9 @@ import {
 	BasicFieldCheckbox
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import { CharityPlaid } from 'application/charity/charity/components';
 
-const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStore, t }) {
+const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStore, t, charity }) {
 	const { 
 		form,
 		imageUploadStore,
@@ -26,6 +27,18 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
 	return (
 		<EditFormContent form={form}>
 			<div className="card--med card--primary">
+				<div>
+				{!item && <span>Create new bank account manually or using : </span>}
+					<div className="col col-sml-12 col-lrg-6">
+						<div className="u-mar--bottom--sml w--100--to-med">
+						<CharityPlaid
+							charity={charity}
+							bankAccount={item}
+						/>
+						</div>
+					</div>
+				</div>
+
 				<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
 				<div className="row row--form">
 					<div className="form__group col col-sml-12 col-lrg-6">

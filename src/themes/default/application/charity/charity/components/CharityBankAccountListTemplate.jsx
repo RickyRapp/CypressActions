@@ -11,6 +11,7 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 		onEditCompleted,
 		isEditEnabled,
 		editId,
+		charity,
 	} = charityBankAccountListViewStore;
 
 	return (
@@ -77,6 +78,7 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 							onCancelEditClick={onCancelEditClick}
 							onEditCompleted={onEditCompleted}
 							bankAccountCount={bankAccounts.length}
+							charity={charity}
 						/>
 					) : (
 						<span className="cursor--pointer" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>

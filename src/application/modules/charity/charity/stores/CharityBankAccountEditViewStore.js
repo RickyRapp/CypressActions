@@ -32,6 +32,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     }
                     
                     return {
+                    id: data.id,
                     name: data.name,
                     accountNumber: data.accountNumber,
                     routingNumber: data.routingNumber,
@@ -47,7 +48,8 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     number: data.accountHolder && data.accountHolder.number,
                     isPrimary: data.accountHolder && data.isPrimary,
                     charityMedia : this.charityMedia,
-                    isImage : isImage
+                    isImage : isImage,
+                    isVerifiedByPlaid : data.isVerifiedByPlaid
                 };
             },    
                 update: async (resource) => {
@@ -112,7 +114,6 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
 			await this.fetch([
                 this.getCharityInfo()
             ]);
-            
 		}
 	}
 
