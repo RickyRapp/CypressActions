@@ -19,7 +19,6 @@ class CharityPlaid extends Component {
     this.plaidService = new PlaidService(this.props.application.baasic.apiClient);
     this.state = {
       linkToken: "",
-      charity: this.props.charity,
       bankAccount : this.props.bankAccount
     };
   }
@@ -33,25 +32,31 @@ class CharityPlaid extends Component {
     // send token to client server
     var accountId = this.props.bankAccount && this.props.bankAccount.id;
     var r = await this.plaidService.validateAccount(public_token, accountId); //validate primary account
-    var c = this.state.charity;
-    c.verifiedByPlaid = r.data;
-    this.setState({ charity: c });
-    this.state.charity.verifiedByPlaid = r.data;
+    var b = this.state.bankAccount;
+    b.verifiedByPlaid = r.data;
+    this.setState({ bankAccount: b });
+    this.state.bankAccount.verifiedByPlaid = r.data;
     this.props.routerStore.goTo('master.app.main.charity.dashboard');
 
   }
 
   handleOnExit = async () => {
     // handle the case when your user exits Link 
-    //ToDo - handling when close Plaid window and other errors...
-    if (!this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid)
+    //ToDo - handling when close Plaid window and other errors... 
+    if(this.props.entityType === 'donor'){
+      if (!this.notificationStore.rootStore.userStore.applicationUser.donor.verifiedByPlaid)
       this.notificationStore.error('Verification unsuccessful, you have closed Plaid!');
+    }else{
+      if (!this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid)
+      this.notificationStore.error('Verification unsuccessful, you have closed Plaid!');
+    }
+
   }
 
   render() {
-    const { linkToken, charity } = this.state
-    console.log("render plaid", linkToken, charity);
-    if ( (this.props.bankAccount && !this.props.bankAccount.isVerifiedByPlaid) || !linkToken) {
+    const { linkToken } = this.state
+    console.log("render plaid", linkToken);
+    if ( !(this.props.bankAccount && this.props.bankAccount.isVerifiedByPlaid) && !linkToken) {
       this.getLinkToken();
     }
     

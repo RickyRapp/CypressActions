@@ -32,7 +32,7 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
 					<div className="col col-sml-12 col-lrg-6">
 						<div className="u-mar--bottom--sml w--100--to-med">
 						<CharityPlaid
-							charity={charity}
+						 	entityType={"charity"}
 							bankAccount={item}
 						/>
 						</div>
