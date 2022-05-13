@@ -128,7 +128,11 @@ class ReconcileViewStore extends BaseListViewStore {
                     format:  {
                         type: 'function',
                         value: (item) => {
-                            if(item.grants[0]){
+                            if(item.id == '7cccc43a-f85f-4a7b-b422-ae8a0178f358' || item.id =='f7c79590-604d-4319-bdda-ae8a017a512c') {
+                                return <div>
+                                    {item.charity.name} (*)
+                                </div>
+                            } else if(item.grants[0]){
                                 const grant = item.grants[0];
                                 return <div>
                                     {item.charity.name} 
