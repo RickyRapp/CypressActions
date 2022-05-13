@@ -31,13 +31,17 @@ class CharityPlaid extends Component {
   handleOnSuccess = async (public_token) => {
     // send token to client server
     var accountId = this.props.bankAccount && this.props.bankAccount.id;
-    var r = await this.plaidService.validateAccount(public_token, accountId); //validate primary account
+    var response = await this.plaidService.validateAccount(public_token, accountId); //validate primary account
     var b = this.state.bankAccount;
-    b.verifiedByPlaid = r.data;
-    this.setState({ bankAccount: b });
-    this.state.bankAccount.verifiedByPlaid = r.data;
-    this.props.routerStore.goTo('master.app.main.charity.dashboard');
-
+    //b.verifiedByPlaid = response.data;
+    //this.setState({ bankAccount: b });
+    //this.state.bankAccount.verifiedByPlaid = response.data;
+    if(response.data){
+      this.props.routerStore.goTo('master.app.main.charity.dashboard');
+      this.notificationStore.success('Verification successful!');
+    }else{
+      this.notificationStore.error('Verification unsuccessful!');
+    }
   }
 
   handleOnExit = async () => {
@@ -59,7 +63,7 @@ class CharityPlaid extends Component {
     if ( !(this.props.bankAccount && this.props.bankAccount.isVerifiedByPlaid) && !linkToken) {
       this.getLinkToken();
     }
-    
+
     return (
       this.props.bankAccount ? (
         !this.props.bankAccount.isVerifiedByPlaid ?

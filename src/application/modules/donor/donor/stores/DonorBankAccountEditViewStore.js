@@ -15,6 +15,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 						embed: 'accountHolder',
 					});
 					return {
+						id: data.id,
 						name: data.name,
 						accountNumber: data.accountNumber,
 						routingNumber: data.routingNumber,
