@@ -137,10 +137,14 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.rootStore.modalStore.showConfirm(
             `Are you sure you want to delete bank account?`,
             async () => {
-                await this.rootStore.application.administration.charityStore.deleteCharityBank({ id: this.id, charityId: this.charityId });
-                this.bankAccountDropdownStore = null;
-                this.form.clear();
-                this.rootStore.notificationStore.success('Successfully deleted Bank account');
+                try{
+                    await this.rootStore.application.administration.charityStore.deleteCharityBank({ id: this.id, charityId: this.charityId });
+                    this.bankAccountDropdownStore = null;
+                    this.form.clear();
+                    this.rootStore.notificationStore.success("Successfully deleted Bank account");
+                }catch (error) {
+                    this.rootStore.notificationStore.error('Error: ', error);
+                }
             }
         );
     }
