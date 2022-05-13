@@ -131,8 +131,11 @@ class PendingDonationViewStore extends BaseListViewStore {
             this.tableStore.resume();
         } catch (error) {
             this.tableStore.resume();
-            console.log(error);
-            this.rootStore.notificationStore.error("Something went wrong.");
+            if(error.data) {
+                this.rootStore.notificationStore.error(error.data.message);
+            } else {
+                this.rootStore.notificationStore.error("Something went wrong.");
+            }
         }
         return data;
     }
