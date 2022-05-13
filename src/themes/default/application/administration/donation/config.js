@@ -19,15 +19,6 @@ import { PendingDonationList } from 'application/administration/donation/pages';
                     }
                 ]
             }
-        ],
-        menu: [
-            {
-                title: 'MENU.DONATIONS',
-                authorization: 'theDonorsFundAdministrationSection.read',
-                icon: 'donations',
-                order: 6,
-                route: 'master.app.main.donation.list'
-            }
-        ],
+        ]
     });
 })();

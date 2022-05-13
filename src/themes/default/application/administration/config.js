@@ -23,7 +23,7 @@ import { moduleProviderFactory } from 'core/providers';
                 icon: 'donors',
                 order: 2,
                 route: 'master.app.main.administration.donor.list',
-                role: ['Administrators', 'Employees']
+                role: ['Administrators']
             },
             {
                 title: 'MENU.CHARITIES',
@@ -37,7 +37,7 @@ import { moduleProviderFactory } from 'core/providers';
                 icon: 'contribution',
                 order: 4,
                 route: 'master.app.main.administration.contribution.list',
-                role: ['Administrators', 'Employees']
+                role: ['Administrators']
             },
             {
                 title: 'MENU.GRANT',
@@ -72,7 +72,7 @@ import { moduleProviderFactory } from 'core/providers';
                 icon: 'users',
                 order: 9,
                 route: 'master.app.main.administration.user.list',
-                role: ['Administrators', 'Employees']
+                role: ['Administrators']
             },
             {
                 title: 'MENU.GIVING_CARDS',
@@ -86,21 +86,21 @@ import { moduleProviderFactory } from 'core/providers';
                 icon: 'third-party-website',
                 order: 11,
                 route: 'master.app.main.administration.charity-website.tab',
-                role: ['Administrators', 'Employees']
+                role: ['Administrators']
             },
             {
                 title: 'MENU.BANKS',
                 icon: 'banks',
                 order: 12,
                 route: 'master.app.main.administration.bank.tab',
-                role: ['Administrators', 'Employees']
+                role: ['Administrators']
             },
             {
                 title: 'MENU.DONATIONS',
                 icon: 'donations',
                 order: 13,
                 route: 'master.app.main.administration.donation.list',
-                role: ['Administrators', 'Employees']
+                role: ['Administrators']
             },
             {
                 title: 'MENU.RECONCILE',
