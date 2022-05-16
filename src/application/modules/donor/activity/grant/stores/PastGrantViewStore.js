@@ -256,7 +256,7 @@ class PastGrantViewStore extends BaseListViewStore {
 					result.splice(firstIndex, 1);
 					result.splice(secondIndex, 1);
 					
-					result.push({abrv: 'check-approval', id: ids, name: 'Check Approval', description: 'CheckApproval'})
+					result.unshift({abrv: 'check-approval', id: ids, name: 'Check Approval', description: 'CheckApproval'})
 					
 					return result;
 				},
