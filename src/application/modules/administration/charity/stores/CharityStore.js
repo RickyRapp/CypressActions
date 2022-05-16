@@ -117,8 +117,12 @@ class CharityStore {
         return response.data;
     }
 
-    async getWithdrawSettings(partyId){ console.log(partyId);
+    async getWithdrawSettings(partyId){
         const response = await this.withdrawSettings.getbyParty(partyId);
+        return response.data;
+    }
+    async verifyCharityBank(resource) {
+        const response = await this.bankAccountService.verifyCharityBank(resource);
         return response.data;
     }
 }

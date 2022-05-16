@@ -22,7 +22,7 @@ class CharityRouteService extends BaseRouteService {
     }
 
     findPending(filter) { 
-        return super.find(this.base + '/get-pending/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/get-pending/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields,isPendingUserAccount,isPendingBankAccount}', filter);
     }
 
     findGrants(filter) {

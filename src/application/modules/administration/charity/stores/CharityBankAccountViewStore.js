@@ -18,6 +18,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                 get: async () => {
                     const data = await rootStore.application.administration.charityStore.getCharityBank(this.id, { embed: 'accountHolder' });
                     if (data) {
+                        this.verifiedByPlaid = data.isVerifiedByPlaid;
                         return {
                             name: data.name,
                             accountNumber: data.accountNumber,
@@ -121,6 +122,21 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             }
         );
     }
+    @action.bound
+    async verifyBankAccount() {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to verify bank account?`,
+            async () => {
+                await this.rootStore.application.administration.charityStore.verifyCharityBank({ id: this.id, charityId: this.charityId });
+                this.bankAccountDropdownStore = null;
+                this.createBankAccountDropdownStore();
+                this.form.clear();
+                this.id = null;
+                this.verifiedByPlaid = null;
+                this.rootStore.notificationStore.success('Successfully verified Bank account');
+            }
+        );
+    }
 
     @action.bound
     async getImage(fileId) {
@@ -150,7 +166,6 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
 
     async getCharityInfo() {
         this.charity = await this.rootStore.application.administration.charityStore.getCharity(this.charityId, { embed: 'charityBankAccounts' });
-        this.verifiedByPlaid = this.charity.verifiedByPlaid;
     }
 
     async onBlurRoutingNumber(value) {

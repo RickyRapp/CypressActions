@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
-import { CharityList, CharityPendingList } from 'application/administration/charity/pages';
+import { CharityInvalidBankAccountList, CharityList, CharityPendingList } from 'application/administration/charity/pages';
 
 function CharityListTabTemplate({ charityListTabViewStore, rootStore }) {
     const {
@@ -18,6 +18,9 @@ function CharityListTabTemplate({ charityListTabViewStore, rootStore }) {
                     </div>
                     <div label={'CHARITY.LIST.TAB.PENDING_CHARITY'} className="u-mar--top--sml layout--nested">
                         <CharityPendingList />
+                    </div>
+                    <div label={'CHARITY.LIST.TAB.PENDING_BANK_ACCOUNT'} className="u-mar--top--sml layout--nested">
+                        <CharityInvalidBankAccountList />
                     </div>
                 </TabLayout>
             </div>

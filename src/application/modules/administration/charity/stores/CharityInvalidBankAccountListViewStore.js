@@ -3,7 +3,7 @@ import { applicationContext } from 'core/utils';
 import { CharityListFilter } from 'application/administration/charity/models';
 
 @applicationContext
-class CharityPendingListViewStore extends BaseListViewStore {
+class CharityInvalidBankAccountListViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
             name: 'charity',
@@ -23,8 +23,7 @@ class CharityPendingListViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [];
                         params.fields = ['id', 'name', 'taxId', 'dateCreated', 'presentBalance', 'isApproved'];
-                        params.isPendingUserAccount = true;
-                        params.isPendingBankAccount = false;
+                        params.isPendingBankAccount = true;
                         return rootStore.application.administration.charityStore.findPendingCharity(params);
                     }
                 }
@@ -80,4 +79,4 @@ class CharityPendingListViewStore extends BaseListViewStore {
     }
 }
 
-export default CharityPendingListViewStore;
+export default CharityInvalidBankAccountListViewStore;

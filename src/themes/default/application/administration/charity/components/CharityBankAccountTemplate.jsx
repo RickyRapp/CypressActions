@@ -23,6 +23,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         selectCharity,
         resetBankAccount,
         verifiedByPlaid,
+        verifyBankAccount,
     } = charityBankAccountViewStore;
 
     return (<div>
@@ -64,6 +65,18 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <NumberFormatInputField field={form.$('number')} />
                 </div>
+                { verifiedByPlaid != null && 
+                    (verifiedByPlaid === true ?
+                        <div>
+                            <br />
+                            <small>Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i></small>
+                            </div>
+                         : 
+                         <div>
+                             <BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.VERIFY_BANK_ACCOUNT" onClick={() => verifyBankAccount()}>
+                             </BaasicButton>
+                        </div>
+                )}
             </div>
             <div className="row row--form">
                 <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
@@ -78,16 +91,6 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 </BaasicButton>
             </div>
         </EditFormContent >
-
-        <div className="type--right">
-        {
-        verifiedByPlaid ?   <button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
-                                Get Bank Account
-                            </button> 
-                            : null
-        }
-        
-        </div>
     </div>
     )
 };

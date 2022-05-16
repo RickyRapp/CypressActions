@@ -992,6 +992,7 @@
                 "CREATE": "Create",
                 "DELETE": "Delete",
                 "DELETE_BANK_ACCOUNT": "Delete Bank Account",
+                "VERIFY_BANK_ACCOUNT": "Verify Bank Account",
                 "USE_PRIMARY_ADDRESS": "Use primary",
                 "USE_PRIMARY_EMAIL_ADDRESS": "Use primary",
                 "USE_PRIMARY_PHONE_NUMBER": "Use primary"
@@ -1085,7 +1086,8 @@
             "TITLE": "Charities",
             "TAB" : {
                 "ALL_CHARITY": "All Charities",
-                "PENDING_CHARITY" : "Pending Charities"
+                "PENDING_CHARITY" : "Pending Charities",
+                "PENDING_BANK_ACCOUNT" : "Pending Bank Account"
             },
             "COLUMNS": {
                 "NAME_LABEL": "Name",
