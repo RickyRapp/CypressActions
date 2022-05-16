@@ -293,7 +293,6 @@ class GrantViewStore extends BaseListViewStore {
             async () => {
                 const donationStatusLkp = await this.rootStore.application.lookup.donationStatusStore.find();
                 grant.donationStatusId = (donationStatusLkp.find(x => x.abrv == 'declined')).id;
-                console.log(grant);
                 await this.rootStore.application.administration.grantStore.updateGrant(grant);
                 this.queryUtility.fetch();
             },
@@ -301,6 +300,8 @@ class GrantViewStore extends BaseListViewStore {
                 const donationStatusLkp = await this.rootStore.application.lookup.donationStatusStore.find();
                 grant.donationStatusId = (donationStatusLkp.find(x => x.abrv == 'approved')).id;
                 await this.rootStore.application.administration.grantStore.updateGrant(grant);
+                this.rootStore.modalStore.confirmParams.close();
+                this.queryUtility.fetch();
             }
         );
     }
