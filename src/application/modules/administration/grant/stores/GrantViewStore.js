@@ -321,6 +321,7 @@ class GrantViewStore extends BaseListViewStore {
                 grant.donationStatusId = (donationStatusLkp.find(x => x.abrv == 'declined')).id;
                 grant.checkDeclinationReason = '[Admin completed review for donor]';
                 await this.rootStore.application.administration.grantStore.updateGrant(grant);
+                this.rootStore.modalStore.confirmParams.close();
                 this.queryUtility.fetch();
             }
         );
