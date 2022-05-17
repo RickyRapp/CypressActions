@@ -61,7 +61,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
                             </div>
                             <div>
                                 {bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Is disabled?</label>
-                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} /></span> : null}
+                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} disabled={item != null && ( item && item.isPrimary)} /></span> : null}
                             </div>
                         </div>
                         <div className="u-display--flex">
