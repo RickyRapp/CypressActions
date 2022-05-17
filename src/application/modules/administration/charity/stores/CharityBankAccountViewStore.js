@@ -42,6 +42,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                             email: data.accountHolder.email,
                             number: data.accountHolder.number,
                             accountHolderName: data.accountHolder && data.accountHolder.name,
+                            coreMediaVaultEntryId: data.coreMediaVaultEntryId,
                             addressLine1: data.accountHolder && data.accountHolder.addressLine1,
                             addressLine2: data.accountHolder && data.accountHolder.addressLine2,
                             city: data.accountHolder && data.accountHolder.city,
