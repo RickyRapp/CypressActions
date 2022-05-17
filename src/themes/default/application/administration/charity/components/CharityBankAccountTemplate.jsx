@@ -47,18 +47,27 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     <button className='btn btn--med btn--ghost search__wrapper__item' onClick={resetBankAccount} disabled={!id}>
                         Reset
                     </button>
+                    </div>
 
+                    <div>
                     { verifiedByPlaid != null && 
                     (verifiedByPlaid === true ?
                             <small>Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i></small>
                          : 
                             <BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.VERIFY_BANK_ACCOUNT" onClick={() => verifyBankAccount()}></BaasicButton>
                     )}
-
                     </div>
                 </div>
-                : null}
-                
+                :  
+                <div className="col-lrg-12">
+                    { verifiedByPlaid != null && 
+                        (verifiedByPlaid === true ?
+                            <small>Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i></small>
+                         : 
+                            <BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.VERIFY_BANK_ACCOUNT" onClick={() => verifyBankAccount()}></BaasicButton>
+                    )}
+                </div>}
+
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('accountNumber')} />
                 </div>

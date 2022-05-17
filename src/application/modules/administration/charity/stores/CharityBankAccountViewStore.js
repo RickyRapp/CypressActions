@@ -14,7 +14,6 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
         super(rootStore, {
             name: 'bank-account',
             id: undefined,
-            autoInit: false,
             actions: {
                 get: async () => {
                     const data = await rootStore.application.administration.charityStore.getCharityBank(this.id, { embed: 'accountHolder' });
@@ -25,7 +24,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                         if(data.coreMediaVaultEntryId){
                             this.charityMedia = await rootStore.application.charity.charityStore.getCharityBankMedia(data.coreMediaVaultEntryId);
                             isImage = !(this.charityMedia.type === 'application/pdf') && !(this.charityMedia.type === 'application/octet-stream');
-    
+                            this.coreMediaVaultEntryId = data.coreMediaVaultEntryId;
                             if(!isImage){
                                 this.chariytBankFile = this.charityMedia;
                                 const fileExtensions = (this.charityMedia.type === 'application/pdf') ? 'pdf' : 'csv';
@@ -114,6 +113,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             ]);
             if (this.charity.charityBankAccounts && this.charity.charityBankAccounts.length === 1) {
                 this.id = this.charity.charityBankAccounts[0].id;
+                this.charityMedia = null;
                 await this.fetch([
                     this.getResource(this.id)
                 ]);
@@ -136,8 +136,11 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             await this.fetch([
                 this.getResource(this.id)
             ]);
-            if(this.item.coreMediaVaultEntryId)
+            if(this.item.coreMediaVaultEntryId){
                 this.imageUploadStore.setInitialItems(this.item.coreMediaVaultEntryId)
+            }else{
+                this.imageUploadStore.clear()
+            }
         }
     }
     @action.bound

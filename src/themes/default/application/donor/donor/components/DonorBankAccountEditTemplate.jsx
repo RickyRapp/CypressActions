@@ -38,10 +38,10 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
                 <h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
                 <div className="row row--form u-mar--bottom--sml">
                     <div className="form__group col col-sml-12 col-lrg-3">
-                        <BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
+                        <BasicInput field={form.$('accountNumber')} disabled={item != null} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-3">
-                        <NumberFormatInputField field={form.$('routingNumber')} onBlur={onBlurRoutingNumber} disabled={item != null && (item && item.isVerifiedByPlaid)} />
+                        <NumberFormatInputField field={form.$('routingNumber')} onBlur={onBlurRoutingNumber} disabled={item != null} />
                     </div>
                     <div className="form__group col col-sml-12 col-lrg-3">
                         <BasicInput field={form.$('name')} />
@@ -74,7 +74,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
                     <React.Fragment>
                         <div className="row row--form row__align--end">
                             <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicInput field={form.$('accountHolderName')} />
+                                <BasicInput field={form.$('accountHolderName')}  disabled={item != null} />
                             </div>
                             <div className="form__group col col-sml-12 col-lrg-6">
                                 <BasicInput field={form.$('addressLine1')} />
@@ -135,10 +135,14 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
                     onClick={onCancelEditClick}
                     label='Cancel'
                 />
-                <BaasicFormControls
+                {item != null && 
+                    <BaasicFormControls
                     form={form}
                     onSubmit={form.onSubmit}
+                    disabled={item != null}
                     className="btn btn--med btn--med--wide btn--secondary" />
+                }
+                
             </div>
         </EditFormContent>
     );
