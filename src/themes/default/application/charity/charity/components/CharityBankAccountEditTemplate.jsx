@@ -84,9 +84,16 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
 						<NumberFormatInputField field={form.$('number')} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-4">
-                        {bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Primary account?</label>
-                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span> : null}
+						<div>
+							{bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Primary account?</label>
+							<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span> : null}
+						</div>
+						<div >
+							{bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Is disabled?</label>
+							<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} /></span> : null}
+                    	</div>
                     </div>
+					
 				</div>
 				<div className="row row--form u-mar--bottom--med">
 					<div className="col col-sml-12 col-lrg-12">

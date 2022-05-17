@@ -7,7 +7,8 @@ import {
     BaasicDropzone,
     NumberFormatInputField,
     BaasicFieldDropdown,
-    BaasicButton
+    BaasicButton,
+    BasicFieldCheckbox
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
@@ -24,6 +25,8 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         resetBankAccount,
         verifiedByPlaid,
         verifyBankAccount,
+        exportFile,
+        item
     } = charityBankAccountViewStore;
 
     return (<div>
@@ -58,6 +61,28 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     <BasicInput field={form.$('name')} />
                 </div>
             </div>
+
+            <div className="row row--form">
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('accountHolderName')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('addressLine1')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('addressLine2')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('city')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('state')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('zipCode')} />
+					</div>
+				</div>
+
             <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('email')} />
@@ -65,6 +90,17 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <NumberFormatInputField field={form.$('number')} />
                 </div>
+                <div className="form__group col col-sml-12 col-lrg-4">
+						<div>
+							<span><label className="form__group__label u-mar--right--med">Primary account?</label>
+							<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span>
+						</div>
+						<div >
+							<span><label className="form__group__label u-mar--right--med">Is disabled?</label>
+							<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} /></span>
+                    	</div>
+                    </div>
+
                 { verifiedByPlaid != null && 
                     (verifiedByPlaid === true ?
                         <div>
@@ -78,9 +114,29 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                         </div>
                 )}
             </div>
-            <div className="row row--form">
-                <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
-            </div>
+            <div className="row row__align--end">
+							<BaasicDropzone
+								store={imageUploadStore}
+							/>
+								{
+                                    item ? (
+										item.charityMedia && (
+										(item.isImage) ?
+										(
+										<div className="imageheight_sml">
+											<img alt="" src={URL.createObjectURL(item.charityMedia)}  />
+										</div>
+										)
+										: (
+											<BaasicButton
+												className='btn btn--sml btn--primary'
+												label='Download'
+												onClick={() => exportFile()}
+											/>
+											))
+									) : null
+                                }
+						</div>
             <div className="type--right">
                 <span className="u-mar--right--sml">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />

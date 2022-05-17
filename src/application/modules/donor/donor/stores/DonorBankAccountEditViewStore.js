@@ -31,7 +31,8 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 						zipCode: data.accountHolder && data.accountHolder.zipCode,
 						email: data.accountHolder && data.accountHolder.email,
 						number: data.accountHolder && data.accountHolder.number,
-						isVerifiedByPlaid: data.isVerifiedByPlaid
+						isVerifiedByPlaid: data.isVerifiedByPlaid,
+						isDisabled : data.isDisabled
 					};
 				},
 				update: async resource => {

@@ -49,7 +49,8 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     isPrimary: data.accountHolder && data.isPrimary,
                     charityMedia : this.charityMedia,
                     isImage : isImage,
-                    isVerifiedByPlaid : data.isVerifiedByPlaid
+                    isVerifiedByPlaid : data.isVerifiedByPlaid,
+                    isDisabled : data.isDisabled
                 };
             },    
                 update: async (resource) => {
