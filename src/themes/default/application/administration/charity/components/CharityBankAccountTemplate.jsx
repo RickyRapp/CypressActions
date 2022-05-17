@@ -39,7 +39,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     <div className="form__group col col-sml-12 col-lrg-8">
                         <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore}/>
                     </div> 
-                    <div className="form__group col col-sml-12 col-lrg-4">
+                    <div className="form__group col col-sml-12 col-lrg-6">
                     <button className='btn btn--med' onClick={selectCharity}>
                         Select Bank Account
                     </button>
@@ -47,6 +47,14 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     <button className='btn btn--med btn--ghost search__wrapper__item' onClick={resetBankAccount} disabled={!id}>
                         Reset
                     </button>
+
+                    { verifiedByPlaid != null && 
+                    (verifiedByPlaid === true ?
+                            <small>Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i></small>
+                         : 
+                            <BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.VERIFY_BANK_ACCOUNT" onClick={() => verifyBankAccount()}></BaasicButton>
+                    )}
+
                     </div>
                 </div>
                 : null}
@@ -101,18 +109,6 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     	</div>
                     </div>
 
-                { verifiedByPlaid != null && 
-                    (verifiedByPlaid === true ?
-                        <div>
-                            <br />
-                            <small>Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i></small>
-                            </div>
-                         : 
-                         <div>
-                             <BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.VERIFY_BANK_ACCOUNT" onClick={() => verifyBankAccount()}>
-                             </BaasicButton>
-                        </div>
-                )}
             </div>
             <div className="row row__align--end">
 							<BaasicDropzone
