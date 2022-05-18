@@ -91,15 +91,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											store={charityDropdownStore}
 											additionalLabel="My Favorite Charities"
 										/> */}
-										<div className="type--right u-mar--bottom--tny">
-											<span
-												data-tip={`If the first part of charity name is unknown than '%' should be added in front of the charity name, example %charity`}
-												data-type="info"
-												style={{ cursor: 'pointer' }}>
-												<i className="u-icon u-icon--base u-icon--info--link u-mar--left--tny cursor--pointer"></i>
-												<ReactTooltip className='tooltip--primary' />
-											</span>
-										</div>
 										{
 											isGrantAgain ?
 												<div>

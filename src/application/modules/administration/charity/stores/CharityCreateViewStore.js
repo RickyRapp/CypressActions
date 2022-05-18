@@ -174,20 +174,6 @@ class CharityCreateViewStore extends BaseEditViewStore {
                 return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.GENERAL_ERROR'))
             }
         });
-
-        validatorService.registerAsyncValidator('taxIdUnique', async (value, attribute, req, passes) => {
-            try {
-                const statusCode = await this.rootStore.application.administration.charityStore.taxIdExists(value);
-                if (statusCode === 204) {
-                    return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.TAX_ID_CONFLICT'))
-                }
-                if (statusCode === 200) {
-                    return passes();
-                }
-            } catch (err) {
-                return passes(false, localizationService.t('CHARITY.CREATE.ERROR_MESSAGES.GENERAL_ERROR'))
-            }
-        });
     }
 
     createCharityStatusDropdownStore() {

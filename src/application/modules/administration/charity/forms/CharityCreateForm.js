@@ -17,7 +17,7 @@ export default class CharityCreateForm extends FormBase {
                 {
                     name: 'taxId',
                     label: 'CHARITY.CREATE.FIELDS.TAX_ID_LABEL',
-                    rules: 'required|string|size:9|taxIdUnique',
+                    rules: 'required|string|size:9',
                     options: {
                         validateOnChange: true
                     },
