@@ -42,13 +42,13 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
 				<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
 				<div className="row row--form">
 					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('routingNumber')} disabled={item != null} />
+						<BasicInput field={form.$('routingNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('name')} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('accountNumber')} disabled={item != null} />
+						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('description')} />
@@ -57,7 +57,7 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
 
 				<div className="row row--form">
 					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('accountHolderName')} disabled={item != null} />
+						<BasicInput field={form.$('accountHolderName')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-4">
 						<BasicInput field={form.$('addressLine1')} />
@@ -131,12 +131,12 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountEditViewStor
                     onClick={onCancelEditClick}
                     label='Cancel'
                 />
-				{item != null &&
+				
 					<span className="u-mar--right--sml">
 					<BaasicFormControls form={form} onSubmit={form.onSubmit} />	
 					</span>
-				}
-				{item != null && !(item && item.isPrimary) && 
+				
+				{item != null &&
 					<BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >
 					{/* {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')} */}
 					</BaasicButton>

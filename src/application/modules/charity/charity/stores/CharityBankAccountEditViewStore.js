@@ -67,10 +67,14 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     await this.rootStore.application.charity.charityStore.updateBankAccount({ id: props.editId, charityId: this.charityId, ...resource });
                     rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                 },
-                create: async (resource) => {
+                create: async (resource) => { 
                     if(props.bankAccountCount < 1) {
 						resource.isPrimary = true;
 					}
+                    if(!this.imageUploadStore.files[0]){
+                        rootStore.notificationStore.error('Please enter media');
+                        return;
+                    } 
                     let response;
                     try {
                         response = await this.rootStore.application.charity.charityStore.createBankAccount({ charityId: this.charityId, ...resource });
