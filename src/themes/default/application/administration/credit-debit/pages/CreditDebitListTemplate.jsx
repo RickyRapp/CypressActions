@@ -20,6 +20,8 @@ const CreditDebitListTemplate = function ({ creditDebitViewStore }) {
 		searchDonorDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		selectDonorModal,
+		searchCharityDropdownStore,
+		userTypeDropdownStore
 	} = creditDebitViewStore;
 
 	return (
@@ -31,6 +33,12 @@ const CreditDebitListTemplate = function ({ creditDebitViewStore }) {
 						<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility} visibleByDefault={false}>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={searchDonorDropdownStore} />
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown store={searchCharityDropdownStore} />
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown store={userTypeDropdownStore} />
 							</div>
 							<div className="col col-sml-12 u-mar--bottom--sml">
 								<div className="row row--form">

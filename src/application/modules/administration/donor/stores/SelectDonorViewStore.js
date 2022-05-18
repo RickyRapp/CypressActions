@@ -1,8 +1,10 @@
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
 import { donorFormatter } from 'core/utils';
 import _ from 'lodash'
+import { action, observable } from 'mobx';
 
 class SelectDonorViewStore extends BaseViewStore {
+    @observable isCharity = false;
     constructor(rootStore, { donorId, onClickDonorFromFilter, onChange }) {
         super(rootStore);
 
@@ -40,6 +42,10 @@ class SelectDonorViewStore extends BaseViewStore {
                 },
                 onChange: onChange
             });
+    }
+    @action.bound
+    setCharityToggle() {
+        this.isCharity = !this.isCharity;
     }
 }
 

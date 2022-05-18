@@ -3,6 +3,7 @@ import { FilterParams } from "core/models";
 
 class CreditDebitListFilter extends FilterParams {
     @observable donorId;
+    @observable charityId;
     @observable amountRangeMin;
     @observable amountRangeMax;
     @observable dateCreatedTo;
@@ -19,6 +20,7 @@ class CreditDebitListFilter extends FilterParams {
     reset() {
         super.reset();
         this.donorId = null;
+        this.charityId = null;
         this.amountRangeMin = null;
         this.amountRangeMax = null;
         this.dateCreatedTo = null;

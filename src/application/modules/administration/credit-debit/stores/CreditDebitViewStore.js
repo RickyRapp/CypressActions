@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
-import { donorFormatter } from 'core/utils';
+import { charityFormatter, donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { CreditDebitListFilter } from 'application/administration/credit-debit/models';
 
@@ -20,6 +20,8 @@ class CreditDebitViewStore extends BaseListViewStore {
                     filter.reset();
                     this.dateCreatedDateRangeQueryStore.reset();
                     this.searchDonorDropdownStore.setValue(null);
+                    this.searchCharityDropdownStore.setValue(null);
+                    this.userTypeDropdownStore.setValue(null);
                 }
             },
             actions: () => {
@@ -51,6 +53,8 @@ class CreditDebitViewStore extends BaseListViewStore {
 
         this.createTableStore()
         this.createDonorSearchDropdownStore();
+        this.createCharitySearchDropdownStore();
+        this.createUserTypeDropdownStore();
         this.createSelectDonorModal();
         this.createDateCreatedDateRangeQueryStore();
     }
@@ -119,6 +123,41 @@ class CreditDebitViewStore extends BaseListViewStore {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             }
         }));
+    }
+
+    createCharitySearchDropdownStore() {
+        this.searchCharityDropdownStore = new BaasicDropdownStore({
+            placeholder: 'SESSION.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const data = await this.rootStore.application.administration.charityStore.searchCharity({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: [
+                            'charityAddresses'
+                        ],
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
+                    });
+                    return data.item.map(x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }) } });
+                },
+                onChange: (charityId) => {
+                    this.queryUtility.filter.charityId = charityId;
+                }
+            });
+    }
+
+    createUserTypeDropdownStore() {
+        this.userTypeDropdownStore = new BaasicDropdownStore({
+            placeholder: 'BOOKLET_ORDER.LIST.FILTER.SELECT_TYPE_PLACEHOLDER',
+            initFetch: true,
+            filterable: false
+        });
+        this.userTypeDropdownStore.setItems([{ name: 'Donor', id: 'donor' }, { name: 'Charity', id: 'charity'}]);
     }
 
     createDonorSearchDropdownStore() {
