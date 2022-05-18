@@ -27,7 +27,8 @@ class CreditDebitViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [
                             'donor',
-                            'coreUser'
+                            'coreUser',
+                            'charity'
                         ];
 
                         params.fields = [
@@ -38,7 +39,9 @@ class CreditDebitViewStore extends BaseListViewStore {
                             'donor',
                             'description',
                             'coreUser',
-                            'userId'
+                            'userId',
+                            'charity',
+                            'charityId'
                         ];
                         return this.rootStore.application.administration.creditDebitStore.findCreditDebit(params);
                     }
@@ -73,7 +76,16 @@ class CreditDebitViewStore extends BaseListViewStore {
                 {
                     key: 'donor.donorName',
                     title: 'CREDIT_DEBIT.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    disableClick: true
+                    disableClick: true,
+                    format: {
+                        type: 'function',
+                        value: (val) =>  {
+                            if(val.donorId) {
+                                return val.donor.donorName;
+                            } 
+                            return val.charity.name;
+                        }
+                    }
                 },
                 {
                     key: 'dateCreated',
