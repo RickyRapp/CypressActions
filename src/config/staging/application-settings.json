@@ -1,0 +1,13 @@
+{
+    "appId": "thedonorsfund",
+    "appUrl": "api.tdfcharitable.org",
+    "apiVersion": "1.0.1",
+    "appVersion": "",
+    "useSSL": true,
+    "recaptchaSiteKey": "6LfASmUUAAAAAJFtvcmleuqQ_Cs35gkeypR4wO0v",
+    "plaidClientId": "6014307bf66e29000fb5c2bf",
+    "plaidSecret": "f7e8d14943810dcbfb49130378a049",
+    "plaidEnv": "development",
+    "plaidClientName": "The Donors' Fund Staging",
+    "plaidPath": "https://development.plaid.com"
+}

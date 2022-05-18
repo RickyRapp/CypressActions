@@ -54,7 +54,8 @@ class GrantViewStore extends BaseListViewStore {
                             'donationStatus',
                             'donationType',
                             'scheduledGrantPayment',
-                            'givingCardType'
+                            'givingCardType',
+                            'charity.charityBankAccounts'
                         ];
                         params.fields = [
                             'id',
@@ -73,7 +74,12 @@ class GrantViewStore extends BaseListViewStore {
                             'scheduledGrantPayment',
                             'declinationTypeId',
                             'givingCardTypeId',
-                            'givingCardType'
+                            'givingCardType',
+                            'checkDeclinationReason',
+                            'charityId',
+                            'grantAcknowledgmentTypeId',
+                            'grantPurposeTypeId',
+                            'charity.isAchAvailable'
                         ];
                         if(params.dateCreatedFrom){
                             let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
