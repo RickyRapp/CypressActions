@@ -11,6 +11,11 @@ class DonorBankAccountService extends BaseService {
     const url = this.routeService.getBankAccountAccountNumber(id);
     return this.apiClient.get(url);
   }
+
+  verifyDonorBank(resource) {
+    const url = this.routeService.verifyDonorBank(resource);
+    return this.apiClient.put(url, resource);
+}
 }
 
 export default DonorBankAccountService;

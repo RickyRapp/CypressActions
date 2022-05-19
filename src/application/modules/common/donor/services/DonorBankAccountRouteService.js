@@ -28,6 +28,10 @@ class DonorBankAccountRouteService extends BaseRouteService {
   update(resource) {
     return super.update(this.base + '/{id}', resource);
   }
+
+  verifyDonorBank(resource){
+    return super.update(this.base + '/verify/{id}', resource);
+  }
 }
 
 export default DonorBankAccountRouteService;

@@ -70,30 +70,6 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
                         </div>
                     </div>
                 </div>
-                
-                <div className="row row__align--end">
-							<BaasicDropzone
-								store={imageUploadStore}
-							/>
-								{
-                                    item ? (
-										item.charityMedia && (
-										(item.isImage) ?
-										(
-										<div className="imageheight_sml">
-											<img alt="" src={URL.createObjectURL(item.charityMedia)}  />
-										</div>
-										)
-										: (
-											<BaasicButton
-												className='btn btn--sml btn--primary'
-												label='Download'
-												onClick={() => exportFile()}
-											/>
-											))
-									) : null
-                                }
-						</div>
 
                 {form.$('isThirdPartyAccount').value &&
                     <React.Fragment>
@@ -160,13 +136,12 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
                     onClick={onCancelEditClick}
                     label='Cancel'
                 />
-                {item != null && 
-                    <BaasicFormControls
-                    form={form}
-                    onSubmit={form.onSubmit}
-                    disabled={item != null}
-                    className="btn btn--med btn--med--wide btn--secondary" />
-                }
+
+                <BaasicFormControls
+                form={form}
+                onSubmit={form.onSubmit}
+                disabled={item != null}
+                className="btn btn--med btn--med--wide btn--secondary" />
                 
             </div>
         </EditFormContent>

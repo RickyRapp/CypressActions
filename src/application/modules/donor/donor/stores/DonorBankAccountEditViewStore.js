@@ -50,17 +50,19 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 					await rootStore.application.donor.donorStore.updateBankAccount(resource);
 					if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
 						await rootStore.application.donor.donorStore.uploadDonorBankAccount(
-							this.imageUploadStore.files[0],
-							this.donorId,
-							resource.id
-						);
-					}
+						   this.imageUploadStore.files[0],
+						   this.donorId,
+						   resource.id
+					   );
+				   }
+
 					rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
 				},
 				create: async resource => {
 					if(props.bankAccountCount < 1) {
 						resource.isPrimary = true;
 					}
+
 					if (!resource.isThirdPartyAccount) {
 						resource.accountHolderName = this.donor.donorName;
 						resource.addressLine1 = this.primaryAddress.addressLine1;
@@ -85,7 +87,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 						await rootStore.application.donor.donorStore.uploadDonorBankAccount(
 							this.imageUploadStore.files[0],
 							this.donorId,
-							data.response
+							data
 						);
 					}
 					rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');

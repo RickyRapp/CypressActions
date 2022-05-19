@@ -27,7 +27,8 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
                             state: props.bankAccount.accountHolder.state,
                             zipCode: props.bankAccount.accountHolder.zipCode,
                             email: props.bankAccount.accountHolder.email,
-                            number: props.bankAccount.accountHolder.number
+                            number: props.bankAccount.accountHolder.number,
+                            verifiedByPlaid: props.bankAccount.isVerifiedByPlaid
                         };
                     }
                     else if (props.editId) {
@@ -47,7 +48,8 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
                             state: data.accountHolder.state,
                             zipCode: data.accountHolder.zipCode,
                             email: data.accountHolder.email,
-                            number: data.accountHolder.number
+                            number: data.accountHolder.number,
+                            verifiedByPlaid: data.isVerifiedByPlaid
                         };
                     }
                     else {
@@ -185,6 +187,18 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
                 this.form.$('coreMediaVaultEntryId').setDisabled(false);
             }
         });
+    }
+
+    @action.bound
+    async verifyBankAccount() {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to verify bank account?`,
+            async () => {
+                await this.rootStore.application.administration.donorStore.verifyDonorBank({ id: this.id, charityId: this.charityId });
+                this.rootStore.routerStore.goBack();
+                this.rootStore.notificationStore.success('Successfully verified Bank account');
+            }
+        );
     }
 }
 
