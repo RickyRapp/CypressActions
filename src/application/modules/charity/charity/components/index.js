@@ -13,4 +13,5 @@ export { default as CharityBankAccountList } from './CharityBankAccountList'
 export { default as CharityBankAccountEdit } from './CharityBankAccountEdit'
 export { default as CharityUploadPhoto } from './CharityUploadPhoto'
 export { default as CharityPlaid } from './CharityPlaid'
+export { default as CharityVerification } from './CharityVerification'
 

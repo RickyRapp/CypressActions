@@ -5,7 +5,7 @@ import {
     BasicInput,
     BaasicFormControls,
     NumberFormatInputField,
-    BasicFieldCheckbox, BaasicButton, EditFormContent
+    BasicFieldCheckbox, BaasicButton, EditFormContent, BaasicDropzone
 } from 'core/components';
 import { CharityPlaid } from 'application/charity/charity/components';
 
@@ -17,7 +17,8 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
         onBlurRoutingNumber,
         useDonorContactInformations,
         bankAccountCount,
-        item
+        item,
+        imageUploadStore
     } = donorBankAccountEditViewStore;
 
     return (
@@ -69,6 +70,30 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
                         </div>
                     </div>
                 </div>
+                
+                <div className="row row__align--end">
+							<BaasicDropzone
+								store={imageUploadStore}
+							/>
+								{
+                                    item ? (
+										item.charityMedia && (
+										(item.isImage) ?
+										(
+										<div className="imageheight_sml">
+											<img alt="" src={URL.createObjectURL(item.charityMedia)}  />
+										</div>
+										)
+										: (
+											<BaasicButton
+												className='btn btn--sml btn--primary'
+												label='Download'
+												onClick={() => exportFile()}
+											/>
+											))
+									) : null
+                                }
+						</div>
 
                 {form.$('isThirdPartyAccount').value &&
                     <React.Fragment>
