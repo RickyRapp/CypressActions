@@ -9,7 +9,9 @@ const SelectDonorTemplate = function ({ selectDonorViewStore, t }) {
         onClickDonorFromFilter,
         selectDonorDropdownStore,
         isCharity,
-        setCharityToggle
+        setCharityToggle,
+        searchCharityDropdownStore,
+        displayToggle
     } = selectDonorViewStore;
 
 
@@ -17,6 +19,9 @@ const SelectDonorTemplate = function ({ selectDonorViewStore, t }) {
         <section className="w--400--px">
             <h3 className="type--med type--wgt--medium u-mar--bottom--sml">{isCharity ? 'Select Donor' : 'Select Charity'}</h3>
             <div className="row">
+                <div className="form__group col col-lrg-12">
+                    {displayToggle && <BaasicToggle wrapperClassName="u-display--flex u-display--flex--column u-display--flex--align--end" showLabel={true} label={isCharity ? 'Charity' : 'Donor'} value={isCharity} onChange={setCharityToggle} />}
+                </div>
                 {donorId &&
                     <div className="form__group col col-lrg-12">
                         <a
@@ -36,13 +41,11 @@ const SelectDonorTemplate = function ({ selectDonorViewStore, t }) {
                     <BaasicDropdown
                         placeholder="Select charity"
                         className='input--dropdown'
-                        store={selectDonorDropdownStore}
+                        store={searchCharityDropdownStore}
                         opened={true}
                     />
                 </div>}
-                <div className="form__group col col-lrg-12">
-                    <BaasicToggle wrapperClassName="u-display--flex u-display--flex--column u-display--flex--align--end" showLabel={true} label={isCharity ? 'Charity' : 'Donor'} value={isCharity} onChange={setCharityToggle} />
-                </div>
+
             </div>
         </section>
     )

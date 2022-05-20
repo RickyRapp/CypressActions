@@ -2196,7 +2196,7 @@
             }
         },
         "CREATE": {
-            "TITLE": "Donor Credit/Debit",
+            "TITLE": "Credit/Debit",
             "FROM_TITLE": "Details",
             "BUTTON": {
                 "CREATE": "Send"
@@ -2216,6 +2216,7 @@
         "PREVIEW": {
             "FIELDS": {
                 "DONOR_NAME_LABEL": "Donor",
+                "CHARITY_NAME_LABEL": "Charity",
                 "PRESENT_BALANCE": "Present Balance"
             }
         }

@@ -8,6 +8,7 @@ class CreditDebitListFilter extends FilterParams {
     @observable amountRangeMax;
     @observable dateCreatedTo;
     @observable dateCreatedFrom;
+    @observable userType;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -25,6 +26,7 @@ class CreditDebitListFilter extends FilterParams {
         this.amountRangeMax = null;
         this.dateCreatedTo = null;
         this.dateCreatedFrom = null;
+        this.userType = null;
     }
 }
 

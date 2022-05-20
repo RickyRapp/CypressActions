@@ -1,15 +1,37 @@
 import { BaseViewStore, BaasicDropdownStore } from 'core/stores';
-import { donorFormatter } from 'core/utils';
+import { charityFormatter, donorFormatter } from 'core/utils';
 import _ from 'lodash'
 import { action, observable } from 'mobx';
 
 class SelectDonorViewStore extends BaseViewStore {
-    @observable isCharity = false;
-    constructor(rootStore, { donorId, onClickDonorFromFilter, onChange }) {
+    @observable isCharity = true;
+    constructor(rootStore, { donorId, onClickDonorFromFilter, onChange, displayToggle }) {
         super(rootStore);
-
+        this.displayToggle = displayToggle;
         this.donorId = donorId;
         this.onClickDonorFromFilter = onClickDonorFromFilter;
+
+        this.searchCharityDropdownStore = new BaasicDropdownStore({
+            placeholder: 'SESSION.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const data = await this.rootStore.application.administration.charityStore.searchCharity({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: [
+                            'charityAddresses'
+                        ],
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
+                    });
+                    return data.item.map(x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }) } });
+                },
+                onChange: onChange
+            });
 
         this.selectDonorDropdownStore = new BaasicDropdownStore({
             initFetch: false,

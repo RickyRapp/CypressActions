@@ -65,7 +65,8 @@ class CreditDebitViewStore extends BaseListViewStore {
             {
                 donorId: this.queryUtility.filter.donorId,
                 onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.administration.credit-debit.create', { id: donorId }),
-                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.administration.credit-debit.create', { id: donorId })
+                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.administration.credit-debit.create', { id: donorId }),
+                displayToggle: true,
             });
     }
 
@@ -156,6 +157,11 @@ class CreditDebitViewStore extends BaseListViewStore {
             placeholder: 'BOOKLET_ORDER.LIST.FILTER.SELECT_TYPE_PLACEHOLDER',
             initFetch: true,
             filterable: false
+        },
+        {
+            onChange: (userType) => {
+                this.queryUtility.filter.userType = userType;
+            }
         });
         this.userTypeDropdownStore.setItems([{ name: 'Donor', id: 'donor' }, { name: 'Charity', id: 'charity'}]);
     }
