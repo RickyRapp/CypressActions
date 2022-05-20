@@ -30,12 +30,12 @@ class AllTransactionViewStore extends BaseListViewStore {
                             'donationStatus',
                             'donor'
                         ];
-                        if(!params.dateCreatedFrom){
-                            const currentDate = new Date();
-                            const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
-                            params.dateCreatedFrom = moment(new Date(now_utc)).add(-1, 'months').startOf('month').toDate().toISOString();
-                            params.dateCreatedTo = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate().toISOString();
-                        }
+                        // if(!params.dateCreatedFrom){
+                        //     const currentDate = new Date();
+                        //     const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
+                        //     params.dateCreatedFrom = moment(new Date(now_utc)).add(-1, 'months').startOf('month').toDate().toISOString();
+                        //     params.dateCreatedTo = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate().toISOString();
+                        // }
                         return rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
                     }
                 }
@@ -141,7 +141,11 @@ class AllTransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return item.paymentTransaction.description ? ('Grant: '+ item.donor.donorName) : item.paymentTransaction.paymentTransactionType.description;
+                            try {
+                                return item.paymentTransaction.description ? ('Grant: '+ item.donor.donorName) : item.paymentTransaction.paymentTransactionType.description;
+                            } catch(e) {
+                                return item.type;
+                            }
                         }
                     }
                 },
@@ -151,7 +155,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return item.type === "Withdraw" ? "Withdraw" :  this.getTransactionType(item.paymentTransaction.charityVirtualTransactions[0].grants[0]);
+                            return item.type === "Withdraw" || item.type === "Credit" || item.type === "Debit" ? item.type :  this.getTransactionType(item.paymentTransaction.charityVirtualTransactions[0].grants[0]);
                         }
                     }
                 },
