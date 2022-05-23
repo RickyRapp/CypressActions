@@ -144,7 +144,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                             try {
                                 return item.paymentTransaction.description ? ('Grant: '+ item.donor.donorName) : item.paymentTransaction.paymentTransactionType.description;
                             } catch(e) {
-                                return item.type;
+                                return item.paymentTransaction.description ? item.paymentTransaction.description : item.type;
                             }
                         }
                     }
