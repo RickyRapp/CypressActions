@@ -168,21 +168,21 @@ class SessionViewStore extends BaseListViewStore {
                         type: 'function',
                         value: (item) => {
                             if(item.grants && item.grants.length > 0) {
-                                const isPending = (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0;
-                                const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0;
-                                const isCanceled = (item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length;
-                                const isPaymentSubmited = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
-                                const isPaymentReceived = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
-                            
-                                if(isPending) {
+                                if((item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0) {
                                     return 'Pending';
-                                } else if (isApproved) {
-                                    return 'Approved';
-                                } else if (isCanceled) {
+                                } else if((item.grants.filter(c => c.donationStatus.abrv == 'declined')).length == item.grants.length) {
+                                    return 'Declined';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length) {
                                     return 'Canceled';
-                                } else if (isPaymentSubmited) {
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'admin-review')).length > 0) {
+                                    return 'Admin Review';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'donor-review-first' || c.donationStatus.abrv == 'donor-review-second')).length > 0) {
+                                    return 'Donor review';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0) {
+                                    return 'Approved';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length > 0) {
                                     return 'Payment Submitted';
-                                } else if (isPaymentReceived) {
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length == item.grants.length) {
                                     return 'Payment Received';
                                 } else {
                                     return 'Pending';
@@ -211,8 +211,9 @@ class SessionViewStore extends BaseListViewStore {
                     if(item.grants && item.grants.length > 0) {
                         const isPending = (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0;
                         const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0;
+                        const isDonorReview = (item.grants.filter(c => c.donationStatus.abrv == 'donor-review-first' || c.donationStatus.abrv == 'donor-review-second')).length > 0;
                                 
-                        return isPending || isApproved;
+                        return isPending || isApproved || isDonorReview;
                     }
                     return false;
                 }

@@ -1789,7 +1789,8 @@
                 "DONOR_NAME_LABEL": "Donor",
                 "SCHEDULED_LABEL": "Scheduled",
                 "CHARITY_WEBSITE_LABEL": "Created over charity website",
-                "ADDRESS": "Address"
+                "ADDRESS": "Address",
+                "DECLINATION_REASON": "Check disapproval reason"
             }
         },
         "SCHEDULED_GRANT": {
@@ -2381,7 +2382,8 @@
             "LIST": "In overall",
             "IN_PROGRESS": "In progress",
             "PENDING_CERTIFICATE": "Checks on hold",
-            "ADMIN_REVIEW": "Admin review"
+            "ADMIN_REVIEW": "Admin review",
+            "DONOR_REVIEW": "Donor review"
         },
         "PREVIEW": {
             "TITLE": "Details",
@@ -2391,6 +2393,7 @@
                 "ORGANIZATION_NAME_LABEL": "Name / Email / Tax ID",
                 "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
                 "ORIGINAL_CONFIRMATION_NUMBER_LABEL": "Original confirmation number",
+                "NEW_CONFIRMATION_NUMBER_LABEL": "New confirmation numbers",
                 "DATE_CREATED_LABEL": "Date created",
                 "FULL_NAME_LABEL": "Full name",
                 "PHONE_NUMBER_LABEL": "Phone number",

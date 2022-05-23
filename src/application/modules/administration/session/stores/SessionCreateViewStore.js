@@ -5,6 +5,7 @@ import { SessionService } from 'application/administration/session/services';
 import { GrantService } from 'application/common/grant/services';
 import { charityFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
+import { DonorThirdPartyWebsiteSetting } from 'application/donor/donor/components';
 
 class SessionViewStore extends BaseEditViewStore {
     steps = [1, 2, 3, 4];
@@ -22,6 +23,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable isCharitySelected = false;
     @observable cardNumber = null;
     @observable isCharityAccount = false;
+    @observable isScannerAccount = false;
     @observable charityName = 'N/A';
     @observable blankScans = [];
 
@@ -60,6 +62,9 @@ class SessionViewStore extends BaseEditViewStore {
             this.isCharityAccount = true;
             this.charityName = this.rootStore.userStore.applicationUser.charity.name;
             this.form.$('charityId').value = this.rootStore.userStore.applicationUser.charityId;
+        } 
+        if(this.rootStore.userStore.applicationUser.roles.includes('Scanners')) {
+            this.isScannerAccount = true;
         }
         this.createCharityDropdownStore();
         this.createImageUploadStore();
@@ -115,6 +120,7 @@ class SessionViewStore extends BaseEditViewStore {
             isCharityAccount: this.isCharityAccount,
             imageUploadStore: this.imageUploadStore,
             isEdit: this.sessionCertificates.map(c => c.barcode).indexOf(item.barcode) >= 0,
+            isScannerAccount: this.isScannerAccount,
             onClick: (certificate) => {
                 this.setBlankCertificate(certificate);
                 this.blankCertificateModal.close();
@@ -248,6 +254,7 @@ class SessionViewStore extends BaseEditViewStore {
                     this.blankCertificateModal.open({
                         certificate: data.certificate,
                         isCharityAccount: this.isCharityAccount,
+                        isScannerAccount: this.isScannerAccount,
                         imageUploadStore: this.imageUploadStore,
                         isEdit: false,
                         onClick: (certificate) => {
@@ -277,7 +284,9 @@ class SessionViewStore extends BaseEditViewStore {
         try {
             let mediaEntry = null;
             if(this.imageUploadStore.files.length > this.imageUploadStore.originalFiles.length) {
+                console.log(this.imageUploadStore);
                 mediaEntry = await this.service.uploadBlankCertificate(this.imageUploadStore.files[0], certificate.certificateId);
+                console.log(mediaEntry);
             }
             const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue, coreMediaVaultEntryId: mediaEntry ? mediaEntry.data.id : null });
             data.response.isBlank = true;

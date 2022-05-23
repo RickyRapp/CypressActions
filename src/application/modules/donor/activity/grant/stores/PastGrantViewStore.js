@@ -8,6 +8,7 @@ import { GrantRouteService } from 'application/common/grant/services';
 import moment from 'moment';
 import { applicationContext } from 'core/utils';
 import { CharityNameCell, DescriptionCell } from '../components'
+import { ModalParams } from 'core/models';
 @applicationContext
 class PastGrantViewStore extends BaseListViewStore {
 	@observable summaryData = null;
@@ -71,6 +72,8 @@ class PastGrantViewStore extends BaseListViewStore {
 		this.createExportConfig();
 		this.createYearDropdownStore();
 
+        this.reviewModal = new ModalParams({});
+
 		this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
 	}
 
@@ -85,6 +88,29 @@ class PastGrantViewStore extends BaseListViewStore {
 			]);
 		}
 	}
+
+	@action.bound
+	openReviewModal(item) {
+        this.reviewModal.open({
+            item: item,
+			reviewConfirm: async (item, approved) => {
+				try {
+					item.isCertificateApproved = approved;
+					if(approved == false && (!item.checkDeclinationReason)) {
+						this.rootStore.notificationStore.error('No declination reason given');
+					} else {
+						await this.rootStore.application.donor.grantStore.updateGrant(item);
+						this.rootStore.notificationStore.success('Successfully reviewed grant.');
+						this.reviewModal.close();
+                		this.queryUtility.fetch();
+					}			
+				} catch (e) {
+					this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
+				}
+			}
+        });
+    }
+
 
 	@action.bound
 	async cancelGrant(grant) {
@@ -220,7 +246,19 @@ class PastGrantViewStore extends BaseListViewStore {
 			},
 			{
 				fetchFunc: async () => {
-					return this.rootStore.application.lookup.donationStatusStore.find();
+					let result = await this.rootStore.application.lookup.donationStatusStore.find();
+					
+					const firstIndex = result.map(obj => obj.abrv).indexOf('donor-review-first');
+					const secondIndex = result.map(obj => obj.abrv).indexOf('donor-review-first');
+					
+					const ids = `${result[firstIndex].id},${result[secondIndex].id}`;
+					
+					result.splice(firstIndex, 1);
+					result.splice(secondIndex, 1);
+					
+					result.unshift({abrv: 'check-approval', id: ids, name: 'Check Approval', description: 'CheckApproval'})
+					
+					return result;
 				},
 				onChange: donationStatus => {
 					this.queryUtility.filter.donationStatusIds = donationStatus.map(status => {
@@ -302,6 +340,8 @@ class PastGrantViewStore extends BaseListViewStore {
 								value: (item) => {
 									if (item.declinationTypeId != null && typeof item.declinationTypeId != 'undefined') {
 										return `Declined - ${(declinationReason.filter(x => x.id == item.declinationTypeId)).length > 0 ? declinationReason.filter(x => x.id == item.declinationTypeId)[0].name : 'other'}`;
+									} else if (item.donationStatus.abrv == 'donor-review-first' || item.donationStatus.abrv == 'donor-review-second') {
+										return 'Check Approval';
 									} else {
 										return item.donationStatus.name;
 									}
@@ -328,7 +368,8 @@ class PastGrantViewStore extends BaseListViewStore {
 						onPreview: (grant) => this.routes.preview(grant.id),
 						onSort: column => this.queryUtility.changeOrder(column.key),
 						onCancel: grant => this.cancelGrant(grant),
-						onGrantAgain: grant => this.grantAgain(grant)
+						onGrantAgain: grant => this.grantAgain(grant),
+						onReview: (grant) => this.openReviewModal(grant)
 					},
 					actionsRender: {
 						onEditRender: grant => {
@@ -347,6 +388,9 @@ class PastGrantViewStore extends BaseListViewStore {
 							}
 							return false;
 						},
+						onReviewRender: (grant) => {
+							return (grant.donationStatus.abrv == 'donor-review-first' || grant.donationStatus.abrv == 'donor-review-second');
+						}
 					},
 				},
 				true

@@ -140,9 +140,9 @@ GrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 	
-	const { onEdit, onRedirect, onPreview, onApprove, onCancel, onDecline } = actions;
+	const { onEdit, onRedirect, onPreview, onApprove, onCancel, onDecline, onDonorDeclined, onDonorReview } = actions;
 
-	if (!isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove) && !isSome(onCancel) && !isSome(onDecline)) return null;
+	if (!isSome(onDonorReview) && !isSome(onEdit) && !isSome(onRedirect) && !isSome(onPreview) && !isSome(onApprove) && !isSome(onCancel) && !isSome(onDecline)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -176,6 +176,20 @@ function renderActions({ item, actions, actionsRender }) {
 	if (isSome(actionsRender)) {
 		if (actionsRender.onCancelRender) {
 			cancelRender = actionsRender.onCancelRender(item);
+		}
+	}
+
+	let donorDeclinedRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onDonorDeclinedRender) {
+			donorDeclinedRender = actionsRender.onDonorDeclinedRender(item);
+		}
+	}
+
+	let donorReviewRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onDonorReviewRender) {
+			donorReviewRender = actionsRender.onDonorReviewRender(item);
 		}
 	}
 
@@ -240,6 +254,26 @@ function renderActions({ item, actions, actionsRender }) {
 						label="GRANT.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}
+					></BaasicButton>
+				) : null}
+				{isSome(onDonorDeclined) && donorDeclinedRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--clipboard u-icon--base"
+						label="Donor declination review"
+						onlyIcon={true}
+						onClick={() => onDonorDeclined(item)}
+					></BaasicButton>
+				) : null}
+				{isSome(onDonorReview) && donorReviewRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--approve u-icon--base"
+						label="Donor declination review"
+						onlyIcon={true}
+						onClick={() => onDonorReview(item)}
 					></BaasicButton>
 				) : null}
 			</div>

@@ -12,6 +12,11 @@ class SessionStore {
         return response.data;
     }
 
+    async findSessionForDonorReview(params) {
+        const response = await this.sessionService.findSessionForDonorReview(params);
+        return response.data;
+    }
+
     async findSessionPendingCertificate(params) {
         const response = await this.sessionPendingCertificateService.find(params);
         return response.data;

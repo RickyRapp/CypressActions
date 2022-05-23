@@ -21,6 +21,7 @@ const AdminReviewModal = function ({ modalParams, t }) {
                     <p><b>Open certificate amount: </b>${certificate.openCertificateAmount}</p><br />
                     <p>Certificate scan:</p><br/ >
                     <img style={{"border": '1px dashed orange'}} src={imgSrc} />
+                    <br /><b><a href={imgSrc} target="_blank">&#x21E9; Blank Certificate</a></b>  <br />
                 </div>
                 
                 <div className="form__group col col-lrg-12 u-mar--top--med">

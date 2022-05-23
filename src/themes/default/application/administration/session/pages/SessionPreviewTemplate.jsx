@@ -13,7 +13,10 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
         tableStore,
         loaderStore,
         discardedTableStore,
-        pendingTableStore
+        pendingTableStore,
+        donorReviewTableStore,
+        adminReviewTableStore,
+        checksOnHoldTableStore
     } = sessionPreviewViewStore;
 
     return (
@@ -58,10 +61,17 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
                         <span className="type--base type--color--opaque">
                             {item && item.confirmationNumber}
                         </span>
-                    </div><div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
+                    </div>
+                    <div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
                         <div className="type--med type--wgt--medium">{t('SESSION.PREVIEW.FIELDS.ORIGINAL_CONFIRMATION_NUMBER_LABEL')}</div>
                         <span className="type--base type--color--opaque">
                             {item && item.originalConfirmationNumber}
+                        </span>
+                    </div>
+                    <div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
+                        <div className="type--med type--wgt--medium">{t('SESSION.PREVIEW.FIELDS.NEW_CONFIRMATION_NUMBER_LABEL')}</div>
+                        <span className="type--base type--color--opaque">
+                            {item && item.newConfirmationNumbers}
                         </span>
                     </div>
                     <div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
@@ -98,6 +108,18 @@ function SessionPreviewTemplate({ sessionPreviewViewStore, t }) {
                 <h3 className="u-mar--bottom--med u-mar--top--med">Disapproved Certificates</h3>
                 <SimpleBaasicTable
                     tableStore={discardedTableStore}
+                />
+                <h3 className="u-mar--bottom--med u-mar--top--med">Certificates on Admin Review</h3>
+                <SimpleBaasicTable
+                    tableStore={adminReviewTableStore}
+                />
+                <h3 className="u-mar--bottom--med u-mar--top--med">Certificates on Donor Review</h3>
+                <SimpleBaasicTable
+                    tableStore={donorReviewTableStore}
+                />
+                <h3 className="u-mar--bottom--med u-mar--top--med">Checks on Hold</h3>
+                <SimpleBaasicTable
+                    tableStore={checksOnHoldTableStore}
                 />
                 <h3 className="u-mar--bottom--med u-mar--top--med">Pending Certificates</h3>
                 <SimpleBaasicTable

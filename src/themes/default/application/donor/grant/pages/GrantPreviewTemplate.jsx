@@ -101,12 +101,21 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                         {item && <Date format="full" value={item.grantScheduledPayment.dateCreated} />}
                                     </span>
                                 </div>}
-                            <div className="col col-sml-12">
+                            <div className="col col-sml-12 u-mar--bottom--med">
                                 <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.ADDRESS')}</div>
                                 <span className="input--preview">
                                     {item && <React.Fragment>{`${item.addressLine1}, ${item.addressLine2 ? item.addressLine2 + ', ' : ''} ${item.city}, ${item.state}, ${item.zipCode}`}</React.Fragment>}
                                 </span>
                             </div>
+                            {item && item.checkDeclinationReason &&
+                                <div className="col col-sml-12 u-mar--bottom--sml">
+                                    <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.DECLINATION_REASON')}</div>
+                                    <span className="input--preview">
+                                        {item && <React.Fragment>{`${item.checkDeclinationReason}`}</React.Fragment>}
+                                    </span>
+                                </div>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -134,16 +143,16 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                         }
                         {
                             isCancelable &&
-                                <div className={`col col-sml-12 col-lrg-${isEditable ? "3" : "6"}`}>
-                                    <BaasicButton
-                                        className="btn btn--base btn--ghost btn--100 u-mar--bottom--sml"
-                                        onClick={cancelGrant}
-                                        icon=''
-                                        label={t('PREVIEW_LAYOUT.CANCEL_GRANT_BUTTON')}
-                                    />
-                                </div>
+                            <div className={`col col-sml-12 col-lrg-${isEditable ? "3" : "6"}`}>
+                                <BaasicButton
+                                    className="btn btn--base btn--ghost btn--100 u-mar--bottom--sml"
+                                    onClick={cancelGrant}
+                                    icon=''
+                                    label={t('PREVIEW_LAYOUT.CANCEL_GRANT_BUTTON')}
+                                />
+                            </div>
                         }
-                        
+
                     </div>
                 </div>
             </div>

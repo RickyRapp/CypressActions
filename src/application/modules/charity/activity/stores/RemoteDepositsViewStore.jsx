@@ -6,25 +6,25 @@ import { action, observable } from "mobx";
 import { SessionListFilter } from "application/charity/remote-deposit/models";
 import { donorFormatter } from "core/utils";
 class RemoteDepositsViewStore extends BaseListViewStore {
-	@observable checksOnHold = null;
-	@observable isChecksOnHoldVisible = false;
+    @observable checksOnHold = null;
+    @observable isChecksOnHoldVisible = false;
 
-	constructor(rootStore) {
-		const service = new remoteDepositService(rootStore.application.baasic.apiClient);
-		super(rootStore, {
-			autoInit: true,
-			routes: {
-				edit: id => {
-					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.edit", { id: id });
-				},
-				create: () => {
-					this.rootStore.routerStore.goTo("master.app.session");
-				},
-				preview: id => {
-					this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.preview", { id: id });
-				},
-			},
-			queryConfig: {
+    constructor(rootStore) {
+        const service = new remoteDepositService(rootStore.application.baasic.apiClient);
+        super(rootStore, {
+            autoInit: true,
+            routes: {
+                edit: id => {
+                    this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.edit", { id: id });
+                },
+                create: () => {
+                    this.rootStore.routerStore.goTo("master.app.session");
+                },
+                preview: id => {
+                    this.rootStore.routerStore.goTo("master.app.main.charity.remote-deposit.preview", { id: id });
+                },
+            },
+            queryConfig: {
                 filter: new SessionListFilter('dateCreated', 'desc'),
                 onResetFilter: (filter) => {
                     filter.reset();
@@ -34,39 +34,39 @@ class RemoteDepositsViewStore extends BaseListViewStore {
                     this.searchDonorDropdownStore.setValue(null);
                 }
             },
-			actions: () => {
-				return {
-					find: async params => {
-						if(params && params.phoneNumber) {
-							params.phoneNumber = (params.phoneNumber.match(/\d/g)).join('');
-						}
-						params.charityId = this.rootStore.userStore.applicationUser.charityId;
-						params.isCharityAccount = true;
-						params.embed = [
+            actions: () => {
+                return {
+                    find: async params => {
+                        if (params && params.phoneNumber) {
+                            params.phoneNumber = (params.phoneNumber.match(/\d/g)).join('');
+                        }
+                        params.charityId = this.rootStore.userStore.applicationUser.charityId;
+                        params.isCharityAccount = true;
+                        params.embed = [
                             'charity',
                             'grants',
                             'grants.certificate',
                             'grants.donationStatus',
                             'grants.certificate.denominationType'
                         ];
-						
-						const response = await service.find(params);
-						return response.data;
-					},
-					delete: service.delete,
-				};
-			},
-		});
-		this.createTableStore();
-		this.createChecksOnHoldTableStore();
-		this.fetchChecksOnHold();
-		this.createPaymentTypeDropdownStore();
-		this.createDonationStatusDropdownStore();
-		this.createDateCreatedDateRangeQueryStore();
-		this.createDonorSearchDropdownStore();
-	}
 
-	createDonorSearchDropdownStore() {
+                        const response = await service.find(params);
+                        return response.data;
+                    },
+                    delete: service.delete,
+                };
+            },
+        });
+        this.createTableStore();
+        this.createChecksOnHoldTableStore();
+        this.fetchChecksOnHold();
+        this.createPaymentTypeDropdownStore();
+        this.createDonationStatusDropdownStore();
+        this.createDateCreatedDateRangeQueryStore();
+        this.createDonorSearchDropdownStore();
+    }
+
+    createDonorSearchDropdownStore() {
         this.searchDonorDropdownStore = new BaasicDropdownStore({
             placeholder: 'BOOKLET_ORDER.LIST.FILTER.SELECT_DONOR_PLACEHOLDER',
             initFetch: true,
@@ -125,8 +125,8 @@ class RemoteDepositsViewStore extends BaseListViewStore {
             });
     }
 
-	createChecksOnHoldTableStore() {
-		this.checksOnHoldTableStore = new TableViewStore(null, {
+    createChecksOnHoldTableStore() {
+        this.checksOnHoldTableStore = new TableViewStore(null, {
             columns: [
                 {
                     key: 'dateCreated',
@@ -163,71 +163,71 @@ class RemoteDepositsViewStore extends BaseListViewStore {
             actions: {},
             actionsRender: {}
         });
-	}
+    }
 
-	@action.bound
+    @action.bound
     onExpandChecksOnHoldClick() {
         this.isChecksOnHoldVisible = !this.isChecksOnHoldVisible;
     }
 
-	createTableStore() {
-	this.setTableStore(
-			new TableViewStore(this.queryUtility, {
-				columns: [
-					{
-						key: 'confirmationNumber',
-						title: 'SESSION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
-						onClick: (item) => this.routes.preview(item.id),
-					},
-					{
-						key: 'charity.name',
-						title: 'SESSION.LIST.COLUMNS.CHARITY_NAME_LABEL',
-					},
-					{
-						key: 'amount',
-						title: 'SESSION.LIST.COLUMNS.AMOUNT_LABEL',
-						format: {
-							type: 'function',
-							value: (item) => {
-								return <React.Fragment>
-									<FormatterResolver
-										item={{ amount: item.amount }}
-										field='amount'
-										format={{ type: 'currency' }}
-									/>
-									{item.json &&
-										<span data-tip={`${item.json}`} data-type="info" style={{cursor: 'pointer'}}>
-											<b>&nbsp;[?]</b>
-											<ReactTooltip />
-										</span>
-									}
-								</React.Fragment >
-	
-							}
-						}
-					},
-					{
-						key: 'grants',
-						title: 'SESSION.LIST.COLUMNS.SESSION_STATUS_LABEL',
-						format: {
-							type: 'function',
-							value: (item) => {
+    createTableStore() {
+        this.setTableStore(
+            new TableViewStore(this.queryUtility, {
+                columns: [
+                    {
+                        key: 'confirmationNumber',
+                        title: 'SESSION.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
+                        onClick: (item) => this.routes.preview(item.id),
+                    },
+                    {
+                        key: 'charity.name',
+                        title: 'SESSION.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                    },
+                    {
+                        key: 'amount',
+                        title: 'SESSION.LIST.COLUMNS.AMOUNT_LABEL',
+                        format: {
+                            type: 'function',
+                            value: (item) => {
+                                return <React.Fragment>
+                                    <FormatterResolver
+                                        item={{ amount: item.amount }}
+                                        field='amount'
+                                        format={{ type: 'currency' }}
+                                    />
+                                    {item.json &&
+                                        <span data-tip={`${item.json}`} data-type="info" style={{ cursor: 'pointer' }}>
+                                            <b>&nbsp;[?]</b>
+                                            <ReactTooltip />
+                                        </span>
+                                    }
+                                </React.Fragment >
+
+                            }
+                        }
+                    },
+                    {
+                        key: 'grants',
+                        title: 'SESSION.LIST.COLUMNS.SESSION_STATUS_LABEL',
+                        format: {
+                            type: 'function',
+                            value: (item) => {
                                 if(item.grants && item.grants.length > 0) {
-                                    const isPending = (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0;
-                                    const isApproved = (item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0 && (item.grants.filter(c => c.donationStatus.abrv == 'pending')).length == 0;
-                                    const isCanceled = (item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length;
-                                    const isPaymentSubmited = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
-                                    const isPaymentReceived = ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length + (item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length) == item.grants.length;
-                                
-                                    if(isPending) {
+                                    if((item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0) {
                                         return 'Pending';
-                                    } else if (isApproved) {
-                                        return 'Approved';
-                                    } else if (isCanceled) {
+                                    } else if((item.grants.filter(c => c.donationStatus.abrv == 'declined')).length == item.grants.length) {
+                                        return 'Declined';
+                                    } else if ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length) {
                                         return 'Canceled';
-                                    } else if (isPaymentSubmited) {
+                                    } else if ((item.grants.filter(c => c.donationStatus.abrv == 'admin-review')).length > 0) {
+                                        return 'Admin Review';
+                                    } else if ((item.grants.filter(c => c.donationStatus.abrv == 'donor-review-first' || c.donationStatus.abrv == 'donor-review-second')).length > 0) {
+                                        return 'Donor review';
+                                    } else if ((item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0) {
+                                        return 'Approved';
+                                    } else if ((item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length > 0) {
                                         return 'Payment Submitted';
-                                    } else if (isPaymentReceived) {
+                                    } else if ((item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length == item.grants.length) {
                                         return 'Payment Received';
                                     } else {
                                         return 'Pending';
@@ -235,40 +235,40 @@ class RemoteDepositsViewStore extends BaseListViewStore {
                                 }
                                 return '';
                             }
-						}
-					},
-					{
-						key: 'dateCreated',
-						title: 'SESSION.LIST.COLUMNS.DATE_CREATED_LABEL',
-						format: {
-							type: 'date',
-							value: 'short'
-						}
-					}
-				],
-				actions: {
-					onPreview: item => this.routes.preview(item.id),
-				},
-			})
-		);
-	}
-	async fetchChecksOnHold() {
+                        }
+                    },
+                    {
+                        key: 'dateCreated',
+                        title: 'SESSION.LIST.COLUMNS.DATE_CREATED_LABEL',
+                        format: {
+                            type: 'date',
+                            value: 'short'
+                        }
+                    }
+                ],
+                actions: {
+                    onPreview: item => this.routes.preview(item.id),
+                },
+            })
+        );
+    }
+    async fetchChecksOnHold() {
         const statuses = await this.rootStore.application.lookup.sessionPendingCertificateStatusStore.find();
-		
-		const response = await this.rootStore.application.charity.activityStore.activityService.findPendingCheck({
-			charityId: this.rootStore.userStore.applicationUser.charityId, //'45edabf2-1469-4f2a-9362-ad4800a5ab24'
-			sessionPendingCertificateStatusIds: statuses.find(c => c.abrv === 'pending').id,
-			embed: 'charity,certificate,certificate.booklet,certificate.denominationType,certificate.booklet.bookletOrder,certificate.booklet.bookletOrder.donor',
-			sort: 'dateCreated|desc',
-			page: 1,
-			rpp: 1000
-		});
+
+        const response = await this.rootStore.application.charity.activityStore.activityService.findPendingCheck({
+            charityId: this.rootStore.userStore.applicationUser.charityId, //'45edabf2-1469-4f2a-9362-ad4800a5ab24'
+            sessionPendingCertificateStatusIds: statuses.find(c => c.abrv === 'pending').id,
+            embed: 'charity,certificate,certificate.booklet,certificate.denominationType,certificate.booklet.bookletOrder,certificate.booklet.bookletOrder.donor',
+            sort: 'dateCreated|desc',
+            page: 1,
+            rpp: 1000
+        });
         this.checksOnHoldTableStore.setData(response.data.item);
         if (!this.checksOnHoldTableStore.dataInitialized) {
             this.checksOnHoldTableStore.dataInitialized = true;
         }
     }
-	createPaymentTypeDropdownStore() {
+    createPaymentTypeDropdownStore() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
             multi: true
         },

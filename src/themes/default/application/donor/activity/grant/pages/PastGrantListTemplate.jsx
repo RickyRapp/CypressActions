@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { Export, BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton, BaasicInput, NumberFormatInput, DateRangeQueryPicker } from 'core/components';
+import { Export, BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton, BaasicInput, NumberFormatInput, DateRangeQueryPicker, BaasicModal } from 'core/components';
 import { Content } from 'core/layouts';
 import { ProgressLineTemplate } from '../components'
 
@@ -21,6 +21,7 @@ import {
 } from '@progress/kendo-react-charts';
 import { isSome } from 'core/utils';
 import moment from 'moment';
+import { BlankReviewTemplate, GrantCreateOverviewTemplate } from 'themes/application/donor/grant/components';
 
 const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	const {
@@ -37,7 +38,8 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		yearDropdownStore,
 		onShowMoreOptionsClick,
 		showMoreOptions,
-		upcomingGrants
+		upcomingGrants,
+		reviewModal
 	} = pastGrantViewStore;
 	//Color palette
 	let colors = ["#99bdf3", "#F9EA9A", "#A8C69F", "#223A5E", "#C36C36", "#D8D4F2", "#E0EEC6", "#5DB7DE", "#CEB1BE"];
@@ -375,6 +377,10 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 							tableStore={tableStore}
 							actionsComponent={renderActions} />
 					</div>
+					<BaasicModal modalParams={reviewModal}>
+						<BlankReviewTemplate>
+						</BlankReviewTemplate>
+					</BaasicModal>
 				</div>
 				<div className="col col-sml-12 col-xxxlrg-4 u-mar--bottom--med">
 					<div className={`card--primary card--med ${!summaryData && "fullheight"}`}>
@@ -448,8 +454,8 @@ PastGrantListTemplate.propTypes = {
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
 
-	const { onEdit, onPreview, onCancel, onGrantAgain } = actions;
-	if (!isSome(onEdit) && !isSome(onPreview) && !isSome(onCancel)) return null;
+	const { onEdit, onPreview, onCancel, onGrantAgain, onReview } = actions;
+	if (!isSome(onEdit) && !isSome(onPreview) && !isSome(onCancel) && !isSome(onReview)) return null;
 
 	let editRender = true;
 	if (isSome(actionsRender)) {
@@ -472,6 +478,12 @@ function renderActions({ item, actions, actionsRender }) {
 		}
 	}
 
+	let reviewRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.onReviewRender) {
+			reviewRender = actionsRender.onReviewRender(item);
+		}
+	}
 	return (
 		<td>
 			<div className="type--right">
@@ -503,6 +515,16 @@ function renderActions({ item, actions, actionsRender }) {
 						label="CONTRIBUTION.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}
+					></BaasicButton>
+				) : null}
+				{isSome(onReview) && reviewRender ? (
+					<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--clipboard u-icon--base"
+						label="Review"
+						onlyIcon={true}
+						onClick={() => onReview(item)}
 					></BaasicButton>
 				) : null}
 				<BaasicButton

@@ -256,7 +256,9 @@ class GrantViewStore extends BaseListViewStore {
                 onApprove: (grant) => this.approveGrant(grant),
                 onCancel: (grant) => this.cancelGrant(grant),
                 onSort: (column) => this.queryUtility.changeOrder(column.key),
-                onDecline: (grant) => this.onDeclineClick(grant)
+                onDecline: (grant) => this.onDeclineClick(grant),
+                onDonorDeclined: (grant) => this.onDonorDeclinedClick(grant),
+                onDonorReview: (grant) => this.onDonorReviewClick(grant)
             },
             actionsRender: {
                 onEditRender: (grant) => {
@@ -273,9 +275,56 @@ class GrantViewStore extends BaseListViewStore {
                 },
                 onDeclineRender: (grant) => {
                     return grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved';
+                },
+                onDonorDeclinedRender: (grant) => {
+                    return grant.donationStatus.abrv === 'donor-review-declined';
+                },
+                onDonorReviewRender: (grant) => {
+                    return grant.donationStatus.abrv === 'donor-review-first' || grant.donationStatus.abrv === 'donor-review-second';
                 }
             }
         }));
+    }
+
+    @action.bound
+    async onDonorDeclinedClick(grant) {
+        this.rootStore.modalStore.showConfirm(
+            `Confirm check declination by donor (reason: '${grant.checkDeclinationReason}') for Grant #${grant.confirmationNumber}?`,
+            async () => {
+                const donationStatusLkp = await this.rootStore.application.lookup.donationStatusStore.find();
+                grant.donationStatusId = (donationStatusLkp.find(x => x.abrv == 'declined')).id;
+                await this.rootStore.application.administration.grantStore.updateGrant(grant);
+                this.queryUtility.fetch();
+            },
+            async () => {
+                const donationStatusLkp = await this.rootStore.application.lookup.donationStatusStore.find();
+                grant.donationStatusId = (donationStatusLkp.find(x => x.abrv == 'approved')).id;
+                await this.rootStore.application.administration.grantStore.updateGrant(grant);
+                this.rootStore.modalStore.confirmParams.close();
+                this.queryUtility.fetch();
+            }
+        );
+    }
+
+    @action.bound
+    async onDonorReviewClick(grant) {
+        this.rootStore.modalStore.showConfirm(
+            `Approve check waiting for donor review, for Grant #${grant.confirmationNumber}?`,
+            async () => {
+                const donationStatusLkp = await this.rootStore.application.lookup.donationStatusStore.find();
+                grant.donationStatusId = (donationStatusLkp.find(x => x.abrv == 'approved')).id;
+                await this.rootStore.application.administration.grantStore.updateGrant(grant);
+                this.queryUtility.fetch();
+            },
+            async () => {
+                const donationStatusLkp = await this.rootStore.application.lookup.donationStatusStore.find();
+                grant.donationStatusId = (donationStatusLkp.find(x => x.abrv == 'declined')).id;
+                grant.checkDeclinationReason = '[Admin completed review for donor]';
+                await this.rootStore.application.administration.grantStore.updateGrant(grant);
+                this.rootStore.modalStore.confirmParams.close();
+                this.queryUtility.fetch();
+            }
+        );
     }
 
     //#region MODAL
