@@ -31,7 +31,7 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
                 </div>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label">{t('CHARITY.PAYMENT_OPTIONS.FIELDS.DISTRIBUTE_WHEN_ACCUMULATED')}</div>
+                    <div className="list--preferences__label">{t('CHARITY.PAYMENT_OPTIONS.FIELDS.DISTRIBUTE_WHEN_ACCUMULATED_ADMIN')}</div>
                     <div className="list--preferences__dd">
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
