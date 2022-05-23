@@ -1244,10 +1244,12 @@
             "TITLE" : "Payments",
             "FIELDS" : {
                 "KEEP_UNTIL_MANUALLY" : "Keep funds at The Donors Fund until manually distributed",
+                "KEEP_UNTIL_MANUALLY_ADMIN" : "Only distribute funds when amount accumulated to",
                 "KEEP_UNTIL_MANUALLY_LABEL" : "Is enabled",
                 "DISTRIBUTE_WHEN_ACCUMULATED": "Only distribute funds when accumulated to ",
                 "DISTRIBUTE_WHEN_ACCUMULATED_LABEL": "Is enabled",
                 "ACCUMULATED_AMOUNT" : "Accumulated Amount",
+                "AUTOMATICALLY_WITHDRAW" : "Automatically withdraw",
                 "ACCUMULATED_AMOUNT_PLACEHOLDER": "$"
             }
         },

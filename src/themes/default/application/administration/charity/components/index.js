@@ -3,3 +3,4 @@ export { default as CharityBankAccountTemplate } from './CharityBankAccountTempl
 export { default as CharityGeneralDataTemplate } from './CharityGeneralDataTemplate'
 export { default as CharityAdvancedSearchTemplate } from './CharityAdvancedSearchTemplate'
 export { default as CharityWithdrawFundTemplate } from './CharityWithdrawFundTemplate'
+export { default as CharityPaymentOptionsTemplate } from './CharityPaymentOptionsTemplate'
