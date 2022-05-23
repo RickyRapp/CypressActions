@@ -163,7 +163,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                     key: 'paymentTransaction',
                     title: 'CHARITY_ACTIVITY.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
-                        type: 'transaction-currency',
+                        type: 'transaction-currency-charity',
                         value: '$'
                     }
                 },
