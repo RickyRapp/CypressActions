@@ -103,7 +103,7 @@ export default class RootStore {
     async routeChange({ toState, options }) {
         const { authStore, permissionStore } = this;
 
-        if (options.isPublic === false) {
+        if (options.isPublic === false) {  console.log(this.userStore.applicationUser);
             if (!authStore.isAuthenticated && toState.routeName !== 'master.public.membership.login') {
                 authStore.setSignInRedirect(toState);
                 return Promise.reject(new RouterState('master.public.membership.login'));

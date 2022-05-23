@@ -1,15 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    BasicInput,
-    BaasicFormControls,
-    EditFormContent,
-    BaasicDropzone,
-    NumberFormatInputField,
-    BaasicButton,
-	BasicFieldCheckbox
-} from 'core/components';
 import { defaultTemplate } from 'core/hoc';
+import { CharityBankAccountList } from 'application/charity/charity/components';
 
 const CharityVerificationTemplate = function({ CharityVerificationViewStore, t }) {
 	const { 
@@ -17,7 +9,8 @@ const CharityVerificationTemplate = function({ CharityVerificationViewStore, t }
 
 	return (
 		<div>
-
+			<p>Select Bank account to Verify or create new bank account: </p>
+			<CharityBankAccountList />
         </div>
 	);
 };
