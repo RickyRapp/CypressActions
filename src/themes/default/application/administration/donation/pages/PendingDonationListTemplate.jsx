@@ -9,11 +9,13 @@ import {
     FormatterResolver,
     BaasicFormControls,
     DatePickerField,
-    BaasicButton
+    BaasicButton,
+    BaasicModal
 } from 'core/components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import _ from 'lodash';
+import { DonationLog } from 'application/administration/donation/pages';
 
 const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
     const {
@@ -26,7 +28,9 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
         onAchNextPaymentNumberClick,
         getPendingDonations,
         disableSave,
-        loaderStore
+        loaderStore,
+        openDonationLogModalClick,
+        donationLogModalParams
     } = pendingDonationViewStore;
 
     const DetailComponent = ({ dataItem }) => {
@@ -98,8 +102,19 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                         <DatePickerField field={form.$('paymentDate')} />
                     </div>
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-
+                    
                 </div>
+
+                <div className="row u-mar--bottom--med">
+                    <div className="col col-sml-6 col-lrg-3">
+                        <BaasicButton
+                            className="btn btn--med btn--ghost search__wrapper__item"
+                            label="CHARITY.EDIT.BUTTON.WITHDRAW_FUNDS"
+                            onClick={openDonationLogModalClick}
+                        />
+                    </div>
+                </div>
+
                 <div className="card--primary card--med u-mar--bottom--med">
                     <div className="table--dragrow--expandable-row">
                         <BaasicTableWithRowDetails
@@ -113,6 +128,11 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
 
                 <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={disableSave} />
             </Content>
+
+            <BaasicModal modalParams={donationLogModalParams}>
+                <DonationLog />
+            </BaasicModal>
+
         </ApplicationListLayout >
     )
 };
