@@ -2888,6 +2888,16 @@
             }
         }
     },
+    "DONATION_REVIEW":{
+        "TITLE": "Donation Review history",
+        "LIST":{
+            "BEGINING": "Beginning",
+            "END": "End",
+            "USER": "User",
+            "DOCUMENT": "Document",
+            "IS_FINISHED": "Is finished"
+        }
+    },
     "BANK": {
         "TAB": {
             "LIST": "Banks",

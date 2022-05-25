@@ -2,22 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    BasicInput,
-    BaasicFieldDropdown,
-    BaasicFormControls,
-    EditFormContent,
-    NumericInputField,
+    BaasicTable,
 } from 'core/components';
 import { Content } from 'core/layouts';
 
 function DonationLogTemplate({ donationLogViewStore, t }) {
     const {
+        tableStore,
+        authorization,
+        renderActions
     } = donationLogViewStore;
 
     return (
         <Content>
             <div>
-                OK
+                <BaasicTable 
+                    authorization={authorization} 
+                    tableStore={tableStore} 
+                />
             </div>
         </Content>
     )

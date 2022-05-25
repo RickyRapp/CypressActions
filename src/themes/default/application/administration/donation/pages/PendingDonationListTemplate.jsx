@@ -109,7 +109,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                     <div className="col col-sml-6 col-lrg-3">
                         <BaasicButton
                             className="btn btn--med btn--ghost search__wrapper__item"
-                            label="CHARITY.EDIT.BUTTON.WITHDRAW_FUNDS"
+                            label="DONATION_REVIEW.TITLE"
                             onClick={openDonationLogModalClick}
                         />
                     </div>

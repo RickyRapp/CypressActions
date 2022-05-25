@@ -25,5 +25,10 @@ class DonationStore {
         const response = await this.donationService.getPendingDonationsByCharityId(id, address);
         return response.data;
     }
+
+    async getDonationReviewLogs() {
+        const response = await this.donationService.getDonationReviewLogs();
+        return response.data;
+    }
 }
 export default DonationStore;
