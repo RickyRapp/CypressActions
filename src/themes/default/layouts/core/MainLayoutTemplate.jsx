@@ -22,7 +22,7 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
                 : <Menu /> )  }
                 <div
                     className={
-                        'layout__content' +
+                        menuStore.rootStore.userStore.applicationUser.permissions.verifiedAccountSection ? 'layout__content' : "layout__content--secondary" +
                         (menuStore.isCollapsed ? ' is-collapsed' : '') +
                         (menuStore.secondaryMenuVisible ? ' active' : '')
                     }

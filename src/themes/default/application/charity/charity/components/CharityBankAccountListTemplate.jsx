@@ -27,7 +27,7 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 					.filter(c => c.id !== editId)
 					.map(c => {
 						return (
-							<div key={c.id} className={`u-mar--bottom--sml ${isEditEnabled ? "u-padd--x--med" : ""}`}>
+							<div key={c.id} className={`${isEditEnabled ? "u-padd--x--med" : ""}`}>
 								<div
 									className=""
 									title="Click to edit"

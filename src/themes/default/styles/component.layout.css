@@ -114,6 +114,13 @@ $header-height-mobile: 72px;
             top: $header-height;
         }
 
+        &--secondary {
+            max-width: 95vw;
+            padding: calc($unit * 10);
+
+            margin: 0 auto;
+        }
+
         &.is-collapsed {
 
             @media (--screen-from-lrg) {
