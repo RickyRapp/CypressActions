@@ -136,7 +136,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             await this.fetch([
                 this.getResource(this.id)
             ]);
-            if(this.item.coreMediaVaultEntryId){
+            if(this.item && this.item.coreMediaVaultEntryId){
                 this.imageUploadStore.setInitialItems(this.item.coreMediaVaultEntryId)
             }else{
                 this.imageUploadStore.clear()

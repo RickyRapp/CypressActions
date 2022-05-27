@@ -7,9 +7,17 @@ import { CharityAddressEditForm } from 'application/charity/charity/forms';
 class CharityVerificationViewStore extends BaseViewStore {
 
     constructor(rootStore) {
-        super(rootStore)
-        this.charityId = rootStore.userStore.applicationUser.id;
-
+        super(rootStore);
+    }
+    
+    @action.bound
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            this.loaderStore.suspend();
+        }
     }
 
 }

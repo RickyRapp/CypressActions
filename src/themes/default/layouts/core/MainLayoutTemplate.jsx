@@ -13,9 +13,13 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
 
     return (
         <div>
+                
             <div className="layout">
                 {/* <Header /> */}
-                <Menu />
+                { menuStore.rootStore.userStore.applicationUser && (
+                    menuStore.rootStore.userStore.applicationUser.roles[0] == 'Charities' ? 
+                    (menuStore.rootStore.userStore.applicationUser.permissions.verifiedAccountSection ? <Menu /> : null)
+                : <Menu /> )  }
                 <div
                     className={
                         'layout__content' +
