@@ -65,6 +65,11 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     }
 
                     await this.rootStore.application.charity.charityStore.updateBankAccount({ id: props.editId, charityId: this.charityId, ...resource });
+
+                    if(!this.isVerified){
+                        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.bank-account-verification'));
+                    }
+                    
                     rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                 },
                 create: async (resource) => { 
@@ -88,7 +93,10 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     } catch (error) {
                         rootStore.notificationStore.error('Create failed', error);
                     }
-                    
+                    if(!this.isVerified){
+                        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.bank-account-verification'));
+                    }
+
                     rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
                 }
             },
@@ -109,6 +117,8 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.chariytBankFile;
         this.fileName;
         this.charityMedia;
+        this.isVerified = this.rootStore.userStore.applicationUser.permissions.verifiedAccountSection ? true : false;
+        this.isNotVerifiedButHasBankAccount = !this.isVerified && this.bankAccountCount > 0;
     }
 
     @action.bound
