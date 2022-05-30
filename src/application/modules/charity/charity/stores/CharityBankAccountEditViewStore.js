@@ -4,6 +4,7 @@ import { applicationContext, isSome } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/charity/charity/forms';
 import { saveAs } from '@progress/kendo-file-saver';
 import { async } from 'rxjs/internal/scheduler/async';
+import { RouterState } from 'mobx-state-router';
 
 @applicationContext
 class CharityBankAccountEditViewStore extends BaseEditViewStore {

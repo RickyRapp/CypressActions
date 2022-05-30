@@ -37,6 +37,7 @@ class CharityPlaid extends Component {
     //this.setState({ bankAccount: b });
     //this.state.bankAccount.verifiedByPlaid = response.data;
     if(response.data){
+      location.reload();
       this.props.routerStore.goTo('master.app.main.charity.dashboard');
       this.notificationStore.success('Verification successful!');
     }else{
