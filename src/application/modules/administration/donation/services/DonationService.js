@@ -48,6 +48,11 @@ class DonationService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    getCwtUsingDonationReviewLog(id){
+        const url = this.routeService.getCwtUsingDonationReviewLog(id);
+        return this.apiClient.get(url);
+    }
+
 }
 
 export default DonationService;

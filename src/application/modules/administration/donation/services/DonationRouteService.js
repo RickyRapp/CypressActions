@@ -32,6 +32,10 @@ class DonationRouteService extends BaseRouteService {
     getPendingDonationsByCharityId(id, address1) {
         return super.get(this.base + '/pending-donations/{id}?address1=' +  encodeURIComponent(address1), id);
     }
+
+    getCwtUsingDonationReviewLog(id){
+        return super.get(this.base + '/donation-review-log/{id}', id, null);
+    }
 }
 
 export default DonationRouteService;

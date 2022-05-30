@@ -1,3 +1,4 @@
+import { saveAs } from '@progress/kendo-file-saver';
 import { FilterParams } from 'core/models';
 import { BaseListViewStore, TableViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
@@ -29,6 +30,23 @@ class DonationLogViewStore extends BaseListViewStore {
         }
     }
 
+    @action.bound
+    async printReport(donationLog) {
+        let extension = 'pdf';
+        let contentType = 'application/pdf';
+        if (donationLog.paymentTypeAbrv === 'ach') {
+            contentType = 'text/csv';
+            extension = 'csv'
+        }
+        const paymentTypeId = donationLog.paymentTypeId;
+        var ids = await this.rootStore.application.administration.donationStore.getCwtUsingDonationReviewLog(donationLog.id);
+        const report = await this.rootStore.application.administration.reconcileStore.generateReport({ contentType, ids, paymentTypeId });
+        const nowDate = new Date();
+        const fileName = `${"Receipt".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.${extension}`;
+        saveAs(report.data, fileName);
+        this.rootStore.notificationStore.success("Report generated.");
+    }
+
     createTableStore() { 
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
@@ -46,20 +64,28 @@ class DonationLogViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'dateCreated',
-                    title: 'DONATION_REVIEW.LIST.BEGINING'
+                    title: 'DONATION_REVIEW.LIST.BEGINING',
+                    format: {
+                        type: 'date',
+                        value: 'kendo-input-medium'
+                    }
                 },
                 {
                     key: 'finishTime',
                     title: 'DONATION_REVIEW.LIST.END',
                     format: {
                         type: 'date',
-                        value: 'DD-MM-YYYY hh:mm:ss'
+                        value: 'kendo-input-medium'
                     }
                 },
             ],
             actions: {
+                onPrintReport: (item) => this.printReport(item)
             },
             actionsRender: {
+                onPrintReportRender: (item) => {
+                    return item.isFinished === true;
+                }
             }
         }));
     }
