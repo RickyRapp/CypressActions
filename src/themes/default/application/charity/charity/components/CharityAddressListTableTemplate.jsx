@@ -2,21 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {
-    Address
+	Address
 } from 'core/components';
 import { CharityAddressEditForm } from 'application/charity/charity/components';
 
 const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }) {
-    const {
-        addresses,
-        onEnableEditClick,
-        onCancelEditClick,
-        isEditEnabled,
-        form,
-        editId
-    } = charityAddressViewStore;
+	const {
+		addresses,
+		onEnableEditClick,
+		onCancelEditClick,
+		isEditEnabled,
+		form,
+		editId
+	} = charityAddressViewStore;
 
-    let primaryAddress = null;
+	let primaryAddress = null;
 	let secondaryAddress = null;
 	if (addresses.length > 0) {
 		primaryAddress = addresses.find(c => c.isPrimary);
@@ -25,8 +25,8 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
 		}
 	}
 
-    return (
-        <div>
+	return (
+		<div>
 			<div className="row">
 				<div className="col col-sml-12 col-lrg-3">
 					<h3 className=" u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}</h3>
@@ -118,14 +118,14 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
 				</div>
 			</div>
 		</div>
-    );
+	);
 };
 
 
 CharityAddressListTableTemplate.propTypes = {
-    item: PropTypes.object,
-    actions: PropTypes.object,
-    authorization: PropTypes.any
+	item: PropTypes.object,
+	actions: PropTypes.object,
+	authorization: PropTypes.any
 };
 
 export default defaultTemplate(CharityAddressListTableTemplate);

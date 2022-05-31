@@ -55,9 +55,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         toggleSettings
     } = grantCreateViewStore;
 
-        let promiseOptions = (inputValue) =>
+    let promiseOptions = (inputValue) =>
         new Promise(resolve => {
-                inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+            inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
         });
 
     return (

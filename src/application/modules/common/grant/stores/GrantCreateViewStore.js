@@ -321,7 +321,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				date: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
 				recurring: this.form.$('isRecurring').$value ? "Yes" : "No",
 				purpose: this.grantPurposeTypeDropdownStore.items.find(c => c.id === this.form.$('grantPurposeTypeId').value),
-                isChangedDefaultAddress: this.isChangedDefaultAddress
+				isChangedDefaultAddress: this.isChangedDefaultAddress
 			});
 		}
 	}
