@@ -6,12 +6,15 @@ import {
 	BaasicButton
 } from 'core/components';
 
-const CharityVerificationTemplate = function () {
+const CharityVerificationTemplate = function ({charityVerificationViewStore}) {
+	const {charityLogout} = charityVerificationViewStore;
+
 	return (
 		<React.Fragment>
 			<BaasicButton
 				className='btn btn--med btn--primary u-mar--bottom--med'
 				label='logout'
+				onClick={charityLogout}
 			/>
 			<div className="card--med card--primary ">
 				<p>Select Bank account to Verify or create new bank account: </p>
@@ -23,6 +26,7 @@ const CharityVerificationTemplate = function () {
 
 CharityVerificationTemplate.propTypes = {
 	t: PropTypes.func,
+	charityVerificationViewStore : PropTypes.object.isRequired
 };
 
 export default defaultTemplate(CharityVerificationTemplate);

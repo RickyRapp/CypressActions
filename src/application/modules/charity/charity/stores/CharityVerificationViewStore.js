@@ -20,6 +20,11 @@ class CharityVerificationViewStore extends BaseViewStore {
         }
     }
 
+    @action.bound
+    charityLogout(){
+        this.rootStore.viewStore.logout();
+    }
+
 }
 
 export default CharityVerificationViewStore;
