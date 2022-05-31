@@ -15,7 +15,7 @@ import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 import { ContributionReview } from 'application/administration/contribution/components';
 import { SelectDonor } from 'application/administration/donor/components';
 
-const ContributionListTemplate = function ({ contributionViewStore }) {
+const ContributionListTemplate = function ({ contributionViewStore, t }) {
 	const {
 		routes,
 		tableStore,
@@ -27,6 +27,8 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
 		reviewModal,
 		contributionStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
+		selectedItemsSum,
+		submitPending
 	} = contributionViewStore;
 
 	return (
@@ -103,6 +105,16 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
 							</TableFilter>
 						</div>
 
+						<div>
+						<p>Amount sum of selected items: {selectedItemsSum} $</p>
+							<div > 
+								<BaasicButton
+									className="btn btn--med btn--med--med btn--ghost"
+									label={t('ACTIVITY.DEPOSIT_TAB.CSV_BUTTON')}
+									onClick={submitPending}
+								/>
+							</div>
+						</div>
 						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 					</div>
 				</Content>

@@ -986,7 +986,8 @@
         },
         "DEPOSIT_TAB": {
             "CONTRIBUTION": "Deposits",
-            "SCHEDULED_CONTRIBUTION": "Scheduled Deposits"
+            "SCHEDULED_CONTRIBUTION": "Scheduled Deposits",
+            "CSV_BUTTON": "Generate CSV"
         },
         "LIST": {
             "COLUMNS": {
