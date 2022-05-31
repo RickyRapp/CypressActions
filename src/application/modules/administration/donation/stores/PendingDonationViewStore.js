@@ -6,6 +6,7 @@ import { SelectTableWithLoadOnDemand } from 'application/administration/donation
 import { action, observable } from 'mobx';
 import _ from 'lodash';
 import { saveAs } from '@progress/kendo-file-saver';
+import { ModalParams } from 'core/models';
 
 class PendingDonationViewStore extends BaseListViewStore {
     @observable disableSave = false;
@@ -70,6 +71,7 @@ class PendingDonationViewStore extends BaseListViewStore {
         this.createPaymentTypeDropdownStore();
         this.createTableStore(this.getPendingDonationsByCharityId);
         this.loaderStore.resume();
+        this.createDonationLogModalParams();
     }
 
     @action.bound
@@ -275,6 +277,22 @@ class PendingDonationViewStore extends BaseListViewStore {
             },
                 true, loadMethod));
     }
+
+    @action.bound
+    async openDonationLogModalClick() {
+        this.donationLogModalParams.open({
+
+            onAfterAction: () => {
+                this.getResource(this.id);
+                this.createModal.close();
+            }
+        });
+    }
+
+    createDonationLogModalParams() {
+        this.donationLogModalParams = new ModalParams({});
+    }
+
 }
 
 export default PendingDonationViewStore;
