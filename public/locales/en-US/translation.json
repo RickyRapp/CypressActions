@@ -714,16 +714,16 @@
             "TITLE": "Fees",
             "FIELDS": {
                 "ONLINE_LABEL": "Online grants",
-                "GRANT_REQUEST_LABEL": "Grant request fee is payed by:",
+                "GRANT_REQUEST_LABEL": "Grant request fee is paid by:",
                 "GRANT_REQUEST_LABEL_TRUE": "Me",
                 "GRANT_REQUEST_LABEL_FALSE": "Charity",
-                "CHARITY_WEBSITE_LABEL": "Charity website fee is payed by:",
+                "CHARITY_WEBSITE_LABEL": "Charity website fee is paid by:",
                 "CHARITY_WEBSITE_LABEL_TRUE": "Me",
                 "CHARITY_WEBSITE_LABEL_FALSE": "Charity",
-                "GIVING_CARD_LABEL": "Giving card fee is payed by:",
+                "GIVING_CARD_LABEL": "Giving card fee is paid by:",
                 "GIVING_CARD_LABEL_TRUE": "Me",
                 "GIVING_CARD_LABEL_FALSE": "Charity",
-                "SESSION_LABEL": "Checks fee is payed by:",
+                "SESSION_LABEL": "Checks fee is paid by:",
                 "SESSION_LABEL_TRUE": "Me",
                 "SESSION_LABEL_FALSE": "Charity"
             }
