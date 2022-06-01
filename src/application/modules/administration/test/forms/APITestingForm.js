@@ -128,16 +128,25 @@ export default class APITestingForm extends FormBase {
                             const value = event.target.checked;
                             let rule = 'numeric|min:1';
                             if (value) {
-                                rule += '|required';
-                                field.container().$('grantScheduleType').set('rules', 'required|string');
-                                field.container().$('startFutureDate').set('rules', `required|min_date:${moment().format('YYYY-MM-DD')}`);
+                                if (field.container().$('numberOfPayments').rules != 'numeric|min:1') {
+                                    field.container().$('grantScheduleType').set('rules', 'required|string');
+                                    field.container().$('startFutureDate').set('rules', `required|min_date:${moment().format('YYYY-MM-DD')}`);
+                                }
+                                else {
+                                    rule += '|required';
+                                    field.container().$('grantScheduleType').set('rules', 'required|string');
+                                    field.container().$('startFutureDate').set('rules', `required|min_date:${moment().format('YYYY-MM-DD')}`);
+                                    field.container().$('numberOfPayments').set('rules', 'numeric|min:1|required');
+                                }
+
                             }
                             else {
                                 field.container().$('grantScheduleType').set('rules', 'string');
                                 field.container().$('startFutureDate').set('rules', '');
+                                field.container().$('numberOfPayments').set('rules', 'numeric|min:1');
                             }
 
-                            field.container().$('numberOfPayments').set('rules', rule);
+                            // field.container().$('numberOfPayments').set('rules', rule);
                             field.set(event.target.checked);
                         }
                     }
