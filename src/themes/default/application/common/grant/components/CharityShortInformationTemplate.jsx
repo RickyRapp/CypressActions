@@ -8,8 +8,16 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
 
     return (
         <React.Fragment>
+            {console.log(charity)}
             <h3 className="">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
             <div className="row row--form u-mar--top--sml">
+                {charity && !charity.isActive &&
+                    <div className="col col-sml-12 u-mar--bottom--sml">
+                        <div className="charity-information__card ">
+                            <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_STATUS')}</span>
+                            <span className="type--base type--wgt--medium u-mar--left--auto type--right" style={{color:"red"}}>Charity is not active.</span>
+                        </div>
+                    </div>}
                 <div className="col col-sml-12 u-mar--bottom--sml">
                     <div className="charity-information__card ">
                         <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>

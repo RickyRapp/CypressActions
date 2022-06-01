@@ -267,9 +267,15 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                     </div>
                                 }
 
-                                <div className="u-mar--top--sml u-mar--bottom--sml type--right">
-                                    <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
-                                </div>
+                                {charity && !charity.item.isActive ?
+                                    <div className="u-mar--top--sml u-mar--bottom--sml type--right">
+                                        <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' disabled />
+                                    </div> :
+                                    <div className="u-mar--top--sml u-mar--bottom--sml type--right">
+                                        <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
+                                    </div>
+                                }
+
 
                             </div>
                         </div>
@@ -316,6 +322,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     {charity.item.name}
                                                 </div>
+                                                {console.log("CHARITY", charity)}
+                                                {charity && !charity.item.isActive &&
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <p style={{color:"red"}}>Charity is not active</p>
+                                                    </div>
+                                                }
                                             </div>
                                             <div className="row row--form u-padd--top--med">
                                                 <div className="col col-sml-12 col-lrg-4">

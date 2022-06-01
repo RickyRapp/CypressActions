@@ -1838,6 +1838,7 @@
             "MISSING_INITIAL_CONTRIBUTION": "Missing Initial Contribution. You Are Redirected On Contribution Page.",
             "CHARITY_INFORMATION_TITLE": "Charity Information",
             "CHARITY_INFORMATION_NAME": "Charity Name",
+            "CHARITY_INFORMATION_STATUS": "Charity Status",
             "CHARITY_INFORMATION_TAX_ID": "Tax ID",
             "CHARITY_INFORMATION_IS_ACH_AVAILABLE": "ACH available",
             "CHARITY_INFORMATION_ADDRESS": "Address",

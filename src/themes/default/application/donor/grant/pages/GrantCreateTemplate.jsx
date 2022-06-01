@@ -21,6 +21,7 @@ import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'theme
 import AsyncSelect from 'react-select/async';
 import { GrantConfirmTemplate } from 'themes/application/administration/grant/components';
 import ReactTooltip from 'react-tooltip';
+import { ChartCategoryAxis } from '@progress/kendo-react-charts';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 	const {
@@ -310,13 +311,16 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />
 										}
 									</div>
-
 								</div>
 
-								<div className="type--right">
-									<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
-								</div>
-
+								{charity && !charity.item.isActive ?
+									<div className="u-mar--top--sml u-mar--bottom--sml type--right">
+										<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' disabled />
+									</div> :
+									<div className="u-mar--top--sml u-mar--bottom--sml type--right">
+										<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
+									</div>
+								}
 							</div>
 						</div>
 						<div className="col col-sml-12 col-xxlrg-6 u-hide--to--med">
