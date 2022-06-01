@@ -71,7 +71,19 @@ export default class APITestingForm extends FormBase {
                     placeholder: 'No End Date',
                     rules: 'boolean',
                     type: 'checkbox',
-                    value: false
+                    value: false,
+                    handlers: {
+                        onChange: (field) => (event) => {
+                            const value = event.target.checked;
+                            let rule = 'numeric|min:1';
+                            if (value) {
+                                rule -= '|required'
+                            }
+                            field.container().$('numberOfPayments').set('rules', rule);
+                            field.container().$('numberOfPayments').validate({ showErrors: true });
+                            field.set(event.target.checked);
+                        }
+                    }
                 },
                 {
                     name: 'numberOfPayments',
@@ -124,6 +136,7 @@ export default class APITestingForm extends FormBase {
                                 field.container().$('grantScheduleType').set('rules', 'string');
                                 field.container().$('startFutureDate').set('rules', '');
                             }
+
                             field.container().$('numberOfPayments').set('rules', rule);
                             field.set(event.target.checked);
                         }
