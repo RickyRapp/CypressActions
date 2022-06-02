@@ -74,11 +74,21 @@ export default class APITestingForm extends FormBase {
                     value: false,
                     handlers: {
                         onChange: (field) => (event) => {
+                            debugger;
                             const value = event.target.checked;
                             let rule = 'numeric|min:1';
                             if (value) {
+
                                 rule -= '|required'
                             }
+                            else {
+                                if (field.container().$('numberOfPayments').rules != 'numeric|min:1') {
+                                    field.container().$('numberOfPayments').set('rules', 'numeric|min:1|required');
+                                    field.set(event.target.checked);
+                                    return;
+                                }
+                            }
+
                             field.container().$('numberOfPayments').set('rules', rule);
                             field.container().$('numberOfPayments').validate({ showErrors: true });
                             field.set(event.target.checked);
