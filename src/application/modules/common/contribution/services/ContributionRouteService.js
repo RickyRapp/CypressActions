@@ -36,6 +36,10 @@ class ContributionRouteService extends BaseRouteService {
     review(resource) {
         return super.update(this.base + '/review/{id}', resource);
     }
+
+    achBatchCurrentNumber({ increment }) {
+        return this.base + `/current-contribution-ach-batch-number?increment=${increment}`;
+    }
 }
 
 export default ContributionRouteService;

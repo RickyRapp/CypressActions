@@ -47,5 +47,10 @@ class ContributionStore {
         const response = await this.contributionService.getDetails(id, params);
         return response.data;
     }
+
+    async achBatchCurrentNumber(resource) {
+        const response = await this.contributionService.achBatchCurrentNumber(resource);
+        return response.data;
+    }
 }
 export default ContributionStore;

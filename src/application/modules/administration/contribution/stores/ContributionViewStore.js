@@ -4,11 +4,16 @@ import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmp
 import { ModalParams } from 'core/models';
 import { ContributionListFilter } from 'application/administration/contribution/models';
 import moment from 'moment';
+import { ContributionAchCreateForm } from '../forms';
 
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
     contributionStatuses = [];
     @observable selectedItemsSum = 0;
+    @observable achBatchCurrentNumber = false;
+
+    form = new ContributionAchCreateForm();
+
     thirdPartyFunds = [
 		{ id: '1', name: 'Fidelity Charitable' },
 		{ id: '2', name: 'Schwab Charitable' },
@@ -84,6 +89,7 @@ class ContributionViewStore extends BaseListViewStore {
                             'contributionStatus',
                             'bankAccount.accountHolder'
                         ];
+                        this.achBatchCurrentNumber = await rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
                         return rootStore.application.administration.contributionStore.findContribution(params);
                     }
                 }
@@ -275,7 +281,7 @@ class ContributionViewStore extends BaseListViewStore {
                 }
             },
             onSelect: (dataItem, isRemoving) => {
-                if(dataItem.contributionStatus.abrv === 'pending'){
+                if(dataItem.contributionStatus.abrv === 'pending' && dataItem.paymentType.abrv === 'ach'){
                     if(isRemoving){
                         this.selectedItemsSum -= dataItem.amount;
                     }else{
@@ -286,7 +292,7 @@ class ContributionViewStore extends BaseListViewStore {
             onSelectAll: (e) => {
                 if(!this.tableStore.hasSelectedItems){
                     this.tableStore.data.map(item => {
-                        if(item.contributionStatus.abrv === 'pending'){
+                        if(item.contributionStatus.abrv === 'pending' && item.paymentType.abrv === 'ach'){
                             this.selectedItemsSum += item.amount;
                         }
                     });
@@ -392,9 +398,17 @@ class ContributionViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    submitPending(){
-        let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending');
+    async submitPending(){
+        let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending' && s.paymentType.abrv === 'ach');
         console.log(pendingDeposits);
+        this.achBatchCurrentNumber = await this.rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
+        console.log(this.achBatchCurrentNumber);
+    }
+
+    @action.bound
+    async onAchNextPaymentNumberClick() {
+        this.achBatchCurrentNumber = await this.rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: true });
+        this.form.$('paymentNumber').set(this.achBatchCurrentNumber.toString());
     }
 }
 

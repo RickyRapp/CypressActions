@@ -26,6 +26,11 @@ class ContributionService extends BaseService {
         const url = this.routeService.findSummary(resource);
         return this.apiClient.get(url, resource);
     }
+    
+    achBatchCurrentNumber(params) {
+        const url = this.routeService.achBatchCurrentNumber(params);
+        return this.apiClient.get(url);
+    }
 }
 
 export default ContributionService;

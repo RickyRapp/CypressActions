@@ -9,6 +9,7 @@ import {
 	BaasicDropdown,
 	BaasicInput,
 	DateRangeQueryPicker,
+	BasicInput,
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
@@ -28,7 +29,10 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 		contributionStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		selectedItemsSum,
-		submitPending
+		submitPending,
+		onAchNextPaymentNumberClick,
+		achBatchCurrentNumber,
+		form
 	} = contributionViewStore;
 
 	return (
@@ -105,14 +109,25 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 							</TableFilter>
 						</div>
 
-						<div>
-						<p>Amount sum of selected items: {selectedItemsSum} $</p>
-							<div > 
-								<BaasicButton
-									className="btn btn--med btn--med--med btn--ghost"
-									label={t('ACTIVITY.DEPOSIT_TAB.CSV_BUTTON')}
-									onClick={submitPending}
-								/>
+						<div className="row u-mar--bottom--med">
+							<div className="col col-sml-6 col-lrg-3">
+								
+								<div > 
+									<BaasicButton
+										className="btn btn--med btn--med--med btn--ghost"
+										label={t('ACTIVITY.DEPOSIT_TAB.CSV_BUTTON')}
+										onClick={submitPending}
+									/>
+								</div>
+							</div>
+							<div className="col col-sml-12 col-lrg-3">
+								<BasicInput field={form.$('paymentNumber')} />
+								<div>
+									Next ACH batch number: <span className='btn btn--sml btn--link' onClick={onAchNextPaymentNumberClick}>{achBatchCurrentNumber + 1}</span>
+								</div>
+							</div>
+							<div className="col col-sml-12 col-lrg-3">
+								<p>Amount sum of selected items: {selectedItemsSum} $</p>
 							</div>
 						</div>
 						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
