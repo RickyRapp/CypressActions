@@ -40,6 +40,10 @@ class ContributionRouteService extends BaseRouteService {
     achBatchCurrentNumber({ increment }) {
         return this.base + `/current-contribution-ach-batch-number?increment=${increment}`;
     }
+
+    generateCsvContributionFile(resource) {
+        return super.update(this.base + `/generate-csv`, resource);
+    }
 }
 
 export default ContributionRouteService;

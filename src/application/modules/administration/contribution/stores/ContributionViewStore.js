@@ -5,6 +5,7 @@ import { ModalParams } from 'core/models';
 import { ContributionListFilter } from 'application/administration/contribution/models';
 import moment from 'moment';
 import { ContributionAchCreateForm } from '../forms';
+import { saveAs } from '@progress/kendo-file-saver';
 
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
@@ -400,9 +401,12 @@ class ContributionViewStore extends BaseListViewStore {
     @action.bound
     async submitPending(){
         let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending' && s.paymentType.abrv === 'ach');
-        console.log(pendingDeposits);
-        this.achBatchCurrentNumber = await this.rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
-        console.log(this.achBatchCurrentNumber);
+        var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contentType: 'text/csv' });
+       
+        const nowDate = new Date();
+        const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
+        saveAs(response, fileName);
+        this.rootStore.notificationStore.success("Contribution report generated.");
     }
 
     @action.bound

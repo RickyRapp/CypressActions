@@ -31,6 +31,17 @@ class ContributionService extends BaseService {
         const url = this.routeService.achBatchCurrentNumber(params);
         return this.apiClient.get(url);
     }
+
+    generateCsvContributionFile(resource) {
+        const url = this.routeService.generateCsvContributionFile(resource);
+        return this.apiClient.request({
+            method: 'PUT',
+            url: url,
+            data: resource,
+            headers: { Accept: resource.contentType },
+            responseType: 'blob',
+        });
+    }
 }
 
 export default ContributionService;

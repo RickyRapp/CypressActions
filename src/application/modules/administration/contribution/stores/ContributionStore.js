@@ -52,5 +52,10 @@ class ContributionStore {
         const response = await this.contributionService.achBatchCurrentNumber(resource);
         return response.data;
     }
+
+    async generateCsvContributionFile(resource) {
+        const response = await this.contributionService.generateCsvContributionFile(resource);
+        return response.data;
+    }
 }
 export default ContributionStore;
