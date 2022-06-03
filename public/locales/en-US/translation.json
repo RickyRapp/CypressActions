@@ -1374,6 +1374,10 @@
                 "PAYER_INFORMATION_NAME_LABEL": "Payer",
                 "PAYMENT_NUMBER_LABEL": "Payment number"
             },
+            "TAB": {
+                "ALL_DEPOSITS": "All deposits",
+                "REVIEW_DEPOSITS": "ACH Review Deposits"
+            },
             "FILTER": {
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",

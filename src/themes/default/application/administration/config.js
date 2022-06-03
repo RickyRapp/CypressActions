@@ -36,7 +36,7 @@ import { moduleProviderFactory } from 'core/providers';
                 title: 'MENU.DEPOSIT',
                 icon: 'contribution',
                 order: 4,
-                route: 'master.app.main.administration.contribution.list',
+                route: 'master.app.main.administration.contribution.tab',
                 role: ['Administrators']
             },
             {
