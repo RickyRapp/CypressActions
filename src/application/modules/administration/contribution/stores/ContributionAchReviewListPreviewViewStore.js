@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, reaction } from 'mobx';
 import { BaseListViewStore, SelectTableViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
@@ -65,15 +65,21 @@ class ContributionAchReviewListPreviewViewStore extends BaseListViewStore {
                             'bankAccount.accountHolder'
                         ];
                         params.contributionReviewId =  props.modalParams.data.content.id;
+                        this.contributionReviewId = props.modalParams.data.content.id;
                         this.achBatchCurrentNumber = await rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
-                        return await rootStore.application.administration.contributionStore.findContribution(params);
+                        return rootStore.application.administration.contributionStore.findContribution(params);
                     }
                 }
             }
         });
 
+        this.contributionReviewId;
         this.createTableStore();
-        this.reviewModal = new ModalParams({});
+        reaction(() => this.tableStore.dataInitialized, () => {
+            this.tableStore.data.forEach(item => {
+                this.tableStore.selectedItems.push(item);
+            });
+        });
     }
 
 
@@ -133,20 +139,27 @@ class ContributionAchReviewListPreviewViewStore extends BaseListViewStore {
                 }
             ],
             actions: {},
-            actionsRender: { }
+            actionsRender: {},
+            disablePaging: true,
         }));
     }
 
 
     @action.bound
-    async submitPending(){
+    async submitPending(){ 
+        if(!this.form.values().paymentNumber){
+            return;
+        }
+        
         let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending' && s.paymentType.abrv === 'ach');
-        var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contentType: 'text/csv' });
+        let contributionReviewId = this.contributionReviewId;
+        var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contributionReviewId: contributionReviewId, isPreview: true ,contentType: 'text/csv' });
        
         const nowDate = new Date();
         const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
         saveAs(response, fileName);
         this.rootStore.notificationStore.success("Contribution report generated.");
+
     }
 
     @action.bound

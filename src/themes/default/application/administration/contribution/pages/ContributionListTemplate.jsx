@@ -10,6 +10,7 @@ import {
 	BaasicInput,
 	DateRangeQueryPicker,
 	BasicInput,
+	FormatterResolver,
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
@@ -127,7 +128,14 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 								</div>
 							</div>
 							<div className="col col-sml-12 col-lrg-3">
-								<p>Sum of selected items: {selectedItemsSum} $</p>
+								<p>Sum of selected items:</p>
+								<p style={{ fontSize: '2em' }} className="u-mar--top--sml">
+									{<FormatterResolver
+                                   		item={{ amount: selectedItemsSum }}
+                                    	field='amount'
+                                    	format={{ type: 'currency' }}
+                                	/>}
+								</p>
 							</div>
 						</div>
 						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />

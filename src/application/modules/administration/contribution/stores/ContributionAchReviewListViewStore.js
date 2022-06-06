@@ -89,7 +89,7 @@ class ContributionAchReviewListViewStore extends BaseListViewStore {
                     return item.isCashed !== false || item.isCashed !== null;
                 },
                 onPreviewRender: (item) => {
-                    return item.isValid === true ;
+                    return item.isValid === true && item.isConfirmed == false;
                 }
             }
         }));
@@ -101,6 +101,7 @@ class ContributionAchReviewListViewStore extends BaseListViewStore {
         await this.rootStore.application.administration.contributionStore.reviewBatchToProcess({ contributionReviewId: id });
         this.tableStore.resume();
         this.rootStore.notificationStore.success("Contribution statuses changed successfully.");
+        this.queryUtility.fetch();
     }
 
     @action.bound

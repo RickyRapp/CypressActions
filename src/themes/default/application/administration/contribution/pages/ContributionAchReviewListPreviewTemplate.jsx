@@ -12,7 +12,6 @@ const ContributionAchReviewListPreviewTemplate = function ({ contributionAchRevi
 	const {
 		tableStore,
 		authorization,
-		selectedItemsSum,
 		submitPending,
 		onAchNextPaymentNumberClick,
 		achBatchCurrentNumber,

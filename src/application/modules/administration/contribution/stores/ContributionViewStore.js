@@ -400,6 +400,10 @@ class ContributionViewStore extends BaseListViewStore {
 
     @action.bound
     async submitPending(){
+        if(!this.form.values().paymentNumber){
+            return;
+        }
+
         let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending' && s.paymentType.abrv === 'ach');
         var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contentType: 'text/csv' });
        
