@@ -20,14 +20,14 @@ class UserStore {
     async resolveUser() {
         this.loaderStore.suspend();
         const applicationUser = await this.resolveApplicationUser();
-        // if(document.getElementById('trengo-web-widget') && document.getElementById('trengo-web-widget').style) {
-        //     if (!applicationUser || (applicationUser && applicationUser.roles.find(e => e === "Administrators"))) {
-        //         document.getElementById('trengo-web-widget').style.display = 'none';
-        //     }
-        //     else {
-        //         document.getElementById('trengo-web-widget').style.display = '';
-        //     }
-        // }
+         if(document.getElementById('trengo-web-widget') && document.getElementById('trengo-web-widget').style) {
+             if (!applicationUser || (applicationUser && applicationUser.roles.find(e => e === "Administrators"))) {
+                 document.getElementById('trengo-web-widget').style.display = 'none';
+             }
+             else {
+                 document.getElementById('trengo-web-widget').style.display = '';
+             }
+         }
         
 
         runInAction(() => {
