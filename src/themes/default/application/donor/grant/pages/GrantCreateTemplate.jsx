@@ -12,6 +12,7 @@ import {
 	BasicInput,
 	NumberFormatInputField,
 	BaasicFieldToggle,
+	EmptyStateWithIcon
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
@@ -192,6 +193,8 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										isChangedDefaultAddress={isChangedDefaultAddress}
 										grantRequestId={grantRequestId}
 									/>}
+
+								{charity && !charity.item.isActive && <EmptyStateWithIcon icon={"charity"} title={"This charity is not active."} description={"Please, pick another charity or try with Add your own charity."} />}
 
 								{isChangedDefaultAddress && (
 									<div className="card--secondary card--med u-mar--bottom--sml">

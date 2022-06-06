@@ -280,12 +280,12 @@
 				outline: 0;
 				background-image: svg-load('../styles/postcss-svg/cash.svg', stroke: $color-note);
 			}
-			
+
 			&--primary {
 				background-image: svg-load('../styles/postcss-svg/cash.svg', stroke: $color-note);
 			}
 		}
-		
+
 		&--money {
 			background-image: svg-load('../styles/postcss-svg/money.svg', stroke: $color-note);
 		}
@@ -646,7 +646,7 @@
 				background-image: svg-load('../styles/postcss-svg/delete.svg', stroke: $color-warning);
 			}
 		}
-	
+
 		&--cancel {
 			background-image: svg-load('../styles/postcss-svg/cancel.svg', stroke: $color-note);
 
@@ -713,10 +713,10 @@
 		&--close-menu {
 			background-image: svg-load('../styles/postcss-svg/close.svg', fill: white);
 		}
-		
+
 		&--clipboard {
 			background-image: svg-load('../styles/postcss-svg/clipboard.svg', stroke: $color-primary);
-		}		
+		}
 
 		&--robot {
 			background-image: svg-load('../styles/postcss-svg/robot.svg');
@@ -811,6 +811,14 @@
 
 		&--minus {
 			background-image: svg-load('../styles/postcss-svg/minus.svg', stroke: $grey-5);
+		}
+
+		&--empty-state {
+			&--charity {
+				background-image: svg-load('../styles/postcss-svg/empty-state/charity.svg');
+				width: 222px;
+				height: 222px;
+			}
 		}
 	}
 }
