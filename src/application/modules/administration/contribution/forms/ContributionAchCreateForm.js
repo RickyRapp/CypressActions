@@ -10,8 +10,8 @@ export default class ContributionAchCreateForm extends FormBase {
             fields: [
                 {
                     name: 'paymentNumber',
-                    label: 'DONATION.REVIEW.FIELDS.PAYMENT_NUMBER_LABEL',
-                    placeholder: 'DONATION.REVIEW.FIELDS.PAYMENT_NUMBER_PLACEHOLDER',
+                    label: 'CONTRIBUTION.LIST.COLUMNS.ENTER_BATCH_NUMBER',
+                    placeholder: 'CONTRIBUTION.LIST.COLUMNS.BATCH_NUMBER',
                     rules: 'required|string'
                 }
             ]

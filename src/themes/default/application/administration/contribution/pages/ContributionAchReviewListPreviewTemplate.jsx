@@ -6,11 +6,10 @@ import {
 	BaasicTable,
 	BasicInput,
 } from 'core/components';
-import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
+import { ApplicationListLayout, Content } from 'core/layouts';
 
-const ContributionAchReviewListPreviewTemplate = function ({ contributionViewStore, t }) {
+const ContributionAchReviewListPreviewTemplate = function ({ contributionAchReviewListPreviewViewStore, t }) {
 	const {
-		routes,
 		tableStore,
 		authorization,
 		selectedItemsSum,
@@ -18,16 +17,14 @@ const ContributionAchReviewListPreviewTemplate = function ({ contributionViewSto
 		onAchNextPaymentNumberClick,
 		achBatchCurrentNumber,
 		form
-	} = contributionViewStore;
+	} = contributionAchReviewListPreviewViewStore;
 
 	return (
 		<React.Fragment>
-			<ApplicationListLayout store={contributionViewStore} authorization={authorization}>
 				<Content>
 					<div className="card--tertiary card--med u-mar--bottom--sml">
 						<div className="row u-mar--bottom--med">
 							<div className="col col-sml-6 col-lrg-2">
-								
 								<div> 
 									<BaasicButton
 										className="btn btn--med btn--med--med btn--ghost"
@@ -42,20 +39,16 @@ const ContributionAchReviewListPreviewTemplate = function ({ contributionViewSto
 									Next ACH batch number: <span className='btn btn--sml btn--link' onClick={onAchNextPaymentNumberClick}>{achBatchCurrentNumber + 1}</span>
 								</div>
 							</div>
-							<div className="col col-sml-12 col-lrg-3">
-								<p>Sum of selected items: {selectedItemsSum} $</p>
-							</div>
 						</div>
 						<BaasicTable authorization={authorization} tableStore={tableStore} />
 					</div>
 				</Content>
-			</ApplicationListLayout>
 		</React.Fragment>
 	);
 };
 
 ContributionAchReviewListPreviewTemplate.propTypes = {
-	contributionViewStore: PropTypes.object.isRequired,
+	contributionAchReviewListPreviewViewStore: PropTypes.object.isRequired,
 	t: PropTypes.func,
 };
 

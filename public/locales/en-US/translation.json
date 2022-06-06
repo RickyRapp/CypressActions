@@ -1372,7 +1372,9 @@
                 "CONTRIBUTION_STATUS_NAME_LABEL": "Status",
                 "PAYMENT_TYPE_NAME_LABEL": "Payment type",
                 "PAYER_INFORMATION_NAME_LABEL": "Payer",
-                "PAYMENT_NUMBER_LABEL": "Payment number"
+                "PAYMENT_NUMBER_LABEL": "Payment number",
+                "ENTER_BATCH_NUMBER": "Enter Batch number",
+                "BATCH_NUMBER": "Batch number"
             },
             "TAB": {
                 "ALL_DEPOSITS": "All deposits",

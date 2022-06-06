@@ -8,7 +8,7 @@ import {
 } from 'core/components';
 import { ApplicationListLayout, Content } from 'core/layouts';
 import { isSome } from 'core/utils';
-import { ReconcilePreviewTemplate } from '../../reconcile/components';
+import { ContributionAchReviewListPreview } from 'application/administration/contribution/pages';
 
 const ContributionAchReviewListTemplate = function ({ contributionAchReviewListViewStore, t }) {
 	const {
@@ -29,7 +29,9 @@ const ContributionAchReviewListTemplate = function ({ contributionAchReviewListV
                     />
                     </div>
                 </Content>
-				
+				<BaasicModal modalParams={previewModal}>
+					<ContributionAchReviewListPreview />
+				</BaasicModal>
 			</ApplicationListLayout>
 		</React.Fragment>
 	);

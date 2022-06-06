@@ -2,9 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { setCurrentView } from 'core/utils';
 import { ContributionAchReviewListPreviewTemplate } from 'themes/application/administration/contribution/pages';
-import { ContributionAchReviewListViewStore } from 'application/administration/contribution/stores';
+import { ContributionAchReviewListPreviewViewStore } from 'application/administration/contribution/stores';
 
-@setCurrentView((rootStore) => new ContributionAchReviewListPreviewViewStore(rootStore), 'contributionAchReviewListPreviewViewStore')
+@setCurrentView((rootStore, props) => new ContributionAchReviewListPreviewViewStore(rootStore, props), 'contributionAchReviewListPreviewViewStore')
 @observer
 class ContributionAchReviewListPreview extends React.Component {
     render() {

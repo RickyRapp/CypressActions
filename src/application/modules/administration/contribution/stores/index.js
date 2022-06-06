@@ -4,3 +4,4 @@ export { default as ContributionReviewViewStore } from './ContributionReviewView
 export { default as ContributionViewStore } from './ContributionViewStore'
 export { default as ContributionTabViewStore } from './ContributionTabViewStore'
 export { default as ContributionAchReviewListViewStore } from './ContributionAchReviewListViewStore'
+export { default as ContributionAchReviewListPreviewViewStore } from './ContributionAchReviewListPreviewViewStore'
