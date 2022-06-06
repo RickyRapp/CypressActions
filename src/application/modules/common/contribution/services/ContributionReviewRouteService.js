@@ -24,6 +24,10 @@ class ContributionReviewRouteService extends BaseRouteService {
     generateCsvContributionFile(resource) {
         return super.update(this.base + `/generate-csv`, resource);
     }
+
+    reviewBatchToProcess(resource){
+        return super.update(this.base + '/process-batch', resource);
+    }
 }
 
 export default ContributionReviewRouteService;

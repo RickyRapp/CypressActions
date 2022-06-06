@@ -11,6 +11,11 @@ class ContributionReviewService extends BaseService {
         const url = this.routeService.find(resource);
         return this.apiClient.get(url, resource);
     }
+
+    reviewBatchToProcess(resource){
+        const url = this.routeService.reviewBatchToProcess(resource);
+        return this.apiClient.put(url, resource)
+    }
 }
 
 export default ContributionReviewService;

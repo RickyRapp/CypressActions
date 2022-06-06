@@ -1,5 +1,7 @@
+import { saveAs } from '@progress/kendo-file-saver';
+import { ModalParams } from 'core/models';
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
+import { applicationContext, isSome } from 'core/utils';
 import { action } from 'mobx';
 import { ContributionReviewListFilter } from '../models';
 
@@ -23,6 +25,8 @@ class ContributionAchReviewListViewStore extends BaseListViewStore {
         });
 
         this.createTableStore();
+        this.tableStore.dataInitialized = true;
+        this.previewModal = new ModalParams({});
     }
 
     @action.bound
@@ -37,11 +41,11 @@ class ContributionAchReviewListViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'achBatchNumber',
-                    title: 'CHARITY.LIST.COLUMNS.NAME_LABEL'
+                    title: 'CONTRIBUTION.ACH_REVIEW.TABLE.ACH_BATCH_NUMBER'
                 },
                 {
                     key: 'dateCreated',
-                    title: 'CHARITY.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    title: 'CONTRIBUTION.ACH_REVIEW.TABLE.DATE_CREATED',
                     format: {
                         type: 'date',
                         value: 'kendo-input-medium'
@@ -49,7 +53,7 @@ class ContributionAchReviewListViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'confirmationTime',
-                    title: 'CHARITY.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    title: 'CONTRIBUTION.ACH_REVIEW.TABLE.CONFIRMATION_DATE',
                     format: {
                         type: 'date',
                         value: 'kendo-input-medium'
@@ -57,19 +61,63 @@ class ContributionAchReviewListViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'isConfirmed',
-                    title: 'CHARITY.LIST.COLUMNS.BALANCE_LABEL'
+                    title: 'CONTRIBUTION.ACH_REVIEW.TABLE.IS_CONFIRMED',
+                    format: {
+                        type: 'boolean',
+                        value: 'yes-no'
+                    }
                 },
                 {
                     key: 'isValid',
-                    title: 'CHARITY.LIST.COLUMNS.BALANCE_LABEL'
+                    title: 'CONTRIBUTION.ACH_REVIEW.TABLE.IS_VALID',
+                    format: {
+                        type: 'boolean',
+                        value: 'yes-no'
+                    }
                 }
             ],
             actions: {
+                onConfirm: (item) => this.confirmContribution(item),
+                onPrintReport: (item) => this.printReport(item),
+                onPreview: (item) => this.openPreviewModal(item),
             },
-            actionsRender:{
-                
+            actionsRender: {
+                onConfirmRender: (item) => {
+                    return item.isValid === true && item.isConfirmed === false;
+                },
+                onPrintReportRender: (item) => {
+                    return item.isCashed !== false || item.isCashed !== null;
+                },
+                onPreviewRender: (item) => {
+                    return item.isValid === true ;
+                }
             }
         }));
+    }
+
+    @action.bound
+    async confirmContribution(contributionReview){
+        const id = contributionReview.id;
+        await this.rootStore.application.administration.contributionStore.reviewBatchToProcess({ contributionReviewId: id });
+        this.tableStore.resume();
+        this.rootStore.notificationStore.success("Contribution statuses changed successfully.");
+    }
+
+    @action.bound
+    async printReport(contributionReview){
+        var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({contributionReviewId: contributionReview.id, contentType: 'text/csv' });
+       
+        const nowDate = new Date();
+        const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
+        saveAs(response, fileName);
+        this.rootStore.notificationStore.success("Contribution report generated.");
+    }
+
+    @action.bound
+    openPreviewModal(content) {
+        this.previewModal.open({
+            content: content
+        });
     }
 }
 

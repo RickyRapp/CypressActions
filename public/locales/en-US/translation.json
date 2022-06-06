@@ -1406,6 +1406,15 @@
             "OVERVIEW-TRANSACTIONS": "Overview (Transactions)",
             "BY-TIMELINE": "By timeline (Total for time period)"
         },
+        "ACH_REVIEW":{
+            "TABLE":{
+                "ACH_BATCH_NUMBER": "Ach Batch Number",
+                "DATE_CREATED": "Date Created",
+                "CONFIRMATION_DATE": "Confirmation Date",
+                "IS_CONFIRMED":"Is Confirmed",
+                "IS_VALID": "Is Valid"
+            }
+        },
         "CONFIRM": {
             "TITLE": "Confirm Details",
             "PAYMENT_TYPE": "Payment Type",

@@ -63,5 +63,10 @@ class ContributionStore {
         const response = await this.contributionReviewService.findContributionAchReviews(params);
         return response.data.item;
     }
+
+    async reviewBatchToProcess(params) {
+       await this.contributionReviewService.reviewBatchToProcess(params);
+    }
+    
 }
 export default ContributionStore;
