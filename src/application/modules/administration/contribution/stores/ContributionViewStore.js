@@ -411,6 +411,7 @@ class ContributionViewStore extends BaseListViewStore {
         const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
         saveAs(response, fileName);
         this.rootStore.notificationStore.success("Contribution report generated.");
+        this.queryUtility.fetch();
     }
 
     @action.bound
