@@ -155,7 +155,7 @@ class BookletOrderViewStore extends BaseListViewStore {
     }
     @action.bound 
     async selectDefaults() {
-        console.log(this.tableStore.data);
+        this.queryUtility.filter.sendTo = 'jscoza@checkprintingsolutions.com'
         const filteredDefaults = this.tableStore.data.filter(x => x.customName && x.bookletOrderStatus && x.bookletOrderStatus.abrv == 'finished');
         this.tableStore.setSelectedItems(filteredDefaults);
     }
@@ -167,7 +167,12 @@ class BookletOrderViewStore extends BaseListViewStore {
         }
         this.tableStore.suspend();
         if(sendMail) {
-            this.queryUtility.filter.sendTo = 'jscoza@checkprintingsolutions.com';
+            const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+            if (!this.queryUtility.filter.sendTo.match(validRegex)) {
+                this.rootStore.notificationStore.error("Invalid mail format!");
+                return;
+            }
         }
         const contentType = 'text/csv';
         const extension = 'csv'

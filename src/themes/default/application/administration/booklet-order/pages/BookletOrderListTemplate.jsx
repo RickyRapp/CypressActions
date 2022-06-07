@@ -140,7 +140,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 						<BaasicInput
 									id="sendTo"
 									className="input input--lrg u-mar--top--med u-mar--bottom--sml"
-									value={queryUtility.filter.sendTo || 'jscoza@checkprintingsolutions.com'}
+									value={queryUtility.filter.sendTo}
 									onChange={event => (queryUtility.filter.sendTo = event.target.value)}
 									placeholder="Enter e-mail..."
 								/>
@@ -153,6 +153,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                             detailComponent={DetailComponent}
                             loading={tableStore.loading}
                             className="k-grid--actions"
+							actionsComponent={renderActions}
                         />
                     </div>
 					{/* <BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} /> */}
