@@ -5,6 +5,7 @@ import { BaasicButton, BaasicTable, BaasicDropdown, DateRangeQueryPicker, Baasic
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
+import { BaasicSwitchTemplate } from 'themes/components';
 
 const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore } = scheduledGrantViewStore;
@@ -13,7 +14,12 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 		<Content emptyRenderer={renderEmpty(routes)}>
 			<div className="card--tertiary card--med u-mar--bottom--sml">
 				<div className="u-mar--bottom--med">
-					<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}>
+					<TableFilter
+						colClassName={"col col-sml-12 col-lrg-8"}
+						queryUtility={queryUtility}
+						secondColClassName={"col col-sml-12 col-lrg-4"}
+						additionalComponent={<BaasicSwitchTemplate secondarySwitch firstLabel={"Finished"} secondLabel={"Active"} />}
+					>
 						{<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 							<BaasicDropdown store={charityDropdownStore} />
 						</div>}

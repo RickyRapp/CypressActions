@@ -20,6 +20,8 @@ function TableFilterTemplate(props) {
 		hideOnFetch,
 		debounce,
 		colClassName,
+		secondColClassName,
+		additionalComponent,
 		btnClassName
 	} = props;
 
@@ -63,6 +65,12 @@ function TableFilterTemplate(props) {
 							)}
 						</div>
 					</div>
+
+					{additionalComponent &&
+						<div className={`${secondColClassName ? secondColClassName : ''}`.trim()}>
+							{additionalComponent}
+						</div>
+					}
 				</div>
 
 				{showButtons && children && (
@@ -106,6 +114,7 @@ TableFilterTemplate.propTypes = {
 	showClear: PropTypes.bool,
 	t: PropTypes.any,
 	children: PropTypes.any,
+	additionalComponent: PropTypes.any,
 	nextToSearch: PropTypes.bool,
 	showButtons: PropTypes.bool,
 	showSearch: PropTypes.bool,
@@ -115,6 +124,7 @@ TableFilterTemplate.propTypes = {
 	hideOnFetch: PropTypes.bool,
 	debounce: PropTypes.number,
 	colClassName: PropTypes.string,
+	secondColClassName: PropTypes.string,
 	btnClassName: PropTypes.string
 };
 

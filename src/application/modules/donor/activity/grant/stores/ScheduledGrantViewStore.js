@@ -14,8 +14,8 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                     this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-edit', { id: id });
                 },
                 preview: (editId) => {
-					this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-preview', { id: editId });
-				}
+                    this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-preview', { id: editId });
+                }
             },
             queryConfig: {
                 filter: new ScheduledGrantListFilter('dateCreated', 'desc'),
@@ -65,35 +65,35 @@ class ScheduledGrantViewStore extends BaseListViewStore {
     }
 
     createCharityDropdownStore() {
-		this.charityDropdownStore = new BaasicDropdownStore(
-			{
-				placeholder: 'DONATION.PAST_GRANT.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
-				initFetch: false,
-				filterable: true,
-			},
-			{
-				fetchFunc: async searchQuery => {
-					const data = await this.rootStore.application.donor.grantStore.searchCharity({
-						pageNumber: 1,
-						pageSize: 10,
-						search: searchQuery,
-						sort: 'name|asc',
-						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
-					});
-					return data.item.map(x => {
-						return {
-							id: x.id,
-							name: charityFormatter.format(x, { value: 'charity-name-display' }),
-						};
-					});
-				},
-				onChange: charityId => {
-					this.queryUtility.filter.charityId = charityId;
-				},
-			}
-		);
-	}
+        this.charityDropdownStore = new BaasicDropdownStore(
+            {
+                placeholder: 'DONATION.PAST_GRANT.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
+                initFetch: false,
+                filterable: true,
+            },
+            {
+                fetchFunc: async searchQuery => {
+                    const data = await this.rootStore.application.donor.grantStore.searchCharity({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: ['charityAddresses'],
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
+                    });
+                    return data.item.map(x => {
+                        return {
+                            id: x.id,
+                            name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                        };
+                    });
+                },
+                onChange: charityId => {
+                    this.queryUtility.filter.charityId = charityId;
+                },
+            }
+        );
+    }
 
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
@@ -126,14 +126,14 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                         value: 'short'
                     }
                 },
-                {
-                    key: 'done',
-                    title: 'SCHEDULED_GRANT.LIST.COLUMNS.DONE_LABEL',
-                    format: {
-                        type: 'boolean',
-                        value: 'yes-no'
-                    }
-                },
+                // {
+                //     key: 'done',
+                //     title: 'SCHEDULED_GRANT.LIST.COLUMNS.DONE_LABEL',
+                //     format: {
+                //         type: 'boolean',
+                //         value: 'yes-no'
+                //     }
+                // },
                 {
                     key: 'dateCreated',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.DATE_CREATED_LABEL',
