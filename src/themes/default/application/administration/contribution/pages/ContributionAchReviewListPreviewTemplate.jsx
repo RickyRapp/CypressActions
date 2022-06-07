@@ -23,7 +23,7 @@ const ContributionAchReviewListPreviewTemplate = function ({ contributionAchRevi
 				<Content>
 					<div className="card--tertiary card--med u-mar--bottom--sml">
 						<div className="row u-mar--bottom--med">
-							<div className="col col-sml-6 col-lrg-2">
+							<div className="col col-sml-6 col-lrg-4 u-mar--top--sml">
 								<div> 
 									<BaasicButton
 										className="btn btn--med btn--med--med btn--ghost"
@@ -32,7 +32,7 @@ const ContributionAchReviewListPreviewTemplate = function ({ contributionAchRevi
 									/>
 								</div>
 							</div>
-							<div className="col col-sml-12 col-lrg-3">
+							<div className="col col-sml-6 col-lrg-3">
 								<BasicInput field={form.$('paymentNumber')} />
 								<div>
 									Next ACH batch number: <span className='btn btn--sml btn--link' onClick={onAchNextPaymentNumberClick}>{achBatchCurrentNumber + 1}</span>
