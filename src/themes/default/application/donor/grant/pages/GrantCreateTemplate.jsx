@@ -218,7 +218,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										</div>
 									)}
 
-									<EmptyStateWithIcon icon={"charity"} title={"This charity is not active."} description={"Please, pick another charity."} />
+									<EmptyStateWithIcon icon={"charity"} title={"This charity is not active."} description={"Please, select another charity."} />
 								</div>
 									:
 									<div>
