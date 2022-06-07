@@ -51,6 +51,12 @@ const BookletOrderPreviewTemplate = function ({ bookletOrderPreviewViewStore, t 
 						</span>
 					</div>
 					<div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
+						<div className="type--base type--wgt--medium type--color--note">{t('BOOKLET_ORDER.PREVIEW.FOLDER_LABEL')}</div>
+						<span className="input--preview">
+							{item && item.orderFolder && <i className="u-icon u-icon--approve u-icon--base"></i>}
+						</span>
+					</div>
+					<div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
 						<div className="type--base type--wgt--medium type--color--note">{t('BOOKLET_ORDER.PREVIEW.DELIVERY_METHOD_LABEL')}</div>
 						<span className="input--preview">
 							{item && item.deliveryMethodType.name}

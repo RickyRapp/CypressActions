@@ -21,6 +21,10 @@ class BookletOrderRouteService extends BaseRouteService {
         return super.create(this.base);
     }
 
+    generateReport(resource) {
+        return super.update(this.base + '/export-selection/{?ids,sendTo}', resource);
+    }
+
     update(resource) {
         return super.update(this.base + '/{id}', resource);
     }

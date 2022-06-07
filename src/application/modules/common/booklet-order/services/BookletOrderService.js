@@ -21,6 +21,17 @@ class BookletOrderService extends BaseService {
         const url = this.routeService.cancel(resource);
         return this.apiClient.put(url, resource);
     }
+    
+    generateReport(resource) {
+        const url = this.routeService.generateReport(resource);
+        return this.apiClient.request({
+            method: 'PUT',
+            url: url,
+            data: resource,
+            headers: { Accept: resource.contentType },
+            responseType: 'blob',
+        });
+    }
 }
 
 export default BookletOrderService;

@@ -8,7 +8,8 @@ import {
     BaasicFormControls,
     Address,
     BaasicModal,
-    //BaasicFieldDropdown
+    BaasicFieldDropdown,
+    BasicFieldCheckbox
 } from 'core/components';
 
 import { defaultTemplate } from 'core/hoc';
@@ -17,6 +18,7 @@ import { BookletOrderButtonCounterTemplate } from '../components';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorAutomaticContributionEditTemplate } from 'themes/application/donor/donor/components';
 import { BookletOrderMixedPopup } from '../components';
+import ReactTooltip from 'react-tooltip';
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
         contentLoading,
@@ -35,23 +37,24 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         prepaidBooksChecks,
         totalPrepaidAmount,
         showMoreOptions,
-        //showAddOnitems,
+        showAddOnitems,
         onShowMoreOptionsClick,
         isDefaultShippingAddress,
         onShowAllBooksClick,
-        //onShowAddOnItemsClick,
+        onShowAddOnItemsClick,
         onAddProtectionPlanClick,
         protectionPlanModalParams,
         needsProtectionPlan,
         needsMoreFunds,
-        //customizedExpirationDateDropdownStore,
+        customizedExpirationDateDropdownStore,
         confirmModal,
         click500,
         click2000,
         tableData,
         onShowBookletsClick,
         isAdmin,
-        goToNewDeposit
+        goToNewDeposit,
+        expiryDate
     } = store;
 
     const isMobile = window.innerWidth < 543;
@@ -362,21 +365,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 </div>
                             </div>
 
-                            {/* <div className="col col-sml-12 u-mar--bottom--sml u-order--4--xxxlrg">
-                                <div className="type--center">
-                                    <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowAddOnItemsClick}>
-                                        <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                        {showAddOnitems ? t('BOOKLET_ORDER.CREATE.HIDE_ADD_ON_ITEMS') : t('BOOKLET_ORDER.CREATE.SHOW_ADD_ON_ITEMS')}
-                                        <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                    </button>
-                                </div>
-                                {showAddOnitems &&
-                                    <div className="col col-sml-12 col-xlrg-12">
-
-                                    </div>}
-                            </div> 
-
-                            <div className="col col-sml-12 u-mar--bottom--sml u-order--5--xxxlrg">
+                            <div className="col col-sml-12 u-mar--bottom--sml u-order--4--xxxlrg">
                                 <div className="u-mar--bottom--sml type--center">
                                     <button type="button" className="btn btn--show type--wgt--medium" onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}>
                                         <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
@@ -411,12 +400,34 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             <BasicInput field={form.$('customizedZipCode')} />
                                         </div>
                                         <div className="col col-sml-12 col-xlrg-2">
-                                            <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore} />
+                                            <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore}/>
                                         </div>
+                                        <p>{form.$('customizedExpirationDate').value && expiryDate}</p>
                                     </div>
                                 }
                             </div>
-                        */}
+                            <div className="col col-sml-12 u-mar--bottom--sml u-order--5--xxxlrg">
+                                <div className="type--center">
+                                    <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowAddOnItemsClick}>
+                                        <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                        {showAddOnitems ? t('BOOKLET_ORDER.CREATE.HIDE_ADD_ON_ITEMS') : t('BOOKLET_ORDER.CREATE.SHOW_ADD_ON_ITEMS')}
+                                        <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                    </button>
+                                </div>
+                                {showAddOnitems &&
+                                    <div className="col col-sml-12 col-xlrg-12">
+                                        <div className="col col-sml-12">
+                                            <video autoPlay="true" height="240" width="380" src="https://res.cloudinary.com/the-donors-fund/video/upload/v1653479671/TDF/BookletFolder-AddOnItem.mp4"></video>
+                                        </div>
+                                        <div className="col col-sml-12">
+                                            <p>Order a check folder? 
+                                                <span data-tip='Additional $35 Fee' data-type="info" style={{ cursor: 'pointer' }}>
+                                                    <i className="u-icon u-icon--base u-icon--info--link u-mar--left--tny"></i>
+                                                <ReactTooltip />
+                                        </span> </p> <BasicFieldCheckbox toggleClass='--toggle' field={form.$('orderFolder')} />
+                                        </div>
+                                    </div>}
+                            </div> 
                         </div>
                     </div>
 

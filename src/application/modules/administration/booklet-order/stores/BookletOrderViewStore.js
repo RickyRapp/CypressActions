@@ -1,9 +1,10 @@
-import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
+import { action, observable } from 'mobx';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 import { donorFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { BookletOrderListFilter } from 'application/administration/booklet-order/models';
 import moment from 'moment';
+import { saveAs } from '@progress/kendo-file-saver';
 class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
@@ -46,7 +47,8 @@ class BookletOrderViewStore extends BaseListViewStore {
                         }
                         params.embed = [
                             'donor',
-                            'bookletOrderStatus'
+                            'bookletOrderStatus',
+                            'deliveryMethodType'
                         ];
 
                         params.fields = [
@@ -57,14 +59,19 @@ class BookletOrderViewStore extends BaseListViewStore {
                             'confirmationNumber',
                             'bookletOrderStatus',
                             'donor',
-                            'donor.donorName'
+                            'donor.donorName',
+                            'deliveryMethodType',
+                            'customName',
+                            'orderFolder'
                         ];
                         return this.rootStore.application.administration.bookletOrderStore.findBookletOrder(params);
                     }
                 }
             }
         });
-
+        this.mailModel = {
+            sendTo: ''
+        }
         this.createTableStore()
         this.createDonorSearchDropdownStore();
         this.createSelectDonorModal();
@@ -84,7 +91,7 @@ class BookletOrderViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore(new TableViewStore(this.queryUtility, {
+        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'donor.donorName',
@@ -144,9 +151,35 @@ class BookletOrderViewStore extends BaseListViewStore {
                     return item.bookletOrderStatus.abrv === 'pending' && (moment1.isAfter(moment2))
                 }
             }
-        }));
+        }, true));
     }
-    
+    @action.bound 
+    async selectDefaults() {
+        console.log(this.tableStore.data);
+        const filteredDefaults = this.tableStore.data.filter(x => x.customName && x.bookletOrderStatus && x.bookletOrderStatus.abrv == 'finished');
+        this.tableStore.setSelectedItems(filteredDefaults);
+    }
+    @action.bound
+    async exportList(sendMail = false) {
+        if(this.tableStore.selectedItems.length == 0) {
+            this.rootStore.notificationStore.warning("No items selected!");
+            return;
+        }
+        this.tableStore.suspend();
+        if(sendMail) {
+            this.queryUtility.filter.sendTo = 'jscoza@checkprintingsolutions.com';
+        }
+        const contentType = 'text/csv';
+        const extension = 'csv'
+        const report = await this.rootStore.application.administration.bookletOrderStore.generateReport({ contentType, ids: this.tableStore.selectedItems.map(x => { return x.id }), sendTo: this.queryUtility.filter.sendTo});
+        const nowDate = new Date();
+        const fileName = `${"BookletOrders".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.${extension}`;
+        saveAs(report.data, fileName);
+        this.tableStore.resume();
+        this.rootStore.notificationStore.success("Report generated.");
+        
+    }
+
     @action.bound
     async cancelBookletOrder(id) {
         await this.rootStore.application.administration.bookletOrderStore.cancelBookletOrder({id: id});
