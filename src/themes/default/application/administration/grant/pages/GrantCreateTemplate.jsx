@@ -13,6 +13,7 @@ import {
     NumberFormatInputField,
     BaasicFieldToggle,
     BaasicFormControls,
+    EmptyStateWithIcon
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
@@ -22,6 +23,7 @@ import logo from 'themes/assets/img/logo.svg';
 import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'themes/application/common/grant/components';
 import { GrantConfirmTemplate } from '../components';
 import AsyncSelect from 'react-select/async';
+import { ChartValueAxis } from '@progress/kendo-react-charts';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
     const {
@@ -158,288 +160,321 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         grantRequestId={grantRequestId}
                                     />}
 
-                                {isChangedDefaultAddress &&
-                                    <div className="card--secondary card--med u-mar--bottom--sml">
-                                        <div className="row row--form">
-                                            <div className="form__group col col-sml-12">
-                                                <BasicInput field={form.$('addressLine1')} />
-                                            </div>
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('addressLine2')} />
-                                            </div>
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('city')} />
-                                            </div>
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('state')} />
-                                            </div>
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('zipCode')} />
-                                            </div>
-                                        </div>
-                                    </div>}
-
-                                <div className="row row--form">
-                                    <div className="form__group col col-sml-12">
-                                        <NumericInputField field={form.$('amount')} />
-                                    </div>
-                                </div>
-                                {window.innerWidth < 750 ?
-                                    <button type="button" className="btn btn--show type--wgt--medium u-mar--bottom--med" onClick={() => toggleSettings()}>
-                                        <i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                        {!moreSettings ? 'More Settings' : 'Less Settings'}
-                                        <i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                    </button> : null
-                                }
-                                {(window.innerWidth > 750 || moreSettings) && <div className="row row--form">
-                                    <div className="form__group col col-sml-12">
-                                        <DatePickerField field={form.$('startFutureDate')} />
-                                    </div>
-                                </div>}
-                                {(window.innerWidth > 750 || moreSettings) && isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
-                                    <div className="row row--form">
-                                        <div className="form__group col col-sml-12 type--color--note u-mar--bottom--sml">
-                                            <BaasicFieldToggle field={form.$('isRecurring')} showLabel={true} />
-                                        </div>
-                                    </div>}
-                                {(window.innerWidth > 750 || moreSettings) && form.$('isRecurring').value &&
-                                    <div className="card--form card--med u-mar--bottom--med">
-                                        <div className="row row--form">
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <DatePickerField field={form.$('recurringDate')} showLabel={false} />
-                                            </div>
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} showLabel={false} />
-                                            </div>
-                                        </div>
-                                        <div className="row row--form">
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <NumericInputField field={form.$('numberOfPayments')} showLabel={false} />
-                                            </div>
-                                            <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                <BaasicFieldToggle field={form.$('noEndDate')} showLabel={true} />
-                                            </div>
-                                        </div>
-                                        {form.$('amount').value && form.$('noEndDate').value === false && (form.$('numberOfPayments').value || form.$('endDate').value) &&
-                                            <div className="row">
-                                                <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                                                    Accumulated amount:
-                                                    {form.$('numberOfPayments').value &&
-                                                        <FormatterResolver
-                                                            item={{ amount: form.$('amount').value * form.$('numberOfPayments').value }}
-                                                            field="amount"
-                                                            format={{ type: 'currency' }}
-                                                        />}
-                                                    {form.$('endDate').value &&
-                                                        <FormatterResolver
-                                                            item={{ amount: form.$('amount').value * getNumberOfReocurrency(form.$('recurringDate').value, form.$('endDate').value, form.$('grantScheduleTypeId').value) }}
-                                                            field="amount"
-                                                            format={{ type: 'currency' }}
-                                                        />}
+                                {charity && !charity.item.isActive ?
+                                    <div>
+                                        {isChangedDefaultAddress &&
+                                            <div className="card--secondary card--med u-mar--bottom--sml">
+                                                <div className="row row--form">
+                                                    <div className="form__group col col-sml-12">
+                                                        <BasicInput field={form.$('addressLine1')} />
+                                                    </div>
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BasicInput field={form.$('addressLine2')} />
+                                                    </div>
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BasicInput field={form.$('city')} />
+                                                    </div>
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BasicInput field={form.$('state')} />
+                                                    </div>
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BasicInput field={form.$('zipCode')} />
+                                                    </div>
                                                 </div>
                                             </div>}
-                                    </div>}
-                                <div className="row row--form">
-                                    {(window.innerWidth > 750 || moreSettings) && <div className="form__group col col-sml-12">
-                                        <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
-                                    </div>}
-                                    {(window.innerWidth > 750 || moreSettings) && grantAcknowledgmentName &&
-                                        <div className="form__group col col-sml-12 u-mar--bottom--med">
-                                            {grantAcknowledgmentName}
-                                        </div>}
-                                </div>
-                                {
-                                    (window.innerWidth > 750 || moreSettings) &&
-                                    <div className="row row--form">
-                                        <div className="form__group col col-sml-12">
-                                            <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
-                                        </div>
-                                    </div>
-                                }
-
-                                {
-                                    (window.innerWidth > 750 || moreSettings) &&
-                                    <div className="row row--form">
-                                        <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                            {form.$('grantPurposeTypeId').value &&
-                                                <GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
-                                        </div>
-                                    </div>
-                                }
-
-                                {charity && !charity.item.isActive ?
-                                    <div className="u-mar--top--sml u-mar--bottom--sml type--right">
-                                        <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' disabled />
-                                    </div> :
-                                    <div className="u-mar--top--sml u-mar--bottom--sml type--right">
-                                        <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
-                                    </div>
-                                }
 
 
-                            </div>
-                        </div>
-                        <div className="col col-sml-12 col-xxlrg-6">
-                            <div className="card--primary card--med u-mar--bottom--med">
-                                <h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
-                                <div className="row row--form">
-                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                                        <div className="card--secondary card--med type--center">
-                                            <div className="type--xxlrg type--wgt--medium type--color--text">
-                                                {donor && <FormatterResolver
-                                                    item={{ balance: donor.availableBalance }}
-                                                    field='balance'
-                                                    format={{ type: 'currency' }}
-                                                />}
-                                            </div>
-                                            <p className="type--xsml type--wgt--medium type--color--text">{t('GRANT.CREATE.AVAILABLE_BALANCE')}</p>
-                                        </div>
-                                    </div>
-                                    <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
-                                        <div className="card--secondary--light card--med type--center">
-                                            <div className="type--xxlrg type--wgt--medium type--color--note">
-                                                {donor && <FormatterResolver
-                                                    item={{ balance: donor.upcomingGrantsThisYear }}
-                                                    field='balance'
-                                                    format={{ type: 'currency' }}
-                                                />}
-                                            </div>
-                                            <p className="type--xsml type--wgt--medium type--color--note">{t('GRANT.CREATE.UPCOMING_GRANTS_THIS_YEAR')}</p>
-                                        </div>
-                                    </div>
+                                        <EmptyStateWithIcon icon={"charity"} title={"This charity is not active."} description={"Please, pick another charity."} />
 
-                                    {charity && charity.item &&
-                                        <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <div className="row row--form">
-                                                <div className="col col-sml-12 col-lrg-6">
-                                                    <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>
-                                                </div>
-                                            </div>
-                                            <div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <img src={logo} alt={"logo"} />
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    {charity.item.name}
-                                                </div>
-                                                {console.log("CHARITY", charity)}
-                                                {charity && !charity.item.isActive &&
-                                                    <div className="col col-sml-12 col-lrg-4">
-                                                        <p style={{color:"red"}}>Charity is not active</p>
+                                    </div>
+                                    :
+                                    <div>
+                                        {isChangedDefaultAddress &&
+                                            <div className="card--secondary card--med u-mar--bottom--sml">
+                                                <div className="row row--form">
+                                                    <div className="form__group col col-sml-12">
+                                                        <BasicInput field={form.$('addressLine1')} />
                                                     </div>
-                                                }
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BasicInput field={form.$('addressLine2')} />
+                                                    </div>
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BasicInput field={form.$('city')} />
+                                                    </div>
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BasicInput field={form.$('state')} />
+                                                    </div>
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BasicInput field={form.$('zipCode')} />
+                                                    </div>
+                                                </div>
+                                            </div>}
+
+                                        <div className="row row--form">
+                                            <div className="form__group col col-sml-12">
+                                                <NumericInputField field={form.$('amount')} />
                                             </div>
-                                            <div className="row row--form u-padd--top--med">
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
-                                                    <strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
-                                                    <p>{charity.item.rullingYear}</p>
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
-                                                    <strong>{t('GRANT.CREATE.EIN')}</strong>
-                                                    <p>{charityFormatter.format(charity.item.taxId, { value: 'tax-id' })}</p>
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
-                                                    <strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
-                                                    <p>{charity.item.irsFilingRequirement}</p>
-                                                </div>
-                                            </div>
-                                            <div className="row row--form u-padd--top--med">
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
-                                                    <p>{charity.item.principalOfficer}</p>
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <strong>{t('GRANT.CREATE.CAUSE_AREA')}</strong>
-                                                    <p>{charity.item.nteeCode}</p>
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <strong>{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</strong>
-                                                    <p>{charity.item.irsFilingRequirement}</p>
-                                                </div>
-                                            </div>
-                                            <div className="row row--form u-padd--top--med">
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
-                                                    <p>{charity && charity.item && charity.item.charityAddresses ? addressFormatter.format(charity.item.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</p>
-                                                </div>
+                                        </div>
+                                        {window.innerWidth < 750 ?
+                                            <button type="button" className="btn btn--show type--wgt--medium u-mar--bottom--med" onClick={() => toggleSettings()}>
+                                                <i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                                {!moreSettings ? 'More Settings' : 'Less Settings'}
+                                                <i className={!moreSettings ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                            </button> : null
+                                        }
+                                        {(window.innerWidth > 750 || moreSettings) && <div className="row row--form">
+                                            <div className="form__group col col-sml-12">
+                                                <DatePickerField field={form.$('startFutureDate')} />
                                             </div>
                                         </div>}
-                                    {charity && typeof charity.item == 'undefined' &&
-                                        <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                        {(window.innerWidth > 750 || moreSettings) && isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
                                             <div className="row row--form">
-                                                <div className="col col-sml-12 col-lrg-6">
-                                                    <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>
+                                                <div className="form__group col col-sml-12 type--color--note u-mar--bottom--sml">
+                                                    <BaasicFieldToggle field={form.$('isRecurring')} showLabel={true} />
+                                                </div>
+                                            </div>}
+                                        {(window.innerWidth > 750 || moreSettings) && form.$('isRecurring').value &&
+                                            <div className="card--form card--med u-mar--bottom--med">
+                                                <div className="row row--form">
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <DatePickerField field={form.$('recurringDate')} showLabel={false} />
+                                                    </div>
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BaasicFieldDropdown field={form.$('grantScheduleTypeId')} store={grantScheduleTypeDropdownStore} showLabel={false} />
+                                                    </div>
+                                                </div>
+                                                <div className="row row--form">
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <NumericInputField field={form.$('numberOfPayments')} showLabel={false} />
+                                                    </div>
+                                                    <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                        <BaasicFieldToggle field={form.$('noEndDate')} showLabel={true} />
+                                                    </div>
+                                                </div>
+                                                {form.$('amount').value && form.$('noEndDate').value === false && (form.$('numberOfPayments').value || form.$('endDate').value) &&
+                                                    <div className="row">
+                                                        <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+                                                            Accumulated amount:
+                                                            {form.$('numberOfPayments').value &&
+                                                                <FormatterResolver
+                                                                    item={{ amount: form.$('amount').value * form.$('numberOfPayments').value }}
+                                                                    field="amount"
+                                                                    format={{ type: 'currency' }}
+                                                                />}
+                                                            {form.$('endDate').value &&
+                                                                <FormatterResolver
+                                                                    item={{ amount: form.$('amount').value * getNumberOfReocurrency(form.$('recurringDate').value, form.$('endDate').value, form.$('grantScheduleTypeId').value) }}
+                                                                    field="amount"
+                                                                    format={{ type: 'currency' }}
+                                                                />}
+                                                        </div>
+                                                    </div>}
+                                            </div>}
+                                        <div className="row row--form">
+                                            {(window.innerWidth > 750 || moreSettings) && <div className="form__group col col-sml-12">
+                                                <BaasicFieldDropdown field={form.$('grantAcknowledgmentTypeId')} store={grantAcknowledgmentTypeDropdownStore} />
+                                            </div>}
+                                            {(window.innerWidth > 750 || moreSettings) && grantAcknowledgmentName &&
+                                                <div className="form__group col col-sml-12 u-mar--bottom--med">
+                                                    {grantAcknowledgmentName}
+                                                </div>}
+                                        </div>
+                                        {
+                                            (window.innerWidth > 750 || moreSettings) &&
+                                            <div className="row row--form">
+                                                <div className="form__group col col-sml-12">
+                                                    <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
                                                 </div>
                                             </div>
-                                            <div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <img src={logo} alt={"logo"} />
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    {charity.name}
-                                                </div>
-                                            </div>
-                                            <div className="row row--form u-padd--top--med">
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
-                                                    <strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
-                                                    <p>{charity.rullingYear}</p>
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
-                                                    <strong>{t('GRANT.CREATE.EIN')}</strong>
-                                                    <p>{charityFormatter.format(charity.taxId, { value: 'tax-id' })}</p>
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <div className="u-separator--primary u-mar--bottom--sml"></div>
-                                                    <strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
-                                                    <p>{charity.irsFilingRequirement}</p>
-                                                </div>
-                                            </div>
-                                            <div className="row row--form u-padd--top--med">
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
-                                                    <p>{charity.principalOfficer}</p>
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <strong>{t('GRANT.CREATE.CAUSE_AREA')}</strong>
-                                                    <p>{charity.nteeCode}</p>
-                                                </div>
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <strong>{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</strong>
-                                                    <p>{charity.irsFilingRequirement}</p>
-                                                </div>
-                                            </div>
-                                            <div className="row row--form u-padd--top--med">
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
-                                                    <p>{charity && charity.charityAddresses ? addressFormatter.format(charity.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</p>
-                                                </div>
-                                            </div>
-                                        </div>}
-                                </div>
+                                        }
 
-                                <div className="row row--form u-mar--bottom--med">
-                                    <div className="col col-sml-12 col-lrg-12">
-                                        <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
-                                        <SimpleBaasicTable tableStore={previousGrantsTableStore} />
+                                        {
+                                            (window.innerWidth > 750 || moreSettings) &&
+                                            <div className="row row--form">
+                                                <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
+                                                    {form.$('grantPurposeTypeId').value &&
+                                                        <GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
+                                                </div>
+                                            </div>
+                                        }
+
+                                        {charity && !charity.item.isActive ?
+                                            <div className="u-mar--top--sml u-mar--bottom--sml type--right">
+                                                <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' disabled />
+                                            </div> :
+                                            <div className="u-mar--top--sml u-mar--bottom--sml type--right">
+                                                <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
+                                            </div>
+                                        }
+                                    </div>}
+
+
+                            </div>
+                        </div>
+                        {charity && !charity.item.isActive ? <div></div> :
+
+                            <div className="col col-sml-12 col-xxlrg-6">
+                                <div className="card--primary card--med u-mar--bottom--med">
+                                    <h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
+                                    <div className="row row--form">
+                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                                            <div className="card--secondary card--med type--center">
+                                                <div className="type--xxlrg type--wgt--medium type--color--text">
+                                                    {donor && <FormatterResolver
+                                                        item={{ balance: donor.availableBalance }}
+                                                        field='balance'
+                                                        format={{ type: 'currency' }}
+                                                    />}
+                                                </div>
+                                                <p className="type--xsml type--wgt--medium type--color--text">{t('GRANT.CREATE.AVAILABLE_BALANCE')}</p>
+                                            </div>
+                                        </div>
+                                        <div className="col col-sml-12 col-lrg-6 u-mar--bottom--med">
+                                            <div className="card--secondary--light card--med type--center">
+                                                <div className="type--xxlrg type--wgt--medium type--color--note">
+                                                    {donor && <FormatterResolver
+                                                        item={{ balance: donor.upcomingGrantsThisYear }}
+                                                        field='balance'
+                                                        format={{ type: 'currency' }}
+                                                    />}
+                                                </div>
+                                                <p className="type--xsml type--wgt--medium type--color--note">{t('GRANT.CREATE.UPCOMING_GRANTS_THIS_YEAR')}</p>
+                                            </div>
+                                        </div>
+
+                                        {charity && charity.item &&
+                                            <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <div className="row row--form">
+                                                    <div className="col col-sml-12 col-lrg-6">
+                                                        <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>
+                                                    </div>
+                                                </div>
+                                                <div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <img src={logo} alt={"logo"} />
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        {charity.item.name}
+                                                    </div>
+                                                    {console.log("CHARITY", charity)}
+                                                    {charity && !charity.item.isActive &&
+                                                        <div className="col col-sml-12 col-lrg-4">
+                                                            <p style={{ color: "red" }}>Charity is not active</p>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div className="row row--form u-padd--top--med">
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <div className="u-separator--primary u-mar--bottom--sml"></div>
+                                                        <strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
+                                                        <p>{charity.item.rullingYear}</p>
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <div className="u-separator--primary u-mar--bottom--sml"></div>
+                                                        <strong>{t('GRANT.CREATE.EIN')}</strong>
+                                                        <p>{charityFormatter.format(charity.item.taxId, { value: 'tax-id' })}</p>
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <div className="u-separator--primary u-mar--bottom--sml"></div>
+                                                        <strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
+                                                        <p>{charity.item.irsFilingRequirement}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row row--form u-padd--top--med">
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
+                                                        <p>{charity.item.principalOfficer}</p>
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <strong>{t('GRANT.CREATE.CAUSE_AREA')}</strong>
+                                                        <p>{charity.item.nteeCode}</p>
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <strong>{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</strong>
+                                                        <p>{charity.item.irsFilingRequirement}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row row--form u-padd--top--med">
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
+                                                        <p>{charity && charity.item && charity.item.charityAddresses ? addressFormatter.format(charity.item.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</p>
+                                                    </div>
+                                                </div>
+                                            </div>}
+                                        {charity && typeof charity.item == 'undefined' &&
+                                            <div className="card--secondary card--med col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                                <div className="row row--form">
+                                                    <div className="col col-sml-12 col-lrg-6">
+                                                        <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>
+                                                    </div>
+                                                </div>
+                                                <div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <img src={logo} alt={"logo"} />
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        {charity.name}
+                                                    </div>
+                                                </div>
+                                                <div className="row row--form u-padd--top--med">
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <div className="u-separator--primary u-mar--bottom--sml"></div>
+                                                        <strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
+                                                        <p>{charity.rullingYear}</p>
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <div className="u-separator--primary u-mar--bottom--sml"></div>
+                                                        <strong>{t('GRANT.CREATE.EIN')}</strong>
+                                                        <p>{charityFormatter.format(charity.taxId, { value: 'tax-id' })}</p>
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <div className="u-separator--primary u-mar--bottom--sml"></div>
+                                                        <strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
+                                                        <p>{charity.irsFilingRequirement}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row row--form u-padd--top--med">
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <strong>{t('GRANT.CREATE.PRINCIPAL_OFFICER')}</strong>
+                                                        <p>{charity.principalOfficer}</p>
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <strong>{t('GRANT.CREATE.CAUSE_AREA')}</strong>
+                                                        <p>{charity.nteeCode}</p>
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <strong>{t('GRANT.CREATE.DOWNLOAD_TAX_FORMS')}</strong>
+                                                        <p>{charity.irsFilingRequirement}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row row--form u-padd--top--med">
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        <strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
+                                                        <p>{charity && charity.charityAddresses ? addressFormatter.format(charity.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</p>
+                                                    </div>
+                                                </div>
+                                            </div>}
                                     </div>
-                                </div>
 
-                                <div className="row row--form">
-                                    <div className="col col-sml-12 col-lrg-12">
-                                        <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
-                                        <div className={grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name && "card--primary card--med"}>
-                                            <h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>
-                                            <SimpleBaasicTable tableStore={similarGrantsTableStore} />
+                                    <div className="row row--form u-mar--bottom--med">
+                                        <div className="col col-sml-12 col-lrg-12">
+                                            <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
+                                            <SimpleBaasicTable tableStore={previousGrantsTableStore} />
+                                        </div>
+                                    </div>
+
+                                    <div className="row row--form">
+                                        <div className="col col-sml-12 col-lrg-12">
+                                            <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
+                                            <div className={grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name && "card--primary card--med"}>
+                                                <h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>
+                                                <SimpleBaasicTable tableStore={similarGrantsTableStore} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </Content>
             </EditFormLayout >
