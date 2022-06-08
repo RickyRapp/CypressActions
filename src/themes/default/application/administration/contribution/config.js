@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { ContributionList, ContributionCreate, ContributionEdit, ContributionDetails } from 'application/administration/contribution/pages';
+import { ContributionList, ContributionCreate, ContributionEdit, ContributionDetails, ContributionTab } from 'application/administration/contribution/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -9,9 +9,9 @@ import { ContributionList, ContributionCreate, ContributionEdit, ContributionDet
                 pattern: '/contribution',
                 children: [
                     {
-                        name: 'master.app.main.administration.contribution.list',
+                        name: 'master.app.main.administration.contribution.tab',
                         pattern: '',
-                        component: ContributionList,
+                        component: ContributionTab,
                         data: {
                             title: "CONTRIBUTION.CREATE.TITLE"
                         }

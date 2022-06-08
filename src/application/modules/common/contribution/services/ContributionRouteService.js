@@ -6,7 +6,7 @@ class ContributionRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorId,paymentTypeIds,confirmationNumber,dollarRange,paymentNumber,contributionStatusIds,nameOnCheck,amountRangeMin,amountRangeMax,accountTypeId,dateCreatedFrom,dateCreatedTo,search,nameOnCheck,contributionId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?donorId,paymentTypeIds,contributionReviewId,confirmationNumber,dollarRange,paymentNumber,contributionStatusIds,nameOnCheck,amountRangeMin,amountRangeMax,accountTypeId,dateCreatedFrom,dateCreatedTo,search,nameOnCheck,contributionId,page,rpp,sort,embed,fields}', filter);
     }
 
     findSummary(filter) {
@@ -35,6 +35,14 @@ class ContributionRouteService extends BaseRouteService {
 
     review(resource) {
         return super.update(this.base + '/review/{id}', resource);
+    }
+
+    achBatchCurrentNumber({ increment }) {
+        return this.base + `/current-contribution-ach-batch-number?increment=${increment}`;
+    }
+
+    generateCsvContributionFile(resource) {
+        return super.update(this.base + `/generate-csv`, resource);
     }
 }
 

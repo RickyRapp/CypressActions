@@ -1,13 +1,20 @@
-import { action } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
+import { action, observable } from 'mobx';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore, SelectTableViewStore } from 'core/stores';
 import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { ContributionListFilter } from 'application/administration/contribution/models';
 import moment from 'moment';
+import { ContributionAchCreateForm } from '../forms';
+import { saveAs } from '@progress/kendo-file-saver';
 
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
     contributionStatuses = [];
+    @observable selectedItemsSum = 0;
+    @observable achBatchCurrentNumber = false;
+
+    form = new ContributionAchCreateForm();
+
     thirdPartyFunds = [
 		{ id: '1', name: 'Fidelity Charitable' },
 		{ id: '2', name: 'Schwab Charitable' },
@@ -66,6 +73,7 @@ class ContributionViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
+                        this.selectedItemsSum = 0;
                         if(params.dateCreatedFrom){
                             let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
                             params.dateCreatedFrom = `${fromDate} 00:00:00`;
@@ -82,6 +90,7 @@ class ContributionViewStore extends BaseListViewStore {
                             'contributionStatus',
                             'bankAccount.accountHolder'
                         ];
+                        this.achBatchCurrentNumber = await rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
                         return rootStore.application.administration.contributionStore.findContribution(params);
                     }
                 }
@@ -200,7 +209,7 @@ class ContributionViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore(new TableViewStore(this.queryUtility, {
+        this.setTableStore(new SelectTableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'donor.donorName',
@@ -270,6 +279,26 @@ class ContributionViewStore extends BaseListViewStore {
                 },
                 onReviewRender: (item) => {
                     return ['pending', 'in-process', 'funded'].includes(item.contributionStatus.abrv);
+                }
+            },
+            onSelect: (dataItem, isRemoving) => {
+                if(dataItem.contributionStatus.abrv === 'pending' && dataItem.paymentType.abrv === 'ach'){
+                    if(isRemoving){
+                        this.selectedItemsSum -= dataItem.amount;
+                    }else{
+                        this.selectedItemsSum += dataItem.amount;
+                    }
+                }
+            },
+            onSelectAll: (e) => {
+                if(!this.tableStore.hasSelectedItems){
+                    this.tableStore.data.map(item => {
+                        if(item.contributionStatus.abrv === 'pending' && item.paymentType.abrv === 'ach'){
+                            this.selectedItemsSum += item.amount;
+                        }
+                    });
+                }else{
+                    this.selectedItemsSum = 0;
                 }
             }
         }));
@@ -367,7 +396,28 @@ class ContributionViewStore extends BaseListViewStore {
                     this.queryUtility.filter.paymentTypeIds = paymentType.map(type => { return type.id });
                 }
             });
+    }
 
+    @action.bound
+    async submitPending(){
+        if(!this.form.values().paymentNumber){
+            return;
+        }
+
+        let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending' && s.paymentType.abrv === 'ach');
+        var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contentType: 'text/csv' });
+       
+        const nowDate = new Date();
+        const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
+        saveAs(response, fileName);
+        this.rootStore.notificationStore.success("Contribution report generated.");
+        this.queryUtility.fetch();
+    }
+
+    @action.bound
+    async onAchNextPaymentNumberClick() {
+        this.achBatchCurrentNumber = await this.rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: true });
+        this.form.$('paymentNumber').set(this.achBatchCurrentNumber.toString());
     }
 }
 

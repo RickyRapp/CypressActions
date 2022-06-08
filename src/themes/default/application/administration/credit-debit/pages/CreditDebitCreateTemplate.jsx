@@ -22,9 +22,10 @@ const CreditDebitCreateTemplate = function ({ creditDebitCreateViewStore, t }) {
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <div className="row">
                                     <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-                                        <div className="type--base type--wgt--medium type--color--note">{t('CREDIT_DEBIT.PREVIEW.FIELDS.DONOR_NAME_LABEL')}</div>
+                                        <div className="type--base type--wgt--medium type--color--note">{donor && donor.donorName ? t('CREDIT_DEBIT.PREVIEW.FIELDS.DONOR_NAME_LABEL') : t('CREDIT_DEBIT.PREVIEW.FIELDS.CHARITY_NAME_LABEL')}</div>
                                         <span className="input--preview--uppercase">
                                             {donor && <React.Fragment>{donor.donorName}</React.Fragment>}
+                                            {donor && <React.Fragment>{donor.charityName}</React.Fragment>}
                                         </span>
                                     </div>
                                     <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">

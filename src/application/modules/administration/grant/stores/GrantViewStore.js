@@ -543,6 +543,9 @@ class GrantViewStore extends BaseListViewStore {
                 { id: 9, title: 'Grant status', key: 'STATUS', selected: false, visible: true },
                 { id: 10, title: 'Payment method', key: 'PAYMENT METHOD', selected: false, visible: true },
                 { id: 11, title: 'Grant address', key: 'GRANT ADDRESS', selected: false, visible: true },
+                { id: 12, title: 'Donor', key: 'DONOR', selected: false, visible: true },
+                { id: 13, title: 'Type', key: 'TYPE', selected: false, visible: true },
+                { id: 14, title: 'Purpose', key: 'DONOR', selected: false, visible: true },
             ],
             exportUrlFunc: (exportData) => {
                 const routeService = new GrantRouteService();

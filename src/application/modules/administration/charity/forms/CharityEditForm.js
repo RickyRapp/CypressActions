@@ -41,18 +41,18 @@ export default class CharityEditForm extends FormBase {
                 {
                     name: 'contactInformationName',
                     label: 'CHARITY.EDIT.FIELDS.CONTACT_INFORMATION_NAME_LABEL',
-                    rules: 'required|string'
+                    rules: 'string'
                 },
                 {
                     name: 'contactInformationEmail',
                     label: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_LABEL',
                     placeholder: 'EMAIL_ADDRESS.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-                    rules: 'required|email'
+                    rules: 'email'
                 },
                 {
                     name: 'contactInformationNumber',
                     label: 'PHONE_NUMBER.EDIT.FIELDS.NUMBER_LABEL',
-                    rules: 'required|string',
+                    rules: 'string',
                     extra: {
                         format: '(###) ###-####'
                     }

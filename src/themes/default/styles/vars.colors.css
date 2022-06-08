@@ -10,60 +10,60 @@
 /**
 * Brand colors
 */
-$almond:                #F0DCCC;
-$zest:                  #C36C36;
-$zest-dark:             #c36c3652;
-$zest-light:            #c36c3617;
-$scandal:               #B3DBD3;
-$downy: 	            #82D8C7;
-$lavander:              #D2D9F7;
-$eastern-blue: 	        #00909e;
-$smalt-blue:            #517d97;
-$bali-hai:              #828FA7;
-$heather:               #A5AEC0;
-
+$almond: #f0dccc;
+$zest: #c36c36;
+$zest-dark: #c36c3652;
+$zest-light: #c36c3617;
+$scandal: #b3dbd3;
+$downy: #82d8c7;
+$lavander: #d2d9f7;
+$eastern-blue: #00909e;
+$smalt-blue: #517d97;
+$bali-hai: #828fa7;
+$heather: #a5aec0;
+$bianca: #fcf9f6;
 
 /**
 * Global text color
 */
-$color-text:        #223A5E;
-$color-opaque:      #B5BDC7;
-$white:             #ffffff;
+$color-text: #223a5e;
+$color-opaque: #b5bdc7;
+$white: #ffffff;
 
 /**
 * Theme colors
 */
-$color-primary:     $zest;
-$color-secondary: 	$eastern-blue;
-$color-tertiary: 	$smalt-blue;
+$color-primary: $zest;
+$color-secondary: $eastern-blue;
+$color-tertiary: $smalt-blue;
 
-$color-background:  #E8EDF6;
-$color-background-seashellt: #FFF4EB;
-$color-background-clear-day: #ECF6F4;
+$color-background: #e8edf6;
+$color-background-seashellt: #fff4eb;
+$color-background-clear-day: #ecf6f4;
 
 /*
     Shades of gray (pure gray)
     ------------------------------------
     If you need mix some color to gray, use 10% of saturated color
 */
-$grey-1: #f0f0f0;  /*  6% - lightness */
-$grey-2: #d4d4d4;  /* 17% - lightness */
-$grey-3: #b8b8b8;  /* 28% - lightness */
-$grey-4: #9c9c9c;  /* 39% - lightness */
-$grey-5: #7f7f7f;  /* 50% - lightness */
-$grey-6: #636363;  /* 61% - lightness */
-$grey-7: #474747;  /* 72% - lightness */
-$grey-8: #2b2b2b;  /* 83% - lightness */
-$grey-9: #0f0f0f;  /* 94% - lightness */
+$grey-1: #f0f0f0; /*  6% - lightness */
+$grey-2: #d4d4d4; /* 17% - lightness */
+$grey-3: #b8b8b8; /* 28% - lightness */
+$grey-4: #9c9c9c; /* 39% - lightness */
+$grey-5: #7f7f7f; /* 50% - lightness */
+$grey-6: #636363; /* 61% - lightness */
+$grey-7: #474747; /* 72% - lightness */
+$grey-8: #2b2b2b; /* 83% - lightness */
+$grey-9: #0f0f0f; /* 94% - lightness */
 
 /**
 * Utility colors
 */
-$color-warning:     #ff4553;
-$color-success:     #4caf50;
-$color-note:        #C36C36;
+$color-warning: #ff4553;
+$color-success: #4caf50;
+$color-note: #c36c36;
 
 /* Toastify colors */
 
-$toastify-green:    #00c48c;
-$toastify-red:      #ff4553;
+$toastify-green: #00c48c;
+$toastify-red: #ff4553;

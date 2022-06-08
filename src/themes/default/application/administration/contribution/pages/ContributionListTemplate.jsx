@@ -9,13 +9,15 @@ import {
 	BaasicDropdown,
 	BaasicInput,
 	DateRangeQueryPicker,
+	BasicInput,
+	FormatterResolver,
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 import { ContributionReview } from 'application/administration/contribution/components';
 import { SelectDonor } from 'application/administration/donor/components';
 
-const ContributionListTemplate = function ({ contributionViewStore }) {
+const ContributionListTemplate = function ({ contributionViewStore, t }) {
 	const {
 		routes,
 		tableStore,
@@ -27,6 +29,11 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
 		reviewModal,
 		contributionStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
+		selectedItemsSum,
+		submitPending,
+		onAchNextPaymentNumberClick,
+		achBatchCurrentNumber,
+		form
 	} = contributionViewStore;
 
 	return (
@@ -103,6 +110,34 @@ const ContributionListTemplate = function ({ contributionViewStore }) {
 							</TableFilter>
 						</div>
 
+						<div className="row u-mar--bottom--med">
+							<div className="col col-sml-6 col-lrg-2">
+								
+								<div > 
+									<BaasicButton
+										className="btn btn--med btn--med--med btn--ghost"
+										label={t('ACTIVITY.DEPOSIT_TAB.CSV_BUTTON')}
+										onClick={submitPending}
+									/>
+								</div>
+							</div>
+							<div className="col col-sml-12 col-lrg-3">
+								<BasicInput field={form.$('paymentNumber')} />
+								<div>
+									Next ACH batch number: <span className='btn btn--sml btn--link' onClick={onAchNextPaymentNumberClick}>{achBatchCurrentNumber + 1}</span>
+								</div>
+							</div>
+							<div className="col col-sml-12 col-lrg-3">
+								<p>Sum of selected items:</p>
+								<p style={{ fontSize: '2em' }} className="u-mar--top--sml">
+									{<FormatterResolver
+                                   		item={{ amount: selectedItemsSum }}
+                                    	field='amount'
+                                    	format={{ type: 'currency' }}
+                                	/>}
+								</p>
+							</div>
+						</div>
 						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 					</div>
 				</Content>

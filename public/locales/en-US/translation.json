@@ -714,16 +714,16 @@
             "TITLE": "Fees",
             "FIELDS": {
                 "ONLINE_LABEL": "Online grants",
-                "GRANT_REQUEST_LABEL": "Grant request fee is payed by:",
+                "GRANT_REQUEST_LABEL": "Grant request fee is paid by:",
                 "GRANT_REQUEST_LABEL_TRUE": "Me",
                 "GRANT_REQUEST_LABEL_FALSE": "Charity",
-                "CHARITY_WEBSITE_LABEL": "Charity website fee is payed by:",
+                "CHARITY_WEBSITE_LABEL": "Charity website fee is paid by:",
                 "CHARITY_WEBSITE_LABEL_TRUE": "Me",
                 "CHARITY_WEBSITE_LABEL_FALSE": "Charity",
-                "GIVING_CARD_LABEL": "Giving card fee is payed by:",
+                "GIVING_CARD_LABEL": "Giving card fee is paid by:",
                 "GIVING_CARD_LABEL_TRUE": "Me",
                 "GIVING_CARD_LABEL_FALSE": "Charity",
-                "SESSION_LABEL": "Checks fee is payed by:",
+                "SESSION_LABEL": "Checks fee is paid by:",
                 "SESSION_LABEL_TRUE": "Me",
                 "SESSION_LABEL_FALSE": "Charity"
             }
@@ -986,7 +986,8 @@
         },
         "DEPOSIT_TAB": {
             "CONTRIBUTION": "Deposits",
-            "SCHEDULED_CONTRIBUTION": "Scheduled Deposits"
+            "SCHEDULED_CONTRIBUTION": "Scheduled Deposits",
+            "CSV_BUTTON": "Generate CSV"
         },
         "LIST": {
             "COLUMNS": {
@@ -1244,10 +1245,12 @@
             "TITLE" : "Payments",
             "FIELDS" : {
                 "KEEP_UNTIL_MANUALLY" : "Keep funds at The Donors Fund until manually distributed",
+                "DISTRIBUTE_WHEN_ACCUMULATED_ADMIN" : "Only distribute funds when amount accumulated to",
                 "KEEP_UNTIL_MANUALLY_LABEL" : "Is enabled",
                 "DISTRIBUTE_WHEN_ACCUMULATED": "Only distribute funds when accumulated to ",
                 "DISTRIBUTE_WHEN_ACCUMULATED_LABEL": "Is enabled",
                 "ACCUMULATED_AMOUNT" : "Accumulated Amount",
+                "AUTOMATICALLY_WITHDRAW" : "Automatically withdraw",
                 "ACCUMULATED_AMOUNT_PLACEHOLDER": "$"
             }
         },
@@ -1369,7 +1372,13 @@
                 "CONTRIBUTION_STATUS_NAME_LABEL": "Status",
                 "PAYMENT_TYPE_NAME_LABEL": "Payment type",
                 "PAYER_INFORMATION_NAME_LABEL": "Payer",
-                "PAYMENT_NUMBER_LABEL": "Payment number"
+                "PAYMENT_NUMBER_LABEL": "Payment number",
+                "ENTER_BATCH_NUMBER": "Enter Batch number",
+                "BATCH_NUMBER": "Batch number"
+            },
+            "TAB": {
+                "ALL_DEPOSITS": "All deposits",
+                "REVIEW_DEPOSITS": "ACH Review Deposits"
             },
             "FILTER": {
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
@@ -1398,6 +1407,15 @@
             },
             "OVERVIEW-TRANSACTIONS": "Overview (Transactions)",
             "BY-TIMELINE": "By timeline (Total for time period)"
+        },
+        "ACH_REVIEW":{
+            "TABLE":{
+                "ACH_BATCH_NUMBER": "Ach Batch Number",
+                "DATE_CREATED": "Date Created",
+                "CONFIRMATION_DATE": "Confirmation Date",
+                "IS_CONFIRMED":"Is Confirmed",
+                "IS_VALID": "Is Valid"
+            }
         },
         "CONFIRM": {
             "TITLE": "Confirm Details",
@@ -1836,6 +1854,7 @@
             "MISSING_INITIAL_CONTRIBUTION": "Missing Initial Contribution. You Are Redirected On Contribution Page.",
             "CHARITY_INFORMATION_TITLE": "Charity Information",
             "CHARITY_INFORMATION_NAME": "Charity Name",
+            "CHARITY_INFORMATION_STATUS": "Charity Status",
             "CHARITY_INFORMATION_TAX_ID": "Tax ID",
             "CHARITY_INFORMATION_IS_ACH_AVAILABLE": "ACH available",
             "CHARITY_INFORMATION_ADDRESS": "Address",
@@ -2186,7 +2205,7 @@
         "LIST": {
             "TITLE": "Credit/Debit",
             "COLUMNS": {
-                "DONOR_NAME_LABEL": "Donor",
+                "DONOR_NAME_LABEL": "Donor / Charity",
                 "DATE_CREATED_LABEL": "Date created",
                 "AMOUNT_LABEL": "Amount",
                 "DESCRIPTION_LABEL": "Description",
@@ -2194,7 +2213,7 @@
             }
         },
         "CREATE": {
-            "TITLE": "Donor Credit/Debit",
+            "TITLE": "Credit/Debit",
             "FROM_TITLE": "Details",
             "BUTTON": {
                 "CREATE": "Send"
@@ -2214,6 +2233,7 @@
         "PREVIEW": {
             "FIELDS": {
                 "DONOR_NAME_LABEL": "Donor",
+                "CHARITY_NAME_LABEL": "Charity",
                 "PRESENT_BALANCE": "Present Balance"
             }
         }
@@ -2234,6 +2254,8 @@
             },
             "FILTER": {
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "SELECT_CHARITY_PLACEHOLDER": "Charity",
+                "SELECT_TYPE_PLACEHOLDER": "User type",
                 "BOOKLET_CODES_PLACEHOLDER": "Codes",
                 "BOOKLET_ORDER_STATUS_PLACEHOLDER": "Order status",
                 "DELIVERY_TYPE_PLACEHOLDER": "Delivery type",

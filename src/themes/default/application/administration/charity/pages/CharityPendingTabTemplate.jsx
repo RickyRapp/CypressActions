@@ -5,6 +5,7 @@ import { TabLayout, Page } from 'core/layouts';
 import { CharityGeneralData, CharityPersonalData } from 'application/administration/charity/components';
 import { CharityQuestionnaireAnswers }from 'application/administration/charity/pages';
 import { EmailList } from 'application/administration/email/pages';
+import { CharitySecurityAndPreferencesData } from 'application/charity/charity/components';
 
 function CharityPendingTabTemplate({ charityPendingTabViewStore, rootStore }) {
     const {
@@ -20,6 +21,9 @@ function CharityPendingTabTemplate({ charityPendingTabViewStore, rootStore }) {
                     </div>
                     <div label={'CHARITY.TAB.PERSONAL_DATA'}>
                         <CharityPersonalData />
+                    </div>
+                    <div label={'CHARITY.TAB.SECURITY_AND_PREFERENCES'}>
+                        <CharitySecurityAndPreferencesDataa />
                     </div>
                     <div label={'CHARITY.TAB.EMAIL'} className="u-mar--top--sml">
                         <EmailList charityId={rootStore.routerStore.routerState.params.id} />

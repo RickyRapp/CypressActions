@@ -1,4 +1,4 @@
-import { ContributionService } from 'application/common/contribution/services';
+import { ContributionReviewService, ContributionService } from 'application/common/contribution/services';
 import { DonorBankAccountService } from 'application/common/donor/services';
 
 class ContributionStore {
@@ -6,6 +6,7 @@ class ContributionStore {
         this.moduleStore = moduleStore;
         this.contributionService = moduleStore.rootStore.createApplicationService(ContributionService);
         this.donorBankAccountService = moduleStore.rootStore.createApplicationService(DonorBankAccountService);
+        this.contributionReviewService = moduleStore.rootStore.createApplicationService(ContributionReviewService);
     }
 
     async findContribution(params) {
@@ -47,5 +48,25 @@ class ContributionStore {
         const response = await this.contributionService.getDetails(id, params);
         return response.data;
     }
+
+    async achBatchCurrentNumber(resource) {
+        const response = await this.contributionService.achBatchCurrentNumber(resource);
+        return response.data;
+    }
+
+    async generateCsvContributionFile(resource) {
+        const response = await this.contributionService.generateCsvContributionFile(resource);
+        return response.data;
+    }
+
+    async findContributionAchReviews(params) {
+        const response = await this.contributionReviewService.findContributionAchReviews(params);
+        return response.data.item;
+    }
+
+    async reviewBatchToProcess(params) {
+       await this.contributionReviewService.reviewBatchToProcess(params);
+    }
+    
 }
 export default ContributionStore;

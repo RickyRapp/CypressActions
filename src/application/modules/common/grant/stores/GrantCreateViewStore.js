@@ -31,6 +31,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable asyncPlaceholder = '';
 	@observable moreSettings = false;
 	@observable isAdvancedInput = false;
+	@observable isCharityActive = false;
 	debouncedSearchCharities = _.debounce(this.filterCharities, 500);
 
 	constructor(rootStore, { donorId, grantStore }) {
@@ -321,7 +322,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				date: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
 				recurring: this.form.$('isRecurring').$value ? "Yes" : "No",
 				purpose: this.grantPurposeTypeDropdownStore.items.find(c => c.id === this.form.$('grantPurposeTypeId').value),
-                isChangedDefaultAddress: this.isChangedDefaultAddress
+				isChangedDefaultAddress: this.isChangedDefaultAddress
 			});
 		}
 	}
@@ -642,7 +643,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						search: searchQuery,
 						sort: 'name|asc',
 						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
+						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'charityStatusId', 'isActive'],
 					});
 					return data.item.map(x => {
 						return {
@@ -697,7 +698,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses', 'charityBankAccounts'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'charityStatusId', 'isActive'],
 		});
 		const mapped = data.item.map(x => {
 			return {
@@ -722,7 +723,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses', 'charityBankAccounts'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'isActive'],
 		});
 		const mapped = data.item.map(x => {
 			return {
@@ -772,7 +773,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses', 'charityBankAccounts'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'isActive'],
 		});
 		const mapped = data.item.map(x => {
 			return {
