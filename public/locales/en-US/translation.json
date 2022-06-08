@@ -2793,6 +2793,11 @@
             "NOTE_PLACEHOLDER": "Note"
         }
     },
+    "WITHDRAW_FUNDS": {
+        "LIST":{
+            "TITLE" : "Withdraw funds"
+        }
+    },
     "RECONCILE": {
         "LIST": {
             "TITLE": "Reconcile",
