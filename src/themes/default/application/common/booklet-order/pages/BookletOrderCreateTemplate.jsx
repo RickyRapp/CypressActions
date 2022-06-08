@@ -277,6 +277,15 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 </tr>
                                             </tfoot>
                                             {
+                                                form.$('orderFolder').value == true && 
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colSpan="2">Booklet folder fee</th>
+                                                        <th>$35.00</th>
+                                                    </tr>
+                                                </tfoot>
+                                            }
+                                            {
                                                 donor && !donor.isSessionFeePayedByCharity &&
                                                 <tfoot>
                                                     <tr>

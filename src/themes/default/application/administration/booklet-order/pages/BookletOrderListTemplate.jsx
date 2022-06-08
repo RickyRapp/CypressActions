@@ -10,6 +10,8 @@ import {
 	DateRangeQueryPicker,
 	BaasicModal,
 	BaasicTableWithRowDetails,
+	BasicFieldCheckbox,
+	BasicCheckbox,
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
@@ -133,6 +135,15 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 									</div>
 								</div>
 							</div>
+							<div className="col col-sml-12 u-mar--bottom--sml">
+									<BasicCheckbox
+                                            checked={queryUtility.filter.orderFolder}
+											id="folder"
+											onChange={(e) => queryUtility.filter.orderFolder = e.target.checked}
+                                            label="Booklet Folder"
+                                            showLabel={true}
+                                        />
+								</div>
 						</TableFilter>
 						<BaasicButton className="btn btn--med btn--primary u-mar--right--med" label="Select defaults"onClick={selectDefaults} />
 						<BaasicButton className="btn btn--med btn--primary" label="Export" onClick={() => exportList(false)}/>

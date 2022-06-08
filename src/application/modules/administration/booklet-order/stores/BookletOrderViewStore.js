@@ -78,6 +78,7 @@ class BookletOrderViewStore extends BaseListViewStore {
         this.createBookletOrderStatusDropdownStore();
         this.createDeliveryMethodTypeDropdownStore();
         this.createDateCreatedDateRangeQueryStore();
+        this.queryUtility.filter.orderFolder = false;
     }
 
     @action.bound

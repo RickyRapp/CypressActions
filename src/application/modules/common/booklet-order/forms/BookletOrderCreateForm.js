@@ -52,7 +52,12 @@ export default class BookletOrderCreateForm extends FormBase {
                 'shippingZipCode': 'required|string',
                 'deliveryMethodTypeId': 'required|string',
                 'isCustomizedBook': 'required|boolean',
-                'orderFolder': 'boolean'
+                'orderFolder': 'boolean',
+                'customizedAddressLine1': 'string|max:30',
+                'customizedAddressLine2': 'string|max:30',
+                'customizedCity': 'string|max:30',
+                'customizedState': 'string|max:30',
+                'customizedZipCode': 'string|max:30',
             },
             types: {
                 'isCustomizedBook': 'checkbox',

@@ -2390,6 +2390,7 @@
             "BOOKLET_LABEL": "Booklets",
             "DELIVERY_METHOD_LABEL": "Delivery type",
             "FOLDER_LABEL": "Folder order?",
+            "CUSTOM_LABEL": "Customized?",
             "ORDER_LABEL": "Order content",
             "TRACKING_NUMBER_LABEL": "Tracking Number",
             "DATE_CREATED_LABEL": "Date created",
