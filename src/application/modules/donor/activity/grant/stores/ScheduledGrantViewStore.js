@@ -1,10 +1,11 @@
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, DateRangeQueryPickerStore, BaasicDropdownStore } from 'core/stores';
 import { charityFormatter } from 'core/utils';
 import { ScheduledGrantListFilter } from 'application/donor/activity/grant/models';
 import moment from 'moment'
 
 class ScheduledGrantViewStore extends BaseListViewStore {
+    @observable summaryData;
     constructor(rootStore) {
         super(rootStore, {
             name: 'scheduled-grant',
@@ -49,7 +50,8 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'numberOfPayments',
                             'remainingNumberOfPayments'
                         ]
-
+                        params.isFinished = true;
+                        // this.summaryData = await rootStore.application.donor.grantStore.findScheduledGrant({ donorId: this.donorId, ...params });
                         return rootStore.application.donor.grantStore.findScheduledGrant({ donorId: this.donorId, ...params });
                     }
                 }
@@ -61,9 +63,10 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         this.createTableStore();
         this.createCharityDropdownStore();
 
+
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
-
+    
     createCharityDropdownStore() {
         this.charityDropdownStore = new BaasicDropdownStore(
             {

@@ -5,6 +5,7 @@ import { BaasicInput } from 'core/components';
 import _ from 'lodash';
 
 function BaasicSwitchTemplate({ label, firstLabel, secondLabel, value, onChange, t, disabled, regular, secondarySwitch }) {
+	console.log(onChange);
 	const onId = _.uniqueId('on_');
 	const offId = _.uniqueId('off_');
 	return (
@@ -16,6 +17,7 @@ function BaasicSwitchTemplate({ label, firstLabel, secondLabel, value, onChange,
 					name={onId}
 					checked={true}
 					onChange={e => {
+						debugger;
 						e.target.checked = false;
 						onChange(e);
 					}}
@@ -29,6 +31,7 @@ function BaasicSwitchTemplate({ label, firstLabel, secondLabel, value, onChange,
 					name={offId}
 					checked={value === true}
 					onChange={e => {
+						debugger;
 						e.target.checked = true;
 						onChange(e);
 					}}
