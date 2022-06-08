@@ -39,7 +39,8 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                         </div>
                                         <div className="col col-sml-6">
                                             <div className="type--wgt--medium u-push">
-                                                {item && item.donor.donorName}
+                                                {item && item.donor && item.donor.name}
+                                                {item && item.charity && item.charity.name}
                                             </div>
                                         </div>
                                     </div>
@@ -47,57 +48,57 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             </div>
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
-                                <div className="row">
-                                    <div className="col col-sml-6">
-                                        <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.CONFRIMATION_NUMBER')}</div>
-                                    </div>
-                                    <div className="col col-sml-6">
-                                        <div className="type--wgt--medium u-push">
-                                            {item && item.confirmationNumber}
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.CONFRIMATION_NUMBER')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                                {item && item.confirmationNumber}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
-                                <div className="row">
-                                    <div className="col col-sml-6">
-                                        <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.STATUS')}</div>
-                                    </div>
-                                    <div className="col col-sml-6">
-                                        <div className="type--wgt--medium u-push">
-                                            {item && item.contributionStatus.name}
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.STATUS')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                                {item && item.contributionStatus.name}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
-                                <div className="row">
-                                    <div className="col col-sml-6">
-                                        <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.DATE_CREATED')}</div>
-                                    </div>
-                                    <div className="col col-sml-6">
-                                        <div className="type--wgt--medium u-push">
-                                            {item && <Date format="kendo-input-medium" value={item.dateCreated} />}
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.DATE_CREATED')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                                {item && <Date format="kendo-input-medium" value={item.dateCreated} />}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
-                                <div className="row">
-                                    <div className="col col-sml-6">
-                                        <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.DATE_UPDATED')}</div>
-                                    </div>
-                                    <div className="col col-sml-6">
-                                        <div className="type--wgt--medium u-push">
-                                            {item && <Date format="kendo-input-medium" value={item.dateUpdated} />}
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.DATE_UPDATED')}</div>
                                         </div>
-                                    </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                                {item && <Date format="kendo-input-medium" value={item.dateUpdated} />}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -110,33 +111,33 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             </div>
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
-                                <div className="row">
-                                    <div className="col col-sml-6">
-                                        <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYMENT_TYPE')}</div>
-                                    </div>
-                                    <div className="col col-sml-6">
-                                        <div className="type--wgt--medium u-push">
-                                            {item && item.paymentType.name}
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYMENT_TYPE')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                                {item && item.paymentType.name}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
-                                <div className="row">
-                                    <div className="col col-sml-6">
-                                        <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.AMOUNT')}</div>
-                                    </div>
-                                    <div className="col col-sml-6">
-                                        <div className="type--wgt--medium u-push">
-                                            {item && <FormatterResolver
-                                                item={{ amount: item.amount }}
-                                                field='amount'
-                                                format={{ type: 'currency' }}
-                                            />}
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.AMOUNT')}</div>
                                         </div>
-                                    </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                                {item && <FormatterResolver
+                                                    item={{ amount: item.amount }}
+                                                    field='amount'
+                                                    format={{ type: 'currency' }}
+                                                />}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -144,61 +145,61 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                 <React.Fragment>
                                     <div className="col col-sml-12">
                                         <div className="card--secondary card--tny u-mar--bottom--sml">
-                                        <div className="row">
-                                            <div className="col col-sml-6">
-                                                <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_NAME')}</div>
-                                            </div>
-                                            <div className="col col-sml-6">
-                                                <div className="type--wgt--medium u-push">
-                                                    {item.payerInformation.name}
+                                            <div className="row">
+                                                <div className="col col-sml-6">
+                                                    <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_NAME')}</div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div className="col col-sml-12">
-                                        <div className="card--secondary card--tny u-mar--bottom--sml">
-                                        <div className="row">
-                                            <div className="col col-sml-6">
-                                                <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_EMAIL')}</div>
-                                            </div>
-                                            <div className="col col-sml-6">
-                                                <div className="type--wgt--medium u-push">
-                                                    {item.payerInformation.email}
+                                                <div className="col col-sml-6">
+                                                    <div className="type--wgt--medium u-push">
+                                                        {item.payerInformation.name}
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col col-sml-12">
                                         <div className="card--secondary card--tny u-mar--bottom--sml">
-                                        <div className="row">
-                                            <div className="col col-sml-6">
-                                                <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_NUMBER')}</div>
-                                            </div>
-                                            <div className="col col-sml-6">
-                                                <div className="type--wgt--medium u-push">
-                                                    {item.payerInformation.number}
+                                            <div className="row">
+                                                <div className="col col-sml-6">
+                                                    <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_EMAIL')}</div>
+                                                </div>
+                                                <div className="col col-sml-6">
+                                                    <div className="type--wgt--medium u-push">
+                                                        {item.payerInformation.email}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </div>
                                     <div className="col col-sml-12">
                                         <div className="card--secondary card--tny u-mar--bottom--sml">
-                                        <div className="row">
-                                            <div className="col col-sml-6">
-                                                <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_ADDRESS')}</div>
-                                            </div>
-                                            <div className="col col-sml-6">
-                                                <div className="type--wgt--medium u-push">
-                                                    {<FormatterResolver
-                                                        item={{ address: item.payerInformation }}
-                                                        field='address'
-                                                        format={{ type: 'address', value: 'full' }}
-                                                    />}
+                                            <div className="row">
+                                                <div className="col col-sml-6">
+                                                    <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_NUMBER')}</div>
+                                                </div>
+                                                <div className="col col-sml-6">
+                                                    <div className="type--wgt--medium u-push">
+                                                        {item.payerInformation.number}
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div className="col col-sml-12">
+                                        <div className="card--secondary card--tny u-mar--bottom--sml">
+                                            <div className="row">
+                                                <div className="col col-sml-6">
+                                                    <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_ADDRESS')}</div>
+                                                </div>
+                                                <div className="col col-sml-6">
+                                                    <div className="type--wgt--medium u-push">
+                                                        {<FormatterResolver
+                                                            item={{ address: item.payerInformation }}
+                                                            field='address'
+                                                            format={{ type: 'address', value: 'full' }}
+                                                        />}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -214,7 +215,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                 <div className="card--secondary card--med type--center">
                                     <div className="type--lrg type--wgt--bold type--color--note">
                                         {item && <FormatterResolver
-                                            item={{ amount: item.donor.totalMoneyGiven }}
+                                            item={{ amount: item.donor && item.donor.totalMoneyGiven }}
                                             field='amount'
                                             format={{ type: 'currency' }}
                                         />}
@@ -228,7 +229,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                 <div className="card--secondary--light card--med type--center">
                                     <div className="type--lrg type--wgt--bold type--color--note">
                                         {item && <FormatterResolver
-                                            item={{ amount: item.donor.totalMoneyUpcoming }}
+                                            item={{ amount: item.donor && item.donor.totalMoneyUpcoming }}
                                             field='amount'
                                             format={{ type: 'currency' }}
                                         />}

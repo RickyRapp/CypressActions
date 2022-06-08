@@ -15,6 +15,7 @@ class ContributionDetailsViewStore extends BasePreviewViewStore {
                         let params = {
                             embed: [
                                 'donor',
+                                'charity',
                                 'payerInformation',
                                 'bankAccount',
                                 'paymentType',

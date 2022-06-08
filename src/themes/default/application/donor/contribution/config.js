@@ -21,7 +21,7 @@ import { ContributionCreate, ContributionEdit, ContributionDetails } from 'appli
                         name: 'master.app.main.donor.contribution.edit',
                         pattern: '/edit/:id',
                         component: ContributionEdit,
-                        authorization: 'theDonorsFundContributionSection.update',
+                        //authorization: 'theDonorsFundContributionSection.update',
                         data: {
                             title: "CONTRIBUTION.EDIT.TITLE"
                         }
