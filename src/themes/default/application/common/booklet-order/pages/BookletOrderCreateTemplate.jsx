@@ -509,7 +509,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         </div>}
                 </Content>
                 <PageFooter>
-                    <div>
+                    <div className="u-padd--bottom--huge">
                         <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={!isAdmin && (needsProtectionPlan || needsMoreFunds)} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
                     </div>
                 </PageFooter>
