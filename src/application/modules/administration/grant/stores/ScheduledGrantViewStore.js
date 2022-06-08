@@ -65,6 +65,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         this.createTableStore();
         this.createCharityDropdownStore();
         this.createSearchDonorDropdownStore();
+        this.queryUtility.filter.done = false;
         this.reviewModal = new ModalParams({});
         this.selectDonorModal = new ModalParams({});
 

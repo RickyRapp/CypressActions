@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, BaasicDropdown, DateRangeQueryPicker, BaasicInput, TableFilter, EmptyState } from 'core/components';
+import { BaasicButton, BaasicTable, BaasicDropdown, DateRangeQueryPicker, BaasicInput, TableFilter, EmptyState, FormatterResolver } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
 import { BaasicSwitchTemplate } from 'themes/components';
 
+
 const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
-	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore,summaryData, setStatus } = scheduledGrantViewStore;
+	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore,fetchSwitchType,summaryData } = scheduledGrantViewStore;
+	var totalAmount = 0;
 	if (summaryData) {
-		debugger;
-		 summaryData.items.map(c => {
-			return { totalAmount: totalAmount+=c.amount };
-		});
+		summaryData.forEach(c =>
+			{
+				totalAmount+=c.amount;
+			})
 	}
 	return (
 		<Content emptyRenderer={renderEmpty(routes)}>
@@ -26,7 +28,8 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 								queryUtility={queryUtility}
 								secondColClassName={"col col-sml-12 col-lrg-4"}
 								additionalComponent={
-									<BaasicSwitchTemplate secondarySwitch firstLabel={"Finished"} secondLabel={"Active"} />
+									<BaasicSwitchTemplate secondarySwitch firstLabel={"Finished"} secondLabel={"Active"} value={queryUtility.filter.done}
+									 onChange={()=>{fetchSwitchType()}} />
 								}
 							>
 								{<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
@@ -66,11 +69,11 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 						 {summaryData ? (
 							<React.Fragment>
 								<div className="summary__wrapper">
-									<div className="summary__card summary__card--primary">
-										<div className="summary__card__amount summary__card__amount--secondary--primary">
+									<div className="summary__card summary__card--secondary">
+										<div className="summary__card__amount summary__card__amount--secondary--secondary">
 											{summaryData && (
 												<FormatterResolver
-													item={{ totalAmount: summaryData.totalAmount }}
+													item={{ amount: totalAmount }}
 													field="amount"
 													format={{ type: 'currency' }}
 												/>

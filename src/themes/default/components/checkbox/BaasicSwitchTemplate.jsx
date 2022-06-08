@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 function BaasicSwitchTemplate({ label, firstLabel, secondLabel, value, onChange, t, disabled, regular, secondarySwitch }) {
 	console.log(onChange);
+
 	const onId = _.uniqueId('on_');
 	const offId = _.uniqueId('off_');
 	return (
@@ -15,9 +16,8 @@ function BaasicSwitchTemplate({ label, firstLabel, secondLabel, value, onChange,
 					type="radio"
 					id={onId}
 					name={onId}
-					checked={true}
+					checked={value}
 					onChange={e => {
-						debugger;
 						e.target.checked = false;
 						onChange(e);
 					}}
@@ -29,9 +29,8 @@ function BaasicSwitchTemplate({ label, firstLabel, secondLabel, value, onChange,
 					type="radio"
 					id={offId}
 					name={offId}
-					checked={value === true}
+					checked={!value}
 					onChange={e => {
-						debugger;
 						e.target.checked = true;
 						onChange(e);
 					}}

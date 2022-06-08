@@ -50,8 +50,8 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'numberOfPayments',
                             'remainingNumberOfPayments'
                         ]
-                        params.isFinished = true;
-                        // this.summaryData = await rootStore.application.donor.grantStore.findScheduledGrant({ donorId: this.donorId, ...params });
+                       var response  = await rootStore.application.donor.grantStore.findScheduledGrant({ donorId: this.donorId, ...params });
+                        this.summaryData = response.item;
                         return rootStore.application.donor.grantStore.findScheduledGrant({ donorId: this.donorId, ...params });
                     }
                 }
@@ -59,14 +59,21 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
-
+        console.log("Query", this.queryUtility);
         this.createTableStore();
         this.createCharityDropdownStore();
-
+        this.queryUtility.filter.done = true;
+        
 
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
     
+    @action.bound
+    fetchSwitchType(){
+        this.queryUtility.filter.done = !this.queryUtility.filter.done;
+        this.queryUtility.fetch();
+    }
+
     createCharityDropdownStore() {
         this.charityDropdownStore = new BaasicDropdownStore(
             {
