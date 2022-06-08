@@ -1,10 +1,11 @@
 import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
-import { DonorThirdPartyWebsiteSettingForm } from 'application/donor/donor/forms';
-import { action } from 'mobx';
+import { DonorOnlineGrantSettingForm } from 'application/donor/donor/forms';
+import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
 
 @applicationContext
-class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
+class DonorOnlineGrantSettingViewStore extends BaseEditViewStore {
+     @observable microGiving = false;
     constructor(rootStore) {
         super(rootStore, {
             name: 'third-party-website-edit',
@@ -14,7 +15,7 @@ class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
                 return {
                     update: async (resource) => {
                         debugger;
-                        await rootStore.application.donor.donorStore.updateThirdPartyWebsiteSetting(resource);
+                        await rootStore.application.donor.donorStore.updateOnlineGrantSetting(resource);
                     },
                     get: async (id) => {
                         return rootStore.application.donor.donorStore.getThirdPartyWebsiteSetting(id);
@@ -26,13 +27,16 @@ class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
                 this.onChangeIsEnabled();
                 rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE')
             },
-            FormClass: DonorThirdPartyWebsiteSettingForm,
+            FormClass: DonorOnlineGrantSettingForm,
         });
 
         this.donorId = this.id;
 
-        this.createGrantPurposeTypeDropdownStore();
-        this.createGrantAcknowledgmentTypeDropdownStore();
+    }
+
+    @action.bound
+    setMicroGiving(){
+        this.microGiving = !this.microGiving;
     }
 
     @action.bound
@@ -63,23 +67,6 @@ class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
         this.form.$('grantPurposeTypeId').resetValidation();
     }
 
-    createGrantPurposeTypeDropdownStore() {
-        this.grantPurposeTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                fetchFunc: async () => {
-                    return this.rootStore.application.lookup.grantPurposeTypeStore.find();
-                },
-            });
-    }
-
-    createGrantAcknowledgmentTypeDropdownStore() { 
-        this.grantAcknowledgmentTypeDropdownStore = new BaasicDropdownStore(null,
-            {
-                fetchFunc: async () => {
-                    return this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
-                },
-            });
-    }
 }
 
-export default DonorThirdPartyWebsiteSettingViewStore;
+export default DonorOnlineGrantSettingViewStore;

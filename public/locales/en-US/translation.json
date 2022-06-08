@@ -684,6 +684,20 @@
                 }
             }
         },
+        "ONLINE_GRANT": {
+            "TITLE": "Online grant",
+            "EDIT": {
+                "FIELDS": {
+                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Share information",
+                    "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                    "MAX_AMOUNT_LABEL": "Maximum dollar amount per transaction",
+                    "MAX_AMOUNT_PLACEHOLDER": "Enter number",
+                    "MAX_TIMES_PER_DAY_LABEL": "Maximum transactions per day",
+                    "MAX_TIMES_PER_DAY_PLACEHOLDER": "Enter number",
+                    "IS_ENABLED_LABEL": "Is enabled"
+                }
+            }
+        },
         "AUTOMATIC_CONTRIBUTION_SETTING": {
             "TITLE": "Auto replenish plan",
             "EDIT": {

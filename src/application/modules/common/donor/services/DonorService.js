@@ -57,6 +57,7 @@ class DonorService extends BaseService {
     return this.apiClient.put(url, resource);
   }
 
+
   updateCertificateSetting(resource) {
     const url = this.routeService.editCertificateSetting(resource);
     return this.apiClient.put(url, resource);

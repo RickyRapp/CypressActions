@@ -5,6 +5,7 @@ export { default as DonorAddressEditForm, donorAddressFormProperties } from './D
 export { default as DonorPhoneNumberEditForm, donorPhoneNumberFormProperties } from './DonorPhoneNumberEditForm'
 export { default as BankAccountEditForm } from './BankAccountEditForm'
 export { default as DonorThirdPartyWebsiteSettingForm } from './DonorThirdPartyWebsiteSettingForm'
+export { default as DonorOnlineGrantSettingForm } from './DonorOnlineGrantSettingForm'
 export { default as DonorAutomaticContributionSettingForm } from './DonorAutomaticContributionSettingForm'
 export { default as DonorCertificateSettingForm } from './DonorCertificateSettingForm'
 export { default as DonorContributionSettingEditForm } from './DonorContributionSettingEditForm'
