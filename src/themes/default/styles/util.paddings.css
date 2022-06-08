@@ -131,6 +131,10 @@
 			&--xxxlrg {
 				padding-bottom: calc($unit * 12);
 			}
+			
+			&--huge {
+				padding-bottom: calc($unit * 15);
+			}
 
 			&--none {
 				padding-bottom: 0;
