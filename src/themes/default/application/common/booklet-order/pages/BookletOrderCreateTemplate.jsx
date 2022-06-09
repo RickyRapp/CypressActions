@@ -374,7 +374,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 </div>
                             </div>
 
-                            <div className="col col-sml-12 u-mar--bottom--sml u-order--4--xxxlrg">
+                            {/* <div className="col col-sml-12 u-mar--bottom--sml u-order--4--xxxlrg">
                                 <div className="u-mar--bottom--sml type--center">
                                     <button type="button" className="btn btn--show type--wgt--medium" onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}>
                                         <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
@@ -436,9 +436,9 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                         </span> </p> <BasicFieldCheckbox toggleClass='--toggle' field={form.$('orderFolder')} />
                                         </div>
                                     </div>}
-                            </div> 
+                            </div> */}
                         </div>
-                    </div>
+                    </div> 
 
                     <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row row--form u-display--flex u-display--flex--align--center">

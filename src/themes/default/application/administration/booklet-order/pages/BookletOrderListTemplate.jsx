@@ -135,7 +135,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 									</div>
 								</div>
 							</div>
-							<div className="col col-sml-12 u-mar--bottom--sml">
+							{/* <div className="col col-sml-12 u-mar--bottom--sml">
 									<BasicCheckbox
                                             checked={queryUtility.filter.orderFolder}
 											id="folder"
@@ -143,23 +143,23 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                                             label="Booklet Folder"
                                             showLabel={true}
                                         />
-								</div>
+								</div> */}
 						</TableFilter>
-						<BaasicButton className="btn btn--med btn--primary u-mar--right--med" label="Select defaults"onClick={selectDefaults} />
-						<BaasicButton className="btn btn--med btn--primary" label="Export" onClick={() => exportList(false)}/>
+						{/* <BaasicButton className="btn btn--med btn--primary u-mar--right--med" label="Select defaults"onClick={selectDefaults} /> */}
+						{/* <BaasicButton className="btn btn--med btn--primary" label="Export" onClick={() => exportList(false)}/> */}
 						{/* <BaasicInput className="input input--lrg u-mar--top--med u-mar--bottom--sml" field={mailModel.sendTo} onChange={e => mailModel.sendTo = e.target.value}/> */}
-						<BaasicInput
+						{/* <BaasicInput
 									id="sendTo"
 									className="input input--lrg u-mar--top--med u-mar--bottom--sml"
 									value={queryUtility.filter.sendTo}
 									onChange={event => (queryUtility.filter.sendTo = event.target.value)}
 									placeholder="Enter e-mail..."
 								/>
-						<BaasicButton className="btn btn--med btn--primary" label="Send CSV" onClick={() => exportList(true)}/>
+						<BaasicButton className="btn btn--med btn--primary" label="Send CSV" onClick={() => exportList(true)}/> */}
 					</div>
 
 					<div className="table--dragrow--expandable-row">
-                        <BaasicTableWithRowDetails
+                        <BaasicTable
                             tableStore={tableStore}
                             detailComponent={DetailComponent}
                             loading={tableStore.loading}

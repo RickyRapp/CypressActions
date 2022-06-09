@@ -92,7 +92,7 @@ class BookletOrderViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
+        this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'donor.donorName',
