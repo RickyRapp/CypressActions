@@ -1,3 +1,4 @@
+import { WithdrawFundList } from 'application/administration/withdraw-fund/pages';
 import { moduleProviderFactory } from 'core/providers';
 
 (function () {
@@ -10,7 +11,7 @@ import { moduleProviderFactory } from 'core/providers';
                     {
                         name: 'master.app.main.administration.withdraw.list',
                         pattern: '',
-                        component: WithdrawFundsList,
+                        component: WithdrawFundList,
                         authorization: 'theDonorsFundAdministrationSection.read',
                         data: {
                             title: 'WITHDRAW_FUNDS.LIST.TITLE'

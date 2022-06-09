@@ -71,7 +71,7 @@ import { moduleProviderFactory } from 'core/providers';
                 title: 'MENU.WITHDRAW_FUNDS',
                 icon: 'grant',
                 order: 9,
-                route: 'master.app.main.administration.session.tab',
+                route: 'master.app.main.administration.withdraw.list',
                 role: ['Administrators', 'Employees']
             },
             {

@@ -70,7 +70,8 @@
         "REMOTE_DEPOSIT": "Remote Deposit",
         "APIS_AND_PAYMENTS": "APIs and Payments Page",
         "INVEST_FUNDS": "Invest Funds",
-        "ACCEPT_STOCKS_AND_SECURITIES": "Accept Stocks and Securities"
+        "ACCEPT_STOCKS_AND_SECURITIES": "Accept Stocks and Securities",
+        "WITHDRAW_FUNDS" :"Withdraw Funds"
     },
     "CORE": {
         "DATE_FORMAT": {
