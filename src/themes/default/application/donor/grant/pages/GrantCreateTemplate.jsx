@@ -199,7 +199,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										isChangedDefaultAddress={isChangedDefaultAddress}
 										grantRequestId={grantRequestId}
 									/>}
-
 								{charity && (charity.item ? !charity.item.isActive : !charity.isActive) ? <div>
 
 									{isChangedDefaultAddress && (
