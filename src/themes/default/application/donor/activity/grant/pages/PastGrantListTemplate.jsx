@@ -44,6 +44,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	//Color palette
 	let colors = ["#99bdf3", "#F9EA9A", "#A8C69F", "#223A5E", "#C36C36", "#D8D4F2", "#E0EEC6", "#5DB7DE", "#CEB1BE"];
 	let dataDonut = [];
+	console.log("SummaryData", summaryData);
 	if (summaryData) {
 		dataDonut = summaryData.donationsByCharityType.map(c => {
 			return { charityType: c.charityType.name, value: c.amount, color: c.color, legend: `${c.charityType.name} ${summaryData ? ((c.amount / summaryData.totalMoneyGiven) * 100).toFixed(2) + '%' : c.charityType.name}` };

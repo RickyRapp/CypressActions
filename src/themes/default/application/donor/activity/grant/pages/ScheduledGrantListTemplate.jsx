@@ -9,14 +9,8 @@ import { BaasicSwitchTemplate } from 'themes/components';
 
 
 const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
-	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore,fetchSwitchType,summaryData } = scheduledGrantViewStore;
-	var totalAmount = 0;
-	if (summaryData) {
-		summaryData.forEach(c =>
-			{
-				totalAmount+=c.amount;
-			})
-	}
+	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore, fetchSwitchType, summaryData, upcomingGrants } = scheduledGrantViewStore;
+	console.log("Summary", summaryData);
 	return (
 		<Content emptyRenderer={renderEmpty(routes)}>
 			<div className="row row--form">
@@ -29,7 +23,7 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 								secondColClassName={"col col-sml-12 col-lrg-4"}
 								additionalComponent={
 									<BaasicSwitchTemplate secondarySwitch firstLabel={"Finished"} secondLabel={"Active"} value={queryUtility.filter.done}
-									 onChange={()=>{fetchSwitchType()}} />
+										onChange={() => { fetchSwitchType() }} />
 								}
 							>
 								{<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
@@ -60,20 +54,19 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 					</div>
 				</div>
-					<div className="col col-sml-12 col-xxxlrg-4 u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxxlrg-4 u-mar--bottom--med">
 					<div className={`card--primary card--med ${!summaryData && "fullheight"}`}>
 						<h4 className="type--med type--wgt--medium u-mar--bottom--med">
-							 {/* {t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}   */}
-							 Summary
+							Summary
 						</h4>
-						 {summaryData ? (
+						{summaryData ? (
 							<React.Fragment>
 								<div className="summary__wrapper">
-									<div className="summary__card summary__card--secondary">
-										<div className="summary__card__amount summary__card__amount--secondary--secondary">
+									<div className="summary__card summary__card--primary">
+										<div className="summary__card__amount summary__card__amount--secondary--primary">
 											{summaryData && (
 												<FormatterResolver
-													item={{ amount: totalAmount }}
+													item={{ amount: summaryData.totalMoneyGivenThisYear }}
 													field="amount"
 													format={{ type: 'currency' }}
 												/>
@@ -81,16 +74,30 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 											<p className="type--xsml type--wgt--medium type--color--text">Total money given this year</p>
 										</div>
 									</div>
-								</div>
 
+									<div className="summary__card summary__card--secondary">
+										<div className="summary__card__amount summary__card__amount--secondary">
+											{summaryData && (
+												<FormatterResolver
+													item={{ amount: upcomingGrants }}
+													field="amount"
+													format={{ type: 'currency' }}
+												/>
+											)}
+											<p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming this year</p>
+										</div>
+									</div>
+								</div>
 							</React.Fragment>
-						) : ( 
+						) : (
 							<div className="card--med">
 								<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
 							</div>
-						 )} 
+						)}
 					</div>
 				</div>
+					
+
 			</div>
 		</Content>
 	);

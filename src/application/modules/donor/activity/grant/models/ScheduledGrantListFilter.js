@@ -31,7 +31,7 @@ class ScheduledGrantListFilter extends FilterParams {
         this.paymentTypeIds = null;
         this.dollarRange = null;
         this.charityId = null;
-        this.done = true;
+        this.done = false;
     }
 }
 

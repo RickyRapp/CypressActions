@@ -5,7 +5,8 @@ import { ScheduledGrantListFilter } from 'application/donor/activity/grant/model
 import moment from 'moment'
 
 class ScheduledGrantViewStore extends BaseListViewStore {
-    @observable summaryData;
+    @observable summaryData = null;
+    @observable upcomingGrants = 0;
     constructor(rootStore) {
         super(rootStore, {
             name: 'scheduled-grant',
@@ -34,6 +35,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'charity',
                             'grantScheduleType'
                         ];
+                        
                         params.fields = [
                             'id',
                             'charity',
@@ -48,10 +50,18 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'endDate',
                             'noEndDate',
                             'numberOfPayments',
-                            'remainingNumberOfPayments'
+                            'remainingNumberOfPayments',
+                            'totalMoneyGivenThisYear'
                         ]
-                       var response  = await rootStore.application.donor.grantStore.findScheduledGrant({ donorId: this.donorId, ...params });
-                        this.summaryData = response.item;
+
+                       	this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
+							donorId: this.donorId,
+							...params,
+						});
+                        
+                        let upcoming = (await this.rootStore.application.donor.grantStore.getDonorInformation(this.donorId)).upcomingGrantsThisYear;
+                        this.upcomingGrants = upcoming ? upcoming : 0;
+
                         return rootStore.application.donor.grantStore.findScheduledGrant({ donorId: this.donorId, ...params });
                     }
                 }
@@ -62,14 +72,14 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         console.log("Query", this.queryUtility);
         this.createTableStore();
         this.createCharityDropdownStore();
-        this.queryUtility.filter.done = true;
-        
+        this.queryUtility.filter.done = false;
+
 
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
-    
+
     @action.bound
-    fetchSwitchType(){
+    fetchSwitchType() {
         this.queryUtility.filter.done = !this.queryUtility.filter.done;
         this.queryUtility.fetch();
     }
