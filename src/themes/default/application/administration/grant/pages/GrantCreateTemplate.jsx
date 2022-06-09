@@ -166,7 +166,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         grantRequestId={grantRequestId}
                                     />}
 
-                                {charity && !charity.item.isActive ?
+                                {charity && !charity.isActive ?
                                     <div>
                                         {isChangedDefaultAddress &&
                                             <div className="card--secondary card--med u-mar--bottom--sml">
@@ -313,7 +313,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 
                             </div>
                         </div>
-                        {charity && !charity.item.isActive ? <div></div> :
+                        {charity && !charity.isActive ? <div></div> :
 
                             <div className="col col-sml-12 col-xxlrg-6">
                                 <div className="card--primary card--med u-mar--bottom--med">
