@@ -15,3 +15,4 @@ export { default as CharityPendingTabViewStore } from './CharityPendingTabViewSt
 export { default as CharityQuestionnaireAnswersViewStore } from './CharityQuestionnaireAnswersViewStore'
 export { default as CharityPaymentOptionsViewStore } from './CharityPaymentOptionsViewStore'
 export { default as SelectCharityViewStore } from './SelectCharityViewStore'
+export { default as CharityInvalidBankAccountListViewStore } from './CharityInvalidBankAccountListViewStore'
