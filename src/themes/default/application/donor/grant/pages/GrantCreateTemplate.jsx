@@ -348,9 +348,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 											</div>
 
 										</div>
-											<div className="u-mar--top--sml u-mar--bottom--sml type--right">
-												<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
-											</div>
+										<div className="u-mar--top--sml u-mar--bottom--sml type--right">
+											<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
+										</div>
 									</div>
 								}
 

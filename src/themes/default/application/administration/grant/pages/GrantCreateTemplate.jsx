@@ -306,8 +306,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
                                             </div>
                                     </div>}
-
-
                             </div>
                         </div>
                         {charity && (charity.item ? !charity.item.isActive : !charity.isActive) ? <div></div> :
