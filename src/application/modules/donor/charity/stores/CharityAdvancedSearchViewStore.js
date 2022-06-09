@@ -29,6 +29,7 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                         ];
                         //params.fields = ["isActive"];
                         params.advancedSearch = true;
+                        console.log(params);
                         const response = await service.search(params);
                         return response.data;
                     }
