@@ -56,7 +56,12 @@ class DonorService extends BaseService {
     const url = this.routeService.updateThirdPartyWebsiteSetting(resource);
     return this.apiClient.put(url, resource);
   }
-
+  updateOnlineGrantSetting(resource) {
+    const url = this.routeService.updateOnlineGrantSetting(resource);
+    console.log(resource);
+    console.log(url);
+    return this.apiClient.put(url, resource);
+  }
 
   updateCertificateSetting(resource) {
     const url = this.routeService.editCertificateSetting(resource);
@@ -67,7 +72,10 @@ class DonorService extends BaseService {
     const url = this.routeService.getThirdPartyWebsiteSetting(id);
     return this.apiClient.get(url);
   }
-
+  getOnlineGrantSetting(id) {
+    const url = this.routeService.getOnlineGrantSetting(id);
+    return this.apiClient.get(url);
+  }
   getDonorLoginProfile(id) {
     const url = this.routeService.getDonorLoginProfile(id);
     return this.apiClient.get(url);

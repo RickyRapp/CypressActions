@@ -72,12 +72,15 @@ class DonorRouteService extends BaseRouteService {
   getThirdPartyWebsiteSetting(id) {
     return super.get('third-party-website-setting/{id}', id);
   }
-
+  getOnlineGrantSetting(id) {
+    return super.get('donor-online-grant-setings/{id}', id);
+  }
   updateThirdPartyWebsiteSetting(resource) {
     return super.update('third-party-website-setting/{id}', resource);
   }
   updateOnlineGrantSetting(resource) {
-    return super.update('online-grant-setting/{id}', resource);
+    console.log(resource);
+    return super.update('donor-online-grant-setings/{id}', resource);
   }
   getAutomaticContributionSetting(id) {
     return super.get('automatic-contribution-setting/{id}', id);

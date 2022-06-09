@@ -5,66 +5,40 @@ import { applicationContext } from 'core/utils';
 
 @applicationContext
 class DonorOnlineGrantSettingViewStore extends BaseEditViewStore {
-     @observable microGiving = false;
+    @observable microGiving;
     constructor(rootStore) {
         super(rootStore, {
-            name: 'third-party-website-edit',
+            name: 'donor-online-grant-setting',
             id: rootStore.userStore.applicationUser.id,
             autoInit: false,
             actions: () => {
                 return {
                     update: async (resource) => {
-                        debugger;
+                        resource.isMicroGivingEnabled = this.microGiving;
                         await rootStore.application.donor.donorStore.updateOnlineGrantSetting(resource);
                     },
                     get: async (id) => {
-                        return rootStore.application.donor.donorStore.getThirdPartyWebsiteSetting(id);
+                        return rootStore.application.donor.donorStore.getOnlineGrantSetting(id);
                     }
                 }
             },
             onAfterAction: async () => {
                 await this.getResource(this.donorId);
-                this.onChangeIsEnabled();
                 rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE')
             },
             FormClass: DonorOnlineGrantSettingForm,
         });
-
         this.donorId = this.id;
-
+        this.fetchData();
     }
 
+    async fetchData() {
+        var response = await this.rootStore.application.donor.donorStore.getOnlineGrantSetting(this.donorId);
+        this.microGiving = response.isMicroGivingEnabled;
+    }
     @action.bound
-    setMicroGiving(){
+    setMicroGiving() {
         this.microGiving = !this.microGiving;
-    }
-
-    @action.bound
-    async onInit({ initialLoad }) {
-        this.form.$('isEnabled').value = true;
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                this.getResource(this.donorId),
-            ]);
-            this.form.$('isEnabled').value = true;
-            this.onChangeIsEnabled();
-        }
-    }
-
-    @action.bound
-    onChangeIsEnabled() {
-        this.form.$('grantAcknowledgmentTypeId').set('disabled', !this.form.$('isEnabled').value);
-        this.form.$('grantPurposeTypeId').set('disabled', !this.form.$('isEnabled').value);
-        this.form.$('maxAmount').set('disabled', !this.form.$('isEnabled').value);
-        this.form.$('maxTimesPerDay').set('disabled', !this.form.$('isEnabled').value);
-
-        this.form.$('grantAcknowledgmentTypeId').setRequired(this.form.$('isEnabled').value);
-        this.form.$('grantAcknowledgmentTypeId').resetValidation();
-        this.form.$('grantPurposeTypeId').setRequired(this.form.$('isEnabled').value);
-        this.form.$('grantPurposeTypeId').resetValidation();
     }
 
 }

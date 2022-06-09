@@ -37,7 +37,7 @@ class DonorStore {
         const response = await this.donorService.getThirdPartyWebsiteSetting(id, options);
         return response.data;
     }
-
+    
     async getCertificateSetting(id, options) {
         const response = await this.donorService.getCertificateSetting(id, options);
         return response.data;

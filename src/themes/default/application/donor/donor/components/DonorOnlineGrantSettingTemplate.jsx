@@ -17,7 +17,6 @@ const DonorOnlineGrantSettingTemplate = function ({ t, donorOnlineGrantSettingVi
         grantPurposeTypeDropdownStore,
         microGiving
     } = donorOnlineGrantSettingViewStore;
-
     return (
         <div>
             <EditFormContent form={form}

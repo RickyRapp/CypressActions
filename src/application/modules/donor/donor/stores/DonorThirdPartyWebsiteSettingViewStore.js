@@ -13,10 +13,10 @@ class DonorThirdPartyWebsiteSettingViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
-                        debugger;
                         await rootStore.application.donor.donorStore.updateThirdPartyWebsiteSetting(resource);
                     },
                     get: async (id) => {
+                  
                         return rootStore.application.donor.donorStore.getThirdPartyWebsiteSetting(id);
                     }
                 }
