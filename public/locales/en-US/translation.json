@@ -1880,6 +1880,7 @@
             "FIELDS": {
                 "AMOUNT_LABEL": "Gift amount",
                 "AMOUNT_PLACEHOLDER": "Min $100",
+                "AMOUNTWITHMICROGIVING_PLACEHOLDER": "Enter amount",
                 "CHARITY_LABEL": "Find a charity",
                 "CHARITY_PLACEHOLDER": "Search by charity name or tax ID",
                 "GRANT_PURPOSE_TYPE_LABEL": "Select Purpose",

@@ -12,6 +12,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable image = null;
 	@observable logo = null;
 	@observable charityId = null;
+	@observable MicroGivingValue;
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
 	@observable isChangedDefaultAddress = null;
@@ -115,6 +116,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			FormClass: GrantCreateForm,
 
 		});
+	
 
 		this.donorId = donorId;
 		this.grantStore = grantStore;
@@ -379,6 +381,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	async setAmount(value) {
 		if (value) {
+			
 			if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) {
 				//combined
 				this.form.$('grantAcknowledgmentTypeId').setDisabled(true);
@@ -510,6 +513,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@action.bound
 	async setDonor() {
 		this.donor = await this.grantStore.getDonorInformation(this.donorId);
+		var isMicroGivingEnabled = (await this.grantStore.getDonorInformation(this.donorId)).isMicroGivingEnabled;
+		this.MicroGivingValue = isMicroGivingEnabled;
+		
 		//const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
 		const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.donorId);
 		this.donor.availableBalance = dataDonor.presentBalance;

@@ -61,7 +61,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		//inputCharity,
 		//setInputValue,
 		logo,
-		image
+		image,
+		//setInputValue
+		MicroGivingValue
 	} = grantCreateViewStore;
 
 	// let counter = 0;
@@ -80,6 +82,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 	// 			counter = 0;
 	// 		}
 	// 	});
+
 	return (
 		<React.Fragment>
 			<EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>

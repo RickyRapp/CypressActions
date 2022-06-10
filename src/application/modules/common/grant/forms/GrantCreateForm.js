@@ -25,6 +25,15 @@ export default class GrantCreateForm extends FormBase {
 					},
 				},
 				{
+					name: 'amountWithMicroGiving',
+					label: 'GRANT.CREATE.FIELDS.AMOUNT_LABEL',
+					placeholder: 'GRANT.CREATE.FIELDS.AMOUNTWITHMICROGIVING_PLACEHOLDER',
+					rules: 'required|numeric',
+					extra: {
+						type: 'c2',
+					},
+				},
+				{
 					name: 'grantPurposeTypeId',
 					label: 'GRANT.CREATE.FIELDS.GRANT_PURPOSE_TYPE_LABEL',
 					placeholder: 'GRANT.CREATE.FIELDS.GRANT_PURPOSE_TYPE_PLACEHOLDER',
