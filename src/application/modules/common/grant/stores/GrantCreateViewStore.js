@@ -88,6 +88,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 								this.grantId = resultRec;
 
 							} else {
+								console.log(resource);
+								resource.isMicroGivingEnabled = this.MicroGivingValue;
 								var result = await this.grantStore.createGrant(resource);
 								this.grantId = result.response;
 							}
@@ -116,7 +118,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			FormClass: GrantCreateForm,
 
 		});
-	
+
 
 		this.donorId = donorId;
 		this.grantStore = grantStore;
@@ -335,7 +337,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				date: moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD'),
 				recurring: this.form.$('isRecurring').$value ? "Yes" : "No",
 				purpose: this.grantPurposeTypeDropdownStore.items.find(c => c.id === this.form.$('grantPurposeTypeId').value),
-				isChangedDefaultAddress: this.isChangedDefaultAddress
+				isChangedDefaultAddress: this.isChangedDefaultAddress,
+				isMicroGivingEnabled : this.MicroGivingValue
 			});
 		}
 	}
@@ -381,30 +384,37 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	async setAmount(value) {
 		if (value) {
-			
-			if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) {
-				//combined
-				this.form.$('grantAcknowledgmentTypeId').setDisabled(true);
-				this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
-				this.grantAcknowledgmentTypeDropdownStore.setValue(
-					this.grantAcknowledgmentTypes.find(
-						item => item.id === this.applicationDefaultSetting.grantAcknowledgmentTypeId
-					)
-				);
-
-				this.form.$('grantPurposeTypeId').setDisabled(true);
-				this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
-				this.grantPurposeTypeDropdownStore.setValue(
-					this.grantPurposeTypes.find(item => item.id === this.applicationDefaultSetting.grantPurposeTypeId)
-				);
-
-				this.form.$('grantAcknowledgmentTypeId').validate({ showErrors: true });
-				this.form.$('grantPurposeTypeId').validate({ showErrors: true });
-			} else {
-				//regular
-				this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
-				this.form.$('grantPurposeTypeId').setDisabled(false);
+			if(!this.MicroGivingValue){
+				if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) {
+					//combined
+					this.form.$('grantAcknowledgmentTypeId').setDisabled(true);
+					this.form.$('grantAcknowledgmentTypeId').set(this.applicationDefaultSetting.grantAcknowledgmentTypeId);
+					this.grantAcknowledgmentTypeDropdownStore.setValue(
+						this.grantAcknowledgmentTypes.find(
+							item => item.id === this.applicationDefaultSetting.grantAcknowledgmentTypeId
+						)
+					);
+	
+					this.form.$('grantPurposeTypeId').setDisabled(true);
+					this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
+					this.grantPurposeTypeDropdownStore.setValue(
+						this.grantPurposeTypes.find(item => item.id === this.applicationDefaultSetting.grantPurposeTypeId)
+					);
+	
+					this.form.$('grantAcknowledgmentTypeId').validate({ showErrors: true });
+					this.form.$('grantPurposeTypeId').validate({ showErrors: true });
+				} else {
+					//regular
+					this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
+					this.form.$('grantPurposeTypeId').setDisabled(false);
+				}
 			}
+			else{
+				this.amountWithFee = true;
+				this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
+					this.form.$('grantPurposeTypeId').setDisabled(false);
+			}
+			
 		} else {
 			this.amountWithFee = null;
 			this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
@@ -515,7 +525,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.donor = await this.grantStore.getDonorInformation(this.donorId);
 		var isMicroGivingEnabled = (await this.grantStore.getDonorInformation(this.donorId)).isMicroGivingEnabled;
 		this.MicroGivingValue = isMicroGivingEnabled;
-		
+		console.log(this.MicroGivingValue);
+
 		//const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
 		const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.donorId);
 		this.donor.availableBalance = dataDonor.presentBalance;
