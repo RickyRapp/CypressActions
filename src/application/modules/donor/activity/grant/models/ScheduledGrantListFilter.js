@@ -11,7 +11,7 @@ class ScheduledGrantListFilter extends FilterParams {
     @observable paymentTypeIds;
     @observable dollarRange;
     @observable charityId;
-
+    @observable done;
     constructor(orderBy, orderDirection) {
         super();
         this.reset();
@@ -31,6 +31,7 @@ class ScheduledGrantListFilter extends FilterParams {
         this.paymentTypeIds = null;
         this.dollarRange = null;
         this.charityId = null;
+        this.done = false;
     }
 }
 

@@ -1,10 +1,12 @@
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, DateRangeQueryPickerStore, BaasicDropdownStore } from 'core/stores';
 import { charityFormatter } from 'core/utils';
 import { ScheduledGrantListFilter } from 'application/donor/activity/grant/models';
 import moment from 'moment'
 
 class ScheduledGrantViewStore extends BaseListViewStore {
+    @observable summaryData = null;
+    @observable upcomingGrants = 0;
     constructor(rootStore) {
         super(rootStore, {
             name: 'scheduled-grant',
@@ -14,8 +16,8 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                     this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-edit', { id: id });
                 },
                 preview: (editId) => {
-					this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-preview', { id: editId });
-				}
+                    this.rootStore.routerStore.goTo('master.app.main.donor.grant.scheduled-preview', { id: editId });
+                }
             },
             queryConfig: {
                 filter: new ScheduledGrantListFilter('dateCreated', 'desc'),
@@ -33,6 +35,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'charity',
                             'grantScheduleType'
                         ];
+                        
                         params.fields = [
                             'id',
                             'charity',
@@ -47,8 +50,17 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                             'endDate',
                             'noEndDate',
                             'numberOfPayments',
-                            'remainingNumberOfPayments'
+                            'remainingNumberOfPayments',
+                            'totalMoneyGivenThisYear'
                         ]
+
+                       	this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
+							donorId: this.donorId,
+							...params,
+						});
+                        
+                        let upcoming = (await this.rootStore.application.donor.grantStore.getDonorInformation(this.donorId)).upcomingGrantsThisYear;
+                        this.upcomingGrants = upcoming ? upcoming : 0;
 
                         return rootStore.application.donor.grantStore.findScheduledGrant({ donorId: this.donorId, ...params });
                     }
@@ -57,43 +69,51 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
-
+        console.log("Query", this.queryUtility);
         this.createTableStore();
         this.createCharityDropdownStore();
+        this.queryUtility.filter.done = false;
+
 
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
 
+    @action.bound
+    fetchSwitchType() {
+        this.queryUtility.filter.done = !this.queryUtility.filter.done;
+        this.queryUtility.fetch();
+    }
+
     createCharityDropdownStore() {
-		this.charityDropdownStore = new BaasicDropdownStore(
-			{
-				placeholder: 'DONATION.PAST_GRANT.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
-				initFetch: false,
-				filterable: true,
-			},
-			{
-				fetchFunc: async searchQuery => {
-					const data = await this.rootStore.application.donor.grantStore.searchCharity({
-						pageNumber: 1,
-						pageSize: 10,
-						search: searchQuery,
-						sort: 'name|asc',
-						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
-					});
-					return data.item.map(x => {
-						return {
-							id: x.id,
-							name: charityFormatter.format(x, { value: 'charity-name-display' }),
-						};
-					});
-				},
-				onChange: charityId => {
-					this.queryUtility.filter.charityId = charityId;
-				},
-			}
-		);
-	}
+        this.charityDropdownStore = new BaasicDropdownStore(
+            {
+                placeholder: 'DONATION.PAST_GRANT.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
+                initFetch: false,
+                filterable: true,
+            },
+            {
+                fetchFunc: async searchQuery => {
+                    const data = await this.rootStore.application.donor.grantStore.searchCharity({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: ['charityAddresses'],
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary'],
+                    });
+                    return data.item.map(x => {
+                        return {
+                            id: x.id,
+                            name: charityFormatter.format(x, { value: 'charity-name-display' }),
+                        };
+                    });
+                },
+                onChange: charityId => {
+                    this.queryUtility.filter.charityId = charityId;
+                },
+            }
+        );
+    }
 
     createTableStore() {
         this.setTableStore(new TableViewStore(this.queryUtility, {
@@ -126,14 +146,14 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                         value: 'short'
                     }
                 },
-                {
-                    key: 'done',
-                    title: 'SCHEDULED_GRANT.LIST.COLUMNS.DONE_LABEL',
-                    format: {
-                        type: 'boolean',
-                        value: 'yes-no'
-                    }
-                },
+                // {
+                //     key: 'done',
+                //     title: 'SCHEDULED_GRANT.LIST.COLUMNS.DONE_LABEL',
+                //     format: {
+                //         type: 'boolean',
+                //         value: 'yes-no'
+                //     }
+                // },
                 {
                     key: 'dateCreated',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.DATE_CREATED_LABEL',

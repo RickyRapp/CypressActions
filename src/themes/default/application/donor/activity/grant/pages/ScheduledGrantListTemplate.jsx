@@ -1,45 +1,103 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicButton, BaasicTable, BaasicDropdown, DateRangeQueryPicker, BaasicInput, TableFilter, EmptyState } from 'core/components';
+import { BaasicButton, BaasicTable, BaasicDropdown, DateRangeQueryPicker, BaasicInput, TableFilter, EmptyState, FormatterResolver } from 'core/components';
 import EmptyIcon from 'themes/assets/img/building-modern.svg';
 import { isSome } from 'core/utils';
 import { Content } from 'core/layouts';
+import { BaasicSwitchTemplate } from 'themes/components';
+
 
 const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
-	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore } = scheduledGrantViewStore;
-
+	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore, fetchSwitchType, summaryData, upcomingGrants } = scheduledGrantViewStore;
+	console.log("Summary", summaryData);
 	return (
 		<Content emptyRenderer={renderEmpty(routes)}>
-			<div className="card--tertiary card--med u-mar--bottom--sml">
-				<div className="u-mar--bottom--med">
-					<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}>
-						{<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicDropdown store={charityDropdownStore} />
-						</div>}
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicInput
-								id="dollarRange"
-								value={queryUtility.filter.dollarRange || ''}
-								onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
-								placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
-							/>
-						</div>
-						{<div className="col col-sml-12 u-mar--bottom--sml">
-							<div className="row row--form">
-								<div className="col col-sml-12 col-lrg-8">
-									<DateRangeQueryPicker
-										queryUtility={queryUtility}
-										store={dateCreatedDateRangeQueryStore}
-										fromPropertyName="dateCreatedFrom"
-										toPropertyName="dateCreatedTo"
+			<div className="row row--form">
+				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
+					<div className="card--primary card--med">
+						<div className="u-mar--bottom--med">
+							<TableFilter
+								colClassName={"col col-sml-12 col-lrg-8"}
+								queryUtility={queryUtility}
+								secondColClassName={"col col-sml-12 col-lrg-4"}
+								additionalComponent={
+									<BaasicSwitchTemplate secondarySwitch firstLabel={"Finished"} secondLabel={"Active"} value={queryUtility.filter.done}
+										onChange={() => { fetchSwitchType() }} />
+								}
+							>
+								{<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown store={charityDropdownStore} />
+								</div>}
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="dollarRange"
+										value={queryUtility.filter.dollarRange || ''}
+										onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+										placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
 									/>
 								</div>
-							</div>
-						</div>}
-					</TableFilter>
+								{<div className="col col-sml-12 u-mar--bottom--sml">
+									<div className="row row--form">
+										<div className="col col-sml-12 col-lrg-8">
+											<DateRangeQueryPicker
+												queryUtility={queryUtility}
+												store={dateCreatedDateRangeQueryStore}
+												fromPropertyName="dateCreatedFrom"
+												toPropertyName="dateCreatedTo"
+											/>
+										</div>
+									</div>
+								</div>}
+							</TableFilter>
+						</div>
+						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+					</div>
 				</div>
-				<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+				<div className="col col-sml-12 col-xxxlrg-4 u-mar--bottom--med">
+					<div className={`card--primary card--med ${!summaryData && "fullheight"}`}>
+						<h4 className="type--med type--wgt--medium u-mar--bottom--med">
+							Summary
+						</h4>
+						{summaryData ? (
+							<React.Fragment>
+								<div className="summary__wrapper">
+									<div className="summary__card summary__card--primary">
+										<div className="summary__card__amount summary__card__amount--secondary--primary">
+											{summaryData && (
+												<FormatterResolver
+													item={{ amount: summaryData.totalMoneyGivenThisYear }}
+													field="amount"
+													format={{ type: 'currency' }}
+												/>
+											)}
+											<p className="type--xsml type--wgt--medium type--color--text">Total money given this year</p>
+										</div>
+									</div>
+
+									<div className="summary__card summary__card--secondary">
+										<div className="summary__card__amount summary__card__amount--secondary">
+											{summaryData && (
+												<FormatterResolver
+													item={{ amount: upcomingGrants }}
+													field="amount"
+													format={{ type: 'currency' }}
+												/>
+											)}
+											<p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming this year</p>
+										</div>
+									</div>
+								</div>
+							</React.Fragment>
+						) : (
+							<div className="card--med">
+								<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
+							</div>
+						)}
+					</div>
+				</div>
+					
+
 			</div>
 		</Content>
 	);
