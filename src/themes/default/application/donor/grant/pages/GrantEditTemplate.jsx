@@ -48,13 +48,16 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 		isAdvancedInput,
 		debouncedSearchCharities,
         logo,
-        image
+        image,
+        MicroGivingValue,
+        isMicroGiving,
+        checkMicroGiving
     } = grantEditViewStore;
 
     let promiseOptions = (inputValue) =>
-	new Promise(resolve => {
-			inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
-	});
+        new Promise(resolve => {
+            inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
+        });
 
     return (
         <React.Fragment>
@@ -167,7 +170,9 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                        <NumericInputField field={form.$('amount')} />
+                                        <NumericInputField field={form.$('amount')} onChange={checkMicroGiving} />
+                                        {isMicroGiving && <span className="validation__message validation__message--note" >Micro giving ($2.5 fee) </span>}
+
                                     </div>
                                 </div>
                                 <div className="row row--form">

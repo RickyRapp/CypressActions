@@ -12,6 +12,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable image = null;
 	@observable logo = null;
 	@observable charityId = null;
+	@observable isMicroGiving = false;
 	@observable MicroGivingValue;
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
@@ -135,6 +136,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.createPreviousGrantsTableStore();
 		this.createSimilarGrantsTableStore();
 		this.createConfirmModalParams();
+		this.checkMicroGiving();
 		this.advancedSearchModal = new ModalParams({});
 	}
 
@@ -279,6 +281,18 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
+	checkMicroGiving() {
+		if (this.MicroGivingValue) {
+			this.form.$('amount').set('rules', 'required|numeric|min:0');
+			if (this.form.$('amount').value < 100) {
+				this.isMicroGiving = true;
+			}
+			else {
+				this.isMicroGiving = false;
+			}
+		}
+	}
+	@action.bound
 	onChangeEndDate(value) {
 		if (value) {
 			this.form.$('numberOfPayments').setDisabled(true);
@@ -314,6 +328,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	//#region MODAL
 	@action.bound
 	async onSubmitClick() {
+		if (this.MicroGivingValue) {
+			this.form.$('amount').set('rules','required|numeric|min:0');
+		}
 		if (this.form.$('amount').value > this.donor.availableBalance + this.donor.lineOfCredit && moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')) {
 			const { modalStore } = this.rootStore;
 			modalStore.showConfirm((`Insufficient funds! Deposit new funds?`), async () => {
@@ -338,7 +355,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				recurring: this.form.$('isRecurring').$value ? "Yes" : "No",
 				purpose: this.grantPurposeTypeDropdownStore.items.find(c => c.id === this.form.$('grantPurposeTypeId').value),
 				isChangedDefaultAddress: this.isChangedDefaultAddress,
-				isMicroGivingEnabled : this.MicroGivingValue
+				isMicroGivingEnabled: this.MicroGivingValue
 			});
 		}
 	}
@@ -384,7 +401,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	async setAmount(value) {
 		if (value) {
-			if(!this.MicroGivingValue){
+			if (!this.MicroGivingValue) {
 				if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) {
 					//combined
 					this.form.$('grantAcknowledgmentTypeId').setDisabled(true);
@@ -394,13 +411,13 @@ class GrantCreateViewStore extends BaseEditViewStore {
 							item => item.id === this.applicationDefaultSetting.grantAcknowledgmentTypeId
 						)
 					);
-	
+
 					this.form.$('grantPurposeTypeId').setDisabled(true);
 					this.form.$('grantPurposeTypeId').set(this.applicationDefaultSetting.grantPurposeTypeId);
 					this.grantPurposeTypeDropdownStore.setValue(
 						this.grantPurposeTypes.find(item => item.id === this.applicationDefaultSetting.grantPurposeTypeId)
 					);
-	
+
 					this.form.$('grantAcknowledgmentTypeId').validate({ showErrors: true });
 					this.form.$('grantPurposeTypeId').validate({ showErrors: true });
 				} else {
@@ -409,12 +426,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 					this.form.$('grantPurposeTypeId').setDisabled(false);
 				}
 			}
-			else{
+			else {
 				this.amountWithFee = true;
 				this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
-					this.form.$('grantPurposeTypeId').setDisabled(false);
+				this.form.$('grantPurposeTypeId').setDisabled(false);
 			}
-			
+
 		} else {
 			this.amountWithFee = null;
 			this.form.$('grantAcknowledgmentTypeId').setDisabled(false);
@@ -525,11 +542,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.donor = await this.grantStore.getDonorInformation(this.donorId);
 		var isMicroGivingEnabled = (await this.grantStore.getDonorInformation(this.donorId)).isMicroGivingEnabled;
 		this.MicroGivingValue = isMicroGivingEnabled;
-		if(this.MicroGivingValue){
+		if (this.MicroGivingValue) {
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
 		}
-		console.log(this.MicroGivingValue);
-
 		//const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
 		const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.donorId);
 		this.donor.availableBalance = dataDonor.presentBalance;
@@ -659,8 +674,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	amountRules() {
 		if (moment(this.form.$('startFutureDate').$value).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD'))
 			this.form.$('amount').set('rules', `${this.form.$('amount').rules}|max:${(this.donor.presentBalance + this.donor.lineOfCredit) < 0 ? 0 : (this.donor.presentBalance + this.donor.lineOfCredit)}`);
-		else
+		else {
 			this.form.$('amount').set('rules', 'required|numeric|min:100');
+		}
 	}
 	createCharityDropdownStore() {
 		this.charityDropdownStore = new BaasicDropdownStore(

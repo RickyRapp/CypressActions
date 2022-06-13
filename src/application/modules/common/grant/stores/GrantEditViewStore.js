@@ -11,6 +11,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable charityId = null;
 	@observable image = null;
 	@observable logo = null;
+	@observable donorId;
+	@observable MicroGivingValue;
+	@observable isMicroGiving;
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
 	@observable isChangedDefaultAddress = null;
@@ -20,7 +23,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	grantPurposeTypes = [];
 	@observable asyncPlaceholder = '';
 	@observable isAdvancedInput = false;
-	debouncedSearchCharities =  _.debounce(this.filterCharities, 500);
+	debouncedSearchCharities = _.debounce(this.filterCharities, 500);
 	@observable charity = null;
 
 	constructor(rootStore, { grantStore }) {
@@ -32,7 +35,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				return {
 					update: async resource => {
 						resource.donorId = this.item.donorId;
-
 						if (resource.isNewCharity) {
 							const charity = {
 								name: resource.charityName,
@@ -60,6 +62,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						await this.grantStore.updateGrant(resource);
 					},
 					get: async id => {
+						var response = await this.grantStore.getGrant(id, { embed: 'donationStatus,charity,charity.charityAddresses,charity.charityBankAccounts' });
+						this.donorId = response.donorId;
+						this.getDonor();
+
 						return this.grantStore.getGrant(id, { embed: 'donationStatus,charity,charity.charityAddresses,charity.charityBankAccounts' });
 					},
 				};
@@ -75,7 +81,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.createGrantAcknowledgmentTypeDropdownStore();
 		this.createPreviousGrantsTableStore();
 		this.createSimilarGrantsTableStore();
-
+		this.checkMicroGiving();
 		this.advancedSearchModal = new ModalParams({});
 	}
 	@action.bound
@@ -86,6 +92,28 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	async getImage() {
 		this.image = await this.rootStore.application.charity.charityStore.getCharityMedia(this.charityId, 'photo');
 	}
+	async getDonor() {
+		var isMicroGivingEnabled = (await this.grantStore.getDonorInformation(this.donorId)).isMicroGivingEnabled;
+		this.MicroGivingValue = isMicroGivingEnabled;
+		console.log(this.MicroGivingValue);
+		this.checkMicroGiving();
+		if (this.MicroGivingValue) {
+			this.form.$('amount').set('rules', 'required|numeric|min:0');
+		}
+	}
+	@action.bound
+	checkMicroGiving() {
+
+		if (this.MicroGivingValue) {
+			if (this.form.$('amount').value < 100) {
+				this.isMicroGiving = true;
+			}
+			else {
+				this.isMicroGiving = false;
+			}
+		}
+	}
+
 	@action.bound
 	async onInit({ initialLoad }) {
 		if (!initialLoad) {
@@ -102,7 +130,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			});
 			this.asyncPlaceholder = charityFormatter.format(this.item.charity, { value: 'charity-name-display' });
 			this.isAdvancedInput = true;
-			
+
 			this.setGrantAcknowledgmentName(this.form.$('grantAcknowledgmentTypeId').value);
 			this.setPreviousGrantTable(this.item.charityId);
 			this.setSimilarGrantTable(this.item.grantPurposeTypeId);
@@ -152,7 +180,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-	async filterCharities(inputValue, resolve ) {
+	async filterCharities(inputValue, resolve) {
 		const data = await this.grantStore.searchCharity({
 			pageNumber: 1,
 			pageSize: 10,
@@ -170,7 +198,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		});
 		let options = [];
 		mapped.forEach(item => {
-			options.push({value: item.id, label:item.name, item: item.item});
+			options.push({ value: item.id, label: item.name, item: item.item });
 		});
 		this.filteredCharities = options;
 		return resolve(options);
@@ -178,22 +206,22 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	setCharityId(id) {
-		
+
 		this.isAdvancedInput = false;
 		this.form.$('charityId').set(id);
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
 		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
 
-		if(charity && charity.item) {
+		if (charity && charity.item) {
 			this.charityDropdownStore.setValue({
 				id: charity.value,
 				name: charity.label,
 				item: charity.item,
 			});
 		}
-		
-		if(charity && charity.item && charity.item.charityAddresses) {
+
+		if (charity && charity.item && charity.item.charityAddresses) {
 			this.setAddress(charity && charity.item && charity.item.charityAddresses.find(c => c.isPrimary));
 		} else {
 			this.setAddress(charity && charity.item);

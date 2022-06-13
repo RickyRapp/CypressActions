@@ -63,7 +63,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		logo,
 		image,
 		//setInputValue
-		MicroGivingValue
+		MicroGivingValue,
+		checkMicroGiving,
+		isMicroGiving
 	} = grantCreateViewStore;
 
 	// let counter = 0;

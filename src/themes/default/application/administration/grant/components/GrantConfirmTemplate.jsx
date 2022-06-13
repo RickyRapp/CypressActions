@@ -38,11 +38,11 @@ function GrantConfirmTemplate({ modalParams, t, microGiving }) {
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount--secondary">{charity && charity.item && charity.item ? charity.item.name : (charity && typeof charity.item == 'undefined' ? charity.name : <div><b>{form.$('charityName').value}</b><span>&nbsp;(new)</span></div>)}</div>
             </section>
-
-            {microGiving && <section className="modal__list u-mar--bottom--med">
+            
+            {amount < 100 && microGiving && <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.ADDITIONAL_FEE')}</div>
                 <div className="modal__list__divider"></div>
-                <div className="modal__list__amount--secondary">$2.9</div>
+                <div className="modal__list__amount--secondary">$2.50</div>
             </section>}
 
             <section className="modal__list u-mar--bottom--med">
