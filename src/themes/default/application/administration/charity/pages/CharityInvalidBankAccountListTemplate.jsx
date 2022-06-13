@@ -7,7 +7,12 @@ import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
 
 const CharityInvalidBankAccountListTemplate = function({ charityInvalidBankAccountListViewStore }) {
-	const { tableStore, routes, queryUtility, authorization } = charityInvalidBankAccountListViewStore;
+	const { 
+		tableStore,
+		routes,
+		queryUtility,
+		authorization 
+	} = charityInvalidBankAccountListViewStore;
 
 	return (
 		<ApplicationListLayout store={charityInvalidBankAccountListViewStore} authorization={authorization}>

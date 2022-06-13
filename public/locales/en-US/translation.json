@@ -1094,7 +1094,7 @@
             "TAB" : {
                 "ALL_CHARITY": "All Charities",
                 "PENDING_CHARITY" : "Pending Charities",
-                "PENDING_BANK_ACCOUNT" : "Pending Bank Account"
+                "PENDING_ONLINE_USERS" : "Pending Online Users"
             },
             "COLUMNS": {
                 "NAME_LABEL": "Name",

@@ -19,7 +19,7 @@ function CharityListTabTemplate({ charityListTabViewStore, rootStore }) {
                     <div label={'CHARITY.LIST.TAB.PENDING_CHARITY'} className="u-mar--top--sml layout--nested">
                         <CharityPendingList />
                     </div>
-                    <div label={'CHARITY.LIST.TAB.PENDING_BANK_ACCOUNT'} className="u-mar--top--sml layout--nested">
+                    <div label={'CHARITY.LIST.TAB.PENDING_ONLINE_USERS'} className="u-mar--top--sml layout--nested">
                         <CharityInvalidBankAccountList />
                     </div>
                 </TabLayout>
