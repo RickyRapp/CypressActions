@@ -12,3 +12,5 @@ export { default as CharityBankAccountListViewStore } from './CharityBankAccount
 export { default as CharityUploadPhotoViewStore } from './CharityUploadPhotoViewStore'
 export { default as CharityCommunicationPreferenceViewStore } from './CharityCommunicationPreferenceViewStore'
 export { default as CharityVerificationViewStore } from './CharityVerificationViewStore'
+export { default as CharityVerificationTabViewStore } from './CharityVerificationTabViewStore'
+export { default as CharityFileVerificationViewStore } from './CharityFileVerificationViewStore'

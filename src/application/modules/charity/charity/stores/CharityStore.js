@@ -96,6 +96,11 @@ class CharityStore {
         const response = await this.charityService.update(resource);
         return response.data;
     }
+    
+    async updateCharityVerificationDocument(resource) {
+        const response = await this.charityService.updateCharityVerificationDocument(resource);
+        return response.data;
+    }
 
     async updateCharityAddress(resource) {
         const response = await this.charityAddressService.update(resource);
@@ -124,6 +129,11 @@ class CharityStore {
 
     async uploadBankAccount(file, charityId, bankAccountId) {
         const response = await this.fileStreamService.uploadCharityBankAccount(file, charityId, bankAccountId);
+        return response.data;
+    }
+
+    async uploadCharityVerificationDocument(file, charityId) {
+        const response = await this.fileStreamService.uploadCharityVerificationDocument(file, charityId);
         return response.data;
     }
 

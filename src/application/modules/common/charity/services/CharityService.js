@@ -52,6 +52,11 @@ class CharityService extends BaseService {
         return this.apiClient.put(url, id);
     }
 
+    updateCharityVerificationDocument(resource){
+        const url = this.routeService.updateCharityVerificationDocument(resource);
+        return this.apiClient.put(url, resource);
+    }
+
     taxIdExists(taxId) {
         const url = this.routeService.taxIdExists(taxId);
         return this.apiClient.get(url);

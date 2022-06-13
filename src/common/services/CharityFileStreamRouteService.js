@@ -29,6 +29,10 @@ class CharityFileStreamRouteService extends BaseRouteService {
         return super.create(this.base + '/{charityId}/bank-account/{id}/{filename}/', { charityId: charityId, id: bankAccountId, filename: filename });
     }
 
+    uploadCharityVerificationDocument(charityId, filename) { 
+        return super.create(this.base + '/{charityId}/verification-document/{filename}/', { charityId: charityId, filename: filename });
+    }
+
     uploadCharityMedia(charityId, filename, mediaType) {
         return super.create(this.base + '/{charityId}/media-gallery/{filename}/{mediaType}/{?embed}', { charityId: charityId, filename: filename, mediaType: mediaType });
     }

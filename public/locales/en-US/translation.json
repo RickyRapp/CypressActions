@@ -1072,6 +1072,13 @@
     "CHARITY_WITHDRAW": {
         "TAB_TITLE": "Charity Withdraw"
     },
+    "CHARITY_VERIFICATION":{
+        "TAB":{
+            "PLAID": "Verify using Plaid",
+            "BANK_ACCOUNT": "Create bank account",
+            "DOCUMENT": "Verfiy by uploading document"
+        }
+    },
     "CHARITY": {
         "TAB": {
             "GENERAL_DATA": "General data",
