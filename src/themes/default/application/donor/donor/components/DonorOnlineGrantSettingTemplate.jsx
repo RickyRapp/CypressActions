@@ -7,6 +7,7 @@ import {
     BaasicFormControls,
     BaasicToggle,
 } from 'core/components'
+import ReactTooltip from 'react-tooltip';
 
 const DonorOnlineGrantSettingTemplate = function ({ t, donorOnlineGrantSettingViewStore }) {
     const {
@@ -26,7 +27,11 @@ const DonorOnlineGrantSettingTemplate = function ({ t, donorOnlineGrantSettingVi
                 <h3 className="list--preferences__title">{t('DONOR.ONLINE_GRANT.TITLE')}</h3>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label is-dropdown">Enable micro giving </div>
+                    <div className="list--preferences__label is-dropdown">Enable micro giving   <span data-tip={`Micro giving allows you to give under $100. Every transaction fee is $2,50.`} data-type="info" style={{ cursor: 'pointer' }}>
+                        <i className="u-icon u-icon--base u-icon--info--link u-mar--left--tny"></i>
+                        <ReactTooltip />
+                    </span></div>
+                  
                     <div className="list--preferences__dd">
                         <BaasicToggle wrapperClassName="u-display--flex u-display--flex--column u-display--flex--align--end" showLabel={false} value={microGiving} onChange={()=>setMicroGiving()} />
                     </div>

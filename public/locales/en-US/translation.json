@@ -1760,7 +1760,8 @@
             "RECURRING" : "Recurring Grant?",
             "SCHEDULED_DATE" : "Scheduled Date",
             "PURPOSE" : "Purpose",
-            "ALT_ADDRESS": "Alternative Address Fee"
+            "ALT_ADDRESS": "Alternative Address Fee",
+            "ADDITIONAL_FEE" : "Additional fee"
         },
         "TAB": {
             "LIST": "Grants",
@@ -1879,7 +1880,7 @@
             },
             "FIELDS": {
                 "AMOUNT_LABEL": "Gift amount",
-                "AMOUNT_PLACEHOLDER": "Min $100",
+                "AMOUNT_PLACEHOLDER": "Enter amount",
                 "AMOUNTWITHMICROGIVING_PLACEHOLDER": "Enter amount",
                 "CHARITY_LABEL": "Find a charity",
                 "CHARITY_PLACEHOLDER": "Search by charity name or tax ID",

@@ -587,7 +587,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 				<GrantConfirmDetailsTemplate form={form} />
 			</BaasicModal> */}
 			<BaasicModal modalParams={confirmModal}>
-				<GrantConfirmTemplate form={form} />
+				<GrantConfirmTemplate form={form} microGiving={MicroGivingValue} />
 			</BaasicModal>
 			<BaasicModal modalParams={advancedSearchModal}>
 				<CharityAdvancedSearch onSelected={onCharitySelected} showSearch={false} expanded={true} />

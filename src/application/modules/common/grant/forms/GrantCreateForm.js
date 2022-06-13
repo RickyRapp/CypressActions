@@ -19,16 +19,9 @@ export default class GrantCreateForm extends FormBase {
 					name: 'amount',
 					label: 'GRANT.CREATE.FIELDS.AMOUNT_LABEL',
 					placeholder: 'GRANT.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
-					rules: 'required|numeric',
+					rules: 'required|numeric|min:100',
 					extra: {
 						type: 'c2',
-					},
-					handlers:{
-						onChange: (fields) => (event) => {
-							console.log("Micro", fields.container().$('isMicroGivingEnabled').value);
-							console.log(fields);
-							console.log(event);
-						}
 					},
 				},
 				{
