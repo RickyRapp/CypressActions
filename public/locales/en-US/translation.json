@@ -1202,7 +1202,8 @@
         "EDIT": {
             "TITLE": "Edit charity",
             "BUTTON": {
-                "WITHDRAW_FUNDS": "Withdraw Funds"
+                "WITHDRAW_FUNDS": "Withdraw Funds",
+                "VERIFY_USER_ACCOUNT": "Verify charity online account"
             },
             "FIELDS": {
                 "TITLE": "General data",
@@ -1259,7 +1260,8 @@
                 "CHARITY_ACCOUNT_NUMBER": "Account Number: ",
                 "CHARITY_API_KEY" : "Api Key: ",
                 "CHARITY_QR_CODE" : "QR Code: ",
-                "CHARITY_VERIFICATION_DOCUMENT" : "Charity verification document: "
+                "CHARITY_VERIFICATION_DOCUMENT" : "Charity verification document: ",
+                "CHARITY_USER_VERIFICATION_DOCUMENT" : "Charity user verification document: "
             }
         },
         "WITHDRAW_FUND": {

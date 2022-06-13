@@ -28,7 +28,8 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         openWithdrawFundModalClick,
         regenerateApiKey,
         copyToClipboard,
-        url
+        url,
+        verifyCharityUserAccount
     } = charityGeneralDataViewStore;
 
     return (
@@ -157,6 +158,28 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                             disabled={true}
                                         />}
                                     </div>
+                                    <div className="col col-sml-12 col-lrg-4">
+                                        {item && item.userVerificatioDocumentId &&
+                                            <div>
+                                                <label className="type--color--opaque">
+                                                    {t('CHARITY.EDIT.FIELDS.CHARITY_USER_VERIFICATION_DOCUMENT')}
+                                                </label>
+                                                <br></br>
+                                                <a href={url+item.userVerificatioDocumentId} target="_blank" className="type--wgt--bold">{item.userVerificatioDocumentName}</a>
+                                            </div>
+                                        }
+                                    </div>
+                                    {item && item.coreUsername &&
+                                        <div className="col col-sml-12 col-lrg-4">
+                                            <BaasicButton
+                                                authorization={'theDonorsFundAdministrationSection.update'}
+                                                className="btn btn--med btn--primary"
+                                                label="CHARITY.EDIT.BUTTON.VERIFY_USER_ACCOUNT"
+                                                onClick={verifyCharityUserAccount}
+                                            />
+                                        </div>
+                                    }
+                                    
                                 </div>
                             </div>
                         </div>

@@ -98,6 +98,7 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
         }
         var response = await this.rootStore.application.charity.charityStore.updateCharityVerificationDocument({ id: this.charityId, userVerificationDocumentId: userVerificationDocumentId });
         if(response.statusCode === 200){
+            window.location.reload();
             this.rootStore.notificationStore.success('Successfully uploaded verification document');
         }else{
             this.rootStore.notificationStore.success('There was a problem uploading a file');

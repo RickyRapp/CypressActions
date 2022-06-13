@@ -84,6 +84,10 @@ class CharityRouteService extends BaseRouteService {
     createOnlineAccount(resource) {
         return super.create(this.base + '/create-online-account/{id}', resource);
     }
+
+    verifyCharityUserAccount(id){
+        return super.update(this.base + '/verify-user-account/{id}', {id: id});
+    }
 }
 
 export default CharityRouteService;
