@@ -59,22 +59,23 @@ const RestaurantEditForm = props => {
            }
          ); 
         
-          const newRestaurant = await fetch(`https://restaurant-selections.herokuapp.com/restaurants/${id}`, {  
-          method:'PATCH',
-          headers: {"content-type":"application/json"}, 
-          body: JSON.stringify(newRestaurantsInfo) 
-    })
      try{
+            const newRestaurant = await fetch(`https://restaurant-selections.herokuapp.com/restaurants/${id}`, {  
+            method:'PATCH',
+            headers: {"content-type":"application/json"}, 
+            body: JSON.stringify(newRestaurantsInfo) 
+            })
             //await newCategory();
             setRestaurantName(""); 
             setRestaurantAddress("");  
-            setMessage("updated successfully");
+            //setMessage("updated successfully");
             setShowButton(true)            
             const response = await axios
             .get('https://restaurant-selections.herokuapp.com/restaurants') 
             .catch((err) => {
                 console.log("err",err)
             })
+            console.log(response.data)
             setRestaurant(response.data);
         } 
         catch (err){

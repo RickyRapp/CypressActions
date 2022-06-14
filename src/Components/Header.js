@@ -13,6 +13,8 @@ const Header = props => {
         dispatch(selectLoggedIn({type: 'LOGGED_IN', payload: newLoggedInAs}))
     })  
 
+    console.log(props.currentLoggedInAs)
+
     return(  
         <div style={{textAlign:'center'}}>   
             <br />

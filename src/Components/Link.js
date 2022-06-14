@@ -7,8 +7,8 @@ const Link = ({ className, loginType, href, children }) => {
   const currentPath = window.location.pathname.slice(1)
   const dispatch = useDispatch();
   const loggedState = useSelector(state => state.currentLoggedInAs) 
-  const newLoggedInAs = !loginType && currentPath ? currentPath : loginType 
- 
+ // const newLoggedInAs = !loginType && currentPath ? currentPath : loginType 
+ const newLoggedInAs = loginType
 
   const navigatePage = (event) => { 
     event.preventDefault();
