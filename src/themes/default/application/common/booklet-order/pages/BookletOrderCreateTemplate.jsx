@@ -386,9 +386,13 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     <div className="row row--form">
                                         {donor && donor.accountType.abrv === 'regular' &&
                                             <div className="col col-sml-12 col-xlrg-12 u-mar--bottom--sml">
-                                                <strong>
+                                                <strong className="type--color--note">
                                                     Additional charge of $5 per book
                                                 </strong>
+                                                <p>
+                                                    *one of the following information is mandatory for custom booklets:
+                                                    Name / Address / Expiration Date
+                                                </p>
                                             </div>}
                                         <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
                                             <BasicInput field={form.$('customizedName')} />
@@ -429,11 +433,12 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             <video autoPlay="true" height="240" width="380" src="https://res.cloudinary.com/the-donors-fund/video/upload/v1653479671/TDF/BookletFolder-AddOnItem.mp4"></video>
                                         </div>
                                         <div className="col col-sml-12">
-                                            <p>Order a check folder? 
-                                                <span data-tip='Additional $35 Fee' data-type="info" style={{ cursor: 'pointer' }}>
+                                            <p>Order a check folder?  (Additional $35 fee)
+                                                {/* <span data-tip='Additional $35 Fee' data-type="info" style={{ cursor: 'pointer' }}>
                                                     <i className="u-icon u-icon--base u-icon--info--link u-mar--left--tny"></i>
                                                 <ReactTooltip />
-                                        </span> </p> <BasicFieldCheckbox toggleClass='--toggle' field={form.$('orderFolder')} />
+                                        </span> */}
+                                         </p> <BasicFieldCheckbox toggleClass='--toggle' field={form.$('orderFolder')} />
                                         </div>
                                     </div>}
                             </div> */}

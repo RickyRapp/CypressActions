@@ -32,6 +32,35 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
+                        console.log(this.form);
+                        if(this.form.$('isCustomizedBook').value) {
+                            if(this.form.$('customizedName').value.length == 0 && 
+                            this.form.$('customizedAddressLine1').value.length == 0
+                            && this.form.$('customizedCity').value.length == 0
+                            && this.form.$('customizedState').value.length == 0 &&
+                            this.form.$('customizedZipCode').value.length == 0 &&
+                            this.form.$('customizedExpirationDate').value.length == 0) {
+                                this.rootStore.notificationStore.error('Please fill out customization info!');
+                                this.form.invalidate('Customization fields not filled out');
+                                this.validForm = false;
+                                return;
+                            } else if ((this.form.$('customizedAddressLine1').value.length == 0
+                            || this.form.$('customizedCity').value.length == 0
+                            || this.form.$('customizedState').value.length == 0 
+                            || this.form.$('customizedZipCode').value.length == 0) && (this.form.$('customizedAddressLine1').value.length > 0
+                            || this.form.$('customizedCity').value.length > 0
+                            || this.form.$('customizedState').value.length > 0 
+                            || this.form.$('customizedZipCode').value.length > 0)) {
+                                {
+                                    this.rootStore.notificationStore.error('Address info not complete!');
+                                    this.form.invalidate('Address fields not filled out');
+                                    this.validForm = false;
+                                    return;
+                                }
+                            } else {
+                                this.validForm = true;
+                            }
+                        }
                         // if(!this.donor.hasProtectionPlan && (this.totalAmount - this.totalPrepaidAmount > 0) && (this.donor.presentBalance + this.donor.lineOfCredit) < this.totalAmount) {
                         //     this.rootStore.notificationStore.error('Insufficient funds, please enroll in protection plan or deposit funds');
                         //     this.form.invalidate('Insufficient funds');
