@@ -69,7 +69,7 @@ const RestaurantAddForm = props => {
             setShowButton(true)
             setMessage("Restaurant Added!")
             const response = await axios
-            .get('https://all-restaurants.herokuapp.com/restaurants') 
+            .get('https://restaurant-selections.herokuapp.com/restaurants') 
             .catch((err) => {
                 console.log("err",err)
             }) 

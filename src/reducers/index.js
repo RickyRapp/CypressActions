@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { actionTypes } from '../actions/Action-types';
 
 const initialCState =  {
   categories: []

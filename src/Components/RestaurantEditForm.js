@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';  
+import {  connect } from 'react-redux';  
 import { updateRestaurant, setRestaurant} from '../actions'; 
 import axios from 'axios'
 import Geocode from "react-geocode"; 
@@ -55,8 +55,7 @@ const RestaurantEditForm = props => {
            (error) => {
              console.error(`error:${error}`); 
              setMessage("invalid address")
-             return; 
-             console.log(error.status)
+             return;  
            }
          ); 
         

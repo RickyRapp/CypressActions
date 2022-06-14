@@ -1,24 +1,20 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, {  useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './MapMarker';
 import './Marker.css';
 import {connect} from 'react-redux';
 import Geocode from "react-geocode"; 
-
-
-
+ 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const Map = props => { 
   const [thislng, setThislng] = useState(null)
-  const [thislat, setThislat] = useState(null) 
-  const [currentLng, setCurrentlng] = useState(null)
-  const [currentLat, setCurrentlat] = useState(null) 
+  const [thislat, setThislat] = useState(null)  
   const [center, setCenter] = useState(null) 
   const [allRestaurantCoords, setAllRestaurantCoords] = useState([]) 
   
   function getCoords (){  
     return props.restaurants.restaurants.map(function (restaurant)  { 
-      const authKey = process.env.MAP_API 
+     // const authKey = process.env.MAP_API 
       Geocode.setApiKey("AIzaSyByvZEhbhUOwuNnMkiOmz6LRDG9hmz2BnM") 
       Geocode.enableDebug();
       const address = restaurant.address; 
