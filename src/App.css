@@ -1,0 +1,26 @@
+.show{
+    display:block;
+}
+.hide{
+    display:none;
+}
+.map-container {
+    height: 25vw;
+    width: 25vw;
+}
+a{
+    color: blue;
+    text-decoration: none; /* no underline */
+}
+.selected{
+    color:orange;
+    font-weight: 700;
+}
+.innerText{
+    color:green;
+    font-weight: 500;
+    font-size: 1em;
+}
+.item{
+    font-size:20px;
+}
