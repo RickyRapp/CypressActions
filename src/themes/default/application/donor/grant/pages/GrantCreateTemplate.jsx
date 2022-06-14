@@ -22,7 +22,6 @@ import { CharityShortInformationTemplate, GrantPurposeTypeTemplate } from 'theme
 import AsyncSelect from 'react-select/async';
 import { GrantConfirmTemplate } from 'themes/application/administration/grant/components';
 import ReactTooltip from 'react-tooltip';
-import { ChartCategoryAxis } from '@progress/kendo-react-charts';
 
 const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 	const {
@@ -109,7 +108,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												// onKeyDown={() => countdown()}
 												<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID'} value={asyncPlaceholder} />
 										}
-										{charity && charity.charityTypeId === educationType &&
+										{charity && charity.item.charityTypeId === educationType &&
 											<div className="validation__message validation__message--note">
 												You have selected a charity that operates as an educational institution. Please note, that tuition payments are prohibited by the IRS through donor-advised funds.
 											</div>
@@ -222,14 +221,11 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													<BasicInput field={form.$('zipCode')} />
 												</div>
 											</div>
-										</div>
-									)}
+										</div>)}
 
 									<EmptyStateWithIcon icon={"charity"} title={"This charity is not active."} description={"Please, select another charity."} />
-								</div>
-									:
+								</div> :
 									<div>
-
 										{isChangedDefaultAddress && (
 											<div className="card--secondary card--med u-mar--bottom--sml">
 												<div className="row row--form">
@@ -253,10 +249,12 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 										)}
 
 										<div className="row row--form">
+
 											<div className="form__group col col-sml-12 col-xxxlrg-6">
 												<NumericInputField field={form.$('amount')} onChange={ checkMicroGiving }/>
                                                 {isMicroGiving && <span style={{color:"#C36C36", fontSize:"16px"}} >Micro giving ($2.5 fee) </span>}
 											</div>
+
 											{window.innerWidth > 750 && <div className={`form__group col col-sml-12 col-xxxlrg-6`}>
 												<DatePickerField field={form.$('startFutureDate')} />
 											</div>}
@@ -349,6 +347,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />
 												}
 											</div>
+
 										</div>
 											<div className="u-mar--top--sml u-mar--bottom--sml type--right">
 												<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
