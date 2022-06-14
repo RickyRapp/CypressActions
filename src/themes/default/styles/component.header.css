@@ -139,4 +139,20 @@
 			}
 		}
 	}
+
+	&--verify {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+
+		@media (--screen-to-med) {
+			gap: calc($unit * 2);
+		}
+
+		@media (--screen-from-med) {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	}
 }

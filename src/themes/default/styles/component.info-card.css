@@ -28,7 +28,10 @@
 		}
 
 		@media (--screen-to-med) {
-			text-align: center;
+			align-items: center;
+			justify-content: center;
+			display: flex;
+
 			& .btn {
 				min-width: 48%;
 

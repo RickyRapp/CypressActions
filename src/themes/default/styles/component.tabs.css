@@ -105,5 +105,28 @@
             }
         }
     }
+
+    &__verify {
+
+        &__body {
+
+            .tabs--primary {
+                width: 100%;
+                border-bottom: 1px solid $grey-3;
+                margin-bottom: calc($unit * 4);
+
+                @media (--screen-to-med) {
+                    display: block;
+                }
+            }
+
+            .tabs--primary__item {
+
+                @media (--screen-to-med) {
+                    float: none;
+                }
+            }
+        }
+    }
 }
 

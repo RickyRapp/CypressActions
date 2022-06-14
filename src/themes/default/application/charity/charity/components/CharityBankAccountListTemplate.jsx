@@ -81,9 +81,9 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 							charity={charity}
 						/>
 					) : (
-						<span className="cursor--pointer" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
+						<div className="cursor--pointer type--right" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
 							<button className="btn btn--link btn--sml">Add new bank account</button>
-						</span>
+						</div>
 					)}
 				</div>
 			</div>

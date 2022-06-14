@@ -12,7 +12,7 @@ function CharityVerificationTabTemplate({ charityVerificationTabViewStore }) {
 
     return (
         <Content loading={loaderStore.loading} >
-            <div >
+            <div className="tabs__verify__body">
                 <TabLayout store={charityVerificationTabViewStore}>
                     <div label={'CHARITY_VERIFICATION.TAB.PLAID'}>
                         <CharityPlaid

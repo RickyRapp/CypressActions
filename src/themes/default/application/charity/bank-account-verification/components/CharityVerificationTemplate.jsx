@@ -5,21 +5,26 @@ import {
 	BaasicButton
 } from 'core/components';
 import { CharityVerificationTab } from 'application/charity/charity/pages';
+import logo from 'themes/assets/img/logo.svg';
 
 const CharityVerificationTemplate = function ({charityVerificationViewStore}) {
 	const {charityLogout} = charityVerificationViewStore;
 
 	return (
-		<React.Fragment>
-			<BaasicButton
-				className='btn btn--med btn--primary u-mar--bottom--med'
-				label='logout'
-				onClick={charityLogout}
-			/>
+		<div className='container container--base'>
+			<div className='header--verify u-mar--bottom--med'>
+				<img src={logo} alt={"logo"} />
+			
+				<BaasicButton
+					className='btn btn--med btn--primary'
+					label='logout'
+					onClick={charityLogout}
+				/>
+			</div>
 			<div className="card--med card--primary ">
 				<CharityVerificationTab />
 			</div>
-		</React.Fragment>
+		</div>
 	);
 };
 
