@@ -10,6 +10,9 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 	@observable image = null;
 	@observable logo= null;
 	@observable charityId = null;
+	@observable donorId;
+	@observable MicroGivingValue;
+	@observable isMicroGiving;
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
 	@observable isChangedDefaultAddress = null;
@@ -60,8 +63,14 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 						})).charityId;
 						this.getLogo();
 						this.getImage();
+						var response = await this.rootStore.application.administration.grantStore.getScheduledGrant(id, {
+							embed: 'charity,charity.charityAddresses,charity.charityBankAccounts,charity.charityStatus',
+						});
+						this.donorId = response.donorId;
+						this.getDonor();
+
 						return this.rootStore.application.administration.grantStore.getScheduledGrant(id, {
-							embed: 'charity,charity.charityAddresses,charity.charityBankAccounts',
+							embed: 'charity,charity.charityAddresses,charity.charityBankAccounts,charity.charityStatus',
 						});
 					},
 				};
@@ -75,6 +84,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 		this.createGrantAcknowledgmentTypeDropdownStore();
 		this.createPreviousGrantsTableStore();
 		this.createSimilarGrantsTableStore();
+		this.checkMicroGiving();
 
 		this.advancedSearchModal = new ModalParams({});
 	}
@@ -88,6 +98,29 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 		this.image = await this.rootStore.application.charity.charityStore.getCharityMedia(this.charityId, 'photo');
 
 	}
+	@action.bound
+	async getDonor() {
+		var isMicroGivingEnabled = (await this.rootStore.application.administration.grantStore.getDonorInformation(this.donorId)).isMicroGivingEnabled;
+		this.MicroGivingValue = isMicroGivingEnabled;
+		console.log(this.MicroGivingValue);
+		this.checkMicroGiving();
+		if (this.MicroGivingValue) {
+			this.form.$('amount').set('rules', 'required|numeric|min:0');
+		}
+	}
+	@action.bound
+	checkMicroGiving() {
+
+		if (this.MicroGivingValue) {
+			if (this.form.$('amount').value < 100) {
+				this.isMicroGiving = true;
+			}
+			else {
+				this.isMicroGiving = false;
+			}
+		}
+	}
+
 	@action.bound
 	async onInit({ initialLoad }) {
 		if (!initialLoad) {

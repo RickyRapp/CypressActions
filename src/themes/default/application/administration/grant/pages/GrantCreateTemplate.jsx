@@ -57,7 +57,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         toggleSettings,
         logo,
         image,
-        microGiving
+        microGiving,
+        MicroGivingValue,
+		checkMicroGiving,
+		isMicroGiving
     } = grantCreateViewStore;
 
     let promiseOptions = (inputValue) =>

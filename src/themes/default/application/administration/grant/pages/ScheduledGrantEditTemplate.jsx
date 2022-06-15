@@ -39,7 +39,9 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
         onChangeDefaultAddressClick,
         grantPurposeTypes,
         logo,
-        image
+        image,
+        isMicroGiving,
+		checkMicroGiving
     } = scheduledGrantEditViewStore;
 
     return (
@@ -129,6 +131,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                         isChangedDefaultAddress={isChangedDefaultAddress}
                                     />}
 
+                                    
                                 {isChangedDefaultAddress &&
                                     <div className="card--secondary card--med u-mar--bottom--sml">
                                         <div className="row row--form">
@@ -149,10 +152,10 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                             </div>
                                         </div>
                                     </div>}
-
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
-                                        <NumericInputField field={form.$('amount')} />
+                                    <NumericInputField field={form.$('amount')} onChange={checkMicroGiving} />
+                                        {isMicroGiving && <span style={{color:"#C36C36", fontSize:"16px"}} >Micro giving ($2.5 fee) </span>}
                                     </div>
                                 </div>
                                 <div className="row row--form">
