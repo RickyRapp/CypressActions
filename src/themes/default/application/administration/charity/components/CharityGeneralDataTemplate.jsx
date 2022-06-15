@@ -169,7 +169,7 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                             </div>
                                         }
                                     </div>
-                                    {item && item.coreUsername &&
+                                    {item && item.coreUsername && item.isUserVerified == false &&
                                         <div className="col col-sml-12 col-lrg-4">
                                             <BaasicButton
                                                 authorization={'theDonorsFundAdministrationSection.update'}

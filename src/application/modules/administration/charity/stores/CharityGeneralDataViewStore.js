@@ -50,7 +50,8 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             verificationDocumentId : data.coreMediaVaultEntry && data.coreMediaVaultEntry.id,
                             verificationDocumentName : data.coreMediaVaultEntry && data.coreMediaVaultEntry.fileName,
                             userVerificatioDocumentId: data.coreMediaVaultEntry_ && data.coreMediaVaultEntry_.id,
-                            userVerificatioDocumentName: data.coreMediaVaultEntry_ && data.coreMediaVaultEntry_.fileName
+                            userVerificatioDocumentName: data.coreMediaVaultEntry_ && data.coreMediaVaultEntry_.fileName,
+                            isUserVerified: data.isUserVerified
                         }
                     },
                     update: async (resource) => {
