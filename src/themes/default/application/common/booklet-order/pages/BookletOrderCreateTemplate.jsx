@@ -215,233 +215,231 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 </div>
                             </div>
 
-                            <div className="">
-                                <div className="card--primary card--med ">
-                                    <div className="card--med card--secondary--light card--center u-display--flex u-display--flex--wrap">
-                                        <span className="type--med type--color--text u-mar--right--sml u-mar--bottom--tny">Available balance: </span>
-                                        <span className="type--xlrg type--wgt--medium type--color--note">
-                                            {donor && <FormatterResolver
-                                                item={{ availableBalance: donor.availableBalance }}
-                                                field='availableBalance'
+                            <div className="card--primary card--med ">
+                                <div className="card--med card--secondary--light card--center u-display--flex u-display--flex--wrap">
+                                    <span className="type--med type--color--text u-mar--right--sml u-mar--bottom--tny">Available balance: </span>
+                                    <span className="type--xlrg type--wgt--medium type--color--note">
+                                        {donor && <FormatterResolver
+                                            item={{ availableBalance: donor.availableBalance }}
+                                            field='availableBalance'
+                                            format={{ type: 'currency' }}
+                                        />}</span>
+                                </div>
+                                <div> {/* className="col col-sml-12 col-xxlrg-12" */}
+                                    <h3 className="u-mar--top--med u-mar--bottom--sml">Order Summary</h3>
+                                    <table className="table--total">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Check
+                                                </th>
+                                                <th>
+                                                    Count
+                                                </th>
+                                                <th>
+                                                    Amount
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {tableData.map((item, index) => {
+                                                if (item.count > 0) return (
+                                                    <tr key={index}>
+                                                        <td>${item.id}</td>
+                                                        <td>
+                                                            {item.count}
+                                                        </td>
+                                                        <td>${item.amount}</td>
+                                                    </tr>
+                                                )
+                                            })}
+                                            {/* <tr>
+                                                <td>$1.00</td>
+                                                <td>{checkSummary1}</td>
+                                                <td>$200.00</td>
+                                            </tr> */}
+                                            {/* <tr>
+                                                <td>$2.00</td>
+                                                <td>1</td>
+                                                <td>$200.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>$3.00</td>
+                                                <td>1</td>
+                                                <td>$200.00</td>
+                                            </tr> */}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colSpan="2">Total pre-paid</th>
+                                                <th>${totalPrepaidAmount}</th>
+                                            </tr>
+                                        </tfoot>
+                                        {
+                                            form.$('orderFolder').value == true && 
+                                            <tfoot>
+                                                <tr>
+                                                    <th colSpan="2">Booklet folder fee</th>
+                                                    <th>$35.00</th>
+                                                </tr>
+                                            </tfoot>
+                                        }
+                                        {
+                                            donor && !donor.isSessionFeePayedByCharity &&
+                                            <tfoot>
+                                                <tr>
+                                                    <th colSpan="2">Pre-paid fee</th>
+                                                    <th>${(totalPrepaidAmount * 0.029).toFixed(2)}</th>
+                                                </tr>
+                                            </tfoot>
+                                        }
+
+                                        <tfoot>
+                                            <tr>
+                                                <th colSpan="2">Shipping method</th>
+                                                <th>{deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value) ? (deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value)).name : null}</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tfoot>
+                                            <tr>
+                                                <th colSpan="2">Shipping fee</th>
+                                                <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
+                                            </tr>
+                                        </tfoot>
+                                        {donor && donor.accountType && donor.accountType.abrv != 'private' && ((form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0))
+                                            ? <tfoot>
+                                                <tr>
+                                                    <th colSpan="2">Custom booklet fee</th>
+                                                    <th>${(orderContents.reduce((a, b) => a + b.bookletCount, 0) * 5).toFixed(2)}</th>
+                                                </tr>
+                                            </tfoot> : null}
+
+                                    </table>
+
+                                </div>
+
+                                {(donor && needsProtectionPlan) &&
+                                    <div className="u-mar--top--med">
+                                        <div className="message--enh">
+                                            <span className="u-mar--right--tny">
+                                                {t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN_MESSAGE')}
+                                            </span>
+                                            <a href="#" className="u-anchor--underline" onClick={onAddProtectionPlanClick}>
+                                                {t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN')}
+                                            </a>
+                                            {/* <BaasicButton
+                                        className="btn btn--link"
+                                        label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
+                                        >
+                                    </BaasicButton> */}
+                                        </div>
+                                    </div>
+                                }
+                                {(donor && needsMoreFunds) &&
+                                    <div className="u-mar--top--med">
+                                        <div className="message--enh">
+                                            <span className="u-mar--right--tny">
+                                            You've selected pre-paid check books that exceed your account balance. Kindly initiate a deposit to proceed with this order. &nbsp;
+                                            </span>
+                                            <a href="#" className="u-anchor--underline" onClick={goToNewDeposit}>
+                                                Deposit Funds
+                                            </a>
+                                            {/* <BaasicButton
+                                        className="btn btn--link"
+                                        label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
+                                        >
+                                    </BaasicButton> */}
+                                        </div>
+                                    </div>
+                                }
+
+                                <div className="type--med type--wgt--medium type--right u-mar--top--sml">
+                                    <div className="u-display--flex u-display--flex--justify--flex-end u-display--flex--align--baseline">
+                                        <span>
+                                            Total:
+                                        </span>
+                                        <span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml u-push--to--lrg">
+                                            <FormatterResolver
+                                                item={{ total: totalAmount }}
+                                                field='total'
                                                 format={{ type: 'currency' }}
-                                            />}</span>
-                                    </div>
-                                    <div> {/* className="col col-sml-12 col-xxlrg-12" */}
-                                        <h3 className="u-mar--top--med u-mar--bottom--sml">Order Summary</h3>
-                                        <table className="table--total">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Check
-                                                    </th>
-                                                    <th>
-                                                        Count
-                                                    </th>
-                                                    <th>
-                                                        Amount
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {tableData.map((item, index) => {
-                                                    if (item.count > 0) return (
-                                                        <tr key={index}>
-                                                            <td>${item.id}</td>
-                                                            <td>
-                                                                {item.count}
-                                                            </td>
-                                                            <td>${item.amount}</td>
-                                                        </tr>
-                                                    )
-                                                })}
-                                                {/* <tr>
-                                                    <td>$1.00</td>
-                                                    <td>{checkSummary1}</td>
-                                                    <td>$200.00</td>
-                                                </tr> */}
-                                                {/* <tr>
-                                                    <td>$2.00</td>
-                                                    <td>1</td>
-                                                    <td>$200.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>$3.00</td>
-                                                    <td>1</td>
-                                                    <td>$200.00</td>
-                                                </tr> */}
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colSpan="2">Total pre-paid</th>
-                                                    <th>${totalPrepaidAmount}</th>
-                                                </tr>
-                                            </tfoot>
-                                            {
-                                                form.$('orderFolder').value == true && 
-                                                <tfoot>
-                                                    <tr>
-                                                        <th colSpan="2">Booklet folder fee</th>
-                                                        <th>$35.00</th>
-                                                    </tr>
-                                                </tfoot>
-                                            }
-                                            {
-                                                donor && !donor.isSessionFeePayedByCharity &&
-                                                <tfoot>
-                                                    <tr>
-                                                        <th colSpan="2">Pre-paid fee</th>
-                                                        <th>${(totalPrepaidAmount * 0.029).toFixed(2)}</th>
-                                                    </tr>
-                                                </tfoot>
-                                            }
-
-                                            <tfoot>
-                                                <tr>
-                                                    <th colSpan="2">Shipping method</th>
-                                                    <th>{deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value) ? (deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value)).name : null}</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colSpan="2">Shipping fee</th>
-                                                    <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
-                                                </tr>
-                                            </tfoot>
-                                            {donor && donor.accountType && donor.accountType.abrv != 'private' && ((form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0))
-                                                ? <tfoot>
-                                                    <tr>
-                                                        <th colSpan="2">Custom booklet fee</th>
-                                                        <th>${(orderContents.reduce((a, b) => a + b.bookletCount, 0) * 5).toFixed(2)}</th>
-                                                    </tr>
-                                                </tfoot> : null}
-
-                                        </table>
-
+                                            />
+                                        </span>
                                     </div>
 
-                                    {(donor && needsProtectionPlan) &&
-                                        <div className="u-mar--top--med">
-                                            <div className="message--enh">
-                                                <span className="u-mar--right--tny">
-                                                    {t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN_MESSAGE')}
-                                                </span>
-                                                <a href="#" className="u-anchor--underline" onClick={onAddProtectionPlanClick}>
-                                                    {t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN')}
-                                                </a>
-                                                {/* <BaasicButton
-                                            className="btn btn--link"
-                                            label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
-                                            >
-                                        </BaasicButton> */}
-                                            </div>
-                                        </div>
-                                    }
-                                    {(donor && needsMoreFunds) &&
-                                        <div className="u-mar--top--med">
-                                            <div className="message--enh">
-                                                <span className="u-mar--right--tny">
-                                                You've selected pre-paid check books that exceed your account balance. Kindly initiate a deposit to proceed with this order. &nbsp;
-                                                </span>
-                                                <a href="#" className="u-anchor--underline" onClick={goToNewDeposit}>
-                                                    Deposit Funds
-                                                </a>
-                                                {/* <BaasicButton
-                                            className="btn btn--link"
-                                            label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
-                                            >
-                                        </BaasicButton> */}
-                                            </div>
-                                        </div>
-                                    }
-
-                                    <div className="type--med type--wgt--medium type--right u-mar--top--sml">
-                                        <div className="u-display--flex u-display--flex--justify--flex-end u-display--flex--align--baseline">
-                                            <span>
-                                                Total:
-                                            </span>
-                                            <span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml u-push--to--lrg">
-                                                <FormatterResolver
-                                                    item={{ total: totalAmount }}
-                                                    field='total'
-                                                    format={{ type: 'currency' }}
-                                                />
-                                            </span>
-                                        </div>
-
-                                        {donor && donor.hasProtectionPlan &&
-                                            <div><small>{t('BOOKLET_ORDER.CREATE.ENROLLED_IN_PROTECTION_PLAN')}<i className="u-icon u-icon--approve u-icon--base u-mar--left--sml"></i></small></div>}
-                                    </div>
+                                    {donor && donor.hasProtectionPlan &&
+                                        <div><small>{t('BOOKLET_ORDER.CREATE.ENROLLED_IN_PROTECTION_PLAN')}<i className="u-icon u-icon--approve u-icon--base u-mar--left--sml"></i></small></div>}
                                 </div>
                             </div>
 
-                            {/* <div className="col col-sml-12 u-mar--bottom--sml u-order--4--xxxlrg">
-                                <div className="u-mar--bottom--sml type--center">
-                                    <button type="button" className="btn btn--show type--wgt--medium" onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}>
-                                        <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                        {!form.$('isCustomizedBook').value ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
-                                        <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                    </button>
-                                </div>
+                            <div className="card--primary card--med">
+                                <button type="button" className="btn btn--show type--wgt--medium" onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}>
+                                    <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                    {!form.$('isCustomizedBook').value ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
+                                    <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                </button>
+
                                 {form.$('isCustomizedBook').value &&
-                                    <div className="row row--form">
-                                        {donor && donor.accountType.abrv === 'regular' &&
-                                            <div className="col col-sml-12 col-xlrg-12 u-mar--bottom--sml">
-                                                <strong className="type--color--note">
-                                                    Additional charge of $5 per book
-                                                </strong>
-                                                <p>
-                                                    *one of the following information is mandatory for custom booklets:
-                                                    Name / Address / Expiration Date
+                                    <div>
+
+                                        {donor &&
+                                            <div className="message message--note u-mar--top--med u-mar--bottom--med">
+                                                <p className="u-mar--bottom--tny type--color--note"><strong>Additional charge of $5 per book</strong></p>
+                                                <p className="type--sml">
+                                                    <em>*one of the following information is mandatory for custom booklets:
+                                                    Name / Address / Expiration Date</em>
                                                 </p>
                                             </div>}
-                                        <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('customizedName')} />
+                                        <div className="row row--form">
+                                            <div className="col col-sml-12 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('customizedName')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('customizedAddressLine1')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('customizedAddressLine2')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('customizedCity')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('customizedState')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                <BasicInput field={form.$('customizedZipCode')} />
+                                            </div>
+                                            <div className="col col-sml-12 col-xlrg-4">
+                                                <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore}/>
+                                            </div>
+                                            <p>{form.$('customizedExpirationDate').value && expiryDate}</p>
                                         </div>
-                                        <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('customizedAddressLine1')} />
-                                        </div>
-                                        <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('customizedAddressLine2')} />
-                                        </div>
-                                        <div className="col col-sml-12 col-xlrg-2 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('customizedCity')} />
-                                        </div>
-                                        <div className="col col-sml-12 col-xlrg-2 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('customizedState')} />
-                                        </div>
-                                        <div className="col col-sml-12 col-xlrg-2 u-mar--bottom--sml">
-                                            <BasicInput field={form.$('customizedZipCode')} />
-                                        </div>
-                                        <div className="col col-sml-12 col-xlrg-2">
-                                            <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore}/>
-                                        </div>
-                                        <p>{form.$('customizedExpirationDate').value && expiryDate}</p>
                                     </div>
                                 }
                             </div>
-                            <div className="col col-sml-12 u-mar--bottom--sml u-order--5--xxxlrg">
-                                <div className="type--center">
-                                    <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowAddOnItemsClick}>
-                                        <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                        {showAddOnitems ? t('BOOKLET_ORDER.CREATE.HIDE_ADD_ON_ITEMS') : t('BOOKLET_ORDER.CREATE.SHOW_ADD_ON_ITEMS')}
-                                        <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                    </button>
-                                </div>
+                            <div className="card--primary card--med ">
+                                <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowAddOnItemsClick}>
+                                    <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                    {showAddOnitems ? t('BOOKLET_ORDER.CREATE.HIDE_ADD_ON_ITEMS') : t('BOOKLET_ORDER.CREATE.SHOW_ADD_ON_ITEMS')}
+                                    <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                </button>
                                 {showAddOnitems &&
-                                    <div className="col col-sml-12 col-xlrg-12">
+                                    <div className="row">
                                         <div className="col col-sml-12">
                                             <video autoPlay="true" height="240" width="380" src="https://res.cloudinary.com/the-donors-fund/video/upload/v1653479671/TDF/BookletFolder-AddOnItem.mp4"></video>
-                                        </div>
-                                        <div className="col col-sml-12">
-                                            <p>Order a check folder?  (Additional $35 fee)
-                                                {/* <span data-tip='Additional $35 Fee' data-type="info" style={{ cursor: 'pointer' }}>
-                                                    <i className="u-icon u-icon--base u-icon--info--link u-mar--left--tny"></i>
-                                                <ReactTooltip />
-                                        </span> */}
-                                         </p> <BasicFieldCheckbox toggleClass='--toggle' field={form.$('orderFolder')} />
+
+                                            <div className="u-display--flex u-display--flex--justify--space-between">
+                                                <p>Order a check folder?  (Additional $35 fee)
+                                                    {/* <span data-tip='Additional $35 Fee' data-type="info" style={{ cursor: 'pointer' }}>
+                                                        <i className="u-icon u-icon--base u-icon--info--link u-mar--left--tny"></i>
+                                                    <ReactTooltip />
+                                                    </span> */}
+                                                </p>
+                                                <BasicFieldCheckbox toggleClass='--toggle' field={form.$('orderFolder')} />
+                                            </div>
                                         </div>
                                     </div>}
-                            </div> */}
+                            </div>
                         </div>
                     </div> 
 
