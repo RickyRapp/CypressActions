@@ -14,6 +14,7 @@ class BookletOrderListFilter extends FilterParams {
     @observable bookletCodes;
     @observable sendTo;
     @observable orderFolder;
+    @observable isCustom;
 
     constructor(orderBy, orderDirection) {
         super();
@@ -37,6 +38,7 @@ class BookletOrderListFilter extends FilterParams {
         this.bookletCodes = null;
         this.sendTo = null;
         this.orderFolder = null;
+        this.isCustom = null;
     }
 }
 

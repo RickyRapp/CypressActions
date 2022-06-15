@@ -19,6 +19,7 @@ import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorAutomaticContributionEditTemplate } from 'themes/application/donor/donor/components';
 import { BookletOrderMixedPopup } from '../components';
 import ReactTooltip from 'react-tooltip';
+import { BookletOrderConfirmTemplate } from 'application/common/booklet-order/components';
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
         contentLoading,
@@ -574,6 +575,9 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
             </BaasicModal>
             <BaasicModal modalParams={confirmModal}>
                 <BookletOrderMixedPopup />
+            </BaasicModal>
+            <BaasicModal modalParams={bookletOrderConfirmModal}>
+                <BookletOrderConfirmTemplate />
             </BaasicModal>
 
         </React.Fragment>

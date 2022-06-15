@@ -135,7 +135,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 									</div>
 								</div>
 							</div>
-							{/* <div className="col col-sml-12 u-mar--bottom--sml">
+							<div className="col col-sml-6 u-mar--bottom--sml">
 									<BasicCheckbox
                                             checked={queryUtility.filter.orderFolder}
 											id="folder"
@@ -143,7 +143,16 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
                                             label="Booklet Folder"
                                             showLabel={true}
                                         />
-								</div> */}
+							</div>
+							<div className="col col-sml-6 u-mar--bottom--sml">
+									<BasicCheckbox
+                                            checked={queryUtility.filter.isCustom}
+											id="customize"
+											onChange={(e) => queryUtility.filter.isCustom = e.target.checked}
+                                            label="Customized Booklet Order"
+                                            showLabel={true}
+                                        />
+							</div>
 						</TableFilter>
 						{/* <BaasicButton className="btn btn--med btn--primary u-mar--right--med" label="Select defaults"onClick={selectDefaults} /> */}
 						{/* <BaasicButton className="btn btn--med btn--primary" label="Export" onClick={() => exportList(false)}/> */}
