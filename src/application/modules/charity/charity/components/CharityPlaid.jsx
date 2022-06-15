@@ -64,7 +64,7 @@ class CharityPlaid extends Component {
     if ( !(this.props.bankAccount && this.props.bankAccount.isVerifiedByPlaid) && !linkToken) {
       this.getLinkToken();
     }
-    
+
     return (
       this.props.bankAccount ? (
         !this.props.bankAccount.isVerifiedByPlaid ?
@@ -88,7 +88,9 @@ class CharityPlaid extends Component {
               token={linkToken.toString()}
               env={ApplicationSettings.env}
               onSuccess={this.handleOnSuccess}
-              onExit={this.handleOnExit}>
+              onExit={this.handleOnExit}
+              style={{background: '#F2F2FF'}}
+              >
               <div className="btn btn--med btn--100 btn--primary--light" onClick={this.getLinkToken}>Create/Verify bank account using Plaid</div>
             </PlaidLink>
             : null

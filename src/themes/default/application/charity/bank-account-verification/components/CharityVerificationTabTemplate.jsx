@@ -15,10 +15,13 @@ function CharityVerificationTabTemplate({ charityVerificationTabViewStore }) {
             <div className="tabs__verify__body">
                 <TabLayout store={charityVerificationTabViewStore}>
                     <div label={'CHARITY_VERIFICATION.TAB.PLAID'}>
-                        <CharityPlaid
-							entityType={"charity"}
-							bankAccount={null}
-						/>
+                    <div className="row row--form u-mar--top--med">
+                        <div className='col col-sml-12 col-lrg-3'></div>
+                            <CharityPlaid
+                                entityType={"charity"}
+                                bankAccount={null}
+                            />
+                        </div>
                     </div>
                     <div label={'CHARITY_VERIFICATION.TAB.BANK_ACCOUNT'}>
                         <CharityBankAccountList />
