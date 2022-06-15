@@ -29,6 +29,7 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 			actions: () => {
 				return {
 					update: async resource => {
+						resource.isMicroGivingEnabled = this.MicroGivingValue;
 						resource.donorId = this.item.donorId;
 
 						if (resource.isNewCharity) {

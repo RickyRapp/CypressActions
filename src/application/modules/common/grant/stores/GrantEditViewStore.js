@@ -35,6 +35,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				return {
 					update: async resource => {
 						resource.donorId = this.item.donorId;
+						resource.isMicroGivingEnabled = this.MicroGivingValue;
 						if (resource.isNewCharity) {
 							const charity = {
 								name: resource.charityName,
