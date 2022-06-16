@@ -20,14 +20,9 @@ import AsyncSelect from 'react-select/async';
 const WithdrawFundListTemplate = function ({ withdrawFundViewStore }) {
 	const {
 		tableStore,
-		routes,
 		queryUtility,
 		authorization,
-		searchDonorDropdownStore,
 		donationStatusDropdownStore,
-		exportConfig,
-		selectDonorModal,
-		donationTypeDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		declineModal,
 		debouncedSearchCharities,
@@ -161,16 +156,6 @@ function renderActions({ item, actions, actionsRender }) {
 	return (
 		<td>
 			<div className="type--right">
-				{isSome(onEdit) && editRender ? (
-					<BaasicButton
-						className="btn btn--icon"
-						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--edit u-icon--base"
-						label="GRANT.LIST.BUTTON.EDIT"
-						onlyIcon={true}
-						onClick={() => onEdit(item)}
-					></BaasicButton>
-				) : null}
 				{isSome(onRedirect) && redirectRender ? (
 					<BaasicButton
 						className="btn btn--icon"

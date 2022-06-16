@@ -16,7 +16,7 @@ class WithdrawFundViewStore extends BaseListViewStore {
     debouncedSearchCharities =  _.debounce(this.filterCharities, 500);
     constructor(rootStore) {
         super(rootStore, {
-            name: 'grant',
+            name: 'withdraw-fund',
             authorization: 'theDonorsFundGrantSection',
             routes: {
                 preview: (editId) => {
@@ -80,6 +80,7 @@ class WithdrawFundViewStore extends BaseListViewStore {
                             let toDate = params.dateCreatedTo.replace(' 23:59:59','');
                             params.dateCreatedTo = `${toDate} 23:59:59`;
                         }
+                        params.isWithdraw = true;
                         return this.rootStore.application.administration.grantStore.findGrant(params);
                     }
                 }
@@ -325,29 +326,6 @@ class WithdrawFundViewStore extends BaseListViewStore {
         })
 	}
 	//#endregion
-
-    @action.bound
-    async approveGrant(grant) {
-        this.rootStore.modalStore.showConfirm(
-            'Are you sure you want to approve grant?',
-            async () => {
-                try {
-                    await this.rootStore.application.administration.grantStore.approveGrant({ id: grant.id });
-                    this.queryUtility.fetch();
-                    this.rootStore.notificationStore.success('Successfully approved grant.');
-                } catch ({ data }) {
-                    if (data && data.message) {
-                        this.rootStore.notificationStore.error(data.message);
-                    } else if(data && data.errorCode == 3004) {
-                        this.rootStore.notificationStore.error('Charity is not in active status');
-                    }
-                    else {
-                        this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
-                    }
-                }
-            }
-        );
-    }
 
     @action.bound
     async cancelGrant(grant) {
