@@ -74,8 +74,10 @@ class CharityPlaid extends Component {
               token={linkToken.toString()}
               env={ApplicationSettings.env}
               onSuccess={this.handleOnSuccess}
-              onExit={this.handleOnExit}>
-              <div className="btn btn--med btn--100 btn--primary--light" onClick={this.getLinkToken}>Create/Verify bank account using Plaid</div>
+              onExit={this.handleOnExit}
+              style={{background: 'transparent', color: '#c36c36', border: '1px solid #c36c36'}}
+              >
+              <div className="btn btn--med btn--100 " onClick={this.getLinkToken}>Verify bank account using Plaid</div>
             </PlaidLink>
             : null
           }
@@ -89,9 +91,9 @@ class CharityPlaid extends Component {
               env={ApplicationSettings.env}
               onSuccess={this.handleOnSuccess}
               onExit={this.handleOnExit}
-              style={{background: '#F2F2FF'}}
+              style={{background: 'transparent', color: '#c36c36', border: '1px solid #c36c36'}}
               >
-              <div className="btn btn--med btn--100 btn--primary--light" onClick={this.getLinkToken}>Create/Verify bank account using Plaid</div>
+              <div className="btn btn--med btn--100 " onClick={this.getLinkToken}>Create bank account using Plaid</div>
             </PlaidLink>
             : null
           }
