@@ -28,7 +28,7 @@ import { moduleProviderFactory } from 'core/providers'
                 title: 'MENU.WITHDRAW',
                 icon: 'give',
                 order: 3,
-                route: 'master.app.main.charity.dashboard',
+                route: 'master.app.main.charity.withdraw',
                 role: ['Charities']
             },
             {
