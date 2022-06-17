@@ -399,7 +399,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	async setAmount(value) {
-		this.checkMicroGiving();
 		if (value) {
 			if (!this.MicroGivingValue) {
 				if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) {
