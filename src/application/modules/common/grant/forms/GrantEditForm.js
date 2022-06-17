@@ -24,6 +24,12 @@ export default class GrantEditForm extends FormBase {
 					},
 				},
 				{
+					name: 'isMicroGivingEnabled',
+					label: 'GRANT.CREATE.FIELDS.CHARITY_EVENT_LABEL',
+					rules: 'boolean',
+					type: 'checkbox',
+				},
+				{
 					name: 'grantPurposeTypeId',
 					label: 'GRANT.CREATE.FIELDS.GRANT_PURPOSE_TYPE_LABEL',
 					placeholder: 'GRANT.CREATE.FIELDS.GRANT_PURPOSE_TYPE_PLACEHOLDER',

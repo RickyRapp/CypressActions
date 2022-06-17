@@ -78,7 +78,10 @@ class DonorStore {
         const response = await this.donorService.getThirdPartyWebsiteSetting(id, options);
         return response.data;
     }
-
+    async getOnlineGrantSetting(id, options) {
+        const response = await this.donorService.getOnlineGrantSetting(id, options);
+        return response.data;
+    }
     async getCertificateSetting(id, options) {
         const response = await this.donorService.getCertificateSetting(id, options);
         return response.data;
@@ -168,7 +171,10 @@ class DonorStore {
         const response = await this.donorService.updateThirdPartyWebsiteSetting(resource);
         return response.data;
     }
-
+    async updateOnlineGrantSetting(resource) {
+        const response = await this.donorService.updateOnlineGrantSetting(resource);
+        return response.data;
+    }
     async updateCertificateSetting(resource) {
         const response = await this.donorService.updateCertificateSetting(resource);
         return response.data;

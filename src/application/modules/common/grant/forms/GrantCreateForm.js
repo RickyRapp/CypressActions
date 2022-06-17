@@ -54,6 +54,12 @@ export default class GrantCreateForm extends FormBase {
 					type: 'checkbox',
 				},
 				{
+					name: 'isMicroGivingEnabled',
+					label: 'GRANT.CREATE.FIELDS.CHARITY_EVENT_LABEL',
+					rules: 'boolean',
+					type: 'checkbox',
+				},
+				{
 					name: 'startFutureDate',
 					label: 'GRANT.CREATE.FIELDS.START_FUTURE_DATE_LABEL',
 					placeholder: 'GRANT.CREATE.FIELDS.START_FUTURE_DATE_PLACEHOLDER',

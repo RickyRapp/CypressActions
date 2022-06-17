@@ -56,7 +56,11 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         moreSettings,
         toggleSettings,
         logo,
-        image
+        image,
+        microGiving,
+        MicroGivingValue,
+		checkMicroGiving,
+		isMicroGiving
     } = grantCreateViewStore;
 
     let promiseOptions = (inputValue) =>
@@ -490,7 +494,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                 <CharityAdvancedSearch onSelected={onCharitySelected} />
             </BaasicModal>
             <BaasicModal modalParams={confirmModal}>
-                <GrantConfirmTemplate form={form} />
+                <GrantConfirmTemplate form={form} microGiving = {microGiving}/>
             </BaasicModal>
         </React.Fragment >
     )

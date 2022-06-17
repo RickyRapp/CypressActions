@@ -4,6 +4,7 @@ export { default as DonorPhoneNumberViewStore } from './DonorPhoneNumberViewStor
 export { default as DonorBankAccountViewStore } from './DonorBankAccountViewStore'
 export { default as DonorCreateViewStore } from './DonorCreateViewStore'
 export { default as DonorThirdPartyWebsiteSettingViewStore } from './DonorThirdPartyWebsiteSettingViewStore'
+export { default as DonorOnlineGrantSettingViewStore } from './DonorOnlineGrantSettingViewStore'
 export { default as DonorAutomaticContributionSettingViewStore } from './DonorAutomaticContributionSettingViewStore'
 export { default as DonorCertificateSettingViewStore } from './DonorCertificateSettingViewStore'
 export { default as DonorTabViewStore } from './DonorTabViewStore'

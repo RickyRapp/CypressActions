@@ -3,6 +3,7 @@ export { default as DonorEmailAddressListTemplate } from './DonorEmailAddressLis
 export { default as DonorPhoneNumberListTemplate } from './DonorPhoneNumberListTemplate'
 export { default as DonorBankAccountListTemplate } from './DonorBankAccountListTemplate'
 export { default as DonorThirdPartyWebsiteSettingTemplate } from './DonorThirdPartyWebsiteSettingTemplate'
+export { default as DonorOnlineGrantSettingTemplate } from './DonorOnlineGrantSettingTemplate'
 export { default as DonorAutomaticContributionSettingTemplate } from './DonorAutomaticContributionSettingTemplate'
 export { default as DonorCertificateSettingTemplate } from './DonorCertificateSettingTemplate'
 export { default as DonorAccountInformationTemplate } from './DonorAccountInformationTemplate'

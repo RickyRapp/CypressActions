@@ -42,7 +42,10 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
         isChangedDefaultAddress,
         onChangeDefaultAddressClick,
         image,
-        logo
+        logo,
+        MicroGivingValue,
+        checkMicroGiving,
+        isMicroGiving
     } = scheduledGrantEditViewStore;
 
     return (
@@ -126,7 +129,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                             </div>
                                         </div>
                                     </div>}
-                                    {charityDropdownStore.value &&
+                                {charityDropdownStore.value &&
                                     <CharityShortInformationTemplate
                                         charity={charityDropdownStore.value.item}
                                         onChangeDefaultAddressClick={onChangeDefaultAddressClick}
@@ -187,6 +190,7 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <NumericInputField field={form.$('amount')} disabled={true} />
+                                        {isMicroGiving && <span style={{ color: "#C36C36", fontSize: "16px" }} >Micro giving ($2.5 fee) </span>}
                                     </div>
                                 </div>
                                 <div className="row row--form">

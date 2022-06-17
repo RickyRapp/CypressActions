@@ -44,7 +44,9 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 		isAdvancedInput,
 		debouncedSearchCharities,
 		logo,
-		image
+		image,
+		isMicroGiving,
+		checkMicroGiving
 	} = grantEditViewStore;
 
 	let promiseOptions = (inputValue) =>
@@ -165,7 +167,8 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 
 								<div className="row row--form">
 									<div className="form__group col col-sml-12">
-										<NumericInputField field={form.$('amount')} />
+									<NumericInputField field={form.$('amount')} onChange={checkMicroGiving} />
+                                        {isMicroGiving && <span style={{color:"#C36C36", fontSize:"16px"}} >Micro giving ($2.5 fee) </span>}
 									</div>
 								</div>
 								<div className="row row--form">

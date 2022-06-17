@@ -11,7 +11,7 @@ import { defaultTemplate } from 'core/hoc';
         Given amount: $${this.form.$('amount').$value}`), async () => {
  */
 
-function GrantConfirmTemplate({ modalParams, t }) {
+function GrantConfirmTemplate({ modalParams, t, microGiving }) {
     const {
         form,
         grantAcknowledgmentName,
@@ -21,8 +21,9 @@ function GrantConfirmTemplate({ modalParams, t }) {
         recurring,
         purpose,
         onCancel,
-        isChangedDefaultAddress
+        isChangedDefaultAddress,
     } = modalParams.data;
+   
     return (
         <div className="modal__list__wrap">
 
@@ -37,6 +38,13 @@ function GrantConfirmTemplate({ modalParams, t }) {
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount--secondary">{charity && charity.item && charity.item ? charity.item.name : (charity && typeof charity.item == 'undefined' ? charity.name : <div><b>{form.$('charityName').value}</b><span>&nbsp;(new)</span></div>)}</div>
             </section>
+            
+            {amount < 100 && microGiving && <section className="modal__list u-mar--bottom--med">
+                <div>{t('GRANT.CONFIRM.ADDITIONAL_FEE')}</div>
+                <div className="modal__list__divider"></div>
+                <div className="modal__list__amount--secondary">$2.50</div>
+            </section>}
+
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.GIVEN_AMOUNT')}</div>
                 <div className="modal__list__divider"></div>
@@ -48,7 +56,7 @@ function GrantConfirmTemplate({ modalParams, t }) {
                     />
                 </div>
             </section>
-            { isChangedDefaultAddress && 
+            {isChangedDefaultAddress &&
                 <section className="modal__list u-mar--bottom--med">
                     <div>{t('GRANT.CONFIRM.ALT_ADDRESS')}</div>
                     <div className="modal__list__divider"></div>
@@ -59,7 +67,8 @@ function GrantConfirmTemplate({ modalParams, t }) {
                             format={{ type: 'currency' }}
                         />
                     </div>
-                </section> }
+                </section>}
+
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('GRANT.CONFIRM.SCHEDULED_DATE')}</div>
                 <div className="modal__list__divider"></div>

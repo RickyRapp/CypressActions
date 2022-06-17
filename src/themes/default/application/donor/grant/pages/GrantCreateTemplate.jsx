@@ -61,7 +61,11 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		//inputCharity,
 		//setInputValue,
 		logo,
-		image
+		image,
+		//setInputValue
+		MicroGivingValue,
+		checkMicroGiving,
+		isMicroGiving
 	} = grantCreateViewStore;
 
 	// let counter = 0;
@@ -80,6 +84,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 	// 			counter = 0;
 	// 		}
 	// 	});
+
 	return (
 		<React.Fragment>
 			<EditFormLayout store={grantCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
@@ -584,7 +589,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 				<GrantConfirmDetailsTemplate form={form} />
 			</BaasicModal> */}
 			<BaasicModal modalParams={confirmModal}>
-				<GrantConfirmTemplate form={form} />
+				<GrantConfirmTemplate form={form} microGiving={MicroGivingValue} />
 			</BaasicModal>
 			<BaasicModal modalParams={advancedSearchModal}>
 				<CharityAdvancedSearch onSelected={onCharitySelected} showSearch={false} expanded={true} />

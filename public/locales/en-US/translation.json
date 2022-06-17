@@ -123,6 +123,7 @@
         "PRESENT": "The [:attribute] field must be present (but can be empty).",
         "REGEX": "The [:attribute] format is invalid.",
         "REQUIRED_IF": "The [:attribute] field is required.",
+        "REQUIRED_IF_MICROGIVING": "Micro giving ($2.5 fee)",
         "REQUIRED_UNLESS": "The [:attribute] field is required when [:other] is not [:value].",
         "REQUIRED_WITH": "The [:attribute] field is required when [:field] is not empty.",
         "REQUIRED_WITH_ALL": "The [:attribute] field is required when [:fields] are not empty.",
@@ -672,6 +673,20 @@
         },
         "CHARITY_WEBSITE_SETTING": {
             "TITLE": "Charity websites",
+            "EDIT": {
+                "FIELDS": {
+                    "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Share information",
+                    "GRANT_PURPOSE_TYPE_LABEL": "Purpose",
+                    "MAX_AMOUNT_LABEL": "Maximum dollar amount per transaction",
+                    "MAX_AMOUNT_PLACEHOLDER": "Enter number",
+                    "MAX_TIMES_PER_DAY_LABEL": "Maximum transactions per day",
+                    "MAX_TIMES_PER_DAY_PLACEHOLDER": "Enter number",
+                    "IS_ENABLED_LABEL": "Is enabled"
+                }
+            }
+        },
+        "ONLINE_GRANT": {
+            "TITLE": "Online grant",
             "EDIT": {
                 "FIELDS": {
                     "GRANT_ACKNOWLEDGMENT_TYPE_LABEL": "Share information",
@@ -1746,7 +1761,8 @@
             "RECURRING" : "Recurring Grant?",
             "SCHEDULED_DATE" : "Scheduled Date",
             "PURPOSE" : "Purpose",
-            "ALT_ADDRESS": "Alternative Address Fee"
+            "ALT_ADDRESS": "Alternative Address Fee",
+            "ADDITIONAL_FEE" : "Micro giving fee"
         },
         "TAB": {
             "LIST": "Grants",
@@ -1865,7 +1881,8 @@
             },
             "FIELDS": {
                 "AMOUNT_LABEL": "Gift amount",
-                "AMOUNT_PLACEHOLDER": "Min $100",
+                "AMOUNT_PLACEHOLDER": "Enter amount",
+                "AMOUNTWITHMICROGIVING_PLACEHOLDER": "Enter amount",
                 "CHARITY_LABEL": "Find a charity",
                 "CHARITY_PLACEHOLDER": "Search by charity name or tax ID",
                 "GRANT_PURPOSE_TYPE_LABEL": "Select Purpose",
