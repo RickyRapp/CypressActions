@@ -12,7 +12,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@observable image = null;
 	@observable logo = null;
 	@observable charityId = null;
-	@observable isMicroGiving = false;
+	@observable isMicroGiving;
 	@observable MicroGivingValue;
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
@@ -89,7 +89,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 								this.grantId = resultRec;
 
 							} else {
-								console.log(resource);
 								resource.isMicroGivingEnabled = this.MicroGivingValue;
 								var result = await this.grantStore.createGrant(resource);
 								this.grantId = result.response;
@@ -127,7 +126,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		if (rootStore.routerStore.routerState.queryParams && rootStore.routerStore.routerState.queryParams.grantRequestId) {
 			this.grantRequestId = rootStore.routerStore.routerState.queryParams.grantRequestId;
 		}
-
 		this.createCharityDropdownStore();
 		this.createCharityTypeDropdownStore();
 		this.createGrantPurposeTypeDropdownStore();
@@ -140,6 +138,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.advancedSearchModal = new ModalParams({});
 	}
 
+	
 	@action.bound
 	async onInit({ initialLoad }) {
 
@@ -147,7 +146,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 			this.rootStore.routerStore.goBack();
 		} else {
-
 			await this.setDonor();
 			await this.fetch([this.loadLookups()]);
 			const isExistingGrant = localStorageProvider.get('ExistingGrant');
@@ -285,6 +283,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		if (this.MicroGivingValue) {
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
 			if (this.form.$('amount').value < 100) {
+			
 				this.isMicroGiving = true;
 			}
 			else {
@@ -400,6 +399,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	async setAmount(value) {
+		this.checkMicroGiving();
 		if (value) {
 			if (!this.MicroGivingValue) {
 				if (value < this.applicationDefaultSetting.grantMinimumRegularAmount) {
@@ -545,6 +545,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		if (this.MicroGivingValue) {
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
 		}
+	
 		//const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
 		const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.donorId);
 		this.donor.availableBalance = dataDonor.presentBalance;
