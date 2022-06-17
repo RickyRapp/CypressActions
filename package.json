@@ -67,7 +67,7 @@
     "mobx-state-router": "^4.0.3",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
-    "normalize.css": "^8.0.1",
+    "normalize.css": "^8.0.1", 
     "object-assign": "4.1.1",
     "postcss-calc": "^6.0.2",
     "postcss-color-function": "^4.0.0",
