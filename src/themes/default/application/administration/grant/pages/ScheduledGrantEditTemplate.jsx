@@ -37,7 +37,9 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
         grantAcknowledgmentName,
         isChangedDefaultAddress,
         onChangeDefaultAddressClick,
-        grantPurposeTypes
+        grantPurposeTypes,
+        logo,
+        image
     } = scheduledGrantEditViewStore;
 
     return (
@@ -213,11 +215,15 @@ const ScheduledGrantEditTemplate = function ({ scheduledGrantEditViewStore, t })
                                                 </div>
                                             </div>
                                             <div className="row u-display--flex u-display--flex--align--center u-display--flex--wrap">
-                                                <div className="col col-sml-12 col-lrg-4">
-                                                    <img src={logo} alt={"logo"} />
-                                                </div>
+                                              
                                                 <div className="col col-sml-12 col-lrg-4">
                                                     {charityDropdownStore.value.item.name}
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                {logo ? (<img alt="" src={URL.createObjectURL(logo)} style={{height:"105px"}}/>) : null}
+                                                </div>
+                                                <div className="col col-sml-12 col-lrg-4">
+                                                {image ? (<img alt="" src={URL.createObjectURL(image)} style={{height:"140px"}}/>) : null}
                                                 </div>
                                             </div>
                                             <div className="row u-padd--top--med">

@@ -8,6 +8,9 @@ import _ from 'lodash';
 
 @applicationContext
 class GrantCreateViewStore extends BaseEditViewStore {
+	@observable charityId = null;
+	@observable image = null;
+	@observable logo = null;
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
 	@observable isChangedDefaultAddress = null;
@@ -75,7 +78,14 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 		this.advancedSearchModal = new ModalParams({});
 	}
-
+	@action.bound
+	async getLogo() {
+		this.logo = await this.rootStore.application.charity.charityStore.getCharityMedia(this.charityId, 'logo');
+	}
+	@action.bound
+	async getImage() {
+		this.image = await this.rootStore.application.charity.charityStore.getCharityMedia(this.charityId, 'photo');
+	}
 	@action.bound
 	async onInit({ initialLoad }) {
 		if (!initialLoad) {
@@ -293,6 +303,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.previousGrantsTableStore.dataInitialized = true;
 			}
 		}
+		this.charityId = value;
+			this.getImage();
+			this.getLogo();
 	}
 
 	@action.bound

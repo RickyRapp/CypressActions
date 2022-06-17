@@ -7,6 +7,9 @@ import { ModalParams } from 'core/models';
 
 @applicationContext
 class ScheduledGrantEditViewStore extends BaseEditViewStore {
+	@observable image = null;
+	@observable logo= null;
+	@observable charityId = null;
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
 	@observable isChangedDefaultAddress = null;
@@ -52,6 +55,11 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 						await this.rootStore.application.donor.grantStore.updateScheduledGrant(resource);
 					},
 					get: async id => {
+						this.charityId = (await this.rootStore.application.donor.grantStore.getScheduledGrant(id, {
+							embed: 'charity,charity.charityAddresses,charity.charityBankAccounts',
+						})).charityId;
+						this.getLogo();
+						this.getImage();
 						return this.rootStore.application.donor.grantStore.getScheduledGrant(id, {
 							embed: 'charity,charity.charityAddresses,charity.charityBankAccounts',
 						});
@@ -75,6 +83,16 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 		this.advancedSearchModal = new ModalParams({});
 	}
 
+	@action.bound
+	async getLogo(){
+		this.logo = await this.rootStore.application.charity.charityStore.getCharityMedia(this.charityId, 'logo');
+		
+	}
+	@action.bound
+	async getImage(){
+		this.image = await this.rootStore.application.charity.charityStore.getCharityMedia(this.charityId, 'photo');
+	
+	}
 	@action.bound
 	async onInit({ initialLoad }) {
 		if (!initialLoad) {
@@ -220,6 +238,9 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onCharityChange(value) {
+		this.charityId = value;
+		this.getImage();
+		this.getLogo();
 		this.setPreviousGrantTable(value);
 	}
 

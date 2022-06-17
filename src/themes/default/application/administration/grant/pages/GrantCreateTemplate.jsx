@@ -54,7 +54,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
         asyncPlaceholder,
         isAdvancedInput,
         moreSettings,
-        toggleSettings
+        toggleSettings,
+        logo,
+        image
     } = grantCreateViewStore;
 
     let promiseOptions = (inputValue) =>
@@ -350,13 +352,16 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                     </div>
                                                 </div>
                                                 <div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
-                                                    <div className="col col-sml-12 col-lrg-4">
-                                                        <img src={logo} alt={"logo"} />
-                                                    </div>
+                                                  
                                                     <div className="col col-sml-12 col-lrg-4">
                                                         {charity.item.name}
                                                     </div>
-                                                    {console.log("CHARITY", charity)}
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                    {logo ? (<img alt="" src={URL.createObjectURL(logo)} style={{height:"105px"}}/>) : null}
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                    {image ? (<img alt="" src={URL.createObjectURL(image)} style={{height:"140px"}}/>) : null}
+                                                    </div>
                                                     {charity && !charity.item.isActive &&
                                                         <div className="col col-sml-12 col-lrg-4">
                                                             <p style={{ color: "red" }}>Charity is not active</p>
@@ -410,10 +415,13 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 </div>
                                                 <div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
                                                     <div className="col col-sml-12 col-lrg-4">
-                                                        <img src={logo} alt={"logo"} />
+                                                        {charity.name}
                                                     </div>
                                                     <div className="col col-sml-12 col-lrg-4">
-                                                        {charity.name}
+                                                    {logo ? (<img alt="" src={URL.createObjectURL(logo)} style={{height:"105px"}}/>) : null}
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                    {image ? (<img alt="" src={URL.createObjectURL(image)} style={{height:"140px"}}/>) : null}
                                                     </div>
                                                 </div>
                                                 <div className="row row--form u-padd--top--med">
