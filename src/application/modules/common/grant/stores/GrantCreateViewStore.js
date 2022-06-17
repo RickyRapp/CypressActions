@@ -9,6 +9,9 @@ import { ModalParams } from 'core/models';
 import { localStorageProvider } from 'core/providers';
 @applicationContext
 class GrantCreateViewStore extends BaseEditViewStore {
+	@observable image = null;
+	@observable logo = null;
+	@observable charityId = null;
 	@observable isNoteToAdministratorIncluded = false;
 	@observable grantAcknowledgmentName = null;
 	@observable isChangedDefaultAddress = null;
@@ -259,6 +262,14 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
+	async getLogo(){
+		this.logo = await this.rootStore.application.charity.charityStore.getCharityMedia(this.charityId, 'logo');
+	}
+	@action.bound
+	async getImage(){
+		this.image = await this.rootStore.application.charity.charityStore.getCharityMedia(this.charityId, 'photo');
+	}
+	@action.bound
 	toggleSettings() {
 		this.moreSettings = !this.moreSettings;
 	}
@@ -472,6 +483,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async onCharityChange(value) {
+		this.charityId = value;
 		let data = [];
 		if (value) {
 			const donationTypes = await this.rootStore.application.lookup.donationTypeStore.find();
@@ -491,6 +503,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.previousGrantsTableStore.dataInitialized = true;
 			}
 		}
+		this.getLogo();
+		this.getImage();
 	}
 
 	@action.bound

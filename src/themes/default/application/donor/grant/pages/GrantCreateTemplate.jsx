@@ -59,7 +59,9 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		debouncedSearchCharities,
 		educationType,
 		//inputCharity,
-		//setInputValue
+		//setInputValue,
+		logo,
+		image
 	} = grantCreateViewStore;
 
 	// let counter = 0;
@@ -406,10 +408,16 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 														</div>
 													</div>
 													<div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
-														<div className="col col-sml-12 col-lrg-4">
-															<div className="type--base type--wgt--bold">{charity.name}</div>
-														</div>
-													</div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        {charity.name}
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                    {logo ? (<img alt="" src={URL.createObjectURL(logo)} style={{height:"105px"}}/>) : null}
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                    {image ? (<img alt="" src={URL.createObjectURL(image)} style={{height:"140px"}}/>) : null}
+                                                    </div>
+                                                </div>
 													<div className="row row--form u-padd--top--med">
 														<div className="col col-sml-12 col-lrg-4">
 															<div className="u-separator--primary u-mar--bottom--sml"></div>
@@ -461,11 +469,17 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 															</h4>
 														</div>
 													</div>
-													<div className="row row--form">
-														<div className="col col-sml-12">
-															<div className="type--base type--wgt--bold">{charity.item.name}</div>
-														</div>
-													</div>
+													<div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                        {charity.item.name}
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                    {logo ? (<img alt="" src={URL.createObjectURL(logo)} style={{height:"105px"}}/>) : null}
+                                                    </div>
+                                                    <div className="col col-sml-12 col-lrg-4">
+                                                    {image ? (<img alt="" src={URL.createObjectURL(image)} style={{height:"140px"}}/>) : null}
+                                                    </div>
+                                                </div>
 													<div className="row row--form u-padd--top--med">
 														<div className="col col-sml-12 col-lrg-4">
 															<div className="u-separator--primary u-mar--bottom--sml"></div>
