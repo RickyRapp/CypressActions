@@ -74,7 +74,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
     }
 
 	return (
-		<ApplicationListLayout store={bookletOrderViewStore} authorization={authorization}>
+		<React.Fragment>
 			<PageHeader routes={routes}></PageHeader>
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
@@ -173,7 +173,7 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 			<BaasicModal modalParams={selectDonorModal}>
 				<SelectDonor />
 			</BaasicModal>
-		</ApplicationListLayout>
+		</React.Fragment>
 	);
 };
 

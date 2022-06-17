@@ -1,5 +1,5 @@
 import { moduleProviderFactory } from 'core/providers';
-import { BookletOrderList, BookletOrderCreate, BookletOrderReview, BookletOrderPreview, BookletOrderEdit } from 'application/administration/booklet-order/pages';
+import { BookletOrderList, BookletOrderCreate, BookletOrderReview, BookletOrderPreview, BookletOrderEdit, BookletTab } from 'application/administration/booklet-order/pages';
 
 (function () {
     moduleProviderFactory.application.register({
@@ -8,15 +8,15 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderReview, BookletOrderP
                 name: 'master.app.main.administration.booklet-order',
                 pattern: '/booklet-orders',
                 children: [
-                    {
-                        name: 'master.app.main.administration.booklet-order.list',
-                        pattern: '',
-                        component: BookletOrderList,
-                        authorization: 'theDonorsFundBookletOrderSection.read',
-                        data: {
-                            title: "BOOKLET_ORDER.LIST.TITLE"
-                        }
-                    },
+                    // {
+                    //     name: 'master.app.main.administration.booklet-order.list',
+                    //     pattern: '',
+                    //     component: BookletOrderList,
+                    //     authorization: 'theDonorsFundBookletOrderSection.read',
+                    //     data: {
+                    //         title: "BOOKLET_ORDER.LIST.TITLE"
+                    //     }
+                    // },
                     {
                         name: 'master.app.main.administration.booklet-order.create',
                         pattern: '/create/:id',
@@ -51,6 +51,15 @@ import { BookletOrderList, BookletOrderCreate, BookletOrderReview, BookletOrderP
                         authorization: 'theDonorsFundBookletOrderSection.update',
                         data: {
                             title: "BOOKLET_ORDER.EDIT.TITLE_TEMPLATE"
+                        }
+                    },
+                    {
+                        name: 'master.app.main.administration.booklet-order.list',
+                        pattern: '',
+                        component: BookletTab,
+                        authorization: 'theDonorsFundBookletOrderSection.read',
+                        data: {
+                            title: "BOOKLET_ORDER.LIST.TITLE"
                         }
                     }
                 ]

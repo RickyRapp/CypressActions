@@ -53,6 +53,16 @@ class BookletOrderStore {
         return response.data;
     }
 
+    async getFolderOrders(resource) {
+        const response = await this.bookletOrderService.getFolderOrders(resource);
+        return response;
+    }
+
+    async folderReview(resource) {
+        const response = await this.bookletOrderService.folderReview(resource);
+        return response;
+    }
+
     async generateReport(resource) {
         const response = await this.bookletOrderService.generateReport(resource);
         return response;

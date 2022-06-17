@@ -389,6 +389,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     <p className="type--sml">
                                                         <em>*one of the following information is mandatory for custom booklets:
                                                             Name / Address / Expiration Date</em>
+                                                        <br /><em>**this only applies to non-prepaids and blanks</em>
                                                     </p>
                                                 </div>}
                                             <div className="row row--form">

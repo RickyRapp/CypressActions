@@ -3,3 +3,5 @@ export { default as BookletOrderReviewViewStore } from './BookletOrderReviewView
 export { default as BookletOrderStore } from './BookletOrderStore'
 export { default as BookletOrderPreviewViewStore } from './BookletOrderPreviewViewStore'
 export { default as BookletOrderEditViewStore } from './BookletOrderEditViewStore'
+export { default as BookletTabViewStore } from './BookletTabViewStore'
+export { default as FolderListViewStore } from './FolderListViewStore'

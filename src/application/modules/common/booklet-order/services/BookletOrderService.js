@@ -17,8 +17,18 @@ class BookletOrderService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    getFolderOrders(resource) {
+        const url = this.routeService.folderFind(resource);
+        return this.apiClient.get(url);
+    }
+
     cancel(resource) {
         const url = this.routeService.cancel(resource);
+        return this.apiClient.put(url, resource);
+    }
+
+    folderReview(resource) {
+        const url = this.routeService.folderReview(resource);
         return this.apiClient.put(url, resource);
     }
     
