@@ -276,7 +276,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                             </tr>
                                         </tfoot>
                                         {
-                                            form.$('orderFolder').value == true && 
+                                            form.$('orderFolder').value == true &&
                                             <tfoot>
                                                 <tr>
                                                     <th colSpan="2">Booklet folder fee</th>
@@ -339,7 +339,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                     <div className="u-mar--top--med">
                                         <div className="message--enh">
                                             <span className="u-mar--right--tny">
-                                            You've selected pre-paid check books that exceed your account balance. Kindly initiate a deposit to proceed with this order. &nbsp;
+                                                You've selected pre-paid check books that exceed your account balance. Kindly initiate a deposit to proceed with this order. &nbsp;
                                             </span>
                                             <a href="#" className="u-anchor--underline" onClick={goToNewDeposit}>
                                                 Deposit Funds
@@ -372,73 +372,79 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 </div>
                             </div>
 
-                            <div className="card--primary card--med">
-                                <button type="button" className="btn btn--show type--wgt--medium" onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}>
-                                    <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                    {!form.$('isCustomizedBook').value ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
-                                    <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                </button>
+                            <div>
+                                <div className="card--primary card--med">
+                                    <button type="button" className="btn btn--show type--wgt--medium" onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}>
+                                        <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                        {!form.$('isCustomizedBook').value ? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS') : t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
+                                        <i className={!form.$('isCustomizedBook').value ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                    </button>
 
-                                {form.$('isCustomizedBook').value &&
-                                    <div>
+                                    {form.$('isCustomizedBook').value &&
+                                        <div>
 
-                                        {donor &&
-                                            <div className="message message--note u-mar--top--med u-mar--bottom--med">
-                                                <p className="u-mar--bottom--tny type--color--note"><strong>Additional charge of $5 per book</strong></p>
-                                                <p className="type--sml">
-                                                    <em>*one of the following information is mandatory for custom booklets:
-                                                    Name / Address / Expiration Date</em>
-                                                </p>
-                                            </div>}
-                                        <div className="row row--form">
-                                            <div className="col col-sml-12 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('customizedName')} />
+                                            {donor &&
+                                                <div className="message message--note u-mar--top--med u-mar--bottom--med">
+                                                    <p className="u-mar--bottom--tny type--color--note"><strong>Additional charge of $5 per book</strong></p>
+                                                    <p className="type--sml">
+                                                        <em>*one of the following information is mandatory for custom booklets:
+                                                            Name / Address / Expiration Date</em>
+                                                    </p>
+                                                </div>}
+                                            <div className="row row--form">
+                                                <div className="col col-sml-12 u-mar--bottom--sml">
+                                                    <BasicInput field={form.$('customizedName')} />
+                                                </div>
+                                                <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                    <BasicInput field={form.$('customizedAddressLine1')} />
+                                                </div>
+                                                <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                    <BasicInput field={form.$('customizedAddressLine2')} />
+                                                </div>
+                                                <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                    <BasicInput field={form.$('customizedCity')} />
+                                                </div>
+                                                <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                    <BasicInput field={form.$('customizedState')} />
+                                                </div>
+                                                <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                    <BasicInput field={form.$('customizedZipCode')} />
+                                                </div>
+                                                <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+                                                    <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore} />
+                                                </div>
+                                                <div className="col col-sml-12">
+                                                    <p className="u-mar--top--sml">{form.$('customizedExpirationDate').value && expiryDate}</p>
+                                                </div>
                                             </div>
-                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('customizedAddressLine1')} />
-                                            </div>
-                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('customizedAddressLine2')} />
-                                            </div>
-                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('customizedCity')} />
-                                            </div>
-                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('customizedState')} />
-                                            </div>
-                                            <div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
-                                                <BasicInput field={form.$('customizedZipCode')} />
-                                            </div>
-                                            <div className="col col-sml-12 col-xlrg-4">
-                                                <BaasicFieldDropdown field={form.$('customizedExpirationDate')} store={customizedExpirationDateDropdownStore}/>
-                                            </div>
-                                            <p>{form.$('customizedExpirationDate').value && expiryDate}</p>
                                         </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
-                            <div className="card--primary card--med ">
-                                <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowAddOnItemsClick}>
-                                    <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                    {showAddOnitems ? t('BOOKLET_ORDER.CREATE.HIDE_ADD_ON_ITEMS') : t('BOOKLET_ORDER.CREATE.SHOW_ADD_ON_ITEMS')}
-                                    <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
-                                </button>
-                                {showAddOnitems &&
-                                    <div className="row">
-                                        <div className="col col-sml-12">
-                                            <video autoPlay="true" height="240" width="380" src="https://res.cloudinary.com/the-donors-fund/video/upload/v1653479671/TDF/BookletFolder-AddOnItem.mp4"></video>
+                            <div>
+                                <div className="card--primary card--med ">
+                                    <button type="button" className="btn btn--show type--wgt--medium" onClick={onShowAddOnItemsClick}>
+                                        <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                        {showAddOnitems ? t('BOOKLET_ORDER.CREATE.HIDE_ADD_ON_ITEMS') : t('BOOKLET_ORDER.CREATE.SHOW_ADD_ON_ITEMS')}
+                                        <i className={!showAddOnitems ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+                                    </button>
+                                    {showAddOnitems &&
+                                        <div className="row">
+                                            <div className="col col-sml-12">
+                                                <video autoPlay="true" height="240" width="380" src="https://res.cloudinary.com/the-donors-fund/video/upload/v1653479671/TDF/BookletFolder-AddOnItem.mp4"></video>
 
-                                            <div className="u-display--flex u-display--flex--justify--space-between">
-                                                <p>Order a check folder?  (Additional $35 fee)
-                                                    {/* <span data-tip='Additional $35 Fee' data-type="info" style={{ cursor: 'pointer' }}>
+                                                <div className="u-display--flex u-display--flex--justify--space-between">
+                                                    <p>Order a check folder?  (Additional $35 fee)
+                                                        {/* <span data-tip='Additional $35 Fee' data-type="info" style={{ cursor: 'pointer' }}>
                                                         <i className="u-icon u-icon--base u-icon--info--link u-mar--left--tny"></i>
                                                     <ReactTooltip />
                                                     </span> */}
-                                                </p>
-                                                <BasicFieldCheckbox toggleClass='--toggle' field={form.$('orderFolder')} />
+                                                    </p>
+                                                    <BasicFieldCheckbox toggleClass='--toggle' field={form.$('orderFolder')} />
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>}
+                                        </div>}
+                                </div>
                             </div>
                         </div>
                     </div> 
@@ -476,7 +482,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         <div className="card--primary card--med u-mar--bottom--med">
                             {(form.$('deliveryMethodTypeId').value === deliveryMethodTypes.find(c => c.abrv === 'mail-usps').id || form.$('deliveryMethodTypeId').value === deliveryMethodTypes.find(c => c.abrv === 'express-mail').id) ?
                                 <React.Fragment>
-                                    <div className="row row--form">
+                                    <div className="row row--form u-mar--bottom--med">
                                         <div className="col col-sml-12 col-med-12 col-lrg-2 u-mar--bottom--sml">
                                             <span className="type--med type--wgt--medium type--color--note">
                                                 {t('BOOKLET_ORDER.CREATE.SHIPPING_ADDRESS')}
