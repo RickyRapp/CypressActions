@@ -41,15 +41,15 @@ class PastGrantViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						if(params.dateCreatedFrom){
-                            let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
-                            params.dateCreatedFrom = `${fromDate} 00:00:00`;
-                        }
-                        if(params.dateCreatedTo){
-                            let toDate = params.dateCreatedTo.replace(' 23:59:59','');
-                            params.dateCreatedTo = `${toDate} 23:59:59`;
-                        }
-						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet', 'thirdPartyWebsite', 'charity.charityAddresses', 'givingCardType', 'charity.charityBankAccounts','charity.charityStatus'];
+						if (params.dateCreatedFrom) {
+							let fromDate = params.dateCreatedFrom.replace(' 00:00:00', '');
+							params.dateCreatedFrom = `${fromDate} 00:00:00`;
+						}
+						if (params.dateCreatedTo) {
+							let toDate = params.dateCreatedTo.replace(' 23:59:59', '');
+							params.dateCreatedTo = `${toDate} 23:59:59`;
+						}
+						params.embed = ['charity', 'donationType', 'donationStatus', 'donor', 'grantPurposeType', 'session', 'certificate', 'certificate.booklet', 'thirdPartyWebsite', 'charity.charityAddresses', 'givingCardType', 'charity.charityBankAccounts', 'charity.charityStatus','url'];
 						const tableData = await rootStore.application.donor.grantStore.findPastGrant({
 							donorId: this.donorId,
 							...params,
@@ -58,6 +58,7 @@ class PastGrantViewStore extends BaseListViewStore {
 							donorId: this.donorId,
 							...params,
 						});
+						console.log("Table data", tableData);
 						return tableData;
 					},
 				};
@@ -72,7 +73,7 @@ class PastGrantViewStore extends BaseListViewStore {
 		this.createExportConfig();
 		this.createYearDropdownStore();
 
-        this.reviewModal = new ModalParams({});
+		this.reviewModal = new ModalParams({});
 
 		this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
 	}
@@ -91,25 +92,25 @@ class PastGrantViewStore extends BaseListViewStore {
 
 	@action.bound
 	openReviewModal(item) {
-        this.reviewModal.open({
-            item: item,
+		this.reviewModal.open({
+			item: item,
 			reviewConfirm: async (item, approved) => {
 				try {
 					item.isCertificateApproved = approved;
-					if(approved == false && (!item.checkDeclinationReason)) {
+					if (approved == false && (!item.checkDeclinationReason)) {
 						this.rootStore.notificationStore.error('No declination reason given');
 					} else {
 						await this.rootStore.application.donor.grantStore.updateGrant(item);
 						this.rootStore.notificationStore.success('Successfully reviewed grant.');
 						this.reviewModal.close();
-                		this.queryUtility.fetch();
-					}			
+						this.queryUtility.fetch();
+					}
 				} catch (e) {
 					this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_UPDATE');
 				}
 			}
-        });
-    }
+		});
+	}
 
 
 	@action.bound
@@ -247,17 +248,17 @@ class PastGrantViewStore extends BaseListViewStore {
 			{
 				fetchFunc: async () => {
 					let result = await this.rootStore.application.lookup.donationStatusStore.find();
-					
+
 					const firstIndex = result.map(obj => obj.abrv).indexOf('donor-review-first');
 					const secondIndex = result.map(obj => obj.abrv).indexOf('donor-review-first');
-					
+
 					const ids = `${result[firstIndex].id},${result[secondIndex].id}`;
-					
+
 					result.splice(firstIndex, 1);
 					result.splice(secondIndex, 1);
-					
-					result.unshift({abrv: 'check-approval', id: ids, name: 'Check Approval', description: 'CheckApproval'})
-					
+
+					result.unshift({ abrv: 'check-approval', id: ids, name: 'Check Approval', description: 'CheckApproval' })
+
 					return result;
 				},
 				onChange: donationStatus => {
@@ -404,20 +405,17 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 
 	getDescription(item) {
-		if (item && item.donationType) { 
+		console.log("Item", item);
+		if (item && item.donationType) {
 			if (item.donationType.abrv === "online") {
 				if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {
 					return `${item.grantPurposeType.name} - ${item.purposeNote}`
 				}
 				return item.grantPurposeType.name;
 			} else if (item.donationType.abrv === 'charity-website') {
-				if(item.thirdPartyWebsite){
-					return item.thirdPartyWebsite.url;
-				}else{
-					return item.charity.url;
-				}
+					return item.url;
 			}
-			else if (item.donationType.abrv === "giving-card"){
+			else if (item.donationType.abrv === "giving-card") {
 				return item.givingCardType.name;
 			}
 			else if (item.donationType.abrv === "session") {

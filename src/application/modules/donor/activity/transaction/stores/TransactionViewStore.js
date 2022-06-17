@@ -4,7 +4,6 @@ import { TransactionListFilter } from 'application/donor/activity/transaction/mo
 import { action } from 'mobx';
 import _ from 'lodash';
 import moment from 'moment';
-
 @applicationContext
 class TransactionViewStore extends BaseListViewStore {
     constructor(rootStore, props) {
@@ -27,6 +26,8 @@ class TransactionViewStore extends BaseListViewStore {
                         params.embed = [
                             'paymentTransaction',
                         ]
+                        var test = await this.rootStore.application.donor.transactionStore.findTransactions({ donorId: this.donorId, ...params });
+                        console.log(test);
                         return this.rootStore.application.donor.transactionStore.findTransactions({ donorId: this.donorId, ...params });
                     }
                 }
@@ -36,7 +37,6 @@ class TransactionViewStore extends BaseListViewStore {
         this.donorId = rootStore.userStore.applicationUser.id;
         this.hidePager = props.hidePager;
         this.showPresentBalance = true;
-
         this.createTableStore();
         this.createDateCreatedDateRangeQueryStore();
         this.createTransactionTypeStore();
@@ -89,7 +89,7 @@ class TransactionViewStore extends BaseListViewStore {
             { id: 3, name: 'Past month', key: 3 },
             { id: 4, name: 'Year to date', key: 4 },
         ];
-        
+
         this.transactionPeriod = new BaasicDropdownStore(
             {
                 placeholder: 'CHOOSE_TRANSACTION_TYPE'
@@ -133,8 +133,9 @@ class TransactionViewStore extends BaseListViewStore {
         this.transactionPeriod.setValue(_.find(this.transactionPeriod.items, { id: 0 }))
     }
 
+
     createTableStore() {
-        if(window.innerWidth > 750) {
+        if (window.innerWidth > 750) {
             this.setTableStore(new TableViewStore(this.queryUtility, {
                 columns: [
                     {
@@ -152,7 +153,7 @@ class TransactionViewStore extends BaseListViewStore {
                         format: {
                             type: 'function',
                             value: (item) => {
-                                if(item.paymentTransaction && item.paymentTransaction.description && item.paymentTransaction.description.includes('Refund Contribution'))
+                                if (item.paymentTransaction && item.paymentTransaction.description && item.paymentTransaction.description.includes('Refund Contribution'))
                                     return `Declined ${item.description}`;
                                 return item.description;
                             }
@@ -176,13 +177,13 @@ class TransactionViewStore extends BaseListViewStore {
                         format: {
                             type: 'function',
                             value: (item) => {
-                                if(!this.showPresentBalance) 
+                                if (!this.showPresentBalance)
                                     return null;
-    
+
                                 let formatter = new Intl.NumberFormat('en-US', {
                                     style: 'currency',
                                     currency: 'USD',
-                                    });
+                                });
                                 return formatter.format(item.paymentTransaction.presentBalance);
                             }
                         }
@@ -213,7 +214,7 @@ class TransactionViewStore extends BaseListViewStore {
                         format: {
                             type: 'function',
                             value: (item) => {
-                                if(item.paymentTransaction && item.paymentTransaction.description && item.paymentTransaction.description.includes('Refund Contribution'))
+                                if (item.paymentTransaction && item.paymentTransaction.description && item.paymentTransaction.description.includes('Refund Contribution'))
                                     return `Declined ${item.description}`;
                                 return item.description;
                             }

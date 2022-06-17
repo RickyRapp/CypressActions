@@ -47,6 +47,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			actions: () => {
 				return {
 					create: async resource => {
+						console.log("Resource-> ", resource);
+						
 						resource.donorId = this.donorId;
 						if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId) && !resource.isRecurring) {
 							await this.grantStore.createGrantRequest({ grantRequestId: this.grantRequestId, ...resource });
@@ -693,7 +695,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						search: searchQuery,
 						sort: 'name|asc',
 						embed: ['charityAddresses'],
-						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'charityStatusId', 'isActive'],
+						fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'charityStatusId', 'isActive','url'],
 					});
 					return data.item.map(x => {
 						return {
@@ -749,7 +751,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses', 'charityBankAccounts'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'charityStatusId', 'isActive'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'charityStatusId', 'isActive','url'],
 		});
 		const mapped = data.item.map(x => {
 			return {
@@ -774,7 +776,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses', 'charityBankAccounts'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'isActive'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'isActive','url'],
 		});
 		const mapped = data.item.map(x => {
 			return {
@@ -824,7 +826,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			search: inputValue,
 			sort: 'name|asc',
 			embed: ['charityAddresses', 'charityBankAccounts'],
-			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'isActive'],
+			fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary', 'isActive','url'],
 		});
 		const mapped = data.item.map(x => {
 			return {
