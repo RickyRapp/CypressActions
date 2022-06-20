@@ -14,8 +14,7 @@ const UserInfo = props => {
             props.currentRestaurant 
             ?
             <div style={{"display": "flex", justifyContent: "center"}}><RestaurantMap restaurants={props.restaurants} /><RestaurantDetailsUser /> </div>
-            :
-            <div style={{"display": "flex", justifyContent: "center"}}>Please select a restaurant</div>}
+            : ''}
         </div>
     )
 }

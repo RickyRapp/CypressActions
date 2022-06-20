@@ -16,104 +16,132 @@ const RestaurantAddForm = props => {
             </option>
         )
     }) 
+    
     const [showButton, setShowButton] = useState(true);
     const [restaurantName, setRestaurantName] = useState("");
     const [restaurantAddress, setRestaurantAddress] = useState("");
-    const [associatedCategory, setAssociatedCategory] = useState(props.currentCategory.categoryNum);
+    const [associatedCategory, setAssociatedCategory] = useState(props.currentCategory.categoryNum); 
+    const [showStatus, setShowStatus] = useState(false); 
+    const [currentStatus, setCurrentStatus] = useState("");  
     const [message, setMessage] = useState("");  
     const dispatch = useDispatch()
 
     console.log(restaurantAddress)
 
     const addingRestaurant = () => {
-        setShowButton(false)
-        setMessage("")
+        setShowButton(false)  
     }
  
-    const handleSubmit = async e => {
+    const handleSubmit = async e => { 
           e.preventDefault();
           const newRestaurantName = restaurantName
           const newRestaurantAddress = restaurantAddress
-          const newAssociatedCategory = associatedCategory
-          console.log(associatedCategory)
+          const newAssociatedCategory = associatedCategory 
           const newRestaurantsInfo =  {
             'newRestaurantAddress'  :    newRestaurantAddress,
             'newAssociatedCategory' :    newAssociatedCategory,
             'newRestaurantName'     :    newRestaurantName 
-         };   
-
+         };    
          Geocode.setApiKey("AIzaSyByvZEhbhUOwuNnMkiOmz6LRDG9hmz2BnM")
          Geocode.enableDebug();
-         const address = restaurantAddress; 
-         console.log(address)
+         const address = restaurantAddress;  
          Geocode.fromAddress(address).then(
            (response) => {  
-             console.log(response.status) 
+                console.log(response.status) 
+                setCurrentStatus("")
            },
-           (error) => {
-             console.error(`error:${error}`); 
-             setMessage("invalid address")
-             return; 
-             console.log(error.status)
+           (error) => {            
+                setCurrentStatus("error")
+                setMessage("Please enter valid address!")
+                setShowStatus(true)  
+                setShowButton(false)
+                return; 
+                console.log("returning?")
            }
          ); 
+           if(currentStatus == "error"){
+               console.log("returning...?")
+               return;
+           }
 
-          const newRestaurant = await fetch(`https://restaurant-selections.herokuapp.com/restaurants`, {  
-          method:'POST',
-          headers: {"content-type":"application/json"}, 
-          body: JSON.stringify({newRestaurantsInfo}) 
-    })
-     try{ 
-            setRestaurantName(""); 
-            setRestaurantAddress("");  
-            setShowButton(true)
-            setMessage("Restaurant Added!")
-            const response = await axios
-            .get('https://restaurant-selections.herokuapp.com/restaurants') 
-            .catch((err) => {
-                console.log("err",err)
-            }) 
-            dispatch(setRestaurant(response.data));  
-        } 
-        catch (err){
-            setMessage(`There was an issue: ${err}`);
-        }
-          
-
+            await fetch(`https://restaurant-selections.herokuapp.com/restaurants`, {  
+                method:'POST',
+                headers: {"content-type":"application/json"}, 
+                body: JSON.stringify({newRestaurantsInfo}) 
+            })
+            
+            try{   
+                setAssociatedCategory(""); 
+                setRestaurantName(""); 
+                setRestaurantAddress("");   
+                setCurrentStatus("success"); 
+                setShowStatus(true)
+                const response = await axios
+                .get('https://restaurant-selections.herokuapp.com/restaurants') 
+                .catch((err) => {
+                    console.log("err",err)
+                }) 
+                dispatch(setRestaurant(response.data));  
+                setTimeout(() => { 
+                    setShowButton(true) 
+                    setShowStatus(false) 
+                }, 5000);
+            } 
+            catch (err){
+                setMessage(`There was an issue: ${err}`);
+                setCurrentStatus("error");     
+                setShowStatus(true); 
+            } 
       }
     
     return(
         <div>
-            {showButton ? 
-            <button className="ui button" onClick={()=> addingRestaurant() } >Add Restaurant</button>
-            :
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <input onChange={(e) => setRestaurantName(e.target.value)}
-                    type="text" 
-                    value={restaurantName}
-                    placeholder="Restaurant Name"  
-                    className="ui input"
-                    />
-                </div>
-                <div>
-                    <input onChange={(e) => setRestaurantAddress(e.target.value)}
-                    type="text" 
-                    value={restaurantAddress}
-                    placeholder="Address"  
-                    className="ui input"
-                    />
-                </div>
-                <div>
-                    <select onChange={e=>{setAssociatedCategory(e.target.value)}}>
-                        {setOption}
-                    </select>
-                </div>
-                <button className="ui button" type="submit">Save</button>
-                <button className="ui button" onClick={()=> setShowButton(true) }>Cancel</button> 
-            </form>
-            }
-            {message}
+            <div>
+                {showButton ? 
+                <button id="addRestaurant" className="ui button" onClick={()=> addingRestaurant() } >Add Restaurant</button>
+                :
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <input required onChange={(e) => setRestaurantName(e.target.value)}
+                        type="text" 
+                        value={restaurantName}
+                        placeholder="Restaurant Name"  
+                        className="ui input"
+                        />
+                    </div>
+                    <div>
+                        <input required onChange={(e) => setRestaurantAddress(e.target.value)}
+                        type="text" 
+                        value={restaurantAddress}
+                        placeholder="Address"  
+                        className="ui input"
+                        />
+                    </div>
+                    <div>
+                        <select className="ui dropdown" onChange={e=>{setAssociatedCategory(e.target.value)}}>
+                            {setOption}
+                        </select>
+                    </div>
+                    <button className="ui button" type="submit">Save Restaurant</button>
+                    <button className="ui button" onClick={()=> setShowButton(true) }>Cancel</button> 
+                </form>
+                }
+            </div>
+            {
+            showStatus?
+                currentStatus=="error"?
+                    <div className="ui negative message error"> 
+                        <div className="header">
+                            {message}
+                        </div> 
+                    </div>
+                :
+                    <div className="ui negative message success"> 
+                        <div className="header">
+                            Restaurant successfully saved!
+                        </div> 
+                    </div>
+            :''}
         </div>
     )}
 

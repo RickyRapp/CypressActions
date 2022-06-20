@@ -3,6 +3,7 @@ import React, {useState, useRef} from 'react';
 //import DropDownNew from './dropdown';
 import UserInfo from './Components/UserInfo';
 import AdminInfo from './Components/AdminInfo';
+import LoginScreen from './Components/LoginScreen';
 import Header from './Components/Header';
 import Route from './Components/Route'; 
  
@@ -11,7 +12,7 @@ const App = () => {
     <div>   
       <Header />
       <Route path="/">
-        <div className='ui header' style={{textAlign:"center"}}>Welcome!</div>
+        <LoginScreen />
       </Route>
       <Route path="/user">
         <UserInfo />

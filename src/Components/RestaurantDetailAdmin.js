@@ -27,7 +27,7 @@ const RestaurantDetailsAdmin = props => {
         setallBookings(response.data);
     }
     if(!props.currentRestaurant){
-        return <div>Select a Restaurant!</div>
+        return '';
     }
   
     return(

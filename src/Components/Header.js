@@ -18,13 +18,13 @@ const Header = props => {
     return(  
         <div style={{textAlign:'center'}}>   
             <br />
-            <Link loginType="" href="/" className={props.currentLoggedInAs===''||currentPath===''?"selected item":"item"}>
+            <Link loginType="" href="/" className={props.currentLoggedInAs===''||currentPath===''?"selected item home":"item home"}>
                 Home
             </Link>
-            <Link loginType="user" href="/user" className={props.currentLoggedInAs==='user'||currentPath==='user'?"selected item":"item"}>
+            <Link loginType="user" href="/user" className={props.currentLoggedInAs==='user'||currentPath==='user'?"selected item user":"item user"}>
                 User
             </Link>
-            <Link loginType="admin" href="/admin" className={props.currentLoggedInAs==='admin'||currentPath==='admin'?"selected item":"item"}>
+            <Link loginType="admin" href="/admin" className={props.currentLoggedInAs==='admin'||currentPath==='admin'?"selected item admin":"item admin"}>
                 Admin
             </Link>
         </div>

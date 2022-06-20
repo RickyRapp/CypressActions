@@ -20,7 +20,7 @@ const Link = ({ className, loginType, href, children }) => {
   };
  
   return (
-    <a style={{padding:'5px'}}  onClick={navigatePage} className={className} href={href}>
+    <a style={{padding:'5px', color:'gray'}} className={className}>
       {children}
     </a>
   );

@@ -10,11 +10,13 @@ const RestaurantDropdown = props => {
     const [currentRestaurant, setCurrentRestaurant] = useState(null)
 
     const getRestaurants = async () => { 
+        console.log(props.selectedCategoryNum.categoryNum)
         const response = await axios
-        .get('https://restaurant-selections.herokuapp.com/restaurants') 
+        .get(`http://localhost:3001/restaurants?categoryNum=${props.selectedCategoryNum.categoryNum}`) 
         .catch((err) => {
             console.log("err",err)
         }) 
+        console.log(response.data)
         dispatch(setRestaurant(response.data));
     }
     useEffect(() => {
@@ -23,7 +25,7 @@ const RestaurantDropdown = props => {
     },[props.selectedCategoryNum])  
  
     if(!props.selectedCategoryNum){
-        return<div>Please select a category</div>
+        return ''
     }
     const handleRestaurantChange = e => {
         
@@ -52,8 +54,8 @@ const RestaurantDropdown = props => {
         })  
         return( 
             <div>      
-                <label className="ui label">Select a Restaurant</label>
-                <select class="ui dropdown" value={!currentRestaurant?'-1':currentRestaurant} onChange={e=>handleRestaurantChange(e)}>
+                <label><b>Select a Restaurant </b></label>
+                <select  id="restaurantSelect" class="ui dropdown" value={!currentRestaurant?'-1':currentRestaurant} onChange={e=>handleRestaurantChange(e)}>
                     <option value='-1'>(Select One)</option>
                     {renderOptions} 
                 </select>      

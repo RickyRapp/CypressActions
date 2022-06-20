@@ -13,7 +13,7 @@ const CategoryDropDown = props =>  {
         .catch((err) => {
             console.log("err",err)
         }) 
-        console.log(response.data)
+       // console.log(response.data)
         dispatch(setCategory(response.data));
     }
     useEffect(() => { 
@@ -33,8 +33,8 @@ const CategoryDropDown = props =>  {
     })
     return ( 
         <div>
-            <label className="ui label">Select a Category</label>
-            <select value={!props.selectedCategoryNum?'-1':props.selectedCategoryNum.categoryNum} class="ui dropdown" onChange={e =>props.selectedCategory(e) } >
+            <label><b>Select a Category </b></label>
+            <select id="categorySelect" value={!props.selectedCategoryNum?'-1':props.selectedCategoryNum.categoryNum} className="ui dropdown" onChange={e =>props.selectedCategory(e) } >
                 <option value='-1'>Select One</option>
                 {setOption}
             </select> 

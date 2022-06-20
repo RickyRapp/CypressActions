@@ -10,7 +10,10 @@ const CategoryEditForm = props => {
   //  console.log(currentCategoryName)
     const [showButton, setShowButton] = useState(true);
     const [category, setNewCategory] = useState("");
-    const [message, setMessage] = useState("");  
+    const [message, setMessage] = useState("testing123"); 
+    const [showStatus, setShowStatus] = useState(false); 
+    const [currentStatus, setCurrentStatus] = useState(""); 
+    const [testing, setTesting] = useState(false); 
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -21,50 +24,88 @@ const CategoryEditForm = props => {
           e.preventDefault();
           const categoryName = category
           const id=props.currentCategory.id 
+          if(category.trim().length===0){ 
+            setCurrentStatus("error")
+            setMessage("Please enter valid category!")
+            setShowStatus(true)
+            setTimeout(() => {
+                // After 3 seconds set the show value to false
+                setShowStatus(false)
+                setShowButton(true) 
+            }, 5000)    
+            return;
+          }
         
           const newCategory = await fetch(`https://restaurant-selections.herokuapp.com/categories/${id}`, {
           method:'PATCH', 
           headers: {"content-type":"application/json"}, 
           body: JSON.stringify({categoryName}) 
     })
-     try{
-            //await newCategory();
-            setNewCategory(""); 
-            setMessage("updated successfully");
-            setShowButton(true)
-            const response = await axios
-            .get('https://restaurant-selections.herokuapp.com/categories') 
-            .catch((err) => {
-                console.log("err",err)
-            }) 
-            dispatch(setCategory(response.data)); 
-           // props.getCategories(); 
-        } 
-        catch (err){
-            setMessage(`There was an issue: ${err}`);
-        }
-          
-
-      }
+    try {
+        setNewCategory(""); 
+        setMessage("testing 1123");
+        setCurrentStatus("success");  
+        setShowStatus(true)   
+        const response = await axios
+        .get('https://restaurant-selections.herokuapp.com/categories') 
+        .catch((err) => {
+         console.log("err",err)
+        }) 
+        dispatch(setCategory(response.data));  
+      } 
+    catch (err){
+        setMessage(`There was an issue: ${err}`);
+        setCurrentStatus("error");     
+        setShowStatus(true);
+    }
+    setTimeout(() => {
+        // After 3 seconds set the show value to false
+        setShowStatus(false)
+        setShowButton(true) 
+    }, 5000)   
+  }
     
     return(
         <div>
+          <div>
             {showButton ? 
-            <button className="ui button" onClick={()=> setShowButton(false) }>Edit Category</button>
+            <button id="editCategory" className="ui button" onClick={()=> setShowButton(false) }>Edit Category</button>
             :
             <form onSubmit={handleSubmit}>
-                <input onChange={(e) => setNewCategory(e.target.value)}
+                <label>
+                    Enter Category Name
+                </label>
+                <input required onChange={(e) => setNewCategory(e.target.value)}
                 type="text"
                 name="category"
                 value={category}
                 placeholder="Name"  
                 className="ui input"
                 />
-                <button type="submit" className="ui button">Save</button>
+                <br />
+                <div>
+                <button type="submit" className="ui button">Save Category</button>
                 <button className="ui button" onClick={()=> setShowButton(true) }>Cancel</button> 
+                </div>
             </form>
             }
-            {message}
+          </div>
+
+            {
+            showStatus?
+                currentStatus=="error"?
+                <div className="ui negative message error"> 
+                    <div className="header">
+                        {message}
+                    </div> 
+                </div>
+                :
+                <div className="ui positive message success"> 
+                    <div className="header">
+                        Category successfully updated!
+                    </div> 
+                </div>
+            :''}
         </div>
     )}
 

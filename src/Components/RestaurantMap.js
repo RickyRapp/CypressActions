@@ -58,7 +58,7 @@ const Map = props => {
       <div className="c-map" style={{ height: '50vh', width: '50%' }}> 
         <GoogleMapReact 
           center={center}
-          defaultZoom={20}
+          defaultZoom={15}
           maxZoom={100}
           minZoom={0}
         >
