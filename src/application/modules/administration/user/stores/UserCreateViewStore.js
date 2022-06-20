@@ -35,7 +35,22 @@ class UserCreateViewStore extends BaseEditViewStore {
                             name: r.name
                         }
                     });
-                    
+                    const address =
+                    {
+                        addressLine1: addressLine1,
+                        addressLine2: addressLine2,
+                        city: city,
+                        zipCode: zip,
+                        state: state
+                    };
+
+                    const email = {email : userEmail}
+                    const phone =
+                    {
+                        number: phoneNumber
+                    };
+
+
                     const user = {
                         isApproved: true,
                         creationDate: new Date(),
@@ -69,14 +84,23 @@ class UserCreateViewStore extends BaseEditViewStore {
                         phoneNumber,
                         roles: userRoles
                     }
-
+                    userDonor.emailAddress = email;
+                    userDonor.address = address;
+                    userDonor.phoneNumber = phone;
                     user.email = user.userEmail;
                     delete user.userEmail;
                     let response = null;
                     try {
-                        console.log("UserDonor", userDonor);
-                        response = await this.rootStore.application.administration.donorStore.createAccount(userDonor);
-                        response = await userStore.create(user);
+                        userRoles.forEach(async(userRole)=>{
+                            if(userRole.name === 'Users'){
+                                response = await this.rootStore.application.administration.donorStore.createAccount(userDonor);
+                            }
+                            else{
+                                debugger;
+                                response = await userStore.create(user);
+
+                            }
+                        })
 
                     } catch (err) {
                         this.form.invalidate(err.data);
