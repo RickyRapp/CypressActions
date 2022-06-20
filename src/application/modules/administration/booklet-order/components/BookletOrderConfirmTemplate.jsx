@@ -15,7 +15,6 @@ function BookletOrderConfirmTemplate({ modalParams, t }) {
         onDecline
     } = modalParams.data;
 
-
     return (
         <div className="modal__list__wrap">
 
@@ -100,7 +99,7 @@ function BookletOrderConfirmTemplate({ modalParams, t }) {
                             <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
                         </tr>
                     </tfoot>
-                    {donor && ((form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0))
+                    {donor && (form.$('isCustomizedBook').value)
                         ? <tfoot>
                             <tr>
                                 <th colSpan="2">Custom booklet fee</th>

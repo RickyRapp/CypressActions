@@ -129,6 +129,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             orderContents: this.orderContents,
             form: this.form,
             donor: this.donor,
+            customizedFee: this.customizedFee,
             onCancel: () => {
                 this.bookletOrderConfirmModal.close();
             },

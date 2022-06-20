@@ -313,11 +313,11 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
                                             </tr>
                                         </tfoot>
-                                        {donor && ((form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0))
+                                        {donor && (form.$('isCustomizedBook').value)
                                             ? <tfoot>
                                                 <tr>
                                                     <th colSpan="2">Custom booklet fee</th>
-                                                    <th>${(orderContents.reduce((a, b) => a + b.bookletCount, 0) * 5).toFixed(2)}</th>
+                                                    <th>${customizedFee.toFixed(2)}</th>
                                                 </tr>
                                             </tfoot> : null}
 
