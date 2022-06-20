@@ -38,7 +38,7 @@ class DashboardViewStore extends BaseViewStore {
 
     @action.bound
     async redirectToWithdrawFundsPage(){
-        //implementirati redirect na Withdraw funds page
+        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.withdraw'));
     }
 
     @action.bound

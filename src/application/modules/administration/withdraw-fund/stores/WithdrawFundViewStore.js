@@ -1,10 +1,8 @@
 import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
-import { GrantRouteService } from 'application/common/grant/services';
-import { charityFormatter, donorFormatter, isSome } from 'core/utils';
+import { charityFormatter, isSome } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
-import moment from 'moment'
 import GrantDeclineForm from 'application/common/grant/forms';
 import _ from 'lodash';
 class WithdrawFundViewStore extends BaseListViewStore {
@@ -19,6 +17,9 @@ class WithdrawFundViewStore extends BaseListViewStore {
             name: 'withdraw-fund',
             authorization: 'theDonorsFundGrantSection',
             routes: {
+                create: () => {
+                    this.openSelectCharityModal();
+                },
                 preview: (editId) => {
                     this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: editId });
                 },
@@ -93,29 +94,29 @@ class WithdrawFundViewStore extends BaseListViewStore {
         this.createDonationStatusDropdownStore();
 
         this.reviewModal = new ModalParams({});
-        this.selectDonorModal = new ModalParams({});
+        this.selectCharityModal = new ModalParams({});
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
         this.declineModal = new ModalParams({});
     }
     
     @action.bound
-    openSelectDonorModal() {
-        this.selectDonorModal.open(
+    openSelectCharityModal() {
+        this.selectCharityModal.open(
             {
-                donorId: this.queryUtility.filter.donorId,
-                onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.administration.grant.create', { id: donorId }),
-                onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.administration.grant.create', { id: donorId })
+                charityId: this.queryUtility.filter.charityId,
+                onClickCharityFromFilter: (charityId) => this.rootStore.routerStore.goTo('master.app.main.administration.grant.create', { id: charityId }),
+                onChange: (charityId) => this.rootStore.routerStore.goTo('master.app.main.administration.grant.create', { id: charityId })
             }
         );
     }
 
     @action.bound
-    onClickDonorFromFilter(donorId) {
-        this.rootStore.routerStore.goTo('master.app.main.administration.grant.create', { id: donorId })
+    onClickDonorFromFilter(charityId) {
+        this.rootStore.routerStore.goTo('master.app.main.administration.grant.create', { id: charityId })
     }
 
     @action.bound
-    openReviewDonorModal(id) {
+    openReviewCharityModal(id) {
         this.reviewModal.open({
             id: id,
             onAfterReview: () => {
@@ -366,6 +367,7 @@ class WithdrawFundViewStore extends BaseListViewStore {
                         ],
                         fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
                     });
+
                     return data.item.map(x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }), item: x } });
                 },
                 onChange: (charityId) => {

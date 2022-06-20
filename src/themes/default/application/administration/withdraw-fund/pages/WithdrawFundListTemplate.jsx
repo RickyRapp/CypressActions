@@ -13,9 +13,9 @@ import {
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content } from 'core/layouts';
-import { SelectDonor } from 'application/administration/donor/components';
 import { GrantDeclineTemplate } from 'application/administration/grant/components';
 import AsyncSelect from 'react-select/async';
+import { SelectCharity } from 'application/administration/charity/components';
 
 const WithdrawFundListTemplate = function ({ withdrawFundViewStore }) {
 	const {
@@ -27,6 +27,8 @@ const WithdrawFundListTemplate = function ({ withdrawFundViewStore }) {
 		declineModal,
 		debouncedSearchCharities,
         setCharityId,
+		routes,
+		selectCharityModal
 	} = withdrawFundViewStore;
  
 	let promiseOptions = (inputValue) =>
@@ -83,10 +85,21 @@ const WithdrawFundListTemplate = function ({ withdrawFundViewStore }) {
 							</div>
 						</TableFilter>
 					</div>
-				</div>
+					<div className="col col-sml-12 col-xxlrg-3 type--right">
+						<BaasicButton
+							className="btn btn--med btn--primary"
+							label={'LIST_LAYOUT.CREATE_BUTTON'}
+							onClick={routes.create}
+						/>
+					</div>
 
+				</div>
 				<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 			</div>
+
+			<BaasicModal modalParams={selectCharityModal}>
+				<SelectCharity />
+			</BaasicModal>
 
 			<BaasicModal modalParams={declineModal}>
                 <GrantDeclineTemplate />
