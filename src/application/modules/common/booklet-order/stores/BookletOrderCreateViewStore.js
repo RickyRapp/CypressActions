@@ -186,7 +186,13 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
     
     @computed get customizedFee() {
-        return this.orderContents.reduce((a,b) => a+b.bookletCount, 0)*5;
+        var oneDollar = this.denominationTypes.find(x => x.abrv == 'one');
+        var twoDollar = this.denominationTypes.find(x => x.abrv == 'two');
+        var threeDollar = this.denominationTypes.find(x => x.abrv == 'three');
+        var fiveDollar = this.denominationTypes.find(x => x.abrv == 'five');
+        if(this.form.$('customizedName').length > 0 || this.form.$('customizedAddressLine1').length > 0 || this.form.$('customizedCity').length > 0 || this.form.$('customizedZipCode').length > 0)
+            return this.orderContents.reduce((a, b) => a + b.bookletCount, 0) * 5;
+        return this.orderContents.filter(x => x.denominationTypeId != oneDollar.id && x.denominationTypeId != twoDollar.id && x.denominationTypeId != threeDollar.id && x.denominationTypeId != fiveDollar.id).reduce((a, b) => a + b.bookletCount, 0) * 5;
     }
 
     @computed get totalPrepaidAmount() {
