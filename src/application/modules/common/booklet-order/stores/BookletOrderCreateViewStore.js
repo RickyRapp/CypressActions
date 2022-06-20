@@ -52,7 +52,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                             || this.form.$('customizedState').value.length > 0 
                             || this.form.$('customizedZipCode').value.length > 0)) {
                                 {
-                                    this.rootStore.notificationStore.error('Address info not complete!');
+                                    this.rootStore.notificationStore.error('Address incomplete - address line 1, city, state and zip code are required');
                                     this.form.invalidate('Address fields not filled out');
                                     this.validForm = false;
                                     return;

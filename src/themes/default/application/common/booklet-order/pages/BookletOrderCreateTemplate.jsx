@@ -306,7 +306,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
                                             </tr>
                                         </tfoot>
-                                        {donor && donor.accountType && donor.accountType.abrv != 'private' && ((form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0))
+                                        {donor && ((form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0))
                                             ? <tfoot>
                                                 <tr>
                                                     <th colSpan="2">Custom booklet fee</th>
@@ -388,8 +388,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     <p className="u-mar--bottom--tny type--color--note"><strong>Additional charge of $5 per book</strong></p>
                                                     <p className="type--sml">
                                                         <em>*one of the following information is mandatory for custom booklets:
-                                                            Name / Address / Expiration Date</em>
-                                                        <br /><em>**this only applies to non-prepaids and blanks</em>
+                                                            Name / Address / Expiration Date</em><br />
+                                                        {totalPrepaidAmount > 0 && <em>**expiration date for non-prepaid books only</em>}
                                                     </p>
                                                 </div>}
                                             <div className="row row--form">
