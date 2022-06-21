@@ -60,14 +60,10 @@ function FormatterResolver({ item, field, format }) {
         }
         case 'transaction-currency': {
             const paymentTransaction = _.get(item, field);
-            console.log(paymentTransaction)
             const type = paymentTransaction.paymentTransactionType.abrv;
             params.value = paymentTransaction.amount;
             if (type === 'debit') {
                 params.value = params.value * (-1)
-            }
-            if (paymentTransaction.description == 'Donor to donor transaction') {
-                params.value = paymentTransaction.amount;
             }
             return <NumberFormat {...params} />
         }
@@ -77,9 +73,6 @@ function FormatterResolver({ item, field, format }) {
             params.value = paymentTransaction.amount;
             if (type === 'debit' && params.value > 0) {
                 params.value = params.value * (-1)
-            }
-            if (paymentTransaction.description == 'Donor to donor transaction') {
-                params.value = paymentTransaction.amount;
             }
             return <NumberFormat {...params} />
         }

@@ -47,5 +47,15 @@ class BookletOrderStore {
         const response = await this.bookletOrderService.getDonorInformation(id);
         return response.data;
     }
+
+    async getDonorInformation(id) {
+        const response = await this.bookletOrderService.getDonorInformation(id);
+        return response.data;
+    }
+
+    async generateReport(resource) {
+        const response = await this.bookletOrderService.generateReport(resource);
+        return response;
+    }
 }
 export default BookletOrderStore;

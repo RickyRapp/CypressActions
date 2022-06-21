@@ -4,6 +4,7 @@ import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { DonorAutomaticContributionSettingForm } from 'application/donor/donor/forms';
+import moment from 'moment';
 
 const ErrorType = {
     InsufficientFunds: 0
@@ -23,7 +24,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     applicationDefaultSetting = null;
     @observable validForm = true;
     blankDenomination = null;
-
+    
     constructor(rootStore, { donorId, isDonor }) {
         super(rootStore, {
             name: 'booklet-order-create',
@@ -152,7 +153,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get totalAmount() {
-        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount + (this.donor && !this.donor.isSessionFeePayedByCharity && parseFloat((this.totalPrepaidAmount * 0.029).toFixed(2))) + ((this.form.$('customizedName').value && this.form.$('customizedName').value.length > 0) || (this.form.$('customizedAddressLine1').value && this.form.$('customizedAddressLine1').value.length > 0) ? this.donor && this.donor.accountType && this.donor.accountType.abrv != 'private' && parseFloat(this.customizedFee) : 0) + ((this.deliveryMethodTypes && this.deliveryMethodTypes.length > 0 && this.deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == this.form.$('deliveryMethodTypeId').value) ? 25 : 0);
+        return this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount + (this.donor && !this.donor.isSessionFeePayedByCharity && parseFloat((this.totalPrepaidAmount * 0.029).toFixed(2))) + ((this.form.$('customizedName').value && this.form.$('customizedName').value.length > 0) || (this.form.$('customizedAddressLine1').value && this.form.$('customizedAddressLine1').value.length > 0) ? this.donor && this.donor.accountType && this.donor.accountType.abrv != 'private' && parseFloat(this.customizedFee) : 0) + ((this.deliveryMethodTypes && this.deliveryMethodTypes.length > 0 && this.deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == this.form.$('deliveryMethodTypeId').value) ? 25 : 0) +  (this.form.$('orderFolder').value ? 35 : 0);
     }
     
     @computed get customizedFee() {
@@ -410,14 +411,14 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
                 }
             });
     }
-
+    
     @computed get needsProtectionPlan() {
         const blanks = this.orderContents.filter(x => x.denominationTypeId == this.blankDenomination.id);
         return ((blanks.length > 0 && blanks[0].bookletCount > 0) || ((this.mixed500BookletAmount + this.mixed2000BookletAmount + this.classicBookletAmount) - this.totalPrepaidAmount) > 0) && this.donor && !this.donor.hasProtectionPlan;
     }
     @computed get needsMoreFunds() {
         let shipping = (this.deliveryMethodTypes && this.form.$('deliveryMethodTypeId').value && this.deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == this.form.$('deliveryMethodTypeId').value) ? 25 : 0;
-        let fees = parseFloat(this.donor && !this.donor.isSessionFeePayedByCharity ? this.totalPrepaidAmount * 0.029 : 0) + parseFloat(shipping); //TODO: Add customization fee
+        let fees = (this.form.$('orderFolder').value ? 35 : 0) + (parseFloat(this.donor && !this.donor.isSessionFeePayedByCharity ? this.totalPrepaidAmount * 0.029 : 0) + parseFloat(shipping)); //TODO: Add customization fee
         if(this.donor) {
             const totalContributionsUpcoming = this.donor.contribution.map(item => item.amount).reduce((a, b) => a + b, 0);
             if((this.totalPrepaidAmount + fees) == 0)
@@ -425,6 +426,27 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             return ((this.totalPrepaidAmount + fees) > (this.donor.availableBalance + this.donor.lineOfCredit + totalContributionsUpcoming));
         }
         return false;
+    }
+    @computed get expiryDate() {
+        let selectedValue = parseInt(this.form.$('customizedExpirationDate').value);
+        let expireDate = moment();
+        if(selectedValue) {
+            switch (selectedValue) {
+                case 1:
+                    expireDate = expireDate.add(100, 'days');
+                    break;
+                case 2:
+                    expireDate = expireDate.add(190, 'days');
+                    break;
+                case 3:
+                    expireDate = expireDate.add(375, 'days');
+                    break;
+                default:
+                    break;
+            }
+            return `Expires on: ${expireDate.format("MMM Do YYYY")}`;
+        }
+        return null;
     }
 }
 

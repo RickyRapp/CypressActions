@@ -9,6 +9,9 @@ import {
 	BaasicInput,
 	DateRangeQueryPicker,
 	BaasicModal,
+	BaasicTableWithRowDetails,
+	BasicFieldCheckbox,
+	BasicCheckbox,
 } from 'core/components';
 import { isSome } from 'core/utils';
 import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
@@ -25,7 +28,50 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 		bookletOrderStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
 		selectDonorModal,
+		selectDefaults,
+		exportList,
+		mailModel
 	} = bookletOrderViewStore;
+
+	const DetailComponent = ({ dataItem }) => {
+        {
+			console.log(dataItem, tableStore);
+            return (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>For additional information go to details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* {dataItem 
+                            && dataItem.grants
+                            && dataItem.grants.map((item) => { 
+                            return (
+                                <tr key={item.id}>
+                                    <td>{item.donorName}</td>
+                                    <td><FormatterResolver
+                                        item={{amount: item.amount}}
+                                        field='amount'
+                                        format={{type: 'currency'}}
+                                    /></td>
+                                    <td>
+                                        {item.confirmationNumber}
+                                    </td>
+                                    <td> {item.donorName.includes('Session') ?
+                                     <FormatterResolver
+                                        item={{ dateCreated: item.dateCreated }}
+                                        field='dateCreated'
+                                        format={{ type: 'date', value: 'short' }}
+                                    />
+                                     : ''} </td>
+                                </tr>
+                            );
+                        })} */}
+                    </tbody>
+                </table>)
+        }
+    }
 
 	return (
 		<ApplicationListLayout store={bookletOrderViewStore} authorization={authorization}>
@@ -89,10 +135,39 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 									</div>
 								</div>
 							</div>
+							{/* <div className="col col-sml-12 u-mar--bottom--sml">
+									<BasicCheckbox
+                                            checked={queryUtility.filter.orderFolder}
+											id="folder"
+											onChange={(e) => queryUtility.filter.orderFolder = e.target.checked}
+                                            label="Booklet Folder"
+                                            showLabel={true}
+                                        />
+								</div> */}
 						</TableFilter>
+						{/* <BaasicButton className="btn btn--med btn--primary u-mar--right--med" label="Select defaults"onClick={selectDefaults} /> */}
+						{/* <BaasicButton className="btn btn--med btn--primary" label="Export" onClick={() => exportList(false)}/> */}
+						{/* <BaasicInput className="input input--lrg u-mar--top--med u-mar--bottom--sml" field={mailModel.sendTo} onChange={e => mailModel.sendTo = e.target.value}/> */}
+						{/* <BaasicInput
+									id="sendTo"
+									className="input input--lrg u-mar--top--med u-mar--bottom--sml"
+									value={queryUtility.filter.sendTo}
+									onChange={event => (queryUtility.filter.sendTo = event.target.value)}
+									placeholder="Enter e-mail..."
+								/>
+						<BaasicButton className="btn btn--med btn--primary" label="Send CSV" onClick={() => exportList(true)}/> */}
 					</div>
 
-					<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+					<div className="table--dragrow--expandable-row">
+                        <BaasicTable
+                            tableStore={tableStore}
+                            detailComponent={DetailComponent}
+                            loading={tableStore.loading}
+                            className="k-grid--actions"
+							actionsComponent={renderActions}
+                        />
+                    </div>
+					{/* <BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} /> */}
 				</div>
 			</Content>
 			<BaasicModal modalParams={selectDonorModal}>

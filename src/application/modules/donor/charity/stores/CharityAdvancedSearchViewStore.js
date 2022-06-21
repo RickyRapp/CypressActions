@@ -23,10 +23,13 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                 const service = new CharityService(rootStore.application.baasic.apiClient);
                 return {
                     find: async (params) => {
+                      
                         params.embed = [
                             'charityAddresses'
                         ];
+                        //params.fields = ["isActive"];
                         params.advancedSearch = true;
+                        console.log(params);
                         const response = await service.search(params);
                         return response.data;
                     }
@@ -35,7 +38,9 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
         });
         this.showSearch = showSearch;
         this.expanded = expanded;
+      
         this.setTableStore(new TableViewStore(this.queryUtility, {
+            
             columns: [
                 {
                     key: 'name',
@@ -68,6 +73,7 @@ class CharityAdvancedSearchViewStore extends BaseListViewStore {
                 //     }
                 // }
             ],
+           
             actions: {
                 onSelect: (item) => onSelected(item),
                 onSort: (column) => this.queryUtility.changeOrder(column.key)

@@ -21,7 +21,8 @@ export default class BookletOrderCreateForm extends FormBase {
                 'customizedCity',
                 'customizedState',
                 'customizedZipCode',
-                'customizedExpirationDate'
+                'customizedExpirationDate',
+                'orderFolder'
             ],
             labels: {
                 'shippingAddressLine1': 'BOOKLET_ORDER.CREATE.FIELDS.ADDRESS_LINE_1_LABEL',
@@ -43,17 +44,25 @@ export default class BookletOrderCreateForm extends FormBase {
                 'deliveryMethodTypeId': 'BOOKLET_ORDER.CREATE.FIELDS.DELIVERY_METHOD_TYPE_LABEL'
             },
             rules: {
-                'shippingAddressLine1': 'required|string',
-                'shippingAddressLine2': 'string',
+                'customizedName': 'string|max:30',
+                'shippingAddressLine1': 'required|string|max:30',
+                'shippingAddressLine2': 'string|max:30',
                 'shippingCity': 'required|string',
                 'shippingState': 'required|string',
                 'shippingZipCode': 'required|string',
                 'deliveryMethodTypeId': 'required|string',
-                'isCustomizedBook': 'required|boolean'
+                'isCustomizedBook': 'required|boolean',
+                'orderFolder': 'boolean',
+                'customizedAddressLine1': 'string|max:30',
+                'customizedAddressLine2': 'string|max:30',
+                'customizedCity': 'string|max:30',
+                'customizedState': 'string|max:30',
+                'customizedZipCode': 'string|max:30',
             },
             types: {
                 'isCustomizedBook': 'checkbox',
-                'deliveryMethodTypeId': 'radio'
+                'deliveryMethodTypeId': 'radio',
+                'orderFolder': 'checkbox'
             },
             disabled: {
                 'shippingAddressLine1': true,

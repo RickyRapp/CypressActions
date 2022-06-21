@@ -166,7 +166,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         grantRequestId={grantRequestId}
                                     />}
 
-                                {charity && !charity.item.isActive ?
+                                {charity && (charity.item ? !charity.item.isActive : !charity.isActive) ?
                                     <div>
                                         {isChangedDefaultAddress &&
                                             <div className="card--secondary card--med u-mar--bottom--sml">
@@ -189,9 +189,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 </div>
                                             </div>}
 
-
                                         <EmptyStateWithIcon icon={"charity"} title={"This charity is not active."} description={"Please, select another charity."} />
-
                                     </div>
                                     :
                                     <div>
@@ -304,7 +302,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 </div>
                                             </div>
                                         }
-
                                             <div className="u-mar--top--sml u-mar--bottom--sml type--right">
                                                 <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
                                             </div>
@@ -313,7 +310,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 
                             </div>
                         </div>
-                        {charity && !charity.item.isActive ? <div></div> :
+                        {charity && (charity.item ? !charity.item.isActive : !charity.isActive) ? <div></div> :
 
                             <div className="col col-sml-12 col-xxlrg-6">
                                 <div className="card--primary card--med u-mar--bottom--med">
@@ -362,7 +359,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                     <div className="col col-sml-12 col-lrg-4">
                                                     {image ? (<img alt="" src={URL.createObjectURL(image)} style={{height:"140px"}}/>) : null}
                                                     </div>
-                                                    {charity && !charity.item.isActive &&
+                                                    {charity && (charity.item ? !charity.item.isActive : !charity.isActive) &&
                                                         <div className="col col-sml-12 col-lrg-4">
                                                             <p style={{ color: "red" }}>Charity is not active</p>
                                                         </div>

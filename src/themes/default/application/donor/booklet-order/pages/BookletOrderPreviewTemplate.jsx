@@ -57,6 +57,18 @@ const BookletOrderPreviewTemplate = function ({ bookletOrderPreviewViewStore, t 
 							<span>- {item.trackingNumber}</span>}
 					</span>
 				</div>
+				<div className="col col-sml-12 col-med-3 u-mar--bottom--sml">
+					<div className="type--base type--wgt--medium type--color--note">{t('BOOKLET_ORDER.PREVIEW.FOLDER_LABEL')}</div>
+					<span className="input--preview">
+						{item && item.orderFolder && <i className="u-icon u-icon--approve u-icon--base"></i>}
+					</span>
+				</div>
+				<div className="col col-sml-12 col-med-3 u-mar--bottom--sml">
+					<div className="type--base type--wgt--medium type--color--note">{t('BOOKLET_ORDER.PREVIEW.CUSTOM_LABEL')}</div>
+					<span className="input--preview">
+						{item && item.customName && <i className="u-icon u-icon--approve u-icon--base"></i>}
+					</span>
+				</div>
 				<div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
 					<div className="type--base type--wgt--medium type--color--note">{t('BOOKLET_ORDER.PREVIEW.ORDER_LABEL')}</div>
 					<span className="input--preview">
