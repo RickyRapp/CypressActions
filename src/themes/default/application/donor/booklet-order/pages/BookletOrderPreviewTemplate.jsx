@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { PreviewLayout } from 'core/layouts';
 import { ApplicationEmptyState, Date, SimpleBaasicTable } from 'core/components';
+import moment from 'moment';
 
 const BookletOrderPreviewTemplate = function ({ bookletOrderPreviewViewStore, t }) {
 	const {
@@ -10,6 +11,17 @@ const BookletOrderPreviewTemplate = function ({ bookletOrderPreviewViewStore, t 
 		loaderStore,
 		tableStore
 	} = bookletOrderPreviewViewStore;
+
+	function getExpiryDate(val) {
+        let selectedValue = parseInt(val);
+        let expireDate = moment();
+        if (selectedValue) {
+            expireDate.add(selectedValue, 'days');
+            return expireDate.format("MMM Do YYYY");
+        }
+        return null;
+    }
+
 	return (
 		<PreviewLayout
 			store={bookletOrderPreviewViewStore}
@@ -86,11 +98,12 @@ const BookletOrderPreviewTemplate = function ({ bookletOrderPreviewViewStore, t 
 								{item && (item.customName || item.expirationDays || item.customizedAddressLine1) &&
 									<div>
 										{item.customName && <p className="booklet__list__item">Name: <span className="type--base type--color--text">{item.customName}</span></p>}
-										{item.shippingAddressLine1 && <p className="booklet__list__item">Address: <span className="type--base type--color--text">{item.shippingAddressLine1}</span></p>}
-										{item.shippingAddressLine2 && <p className="booklet__list__item">Address 2: <span className="type--base type--color--text">{item.shippingAddressLine2}</span></p>}
-										{item.shippingCity && <p className="booklet__list__item">City: <span className="type--base type--color--text">{item.shippingCity}</span></p>}
-										{item.shippingState && <p className="booklet__list__item">State: <span className="type--base type--color--text">{item.shippingState}</span></p>}
-										{item.shippingCity && <p className="booklet__list__item">Zip code: <span className="type--base type--color--text">{item.shippingZipCode}</span></p>}
+										{item.customizedAddressLine1 && <p className="booklet__list__item">Address: <span className="type--base type--color--text">{item.customizedAddressLine1}</span></p>}
+										{item.customizedAddressLine2 && <p className="booklet__list__item">Address 2: <span className="type--base type--color--text">{item.customizedAddressLine2}</span></p>}
+										{item.customizedCity && <p className="booklet__list__item">City: <span className="type--base type--color--text">{item.customizedCity}</span></p>}
+										{item.customizedState && <p className="booklet__list__item">State: <span className="type--base type--color--text">{item.customizedState}</span></p>}
+										{item.customizedCity && <p className="booklet__list__item">Zip code: <span className="type--base type--color--text">{item.customizedZipCode}</span></p>}
+										{item.expirationDays && <p className="booklet__list__item">Expiration date: <span className="type--base type--color--text">{getExpiryDate(item.expirationDays)}</span></p>}
 									</div>
 								}
 							</span>

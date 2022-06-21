@@ -173,6 +173,12 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
             this.setDefaultShippingAddress();
         }
+        this.form.$('customizedName').value = this.donor.donorName;
+        this.form.$('customizedAddressLine1').value = this.donor.donorAddress.addressLine1;
+        this.form.$('customizedAddressLine2').value = this.donor.donorAddress.addressLine2;
+        this.form.$('customizedCity').value = this.donor.donorAddress.city;
+        this.form.$('customizedState').value = this.donor.donorAddress.state;
+        this.form.$('customizedZipCode').value = this.donor.donorAddress.zipCode;
         this.blankDenomination = (await this.rootStore.application.lookup.denominationTypeStore.find()).find(x => x.abrv == 'blank');
     }
 
@@ -235,11 +241,13 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get customizedFee() {
+        console.log(this.donor);
         var oneDollar = this.denominationTypes.find(x => x.abrv == 'one');
         var twoDollar = this.denominationTypes.find(x => x.abrv == 'two');
         var threeDollar = this.denominationTypes.find(x => x.abrv == 'three');
         var fiveDollar = this.denominationTypes.find(x => x.abrv == 'five');
-        if(this.form.$('customizedName').length > 0 || this.form.$('customizedAddressLine1').length > 0 || this.form.$('customizedCity').length > 0 || this.form.$('customizedZipCode').length > 0)
+        console.log(this.form);
+        if(this.form.$('customizedName').value.length > 0 || this.form.$('customizedAddressLine1').value.length > 0 || this.form.$('customizedCity').value.length > 0 || this.form.$('customizedZipCode').value.length > 0)
             return this.orderContents.reduce((a, b) => a + b.bookletCount, 0) * 5;
         return this.orderContents.filter(x => x.denominationTypeId != oneDollar.id && x.denominationTypeId != twoDollar.id && x.denominationTypeId != threeDollar.id && x.denominationTypeId != fiveDollar.id).reduce((a, b) => a + b.bookletCount, 0) * 5;
     }
