@@ -83,7 +83,7 @@ const BookletOrderPreviewTemplate = function ({ bookletOrderPreviewViewStore, t 
 								<i className="u-icon u-icon--approve u-icon--base u-mar--left--tny"></i>
 							</div>
 							<span className="input--preview">
-								{item && item.customName &&
+								{item && (item.customName || item.expirationDays) &&
 									<div>
 										{item.customName && <p className="booklet__list__item">Name: <span className="type--base type--color--text">{item.customName}</span></p>}
 										{item.shippingAddressLine1 && <p className="booklet__list__item">Address: <span className="type--base type--color--text">{item.shippingAddressLine1}</span></p>}
