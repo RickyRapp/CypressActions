@@ -60,12 +60,12 @@ export default class UserCreateForm extends FormBase {
                 {
                     name: 'fundName',
                     label: 'USER.CREATE.FUND_NAME_LABEL',
-                    rules: 'required|string|min:1|max:40'
+                    rules: 'string|min:1|max:40'
                 },
                 {
                     name: 'addressLine1',
                     label: 'USER.CREATE.ADDRESS_LINE_1_LABEL',
-                    rules: 'required|string|min:1|max:40'
+                    rules: 'string|min:1|max:40'
                 },
                 {
                     name: 'addressLine2',
@@ -75,17 +75,17 @@ export default class UserCreateForm extends FormBase {
                 {
                     name: 'city',
                     label: 'USER.CREATE.CITY_LABEL',
-                    rules: 'required|string|min:1|max:40'
+                    rules: 'string|min:1|max:40'
                 },
                 {
                     name: 'state',
                     label: 'USER.CREATE.STATE_LABEL',
-                    rules: 'required|string|min:1|max:40'
+                    rules: 'string|min:1|max:40'
                 },
                 {
                     name: 'zip',
                     label: 'USER.CREATE.ZIP',
-                    rules: 'required|string|min:1|max:40'
+                    rules: 'string|min:1|max:40'
                 },
                 {
                     name: 'phoneNumber',
@@ -98,24 +98,18 @@ export default class UserCreateForm extends FormBase {
                 {
                     name: 'securityPin',
                     label: 'USER.CREATE.PIN',
-                    rules: 'required|string|digits:4',
+                    rules: 'string|digits:4',
                     extra: {
                         format: '####'
                     },
-                    options: {
-                        validateOnChange: false
-                    }
                 },
                 {
                     name: 'confirmSecurityPin',
                     label: 'USER.CREATE.CONFIRM_PIN',
-                    rules: 'required|string|digits:4|same:securityPin',
+                    rules: 'string|digits:4|same:securityPin',
                     extra: {
                         format: '####'
                     },
-                    options: {
-                        validateOnChange: false
-                    }
                 },
                 {
                     name: 'isPrivateClientSuite',

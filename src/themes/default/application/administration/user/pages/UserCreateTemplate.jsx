@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BasicInput, BaasicFieldDropdown, BaasicFieldToggle, BasicFieldCheckbox } from 'core/components';
+import { BasicInput, BaasicFieldDropdown, NumberFormatInputField, BasicFieldCheckbox } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 
@@ -72,13 +72,13 @@ const UserCreateTemplate = function ({ userCreateViewStore }) {
                                             <BasicInput field={form.$('zip')} />
                                         </div>
                                         <div className="form__group col col-lrg-6">
-                                            <BasicInput field={form.$('phoneNumber')}/>
+                                            <NumberFormatInputField field={form.$('phoneNumber')}/>
                                         </div>
                                         <div className="form__group col col-lrg-6">
-                                            <BasicInput field={form.$('securityPin')} />
+                                            <NumberFormatInputField field={form.$('securityPin')} />
                                         </div>
                                         <div className="form__group col col-lrg-6">
-                                            <BasicInput field={form.$('confirmSecurityPin')} />
+                                            <NumberFormatInputField field={form.$('confirmSecurityPin')} />
                                         </div>
                                         <div className="form__group col col-lrg-6">
                                             <BasicFieldCheckbox field={form.$('isThisABussinessAccount')} />

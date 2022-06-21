@@ -45,11 +45,8 @@ class UserCreateViewStore extends BaseEditViewStore {
                     };
 
                     const email = {email : userEmail}
-                    const phone =
-                    {
-                        number: phoneNumber
-                    };
-
+                    const phone = {   number: phoneNumber };
+                    const coreMembership = {password: password, confirmPassword: confirmPassword}
 
                     const user = {
                         isApproved: true,
@@ -60,7 +57,8 @@ class UserCreateViewStore extends BaseEditViewStore {
                         confirmPassword,
                         firstName,
                         lastName,
-                        roles: userRoles
+                        roles: userRoles,
+                        coreMembership: coreMembership
                     };
                     const userDonor = {
                         isApproved: true,
@@ -82,7 +80,7 @@ class UserCreateViewStore extends BaseEditViewStore {
                         securityPin,
                         confirmSecurityPin,
                         phoneNumber,
-                        roles: userRoles
+                        roles: userRoles,
                     }
                     userDonor.emailAddress = email;
                     userDonor.address = address;
@@ -93,12 +91,12 @@ class UserCreateViewStore extends BaseEditViewStore {
                     try {
                         userRoles.forEach(async(userRole)=>{
                             if(userRole.name === 'Users'){
+                                user.userName = user.email;
+                                userDonor.coreUser = user;
                                 response = await this.rootStore.application.administration.donorStore.createAccount(userDonor);
                             }
                             else{
-                                debugger;
                                 response = await userStore.create(user);
-
                             }
                         })
 
@@ -145,6 +143,7 @@ class UserCreateViewStore extends BaseEditViewStore {
                 onChange: (e) => {
                     e.forEach((item) => {
                         if (item.name === 'Users') {
+                            this.validateForm();
                             this.isUser = true;
                         }
                         else {
@@ -165,6 +164,18 @@ class UserCreateViewStore extends BaseEditViewStore {
         ]);
 
     }
+
+    @action.bound
+    validateForm(){
+        this.form.$('fundName').set('rules', 'required|string|min:1|max:40');
+        this.form.$('addressLine1').set('rules', 'required|string|min:1|max:40');
+        this.form.$('city').set('rules', 'required|string|min:1|max:40');
+        this.form.$('state').set('rules', 'required|string|min:1|max:40');
+        this.form.$('zip').set('rules', 'required|string|min:1|max:40');
+        this.form.$('phoneNumber').set('rules', 'required|string');
+        this.form.$('securityPin').set('rules', 'required|string|digits:4');
+    }
+
     @action.bound
     notifySuccessCreate() {
         this.rootStore.notificationStore.success('USER.CREATE.USER_CREATE_SUCCESS');
