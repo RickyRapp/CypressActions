@@ -1,7 +1,7 @@
 context('checks the user section ', () => {
 
   beforeEach(() => {
-    cy.visit('/user')
+    cy.visit('http:localhost:3000/user')
   }) 
  
   it('displays a list of all the categories', () => { 
@@ -21,6 +21,6 @@ context('checks the user section ', () => {
     })
   })
 
-  
+
 
 })

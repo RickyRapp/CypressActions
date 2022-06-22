@@ -1,7 +1,7 @@
 context('Login Screen ', () => {
 
   beforeEach(() => {
-    cy.visit('/')
+    cy.visit('http:localhost:3000/')
   })
 
   it('checks that page redirects to proper page when logging in as user', () => { 

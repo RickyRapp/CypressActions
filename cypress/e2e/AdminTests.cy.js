@@ -1,7 +1,7 @@
 context('All inputs in the admin section ', () => {
 
     beforeEach(() => {
-      cy.visit('/admin')
+      cy.visit('http:localhost:3000/admin')
     })
     
   it('checks for valid category input - added', () => {  
@@ -13,7 +13,7 @@ context('All inputs in the admin section ', () => {
   })
 
   it('checks for valid category input - added', () => { 
-    cy.visit('/admin')
+    //cy.visit('/admin')
     cy.get('#addCategory').click()
     cy.findByPlaceholderText('Name').invoke('attr', 'required') 
   //  cy.findByPlaceholderText('Name').clear()
