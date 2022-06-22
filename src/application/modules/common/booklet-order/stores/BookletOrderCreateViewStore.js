@@ -173,13 +173,29 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
 
             this.setDefaultShippingAddress();
         }
+        this.blankDenomination = (await this.rootStore.application.lookup.denominationTypeStore.find()).find(x => x.abrv == 'blank');
+    }
+
+    @action.bound
+    setCustomizeDefaults() {
+        this.isPrefilledCustomize = true;
         this.form.$('customizedName').value = this.donor.donorName;
         this.form.$('customizedAddressLine1').value = this.donor.donorAddress.addressLine1;
         this.form.$('customizedAddressLine2').value = this.donor.donorAddress.addressLine2;
         this.form.$('customizedCity').value = this.donor.donorAddress.city;
         this.form.$('customizedState').value = this.donor.donorAddress.state;
         this.form.$('customizedZipCode').value = this.donor.donorAddress.zipCode;
-        this.blankDenomination = (await this.rootStore.application.lookup.denominationTypeStore.find()).find(x => x.abrv == 'blank');
+    }
+
+    @action.bound
+    resetCustomizeDefaults() {
+        this.isPrefilledCustomize = false;
+        this.form.$('customizedName').value = '';
+        this.form.$('customizedAddressLine1').value = '';
+        this.form.$('customizedAddressLine2').value = '';
+        this.form.$('customizedCity').value = '';
+        this.form.$('customizedState').value = '';
+        this.form.$('customizedZipCode').value = '';
     }
 
     @action.bound
