@@ -54,7 +54,13 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
         onShowBookletsClick,
         isAdmin,
         goToNewDeposit,
-        expiryDate
+        expiryDate,
+        bookletOrderConfirmModal,
+        onOrderSubmit,
+        customizedFee,
+        setCustomizeDefaults,
+        resetCustomizeDefaults,
+        isPrefilledCustomize
     } = store;
 
     const isMobile = window.innerWidth < 543;
@@ -418,6 +424,11 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                     <p className="u-mar--top--sml">{form.$('customizedExpirationDate').value && expiryDate}</p>
                                                 </div>
                                             </div>
+                                            <BaasicButton
+                                                className="btn row--form btn--med btn--med--100 btn--primary"
+                                                label={isPrefilledCustomize ? "Unset defaults" : "Set default info"}
+                                                onClick={() => isPrefilledCustomize ? resetCustomizeDefaults() : setCustomizeDefaults()}>
+                                            </BaasicButton>
                                         </div>
                                     }
                                 </div>

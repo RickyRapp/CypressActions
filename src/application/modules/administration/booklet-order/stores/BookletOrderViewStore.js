@@ -166,6 +166,10 @@ class BookletOrderViewStore extends BaseListViewStore {
             this.rootStore.notificationStore.warning("No items selected!");
             return;
         }
+        if(this.tableStore.selectedItems.filter(x => x.bookletOrderStatus.abrv == 'finished').length > 0) {
+            this.rootStore.notificationStore.warning("You can only choose pending items!");
+            return;
+        }
         this.tableStore.suspend();
         if(sendMail) {
             const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
