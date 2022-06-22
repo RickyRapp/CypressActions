@@ -12,6 +12,11 @@ class CharityService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    getCharityAccountBalance(id){
+        const url = this.routeService.getCharityAccountBalance(id);
+        return this.apiClient.get(url);
+    }
+
     findGrants(filter) {
         const url = this.routeService.findGrants(filter);
         return this.apiClient.get(url);

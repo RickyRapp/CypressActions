@@ -18,7 +18,18 @@ import {
 import { AllTransactionList } from 'application/charity/activity/pages';
 
 function DashboardTemplate({ dashboardViewStore, t }) {
-	const { charity, newContributionOnClick, redirectToWithdrawFundsPage, yearDropdownStore, notImplemented, manageAccount, balance, grantsPerYear, redirectToManageAccount } = dashboardViewStore;
+	const { 
+		charity, 
+		newContributionOnClick, 
+		redirectToWithdrawFundsPage, 
+		yearDropdownStore,
+		notImplemented,
+		manageAccount, 
+		balance, 
+		grantsPerYear,
+		redirectToManageAccount,
+		accountBanalce
+	} = dashboardViewStore;
 	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	let dataGrants = [];
 	const LineChartContainer = () => (
@@ -48,11 +59,10 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 							<div className="dashboard-card__body">
 								<div className="dashboard-card__body--amount">
 									<FormatterResolver
-										// item={{ balance: donor.availableBalance }}
+										item={{ balance: accountBanalce }}
 										field="balance"
 										format={{ type: 'currency' }}
 									/>
-									$1.500,000
 								</div>
 								<p className="dashboard-card__body--title">ACCOUNT BALANCE</p>
 							</div>
