@@ -41,9 +41,9 @@ input {
     0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 form {
-    display:flex; 
-    align-items: self-start;
-    justify-content: center;
+  display: flex;
+  align-items: center; 
+  flex-direction: column;
 }
 select, button, label {
     margin:5px!important; 

@@ -71,7 +71,7 @@ const LoginScreen = () => {
             <input onChange={ (e) => setPassword(e.target.value) } value={password} type="password" id="pass" name="pass" required />
             {renderErrorMessage("pass")}
             </div>
-            <div className="button-container">
+            <div style={{marginTop:"35px"}} className="button-container">
             <input type="submit" />
             </div>
         </form>

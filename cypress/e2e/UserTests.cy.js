@@ -1,17 +1,26 @@
-context('All inputs in the admin section ', () => {
+context('checks the user section ', () => {
 
   beforeEach(() => {
     cy.visit('/user')
   }) 
+ 
+  it('displays a list of all the categories', () => { 
+    cy.intercept('GET', 'https://restaurant-selections.herokuapp.com/categories', { fixture: 'categories.json' })
+  })
 
-  it('checks for VALID restaurant address - edited', () => {
+  it('mocks post request', () => { 
     cy.get('#categorySelect').select(1)   
     cy.get('#restaurantSelect').select(1)   
-    cy.get('#editRestaurant').click() 
-    cy.findByPlaceholderText('Restaurant Name').type("Test Restaurant Name")
-    cy.findByPlaceholderText('Address').type("0") 
-    cy.findAllByText('Save Restaurant').click() 
-    cy.get('.error')
+    cy.findAllByText('Add a Booking!').click();
+    cy.intercept('POST', 'https://restaurant-selections.herokuapp.com/bookings', (req) => {
+      req.reply((res) => {
+        res.send({
+          msg:"hi"
+        })
+      })
+    })
   })
+
+  
 
 })

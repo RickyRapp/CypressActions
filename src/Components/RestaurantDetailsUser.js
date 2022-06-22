@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux'; 
 import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css"; 
@@ -6,8 +6,14 @@ import "react-datepicker/dist/react-datepicker.css";
 const RestaurantDetailsUser = props=> { 
     const [showButton, setShowButton] = useState(true);
     const [name, setName] = useState("");  
-    const [startDate, setStartDate] = useState(new Date());
-   // const [message, setMessage] = useState(""); 
+    const [restaurantName, setRestaurantName] = useState(props.currentRestaurant.name);  
+    const [restaurantAddress, setRestaurantAddress] = useState(props.currentRestaurant.address);  
+    const [startDate, setStartDate] = useState(new Date()); 
+    
+   useEffect(()=>{
+    setRestaurantAddress(props.currentRestaurant.address)
+    setRestaurantName(props.currentRestaurant.name)
+  },[props.currentRestaurant]) 
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -44,8 +50,8 @@ const RestaurantDetailsUser = props=> {
         <div>
             <h3>Restaurant Details</h3>
             <p>
-                Name:{props.currentRestaurant.name}<br />
-                Address:{props.currentRestaurant.address}
+                Name:{restaurantName}<br />
+                Address:{restaurantAddress}
             </p> 
             <testStuff />
             <React.Fragment>

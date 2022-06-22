@@ -17,16 +17,17 @@ const RestaurantAddForm = props => {
         )
     }) 
     
+
+
     const [showButton, setShowButton] = useState(true);
     const [restaurantName, setRestaurantName] = useState("");
     const [restaurantAddress, setRestaurantAddress] = useState("");
     const [associatedCategory, setAssociatedCategory] = useState(props.currentCategory.categoryNum); 
+    const [associatedCategory2, setAssociatedCategory2] = useState(props.currentCategory.categoryNum); 
     const [showStatus, setShowStatus] = useState(false); 
     const [currentStatus, setCurrentStatus] = useState("");  
     const [message, setMessage] = useState("");  
-    const dispatch = useDispatch()
-
-    console.log(restaurantAddress)
+    const dispatch = useDispatch() 
 
     const addingRestaurant = () => {
         setShowButton(false)  
@@ -34,13 +35,13 @@ const RestaurantAddForm = props => {
  
     const handleSubmit = async e => { 
           e.preventDefault();
-          const newRestaurantName = restaurantName
-          const newRestaurantAddress = restaurantAddress
-          const newAssociatedCategory = associatedCategory 
+        //  const newRestaurantName = restaurantName
+        //  const newRestaurantAddress = restaurantAddress
+        //  const newAssociatedCategory = associatedCategory 
           const newRestaurantsInfo =  {
-            'newRestaurantAddress'  :    newRestaurantAddress,
-            'newAssociatedCategory' :    newAssociatedCategory,
-            'newRestaurantName'     :    newRestaurantName 
+            'address'  :    restaurantAddress,
+            'categoryNum' :    associatedCategory,
+            'name'     :    restaurantName 
          };    
          Geocode.setApiKey("AIzaSyByvZEhbhUOwuNnMkiOmz6LRDG9hmz2BnM")
          Geocode.enableDebug();
@@ -67,7 +68,7 @@ const RestaurantAddForm = props => {
             await fetch(`https://restaurant-selections.herokuapp.com/restaurants`, {  
                 method:'POST',
                 headers: {"content-type":"application/json"}, 
-                body: JSON.stringify({newRestaurantsInfo}) 
+                body: JSON.stringify(newRestaurantsInfo) 
             })
             
             try{   
@@ -77,7 +78,7 @@ const RestaurantAddForm = props => {
                 setCurrentStatus("success"); 
                 setShowStatus(true)
                 const response = await axios
-                .get('https://restaurant-selections.herokuapp.com/restaurants') 
+                .get(`https://restaurant-selections.herokuapp.com/restaurants?categoryNum=${props.currentCategory?props.currentCategory.categoryNum:''}`) 
                 .catch((err) => {
                     console.log("err",err)
                 }) 

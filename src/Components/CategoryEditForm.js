@@ -21,9 +21,10 @@ const CategoryEditForm = props => {
     },[currentCategoryName]) 
 
     const handleSubmit = async e => {
-          e.preventDefault();
+          e.preventDefault(); 
           const categoryName = category
           const id=props.currentCategory.id 
+
           if(category.trim().length===0){ 
             setCurrentStatus("error")
             setMessage("Please enter valid category!")
@@ -36,7 +37,7 @@ const CategoryEditForm = props => {
             return;
           }
         
-          const newCategory = await fetch(`https://restaurant-selections.herokuapp.com/categories/${id}`, {
+          await fetch(`http://localhost:3001/categories/${id}`, {
           method:'PATCH', 
           headers: {"content-type":"application/json"}, 
           body: JSON.stringify({categoryName}) 
@@ -47,7 +48,7 @@ const CategoryEditForm = props => {
         setCurrentStatus("success");  
         setShowStatus(true)   
         const response = await axios
-        .get('https://restaurant-selections.herokuapp.com/categories') 
+        .get('http://localhost:3001/categories') 
         .catch((err) => {
          console.log("err",err)
         }) 

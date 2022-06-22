@@ -56,6 +56,7 @@ const loggedInReducer = (loggedInAs=null, action) => {
 } 
 
 const selectedRestaurantReducer = (selectedRestaurant = null, action) => {
+  console.log(action)
   switch (action.type) { 
  
       case 'RESTAURANT_SELECTED':

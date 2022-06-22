@@ -5,57 +5,54 @@ import axios from 'axios';
 import { selectRestaurant, setRestaurant} from '../actions'; 
 import '../App.css';
  
-const RestaurantDropdown = props => {
+const RestaurantDropdown = props => { 
     const dispatch = useDispatch();  
     const [currentRestaurant, setCurrentRestaurant] = useState(null)
 
-    const getRestaurants = async () => { 
-        console.log(props.selectedCategoryNum.categoryNum)
+    const getRestaurants = async () => {
         const response = await axios
-        .get(`http://localhost:3001/restaurants?categoryNum=${props.selectedCategoryNum.categoryNum}`) 
+        .get(`http://localhost:3001/restaurants?categoryNum=${props.selectedCategoryNum?props.selectedCategoryNum.categoryNum:''}`) 
         .catch((err) => {
             console.log("err",err)
         }) 
-        console.log(response.data)
         dispatch(setRestaurant(response.data));
     }
     useEffect(() => {
         getRestaurants()
-        setCurrentRestaurant(props.currentRestaurant) 
+        console.log(props)
+        setCurrentRestaurant(props.currentRestaurant?props.currentRestaurant.restaurantNum:'') 
     },[props.selectedCategoryNum])  
  
     if(!props.selectedCategoryNum){
         return ''
     }
-    const handleRestaurantChange = e => {
-        
-        const address=e.target.childNodes[e.target.selectedIndex].getAttribute('address')
-        const categoryNum=e.target.childNodes[e.target.selectedIndex].getAttribute('categoryNum')
-        const name=e.target.childNodes[e.target.selectedIndex].getAttribute('restaurantName') 
-        const id=e.target.childNodes[e.target.selectedIndex].getAttribute('id') 
-        const restaurantNum = e.target.childNodes[e.target.selectedIndex].getAttribute('restaurantNum') 
-        dispatch(selectRestaurant(e.target.value==='(Select One)' ? null : {restaurantNum, id, address, categoryNum, name }))
+    const handleRestaurantChange = async e => {
+        console.log(e.target.value)
+        const response = await axios
+        .get(`http://localhost:3001/restaurants?restaurantNum=${e.target.value}`) 
+        .catch((err) => {
+            console.log("err",err)
+        })  
+        console.log(response.data)
+        const {address, categoryNum, restaurantNum, name} = response.data
+        const id = response.data._id
+        console.log(id) 
+        dispatch(selectRestaurant(restaurantNum==='-1' ? null :{address, categoryNum, id, restaurantNum, name}))
         setCurrentRestaurant(restaurantNum)
     }   
+
+    console.log(props.restaurants)
       const renderOptions =(props.restaurants).map(restaurant => { 
           
           return(
-            <option 
-            className={props.selectedCategoryNum.categoryNum > 0 && props.selectedCategoryNum.categoryNum == restaurant.categoryNum ?'show':'hide'} 
-            key={restaurant.restaurantNum}
-            value={restaurant.restaurantNum}
-            address={restaurant.address}
-            categoryNum={restaurant.categoryNum}
-            restaurantNum={restaurant.restaurantNum}
-            restaurantName={restaurant.name}
-            id={restaurant._id} >{restaurant.name}
+            <option value={restaurant.restaurantNum} key={restaurant.id}>{restaurant.name}
             </option> 
           )
-        })  
+        })   
         return( 
             <div>      
                 <label><b>Select a Restaurant </b></label>
-                <select  id="restaurantSelect" class="ui dropdown" value={!currentRestaurant?'-1':currentRestaurant} onChange={e=>handleRestaurantChange(e)}>
+                <select value={currentRestaurant?currentRestaurant:"-1"} id="restaurantSelect" class="ui dropdown" onChange={e=>handleRestaurantChange(e)}>
                     <option value='-1'>(Select One)</option>
                     {renderOptions} 
                 </select>      

@@ -102,5 +102,5 @@ context('All inputs in the admin section ', () => {
     cy.findAllByText('Save Restaurant').click() 
     cy.get('.error')
   })
-
+ 
 })

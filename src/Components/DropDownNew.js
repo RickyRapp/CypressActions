@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 const DropDownNew = () => { 
     const dispatch = useDispatch()
-    const logOut = () =>{ 
+    const logOut = () => { 
         window.history.pushState({}, '', "/"); 
         const navEvent = new PopStateEvent('popstate');
         window.dispatchEvent(navEvent);

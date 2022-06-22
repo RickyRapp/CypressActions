@@ -22,29 +22,29 @@ const RestaurantEditForm = props => {
     const [showButton, setShowButton] = useState(true);
     const [restaurantName, setRestaurantName] = useState("");
     const [restaurantAddress, setRestaurantAddress] = useState("");
-    const currentAssociatedCategory = props.currentRestaurant.categoryNum
-    const [associatedCategory, setAssociatedCategory] = useState(currentAssociatedCategory);
+   // const {currentRestaurantName, currentRestaurantAddress, id, currentAssociatedCategory} = props.currentRestaurant
+   // console.log(props.currentRestaurant)
+    const {name, address, id, categoryNum} = props.currentRestaurant 
+    const [associatedCategory, setAssociatedCategory] = useState(categoryNum);
     const [message, setMessage] = useState("");   
-    const currentRestaurantName = props.currentRestaurant.name
-    const currentRestaurantAddress = props.currentRestaurant.address
-    const id = props.currentRestaurant.id 
     const dispatch = useDispatch() 
 
     useEffect(()=>{
-        setRestaurantName(currentRestaurantName)
-        setRestaurantAddress(currentRestaurantAddress)
-        setAssociatedCategory(currentAssociatedCategory)
-    },[currentRestaurantName, currentRestaurantAddress, currentAssociatedCategory])  
+        setRestaurantName(name)
+        setRestaurantAddress(address)
+        setAssociatedCategory(categoryNum)
+    },[name, address, categoryNum])  
  
     const handleSubmit = async e => {
           e.preventDefault();
-          const newRestaurantName = restaurantName
-          const newRestaurantAddress = restaurantAddress
-          const newAssociatedCategory = associatedCategory
+
+        //  const newRestaurantName = restaurantName
+        //  const newRestaurantAddress = restaurantAddress
+        //  const newAssociatedCategory = associatedCategory
           const newRestaurantsInfo =  {
-            'address'  :    newRestaurantAddress,
-            'categoryNum' :    newAssociatedCategory,
-            'name'     :    newRestaurantName 
+            'address'  :    restaurantAddress,
+            'categoryNum' :    associatedCategory,
+            'name'     :    restaurantName 
          };   
          if(restaurantName.trim().length===0 || restaurantAddress.trim().length===0){ 
             restaurantName.trim().length===0?setMessage("Please enter valid restaurant!"):setMessage("Please enter valid restaurant address!")
@@ -54,7 +54,7 @@ const RestaurantEditForm = props => {
          } 
          Geocode.setApiKey("AIzaSyByvZEhbhUOwuNnMkiOmz6LRDG9hmz2BnM")
          Geocode.enableDebug();
-         const address = newRestaurantAddress;  
+         const address = restaurantAddress;  
          Geocode.fromAddress(address).then(
            (response) => {  
                 console.log(response.status) 
@@ -64,7 +64,11 @@ const RestaurantEditForm = props => {
                 setCurrentStatus("error")
                 setMessage("Please enter valid address!")
                 setShowStatus(true)  
-                setShowButton(false)
+                setShowButton(false)            
+                setTimeout(() => { 
+                //    setShowButton(true) 
+                    setShowStatus(false) 
+                }, 3000); 
                 return; 
            }
          ); 
@@ -77,30 +81,36 @@ const RestaurantEditForm = props => {
                headers: {"content-type":"application/json"}, 
                body: JSON.stringify(newRestaurantsInfo) 
         })
-         try{
+         try{ 
             setAssociatedCategory(""); 
             setRestaurantName(""); 
             setRestaurantAddress("");   
             setCurrentStatus("success"); 
-            setShowStatus(true)       
+            setShowStatus(true)      
+            console.log(props.currentCategory.categoryNum) 
             const response = await axios
-            .get('https://restaurant-selections.herokuapp.com/restaurants') 
+            .get(`https://restaurant-selections.herokuapp.com/restaurants?categoryNum=${props.currentCategory?props.currentCategory.categoryNum:''}`) 
             .catch((err) => {
                 console.log("err",err)
             }) 
+            console.log(response.data)
             dispatch(setRestaurant(response.data));  
             setTimeout(() => { 
                 setShowButton(true) 
                 setShowStatus(false) 
-            }, 5000); 
+            }, 3000); 
         } 
         catch (err){
             setMessage(`There was an issue: ${err}`);
             setCurrentStatus("error");     
             setShowStatus(true); 
-        } 
+        }            
+        setTimeout(() => { 
+            setShowButton(true) 
+            setShowStatus(false) 
+        }, 3000); 
     }
-    
+    console.log(restaurantName)
     return(
         <div>
             <div>
@@ -159,6 +169,7 @@ const RestaurantEditForm = props => {
         return {
            currentRestaurant: state.currentRestaurant,
            categories: state.categories.categories ,
+           currentCategory: state.currentCategory 
         } 
     }
     

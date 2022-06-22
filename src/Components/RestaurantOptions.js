@@ -13,11 +13,12 @@ const RestaurantOptions = props => {
             console.log("err",err)
         })           
         const response = await axios
-        .get('https://restaurant-selections.herokuapp.com/restaurants') 
+        .get(`https://restaurant-selections.herokuapp.com/restaurants?categoryNum=${props.currentCategory?props.currentCategory.categoryNum:''}`) 
         .catch((err) => {
          console.log("err",err)
         }) 
         dispatch(setRestaurant(response.data));  
+        dispatch(selectRestaurant(null))
       }
  
     function AdminOptions(){
@@ -45,7 +46,8 @@ const RestaurantOptions = props => {
 }
 
 const mapDispatchToProps = state => ({ 
-    selectedRestaurant:state.currentRestaurant
+    selectedRestaurant: state.currentRestaurant,
+    currentCategory: state.currentCategory 
 })
 export default connect(mapDispatchToProps, {selectRestaurant})(RestaurantOptions)
 
