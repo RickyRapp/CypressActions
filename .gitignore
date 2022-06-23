@@ -9,6 +9,9 @@ public/logo512.png
 logo512.png
 logo192.png
 
+
+cypress/e2e/1-getting-started/
+cypress/e2e/2-advanced-examples/
 # testing
 /coverage
 
