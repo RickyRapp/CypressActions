@@ -1,4 +1,4 @@
-context('All inputs in the admin section ', () => {
+context('Testing the admin section ', () => {
 
     beforeEach(() => {
       cy.visit('http://localhost:3000/admin')

@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: { 
-    ignoreTestFiles: ['1-getting-started/', '2-advanced-examples/'], 
+    //ignoreTestFiles: ['1-getting-started/', '2-advanced-examples/'], 
    // baseUrl:
     //  'http://localhost:3000/',
       // 'https://restaurants-clientversion.herokuapp.com/'),

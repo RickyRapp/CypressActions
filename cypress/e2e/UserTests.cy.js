@@ -1,4 +1,4 @@
-context('checks the user section ', () => {
+context('Testing the user section ', () => {
 
   beforeEach(() => {
     cy.visit('http://localhost:3000/user')
