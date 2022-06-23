@@ -2,8 +2,8 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-   // baseUrl:
-      //'http://localhost:3000/user',
+    baseUrl:
+      'http://localhost:3000',
       // 'https://restaurants-clientversion.herokuapp.com/'),
      // "http://localhost:3000",
     // 'https://example.cypress.io/commands/actions',

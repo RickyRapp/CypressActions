@@ -6,6 +6,9 @@ import "react-datepicker/dist/react-datepicker.css";
 const RestaurantDetailsUser = props=> { 
     const [showButton, setShowButton] = useState(true);
     const [name, setName] = useState("");  
+    const [message, setMessage] = useState("");  
+    const [showStatus, setShowStatus] = useState("");  
+    const [currentStatus, setCurrentStatus] = useState("");  
     const [restaurantName, setRestaurantName] = useState(props.currentRestaurant.name);  
     const [restaurantAddress, setRestaurantAddress] = useState(props.currentRestaurant.address);  
     const [startDate, setStartDate] = useState(new Date()); 
@@ -37,10 +40,16 @@ const RestaurantDetailsUser = props=> {
    try{ 
           setName(""); 
           setStartDate("");   
-          setShowButton(true) 
+          setShowStatus(true)  
+          setCurrentStatus('success')
+          setTimeout(() => {
+            setShowStatus(false)   
+            setShowButton(true) 
+          }, 3000); 
       } 
       catch (err){
-          console.log(`There was an issue: ${err}`);
+            setCurrentStatus('success')
+          setMessage(`There was an issue: ${err}`);
       }
         
 
@@ -50,8 +59,8 @@ const RestaurantDetailsUser = props=> {
         <div>
             <h3>Restaurant Details</h3>
             <p>
-                Name:{restaurantName}<br />
-                Address:{restaurantAddress}
+                <label>Name: </label>{restaurantName}<br />
+                <label>Address: </label>{restaurantAddress}
             </p> 
             <testStuff />
             <React.Fragment>
@@ -67,11 +76,26 @@ const RestaurantDetailsUser = props=> {
                     />
                 </div>
                 <div>
-                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> 
-               
+                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />  
                 </div> 
                 <button className="ui button" type="submit">Save</button>
                 <button className="ui button" onClick={()=> setShowButton(true) }>Cancel</button> 
+                {
+                    showStatus?
+                        currentStatus=="error"?
+                            <div className="ui negative message error"> 
+                                <div className="header">
+                                    {message}
+                                </div> 
+                            </div>
+                        :
+                            <div className="ui negative message success"> 
+                                <div className="header">
+                                    Booking successfully saved!
+                                </div> 
+                            </div>
+                    :''
+                }
                 </form> 
                 }
             </React.Fragment>
