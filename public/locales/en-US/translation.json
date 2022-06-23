@@ -916,7 +916,8 @@
             },
             "EMPTY_STATE": {
                 "TITLE": "No bank accounts",
-                "ACTION": "Create new bank account"
+                "ACTION": "Create new bank account",
+                "SELECT": "Select Bank Account"
             },
             "BUTTON": {
                 "EDIT": "Edit",

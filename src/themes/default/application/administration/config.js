@@ -69,7 +69,7 @@ import { moduleProviderFactory } from 'core/providers';
             },
             {
                 title: 'MENU.WITHDRAW_FUNDS',
-                icon: 'grant',
+                icon: 'give',
                 order: 9,
                 route: 'master.app.main.administration.withdraw.list',
                 role: ['Administrators', 'Employees']

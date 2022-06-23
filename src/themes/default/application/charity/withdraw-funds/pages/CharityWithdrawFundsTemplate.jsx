@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import {  Page } from 'core/layouts';
-import { BaasicInput,  BasicCheckbox,  BasicFieldCheckbox, FormatterResolver } from 'core/components';
+import { BaasicButton, BaasicDropdown, BaasicInput, FormatterResolver } from 'core/components';
 
 function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
 	 const {
         accountBanalce,
         isACH,
         onChange,
-        charityAddress
+        charityAddress,
+        bankAccountDropdownStore,
+        createWithdraw
      } = charityWithdrawFundsViewStore;
 
 	return (
@@ -63,8 +65,18 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
                         </div>
                     </div>
                     {isACH ?
-                    <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--top--sml">
-                        ACH
+                    <div className="col col-sml-12 col-med-6 col-lrg-8 u-mar--top--sml">
+                        {bankAccountDropdownStore.length > 1 || bankAccountDropdownStore.originalItems.length > 1 ? 
+                            <div className="col-lrg-12">
+                                <div className="form__group col col-sml-12 col-lrg-8">
+                                    <BaasicDropdown 
+                                        store={bankAccountDropdownStore}
+                                        placeholder="BANK_ACCOUNT.LIST.EMPTY_STATE.SELECT"
+                                       // onChange={selectBankAccount}
+                                    />
+                                </div>
+                            </div>
+                        : <p>{t("BANK_ACCOUNT.LIST.EMPTY_STATE.TITLE")}</p>}
                     </div>
                     :
                     <div className=" u-mar--top--sml">
@@ -122,6 +134,13 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
 					    </div>                        
                     </div>
                     }
+                </div>
+                <div>
+                    <BaasicButton
+                        className="btn btn--med btn--primary"
+                        label={'LIST_LAYOUT.CREATE_BUTTON'}
+                        onClick={createWithdraw} 
+                    />
                 </div>
             </div>
         </Page>
