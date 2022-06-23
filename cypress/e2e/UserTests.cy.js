@@ -1,7 +1,7 @@
 context('Testing the user section ', () => {
 
   beforeEach(() => {
-    cy.visit('http://localhost:3000/user')
+    cy.visit('https://all-restaurants.herokuapp.com/user')
   }) 
  
   it('checks for bolded home tab and unbolded user and admin tabs', () => { 
@@ -32,7 +32,7 @@ context('Testing the user section ', () => {
 
   it('checks that map and restaurant details are displaying when a restaurant is selected ', () => { 
     cy.findAllByText('Logout').click()
-    cy.url().should('eq','http://localhost:3000/') 
+    cy.url().should('eq','https://all-restaurants.herokuapp.com/') 
   })
 
   //it('displays a list of all the categories', () => { 

@@ -1,7 +1,7 @@
 context('Testing the admin section ', () => {
 
     beforeEach(() => {
-      cy.visit('http://localhost:3000/admin')
+      cy.visit('https://all-restaurants.herokuapp.com/admin')
     }) 
     
   it('checks for valid category input - added', () => {  
@@ -70,7 +70,7 @@ context('Testing the admin section ', () => {
     cy.get('#editRestaurant').click() 
     cy.findByPlaceholderText('Restaurant Name').invoke('attr', 'required') 
     cy.findByPlaceholderText('Restaurant Name').clear()
-   /cy.findAllByText('Save Restaurant').click() 
+    cy.findAllByText('Save Restaurant').click() 
    cy.get('.success').should('not.exist')
   })
 
@@ -108,7 +108,7 @@ context('Testing the admin section ', () => {
 
   it('checks that map and restaurant details are displaying when a restaurant is selected ', () => { 
     cy.findAllByText('Logout').click()
-    cy.url().should('eq','http://localhost:3000/') 
+    cy.url().should('eq','https://all-restaurants.herokuapp.com/') 
   })
  
 })

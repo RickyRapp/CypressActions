@@ -1,7 +1,7 @@
 context('Login Screen ', () => {
 
   beforeEach(() => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('https://all-restaurants.herokuapp.com/')
   })
 
   //it('gets user info ', ()=>{
@@ -43,13 +43,13 @@ context('Login Screen ', () => {
   it('checks that page redirects to proper page when logging in as user', () => { 
     cy.get('#uname').type('user')
     cy.get('#pass').type('pass1{enter}')
-    cy.url().should('eq','http://localhost:3000/user')  
+    cy.url().should('eq','https://all-restaurants.herokuapp.com/user')  
   })
 
   it('checks that page redirects to proper page when logging in as admin', () => { 
     cy.get('#uname').type('admin')
     cy.get('#pass').type('pass2{enter}')
-    cy.url().should('eq','http://localhost:3000/admin')  
+    cy.url().should('eq','https://all-restaurants.herokuapp.com/admin')  
   })
 
   it('checks that all inputs are required', () => {  
