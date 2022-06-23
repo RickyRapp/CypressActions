@@ -2,7 +2,7 @@ context('All inputs in the admin section ', () => {
 
     beforeEach(() => {
       cy.visit('http:localhost:3000/admin')
-    })
+    }) 
     
   it('checks for valid category input - added', () => {  
     cy.get('#addCategory').click()

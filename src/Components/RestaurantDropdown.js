@@ -11,7 +11,7 @@ const RestaurantDropdown = props => {
 
     const getRestaurants = async () => {
         const response = await axios
-        .get(`http://localhost:3001/restaurants?categoryNum=${props.selectedCategoryNum?props.selectedCategoryNum.categoryNum:''}`) 
+        .get(`https://restaurant-selections.herokuapp.com/restaurants?categoryNum=${props.selectedCategoryNum?props.selectedCategoryNum.categoryNum:''}`) 
         .catch((err) => {
             console.log("err",err)
         }) 
@@ -29,7 +29,7 @@ const RestaurantDropdown = props => {
     const handleRestaurantChange = async e => {
         console.log(e.target.value)
         const response = await axios
-        .get(`http://localhost:3001/restaurants?restaurantNum=${e.target.value}`) 
+        .get(`https://restaurant-selections.herokuapp.com/restaurants?restaurantNum=${e.target.value}`) 
         .catch((err) => {
             console.log("err",err)
         })  
