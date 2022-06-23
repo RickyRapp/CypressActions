@@ -42,6 +42,10 @@ class GrantRouteService extends BaseRouteService {
         return super.create(this.base + '/create')
     }
 
+    createWithdraw(){
+        return super.create(this.base + '/withdraw');
+    }
+
     createCharityGivingCard() {
         return super.create(this.base + '/charity-giving-card');
     }

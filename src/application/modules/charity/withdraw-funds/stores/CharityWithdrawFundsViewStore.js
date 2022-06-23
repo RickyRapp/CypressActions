@@ -59,6 +59,37 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
         console.log(this.isACH);
         console.log(this.bankAccount);
         console.log(this.charityAddress);
+
+        var address = this.charityAddress;
+
+        if(!this.isACH && ( address.addressLine1 === ""
+            || address.city === ""
+            || address.state === ""
+            || address.zipCode === "")){
+            console.log("Invalid address");
+            return false
+        }
+        if(this.isACH && (this.bankAccount === null || this.accountBanalce === undefined) ){
+            console.log("Invalid bank account");
+            return false;
+        }
+
+        var resource = {
+            charityId: this.rootStore.userStore.applicationUser.id,
+            amount: 10,
+            charityBankAccountId: this.bankAccount,
+            IsAch: this.isACH,
+            charityAddress : {
+                addressLine1: address.addressLine1,
+                addressLine2: address.addressLine2,
+                city: address.city,
+                state: address.state,
+                zipCode: address.zipCode,
+            }
+        }
+
+        const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
+        console.log(data);
     }
 
 }
