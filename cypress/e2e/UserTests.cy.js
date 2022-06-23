@@ -1,7 +1,7 @@
 context('checks the user section ', () => {
 
   beforeEach(() => {
-    cy.visit('/user')
+    cy.visit('http://localhost:3000/user')
   }) 
  
   it('checks for bolded home tab and unbolded user and admin tabs', () => { 
