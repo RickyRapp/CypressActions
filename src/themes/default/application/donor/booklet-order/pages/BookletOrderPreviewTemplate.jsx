@@ -76,14 +76,14 @@ const BookletOrderPreviewTemplate = function ({ bookletOrderPreviewViewStore, t 
 					</div>
 				</div>
 				<div>
-					{item && item.customName &&
+					{item && (item.customName || item.expirationDays || item.customizedAddressLine1) &&
 						<div className="card--primary card--med">
 							<div className="type--base type--wgt--medium type--color--note">
 								{t('BOOKLET_ORDER.PREVIEW.CUSTOM_LABEL')}
 								<i className="u-icon u-icon--approve u-icon--base u-mar--left--tny"></i>
 							</div>
 							<span className="input--preview">
-								{item && (item.customName || item.expirationDays) &&
+								{item && (item.customName || item.expirationDays || item.customizedAddressLine1) &&
 									<div>
 										{item.customName && <p className="booklet__list__item">Name: <span className="type--base type--color--text">{item.customName}</span></p>}
 										{item.shippingAddressLine1 && <p className="booklet__list__item">Address: <span className="type--base type--color--text">{item.shippingAddressLine1}</span></p>}
