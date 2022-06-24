@@ -6,6 +6,7 @@ import moment from 'moment';
 
 class AllTransactionViewStore extends BaseListViewStore {
 	@observable isChecksOnHoldVisible = false;
+    @observable accountBanalce = 0;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -53,6 +54,7 @@ class AllTransactionViewStore extends BaseListViewStore {
         this.createDateCreatedDateRangeQueryStore();
         this.createTransactionTypeStore();
         this.createTransactionPeriodStore();
+        this.getAccountBalance();
 
         this.checksOnHoldTableStore = new TableViewStore(null, {
             columns: [
@@ -296,6 +298,10 @@ class AllTransactionViewStore extends BaseListViewStore {
 			return `${grant.grantType} ${grant.confirmationNumber}`;
 		}
 	}
+
+    async getAccountBalance(){
+        this.accountBanalce = await this.rootStore.application.charity.charityStore.getCharityAccountBalance(this.rootStore.userStore.applicationUser.id);
+    }
 
 }
 
