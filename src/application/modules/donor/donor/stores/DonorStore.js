@@ -28,7 +28,10 @@ class DonorStore {
         const response = await this.donorService.find(params);
         return response.data;
     }
-
+    async findDonor(params) {
+        const response = await this.donorService.searchDonor(params);
+        return response.data;
+    }
     async findAddress(params) {
         const response = await this.donorAddressService.find(params);
         return response.data;
@@ -46,6 +49,10 @@ class DonorStore {
 
     async findBankAccount(params) {
         const response = await this.donorBankAccountService.find(params);
+        return response.data;
+    }
+    async findGivingCardSettingId(params) {
+        const response = await this.donorGivingCardSettingService.get(params);
         return response.data;
     }
 

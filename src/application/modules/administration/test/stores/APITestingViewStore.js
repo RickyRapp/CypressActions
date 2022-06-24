@@ -11,6 +11,9 @@ class APITestingViewStore extends BaseEditViewStore {
     @observable validationToken;
     @observable response;
     @observable url;
+    @observable cardId;
+    @observable isSelectedCardNumber;
+    @observable isSelectedCards;
     constructor(rootStore) {
 
         super(rootStore, {
@@ -133,6 +136,7 @@ class APITestingViewStore extends BaseEditViewStore {
                     grantPurposeType: this.grantPurposeTypeDropdownStore.value.abrv,
                     purposeNote: this.form.$('purposeNote').value
                 }
+
             } else {
                 requestData = {
                     accountNumber: this.form.$('accountNumber').value,
@@ -147,6 +151,7 @@ class APITestingViewStore extends BaseEditViewStore {
                     donorAuthorization: this.form.$('donorAuthorization').value,
                     isRecurring: this.form.$('isRecurring').value
                 }
+
             }
 
         } else if (this.form.$('requestType').value == 2) {
@@ -157,7 +162,20 @@ class APITestingViewStore extends BaseEditViewStore {
                 cardNumber: this.form.$('cardNumber').value,
                 description: this.form.$('description').value
             }
-        } else {
+            let params = {};
+            params.cardNumber = requestData.cardNumber;
+            var givinCardNumber = await this.rootStore.application.donor.donorStore.findGivingCardSetting(params);
+           
+                if (givinCardNumber.item[0].maxAmount < requestData.amount) {
+                    this.isSelectedCardNumber = true;
+                }
+                else{
+                    this.isSelectedCardNumber = false;
+                }
+            }
+          
+
+         else {
             if (this.grantPurposeTypeDropdownStore.value && (this.grantPurposeTypeDropdownStore.value.abrv == 'in-honor-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'in-memory-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'solicited-by' || this.grantPurposeTypeDropdownStore.value.abrv == 'other')) {
                 requestData = {
                     accountNumber: this.form.$('accountNumber').value,
@@ -182,6 +200,19 @@ class APITestingViewStore extends BaseEditViewStore {
                 }
             }
         }
+        if(!(this.form.$('requestType').value == 2)){
+            let params = {};
+            params.donorEmail = requestData.donor;
+            var givingCardNumber = await this.rootStore.application.donor.donorStore.findGivingCardSetting(params);
+            
+            if (givingCardNumber.item[0].maxAmount < requestData.amount) {
+                this.isSelectedCardNumber = true;
+            }
+            else{
+                this.isSelectedCardNumber = false;
+            }
+        }
+        
         const requestOptions = {
             method: 'POST',
             headers:
@@ -195,7 +226,14 @@ class APITestingViewStore extends BaseEditViewStore {
         fetch(this.url, requestOptions)
             .then(response => response.json())
             .then(data => {
-                if (data.error != undefined || data.error != null || (data.message && data.message.includes("invalid"))) {
+                if (this.isSelectedCardNumber) {
+                    this.response = {
+                        isSuccess: false,
+                        error: "Inserted amount exceeds the maximum dollar amount per transaction",
+                        errorCode: 400
+                    }
+                }
+                else if (data.error != undefined || data.error != null || (data.message && data.message.includes("invalid"))) {
                     this.response = {
                         isSuccess: false,
                         error: data.error ? data.error : data.message,
@@ -206,7 +244,8 @@ class APITestingViewStore extends BaseEditViewStore {
                         isSuccess: true,
                         msg: 'Approved'
                     }
-                } else {
+                }
+                else {
                     if (this.requestType == 1) {
                         this.response = {
                             isSuccess: true,
