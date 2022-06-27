@@ -8,6 +8,10 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
     @observable isACH = true;
     @observable charityAddress;
     @observable bankAccount;
+    @observable amount;
+    @observable amountValidationMessage;
+    @observable addressValidationMessage;
+    @observable bankAccountValidationMessage;
 
     constructor(rootStore) {
         super(rootStore);
@@ -55,28 +59,48 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
     }
 
     @action.bound
-    async createWithdraw(){
-        console.log(this.isACH);
-        console.log(this.bankAccount);
-        console.log(this.charityAddress);
+    changeValue(value){
+        if(value <=0){
+            this.amountValidationMessage = "Amount can't be lower than 0."
+            return false;
+        }
 
+        if( this.accountBanalce <= value ){
+            this.amountValidationMessage = "Amount can't be greater than account balance."
+            return false;
+        }
+
+        this.amountValidationMessage = '';
+        this.amount = value;
+    }
+
+    @action.bound
+    async createWithdraw(){
         var address = this.charityAddress;
+        this.bankAccountValidationMessage = "";
+        this.amountValidationMessage = "";
+        this.addressValidationMessage = "";
 
         if(!this.isACH && ( address.addressLine1 === ""
             || address.city === ""
             || address.state === ""
             || address.zipCode === "")){
-            console.log("Invalid address");
+            this.addressValidationMessage = "Invalid address."
             return false
+        } console.log(this.bankAccount);
+        if(this.isACH && (this.bankAccount === null || this.bankAccount === undefined || this.bankAccount === "" ) ){
+            this.bankAccountValidationMessage = "Please select bank account."
+            return false;
         }
-        if(this.isACH && (this.bankAccount === null || this.accountBanalce === undefined) ){
-            console.log("Invalid bank account");
+
+        if(!this.amount || this.amount <=0 || this.accountBanalce <= this.amount){
+            this.amountValidationMessage = 'Please enter valid Amount.';
             return false;
         }
 
         var resource = {
             charityId: this.rootStore.userStore.applicationUser.id,
-            amount: 10,
+            amount: this.amount,
             charityBankAccountId: this.bankAccount,
             IsAch: this.isACH,
             charityAddress : {
@@ -88,8 +112,8 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
             }
         }
 
-        const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
-        console.log(data);
+       const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
+       console.log(data);
     }
 
 }

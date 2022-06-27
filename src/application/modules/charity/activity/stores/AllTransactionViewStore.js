@@ -182,7 +182,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                                     style: 'currency',
                                     currency: 'USD',
                                     });
-                                return formatter.format(item.paymentTransaction.presentBalance);
+                                return formatter.format(item.accountBalance);
                             }
                     }
                 }

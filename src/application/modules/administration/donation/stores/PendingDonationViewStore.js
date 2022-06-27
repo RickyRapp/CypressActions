@@ -251,6 +251,14 @@ class PendingDonationViewStore extends BaseListViewStore {
                         key: 'sessionCount',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.SESSION_LABEL'
                     },
+                    {
+                        key: 'isWithdraw',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.IS_WITHDRAW',
+                        format: {
+                            type: 'boolean',
+                            value: 'yes-no'
+                        },
+                    },
                 ],
                 actions: {},
                 disablePaging: true,

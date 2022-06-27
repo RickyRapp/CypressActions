@@ -29,8 +29,6 @@ class WithdrawFundViewStore extends BaseListViewStore {
                 onResetFilter: (filter) => {
                     filter.reset();
                     this.donationStatusDropdownStore.setValue(null);
-                    this.donationTypeDropdownStore.setValue(null);
-                    this.searchDonorDropdownStore.setValue(null);
                     this.searchCharityDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
                 }
@@ -172,13 +170,6 @@ class WithdrawFundViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
-                    key: 'donor.donorName',
-                    title: 'GRANT.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    onClick: (grant) => grant.donationStatus.abrv === 'pending' ?
-                        this.routes.edit(grant.id, grant.donor.id) :
-                        this.routes.preview(grant.id)
-                },
-                {
                     key: 'charity.name',
                     title: 'GRANT.LIST.COLUMNS.CHARITY_LABEL',
                 },
@@ -218,34 +209,8 @@ class WithdrawFundViewStore extends BaseListViewStore {
                 }
             ],
             actions: {
-                onRedirect: (grant) => this.routes.scheduledGrantsList(grant.scheduledGrantPayment.name),
-                onPreview: (grant) => this.routes.preview(grant.id),
-                onApprove: (grant) => this.approveGrant(grant),
-                onCancel: (grant) => this.cancelGrant(grant),
-                onSort: (column) => this.queryUtility.changeOrder(column.key),
-                onDecline: (grant) => this.onDeclineClick(grant),
-                onDonorDeclined: (grant) => this.onDonorDeclinedClick(grant),
-                onDonorReview: (grant) => this.onDonorReviewClick(grant)
             },
             actionsRender: {
-                onRedirectRender: (grant) => {
-                    return isSome(grant.scheduledGrantPayment)
-                },
-                onApproveRender: (grant) => {
-                    return grant.donationType.abrv !== 'session' && grant.donationStatus.abrv === 'pending';
-                },
-                onCancelRender: (grant) => {
-                    return grant.donationType.abrv !== 'session' && (grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved');
-                },
-                onDeclineRender: (grant) => {
-                    return grant.donationStatus.abrv === 'pending' || grant.donationStatus.abrv === 'approved';
-                },
-                onDonorDeclinedRender: (grant) => {
-                    return grant.donationStatus.abrv === 'donor-review-declined';
-                },
-                onDonorReviewRender: (grant) => {
-                    return grant.donationStatus.abrv === 'donor-review-first' || grant.donationStatus.abrv === 'donor-review-second';
-                }
             }
         }));
     }

@@ -11,7 +11,11 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
         onChange,
         charityAddress,
         bankAccountDropdownStore,
-        createWithdraw
+        createWithdraw,
+        changeValue,
+        amountValidationMessage,
+        bankAccountValidationMessage,
+        addressValidationMessage
      } = charityWithdrawFundsViewStore;
 
 	return (
@@ -34,7 +38,11 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
                             id="withdrawAmount"
                             className="input input--lrg"
                             placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+                            onChange={ e => {
+                                changeValue(e.target.value);
+                            }}
                         />
+                        <p class="validation__message">{amountValidationMessage}</p>
                     </div>
                     <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--top--sml">
                         <div className="input--switch u-clearfix">
@@ -74,6 +82,7 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
                                         placeholder="BANK_ACCOUNT.LIST.EMPTY_STATE.SELECT"
                                        // onChange={selectBankAccount}
                                     />
+                                    <p class="validation__message">{bankAccountValidationMessage}</p>
                                 </div>
                             </div>
                         : <p>{t("BANK_ACCOUNT.LIST.EMPTY_STATE.TITLE")}</p>}
@@ -81,6 +90,7 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
                     :
                     <div className=" u-mar--top--sml">
                         <div className="row row--form">
+                            <p class="validation__message">{addressValidationMessage}</p>
                             <div className="form__group col col-sml-12 col-lrg-3">
                                 <p>{t('ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_LABEL')}</p>
                                 <BaasicInput 

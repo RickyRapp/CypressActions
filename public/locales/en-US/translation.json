@@ -1805,6 +1805,7 @@
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
                 "CHECK_NUMBER_PLACEHOLDER": "Check number",
                 "GRANT_STATUS_PLACEHOLDER": "Grant status",
+                "WITHDRAW_STATUS_PLACEHOLDER": "Withdraw status",
                 "GRANT_TYPE_PLACEHOLDER": "Grant type",
                 "GRANT_MEMO_PLACEHOLDER": "Grant memo",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
@@ -2048,7 +2049,8 @@
                     "GRANT_REQUEST_LABEL": "Grant Request",
                     "GIVING_CARD_LABEL": "Giving Card",
                     "SESSION_LABEL": "Session",
-                    "ACH_AVAILABLE_LABEL": "ACH available"
+                    "ACH_AVAILABLE_LABEL": "ACH available",
+                    "IS_WITHDRAW": "Is Withdraw"
                 },
                 "GRANT": {
                     "COLUMNS": {
