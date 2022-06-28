@@ -13,7 +13,7 @@ export default class UserCreateForm extends FormBase {
                     name: 'userName',
                     label: 'USER.CREATE.USERNAME_LABEL',
                     placeholder: 'USER.CREATE.USERNAME_PLACEHOLDER',
-                    rules: 'required|string|min:5|max:50'
+                    rules: 'required|string|min:5|max:50|usernameUnique'
                 },
                 {
                     name: 'userEmail',

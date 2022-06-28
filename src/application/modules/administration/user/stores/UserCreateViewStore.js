@@ -2,6 +2,7 @@ import { action, observable, runInAction } from 'mobx';
 import * as _ from 'lodash';
 import { UserCreateForm } from 'application/administration/user/forms';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
+import { localizationService, validatorService } from 'core/services';
 import { applicationContext } from 'core/utils';
 import { forEach } from 'lodash';
 import { BaasicInput } from 'core/components';
@@ -18,8 +19,6 @@ class UserCreateViewStore extends BaseEditViewStore {
     @observable selectedRoles = [];
     @observable isUser = false;
     @observable userDonor = null;
-    @observable isExistingFundName;
-    @observable isExistingUserName;
     roleMultiselectStore = null;
     titleDropdownStore = null;
     languageDropdownStore = null;
@@ -163,38 +162,46 @@ class UserCreateViewStore extends BaseEditViewStore {
         //     const response = await this.rootStore.application.baasic.membershipModule.lookups.get({ embed: 'role', rpp: 30 });
         //     return response.data.role;
         // }
-
+        this.createUniqueConstraintValidators();
         this.titleDropdownStore = new BaasicDropdownStore(null, null, [
             { name: 'Mr.', id: 'Mr.' },
             { name: 'Miss/Mrs.', id: 'Miss/Mrs.' }
         ]);
     }
 
-    @action.bound
-    async checkIfDuplicated(e) {
-        var params = { fundName: e }
-        var fundname = await this.rootStore.application.donor.donorStore.findDonor(params);
-        if (fundname != null) {
-            this.isExistingFundName = true;
-        }
-        else
-            this.isExistingFundName = false;
-    }
+    createUniqueConstraintValidators() {
+        validatorService.registerAsyncValidator('usernameUnique', async (value, attribute, req, passes) => {
+            try {
+                const { statusCode } = await this.rootStore.application.baasic.membershipModule.user.exists(value);
+                if (statusCode === 204) {
+                    return passes(false, localizationService.t('DONOR.CREATE.LOGIN_FORM_FIELDS.ERROR_MESSAGES.USERNAME_CONFLICT'))
+                }
+            } catch (err) {
+                if (err.statusCode === 404) {
+                    return passes();
+                }
+                return passes(false, localizationService.t('DONOR.CREATE.ERROR_MESSAGES.GENERAL_ERROR'))
+            }
+        });
 
-    @action.bound
-    async checkIfUserName(e) {
-        var params = { userName: e }
-        var user = await this.rootStore.application.donor.donorStore.findDonor(params);
-        if (user != null) {
-            this.isExistingUserName = true;
-        }
-        else
-            this.isExistingUserName = false;
+        validatorService.registerAsyncValidator('fundNameUnique', async (value, attribute, req, passes) => {
+            try {
+                const { statusCode } = await this.rootStore.application.administration.donorStore.fundNameExists(value);
+                if (statusCode === 204) {
+                    return passes(false, localizationService.t('DONOR.CREATE.ERROR_MESSAGES.FUND_NAME_CONFLICT'))
+                }
+            } catch (err) {
+                if (err.statusCode === 404) {
+                    return passes();
+                }
+                return passes(false, localizationService.t('DONOR.CREATE.ERROR_MESSAGES.GENERAL_ERROR'))
+            }
+        });
     }
-
+ 
     @action.bound
     validateForm() {
-        this.form.$('fundName').set('rules', 'required|string|min:1|max:40');
+        this.form.$('fundName').set('rules', ['required', 'string', `regex:^The[\\-\\'\\s\\w]+Fund$`, 'fundNameUnique']);
         this.form.$('addressLine1').set('rules', 'required|string|min:1|max:40');
         this.form.$('city').set('rules', 'required|string|min:1|max:40');
         this.form.$('state').set('rules', 'required|string|min:1|max:40');

@@ -62,7 +62,7 @@ class DonorRouteService extends BaseRouteService {
   }
 
   fundNameExists(fundName) {
-    return super.get(this.base + '/fund-name/{fundName}/exists/', null, { fundName: fundName });
+    return super.get(this.base + '/fund-name/{fundName}/exists/', null, { fundName: btoa(fundName) });
   }
 
   phoneNumberExists(phoneNumber) {
