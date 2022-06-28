@@ -4,7 +4,10 @@ import { UserCreateForm } from 'application/administration/user/forms';
 import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { forEach } from 'lodash';
-
+import { BaasicInput } from 'core/components';
+import { t } from 'i18next';
+import classNames from 'classnames';
+import React from 'react';
 const ErrorType = {
     User: 0,
     Profile: 1
@@ -15,10 +18,11 @@ class UserCreateViewStore extends BaseEditViewStore {
     @observable selectedRoles = [];
     @observable isUser = false;
     @observable userDonor = null;
+    @observable isExistingFundName;
+    @observable isExistingUserName;
     roleMultiselectStore = null;
     titleDropdownStore = null;
     languageDropdownStore = null;
-
     constructor(rootStore) {
         super(rootStore, {
             name: 'user',
@@ -44,9 +48,9 @@ class UserCreateViewStore extends BaseEditViewStore {
                         state: state
                     };
 
-                    const email = {email : userEmail}
-                    const phone = {   number: phoneNumber };
-                    const coreMembership = {password: password, confirmPassword: confirmPassword}
+                    const email = { email: userEmail }
+                    const phone = { number: phoneNumber };
+                    const coreMembership = { password: password, confirmPassword: confirmPassword }
 
                     const user = {
                         isApproved: true,
@@ -88,14 +92,15 @@ class UserCreateViewStore extends BaseEditViewStore {
                     user.email = user.userEmail;
                     delete user.userEmail;
                     let response = null;
+
                     try {
-                        userRoles.forEach(async(userRole)=>{
-                            if(userRole.name === 'Users'){
+                        userRoles.forEach(async (userRole) => {
+                            if (userRole.name === 'Users') {
                                 user.userName = user.email;
                                 userDonor.coreUser = user;
                                 response = await this.rootStore.application.administration.donorStore.createAccount(userDonor);
                             }
-                            else{
+                            else {
                                 response = await userStore.create(user);
                             }
                         })
@@ -136,6 +141,7 @@ class UserCreateViewStore extends BaseEditViewStore {
             },
             FormClass: UserCreateForm
         });
+
         this.roleMultiselectStore = new BaasicDropdownStore({
             multi: true
         },
@@ -162,11 +168,32 @@ class UserCreateViewStore extends BaseEditViewStore {
             { name: 'Mr.', id: 'Mr.' },
             { name: 'Miss/Mrs.', id: 'Miss/Mrs.' }
         ]);
-
     }
 
     @action.bound
-    validateForm(){
+    async checkIfDuplicated(e) {
+        var params = { fundName: e }
+        var fundname = await this.rootStore.application.donor.donorStore.findDonor(params);
+        if (fundname != null) {
+            this.isExistingFundName = true;
+        }
+        else
+            this.isExistingFundName = false;
+    }
+
+    @action.bound
+    async checkIfUserName(e) {
+        var params = { userName: e }
+        var user = await this.rootStore.application.donor.donorStore.findDonor(params);
+        if (user != null) {
+            this.isExistingUserName = true;
+        }
+        else
+            this.isExistingUserName = false;
+    }
+
+    @action.bound
+    validateForm() {
         this.form.$('fundName').set('rules', 'required|string|min:1|max:40');
         this.form.$('addressLine1').set('rules', 'required|string|min:1|max:40');
         this.form.$('city').set('rules', 'required|string|min:1|max:40');

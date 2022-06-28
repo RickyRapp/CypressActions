@@ -5,13 +5,19 @@ import { defaultTemplate } from 'core/hoc';
 import { ApplicationEditLayout, Content } from 'core/layouts';
 
 const UserCreateTemplate = function ({ userCreateViewStore }) {
+    
     const {
         contentLoading,
         form,
         roleMultiselectStore,
         isUser,
+        checkIfDuplicated,
+        checkIfUserName,
+        isExistingFundName,
+        isExistingUserName
     } = userCreateViewStore;
-
+    form.$('userName').onBlur = (e) => checkIfUserName(e.target.value);
+    form.$('fundName').onBlur = (e) => checkIfDuplicated(e.target.value);
     return (
         <ApplicationEditLayout store={userCreateViewStore}>
             <Content loading={contentLoading} >
@@ -25,7 +31,8 @@ const UserCreateTemplate = function ({ userCreateViewStore }) {
                                 <BasicInput field={form.$('lastName')} />
                             </div>
                             <div className="form__group col col-lrg-6">
-                                <BasicInput field={form.$('userName')} />
+                                <BasicInput field={form.$('userName')}/>
+                                {isExistingUserName && <p className="validation__message">User name already exists in the database.</p>}
                             </div>
                             <div className="form__group col col-lrg-6">
                                 <BasicInput field={form.$('userEmail')} />
@@ -46,7 +53,8 @@ const UserCreateTemplate = function ({ userCreateViewStore }) {
                                 <div className="card--primary card--med u-mar--bottom--med">
                                     <div className="row row--form">
                                         <div className="form__group col col-lrg-6 ">
-                                            <BasicInput field={form.$('fundName')} />
+                                            <BasicInput field={form.$('fundName')}/>
+                                            {isExistingFundName && <p className="validation__message">Fund name already exists in the database.</p>}
                                         </div>
                                         <div className="form__group col col-lrg-6" style={{paddingTop:"15px"}}>
                                             <div className="card card--form mt-3">
