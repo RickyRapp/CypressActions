@@ -10,7 +10,7 @@ class DonorRouteService extends BaseRouteService {
   }
 
   findByUsernameOrAccNumber(filter) {
-    return super.find(this.base + '/find-donor/{?search,firstName,lastName,emails,accountNumber,accountTypeId,page,rpp,sort,embed,fields,pin,phone,address}', filter);
+    return super.find(this.base + '/find-donor/{?userName,fundName,search,firstName,lastName,emails,accountNumber,accountTypeId,page,rpp,sort,embed,fields,pin,phone,address}', filter);
   }
 
   get(id, options) {
@@ -62,7 +62,7 @@ class DonorRouteService extends BaseRouteService {
   }
 
   fundNameExists(fundName) {
-    return super.get(this.base + '/fund-name/{fundName}/exists/', null, { fundName: fundName });
+    return super.get(this.base + '/fund-name/{fundName}/exists/', null, { fundName: btoa(fundName) });
   }
 
   phoneNumberExists(phoneNumber) {

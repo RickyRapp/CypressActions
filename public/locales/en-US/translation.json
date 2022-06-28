@@ -433,7 +433,19 @@
             "CONFIRM_PASSWORD_LABEL": "Confirm password",
             "CONFIRM_PASSWORD_PLACEHOLDER": "Enter confirm password",
             "ROLES_LABEL": "Roles",
-            "ROLES_PLACEHOLDER": "Select user roles"
+            "ROLES_PLACEHOLDER": "Select user roles",
+            "FUND_NAME_LABEL" : "Fund name",
+            "IS_PRIVATE_CLIENT_SUITE": "Enroll for Private Client Suite",
+            "ADDRESS_LINE_1_LABEL" : "Address line 1",
+            "ADDRESS_LINE_2_LABEL" : "Address line 2",
+            "CITY_LABEL" : "City",
+            "STATE_LABEL" : "State",
+            "ZIP" : "ZIP",
+            "PHONE_NUMBER_LABEL" : "Phone number",
+            "PIN" : "Please enter a 4 digit security PIN",
+            "CONFIRM_PIN" : "Confirm PIN",
+            "IS_THIS_A_BUSSINESS_ACCOUNT" : "Is this a bussiness account?"
+
         },
         "PASSWORD_CHANGE": {
             "TITLE": "User",

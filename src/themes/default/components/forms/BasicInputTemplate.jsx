@@ -25,6 +25,7 @@ const BasicInputTemplate = defaultTemplate(({ field, t, showLabel = true, showMa
                 disabled={disabled || otherProps.disabled}
                 autoFocus={field.initialSetup.autoFocus}
                 placeholder={t(placeholder)}
+               
             />
             {renderIf(isSome(field.localizedError))(
                 <p className="validation__message">{field.localizedError}</p>

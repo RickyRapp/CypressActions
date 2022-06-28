@@ -10,7 +10,7 @@ function EditFormLayoutTemplate({ store, children, t, layoutFooterVisible, loadi
     const {
         rootStore,
         form,
-        loaderStore
+        loaderStore,
     } = store;
     const { header, footer, content } = getPageObject(children);
 
@@ -47,7 +47,9 @@ function renderEditLayoutFooterContent({ footerClassName, footer, form, visible,
                             label={t('EDIT_FORM_LAYOUT.CANCEL')}
                             onClick={goBack}
                         />
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                        {/* {isExistingFundName && isExistingUserName ? <BaasicFormControls form={form} onSubmit={form.onSubmit} disabled/> :  */}
+                          <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                      
                     </div>
                 </PageFooter>
             )

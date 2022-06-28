@@ -13,7 +13,7 @@ export default class UserCreateForm extends FormBase {
                     name: 'userName',
                     label: 'USER.CREATE.USERNAME_LABEL',
                     placeholder: 'USER.CREATE.USERNAME_PLACEHOLDER',
-                    rules: 'required|string|min:5|max:50'
+                    rules: 'required|string|min:5|max:50|usernameUnique'
                 },
                 {
                     name: 'userEmail',
@@ -56,6 +56,72 @@ export default class UserCreateForm extends FormBase {
                     label: 'USER.CREATE.ROLES_LABEL',
                     placeholder: 'USER.CREATE.ROLES_PLACEHOLDER',
                     rules: 'required|array_required'
+                },
+                {
+                    name: 'fundName',
+                    label: 'USER.CREATE.FUND_NAME_LABEL',
+                    rules: 'string|min:1|max:40'
+                },
+                {
+                    name: 'addressLine1',
+                    label: 'USER.CREATE.ADDRESS_LINE_1_LABEL',
+                    rules: 'string|min:1|max:40'
+                },
+                {
+                    name: 'addressLine2',
+                    label: 'USER.CREATE.ADDRESS_LINE_2_LABEL',
+                    rules: 'string|min:1|max:40'
+                },
+                {
+                    name: 'city',
+                    label: 'USER.CREATE.CITY_LABEL',
+                    rules: 'string|min:1|max:40'
+                },
+                {
+                    name: 'state',
+                    label: 'USER.CREATE.STATE_LABEL',
+                    rules: 'string|min:1|max:40'
+                },
+                {
+                    name: 'zip',
+                    label: 'USER.CREATE.ZIP',
+                    rules: 'string|min:1|max:40'
+                },
+                {
+                    name: 'phoneNumber',
+                    label: 'USER.CREATE.PHONE_NUMBER_LABEL',
+                    rules: 'string',
+                    extra: {
+                        format: '(###) ###-####'
+                    }
+                },
+                {
+                    name: 'securityPin',
+                    label: 'USER.CREATE.PIN',
+                    rules: 'string|digits:4',
+                    extra: {
+                        format: '####'
+                    },
+                },
+                {
+                    name: 'confirmSecurityPin',
+                    label: 'USER.CREATE.CONFIRM_PIN',
+                    rules: 'string|digits:4|same:securityPin',
+                    extra: {
+                        format: '####'
+                    },
+                },
+                {
+                    name: 'isPrivateClientSuite',
+                    label: 'USER.CREATE.IS_PRIVATE_CLIENT_SUITE',
+                    rules: 'boolean',
+                    type: 'checkbox'
+                },
+                {
+                    name: 'isThisABussinessAccount',
+                    label: 'USER.CREATE.IS_THIS_A_BUSSINESS_ACCOUNT',
+                    rules: 'boolean',
+                    type: 'checkbox'
                 },
                 ...userProfileFormProperties.fields,
 
