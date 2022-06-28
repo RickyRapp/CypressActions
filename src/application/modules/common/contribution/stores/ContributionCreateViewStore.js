@@ -371,6 +371,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 					orderBy: 'dateCreated',
 					orderDirection: 'desc',
 				};
+				params.onlyVerified = true;
 				params.donorId = this.donorId;
 				return this.contributionStore.findBankAccount(params);
 			}

@@ -255,6 +255,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 						orderDirection: 'desc',
 					};
 					params.donorId = this.item.donorId;
+					params.onlyVerified = true;
 					return this.contributionStore.findBankAccount(params);
 				},
 			}
