@@ -201,7 +201,7 @@ class UserCreateViewStore extends BaseEditViewStore {
  
     @action.bound
     validateForm() {
-        this.form.$('fundName').set('rules', ['required', 'string', `regex:^The[\\-\\'\\s\\w]+Fund$`, 'fundNameUnique']);
+        this.form.$('fundName').set('rules', ['required', 'string', 'fundNameUnique']);
         this.form.$('addressLine1').set('rules', 'required|string|min:1|max:40');
         this.form.$('city').set('rules', 'required|string|min:1|max:40');
         this.form.$('state').set('rules', 'required|string|min:1|max:40');
