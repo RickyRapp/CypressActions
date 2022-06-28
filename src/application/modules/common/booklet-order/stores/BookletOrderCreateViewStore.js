@@ -23,6 +23,7 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     @observable tableData = [];
     applicationDefaultSetting = null;
     @observable validForm = true;
+    @observable isPrefilledCustomize = false;
     blankDenomination = null;
     
     constructor(rootStore, { donorId, isDonor }) {
@@ -32,6 +33,35 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
+                        console.log(this.form);
+                        if(this.form.$('isCustomizedBook').value) {
+                            if(this.form.$('customizedName').value.length == 0 && 
+                            this.form.$('customizedAddressLine1').value.length == 0
+                            && this.form.$('customizedCity').value.length == 0
+                            && this.form.$('customizedState').value.length == 0 &&
+                            this.form.$('customizedZipCode').value.length == 0 &&
+                            this.form.$('customizedExpirationDate').value.length == 0) {
+                                this.rootStore.notificationStore.error('Please fill out customization info!');
+                                this.form.invalidate('Customization fields not filled out');
+                                this.validForm = false;
+                                return;
+                            } else if ((this.form.$('customizedAddressLine1').value.length == 0
+                            || this.form.$('customizedCity').value.length == 0
+                            || this.form.$('customizedState').value.length == 0 
+                            || this.form.$('customizedZipCode').value.length == 0) && (this.form.$('customizedAddressLine1').value.length > 0
+                            || this.form.$('customizedCity').value.length > 0
+                            || this.form.$('customizedState').value.length > 0 
+                            || this.form.$('customizedZipCode').value.length > 0)) {
+                                {
+                                    this.rootStore.notificationStore.error('Address incomplete - address line 1, city, state and zip code are required');
+                                    this.form.invalidate('Address fields not filled out');
+                                    this.validForm = false;
+                                    return;
+                                }
+                            } else {
+                                this.validForm = true;
+                            }
+                        }
                         // if(!this.donor.hasProtectionPlan && (this.totalAmount - this.totalPrepaidAmount > 0) && (this.donor.presentBalance + this.donor.lineOfCredit) < this.totalAmount) {
                         //     this.rootStore.notificationStore.error('Insufficient funds, please enroll in protection plan or deposit funds');
                         //     this.form.invalidate('Insufficient funds');
@@ -125,6 +155,28 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
+    setCustomizeDefaults() {
+        this.isPrefilledCustomize = true;
+        this.form.$('customizedName').value = this.donor.donorName;
+        this.form.$('customizedAddressLine1').value = this.donor.donorAddress.addressLine1;
+        this.form.$('customizedAddressLine2').value = this.donor.donorAddress.addressLine2;
+        this.form.$('customizedCity').value = this.donor.donorAddress.city;
+        this.form.$('customizedState').value = this.donor.donorAddress.state;
+        this.form.$('customizedZipCode').value = this.donor.donorAddress.zipCode;
+    }
+
+    @action.bound
+    resetCustomizeDefaults() {
+        this.isPrefilledCustomize = false;
+        this.form.$('customizedName').value = '';
+        this.form.$('customizedAddressLine1').value = '';
+        this.form.$('customizedAddressLine2').value = '';
+        this.form.$('customizedCity').value = '';
+        this.form.$('customizedState').value = '';
+        this.form.$('customizedZipCode').value = '';
+    }
+
+    @action.bound
     goToNewDeposit() {
         if(this.isAdmin)
             this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', {id: this.donorId});
@@ -157,7 +209,13 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
     
     @computed get customizedFee() {
-        return this.orderContents.reduce((a,b) => a+b.bookletCount, 0)*5;
+        var oneDollar = this.denominationTypes.find(x => x.abrv == 'one');
+        var twoDollar = this.denominationTypes.find(x => x.abrv == 'two');
+        var threeDollar = this.denominationTypes.find(x => x.abrv == 'three');
+        var fiveDollar = this.denominationTypes.find(x => x.abrv == 'five');
+        if(this.form.$('customizedName').length > 0 || this.form.$('customizedAddressLine1').length > 0 || this.form.$('customizedCity').length > 0 || this.form.$('customizedZipCode').length > 0)
+            return this.orderContents.reduce((a, b) => a + b.bookletCount, 0) * 5;
+        return this.orderContents.filter(x => x.denominationTypeId != oneDollar.id && x.denominationTypeId != twoDollar.id && x.denominationTypeId != threeDollar.id && x.denominationTypeId != fiveDollar.id).reduce((a, b) => a + b.bookletCount, 0) * 5;
     }
 
     @computed get totalPrepaidAmount() {

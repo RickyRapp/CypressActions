@@ -36,6 +36,14 @@ class BookletOrderRouteService extends BaseRouteService {
     review(resource) {
         return super.update(this.base + '/review/{id}', resource);
     }
+
+    folderFind(resource) {
+        return super.find(this.base + '/booklet-folders/{?page,rpp}', resource);
+    }
+
+    folderReview(resource) {
+        return super.find(this.base + '/booklet-folders/{id}', resource);
+    }
 }
 
 export default BookletOrderRouteService;

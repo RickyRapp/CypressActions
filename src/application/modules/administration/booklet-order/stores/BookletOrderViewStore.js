@@ -157,13 +157,17 @@ class BookletOrderViewStore extends BaseListViewStore {
     @action.bound 
     async selectDefaults() {
         this.queryUtility.filter.sendTo = 'jscoza@checkprintingsolutions.com'
-        const filteredDefaults = this.tableStore.data.filter(x => x.customName && x.bookletOrderStatus && x.bookletOrderStatus.abrv == 'finished');
+        const filteredDefaults = this.tableStore.data.filter(x => x.customName && x.bookletOrderStatus && x.bookletOrderStatus.abrv == 'pending');
         this.tableStore.setSelectedItems(filteredDefaults);
     }
     @action.bound
     async exportList(sendMail = false) {
         if(this.tableStore.selectedItems.length == 0) {
             this.rootStore.notificationStore.warning("No items selected!");
+            return;
+        }
+        if(this.tableStore.selectedItems.filter(x => x.bookletOrderStatus.abrv == 'finished').length > 0) {
+            this.rootStore.notificationStore.warning("You can only choose pending items!");
             return;
         }
         this.tableStore.suspend();

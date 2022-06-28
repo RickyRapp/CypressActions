@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    # component.booklet
+\*------------------------------------*/
+
+.booklet {
+	&__list {
+		&__item {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			margin-top: $unit;
+
+			color: $bali-hai;
+			@mixin type-scale $type-small, 1;
+		}
+	}
+}
