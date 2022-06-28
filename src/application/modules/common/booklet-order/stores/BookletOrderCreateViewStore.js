@@ -199,28 +199,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    setCustomizeDefaults() {
-        this.isPrefilledCustomize = true;
-        this.form.$('customizedName').value = this.donor.donorName;
-        this.form.$('customizedAddressLine1').value = this.donor.donorAddress.addressLine1;
-        this.form.$('customizedAddressLine2').value = this.donor.donorAddress.addressLine2;
-        this.form.$('customizedCity').value = this.donor.donorAddress.city;
-        this.form.$('customizedState').value = this.donor.donorAddress.state;
-        this.form.$('customizedZipCode').value = this.donor.donorAddress.zipCode;
-    }
-
-    @action.bound
-    resetCustomizeDefaults() {
-        this.isPrefilledCustomize = false;
-        this.form.$('customizedName').value = '';
-        this.form.$('customizedAddressLine1').value = '';
-        this.form.$('customizedAddressLine2').value = '';
-        this.form.$('customizedCity').value = '';
-        this.form.$('customizedState').value = '';
-        this.form.$('customizedZipCode').value = '';
-    }
-
-    @action.bound
     goToNewDeposit() {
         if (this.isAdmin)
             this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', { id: this.donorId });
