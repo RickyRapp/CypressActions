@@ -9,6 +9,8 @@ import { RouterState } from 'mobx-state-router';
 @applicationContext
 class CharityBankAccountEditViewStore extends BaseEditViewStore {
     @observable image = null;
+    @observable fileError;
+    @observable invalidForm = false;
 
     constructor(rootStore, props) {
         super(rootStore, {
@@ -74,17 +76,19 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                 },
                 create: async (resource) => { 
+                    this.fileError = "";
                     if(props.bankAccountCount < 1) {
 						resource.isPrimary = true;
 					}
                     if(!this.imageUploadStore.files[0]){
-                        rootStore.notificationStore.error('Please enter media');
-                        return;
+                        this.fileError = 'Please enter media';
+                        this.invalidForm = true;
+                        return 0;
                     } 
+                    this.invalidForm = false;
                     let response;
                     try {
                         response = await this.rootStore.application.charity.charityStore.createBankAccount({ charityId: this.charityId, ...resource });
-
                         if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
                             const media = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, response);
                             resource.coreMediaVaultEntryId = media.id; 
@@ -103,6 +107,9 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
             },
             FormClass: CharityBankAccountEditForm,
             onAfterAction: () => {
+                if(this.invalidForm){
+                    return 0;
+                }
 				if (props.onEditCompleted) {
 					props.onEditCompleted();
 				}

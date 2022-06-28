@@ -21,7 +21,8 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 		title,
 		item,
 		onCancelEditClick,
-		exportFile
+		exportFile,
+		fileError
 	} = charityBankAccountEditViewStore;
 
 	return (
@@ -97,6 +98,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					<BaasicDropzone
 						store={imageUploadStore}
 					/>
+					<p className="validation__message">{fileError}</p>
 					{
 						item ? (
 							item.charityMedia && (
