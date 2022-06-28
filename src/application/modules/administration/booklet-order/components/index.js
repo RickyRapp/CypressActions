@@ -1,0 +1,1 @@
+export { default as BookletOrderConfirmTemplate } from './BookletOrderConfirmTemplate'

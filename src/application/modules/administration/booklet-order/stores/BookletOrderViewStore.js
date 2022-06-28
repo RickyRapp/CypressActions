@@ -62,7 +62,9 @@ class BookletOrderViewStore extends BaseListViewStore {
                             'donor.donorName',
                             'deliveryMethodType',
                             'customName',
-                            'orderFolder'
+                            'orderFolder',
+                            'isCustom',,
+                            'isCustomized'
                         ];
                         return this.rootStore.application.administration.bookletOrderStore.findBookletOrder(params);
                     }
@@ -79,6 +81,7 @@ class BookletOrderViewStore extends BaseListViewStore {
         this.createDeliveryMethodTypeDropdownStore();
         this.createDateCreatedDateRangeQueryStore();
         this.queryUtility.filter.orderFolder = false;
+        this.queryUtility.filter.isCustom = false;
     }
 
     @action.bound
@@ -92,7 +95,7 @@ class BookletOrderViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore(new TableViewStore(this.queryUtility, {
+        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'donor.donorName',
@@ -186,6 +189,7 @@ class BookletOrderViewStore extends BaseListViewStore {
         const fileName = `${"BookletOrders".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.${extension}`;
         saveAs(report.data, fileName);
         this.tableStore.resume();
+        this.queryUtility.fetch();
         this.rootStore.notificationStore.success("Report generated.");
         
     }

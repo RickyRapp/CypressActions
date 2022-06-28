@@ -6,6 +6,7 @@ import { ApplicationEditLayout, Content, PageFooter } from 'core/layouts';
 import { BaasicButton, Date } from 'core/components';
 import _ from 'lodash';
 import { isSome } from 'core/utils';
+import moment from 'moment';
 
 function BookletEditTemplate({ bookletEditViewStore }) {
     const {
@@ -70,6 +71,9 @@ function BookletEditTemplate({ bookletEditViewStore }) {
                         </div>
                         <div className="form__group col col-lrg-3">
                             <strong>Assigned On:</strong> {booklet && booklet.dateAssigned ? <Date value={booklet.dateAssigned} format='full' /> : 'N/A'}
+                        </div>
+                        <div className="form__group col col-lrg-3">
+                            <strong>Expiration Date:</strong> {booklet && booklet.bookletOrder && booklet.bookletOrder.expirationDays > 0 ? <Date value={moment(booklet.bookletOrder.dateCreated, "YYYY-MM-DD").add(booklet.bookletOrder.expirationDays, 'days')} format='short' /> : 'N/A'}
                         </div>
                     </div>
                     <div className="u-display--f u-mar--bottom--sml">

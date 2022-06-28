@@ -19,6 +19,7 @@ import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { DonorAutomaticContributionEditTemplate } from 'themes/application/donor/donor/components';
 import { BookletOrderMixedPopup } from '../components';
 import ReactTooltip from 'react-tooltip';
+import { BookletOrderConfirmTemplate } from 'application/common/booklet-order/components';
 const BookletOrderCreateTemplate = function ({ store, t }) {
     const {
         contentLoading,
@@ -312,11 +313,11 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                                 <th>{deliveryMethodTypes.find(x => x.abrv === 'express-mail') ? (deliveryMethodTypes.find(x => x.abrv === 'express-mail').id == form.$('deliveryMethodTypeId').value ? '$25' : '$0') : null}</th>
                                             </tr>
                                         </tfoot>
-                                        {donor && ((form.$('customizedName').value && form.$('customizedName').value.length > 0) || (form.$('customizedAddressLine1').value && form.$('customizedAddressLine1').value.length > 0))
+                                        {donor && (form.$('isCustomizedBook').value)
                                             ? <tfoot>
                                                 <tr>
                                                     <th colSpan="2">Custom booklet fee</th>
-                                                    <th>${(orderContents.reduce((a, b) => a + b.bookletCount, 0) * 5).toFixed(2)}</th>
+                                                    <th>${customizedFee.toFixed(2)}</th>
                                                 </tr>
                                             </tfoot> : null}
 
@@ -459,7 +460,7 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
 
                     <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row row--form u-display--flex u-display--flex--align--center">
@@ -550,8 +551,8 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
                         </div>}
                 </Content>
                 <PageFooter>
-                    <div className="u-padd--bottom--huge">
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} disableSave={!isAdmin && (needsProtectionPlan || needsMoreFunds)} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
+                    <div>
+                        <BaasicFormControls form={form} onSubmit={onOrderSubmit} disableSave={!isAdmin && (needsProtectionPlan || needsMoreFunds)} label={'BOOKLET_ORDER.CREATE.PLACE_ORDER'} />
                     </div>
                 </PageFooter>
             </ApplicationEditLayout>
@@ -560,6 +561,9 @@ const BookletOrderCreateTemplate = function ({ store, t }) {
             </BaasicModal>
             <BaasicModal modalParams={confirmModal}>
                 <BookletOrderMixedPopup />
+            </BaasicModal>
+            <BaasicModal modalParams={bookletOrderConfirmModal}>
+                <BookletOrderConfirmTemplate />
             </BaasicModal>
 
         </React.Fragment>
