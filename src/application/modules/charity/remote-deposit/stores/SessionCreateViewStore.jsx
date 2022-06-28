@@ -302,6 +302,8 @@ class SessionViewStore extends BaseEditViewStore {
             this.rootStore.notificationStore.error('ERROR_CODE.' + errorCode);
         } else if (errorCode == 4016) {
             this.rootStore.notificationStore.error('Certificate not in status for session');
+        } else if (errorCode == 4019) {
+            this.rootStore.notificationStore.error('Certificate expired');
         } else {
             this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
         }

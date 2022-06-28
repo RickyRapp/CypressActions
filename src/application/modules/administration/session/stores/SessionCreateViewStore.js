@@ -360,6 +360,8 @@ class SessionViewStore extends BaseEditViewStore {
     handleResponse(errorCode) {
         if (errorCode >= 4001 && errorCode <= 4010) {
             this.rootStore.notificationStore.error('ERROR_CODE.' + errorCode);
+        } else if (errorCode == 4019) {
+            this.rootStore.notificationStore.error('Certificate expired');
         } else if (errorCode == 4016) {
             this.rootStore.notificationStore.error('Certificate not in status for session');
         } else {
