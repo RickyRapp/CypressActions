@@ -59,7 +59,10 @@ class DonorStore {
         const response = await this.donorGivingCardSettingService.find(params);
         return response.data;
     }
-
+    async getGivingCardSetting(params) {
+        const response = await this.donorGivingCardSettingService.get(params);
+        return response.data;
+    }
     async searchAccountManager(params) {
         const response = await this.donorService.searchAccountManager(params);
         return response.data;

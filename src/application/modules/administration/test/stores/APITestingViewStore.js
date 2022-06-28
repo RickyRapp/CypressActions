@@ -11,6 +11,9 @@ class APITestingViewStore extends BaseEditViewStore {
     @observable validationToken;
     @observable response;
     @observable url;
+    @observable cardId;
+    @observable isSelectedCardNumber;
+    @observable isSelectedCards;
     constructor(rootStore) {
 
         super(rootStore, {
@@ -133,6 +136,7 @@ class APITestingViewStore extends BaseEditViewStore {
                     grantPurposeType: this.grantPurposeTypeDropdownStore.value.abrv,
                     purposeNote: this.form.$('purposeNote').value
                 }
+
             } else {
                 requestData = {
                     accountNumber: this.form.$('accountNumber').value,
@@ -147,6 +151,7 @@ class APITestingViewStore extends BaseEditViewStore {
                     donorAuthorization: this.form.$('donorAuthorization').value,
                     isRecurring: this.form.$('isRecurring').value
                 }
+
             }
 
         } else if (this.form.$('requestType').value == 2) {
@@ -157,7 +162,8 @@ class APITestingViewStore extends BaseEditViewStore {
                 cardNumber: this.form.$('cardNumber').value,
                 description: this.form.$('description').value
             }
-        } else {
+        }
+         else {
             if (this.grantPurposeTypeDropdownStore.value && (this.grantPurposeTypeDropdownStore.value.abrv == 'in-honor-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'in-memory-of' || this.grantPurposeTypeDropdownStore.value.abrv == 'solicited-by' || this.grantPurposeTypeDropdownStore.value.abrv == 'other')) {
                 requestData = {
                     accountNumber: this.form.$('accountNumber').value,
@@ -182,6 +188,8 @@ class APITestingViewStore extends BaseEditViewStore {
                 }
             }
         }
+       
+        
         const requestOptions = {
             method: 'POST',
             headers:
@@ -195,7 +203,7 @@ class APITestingViewStore extends BaseEditViewStore {
         fetch(this.url, requestOptions)
             .then(response => response.json())
             .then(data => {
-                if (data.error != undefined || data.error != null || (data.message && data.message.includes("invalid"))) {
+              if (data.error != undefined || data.error != null || (data.message && data.message.includes("invalid"))) {
                     this.response = {
                         isSuccess: false,
                         error: data.error ? data.error : data.message,
@@ -206,7 +214,8 @@ class APITestingViewStore extends BaseEditViewStore {
                         isSuccess: true,
                         msg: 'Approved'
                     }
-                } else {
+                }
+                else {
                     if (this.requestType == 1) {
                         this.response = {
                             isSuccess: true,
