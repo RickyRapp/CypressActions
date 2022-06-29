@@ -95,7 +95,7 @@ class UserCreateViewStore extends BaseEditViewStore {
                     try {
                         userRoles.forEach(async (userRole) => {
                             if (userRole.name === 'Users') {
-                                user.userName = user.email;
+                                user.userName = user.userName;
                                 userDonor.coreUser = user;
                                 response = await this.rootStore.application.administration.donorStore.createAccount(userDonor);
                             }
