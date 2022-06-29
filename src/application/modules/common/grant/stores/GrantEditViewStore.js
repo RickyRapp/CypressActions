@@ -63,7 +63,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						await this.grantStore.updateGrant(resource);
 					},
 					get: async id => {
-						var response = await this.grantStore.getGrant(id, { embed: 'donationStatus,charity,charity.charityAddresses,charity.charityBankAccounts' });
+						var response = await this.grantStore.getGrant(id, { embed: 'donationStatus,charity,charity.charityAddresses,charity.charityBankAccounts,charity.charityStatus' });
 						this.donorId = response.donorId;
 						this.getDonor();
 

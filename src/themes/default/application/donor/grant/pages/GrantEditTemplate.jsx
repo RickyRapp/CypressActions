@@ -194,39 +194,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                                 </div>
                                             </div>
                                         )}
-                                        <div className="row row--form">
-                                            <div className="form__group col col-sml-12">
-                                                <NumericInputField field={form.$('amount')} />
-                                            </div>
-                                        </div>
-                                        <div className="row row--form">
-                                            <div className="form__group col col-sml-12">
-                                                <BaasicFieldDropdown
-                                                    field={form.$('grantAcknowledgmentTypeId')}
-                                                    store={grantAcknowledgmentTypeDropdownStore}
-                                                />
-                                            </div>
-                                            {grantAcknowledgmentName && (
-                                                <div className="form__group col col-sml-12 u-mar--bottom--med">
-                                                    <div className="charity-information__card charity-information__card--secondary">
-                                                        {grantAcknowledgmentName}
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className="row row--form">
-                                            <div className="form__group col col-sml-12">
-                                                <BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                                {form.$('grantPurposeTypeId').value &&
-                                                    <GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
-                                            </div>
-                                        </div>
-                                        {renderEditLayoutFooterContent({ form })}
-
+                                  
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 u-mar--bottom--sml">
                                         <NumericInputField field={form.$('amount')} onChange={checkMicroGiving} />
@@ -262,12 +230,15 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                             label='GRANT.CREATE.INCLUDE_NOTE_TO_ADMINISTRATOR'
                                             onChange={event => onIncludeNoteToAdministratorChange(event.target.checked)} />
                                     </div>
-
                             </div>
-                        </div>}
+                            {renderEditLayoutFooterContent({ form })}
+                        </div>
+                        }
+                            </div>
+                        </div>
                         {charityDropdownStore.value && (charityDropdownStore.value.item ? !charityDropdownStore.value.item.isActive : !charityDropdownStore.value.isActive) ? <div></div> :
-                            <div className="col col-sml-12 col-xxlrg-6">
-                                <div className="card--primary card--med u-mar--bottom--med">
+                        <div className="col col-sml-12 col-xxlrg-6 u-hide--to--med">
+								<div className="card--primary card--med u-mar--bottom--med">
                                     <h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
                                     <div className="row row--form">
                                         <div className="col col-sml-12 col-xxxlrg-6 u-mar--bottom--med">
@@ -373,8 +344,6 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
                                 </div>
                             </div>
                         }
-                    </div> 
-                </div> 
                 </div> 
                 </Content>
             </EditFormLayout >

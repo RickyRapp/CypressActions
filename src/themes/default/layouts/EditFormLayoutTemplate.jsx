@@ -47,7 +47,6 @@ function renderEditLayoutFooterContent({ footerClassName, footer, form, visible,
                             label={t('EDIT_FORM_LAYOUT.CANCEL')}
                             onClick={goBack}
                         />
-                        {/* {isExistingFundName && isExistingUserName ? <BaasicFormControls form={form} onSubmit={form.onSubmit} disabled/> :  */}
                           <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                       
                     </div>
