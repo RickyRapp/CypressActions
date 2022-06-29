@@ -145,7 +145,6 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 										isChangedDefaultAddress={isChangedDefaultAddress}
 									/>}
 
-										{console.log(charityDropdownStore.value)}
 								{charityDropdownStore.value && (charityDropdownStore.value.item ? !charityDropdownStore.value.item.isActive : !charityDropdownStore.value.isActive) ? <div>
 									{isChangedDefaultAddress && (
 										<div className="card--secondary card--med u-mar--bottom--sml">

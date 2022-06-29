@@ -67,7 +67,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						this.donorId = response.donorId;
 						this.getDonor();
 
-						return this.grantStore.getGrant(id, { embed: 'donationStatus,charity,charity.charityAddresses,charity.charityBankAccounts' });
+						return this.grantStore.getGrant(id, { embed: 'donationStatus,charity,charity.charityAddresses,charity.charityBankAccounts,charity.charityStatus' });
 					},
 				};
 			},

@@ -8,7 +8,6 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
 
     return (
         <React.Fragment>
-            {console.log("Charity -> ", charity)}
             <h3 className="">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
             <div className="row row--form u-mar--top--sml">
                 <div className="col col-sml-12 u-mar--bottom--sml">
