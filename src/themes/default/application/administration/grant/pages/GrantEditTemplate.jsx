@@ -270,7 +270,7 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 										</div>
 
 										{charityDropdownStore && charityDropdownStore.value && (
-											<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+												<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 												<div className="card--secondary card--med">
 													<div className="row">
 														<div className="col col-sml-12 col-lrg-6">
@@ -279,22 +279,34 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 															</h4>
 														</div>
 													</div>
-												</div>
-												<div className="row u-display--flex u-display--flex--align--center u-display--flex--wrap">
-													
-													<div className="col col-sml-12 col-lrg-4">{charityDropdownStore.value.item.name}</div>
-													<div className="col col-sml-12 col-lrg-4">
-													{logo ? (<img alt="" src={URL.createObjectURL(logo)} style={{height:"105px"}}/>) : null}
+													<div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
+	
+														<div className="col col-sml-12 col-lrg-4">
+															{charityDropdownStore.value.item.name}
+														</div>
+														<div className="col col-sml-12 col-lrg-4">
+														{logo ? (<img alt="" src={URL.createObjectURL(logo)} style={{height:"105px"}}/>) : null}
+														</div>
+														<div className="col col-sml-12 col-lrg-4">
+														{image ? (<img alt="" src={URL.createObjectURL(image)} style={{height:"140px"}}/>) : null}
+														</div>
 													</div>
-													<div className="col col-sml-12 col-lrg-4">
-													{image ? (<img alt="" src={URL.createObjectURL(image)} style={{height:"140px"}}/>) : null}
-													</div>
-												</div>
-												<div className="row u-padd--top--med">
-													<div className="col col-sml-12 col-lrg-4">
-														<div className="u-separator--primary u-mar--bottom--sml"></div>
-														<strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
-														<p>{charityDropdownStore.value.item.rullingYear}</p>
+													<div className="row u-padd--top--med">
+														<div className="col col-sml-12 col-lrg-4">
+															<div className="u-separator--primary u-mar--bottom--sml"></div>
+															<strong>{t('GRANT.CREATE.RULLING_YEAR')}</strong>
+															<p>{charityDropdownStore.value.item.rullingYear}</p>
+														</div>
+														<div className="col col-sml-12 col-lrg-4">
+															<div className="u-separator--primary u-mar--bottom--sml"></div>
+															<strong>{t('GRANT.CREATE.EIN')}</strong>
+															<p>{charityFormatter.format(charityDropdownStore.value.item.taxId, { value: 'tax-id' })}</p>
+														</div>
+														<div className="col col-sml-12 col-lrg-4">
+															<div className="u-separator--primary u-mar--bottom--sml"></div>
+															<strong>{t('GRANT.CREATE.IRS_FILING_REQUIREMENT')}</strong>
+															<p>{charityDropdownStore.value.item.irsFilingRequirement}</p>
+														</div>
 													</div>
 													<div className="row u-padd--top--med">
 														<div className="col col-sml-12 col-lrg-4">
