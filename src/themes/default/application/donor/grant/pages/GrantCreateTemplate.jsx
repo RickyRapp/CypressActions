@@ -570,11 +570,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												</div>
 											</div>
 										</div>
-									</div>
 								</div>
 							</div>
+							</div>
 						}
-
 					</div>
 				</Content>
 			</EditFormLayout>
