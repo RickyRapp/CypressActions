@@ -18,6 +18,26 @@
 			}
 		}
 
+		&__balance {
+			display: flex;
+			flex-direction: column;
+
+			padding: calc($unit * 4) calc($unit * 8.5);
+
+			&__label {
+				color: $bali-hai;
+				text-transform: uppercase;
+				font-weight: $type-weight-bold;
+				@mixin type-scale $type-small, 1;
+			}
+
+			&__amount {
+				color: $white;
+				@mixin type-scale $type-xxlarge, 1.6;
+				font-weight: $type-weight-light;
+			}
+		}
+
 		&__icon {
 			margin-left: auto;
 
@@ -264,11 +284,11 @@
 				&--default-settings {
 					background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($white a(60%)));
 				}
-				
+
 				&--donor-to-donor {
 					background-image: svg-load('postcss-svg/donor-to-donor.svg', stroke: color($white a(60%)));
 				}
-				
+
 				&--transfer-funds {
 					background-image: svg-load('postcss-svg/transfer-funds.svg', stroke: color($white a(60%)));
 				}
@@ -388,11 +408,11 @@
 					&--default-settings {
 						background-image: svg-load('postcss-svg/default-settings.svg', stroke: color($color-note a(100%)));
 					}
-					
+
 					&--donor-to-donor {
 						background-image: svg-load('postcss-svg/donor-to-donor.svg', stroke: color($color-note a(100%)));
 					}
-					
+
 					&--transfer-funds {
 						background-image: svg-load('postcss-svg/transfer-funds.svg', stroke: color($color-note a(100%)));
 					}
