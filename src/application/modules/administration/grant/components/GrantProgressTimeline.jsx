@@ -11,7 +11,7 @@ class GrantProgressTimeline extends Component {
             <React.Fragment>
                 <div className="row">
                     <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('1. Submited')}</div>
+                        <div className="type--base type--wgt--medium type--color--note">{t('1. Grant initiated')}</div>
                         <span className="input--preview">
                             {item && <FormatterResolver
                                 item={{ dateCreated: item.dateCreated }}

@@ -31,6 +31,7 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                                 'grantScheduledPayment'
                             ],
                         }
+                        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(params);
                         return this.rootStore.application.administration.grantStore.getGrant(id, params);
                     }
                 }
