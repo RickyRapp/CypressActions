@@ -3,7 +3,8 @@ import {
     CharityService, 
     CharityBankAccountService, 
     CharityAddressService, 
-    CharityCommunicationPreferenceService
+    CharityCommunicationPreferenceService,
+    WithdrawSettingsService
  } from 'application/common/charity/services';
 import { DonationService } from 'application/donor/activity/services';
 import { CharityFileStreamService } from 'common/services';
@@ -18,7 +19,7 @@ class CharityStore {
         this.donationService = moduleStore.rootStore.createApplicationService(DonationService);
         this.routingNumberService = moduleStore.rootStore.createApplicationService(RoutingNumberService);
         this.charityCommunicationPreferenceService = moduleStore.rootStore.createApplicationService(CharityCommunicationPreferenceService);
-
+        this.withdrawSettings = moduleStore.rootStore.createApplicationService(WithdrawSettingsService);
     }
 
     async findCharity(params) {
@@ -148,6 +149,16 @@ class CharityStore {
 
     async updateGeneralData(resource) {
         const response = await this.charityService.updateGeneralData(resource);
+        return response.data;
+    }
+
+    async getWithdrawSettings(partyId){ 
+        const response = await this.withdrawSettings.getbyParty(partyId);
+        return response.data;
+    }
+
+    async updateWithdrawSettings(resource){ 
+        const response = await this.withdrawSettings.update(resource);
         return response.data;
     }
 

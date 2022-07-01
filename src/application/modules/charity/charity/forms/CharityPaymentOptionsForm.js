@@ -33,7 +33,7 @@ export default class CharityPaymentOptionsForm extends FormBase {
                 },
                 {
                     name: 'withdrawAmount',
-                    label: 'CHARITY.PAYMENT_OPTIONS.FIELDS.AUTOMATICALLY_WITHDRAW',
+                    label: 'CHARITY.PAYMENT_OPTIONS.FIELDS.DISTRIBUTE_WHEN_ACCUMULATED_ADMIN',
                     placeholder: 'CHARITY.PAYMENT_OPTIONS.FIELDS.ACCUMULATED_AMOUNT_PLACEHOLDER',
                     rules: 'numeric|min:0',
                     extra: {
