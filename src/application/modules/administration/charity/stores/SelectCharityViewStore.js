@@ -32,38 +32,6 @@ class SelectCharityViewStore extends BaseViewStore {
                 },
                 onChange: onChange
             });
-
-        this.selectDonorDropdownStore = new BaasicDropdownStore({
-            initFetch: false,
-            filterable: true
-        },
-            {
-                fetchFunc: async (searchQuery) => {
-                    const data = await rootStore.application.administration.donorStore.searchDonor({
-                        pageNumber: 1,
-                        pageSize: 10,
-                        search: searchQuery,
-                        sort: 'firstName|asc',
-                        embed: [
-                            'donorAddresses'
-                        ],
-                        fields: [
-                            'id',
-                            'accountNumber',
-                            'donorName',
-                            'securityPin',
-                            'donorAddresses'
-                        ]
-                    });
-                    return _.map(data.item, x => {
-                        return {
-                            id: x.id,
-                            name: donorFormatter.format(x, { type: 'donor-name', value: 'dropdown' })
-                        }
-                    });
-                },
-                onChange: onChange
-            });
     }
     @action.bound
     setCharityToggle() {

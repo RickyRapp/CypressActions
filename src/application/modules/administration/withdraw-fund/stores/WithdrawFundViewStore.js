@@ -102,8 +102,8 @@ class WithdrawFundViewStore extends BaseListViewStore {
         this.selectCharityModal.open(
             {
                 charityId: this.queryUtility.filter.charityId,
-                onClickCharityFromFilter: (charityId) => this.rootStore.routerStore.goTo('master.app.main.administration.grant.create', { id: charityId }),
-                onChange: (charityId) => this.rootStore.routerStore.goTo('master.app.main.administration.grant.create', { id: charityId })
+                onClickCharityFromFilter: (charityId) => this.rootStore.routerStore.goTo('master.app.main.administration.withdraw.create', { id: charityId }),
+                onChange: (charityId) => this.rootStore.routerStore.goTo('master.app.main.administration.withdraw.create', { id: charityId })
             }
         );
     }
