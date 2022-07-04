@@ -148,7 +148,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async getPendingDonationsByCharityId(charityId, address) {
+    async getPendingDonationsByCharityId(charityId, address, isWithdraw) { console.log(isWithdraw);
         var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address);
         this.data = data.map(e => { return { ...e, checked: false } });
         return this.data;
