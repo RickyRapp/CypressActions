@@ -5,17 +5,31 @@ import { FormatterResolver } from 'core/components';
 
 class GrantProgressTimeline extends Component {
     render() {
-        var isApproved = false;
-        var isCanceled = false;
-        var isDeclined = false;
-        var selectedStatusDate = null;
         const { item, t, statusList } = this.props;
-        console.log(statusList);
+        var approvedStatus = null;
+        var canceledStatus = null;
+        var declinedStatus = null;
+        var paymentSubmitedStatus = null;
+        var paymentReceivedStatus = null;
+        console.log("status", statusList)
+        statusList.forEach((stat) => {
+            if (stat.abrv == 'payment-received')
+                paymentReceivedStatus = stat;
+            if (stat.abrv == 'payment-submited')
+                paymentSubmitedStatus = stat;
+            if (stat.abrv == 'approved')
+                approvedStatus = stat;
+            else if (stat.abrv == 'canceled')
+                canceledStatus = stat;
+            else if (stat.abrv == 'declined')
+                declinedStatus = stat;
+
+        })
         return (
             <React.Fragment>
                 <div className="row">
                     <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('1. Grant initiated')}</div>
+                        <div className="type--base type--wgt--medium type--color--note">{t('1.Initiated')}</div>
                         <span className="input--preview">
                             {item && <FormatterResolver
                                 item={{ dateCreated: item.dateCreated }}
@@ -24,63 +38,105 @@ class GrantProgressTimeline extends Component {
                             />}
                         </span>
                     </div>
-                    {statusList[0] && <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">Grant {statusList[0].abrv}</div>
+                    {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="col col-sml-12 col-lrg-4">
+                        <div className="type--base type--wgt--medium type--color--note">{t('2.Canceled')}</div>
                         <span className="input--preview">
-                            {statusList && <FormatterResolver
-                                item={{ dateCreated: statusList[0].dateCreated }}
+                            <FormatterResolver
+                                item={{ dateCreated: canceledStatus.dateCreated }}
                                 field='dateCreated'
                                 format={{ type: 'date', value: 'short' }}
-                            />}
+                            />
                         </span>
                     </div>}
 
-                    <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('2. Processed')}</div>
+                    {declinedStatus && declinedStatus.abrv == 'declined' && <div className="col col-sml-12 col-lrg-4">
+                        <div className="type--base type--wgt--medium type--color--note">{t('2.Declined')}</div>
                         <span className="input--preview">
-                            {item && item.debitCharityTransaction ?
-                                <React.Fragment>
+                            <FormatterResolver
+                                item={{ dateCreated: declinedStatus.dateCreated }}
+                                field='dateCreated'
+                                format={{ type: 'date', value: 'short' }}
+                            />
+                        </span>
+                    </div>}
+
+                    {!declinedStatus && !canceledStatus && approvedStatus && approvedStatus.abrv == 'approved' &&
+                        <div>
+                            <div className="col col-sml-12 col-lrg-4">
+                                <div className="type--base type--wgt--medium type--color--note">{t('2.Approved')}</div>
+                                <span className="input--preview">
                                     <FormatterResolver
-                                        item={{ dateCreated: item.debitCharityTransaction.dateCreated }}
+                                        item={{ dateCreated: approvedStatus.dateCreated }}
                                         field='dateCreated'
                                         format={{ type: 'date', value: 'short' }}
                                     />
-                                    {item.debitCharityTransaction.paymentType.abrv === 'check' &&
+                                </span>
+                            </div>
+
+                            {paymentSubmitedStatus && paymentSubmitedStatus.currentStatus == 'payment-submited' &&
+                                <div className="col col-sml-12 col-lrg-4">
+                                    <div className="type--base type--wgt--medium type--color--note">{t('3.Payment submited')}</div>
+                                    <span className="input--preview">
+                                        <FormatterResolver
+                                            item={{ dateCreated: paymentSubmitedStatus.dateCreated }}
+                                            field='dateCreated'
+                                            format={{ type: 'date', value: 'short' }}
+                                        />
+                                    </span>
+                                </div>
+                            }
+                            {paymentReceivedStatus && paymentReceivedStatus.currentStatus == 'payment-received' &&
+                                <div className="col col-sml-12 col-lrg-4">
+                                    <div className="type--base type--wgt--medium type--color--note">{t('4.Cashed')}</div>
+                                    <span className="input--preview">
+                                        <FormatterResolver
+                                            item={{ dateCreated: paymentReceivedStatus.dateCreated }}
+                                            field='dateCreated'
+                                            format={{ type: 'date', value: 'short' }}
+                                        />
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                    }
+
+
+                    {/* 
+                            <div className="col col-sml-12 col-lrg-4">
+                                <div className="type--base type--wgt--medium type--color--note">{t('3. Grant payment submitted')}</div>
+                                <span className="input--preview">
+                                    {item && item.debitCharityTransaction ?
                                         <React.Fragment>
-                                            <div>Check number: {item.debitCharityTransaction.paymentNumber}</div>
-                                            <div>Address: <FormatterResolver
-                                                item={{
-                                                    recipientAddress: {
-                                                        addressLine1: item.debitCharityTransaction.recipientAddressLine1,
-                                                        adddressLine2: item.debitCharityTransaction.recipientAddressLine2,
-                                                        city: item.debitCharityTransaction.recipientCity,
-                                                        state: item.debitCharityTransaction.recipientState,
-                                                        zipCode: item.debitCharityTransaction.recipientZipCode
-                                                    }
-                                                }}
-                                                field='recipientAddress'
-                                                format={{ type: 'address', value: 'full' }}
-                                            /></div>
-                                            {item.debitCharityTransaction.attOf &&
-                                                <div>Att Of: {item.debitCharityTransaction.attOf}</div>}
-                                        </React.Fragment>}
-                                </React.Fragment>
-                                : ''}
-                        </span>
-                    </div>
-                    <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('3. Cashed')}</div>
-                        <span className="input--preview">
-                            {item && item.debitCharityTransaction && item.debitCharityTransaction.isCashed ?
-                                <FormatterResolver
-                                    item={{ dateCashed: item.debitCharityTransaction.dateCashed }}
-                                    field='dateCashed'
-                                    format={{ type: 'date', value: 'short' }}
-                                />
-                                : ''}
-                        </span>
-                    </div>
+                                            <FormatterResolver
+                                                item={{ dateCreated: item.debitCharityTransaction.dateCreated }}
+                                                field='dateCreated'
+                                                format={{ type: 'date', value: 'short' }}
+                                            />
+                                            {item.debitCharityTransaction.paymentType.abrv === 'check' &&
+                                                <React.Fragment>
+                                                    <div>Check number: {item.debitCharityTransaction.paymentNumber}</div>
+                                                    <div>Address: <FormatterResolver
+                                                        item={{
+                                                            recipientAddress: {
+                                                                addressLine1: item.debitCharityTransaction.recipientAddressLine1,
+                                                                adddressLine2: item.debitCharityTransaction.recipientAddressLine2,
+                                                                city: item.debitCharityTransaction.recipientCity,
+                                                                state: item.debitCharityTransaction.recipientState,
+                                                                zipCode: item.debitCharityTransaction.recipientZipCode
+                                                            }
+                                                        }}
+                                                        field='recipientAddress'
+                                                        format={{ type: 'address', value: 'full' }}
+                                                    /></div>
+                                                    {item.debitCharityTransaction.attOf &&
+                                                        <div>Att Of: {item.debitCharityTransaction.attOf}</div>}
+                                                </React.Fragment>}
+                                        </React.Fragment>
+                                        : ''}
+                                </span>
+                            </div> */}
                 </div>
+
             </React.Fragment>
         );
     }
