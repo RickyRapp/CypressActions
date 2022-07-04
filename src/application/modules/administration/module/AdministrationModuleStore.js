@@ -2,6 +2,7 @@ import { DashboardStore } from 'application/administration/dashboard/stores';
 import { DonorStore } from 'application/administration/donor/stores';
 import { ContributionStore } from 'application/administration/contribution/stores';
 import { GrantStore } from 'application/administration/grant/stores';
+import { EntityStatusLogStore } from 'application/administration/grant/stores';
 import { CharityStore } from 'application/administration/charity/stores';
 import { EmailStore } from 'application/administration/email/stores';
 import { BookletOrderStore } from 'application/administration/booklet-order/stores';
@@ -24,6 +25,7 @@ class AdministrationModuleStore {
         this.donorStore = new DonorStore(this);
         this.contributionStore = new ContributionStore(this);
         this.grantStore = new GrantStore(this);
+        this.entityStatusLogStore = new EntityStatusLogStore(this);
         this.charityStore = new CharityStore(this);
         this.emailStore = new EmailStore(this);
         this.bookletOrderStore = new BookletOrderStore(this);

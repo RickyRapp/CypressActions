@@ -4,11 +4,10 @@ class EntityStatusLogStore {
     constructor(moduleStore) {
         this.moduleStore = moduleStore;
         this.entityStatusLogService = moduleStore.rootStore.createApplicationService(EntityStatusLogService);
-  
     }
 
-    async findStatus(params) {
-        const response = await this.entityStatusLogService.findStatus(params);
+    async findStatus(resources) {
+        const response = await this.entityStatusLogService.findStatus(resources);
         return response.data;
     }
 }

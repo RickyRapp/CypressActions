@@ -2,12 +2,11 @@ import { BaseRouteService } from 'core/services';
 
 class EntityStatusLogRouteService extends BaseRouteService {
     constructor() {
-        super('entitystatuslog');
-        this.filterFields = 'donorId,charityId,confirmationNumber,bookletCertificateCode,purposeNote,dollarRange,donationStatusIds,donationTypeIds,dateCreatedFrom,dateCreatedTo,search,name,taxId,grantId,page,rpp,sort,embed,fields'
-    }
+        super('entityStatusLogs'); 
+     }
 
-    findStatus(filter) {
-        return super.find(this.base + `/{?${this.filterFields}}`, filter);
+    findStatus(resources) {
+        return super.get(this.base + `/find-status/{id}`,resources, null);
     }
 }
 

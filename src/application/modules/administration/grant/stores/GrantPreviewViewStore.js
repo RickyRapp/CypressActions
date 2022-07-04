@@ -5,7 +5,7 @@ import { applicationContext } from 'core/utils';
 @applicationContext
 class GrantPreviewViewStore extends BasePreviewViewStore {
     @observable isEditable = false;
-
+    @observable statusList ;
     constructor(rootStore) {
         super(rootStore, {
             name: 'user',
@@ -31,12 +31,17 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                                 'grantScheduledPayment'
                             ],
                         }
-                        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(params);
+                      
                         return this.rootStore.application.administration.grantStore.getGrant(id, params);
                     }
                 }
             }
         });
+        this.getStatuses();
+    }
+    async getStatuses(){
+        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(this.rootStore.routerStore.routerState.params.id);
+        this.statusList = response;
     }
 
     @action.bound
