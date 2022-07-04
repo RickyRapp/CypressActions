@@ -41,8 +41,13 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
+        this.getStatuses();
     }
 
+    async getStatuses(){
+        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(this.rootStore.routerStore.routerState.params.id);
+        this.statusList = response;
+    }
     @action.bound
     async onInit({ initialLoad }) {
         if (!initialLoad) {

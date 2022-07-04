@@ -11,7 +11,6 @@ class GrantProgressTimeline extends Component {
         var declinedStatus = null;
         var paymentSubmitedStatus = null;
         var paymentReceivedStatus = null;
-        console.log("status", statusList)
         statusList.forEach((stat) => {
             if (stat.abrv == 'payment-received')
                 paymentReceivedStatus = stat;
@@ -23,7 +22,6 @@ class GrantProgressTimeline extends Component {
                 canceledStatus = stat;
             else if (stat.abrv == 'declined')
                 declinedStatus = stat;
-
         })
         return (
             <React.Fragment>
