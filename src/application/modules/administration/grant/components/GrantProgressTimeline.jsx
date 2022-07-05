@@ -15,13 +15,11 @@ class GrantProgressTimeline extends Component {
         console.log(statusList)
         if (statusList != null) {
             statusList.forEach(stat => {
-                if (stat.abrv == 'payment-received')
+                if (stat.abrv == 'payment-received' || stat.currentStatus =='payment-received')
                     paymentReceivedStatus = stat;
-                if (stat.abrv == 'payment-submited')
+                if (stat.abrv == 'payment-submited' && stat.currentStatus == 'payment-submited')
                     paymentSubmitedStatus = stat;
-                if (stat.abrv == 'approved' && stat.currentStatus == 'payment-submited')
-                    paymentSubmitedStatus = stat;
-                if (stat.abrv == 'approved')
+                if (stat.abrv == 'approved' || stat.currentStatus =='approved')
                     approvedStatus = stat;
                 else if (stat.abrv == 'canceled')
                     canceledStatus = stat;
@@ -65,7 +63,7 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>}
 
-                    {!declinedStatus && !canceledStatus && approvedStatus && approvedStatus.abrv == 'approved' &&
+                    {!declinedStatus && !canceledStatus && approvedStatus && (approvedStatus.abrv == 'approved' || approvedStatus.currentStatus =='approved') &&
                         <div className='row'>
                             <div className="col col-sml-12 col-lrg-4">
                                 <div className="type--base type--wgt--medium type--color--note">{t('2.Approved')}</div>
@@ -78,7 +76,7 @@ class GrantProgressTimeline extends Component {
                                 </span>
                             </div>
 
-                            {paymentSubmitedStatus && paymentSubmitedStatus.currentStatus == 'payment-submited' ?
+                            {paymentSubmitedStatus && (paymentSubmitedStatus.currentStatus == 'payment-submited' || paymentSubmitedStatus.abrv =='payment-submited') ?
                                 <div className="col col-sml-12 col-lrg-4">
                                     <div className="type--base type--wgt--medium type--color--note">{t('3.Submited')}</div>
                                     <span className="input--preview">
@@ -95,7 +93,7 @@ class GrantProgressTimeline extends Component {
                                 </div>
                             }
 
-                            {paymentReceivedStatus && paymentReceivedStatus.currentStatus == 'payment-received' ?
+                            {paymentReceivedStatus && (paymentReceivedStatus.currentStatus == 'payment-received' || paymentReceivedStatus.abrv == 'payment-received') ?
                                 <div className="col col-sml-12 col-lrg-4">
                                     <div className="type--base type--wgt--medium type--color--note">{t('4.Cashed')}</div>
                                     <span className="input--preview">
@@ -114,41 +112,6 @@ class GrantProgressTimeline extends Component {
                         </div>
                     }
 
-
-                    {/* 
-                            <div className="col col-sml-12 col-lrg-4">
-                                <div className="type--base type--wgt--medium type--color--note">{t('3. Grant payment submitted')}</div>
-                                <span className="input--preview">
-                                    {item && item.debitCharityTransaction ?
-                                        <React.Fragment>
-                                            <FormatterResolver
-                                                item={{ dateCreated: item.debitCharityTransaction.dateCreated }}
-                                                field='dateCreated'
-                                                format={{ type: 'date', value: 'short' }}
-                                            />
-                                            {item.debitCharityTransaction.paymentType.abrv === 'check' &&
-                                                <React.Fragment>
-                                                    <div>Check number: {item.debitCharityTransaction.paymentNumber}</div>
-                                                    <div>Address: <FormatterResolver
-                                                        item={{
-                                                            recipientAddress: {
-                                                                addressLine1: item.debitCharityTransaction.recipientAddressLine1,
-                                                                adddressLine2: item.debitCharityTransaction.recipientAddressLine2,
-                                                                city: item.debitCharityTransaction.recipientCity,
-                                                                state: item.debitCharityTransaction.recipientState,
-                                                                zipCode: item.debitCharityTransaction.recipientZipCode
-                                                            }
-                                                        }}
-                                                        field='recipientAddress'
-                                                        format={{ type: 'address', value: 'full' }}
-                                                    /></div>
-                                                    {item.debitCharityTransaction.attOf &&
-                                                        <div>Att Of: {item.debitCharityTransaction.attOf}</div>}
-                                                </React.Fragment>}
-                                        </React.Fragment>
-                                        : ''}
-                                </span>
-                            </div> */}
                 </div>
 
             </React.Fragment>

@@ -17,11 +17,9 @@ class ContributionProgressTimeline extends Component {
             statusList.forEach(stat => {
                 if (stat.abrv == 'pending')
                     pendingStatus = stat;
-                if (stat.abrv == 'in-process')
+                if (stat.abrv == 'in-process' || stat.currentStatus == 'in-process')
                     inProcessStatus = stat;
-                 if (stat.abrv == 'pending' && stat.currentStatus == 'in-process')
-                    inProcessStatus = stat;
-                if (stat.abrv == 'funded')
+                if (stat.abrv == 'funded' || stat.currentStatus =='funded')
                     fundedStatus = stat;
                 else if (stat.abrv == 'canceled')
                     canceledStatus = stat;
@@ -76,7 +74,7 @@ class ContributionProgressTimeline extends Component {
                         </span>
                     </div>}
 
-                    {!declinedStatus && !canceledStatus && inProcessStatus && inProcessStatus.currentStatus == 'in-process' &&
+                    {!declinedStatus && !canceledStatus && inProcessStatus && (inProcessStatus.currentStatus == 'in-process' || inProcessStatus.abrv =='in-process') ?
                         <div className='row'>
                             <div className="col col-sml-12 col-lrg-4">
                                 <div className="type--base type--wgt--medium type--color--note">{t('2.In process')}</div>
@@ -88,10 +86,13 @@ class ContributionProgressTimeline extends Component {
                                     />
                                 </span>
                             </div>
-                        </div> 
+                        </div> : 
+                           <div className="col col-sml-12 col-lrg-4">
+                           <div className="type--base type--wgt--medium type--color--note">{t('2.In process')}</div>
+                           </div>
                     }
 
-                    {!declinedStatus && !canceledStatus && fundedStatus && fundedStatus.currentStatus == 'funded' ?
+                    {!declinedStatus && !canceledStatus && fundedStatus && (fundedStatus.currentStatus == 'funded' || fundedStatus.abrv =='funded') ?
                         <div className="col col-sml-12 col-lrg-4">
                             <div className="type--base type--wgt--medium type--color--note">{t('3.Settled')}</div>
                             <span className="input--preview">
