@@ -11,7 +11,6 @@ class ContributionProgressTimeline extends Component {
         var declinedStatus = null;
         var inProcessStatus = null;
         var pendingStatus = null;
-
         console.log(statusList)
         if (statusList != null) {
             statusList.forEach(stat => {
@@ -53,7 +52,7 @@ class ContributionProgressTimeline extends Component {
                 </div>
                 }
                     {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('4.Canceled')}</div>
+                        <div className="type--base type--wgt--medium type--color--note">{t('2.Canceled')}</div>
                         <span className="input--preview">
                             <FormatterResolver
                                 item={{ dateCreated: canceledStatus.dateCreated }}
@@ -64,7 +63,7 @@ class ContributionProgressTimeline extends Component {
                     </div>}
 
                     {declinedStatus && declinedStatus.abrv == 'declined' && <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('4.Declined')}</div>
+                        <div className="type--base type--wgt--medium type--color--note">{t('2.Declined')}</div>
                         <span className="input--preview">
                             <FormatterResolver
                                 item={{ dateCreated: declinedStatus.dateCreated }}
@@ -73,8 +72,8 @@ class ContributionProgressTimeline extends Component {
                             />
                         </span>
                     </div>}
-
-                    {!declinedStatus && !canceledStatus && inProcessStatus && (inProcessStatus.currentStatus == 'in-process' || inProcessStatus.abrv =='in-process') ?
+                    
+                    {!declinedStatus && !canceledStatus && inProcessStatus && (inProcessStatus.currentStatus == 'in-process' || inProcessStatus.abrv =='in-process') &&
                         <div className='row'>
                             <div className="col col-sml-12 col-lrg-4">
                                 <div className="type--base type--wgt--medium type--color--note">{t('2.In process')}</div>
@@ -86,13 +85,10 @@ class ContributionProgressTimeline extends Component {
                                     />
                                 </span>
                             </div>
-                        </div> : 
-                           <div className="col col-sml-12 col-lrg-4">
-                           <div className="type--base type--wgt--medium type--color--note">{t('2.In process')}</div>
-                           </div>
+                        </div>
                     }
 
-                    {!declinedStatus && !canceledStatus && fundedStatus && (fundedStatus.currentStatus == 'funded' || fundedStatus.abrv =='funded') ?
+                    {!declinedStatus && !canceledStatus && fundedStatus && (fundedStatus.currentStatus == 'funded' || fundedStatus.abrv =='funded') &&
                         <div className="col col-sml-12 col-lrg-4">
                             <div className="type--base type--wgt--medium type--color--note">{t('3.Settled')}</div>
                             <span className="input--preview">
@@ -103,10 +99,7 @@ class ContributionProgressTimeline extends Component {
                                 />
                             </span>
                         </div>
-                        :
-                        <div className="col col-sml-12 col-lrg-4">
-                            <div className="type--base type--wgt--medium type--color--note">{t('3.Settled')}</div>
-                        </div>
+                        
                     }
                 
                 </div>

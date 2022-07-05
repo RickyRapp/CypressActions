@@ -15,11 +15,11 @@ class GrantProgressTimeline extends Component {
         console.log(statusList)
         if (statusList != null) {
             statusList.forEach(stat => {
-                if (stat.abrv == 'payment-received' || stat.currentStatus =='payment-received')
+                if (stat.abrv == 'payment-received' || stat.currentStatus == 'payment-received')
                     paymentReceivedStatus = stat;
                 if (stat.abrv == 'payment-submited' && stat.currentStatus == 'payment-submited')
                     paymentSubmitedStatus = stat;
-                if (stat.abrv == 'approved' || stat.currentStatus =='approved')
+                if (stat.abrv == 'approved' || stat.currentStatus == 'approved')
                     approvedStatus = stat;
                 else if (stat.abrv == 'canceled')
                     canceledStatus = stat;
@@ -63,7 +63,7 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>}
 
-                    {!declinedStatus && !canceledStatus && approvedStatus && (approvedStatus.abrv == 'approved' || approvedStatus.currentStatus =='approved') &&
+                    {!declinedStatus && !canceledStatus && approvedStatus && (approvedStatus.abrv == 'approved' || approvedStatus.currentStatus == 'approved') &&
                         <div className='row'>
                             <div className="col col-sml-12 col-lrg-4">
                                 <div className="type--base type--wgt--medium type--color--note">{t('2.Approved')}</div>
@@ -76,7 +76,7 @@ class GrantProgressTimeline extends Component {
                                 </span>
                             </div>
 
-                            {paymentSubmitedStatus && (paymentSubmitedStatus.currentStatus == 'payment-submited' || paymentSubmitedStatus.abrv =='payment-submited') ?
+                            {!declinedStatus && !canceledStatus && paymentSubmitedStatus && (paymentSubmitedStatus.currentStatus == 'payment-submited' || paymentSubmitedStatus.abrv == 'payment-submited') ?
                                 <div className="col col-sml-12 col-lrg-4">
                                     <div className="type--base type--wgt--medium type--color--note">{t('3.Submited')}</div>
                                     <span className="input--preview">
@@ -93,7 +93,7 @@ class GrantProgressTimeline extends Component {
                                 </div>
                             }
 
-                            {paymentReceivedStatus && (paymentReceivedStatus.currentStatus == 'payment-received' || paymentReceivedStatus.abrv == 'payment-received') ?
+                            {!declinedStatus && !canceledStatus && paymentReceivedStatus && (paymentReceivedStatus.currentStatus == 'payment-received' || paymentReceivedStatus.abrv == 'payment-received') ?
                                 <div className="col col-sml-12 col-lrg-4">
                                     <div className="type--base type--wgt--medium type--color--note">{t('4.Cashed')}</div>
                                     <span className="input--preview">
