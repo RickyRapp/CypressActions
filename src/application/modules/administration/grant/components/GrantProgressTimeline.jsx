@@ -17,7 +17,7 @@ class GrantProgressTimeline extends Component {
             statusList.forEach(stat => {
                 if (stat.abrv == 'payment-received' || stat.currentStatus == 'payment-received')
                     paymentReceivedStatus = stat;
-                if (stat.abrv == 'payment-submited' && stat.currentStatus == 'payment-submited')
+                if (stat.abrv == 'payment-submited' || stat.currentStatus == 'payment-submited')
                     paymentSubmitedStatus = stat;
                 if (stat.abrv == 'approved' || stat.currentStatus == 'approved')
                     approvedStatus = stat;
