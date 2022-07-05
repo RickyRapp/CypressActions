@@ -14,7 +14,8 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
 
     const {
         loaderStore,
-        form
+        form,
+        changeManuallWithdrawSetting
     } = charityPaymentOptionsViewStore
 
     return (
@@ -42,7 +43,14 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
                                 <NumericInputField field={form.$('withdrawAmount')} />
                             </div>
                             <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox field={form.$('keepFundsUntilAccumulatedAmountIsEnabled')} />
+                            <div className="form__group col col-sml-12 col-lrg-12">
+                                <BasicFieldCheckbox 
+                                    field={form.$('keepFundsUntilAccumulatedAmountIsEnabled')} 
+                                    onChange={e => {
+                                        changeManuallWithdrawSetting(e.target.checked);
+                                    }}
+                                />
+                            </div>
                             </div>
                         </div>
                     </div>

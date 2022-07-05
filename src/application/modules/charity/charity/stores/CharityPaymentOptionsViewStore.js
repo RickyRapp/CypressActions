@@ -1,5 +1,6 @@
 import { BaseEditViewStore } from 'core/stores';
 import { CharityPaymentOptionsForm } from 'application/charity/charity/forms';
+import { action } from 'mobx';
 
 
 class CharityPaymentOptionsViewStore extends BaseEditViewStore{
@@ -28,6 +29,14 @@ class CharityPaymentOptionsViewStore extends BaseEditViewStore{
             FormClass: CharityPaymentOptionsForm,
             onAfterAction: () => { this.getResource(this.id); }
         });
+    }
+
+    @action.bound
+    changeManuallWithdrawSetting(e){
+        if(e === true){
+            this.form.$('keepFundsUntilManuallyDistributedIsEnabled').set(!e);
+        }
+        this.form.$('keepFundsUntilManuallyDistributedIsEnabled').setDisabled(e);
     }
 }
 
