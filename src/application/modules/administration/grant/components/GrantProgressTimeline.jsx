@@ -12,20 +12,24 @@ class GrantProgressTimeline extends Component {
         var paymentSubmitedStatus = null;
         var paymentReceivedStatus = null;
 
+        console.log(statusList)
         if (statusList != null) {
-        statusList.forEach(stat => {
-            if (stat.abrv == 'payment-received')
-            paymentReceivedStatus = stat;
-        if (stat.abrv == 'payment-submited')
-            paymentSubmitedStatus = stat;
-        if (stat.abrv == 'approved')
-            approvedStatus = stat;
-        else if (stat.abrv == 'canceled')
-            canceledStatus = stat;
-        else if (stat.abrv == 'declined')
-            declinedStatus = stat;
-        });}
-        
+            statusList.forEach(stat => {
+                if (stat.abrv == 'payment-received')
+                    paymentReceivedStatus = stat;
+                if (stat.abrv == 'payment-submited')
+                    paymentSubmitedStatus = stat;
+                if (stat.abrv == 'approved' && stat.currentStatus == 'payment-submited')
+                    paymentSubmitedStatus = stat;
+                if (stat.abrv == 'approved')
+                    approvedStatus = stat;
+                else if (stat.abrv == 'canceled')
+                    canceledStatus = stat;
+                else if (stat.abrv == 'declined')
+                    declinedStatus = stat;
+            });
+        }
+
         return (
             <React.Fragment>
                 <div className="row">
@@ -62,7 +66,7 @@ class GrantProgressTimeline extends Component {
                     </div>}
 
                     {!declinedStatus && !canceledStatus && approvedStatus && approvedStatus.abrv == 'approved' &&
-                           <div className='row'>
+                        <div className='row'>
                             <div className="col col-sml-12 col-lrg-4">
                                 <div className="type--base type--wgt--medium type--color--note">{t('2.Approved')}</div>
                                 <span className="input--preview">
@@ -85,10 +89,10 @@ class GrantProgressTimeline extends Component {
                                         />
                                     </span>
                                 </div>
-                            : 
-                            <div className="col col-sml-12 col-lrg-4">
-                            <div className="type--base type--wgt--medium type--color--note">{t('3.Submited')}</div>
-                        </div>
+                                :
+                                <div className="col col-sml-12 col-lrg-4">
+                                    <div className="type--base type--wgt--medium type--color--note">{t('3.Submited')}</div>
+                                </div>
                             }
 
                             {paymentReceivedStatus && paymentReceivedStatus.currentStatus == 'payment-received' ?
@@ -102,10 +106,10 @@ class GrantProgressTimeline extends Component {
                                         />
                                     </span>
                                 </div>
-                            :
-                            <div className="col col-sml-12 col-lrg-4">
-                            <div className="type--base type--wgt--medium type--color--note">{t('4.Cashed')}</div>
-                            </div>
+                                :
+                                <div className="col col-sml-12 col-lrg-4">
+                                    <div className="type--base type--wgt--medium type--color--note">{t('4.Cashed')}</div>
+                                </div>
                             }
                         </div>
                     }
