@@ -5,8 +5,8 @@ class EntityStatusLogRouteService extends BaseRouteService {
         super('entityStatusLogs'); 
      }
 
-    findStatus(resources) {
-        return super.get(this.base + `/find-status/{id}`,resources, null);
+    findStatus(resources,type) {
+        return super.get(this.base + `/find-status/{id}/${type}/`,resources,type, null);
     }
 }
 

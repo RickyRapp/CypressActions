@@ -40,7 +40,8 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
         this.getStatuses();
     }
     async getStatuses(){
-        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(this.rootStore.routerStore.routerState.params.id);
+        var grantEntity = 'GrantEntity';
+        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(this.rootStore.routerStore.routerState.params.id,grantEntity);
         this.statusList = response;
     }
 

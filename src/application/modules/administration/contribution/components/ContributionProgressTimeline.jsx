@@ -3,44 +3,46 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { FormatterResolver } from 'core/components';
 
-class GrantProgressTimeline extends Component {
+class ContributionProgressTimeline extends Component {
     render() {
         const { item, t, statusList } = this.props;
-        var approvedStatus = null;
+        var fundedStatus = null;
         var canceledStatus = null;
         var declinedStatus = null;
-        var paymentSubmitedStatus = null;
-        var paymentReceivedStatus = null;
-
+        var inProcessStatus = null;
+        var pendingStatus = null;
+        console.log(statusList)
         if (statusList != null) {
-        statusList.forEach(stat => {
-            if (stat.abrv == 'payment-received')
-            paymentReceivedStatus = stat;
-        if (stat.abrv == 'payment-submited')
-            paymentSubmitedStatus = stat;
-        if (stat.abrv == 'approved')
-            approvedStatus = stat;
-        else if (stat.abrv == 'canceled')
-            canceledStatus = stat;
-        else if (stat.abrv == 'declined')
-            declinedStatus = stat;
-        });}
-        
+            statusList.forEach(stat => {
+                if (stat.abrv == 'pending')
+                    pendingStatus = stat;
+                if (stat.abrv == 'in-process')
+                    inProcessStatus = stat;
+                if (stat.abrv == 'funded')
+                    fundedStatus = stat;
+                else if (stat.abrv == 'canceled')
+                    canceledStatus = stat;
+                else if (stat.abrv == 'declined')
+                    declinedStatus = stat;
+            });
+        }
+
+
         return (
             <React.Fragment>
                 <div className="row">
-                    <div className="col col-sml-12 col-lrg-4">
+                    {pendingStatus && pendingStatus.abrv == 'pending' && <div className="col col-sml-12 col-lrg-4">
                         <div className="type--base type--wgt--medium type--color--note">{t('1.Initiated')}</div>
                         <span className="input--preview">
-                            {item && <FormatterResolver
-                                item={{ dateCreated: item.dateCreated }}
+                            <FormatterResolver
+                                item={{ dateCreated: pendingStatus.dateCreated }}
                                 field='dateCreated'
                                 format={{ type: 'date', value: 'short' }}
-                            />}
+                            />
                         </span>
-                    </div>
+                    </div>}
                     {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('2.Canceled')}</div>
+                        <div className="type--base type--wgt--medium type--color--note">{t('4.Canceled')}</div>
                         <span className="input--preview">
                             <FormatterResolver
                                 item={{ dateCreated: canceledStatus.dateCreated }}
@@ -51,7 +53,7 @@ class GrantProgressTimeline extends Component {
                     </div>}
 
                     {declinedStatus && declinedStatus.abrv == 'declined' && <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('2.Declined')}</div>
+                        <div className="type--base type--wgt--medium type--color--note">{t('4.Declined')}</div>
                         <span className="input--preview">
                             <FormatterResolver
                                 item={{ dateCreated: declinedStatus.dateCreated }}
@@ -61,55 +63,36 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>}
 
-                    {!declinedStatus && !canceledStatus && approvedStatus && approvedStatus.abrv == 'approved' &&
-                           <div className='row'>
+                    {!declinedStatus && !canceledStatus && inProcessStatus && inProcessStatus.abrv == 'in-process' &&
+                        <div className='row'>
                             <div className="col col-sml-12 col-lrg-4">
-                                <div className="type--base type--wgt--medium type--color--note">{t('2.Approved')}</div>
+                                <div className="type--base type--wgt--medium type--color--note">{t('2.In process')}</div>
                                 <span className="input--preview">
                                     <FormatterResolver
-                                        item={{ dateCreated: approvedStatus.dateCreated }}
+                                        item={{ dateCreated: inProcessStatus.dateCreated }}
                                         field='dateCreated'
                                         format={{ type: 'date', value: 'short' }}
                                     />
                                 </span>
                             </div>
 
-                            {paymentSubmitedStatus && paymentSubmitedStatus.currentStatus == 'payment-submited' ?
-                                <div className="col col-sml-12 col-lrg-4">
-                                    <div className="type--base type--wgt--medium type--color--note">{t('3.Submited')}</div>
-                                    <span className="input--preview">
-                                        <FormatterResolver
-                                            item={{ dateCreated: paymentSubmitedStatus.dateCreated }}
-                                            field='dateCreated'
-                                            format={{ type: 'date', value: 'short' }}
-                                        />
-                                    </span>
-                                </div>
-                            : 
-                            <div className="col col-sml-12 col-lrg-4">
-                            <div className="type--base type--wgt--medium type--color--note">{t('3.Submited')}</div>
-                        </div>
-                            }
 
-                            {paymentReceivedStatus && paymentReceivedStatus.currentStatus == 'payment-received' ?
-                                <div className="col col-sml-12 col-lrg-4">
-                                    <div className="type--base type--wgt--medium type--color--note">{t('4.Cashed')}</div>
-                                    <span className="input--preview">
-                                        <FormatterResolver
-                                            item={{ dateCreated: paymentReceivedStatus.dateCreated }}
-                                            field='dateCreated'
-                                            format={{ type: 'date', value: 'short' }}
-                                        />
-                                    </span>
-                                </div>
-                            :
-                            <div className="col col-sml-12 col-lrg-4">
-                            <div className="type--base type--wgt--medium type--color--note">{t('4.Cashed')}</div>
-                            </div>
-                            }
                         </div>
                     }
 
+{!declinedStatus && !canceledStatus && fundedStatus && fundedStatus.currentStatus == 'funded' &&
+                                <div className="col col-sml-12 col-lrg-4">
+                                    <div className="type--base type--wgt--medium type--color--note">{t('3.Settled')}</div>
+                                    <span className="input--preview">
+                                        <FormatterResolver
+                                            item={{ dateCreated: fundedStatus.dateCreated }}
+                                            field='dateCreated'
+                                            format={{ type: 'date', value: 'short' }}
+                                        />
+                                    </span>
+                                </div>
+                               
+                            }
 
                     {/* 
                             <div className="col col-sml-12 col-lrg-4">
@@ -152,9 +135,9 @@ class GrantProgressTimeline extends Component {
     }
 }
 
-GrantProgressTimeline.propTypes = {
+ContributionProgressTimeline.propTypes = {
     item: PropTypes.object.isRequired,
     t: PropTypes.func
 };
 
-export default defaultTemplate(GrantProgressTimeline);
+export default defaultTemplate(ContributionProgressTimeline);

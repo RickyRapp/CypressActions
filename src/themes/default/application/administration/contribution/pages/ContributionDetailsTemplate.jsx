@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { PreviewLayout } from 'core/layouts';
 import { ApplicationEmptyState, Date, FormatterResolver } from 'core/components';
+import { ContributionProgressTimeline } from 'application/administration/contribution/components';
 
 const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t }) {
     const {
         item,
-        loaderStore
+        loaderStore,
+        statusList
     } = contributionDetailsViewStore;
-
     return (
         <PreviewLayout
             store={contributionDetailsViewStore}
@@ -17,7 +18,12 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
             loading={loaderStore.loading}
             layoutFooterVisible={false}
         >
+     
             <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.DETAILS')}</h3>
+            {item && !(item.contributionStatus.abrv === 'processed' ) && //old grants
+                        <div className="card--primary card--med u-mar--bottom--med">
+                            <ContributionProgressTimeline item={item} statusList={statusList}/>
+                        </div>}
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
                     <div className="card card--primary card--med u-mar--bottom--med">

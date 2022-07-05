@@ -10,6 +10,7 @@ import { saveAs } from '@progress/kendo-file-saver';
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
     contributionStatuses = [];
+    @observable statusList ;
     @observable selectedItemsSum = 0;
     @observable achBatchCurrentNumber = false;
 
@@ -57,6 +58,7 @@ class ContributionViewStore extends BaseListViewStore {
                     this.openSelectDonorModal();
                 },
                 preview: (id) => {
+        this.getStatuses(id);
                     this.rootStore.routerStore.goTo('master.app.main.administration.contribution.details', { id: id });
                 },
             },
@@ -101,12 +103,15 @@ class ContributionViewStore extends BaseListViewStore {
         this.createDonorSearch();
         this.createContributionStatusDropodownStore();
         this.createPaymentTypeDropodownStore();
-
         this.selectDonorModal = new ModalParams({});
         this.reviewModal = new ModalParams({});
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
-
+    async getStatuses(id){
+        var contributionEntity = 'ContributionEntity'
+        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(id,contributionEntity);
+        this.statusList = response;
+    }
     @action.bound
     openSelectDonorModal() {
         this.selectDonorModal.open(

@@ -7,8 +7,8 @@ class EntityStatusLogService extends BaseService {
         this.apiClient = apiClient;
     }
 
-    findStatus(resources) {
-        const url = this.routeService.findStatus(resources);
+    findStatus(resources,type) {
+        const url = this.routeService.findStatus(resources,type);
         return this.apiClient.get(url);
     }
 }

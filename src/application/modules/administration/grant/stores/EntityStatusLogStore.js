@@ -6,8 +6,8 @@ class EntityStatusLogStore {
         this.entityStatusLogService = moduleStore.rootStore.createApplicationService(EntityStatusLogService);
     }
 
-    async findStatus(resources) {
-        const response = await this.entityStatusLogService.findStatus(resources);
+    async findStatus(resources,type) {
+        const response = await this.entityStatusLogService.findStatus(resources,type);
         return response.data;
     }
 }
