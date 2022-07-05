@@ -1057,6 +1057,7 @@
         "REMOTE DEPOSITS": "Remote Deposits",
         "DEPOSITS_INSIGHT": "Deposits Insight",
         "PAYMENTS": "Payments Holding",
+        "WITHDRAWS": "Withdraws",
         "LIST": {
             "COLUMNS": {
                 "DATE_CREATED_LABEL": "Date created",
