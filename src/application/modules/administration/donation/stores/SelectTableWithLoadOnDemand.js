@@ -14,13 +14,12 @@ class SelectTableWithLoadOnDemand extends SelectTableWithRowDetailsViewStore {
     onExpand = async event => {
         //TODO leave only generic code
         if (!event.dataItem.pendingDonations) {
-            var data = await this.loadChildData(event.dataItem.charityId, event.dataItem.charityAddress);
+            var data = await this.loadChildData(event.dataItem.charityId, event.dataItem.charityAddress, event.dataItem.isWithdraw);
             if (data) {
                 var d = this.data.find(c => { return c.charityId === event.dataItem.charityId });
                 event.dataItem.pendingDonations = data;
             }
         }
-        console.log(event);
         event.dataItem[this.config.expandField] = !event.dataItem[this.config.expandField];
         this.updateDataItems();
     };

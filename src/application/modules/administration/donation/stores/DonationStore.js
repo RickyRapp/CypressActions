@@ -21,8 +21,8 @@ class DonationStore {
         const response = await this.donationService.reviewPendingDonations(resource);
         return response.data;
     }
-    async getPendingDonationsByCharityId(id, address) {
-        const response = await this.donationService.getPendingDonationsByCharityId(id, address);
+    async getPendingDonationsByCharityId(id, address, isWithdraw) {
+        const response = await this.donationService.getPendingDonationsByCharityId(id, address, isWithdraw);
         return response.data;
     }
 

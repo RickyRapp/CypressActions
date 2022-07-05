@@ -44,7 +44,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
         this.bankAccountDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const data = await this.rootStore.application.administration.charityStore.getCharity(this.rootStore.userStore.applicationUser.id, { embed: 'charityBankAccounts' });
+                    const data = await this.rootStore.application.administration.charityStore.getCharity(this.rootStore.userStore.applicationUser.id, { embed: 'charityBankAccounts' }); console.log(data.charityBankAccounts);
                     var plaidVerifiedBankAccounts = data.charityBankAccounts.filter(c => {
                         return (
                             c.isVerifiedByPlaid === true
@@ -87,7 +87,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
             || address.zipCode === "")){
             this.addressValidationMessage = "Invalid address."
             return false
-        } console.log(this.bankAccount);
+        } 
         if(this.isACH && (this.bankAccount === null || this.bankAccount === undefined || this.bankAccount === "" ) ){
             this.bankAccountValidationMessage = "Please select bank account."
             return false;
@@ -113,7 +113,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
         }
 
        const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
-       console.log(data);
+       this.rootStore.notificationStore.success('Successfully created withdraw');
     }
 
 }

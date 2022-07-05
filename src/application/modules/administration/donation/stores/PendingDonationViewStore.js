@@ -126,7 +126,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                 this.rootStore.notificationStore.warning('Please, check if you selected grants/donations to process.');
                 return;
             }
-            
+                    console.log(formValues);
             var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
             this.rootStore.notificationStore.success("Successfully processed.");
             this.form.$('accountTransferNumber').set(this.form.$('paymentNumber').value);
@@ -148,8 +148,8 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async getPendingDonationsByCharityId(charityId, address, isWithdraw) { console.log(isWithdraw);
-        var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address);
+    async getPendingDonationsByCharityId(charityId, address, isWithdraw) {
+        var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address, isWithdraw);
         this.data = data.map(e => { return { ...e, checked: false } });
         return this.data;
     }
@@ -157,7 +157,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async getPendingDonations() {
         var data = await this.rootStore.application.administration.donationStore.findPendingDonation({ paymentType: this.paymentTypeDropdownStore.value ? this.paymentTypeDropdownStore.value.abrv : 'all' });
-        this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress, checked: false } });
+        this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress + '_'+ e.isWithdraw, checked: false } });
     }
 
     async downloadReport(ids, paymentTypeId) {

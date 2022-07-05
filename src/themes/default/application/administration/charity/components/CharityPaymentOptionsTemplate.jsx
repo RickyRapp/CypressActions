@@ -33,13 +33,13 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
                 <div className="list--preferences">
                     <div className="list--preferences__label">
                     <div className="form__group col col-sml-5 col-lrg-5">
-                        <NumericInputField field={form.$('withdrawAmount')} />
+                        <NumericInputField field={form.$('accumulatedAmountExceeding')} />
                     </div>
                     </div>
                     <div className="list--preferences__dd">
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('accumulatedAmountExceeding')} />
+                                <NumericInputField field={form.$('withdrawAmount')} />
                             </div>
                             <div className="form__group col col-sml-12 col-lrg-12">
                                 <BasicFieldCheckbox field={form.$('keepFundsUntilAccumulatedAmountIsEnabled')} />

@@ -114,6 +114,7 @@ class WithdrawFundCreateViewStore extends BaseViewStore {
         }
 
        const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
+       this.rootStore.notificationStore.success('Successfully created withdraw');
     }
 
 }
