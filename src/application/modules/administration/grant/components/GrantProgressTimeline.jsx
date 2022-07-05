@@ -12,7 +12,6 @@ class GrantProgressTimeline extends Component {
         var paymentSubmitedStatus = null;
         var paymentReceivedStatus = null;
 
-        console.log(statusList)
         if (statusList != null) {
             statusList.forEach(stat => {
                 if (stat.abrv == 'payment-received' || stat.currentStatus == 'payment-received')

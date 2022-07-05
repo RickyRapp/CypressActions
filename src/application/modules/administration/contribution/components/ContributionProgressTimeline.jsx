@@ -11,7 +11,7 @@ class ContributionProgressTimeline extends Component {
         var declinedStatus = null;
         var inProcessStatus = null;
         var pendingStatus = null;
-        console.log(statusList)
+        
         if (statusList != null) {
             statusList.forEach(stat => {
                 if (stat.abrv == 'pending')
