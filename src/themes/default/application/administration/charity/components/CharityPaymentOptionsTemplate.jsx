@@ -14,7 +14,8 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
 
     const {
         loaderStore,
-        form
+        form,
+        changeManuallWithdrawSetting
     } = charityPaymentOptionsViewStore
 
     return (
@@ -27,7 +28,13 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
 
                 <div className="list--preferences">
                     <div className="list--preferences__label"> {t('CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY')}  </div>
-                    <div className='list--preferences__label'> <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('keepFundsUntilManuallyDistributedIsEnabled')} />  </div>
+                    <div className='list--preferences__label'>
+                         <BasicFieldCheckbox 
+                            toggleClass="--toggle" 
+                            showLabel={false} 
+                            field={form.$('keepFundsUntilManuallyDistributedIsEnabled')}
+                            />  
+                    </div>
                 </div>
 
                 <div className="list--preferences">
@@ -42,7 +49,12 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
                                 <NumericInputField field={form.$('withdrawAmount')} />
                             </div>
                             <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox field={form.$('keepFundsUntilAccumulatedAmountIsEnabled')} />
+                                <BasicFieldCheckbox 
+                                    field={form.$('keepFundsUntilAccumulatedAmountIsEnabled')} 
+                                    onChange={e => {
+                                        changeManuallWithdrawSetting(e.target.checked);
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>

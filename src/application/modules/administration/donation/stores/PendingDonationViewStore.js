@@ -255,8 +255,10 @@ class PendingDonationViewStore extends BaseListViewStore {
                         key: 'isWithdraw',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.IS_WITHDRAW',
                         format: {
-                            type: 'boolean',
-                            value: 'yes-no'
+                            type: 'function',
+                            value: (item) => {
+                                return item.isWithdraw ? <div className="type--center" ><i class="u-icon u-icon--approve u-icon--base "></i></div> : null;
+                            }
                         },
                     },
                 ],

@@ -56,7 +56,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                                             classSuffix=" input--check--nolabel"
                                         />
                                     </td>
-                                    <td>{item.name}</td>
+                                    <td>{item.isWithdraw ? "Withdraw transaction" : item.name}</td>
                                     <td><FormatterResolver
                                         item={{ charityAmount: item.charityAmount }}
                                         field='charityAmount'
