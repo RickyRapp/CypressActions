@@ -94,7 +94,7 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
                                 <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
                                     <div className="type--base type--wgt--medium type--color--note">{t('GRANT.PREVIEW.FIELDS.CHARITY_WEBSITE_LABEL')}</div>
                                     <span className="input--preview">
-                                        {item && <React.Fragment>{item.thirdPartyWebsite && (item.thirdPartyWebsite.name + '-')} {item.thirdPartyWebsite ? item.thirdPartyWebsite.url : item.url}</React.Fragment>}
+                                        {item && <React.Fragment>{item.thirdPartyWebsite && (item.thirdPartyWebsite.name + '-')} {item.url ? item.url : item.thirdPartyWebsite.url}</React.Fragment>}
                                     </span>
                                 </div>}
                             {item && item.grantScheduledPayment &&
