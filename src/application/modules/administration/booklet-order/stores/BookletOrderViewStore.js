@@ -63,8 +63,9 @@ class BookletOrderViewStore extends BaseListViewStore {
                             'deliveryMethodType',
                             'customName',
                             'orderFolder',
-                            'isCustom',,
-                            'isCustomized'
+                            'isCustom',
+                            'isCustomized',
+                            'expirationDays'
                         ];
                         return this.rootStore.application.administration.bookletOrderStore.findBookletOrder(params);
                     }
@@ -157,10 +158,11 @@ class BookletOrderViewStore extends BaseListViewStore {
             }
         }, true));
     }
+    //select pick-up>customized, mail and rushed-order>customized and non-customized
     @action.bound 
     async selectDefaults() {
-        this.queryUtility.filter.sendTo = 'jscoza@checkprintingsolutions.com'
-        const filteredDefaults = this.tableStore.data.filter(x => x.customName && x.bookletOrderStatus && x.bookletOrderStatus.abrv == 'pending');
+        this.queryUtility.filter.sendTo = 'jscoza@checkprintingsolutions.com';
+        const filteredDefaults = this.tableStore.data.filter(x => ((((x.isCustomized || x.expirationDays > 0) && x.deliveryMethodType.abrv == 'pick-up') || x.deliveryMethodType.abrv != 'pick-up') && x.bookletOrderStatus && x.bookletOrderStatus.abrv == 'pending'));
         this.tableStore.setSelectedItems(filteredDefaults);
     }
     @action.bound
