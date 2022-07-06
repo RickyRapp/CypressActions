@@ -12,7 +12,7 @@ export default class AcceptSecurityCreateForm extends FormBase {
 					name: 'amount',
 					label: 'DONOR-DONOR.CREATE.FIELDS.AMOUNT_LABEL',
 					placeholder: 'DONOR-DONOR.CREATE.FIELDS.AMOUNT_PLACEHOLDER',
-					rules: 'required|numeric|min:1',
+					rules: 'required|numeric|min:1000',
 					extra: {
 						type: 'c2',
 					},
