@@ -6,7 +6,10 @@ import { BookletOrderListFilter } from 'application/administration/booklet-order
 import moment from 'moment';
 import { saveAs } from '@progress/kendo-file-saver';
 class FolderListViewStore extends BaseListViewStore {
+    @observable deliveryPickUp;
+
     constructor(rootStore) {
+        
         super(rootStore, {
             name: 'booklet-order',
             authorization: 'theDonorsFundBookletOrderSection',
@@ -38,7 +41,7 @@ class FolderListViewStore extends BaseListViewStore {
                 return {
                     find: async (params) => {
                         var response = await this.rootStore.application.administration.bookletOrderStore.getFolderOrders(params);
-                        console.log(response);
+                        this.deliveryPickUp = (await this.rootStore.application.lookup.deliveryMethodTypeStore.find()).find(x => x.abrv == 'pick-up');
                         return response.data;
                     }
                 }
@@ -85,6 +88,9 @@ class FolderListViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
+                            if(item.bookletOrders.length > 0 && item.bookletOrders[0].deliveryMethodTypeId == this.deliveryPickUp.id) {
+                                return '1777 Ave of The States, Suite 103, Lakewood, NJ 08701';
+                            }
                             return `${item.bookletOrders[0].shippingAddressLine1}, ${item.bookletOrders[0].shippingCity}, ${item.bookletOrders[0].shippingState}, ${item.bookletOrders[0].shippingZipCode}`
                         }
                     }
