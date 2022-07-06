@@ -174,7 +174,7 @@ class PendingDonationViewStore extends BaseListViewStore {
             {
                 fetchFunc: async () => {
                     const data = await this.rootStore.application.lookup.paymentTypeStore.find();
-                    const availablePaymentTypes = ['check', 'ach'];
+                    const availablePaymentTypes = ['check', 'ach', 'charity-account'];
                     //data.unshift({ id: '0000000-0000-0000-0000-000000000000', abrv: 'all', name: 'All' });
                     //TODO select All as default option
                     return data.filter(c => { return availablePaymentTypes.includes(c.abrv) })
