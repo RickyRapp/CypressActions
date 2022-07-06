@@ -34,7 +34,7 @@ class CharityPaymentOptionsViewStore extends BaseEditViewStore{
     @action.bound
     changeManuallWithdrawSetting(e){
         if(e === true){
-            this.form.$('keepFundsUntilManuallyDistributedIsEnabled').set(!e);
+            this.form.$('keepFundsUntilManuallyDistributedIsEnabled').set(e);
         }
         this.form.$('keepFundsUntilManuallyDistributedIsEnabled').setDisabled(e);
     }

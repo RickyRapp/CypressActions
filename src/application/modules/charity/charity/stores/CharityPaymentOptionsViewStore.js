@@ -19,7 +19,7 @@ class CharityPaymentOptionsViewStore extends BaseEditViewStore{
                             withdrawAmount: data.withdrawAmount
                         }
                     },
-                    update: async (resource) => { console.log(resource)
+                    update: async (resource) => { 
                         resource.id = rootStore.userStore.applicationUser.id;
                         await this.rootStore.application.charity.charityStore.updateWithdrawSettings(resource);
                         rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
@@ -34,7 +34,7 @@ class CharityPaymentOptionsViewStore extends BaseEditViewStore{
     @action.bound
     changeManuallWithdrawSetting(e){
         if(e === true){
-            this.form.$('keepFundsUntilManuallyDistributedIsEnabled').set(!e);
+            this.form.$('keepFundsUntilManuallyDistributedIsEnabled').set(e);
         }
         this.form.$('keepFundsUntilManuallyDistributedIsEnabled').setDisabled(e);
     }
