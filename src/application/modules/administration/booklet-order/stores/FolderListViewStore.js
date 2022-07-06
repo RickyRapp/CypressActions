@@ -80,6 +80,16 @@ class FolderListViewStore extends BaseListViewStore {
                     }
                 },
                 {
+                    key: 'bookletOrders[0].shippingAddressLine1',
+                    title: 'Shipping address',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            return `${item.bookletOrders[0].shippingAddressLine1}, ${item.bookletOrders[0].shippingCity}, ${item.bookletOrders[0].shippingState}, ${item.bookletOrders[0].shippingZipCode}`
+                        }
+                    }
+                },
+                {
                     key: 'trackingNumber',
                     title: 'Tracking Number',
                 }
