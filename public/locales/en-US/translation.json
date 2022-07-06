@@ -1719,6 +1719,7 @@
             "TRANSFERS": "Transfers",
             "RECENT_TRANSFERS": "Recent transfers",
             "BALANCE": "Your available balance",
+            "ACCOUNT_BALANCE": "Your account balance",
             "SEND_TO": "Send to",
             "SEND_TO_INFO_TITLE": "Enter recipients account number or email address",
             "ADD_ANOTHER_RECIPIENT": "Add another recipient",

@@ -45,7 +45,7 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                                                     />
                                                 )}
                                             </div>
-                                            <p className="type--uppercase">{t('DONOR-DONOR.CREATE.BALANCE')}</p>
+                                            <p className="type--uppercase">{t('DONOR-DONOR.CREATE.ACCOUNT_BALANCE')}</p>
                                         </div>
                                     </div>
                                 </div>
