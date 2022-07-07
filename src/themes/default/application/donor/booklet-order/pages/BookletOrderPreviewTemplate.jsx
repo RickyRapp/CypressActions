@@ -88,7 +88,7 @@ const BookletOrderPreviewTemplate = function ({ bookletOrderPreviewViewStore, t 
 					</div>
 				</div>
 				<div>
-					{item && (item.customName || item.expirationDays || item.customizedAddressLine1) &&
+					{item && (item.customName || item.customizedAddressLine1 || (item.expirationDays && tableStore && tableStore.data && tableStore.data.filter(x => !x.isPrePaid).length > 0)) &&
 						<div className="card--primary card--med">
 							<div className="type--base type--wgt--medium type--color--note">
 								{t('BOOKLET_ORDER.PREVIEW.CUSTOM_LABEL')}
@@ -103,7 +103,7 @@ const BookletOrderPreviewTemplate = function ({ bookletOrderPreviewViewStore, t 
 										{item.customizedCity && <p className="booklet__list__item">City: <span className="type--base type--color--text">{item.customizedCity}</span></p>}
 										{item.customizedState && <p className="booklet__list__item">State: <span className="type--base type--color--text">{item.customizedState}</span></p>}
 										{item.customizedCity && <p className="booklet__list__item">Zip code: <span className="type--base type--color--text">{item.customizedZipCode}</span></p>}
-										{item.expirationDays && <p className="booklet__list__item">Expiration date: <span className="type--base type--color--text">{getExpiryDate(item.expirationDays)}</span></p>}
+										{tableStore && tableStore.data && tableStore.data.filter(x => !x.isPrePaid).length > 0 && item.expirationDays && <p className="booklet__list__item">Expiration date: <span className="type--base type--color--text">{getExpiryDate(item.expirationDays)}</span></p>}
 									</div>
 								}
 							</span>
