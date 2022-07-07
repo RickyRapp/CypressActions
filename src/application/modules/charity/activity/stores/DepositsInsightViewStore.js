@@ -2,6 +2,7 @@ import React from 'react';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 import { ContributionListFilter } from 'application/donor/activity/contribution/models';
 import moment from 'moment';
+import { action, observable } from 'mobx';
 
 class DepositsInsightViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -31,7 +32,6 @@ class DepositsInsightViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-                        debugger;
 						if(params.dateCreatedFrom){
                             let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
                             params.dateCreatedFrom = `${fromDate} 00:00:00`;
@@ -62,6 +62,31 @@ class DepositsInsightViewStore extends BaseListViewStore {
         this.createTableStore();
     }
 
+    
+    @action.bound
+	async openCancelContribution(item) {
+		this.rootStore.modalStore.showConfirm(
+			`Are you sure you want to cancel contribution (#${item.confirmationNumber}) created 
+            on: ${moment(item.dateCreated).format('dddd, MMMM Do YYYY, h:mm:ss a')} with amount: $${item.amount.toFixed(
+				2
+			)}`,
+			async () => {
+				this.loaderStore.suspend();
+				try {
+					await this.rootStore.application.donor.contributionStore.reviewContribution({
+						id: item.id,
+						contributionStatusId: this.contributionStatuses.find(c => c.abrv === 'canceled').id,
+					});
+					this.queryUtility.fetch();
+					this.rootStore.notificationStore.success('Contribution canceled');
+				} catch (err) {
+					this.rootStore.notificationStore.error('Failed to cancel contribution');
+				} finally {
+					this.loaderStore.resume();
+				}
+			}
+		);
+	}
     createTableStore() {
         this.setTableStore(
             new TableViewStore(this.queryUtility, {
@@ -113,7 +138,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
                 actions: {
                     onEdit: contribution => this.routes.edit(contribution.id, contribution.donorId),
                     onCancel: contribution => this.openCancelContribution(contribution),
-                    onPreview: contribution => this.routes.preview(contribution.id, contribution.donorId),
+                    onPreview: contribution => this.routes.preview(contribution.id),
                     onSort: column => this.queryUtility.changeOrder(column.key),
                 },
                 actionsRender: {
