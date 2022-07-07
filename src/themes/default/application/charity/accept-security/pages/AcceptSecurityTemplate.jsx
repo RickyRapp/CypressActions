@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
     BaasicFieldDropdown,
     NumericInputField,
-    //SimpleBaasicTable,
+    SimpleBaasicTable,
     FormatterResolver,
     BaasicButton,
     BasicInput,
@@ -21,7 +21,8 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
         securityTypeDropdownStore,
         balance,
         confirmModal,
-        onSubmitClick
+        onSubmitClick,
+        recentTransfersTableStore
     } = acceptSecurityCreateViewStore;
 
     return (
@@ -131,10 +132,10 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                                                 {t('ACCEPT-SECURITY.CREATE.RECENT_SECURITIES')}
                                             </h4>
                                             <div className="card--primary card--med type--center">
-                                                <i className="u-icon u-icon--rounded u-icon--rounded--coming-soon"></i>
-                                                <p className="type--lrg type--wgt--medium type--color--opaque u-mar--top--sml">Coming Soon</p>
+                                                {/* <i className="u-icon u-icon--rounded u-icon--rounded--coming-soon"></i>
+                                                <p className="type--lrg type--wgt--medium type--color--opaque u-mar--top--sml">Coming Soon</p> */}
+                                            <SimpleBaasicTable tableStore={recentTransfersTableStore} />
                                             </div>
-                                            {/* <SimpleBaasicTable tableStore={recentTransfersTableStore} /> */}
                                         </div>
                                     </div>
                                 </div>

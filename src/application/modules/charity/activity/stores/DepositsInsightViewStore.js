@@ -1,6 +1,7 @@
 import React from 'react';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 import { ContributionListFilter } from 'application/donor/activity/contribution/models';
+import moment from 'moment';
 
 class DepositsInsightViewStore extends BaseListViewStore {
     constructor(rootStore) {

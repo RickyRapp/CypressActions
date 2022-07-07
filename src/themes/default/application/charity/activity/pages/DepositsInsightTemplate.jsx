@@ -11,6 +11,7 @@ import {
     DateRangeQueryPicker,
 	FormatterResolver
 } from 'core/components';
+import { isSome } from 'core/utils';
 
 
 const DepositsInsightTemplate = function ({ depositsInsightViewStore, t }) {
@@ -89,7 +90,7 @@ const DepositsInsightTemplate = function ({ depositsInsightViewStore, t }) {
                             </div>
                         </TableFilter> */}
                     </div>
-                    <BaasicTable authorization={authorization} tableStore={tableStore}  />
+                    <BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
                 </div>
             </div>
         </Content>
