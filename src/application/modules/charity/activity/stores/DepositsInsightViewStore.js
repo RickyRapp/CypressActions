@@ -5,19 +5,21 @@ import moment from 'moment';
 import { action, observable } from 'mobx';
 
 class DepositsInsightViewStore extends BaseListViewStore {
+    contributionStatuses = [];
+
     constructor(rootStore) {
         super(rootStore, {
             name: 'charity-deposit-insight',
             authorization: 'theDonorsFundDonationSection',
             routes: {
 				edit: id => {
-					this.rootStore.routerStore.goTo('master.app.main.donor.contribution.edit', { id: id });
+					this.rootStore.routerStore.goTo('master.app.main.charity.accept-security.edit', { id: id });
 				},
 				create: () => {
 					this.rootStore.routerStore.goTo('master.app.main.donor.contribution.create');
 				},
-				preview: id => {
-					this.rootStore.routerStore.goTo('master.app.main.donor.contribution.details', { id: id });
+				preview: (id) => {
+					this.rootStore.routerStore.goTo('master.app.main.charity.accept-security.details', { id: id });
 				},
 			},
 			queryConfig: {
@@ -59,6 +61,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
         });
 
         this.charityId = rootStore.userStore.applicationUser.id;
+		this.createContributionStatusDropdownStore();
         this.createTableStore();
     }
 
@@ -80,6 +83,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
 					this.queryUtility.fetch();
 					this.rootStore.notificationStore.success('Contribution canceled');
 				} catch (err) {
+                    console.log(err)
 					this.rootStore.notificationStore.error('Failed to cancel contribution');
 				} finally {
 					this.loaderStore.resume();
@@ -138,7 +142,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
                 actions: {
                     onEdit: contribution => this.routes.edit(contribution.id, contribution.donorId),
                     onCancel: contribution => this.openCancelContribution(contribution),
-                    onPreview: contribution => this.routes.preview(contribution.id),
+                    onPreview: contribution => this.routes.preview(contribution.id, contribution.donorId),
                     onSort: column => this.queryUtility.changeOrder(column.key),
                 },
                 actionsRender: {
@@ -160,6 +164,24 @@ class DepositsInsightViewStore extends BaseListViewStore {
             })
         );
     }
+    createContributionStatusDropdownStore() {
+		this.contributionStatusDropdownStore = new BaasicDropdownStore(
+			{
+				multi: true,
+			},
+			{
+				fetchFunc: async () => {
+					this.contributionStatuses = await this.rootStore.application.lookup.contributionStatusStore.find();
+					return this.contributionStatuses;
+				},
+				onChange: contributionStatus => {
+					this.queryUtility.filter.contributionStatusIds = contributionStatus.map(status => {
+						return status.id;
+					});
+				},
+			}
+		);
+	}
 }
 
 export default DepositsInsightViewStore;
