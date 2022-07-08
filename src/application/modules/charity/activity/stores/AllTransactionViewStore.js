@@ -142,8 +142,8 @@ class AllTransactionViewStore extends BaseListViewStore {
                     title: 'Description',
                     format: {
                         type: 'function',
-                        value: (item) => {
-                            try {
+                        value: (item) => { console.log(item);
+                            try { 
                                 return item.paymentTransaction.description ? ('Grant: '+ item.donor.donorName) : item.paymentTransaction.paymentTransactionType.description;
                             } catch(e) {
                                 return item.paymentTransaction.description ? item.paymentTransaction.description : item.type;
@@ -157,7 +157,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return item.type === "Withdraw" || item.type === "Credit" || item.type === "Debit" ? item.type :  this.getTransactionType(item.paymentTransaction.charityVirtualTransactions[0].grants[0]);
+                            return item.type;
                         }
                     }
                 },
@@ -289,9 +289,9 @@ class AllTransactionViewStore extends BaseListViewStore {
     }
 
     getTransactionType(grant) {
-		if (grant.grantType === "Check") {
+		if (grant && grant.grantType === "Check") {
 			return `${grant.grantType}  ${grant.certificate.booklet.code}-${grant.certificate.code}`;
-		} else if (grant.grantType === 'Charity Website') {
+		} else if (grant && grant.grantType === 'Charity Website') {
 			return `Charity website `+ (grant.charity.url && `- ${grant.charity.url} `)+ grant.confirmationNumber;
 		}
 		else {
