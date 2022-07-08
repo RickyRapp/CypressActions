@@ -13,6 +13,10 @@ class CharityRouteService extends BaseRouteService {
         return super.get(this.base + '/account-balance/{id}', id);
     }
 
+    getCharityAvailableBalance(id){
+        return super.get(this.base + '/available-balance/{id}', id);
+    }
+
     find(filter) {
         return super.find(this.base + '/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
     }

@@ -57,6 +57,11 @@ class CharityStore {
         return response.data;
     }
 
+    async getCharityAvailableBalance(id){
+        const response = await this.charityService.getCharityAvailableBalance(id);
+        return response.data;
+    }
+
     async getCharityBankMedia(id){
         const response = await this.fileStreamService.getCharityBankMedia(id);
         return response.data;

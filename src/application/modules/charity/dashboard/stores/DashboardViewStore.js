@@ -6,7 +6,7 @@ import { RouterState } from 'mobx-state-router';
 @applicationContext
 class DashboardViewStore extends BaseViewStore {
     @observable charity = null;
-    @observable accountBanalce = 0;
+    @observable availableBalance = 0;
 
     constructor(rootStore) {
         super(rootStore);
@@ -49,7 +49,7 @@ class DashboardViewStore extends BaseViewStore {
     }
 
     async getAccountBalance(){
-        this.accountBanalce = await this.rootStore.application.charity.charityStore.getCharityAccountBalance(this.rootStore.userStore.applicationUser.id);
+        this.availableBalance = await this.rootStore.application.charity.charityStore.getCharityAvailableBalance(this.rootStore.userStore.applicationUser.id);
     }
 }
 

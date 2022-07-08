@@ -32,8 +32,8 @@ class DonationService extends BaseService {
         return this.apiClient.get(url);
     }
 
-    getPendingDonationsByCharityId(id, address1, isWithdraw) {
-        const url = this.routeService.getPendingDonationsByCharityId(id, address1, isWithdraw);
+    getPendingDonationsByCharityId(id, address1, isWithdraw, bankAccount) {
+        const url = this.routeService.getPendingDonationsByCharityId(id, address1, isWithdraw, bankAccount);
         var a=this.apiClient.get(url);
         return a;
     }

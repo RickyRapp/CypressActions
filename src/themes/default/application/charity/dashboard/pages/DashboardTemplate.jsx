@@ -28,7 +28,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 		balance, 
 		grantsPerYear,
 		redirectToManageAccount,
-		accountBanalce
+		availableBalance
 	} = dashboardViewStore;
 	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	let dataGrants = [];
@@ -59,7 +59,7 @@ function DashboardTemplate({ dashboardViewStore, t }) {
 							<div className="dashboard-card__body">
 								<div className="dashboard-card__body--amount">
 									<FormatterResolver
-										item={{ balance: accountBanalce }}
+										item={{ balance: availableBalance }}
 										field="balance"
 										format={{ type: 'currency' }}
 									/>

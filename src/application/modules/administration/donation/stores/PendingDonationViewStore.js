@@ -75,7 +75,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    onChangeChecked(dataItem, grantId, checked) {
+    onChangeChecked(dataItem, grantId, checked) { console.log(dataItem, grantId);
         const data = this.tableStore.data.map(item => {
             if (item.id === dataItem.id) {
                 item.pendingDonations = item.pendingDonations.map(element => {
@@ -126,7 +126,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                 this.rootStore.notificationStore.warning('Please, check if you selected grants/donations to process.');
                 return;
             }
-                    console.log(formValues);
+            
             var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
             this.rootStore.notificationStore.success("Successfully processed.");
             this.form.$('accountTransferNumber').set(this.form.$('paymentNumber').value);
@@ -148,8 +148,8 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async getPendingDonationsByCharityId(charityId, address, isWithdraw) {
-        var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address, isWithdraw);
+    async getPendingDonationsByCharityId(charityId, address, isWithdraw, bankAccount) {
+        var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address, isWithdraw, bankAccount);
         this.data = data.map(e => { return { ...e, checked: false } });
         return this.data;
     }
@@ -157,7 +157,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async getPendingDonations() {
         var data = await this.rootStore.application.administration.donationStore.findPendingDonation({ paymentType: this.paymentTypeDropdownStore.value ? this.paymentTypeDropdownStore.value.abrv : 'all' });
-        this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress + '_'+ e.isWithdraw, checked: false } });
+        this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress + '_'+ (e.isWithdraw ? e.isWithdraw + '_' + e.bankAccount : e.isWithdraw), checked: false } });
     }
 
     async downloadReport(ids, paymentTypeId) {
@@ -210,7 +210,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                             type: 'function',
                             value: (item) => {
                                 return <div>
-                                    {item.name} <small style={{ display: "block" }}>{item.charityAddress}</small>
+                                    {item.name} <small style={{ display: "block" }}>{item.charityAddress}</small>  <small style={{ display: "block" }}>{item.bankAccount}</small>
                                 </div>
                             }
                         },

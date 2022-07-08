@@ -112,7 +112,7 @@ class WithdrawFundCreateViewStore extends BaseViewStore {
                 zipCode: address.zipCode,
             }
         }
-
+        console.log(resource);
        const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
        this.rootStore.notificationStore.success('Successfully created withdraw');
     }

@@ -29,8 +29,8 @@ class DonationRouteService extends BaseRouteService {
         return super.update(this.base + '/withdraw-funds/{id}', resource);
     }
     
-    getPendingDonationsByCharityId(id, address1, isWithdraw) {
-        return super.get(this.base + '/pending-donations/{id}?address1=' +  encodeURIComponent(address1) + '&isWithdraw='+ isWithdraw, id);
+    getPendingDonationsByCharityId(id, address1, isWithdraw, bankAccount) {
+        return super.get(this.base + '/pending-donations/{id}?address1=' +  encodeURIComponent(address1) + '&isWithdraw='+ isWithdraw + '&bankAccount='+ encodeURIComponent(bankAccount), id);
     }
 
     getCwtUsingDonationReviewLog(id){
