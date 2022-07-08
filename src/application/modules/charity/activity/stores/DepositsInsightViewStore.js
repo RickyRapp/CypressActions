@@ -10,13 +10,13 @@ class DepositsInsightViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
             name: 'charity-deposit-insight',
-            authorization: 'theDonorsFundDonationSection',
+            authorization: 'theDonorsFundContributionSection',
             routes: {
-				edit: id => {
+				edit: (id) => {
 					this.rootStore.routerStore.goTo('master.app.main.charity.accept-security.edit', { id: id });
 				},
 				create: () => {
-					this.rootStore.routerStore.goTo('master.app.main.donor.contribution.create');
+					this.rootStore.routerStore.goTo('master.app.main.charity.accept-security.create');
 				},
 				preview: (id) => {
 					this.rootStore.routerStore.goTo('master.app.main.charity.accept-security.details', { id: id });

@@ -203,7 +203,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             <div className="col col-sml-12 u-mar--bottom--sml">
                                 <div className="card--secondary card--med type--center">
                                     <div className="type--lrg type--wgt--bold type--color--note">
-                                        {item && <FormatterResolver
+                                        {item && item.donor && <FormatterResolver
                                             item={{ amount: item.donor.totalMoneyGiven }}
                                             field='amount'
                                             format={{ type: 'currency' }}
@@ -217,7 +217,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             <div className="col col-sml-12">
                                 <div className="card--secondary--light card--med type--center">
                                     <div className="type--lrg type--wgt--bold type--color--note">
-                                        {item && <FormatterResolver
+                                        {item && item.donor && <FormatterResolver
                                             item={{ amount: item.donor.totalMoneyUpcoming }}
                                             field='amount'
                                             format={{ type: 'currency' }}

@@ -30,7 +30,7 @@ import { DonorToDonorConfirmation } from 'application/donor/donor-donor/pages';
                         name: 'master.app.main.charity.accept-security.edit',
                         pattern: '/edit/:id',
                         component: ContributionEdit,
-                        authorization: 'theDonorsFundContributionSection.update',
+                        //authorization: 'theDonorsFundContributionSection.update',
                         data: {
                             title: "Edit"
                         }
@@ -39,7 +39,7 @@ import { DonorToDonorConfirmation } from 'application/donor/donor-donor/pages';
                         name: 'master.app.main.charity.accept-security.details',
                         pattern: '/details/:id',
                         component: ContributionDetails,
-                        authorization: 'theDonorsFundContributionSection.read',
+                        //authorization: 'theDonorsFundContributionSection.read',
                         data: {
                             title: "Details"
                         }

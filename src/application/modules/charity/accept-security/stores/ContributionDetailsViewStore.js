@@ -20,7 +20,6 @@ class ContributionDetailsViewStore extends BasePreviewViewStore {
                             ]
                         }
                         params.donorId = rootStore.userStore.applicationUser.id;
-                        params.partyId = rootStore.userStore.applicationUser.id;
                         return rootStore.application.donor.contributionStore.getDetails(id, params);
                     }
                 }

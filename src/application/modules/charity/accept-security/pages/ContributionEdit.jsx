@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { setCurrentView } from 'core/utils';
 import { ContributionCreateTemplate } from 'themes/application/charity/accept-security/pages';
-import { ContributionEditViewStore } from 'application/charity/accept-security/stores';
+import { ContributionEditViewStore } from 'application/common/contribution/stores';
 
 @setCurrentView((rootStore) => new ContributionEditViewStore(rootStore, { contributionStore: rootStore.application.donor.contributionStore, step: 2 }), 'store')
 @observer
