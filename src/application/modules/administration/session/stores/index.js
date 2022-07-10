@@ -11,3 +11,5 @@ export { default as SessionPendingCertificateViewStore } from './SessionPendingC
 export { default as SessionStore } from './SessionStore'
 export { default as AdminReviewViewStore } from './AdminReviewViewStore'
 export { default as SessionForDonorReviewViewStore } from './SessionForDonorReviewViewStore'
+export { default as SessionScanListViewStore } from './SessionScanListViewStore'
+export { default as SessionScanEditViewStore } from './SessionScanEditViewStore'

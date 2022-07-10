@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { TabLayout, Page } from 'core/layouts';
-import { SessionList, SessionPendingCertificateList, AdminReviewList, SessionForDonorReview } from 'application/administration/session/pages';
+import { SessionList, SessionPendingCertificateList, AdminReviewList, SessionForDonorReview, SessionScanList } from 'application/administration/session/pages';
 
 function SessionTabTemplate({ sessionTabViewStore }) {
     const {
@@ -27,6 +27,9 @@ function SessionTabTemplate({ sessionTabViewStore }) {
                     </div>
                     <div label={'SESSION.TAB.DONOR_REVIEW'} className="u-mar--top--sml">
                         <SessionForDonorReview />
+                    </div>
+                    <div label={'Session scan'} className="u-mar--top--sml">
+                        <SessionScanList />
                     </div>
                 </TabLayout>
             </div>
