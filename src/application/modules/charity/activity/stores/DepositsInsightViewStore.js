@@ -117,7 +117,10 @@ class DepositsInsightViewStore extends BaseListViewStore {
                         title: 'CONTRIBUTION.LIST.COLUMNS.PAYMENT_TYPE_NAME_LABEL',
                         format: {
                             type: 'function',
-                            value: this.renderPaymentType,
+                            value: (item) => {
+                                console.log(item)
+                                return item.paymentType && item.paymentType.name ? item.paymentType.name : ""
+                            }
                         },
                     },
                     {

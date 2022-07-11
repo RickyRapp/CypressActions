@@ -218,7 +218,7 @@ class ContributionViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'donor.donorName',
-                    title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_NAME_LABEL',
+                    title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_CHARITY_NAME_LABEL',
                     disableClick: true
                 },
                 {

@@ -1400,6 +1400,7 @@
             "TITLE": "Deposits",
             "COLUMNS": {
                 "DONOR_NAME_LABEL": "Donor",
+                "DONOR_CHARITY_NAME_LABEL": "Donor/Charity",
                 "AMOUNT_LABEL": "Amount",
                 "DATE_CREATED_LABEL": "Date",
                 "CONFIRMATION_NUMBER_LABEL": "Conf. number",
