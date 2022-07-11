@@ -2813,6 +2813,7 @@
                 "AMOUNT_LABEL": "Amount",
                 "PAYMENT_NUMBER_LABEL": "Payment number",
                 "PAYMENT_TYPE_LABEL": "Payment type",
+                "IS_WITHDRAW":"Is Withdraw",
                 "CHARITY_NAME_LABEL": "Charity",
                 "DATE_CREATED_LABEL": "Date created",
                 "DESCRIPTION_LABEL": "Description",
