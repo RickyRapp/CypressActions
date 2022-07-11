@@ -29,10 +29,10 @@ class ContributionProgressTimeline extends Component {
 
         return (
             <React.Fragment>
-                <div className="row">
-                    {pendingStatus && pendingStatus.abrv == 'pending' ? <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('1.Initiated')}</div>
-                        <span className="input--preview">
+                <div className="wizard">
+                    {pendingStatus && pendingStatus.abrv == 'pending' ? <div className="wizard__item">
+                        <div className="wizard__item__title">{t('1.Initiated')}</div>
+                        <span className="wizard__item__value">
                             <FormatterResolver
                                 item={{ dateCreated: pendingStatus.dateCreated }}
                                 field='dateCreated'
@@ -40,9 +40,9 @@ class ContributionProgressTimeline extends Component {
                             />
                         </span>
                     </div> : 
-                    <div className="col col-sml-12 col-lrg-4">
-                    <div className="type--base type--wgt--medium type--color--note">{t('1.Initiated')}</div>
-                    <span className="input--preview">
+                    <div className="wizard__item">
+                    <div className="wizard__item__title">{t('1.Initiated')}</div>
+                    <span className="wizard__item__value">
                         <FormatterResolver
                             item={{ dateCreated: item.dateCreated }}
                             field='dateCreated'
@@ -51,9 +51,9 @@ class ContributionProgressTimeline extends Component {
                     </span>
                 </div>
                 }
-                    {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('2.Canceled')}</div>
-                        <span className="input--preview">
+                    {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="wizard__item">
+                        <div className="wizard__item__title">{t('2.Canceled')}</div>
+                        <span className="wizard__item__value">
                             <FormatterResolver
                                 item={{ dateCreated: canceledStatus.dateCreated }}
                                 field='dateCreated'
@@ -62,9 +62,9 @@ class ContributionProgressTimeline extends Component {
                         </span>
                     </div>}
 
-                    {declinedStatus && declinedStatus.abrv == 'declined' && <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('2.Declined')}</div>
-                        <span className="input--preview">
+                    {declinedStatus && declinedStatus.abrv == 'declined' && <div className="wizard__item">
+                        <div className="wizard__item__title">{t('2.Declined')}</div>
+                        <span className="wizard__item__value">
                             <FormatterResolver
                                 item={{ dateCreated: declinedStatus.dateCreated }}
                                 field='dateCreated'
@@ -74,10 +74,10 @@ class ContributionProgressTimeline extends Component {
                     </div>}
                     
                     {!declinedStatus && !canceledStatus && inProcessStatus && (inProcessStatus.currentStatus == 'in-process' || inProcessStatus.abrv =='in-process') &&
-                        <div className='row'>
-                            <div className="col col-sml-12 col-lrg-4">
-                                <div className="type--base type--wgt--medium type--color--note">{t('2.In process')}</div>
-                                <span className="input--preview">
+                        <React.Fragment>
+                            <div className="wizard__item">
+                                <div className="wizard__item__title">{t('2.In process')}</div>
+                                <span className="wizard__item__value">
                                     <FormatterResolver
                                         item={{ dateCreated: inProcessStatus.dateCreated }}
                                         field='dateCreated'
@@ -85,13 +85,13 @@ class ContributionProgressTimeline extends Component {
                                     />
                                 </span>
                             </div>
-                        </div>
+                        </React.Fragment>
                     }
 
                     {!declinedStatus && !canceledStatus && fundedStatus && (fundedStatus.currentStatus == 'funded' || fundedStatus.abrv =='funded') &&
-                        <div className="col col-sml-12 col-lrg-4">
-                            <div className="type--base type--wgt--medium type--color--note">{t('3.Settled')}</div>
-                            <span className="input--preview">
+                        <div className="wizard__item">
+                            <div className="wizard__item__title">{t('3.Settled')}</div>
+                            <span className="wizard__item__value">
                                 <FormatterResolver
                                     item={{ dateCreated: fundedStatus.dateCreated }}
                                     field='dateCreated'

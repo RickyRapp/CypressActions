@@ -21,9 +21,8 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
      
             <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.DETAILS')}</h3>
             {item && !(item.contributionStatus.abrv === 'processed' ) && 
-                        <div className="card--primary card--med u-mar--bottom--med">
-                            <ContributionProgressTimeline item={item} statusList={statusList}/>
-                        </div>}
+                <ContributionProgressTimeline item={item} statusList={statusList}/>
+            }
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
                     <div className="card card--primary card--med u-mar--bottom--med">

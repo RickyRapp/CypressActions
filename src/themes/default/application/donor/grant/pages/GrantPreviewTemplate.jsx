@@ -31,11 +31,12 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
             layoutFooterVisible={false}
         >
             <div className="row">
+                <div className="col col-sml-12 col-xxlrg-10">
+                    {item && !(item.donationStatus.abrv === 'processed' && !isSome(item.debitCharityTransaction)) && //old grants
+                        <GrantProgressTimeline item={item} statusList={statusList} />
+                    }
+                </div>
                 <div className="col col-sml-12 col-lrg-8 col-xxlrg-6 col-xxxlrg-5">
-                              {item && !(item.donationStatus.abrv === 'processed' && !isSome(item.debitCharityTransaction)) && //old grants
-                        <div className="card--primary card--med u-mar--bottom--med">
-                            <GrantProgressTimeline item={item} statusList={statusList} />
-                        </div>}
                     <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row">
                             <div className="col col-sml-12 u-mar--bottom--med">
