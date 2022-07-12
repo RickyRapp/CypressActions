@@ -36,6 +36,7 @@ class GrantProgressTimeline extends Component {
         else {
             isCbM = true;
             isAch = false;
+            if(item && item.charityVirtualTransaction && item.charityVirtualTransaction.charityWithdrawTransaction)
             paymentNumber = item.charityVirtualTransaction.charityWithdrawTransaction.paymentNumber;
         }
         return (
