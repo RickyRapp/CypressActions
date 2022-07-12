@@ -80,13 +80,15 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			this.rootStore.routerStore.goBack();
 		} else {
 			await this.fetch([this.getResource(this.id)]);
-
-			await this.fetch([await this.loadDonor(this.item.donorId), await this.bankAccountDropdownStore.filterAsync()]);
+			if(this.item.donorId == null)
+				await this.fetch([await this.rootStore.application.charity.donorStore.findDonor({emails: [this.item.payerInformation.email]}), await this.bankAccountDropdownStore.filterAsync()]);
+			else
+			{await this.fetch([await this.loadDonor(this.item.donorId), await this.bankAccountDropdownStore.filterAsync()]);
 			this.previousContributionsTableStore.setData(this.donor.previousContributions);
 			if (!this.previousContributionsTableStore.dataInitialized) {
 				this.previousContributionsTableStore.dataInitialized = true;
 			}
-
+		}
 			if (this.item.donorBankAccount) {
 				this.bankAccountDropdownStore.setValue(this.item.donorBankAccount);
 			}

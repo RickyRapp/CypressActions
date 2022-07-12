@@ -173,7 +173,7 @@ class ContributionViewStore extends BaseListViewStore {
     @action.bound
     async openReviewContribution(item) {
         const pageNumber = this.tableStore.pageNumber;
-
+        console.log(item)
         let message = 'You are about to set contribution to '
         let newStatusId = null;
         if (item.contributionStatusId === this.contributionStatuses.find(c => c.abrv === 'pending').id) {
