@@ -28,15 +28,15 @@ class GrantProgressTimeline extends Component {
                     declinedStatus = stat;
             });
         }
-        if (item.charityVirtualTransaction.charityWithdrawTransaction && item.charityVirtualTransaction.charityWithdrawTransaction.paymentType.abrv == 'ach') {
+        if (item.charityVirtualTransaction && item.charityVirtualTransaction.charityWithdrawTransaction  && item.charityVirtualTransaction.charityWithdrawTransaction.paymentType.abrv == 'ach') {
             isAch = true;
             isCbM = false;
-            console.log(item.charityVirtualTransaction.charityWithdrawTransaction)
              paymentNumber = item.charityVirtualTransaction.charityWithdrawTransaction.paymentNumber;
         }
         else {
             isCbM = true;
             isAch = false;
+            paymentNumber = item.charityVirtualTransaction.charityWithdrawTransaction.paymentNumber;
         }
         return (
             <React.Fragment>
@@ -92,7 +92,7 @@ class GrantProgressTimeline extends Component {
                                     {isAch ?
                                        
                                              <div className="wizard__item is-checked">
-                                        <div className="wizard__item__title">{t('4.Ach funded')} - {paymentNumber}</div>
+                                        <div className="wizard__item__title">{t('4.Ach paid')}  - {paymentNumber}</div>
                                         <span className="wizard__item__value">
                                             <FormatterResolver
                                                 item={{ dateCreated: paymentSubmitedStatus.dateCreated }}
@@ -103,7 +103,7 @@ class GrantProgressTimeline extends Component {
                                     </div>
                                         :
                                         <div className="wizard__item is-checked">
-                                            <div className="wizard__item__title">{t('3.Check mailed')}</div>
+                                            <div className="wizard__item__title">{t('3.Check mailed')}  - {paymentNumber} </div>
                                             <span className="wizard__item__value">
                                                 <FormatterResolver
                                                     item={{ dateCreated: paymentSubmitedStatus.dateCreated }}
