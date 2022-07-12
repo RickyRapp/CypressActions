@@ -29,6 +29,8 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 		reviewModal,
 		contributionStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
+		searchCharityDropdownStore,
+		userTypeDropdownStore,
 		selectedItemsSum,
 		submitPending,
 		onAchNextPaymentNumberClick,
@@ -47,6 +49,12 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicDropdown store={searchDonorDropdownStore} />
 								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown store={searchCharityDropdownStore} />
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown store={userTypeDropdownStore} />
+							</div>
 								<div className="u-mar--bottom--sml col col-sml-12 col-lrg-4">
 									<BaasicInput
 										id="confirmationNumber"
