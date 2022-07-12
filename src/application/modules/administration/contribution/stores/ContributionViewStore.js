@@ -75,6 +75,7 @@ class ContributionViewStore extends BaseListViewStore {
                             let toDate = params.dateCreatedTo.replace(' 23:59:59', '');
                             params.dateCreatedTo = `${toDate} 23:59:59`;
                         }
+                        params.userType = this.queryUtility.filter.userType;
                         params.embed = [
                             'donor',
                             'payerInformation',
@@ -84,6 +85,8 @@ class ContributionViewStore extends BaseListViewStore {
                             'bankAccount.accountHolder',
                             'charity'
                         ];
+                        console.log(await rootStore.application.administration.contributionStore.findContribution(params))
+                        console.log(params)
                         return rootStore.application.administration.contributionStore.findContribution(params);
                     }
                 }
