@@ -28,7 +28,13 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                                 'donationStatus',
                                 'grantAcknowledgmentType',
                                 'thirdPartyWebsite',
-                                'grantScheduledPayment'
+                                'grantScheduledPayment',
+                                'charity.charityAddresses',
+                                'charity.charityBankAccounts',
+                                'charityVirtualTransaction',
+                                'charityVirtualTransaction.paymentType',
+                                'charityVirtualTransaction.charityWithdrawTransaction',
+                                'charityVirtualTransaction.charityWithdrawTransaction.paymentType'
                             ],
                         }
                       

@@ -11,7 +11,9 @@ class GrantProgressTimeline extends Component {
         var declinedStatus = null;
         var paymentSubmitedStatus = null;
         var paymentReceivedStatus = null;
-
+        var isAch = false;
+        var isCbM = false;
+        var paymentNumber = null;
         if (statusList != null) {
             statusList.forEach(stat => {
                 if (stat.abrv == 'payment-received' || stat.currentStatus == 'payment-received')
@@ -26,13 +28,22 @@ class GrantProgressTimeline extends Component {
                     declinedStatus = stat;
             });
         }
-
+        if (item.charityVirtualTransaction.charityWithdrawTransaction && item.charityVirtualTransaction.charityWithdrawTransaction.paymentType.abrv == 'ach') {
+            isAch = true;
+            isCbM = false;
+            console.log(item.charityVirtualTransaction.charityWithdrawTransaction)
+             paymentNumber = item.charityVirtualTransaction.charityWithdrawTransaction.paymentNumber;
+        }
+        else {
+            isCbM = true;
+            isAch = false;
+        }
         return (
             <React.Fragment>
                 <div className="wizard">
-                    <div className="wizard__item">
+                    <div className="wizard__item is-checked">
                         <div className="wizard__item__title">{t('1.Initiated')}</div>
-                        <span className="wizard__item__value">
+                        <span className="wizard__item__value ">
                             {item && <FormatterResolver
                                 item={{ dateCreated: item.dateCreated }}
                                 field='dateCreated'
@@ -41,7 +52,7 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>
 
-                    {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="wizard__item">
+                    {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="wizard__item  is-checked">
                         <div className="wizard__item__title">{t('2.Canceled')}</div>
                         <span className="wizard__item__value">
                             <FormatterResolver
@@ -52,7 +63,7 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>}
 
-                    {declinedStatus && declinedStatus.abrv == 'declined' && <div className="wizard__item">
+                    {declinedStatus && declinedStatus.abrv == 'declined' && <div className="wizard__item  is-checked">
                         <div className="wizard__item__title">{t('2.Declined')}</div>
                         <span className="wizard__item__value">
                             <FormatterResolver
@@ -65,9 +76,9 @@ class GrantProgressTimeline extends Component {
 
                     {!declinedStatus && !canceledStatus && approvedStatus && (approvedStatus.abrv == 'approved' || approvedStatus.currentStatus == 'approved') &&
                         <React.Fragment>
-                            <div className="wizard__item">
+                            <div className="wizard__item is-checked">
                                 <div className="wizard__item__title">{t('2.Approved')}</div>
-                                <span className="wizard__item__value">
+                                <span className="wizard__item__value ">
                                     <FormatterResolver
                                         item={{ dateCreated: approvedStatus.dateCreated }}
                                         field='dateCreated'
@@ -77,16 +88,33 @@ class GrantProgressTimeline extends Component {
                             </div>
 
                             {!declinedStatus && !canceledStatus && paymentSubmitedStatus && (paymentSubmitedStatus.currentStatus == 'payment-submited' || paymentSubmitedStatus.abrv == 'payment-submited') ?
-                                <div className="wizard__item">
-                                    <div className="wizard__item__title">{t('3.Submited')}</div> 
-                                    <span className="wizard__item__value">
-                                        <FormatterResolver
-                                            item={{ dateCreated: paymentSubmitedStatus.dateCreated }}
-                                            field='dateCreated'
-                                            format={{ type: 'date', value: 'short' }}
-                                        />
-                                    </span>
-                                </div>
+                                <React.Fragment>
+                                    {isAch ?
+                                       
+                                             <div className="wizard__item is-checked">
+                                        <div className="wizard__item__title">{t('4.Ach funded')} - {paymentNumber}</div>
+                                        <span className="wizard__item__value">
+                                            <FormatterResolver
+                                                item={{ dateCreated: paymentSubmitedStatus.dateCreated }}
+                                                field='dateCreated'
+                                                format={{ type: 'date', value: 'short' }}
+                                            />
+                                        </span>
+                                    </div>
+                                        :
+                                        <div className="wizard__item is-checked">
+                                            <div className="wizard__item__title">{t('3.Check mailed')}</div>
+                                            <span className="wizard__item__value">
+                                                <FormatterResolver
+                                                    item={{ dateCreated: paymentSubmitedStatus.dateCreated }}
+                                                    field='dateCreated'
+                                                    format={{ type: 'date', value: 'short' }}
+                                                />
+                                            </span>
+                                        </div>
+                                    }
+
+</React.Fragment>
                                 :
                                 <div className="wizard__item">
                                     <div className="wizard__item__title">{t('3.Submited')}</div>
@@ -94,18 +122,30 @@ class GrantProgressTimeline extends Component {
                             }
 
                             {!declinedStatus && !canceledStatus && paymentReceivedStatus && (paymentReceivedStatus.currentStatus == 'payment-received' || paymentReceivedStatus.abrv == 'payment-received') ?
-                                <div className="wizard__item">
-                                    <div className="wizard__item__title">{t('4.Cashed')}</div>
-                                    <span className="wizard__item__value">
-                                        <FormatterResolver
-                                            item={{ dateCreated: paymentReceivedStatus.dateCreated }}
-                                            field='dateCreated'
-                                            format={{ type: 'date', value: 'short' }}
-                                        />
-                                    </span>
-                                </div>
+                                  <React.Fragment>
+                                    {isAch ? <div className="wizard__item is-checked">
+                                        <div className="wizard__item__title">{t('4.Ach funded')}</div>
+                                        <span className="wizard__item__value">
+                                            <FormatterResolver
+                                                item={{ dateCreated: paymentReceivedStatus.dateCreated }}
+                                                field='dateCreated'
+                                                format={{ type: 'date', value: 'short' }}
+                                            />
+                                        </span>
+                                    </div> :
+                                        <div className="wizard__item is-checked">
+                                            <div className="wizard__item__title">{t('4.Check cashed')}</div>
+                                            <span className="wizard__item__value">
+                                                <FormatterResolver
+                                                    item={{ dateCreated: paymentReceivedStatus.dateCreated }}
+                                                    field='dateCreated'
+                                                    format={{ type: 'date', value: 'short' }}
+                                                />
+                                            </span>
+                                        </div>}
+                                        </React.Fragment>
                                 :
-                                <div className="wizard__item">
+                                <div className="wizard__item ">
                                     <div className="wizard__item__title">{t('4.Cashed')}</div>
                                 </div>
                             }
