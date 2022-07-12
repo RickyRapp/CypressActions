@@ -236,6 +236,7 @@
     "LIST_LAYOUT": {
         "SETTINGS_BUTTON": "Settings",
         "CREATE_BUTTON": "Create New",
+        "WITHDRAW_FUNDS": "Withdraw funds",
         "BACK_BUTTON": "Back",
         "SAVE_BUTTON": "Save",
         "CONFIRM_DELETE": "Are you sure you want to delete selected resource?",
@@ -2051,7 +2052,7 @@
                     "GIVING_CARD_LABEL": "Giving Card",
                     "SESSION_LABEL": "Session",
                     "ACH_AVAILABLE_LABEL": "ACH available",
-                    "IS_WITHDRAW": "Is Withdraw"
+                    "IS_WITHDRAW": "Withdrawal"
                 },
                 "GRANT": {
                     "COLUMNS": {
@@ -2813,7 +2814,7 @@
                 "AMOUNT_LABEL": "Amount",
                 "PAYMENT_NUMBER_LABEL": "Payment number",
                 "PAYMENT_TYPE_LABEL": "Payment type",
-                "IS_WITHDRAW":"Is Withdraw",
+                "IS_WITHDRAW":"Withdrawal",
                 "CHARITY_NAME_LABEL": "Charity",
                 "DATE_CREATED_LABEL": "Date created",
                 "DESCRIPTION_LABEL": "Description",

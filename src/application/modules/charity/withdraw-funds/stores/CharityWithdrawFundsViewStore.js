@@ -1,6 +1,7 @@
 import { BaasicDropdownStore, BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
 import { action, observable } from 'mobx';
+import { RouterState } from 'mobx-state-router';
 
 @applicationContext
 class CharityWithdrawFundsViewStore extends BaseViewStore {
@@ -114,6 +115,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
 
        const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
        this.rootStore.notificationStore.success('Successfully created withdraw');
+       this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.dashboard')); 
     }
 
 }

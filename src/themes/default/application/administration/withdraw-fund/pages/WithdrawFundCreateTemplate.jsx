@@ -146,7 +146,7 @@ function WithdrawFundCreateTemplate({ withdrawFundCreateViewStore, t }) {
                 <div>
                     <BaasicButton
                         className="btn btn--med btn--primary"
-                        label={'LIST_LAYOUT.CREATE_BUTTON'}
+                        label={'LIST_LAYOUT.WITHDRAW_FUNDS'}
                         onClick={createWithdraw}
                     />
                 </div>
