@@ -1,50 +1,42 @@
-import { action, observable } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore, SelectTableViewStore } from 'core/stores';
+import { action } from 'mobx';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore } from 'core/stores';
 import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { ContributionListFilter } from 'application/administration/contribution/models';
 import moment from 'moment';
-import { ContributionAchCreateForm } from '../forms';
-import { saveAs } from '@progress/kendo-file-saver';
 
 @applicationContext
 class ContributionViewStore extends BaseListViewStore {
     contributionStatuses = [];
-    @observable statusList ;
-    @observable selectedItemsSum = 0;
-    @observable achBatchCurrentNumber = false;
-
-    form = new ContributionAchCreateForm();
+    thirdPartyFunds = [
+        { id: '1', name: 'Fidelity Charitable' },
+        { id: '2', name: 'Schwab Charitable' },
+        { id: '3', name: 'JP Morgan Charitable Giving Fund' },
+        { id: '4', name: 'Vanguard Charitable Endowment Fund' },
+        { id: '5', name: 'Jewish Communal Fund' },
+        { id: '6', name: 'Goldman Sachs Philanthropy Fund' },
+        { id: '7', name: 'Greater Kansas City Community Foundation' },
+        { id: '8', name: 'The OJC Fund' },
+        { id: '9', name: 'Renaissance Charitable' },
+        { id: '10', name: 'National Philanthropic Trust' },
+        { id: '11', name: 'Jewish Federation of Metropolitan Chicago' },
+        { id: '12', name: 'Other' },
+    ];
 
     thirdPartyFunds = [
-		{ id: '1', name: 'Fidelity Charitable' },
-		{ id: '2', name: 'Schwab Charitable' },
-		{ id: '3', name: 'JP Morgan Charitable Giving Fund' },
-		{ id: '4', name: 'Vanguard Charitable Endowment Fund' },
-		{ id: '5', name: 'Jewish Communal Fund' },
-		{ id: '6', name: 'Goldman Sachs Philanthropy Fund' },
-		{ id: '7', name: 'Greater Kansas City Community Foundation' },
-		{ id: '8', name: 'The OJC Fund' },
-		{ id: '9', name: 'Renaissance Charitable' },
-		{ id: '10', name: 'National Philanthropic Trust' },
-		{ id: '11', name: 'Jewish Federation of Metropolitan Chicago' },
-		{ id: '12', name: 'Other' },
-	];
-
-    thirdPartyFunds = [
-		{ id: '1', name: 'Fidelity Charitable' },
-		{ id: '2', name: 'Schwab Charitable' },
-		{ id: '3', name: 'JP Morgan Charitable Giving Fund' },
-		{ id: '4', name: 'Vanguard Charitable Endowment Fund' },
-		{ id: '5', name: 'Jewish Communal Fund' },
-		{ id: '6', name: 'Goldman Sachs Philanthropy Fund' },
-		{ id: '7', name: 'Greater Kansas City Community Foundation' },
-		{ id: '8', name: 'The OJC Fund' },
-		{ id: '9', name: 'Renaissance Charitable' },
-		{ id: '10', name: 'National Philanthropic Trust' },
-		{ id: '11', name: 'Jewish Federation of Metropolitan Chicago' },
-		{ id: '12', name: 'Other' },
-	];
+        { id: '1', name: 'Fidelity Charitable' },
+        { id: '2', name: 'Schwab Charitable' },
+        { id: '3', name: 'JP Morgan Charitable Giving Fund' },
+        { id: '4', name: 'Vanguard Charitable Endowment Fund' },
+        { id: '5', name: 'Jewish Communal Fund' },
+        { id: '6', name: 'Goldman Sachs Philanthropy Fund' },
+        { id: '7', name: 'Greater Kansas City Community Foundation' },
+        { id: '8', name: 'The OJC Fund' },
+        { id: '9', name: 'Renaissance Charitable' },
+        { id: '10', name: 'National Philanthropic Trust' },
+        { id: '11', name: 'Jewish Federation of Metropolitan Chicago' },
+        { id: '12', name: 'Other' },
+    ];
 
     constructor(rootStore) {
         super(rootStore, {
@@ -58,7 +50,6 @@ class ContributionViewStore extends BaseListViewStore {
                     this.openSelectDonorModal();
                 },
                 preview: (id) => {
-        this.getStatuses(id);
                     this.rootStore.routerStore.goTo('master.app.main.administration.contribution.details', { id: id });
                 },
             },
@@ -75,13 +66,12 @@ class ContributionViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        this.selectedItemsSum = 0;
-                        if(params.dateCreatedFrom){
-                            let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
+                        if (params.dateCreatedFrom) {
+                            let fromDate = params.dateCreatedFrom.replace(' 00:00:00', '');
                             params.dateCreatedFrom = `${fromDate} 00:00:00`;
                         }
-                        if(params.dateCreatedTo){
-                            let toDate = params.dateCreatedTo.replace(' 23:59:59','');
+                        if (params.dateCreatedTo) {
+                            let toDate = params.dateCreatedTo.replace(' 23:59:59', '');
                             params.dateCreatedTo = `${toDate} 23:59:59`;
                         }
                         params.embed = [
@@ -90,9 +80,9 @@ class ContributionViewStore extends BaseListViewStore {
                             'bankAccount',
                             'paymentType',
                             'contributionStatus',
-                            'bankAccount.accountHolder'
+                            'bankAccount.accountHolder',
+                            'charity'
                         ];
-                        this.achBatchCurrentNumber = await rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
                         return rootStore.application.administration.contributionStore.findContribution(params);
                     }
                 }
@@ -103,15 +93,12 @@ class ContributionViewStore extends BaseListViewStore {
         this.createDonorSearch();
         this.createContributionStatusDropodownStore();
         this.createPaymentTypeDropodownStore();
+
         this.selectDonorModal = new ModalParams({});
         this.reviewModal = new ModalParams({});
         this.dateCreatedDateRangeQueryStore = new DateRangeQueryPickerStore({ advancedSearch: true });
     }
-    async getStatuses(id){
-        var contributionEntity = 'ContributionEntity'
-        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(id,contributionEntity);
-        this.statusList = response;
-    }
+
     @action.bound
     openSelectDonorModal() {
         this.selectDonorModal.open(
@@ -146,6 +133,19 @@ class ContributionViewStore extends BaseListViewStore {
         return item.paymentType.name;
     }
 
+
+    @action.bound
+    getDonorOrCharity(item) {
+        if (item.donor === null) {
+            if (item.charity != null) {
+                return item.charity.name;
+            } else
+                return '';
+        }
+        else {
+            return item.donor.donorName;
+        }
+    }
     @action.bound
     async openCancelContribution(item) {
         const pageNumber = this.tableStore.pageNumber;
@@ -173,7 +173,6 @@ class ContributionViewStore extends BaseListViewStore {
     @action.bound
     async openReviewContribution(item) {
         const pageNumber = this.tableStore.pageNumber;
-        console.log(item)
         let message = 'You are about to set contribution to '
         let newStatusId = null;
         if (item.contributionStatusId === this.contributionStatuses.find(c => c.abrv === 'pending').id) {
@@ -214,12 +213,16 @@ class ContributionViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore(new SelectTableViewStore(this.queryUtility, {
+        this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'donor.donorName',
                     title: 'CONTRIBUTION.LIST.COLUMNS.DONOR_CHARITY_NAME_LABEL',
-                    disableClick: true
+                    disableClick: true,
+                    format: {
+                        type: 'function',
+                        value: this.getDonorOrCharity
+                    }
                 },
                 {
                     key: 'amount',
@@ -284,26 +287,6 @@ class ContributionViewStore extends BaseListViewStore {
                 },
                 onReviewRender: (item) => {
                     return ['pending', 'in-process', 'funded'].includes(item.contributionStatus.abrv);
-                }
-            },
-            onSelect: (dataItem, isRemoving) => {
-                if(dataItem.contributionStatus.abrv === 'pending' && dataItem.paymentType.abrv === 'ach'){
-                    if(isRemoving){
-                        this.selectedItemsSum -= dataItem.amount;
-                    }else{
-                        this.selectedItemsSum += dataItem.amount;
-                    }
-                }
-            },
-            onSelectAll: (e) => {
-                if(!this.tableStore.hasSelectedItems){
-                    this.tableStore.data.map(item => {
-                        if(item.contributionStatus.abrv === 'pending' && item.paymentType.abrv === 'ach'){
-                            this.selectedItemsSum += item.amount;
-                        }
-                    });
-                }else{
-                    this.selectedItemsSum = 0;
                 }
             }
         }));
@@ -401,28 +384,7 @@ class ContributionViewStore extends BaseListViewStore {
                     this.queryUtility.filter.paymentTypeIds = paymentType.map(type => { return type.id });
                 }
             });
-    }
 
-    @action.bound
-    async submitPending(){
-        if(!this.form.values().paymentNumber){
-            return;
-        }
-
-        let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending' && s.paymentType.abrv === 'ach');
-        var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contentType: 'text/csv' });
-       
-        const nowDate = new Date();
-        const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
-        saveAs(response, fileName);
-        this.rootStore.notificationStore.success("Contribution report generated.");
-        this.queryUtility.fetch();
-    }
-
-    @action.bound
-    async onAchNextPaymentNumberClick() {
-        this.achBatchCurrentNumber = await this.rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: true });
-        this.form.$('paymentNumber').set(this.achBatchCurrentNumber.toString());
     }
 }
 

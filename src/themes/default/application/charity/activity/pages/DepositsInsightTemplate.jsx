@@ -133,7 +133,7 @@ function renderActions({ item, actions, actionsRender }) {
 	return (
 		<td>
 			<div className="type--right">
-				{isSome(onEdit) && editRender ? (
+				{/* {isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
@@ -142,7 +142,7 @@ function renderActions({ item, actions, actionsRender }) {
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
 					></BaasicButton>
-				) : null}
+				) : null} */}
 				{isSome(onPreview) && previewRender ? (
 					<BaasicButton
 						className="btn btn--icon"
