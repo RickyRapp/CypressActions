@@ -60,7 +60,6 @@ class ContributionViewStore extends BaseListViewStore {
                     this.searchDonorDropdownStore.setValue(null);
                     this.paymentTypeDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
-                    this.searchCharityDropdownStore.setValue(null);
                     this.userTypeDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
                 }
@@ -95,7 +94,6 @@ class ContributionViewStore extends BaseListViewStore {
         this.createDonorSearch();
         this.createContributionStatusDropodownStore();
         this.createPaymentTypeDropodownStore();
-        this.createCharitySearchDropdownStore();
         this.createUserTypeDropdownStore();
 
         this.selectDonorModal = new ModalParams({});
@@ -298,7 +296,7 @@ class ContributionViewStore extends BaseListViewStore {
 
     createUserTypeDropdownStore() {
         this.userTypeDropdownStore = new BaasicDropdownStore({
-            placeholder: 'BOOKLET_ORDER.LIST.FILTER.SELECT_TYPE_PLACEHOLDER',
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_TYPE_PLACEHOLDER',
             initFetch: true,
             filterable: false
         },
@@ -309,31 +307,7 @@ class ContributionViewStore extends BaseListViewStore {
         });
         this.userTypeDropdownStore.setItems([{ name: 'Donor', id: 'donor' }, { name: 'Charity', id: 'charity'}]);
     }
-    createCharitySearchDropdownStore() {
-        this.searchCharityDropdownStore = new BaasicDropdownStore({
-            placeholder: 'SESSION.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
-            initFetch: false,
-            filterable: true
-        },
-            {
-                fetchFunc: async (searchQuery) => {
-                    const data = await this.rootStore.application.administration.charityStore.searchCharity({
-                        pageNumber: 1,
-                        pageSize: 10,
-                        search: searchQuery,
-                        sort: 'name|asc',
-                        embed: [
-                            'charityAddresses'
-                        ],
-                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
-                    });
-                    return data.item.map(x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }) } });
-                },
-                onChange: (charityId) => {
-                    this.queryUtility.filter.charityId = charityId;
-                }
-            });
-    }
+  
 
     createDonorSearch() {
         this.searchDonorDropdownStore = new BaasicDropdownStore({
