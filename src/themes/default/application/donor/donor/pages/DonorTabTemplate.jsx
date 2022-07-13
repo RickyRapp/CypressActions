@@ -15,7 +15,7 @@ function DonorTabTemplate({ donorTabViewStore }) {
     const children = () => {
         return (
             <React.Fragment>
-                <div label={'DONOR.TAB.ACCOUNT_INFORMATION'}>
+                <div label={'DONOR.TAB.ACCOUNT_INFORMATION'} className="container--base">
                     <DonorAccountInformation />
                 </div>
                 <div label={'DONOR.TAB.SECURITY_AND_PREFERENCES'}>

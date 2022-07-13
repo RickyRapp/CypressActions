@@ -18,15 +18,17 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
 
 	return (
 		<div>
-			<div className="row">
-				<div className="col col-sml-12 col-lrg-3">
-					<h3 className=" u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_ADDRESS')}</h3>
-				</div>
-				<div
-					className={`col col-sml-12 col-lrg-${(isEditEnabled) || undefined === editId ? '12' : '9'
-						}`}
-				>
-					{isEditEnabled && primaryAddress && primaryAddress.id === editId ? (
+			<div className="card--primary card--med u-mar--bottom--med">
+				<h3	h3 className=" u-mar--bottom--sml">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_ADDRESS')}</h3>
+
+				<DonorAddressEditTemplate
+					form={form}
+					title="Primary"
+					onCancelEditClick={onCancelEditClick}
+					isAssignableAsPrimary={false}
+				/>
+
+				{/* {isEditEnabled && primaryAddress && primaryAddress.id === editId ? (
 						<DonorAddressEditTemplate
 							form={form}
 							title="Primary"
@@ -77,35 +79,34 @@ const DonorAddressListTemplate = function ({ donorAddressViewStore, t }) {
 								''
 							)}
 						</div>
-					)}
+					)} */}
 
-					<div className={`u-mar--top--sml ${(isEditEnabled && primaryAddress === null) || (primaryAddress && primaryAddress.id === editId) ? "u-padd--x--med" : ""}`}>
-						{isEditEnabled && ((secondaryAddress && secondaryAddress.id === editId) || undefined === editId) ? (
-							<DonorAddressEditTemplate
-								form={form}
-								title="Secondary"
-								onCancelEditClick={onCancelEditClick}
-								isAssignableAsPrimary={true}
-							/>
-						) : (
-							<React.Fragment>
-								<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-									Secondary Address
-								</p>
-								<span
-									className="cursor--pointer type--base type--wgt--bold"
-									title={`Click to ${secondaryAddress ? 'edit' : 'insert'}`}
-									onClick={() => onEnableEditClick(secondaryAddress)}
-								>
-									{secondaryAddress ? (
-										< Address value={secondaryAddress} format="full" />
-									) : (
-										<button className="btn btn--link btn--sml">Add new address</button>
-									)}
-								</span>
-							</React.Fragment>
-						)}
-					</div>
+				<div className={`u-mar--top--sml ${(isEditEnabled && primaryAddress === null) || (primaryAddress && primaryAddress.id === editId) ? "u-padd--x--med" : ""}`}>
+					{isEditEnabled && ((secondaryAddress && secondaryAddress.id === editId) || undefined === editId) ? (
+						<DonorAddressEditTemplate
+							form={form}
+							title="Secondary"
+							onCancelEditClick={onCancelEditClick}
+							isAssignableAsPrimary={true}
+						/>
+					) : (
+						<React.Fragment>
+							<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+								Secondary Address
+							</p>
+							<span
+								className="cursor--pointer type--base type--wgt--bold"
+								title={`Click to ${secondaryAddress ? 'edit' : 'insert'}`}
+								onClick={() => onEnableEditClick(secondaryAddress)}
+							>
+								{secondaryAddress ? (
+									< Address value={secondaryAddress} format="full" />
+								) : (
+									<button className="btn btn--link btn--sml">Add new address</button>
+								)}
+							</span>
+						</React.Fragment>
+					)}
 				</div>
 			</div>
 		</div>
