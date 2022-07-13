@@ -117,8 +117,9 @@ class PendingDonationViewStore extends BaseListViewStore {
     async onReviewClick(formValues) {
         try {
             formValues.accountTransferNumber = formValues.paymentNumber;
-            formValues.paymentNumber = formValues.paymentNumber.slice(3);
-            console.log(formValues);
+            if(this.paymentTypeDropdownStore.value.abrv === 'charity-account')
+                formValues.paymentNumber = formValues.paymentNumber.slice(3);
+
             this.tableStore.suspend();
             if (this.tableStore.selectedItems.length === 0) {
                 this.tableStore.resume();
@@ -129,7 +130,6 @@ class PendingDonationViewStore extends BaseListViewStore {
             var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
             this.rootStore.notificationStore.success("Successfully processed.");
             this.form.$('accountTransferNumber').set(this.form.$('paymentNumber').value);
-            this.form.$('paymentNumber').set(this.form.$('paymentNumber').value.slice(2));
             this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
             await this.downloadReport(data.response, this.paymentTypeDropdownStore.value.id);
             this.paymentTypeDropdownStore.setValue(null);
