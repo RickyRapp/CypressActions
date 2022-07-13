@@ -362,7 +362,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                         </div>
                     </div>
                 </div>
-                <div className="col col-sml-12 col-lrg-4">
+                {item && item.donor != null && <div className="col col-sml-12 col-lrg-4">
                     <div className="card card--primary card--med u-mar--bottom--med">
                         <h3 className="u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.SUMMARY')}</h3>
                         <div className="row">
@@ -397,6 +397,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                         </div>
                     </div>
                 </div>
+}
             </div>
         </PreviewLayout>
     )

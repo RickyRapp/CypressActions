@@ -8,7 +8,8 @@ import {
     BaasicButton,
     BasicInput,
     BaasicModal,
-    NumberFormatInputField
+    NumberFormatInputField,
+    BasicFieldCheckbox
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
@@ -52,7 +53,7 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                             </div>
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h2>{t('ACCEPT-SECURITY.CREATE.DONOR_INFO')}</h2>
-                                <h4 className=" u-mar--bottom--med">{t('ACCEPT-SECURITY.CREATE.DONOR_INFO_DESCRIPTION')}</h4>
+                                <h4 className=" u-mar--bottom--med">{t('ACCEPT-SECURITY.CREATE.PAYER_INFO_DESCRIPTION')}</h4>
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12 col-lrg-12">
                                         <BasicInput field={form.$('name')} />
@@ -109,7 +110,9 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
                                 </div>
-
+                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                    <BasicFieldCheckbox field={form.$('isAgreeToPoliciesAndGuidelines')} />
+                                </div>
                                 <div className="type--right">
                                     <BaasicButton
                                         type="button"

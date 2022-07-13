@@ -18,6 +18,13 @@ export default class AcceptSecurityCreateForm extends FormBase {
 					},
 				},
 				{
+					name: 'isAgreeToPoliciesAndGuidelines',
+					label: 'CONTRIBUTION.CREATE.FIELDS.IS_AGREE_TO_POLICIES_AND_GUIDELINES_LABEL',
+					rules: 'required|boolean|accepted',
+					type: 'checkbox',
+					value: false,
+				},
+				{
 					name: 'brokerageInstitutionId',
 					label: 'ACCEPT-SECURITY.CREATE.BROKERAGE_INSTITUTION',
 					placeholder: 'ACCEPT-SECURITY.CREATE.BROKERAGE_INSTITUTION',

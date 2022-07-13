@@ -35,12 +35,13 @@ class ContributionEditViewStore extends BaseEditViewStore {
 							else {
 								console.log(this.item.charity)
 								resource.name = this.item.charity.name;
-								resource.addressLine1 =this.item.charity.addresses[0].addressLine1;
-								resource.addressLine2 = this.item.charity.addresses[0].addressLine2;
-								resource.city = this.item.charity.addresses[0].city;
-								resource.state =this.item.charity.addresses[0].state;
-								resource.zipCode = this.item.charity.addresses[0].zipCode;
-								
+								resource.addressLine1 =this.item.charity.charityAddresses[0].addressLine1;
+								resource.addressLine2 = this.item.charity.charityAddresses[0].addressLine2;
+								resource.city = this.item.charity.charityAddresses[0].city;
+								resource.state =this.item.charity.charityAddresses[0].state;
+								resource.zipCode = this.item.charity.charityAddresses[0].zipCode;
+								resource.email = this.item.charity.charityEmailAddresses && this.item.charity.charityEmailAddresses.length > 0 && this.item.charity.charityEmailAddresses[0].email;
+								resource.number = this.item.charity.charityPhoneNumbers && this.item.charity.charityPhoneNumbers.length > 0 && this.item.charity.charityPhoneNumbers[0].number;
 							}
 							const res = await this.contributionStore.updateContribution({ id: this.id, ...resource });
 							return res;
