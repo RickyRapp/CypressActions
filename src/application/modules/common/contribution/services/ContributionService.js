@@ -44,8 +44,13 @@ class ContributionService extends BaseService {
     }
     
     create(resource){
-        const url=this.routeService.create(resource);
+        try {
+            const url=this.routeService.create(resource);
         return this.apiClient.post(url, resource);
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 }
 

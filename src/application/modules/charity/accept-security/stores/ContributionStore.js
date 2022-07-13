@@ -29,7 +29,6 @@ class ContributionStore {
     }
 
     async createContribution(resource) {
-        debugger;
         const response = await this.contributionService.create(resource);
         return response.data;
     }

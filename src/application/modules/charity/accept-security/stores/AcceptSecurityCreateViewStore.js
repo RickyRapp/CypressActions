@@ -90,16 +90,20 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
     }
     @action.bound
     async onSubmitClick() {
-        const { isValid } = await this.form.validate({ showErrors: true });
-        if (isValid) {
-            this.confirmModal.open({
-                onCancel: () => {
-                    this.confirmModal.close();
-                },
-                form: this.form,
-                brokerageInstitution: this.brokerageInstitutionDropdownStore.value,
-                securityType: this.securityTypeDropdownStore.value,
-            });
+        try {
+            const { isValid } = await this.form.validate({ showErrors: true });
+            if (isValid) {
+                this.confirmModal.open({
+                    onCancel: () => {
+                        this.confirmModal.close();
+                    },
+                    form: this.form,
+                    brokerageInstitution: this.brokerageInstitutionDropdownStore.value,
+                    securityType: this.securityTypeDropdownStore.value,
+                });
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 

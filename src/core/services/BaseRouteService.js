@@ -22,7 +22,11 @@ class BaseRouteService {
     }
 
     create(route, resource = {}) {
-        return this.uriTemplateService.parse(route).expand(resource);
+        try {
+            return this.uriTemplateService.parse(route).expand(resource);
+        } catch (error) {
+        console.log(error)            
+        }
     }
 
     update(route, resource) {
