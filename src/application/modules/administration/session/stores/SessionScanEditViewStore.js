@@ -1,83 +1,80 @@
 import { action, observable } from 'mobx';
-import { BaseEditViewStore, BaasicDropdownStore, TableViewStore } from 'core/stores';
+import { TableViewStore, BaseListViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { SessionScanEditForm } from 'application/administration/session/forms';
+import TableImageCell from 'core/components/table/TableImageCell';
 import _ from 'lodash';
+import { GridNumericCell } from 'core/components';
 
 @applicationContext
-class SessionScanEditViewStore extends BaseEditViewStore {
+class SessionScanEditViewStore extends BaseListViewStore {
 
     constructor(rootStore) {
         super(rootStore, {
             name: 'session-scan-edit',
-            id: rootStore.routerStore.routerState.params.id,
-            autoInit: false,
+            routes: {},
             actions: () => {
                 return {
-                    update: async (resource) => {
-                        // await rootStore.application.administration.sessionStore.updateSession({ isWithApproval: true, ...resource });
-                    },
-                    get: async (id) => {
-                        const item = [];
-                        for (let i = 0; i < 11; i ++) {
-                            item.push({
-                                barcode: Math.floor(Math.random() * 10000),
-                                amount: Math.floor(Math.random() * 1000).toFixed(2),
-                                frontImage: 1231231,
-                                backImage: 1231231,
-                                dateCreated: new Date(),
-                            })
-                        }
-
-                        this.tableStore.setData(item);
-                        
-                        if (!this.tableStore.dataInitialized) {
-                            this.tableStore.dataInitialized = true;
-                        }
-
-                        return item[0];
+                    find: async () => {
+                        const response = await rootStore.application.administration.sessionStore.getScannedSessionDetails(this.id);
+                        return response;
                     }
                 }
             },
-            FormClass: SessionScanEditForm,
         });
 
-        this.tableStore = new TableViewStore(null, {
+        this.id = rootStore.routerStore.routerState.params.id;
+
+        this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
                     key: 'barcode',
                     title: 'Barcode',
+                    cell: GridNumericCell,
+                    onChange: this.onTableItemChange
                 },
                 {
-                    key: 'amount',
+                    key: 'value',
                     title: 'Amount',
+                    cell: GridNumericCell,
+                    onChange: this.onTableItemChange
                 },
                 {
-                    key: 'frontImage',
+                    key: 'mediaGalleryReview.frontImage',
                     title: 'Front image',
+                    cell: TableImageCell
                 },
                 {
-                    key: 'backImage',
+                    key: 'mediaGalleryReview.backImage',
                     title: 'Back image',
+                    cell: TableImageCell
                 },
+                {
+                    key: 'dateCreated',
+                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DATE_CREATED_LABEL',
+                    format: {
+                        type: 'date',
+                        value: 'short'
+                    }
+                }
             ],
-            actions: {
-                onRemove: (grant) => {},
+            batchActions: {
+                onBatchUpdate: async (items) => {
+                    console.log(items)
+                    const dirtyItems = items.filter(i => i.isDirty);
+
+                    debugger
+                }
             },
+            disablePaging: true,
             actionsRender: {}
-        });
+        }));
     }
 
     @action.bound
-    async onInit({ initialLoad }) {
-        if (!initialLoad) {
-            this.rootStore.routerStore.goBack();
-        }
-        else {
-            await this.fetch([
-                this.getResource(this.id)
-            ]);
-        }
+    onTableItemChange({ dataItem, field, value }) {
+        dataItem[field] = value;
+        dataItem.isDirty = true;
+        this.tableStore.updateDataItems();
     }
 }
 

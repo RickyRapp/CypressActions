@@ -9,6 +9,15 @@ import { SessionTab, SessionEdit, SessionPreview, SessionScanEdit, SessionScanPr
                 pattern: '/sessions',
                 children: [
                     {
+                        name: 'master.app.main.administration.session.session-scan.edit',
+                        pattern: '/session-scan/edit/:id',
+                        component: SessionScanEdit,
+                        authorization: 'theDonorsFundAdministrationSection.update',
+                        data: {
+                            title: "Session scan edit"
+                        }
+                    },
+                    {
                         name: 'master.app.main.administration.session.tab',
                         pattern: '',
                         component: SessionTab,
@@ -34,16 +43,7 @@ import { SessionTab, SessionEdit, SessionPreview, SessionScanEdit, SessionScanPr
                         data: {
                             title: "SESSION.PREVIEW.TITLE"
                         }
-                    },
-                    {
-                        name: 'master.app.main.administration.session-scan.edit',
-                        pattern: '/session-scan/edit/:id',
-                        component: SessionScanEdit,
-                        authorization: 'theDonorsFundAdministrationSection.update',
-                        data: {
-                            title: "Session scan edit"
-                        }
-                    }
+                    }                
                 ]
             }
         ]

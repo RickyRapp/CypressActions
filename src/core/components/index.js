@@ -24,6 +24,7 @@ export { default as TableDateColumnCell } from './table/TableDateColumnCell';
 export { default as GridNumericCell } from './table/GridNumericCell';
 export { default as ContentWithEmptyState } from './table/ContentWithEmptyState';
 export { default as SearchFilter } from './SearchFilter';
+export { default as TableImageCell } from './table/TableImageCell';
 
 export { default as BasicInput } from './forms/BasicInput';
 export { default as NumericInputField } from './forms/NumericInputField';

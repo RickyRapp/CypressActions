@@ -100,6 +100,7 @@ class SessionService extends BaseService {
         //console.log(url);
         return this.apiClient.post(url, formData);
     }
+
     getBlank(id) {
         const url = this.routeService.getBlank(id);
         return this.apiClient.request({
@@ -107,6 +108,16 @@ class SessionService extends BaseService {
             url: url,
             responseType: 'blob',
         });
+    }
+
+    getScannedSessions(filter) {
+        const url = this.routeService.getScannedSessions(filter);
+        return this.apiClient.get(url);
+    }
+
+    getScannedSessionDetails(id) {
+        const url = this.routeService.getScannedSessionDetails(id);
+        return this.apiClient.get(url);
     }
 }
 

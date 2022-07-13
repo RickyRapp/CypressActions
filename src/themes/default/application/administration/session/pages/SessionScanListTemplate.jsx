@@ -17,6 +17,7 @@ const SessionScanListTemplate = function ({ sessionScanViewStore }) {
         tableStore,
         routes,
         authorization,
+        rootStore,
         queryUtility
     } = sessionScanViewStore;
 
@@ -39,8 +40,9 @@ const SessionScanListTemplate = function ({ sessionScanViewStore }) {
 function renderEmpty(routes) {
     return <EmptyState image={EmptyIcon} title='SESSION.LIST.EMPTY_STATE.TITLE' actionLabel='SESSION.LIST.EMPTY_STATE.ACTION' callToAction={routes.create} />
 }
+
 function renderActions({ item, actions }) {
-    const { onPreview, onEdit } = actions;
+    const { onEdit } = actions;
 
     return (
         <td>
@@ -52,16 +54,6 @@ function renderActions({ item, actions }) {
 						label="SESSION.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
-					></BaasicButton>
-				) : null}
-				{isSome(onPreview) ? (
-					<BaasicButton
-						authorization="theDonorsFundSessionSection.read"
-						className="btn btn--icon"
-						icon="u-icon u-icon--preview u-icon--base u-mar--left--sml"
-						label="SESSION.LIST.BUTTON.PREVIEW"
-						onlyIcon={true}
-						onClick={() => onPreview(item)}
 					></BaasicButton>
 				) : null}
             </div>

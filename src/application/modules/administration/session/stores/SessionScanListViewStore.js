@@ -3,17 +3,16 @@ import { FilterParams, ModalParams } from 'core/models';
 import { action } from 'mobx';
 
 class SessionScanListViewStore extends BaseListViewStore {
+
+
     constructor(rootStore) {
         super(rootStore, {
             name: 'session-scan',
             authorization: 'theDonorsFundAdministrationSection',
             routes: {
                 edit: async (id) => {
-                    rootStore.routerStore.goTo('master.app.main.administration.session-scan.edit', { id: id });
-                },
-                // preview: async (id) => {
-                //     rootStore.routerStore.goTo('master.app.main.administration.session.preview', { id: id });
-                // }
+                    rootStore.routerStore.goTo('master.app.main.administration.session.session-scan.edit', { id: id });
+                }
             },
             queryConfig: {
                 filter: new FilterParams()
@@ -21,16 +20,7 @@ class SessionScanListViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        const response = {
-                            item: [],
-                            recordsPerPage: 10,
-                            pageNumber: 1,
-                            totalRecords: 100
-                        }
-                        for (let i = 0; i < 100; i ++) {
-                            response.item.push({ fileName: "check " + i, dateCreated: new Date(), id: String(Math.random()) })
-                        }
-                        this.tableStore.setData(response)
+                        const response = await rootStore.application.administration.sessionStore.getScannedSessions(params);
                         return response;
                     }
                 }
@@ -40,7 +30,7 @@ class SessionScanListViewStore extends BaseListViewStore {
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
-                    key: 'fileName',
+                    key: 'sessionFolderName',
                     title: 'File name',
                 },
                 {
@@ -54,7 +44,6 @@ class SessionScanListViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (session) => this.routes.edit(session.id),
-                onPreview: (session) => this.routes.preview(session.id),
             },
             actionsRender: {}
         }));

@@ -96,5 +96,15 @@ class SessionStore {
         const response = await this.sessionService.inActivateSession(resource);
         return response.data;
     }
+
+    async getScannedSessions(resource) {
+        const response = await this.sessionService.getScannedSessions(resource);
+        return response.data;
+    }
+
+    async getScannedSessionDetails(resource) {
+        const response = await this.sessionService.getScannedSessionDetails(resource);
+        return response.data;
+    }
 }
 export default SessionStore;

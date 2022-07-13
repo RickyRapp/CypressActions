@@ -139,10 +139,10 @@ function defaultRenderBatchActionsToolbarTemplate(tableStore, authorization, bat
                             onClick={() => onBatchCreate(selectedItems)}
                         />
                     )}
-                    {isSome(onBatchUpdate) && authorization.edit && (
+                    {isSome(onBatchUpdate) && (authorization.edit || authorization.update) && (
                         <React.Fragment>
                             <BaasicButton
-                                authorization={authorization ? authorization.edit : null}
+                                authorization={authorization ? (authorization.edit || authorization.update) : null}
                                 className="icon-floppy-disk btn btn--link spc--right--tny"
                                 disabled={!hasDirtyItems}
                                 icon="u-icon u-icon--edit u-icon--base"
