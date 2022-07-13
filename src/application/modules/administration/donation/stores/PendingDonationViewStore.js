@@ -110,7 +110,10 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async onAchNextPaymentNumberClick() {
         this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: true });
-        this.form.$('paymentNumber').set("CA-" + this.achBatchCurrentNumber.toString());
+        if(this.paymentTypeDropdownStore.value.abrv === 'charity-account')
+            this.form.$('paymentNumber').set("CA-" + this.achBatchCurrentNumber.toString());
+        else 
+            this.form.$('paymentNumber').set(this.achBatchCurrentNumber.toString());
     }
 
     @action.bound
