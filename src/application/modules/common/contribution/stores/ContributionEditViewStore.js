@@ -21,24 +21,34 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			actions: () => {
 				return {
 					update: async resource => {
-						console.log("res",resource)
-						console.log("item", this.item.donor)
 						if (!resource.isThirdParty) {
-							resource.name = this.item.donor.donorName;
-							resource.addressLine1 = this.item.donor.donorAddresses[0].addressLine1;
-							resource.addressLine2 = this.item.donor.donorAddresses[0].addressLine2;
-							resource.city = this.item.donor.donorAddresses[0].city;
-							resource.state = this.item.donor.donorAddresses[0].state;
-							resource.zipCode = this.item.donor.donorAddresses[0].zipCode;
-							resource.email = this.item.donor.donorEmailAddresses[0].email;
-							resource.number = this.item.donor.donorPhoneNumbers[0].number;
+							if (this.item && this.item.donor) {
+								resource.name = this.item.donor.donorName;
+								resource.addressLine1 = this.item.donor.donorAddresses[0].addressLine1;
+								resource.addressLine2 = this.item.donor.donorAddresses[0].addressLine2;
+								resource.city = this.item.donor.donorAddresses[0].city;
+								resource.state = this.item.donor.donorAddresses[0].state;
+								resource.zipCode = this.item.donor.donorAddresses[0].zipCode;
+								resource.email = this.item.donor.donorEmailAddresses[0].email;
+								resource.number = this.item.donor.donorPhoneNumbers[0].number;
+							}
+							else {
+								console.log(this.item.charity)
+								resource.name = this.item.charity.name;
+								resource.addressLine1 =this.item.charity.addresses[0].addressLine1;
+								resource.addressLine2 = this.item.charity.addresses[0].addressLine2;
+								resource.city = this.item.charity.addresses[0].city;
+								resource.state =this.item.charity.addresses[0].state;
+								resource.zipCode = this.item.charity.addresses[0].zipCode;
+								
+							}
+							const res = await this.contributionStore.updateContribution({ id: this.id, ...resource });
+							return res;
 						}
-						const res = await this.contributionStore.updateContribution({ id: this.id, ...resource });
-						return res;
 					},
 					get: async id => {
 						const data = await this.contributionStore.getContribution(id, {
-							embed: 'payerInformation,donorBankAccount,contributionStatus,donor,donor.donorPhoneNumbers,donor.donorEmailAddresses,donor.donorAddresses',
+							embed: 'payerInformation,donorBankAccount,contributionStatus,donor,donor.donorPhoneNumbers,donor.donorEmailAddresses,donor.donorAddresses,charity,charity.charityAddresses,charity.charityEmailAddresses,charity.charityPhoneNumbers',
 						});
 						return {
 							...data,
@@ -83,20 +93,20 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			this.rootStore.routerStore.goBack();
 		} else {
 			await this.fetch([this.getResource(this.id)]);
-			if(this.item.donorId == null)
-				await this.fetch([await this.rootStore.application.charity.donorStore.findDonor({emails: [this.item.payerInformation.email]}), await this.bankAccountDropdownStore.filterAsync()]);
-			else
-			{await this.fetch([await this.loadDonor(this.item.donorId), await this.bankAccountDropdownStore.filterAsync()]);
-			this.previousContributionsTableStore.setData(this.donor.previousContributions);
-			if (!this.previousContributionsTableStore.dataInitialized) {
-				this.previousContributionsTableStore.dataInitialized = true;
+			if (this.item.donorId == null)
+				await this.fetch([await this.rootStore.application.charity.donorStore.findDonor({ emails: [this.item.payerInformation.email] }), await this.bankAccountDropdownStore.filterAsync()]);
+			else {
+				await this.fetch([await this.loadDonor(this.item.donorId), await this.bankAccountDropdownStore.filterAsync()]);
+				this.previousContributionsTableStore.setData(this.donor.previousContributions);
+				if (!this.previousContributionsTableStore.dataInitialized) {
+					this.previousContributionsTableStore.dataInitialized = true;
+				}
 			}
-		}
 			if (this.item.donorBankAccount) {
 				this.bankAccountDropdownStore.setValue(this.item.donorBankAccount);
 			}
 
-			if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) {
+			if (this.rootStore.userStore.applicationUser.roles.includes('Administrators')) {
 				this.form.$('amount').set('rules', 'required|numeric');
 			}
 		}
@@ -168,14 +178,14 @@ class ContributionEditViewStore extends BaseEditViewStore {
 				this.form.$('collectibleTypeId').setRequired(true);
 				this.form.$('amount').set('rules', 'required|numeric|min:25000');
 			}
-			if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) 
+			if (this.rootStore.userStore.applicationUser.roles.includes('Administrators'))
 				this.form.$('amount').set('rules', 'required|numeric');
-				
+
 		}
 		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');
 		const json = JSON.parse(paymentType.json);
 		this.form.$('amount').set('rules', `required|numeric|min:${json ? json.minimumDeposit : 0}`);
-		if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) 
+		if (this.rootStore.userStore.applicationUser.roles.includes('Administrators'))
 			this.form.$('amount').set('rules', 'required|numeric');
 		this.nextStep(2);
 	}

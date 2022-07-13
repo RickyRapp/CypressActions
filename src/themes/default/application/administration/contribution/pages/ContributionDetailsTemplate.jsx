@@ -31,7 +31,8 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             <div className="col col-sml-12">
                                 <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.GENERAL_INFORMATION')}</h3>
                             </div>
-                            <div className="col col-sml-12">
+                            {item && item.donor ?
+                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
                                     <div className="row">
                                         <div className="col col-sml-6">
@@ -40,12 +41,28 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                         <div className="col col-sml-6">
                                             <div className="type--wgt--medium u-push">
                                                 {item && item.donor && item.donor.name}
-                                                {item && item.charity && item.charity.name}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            :
+                            <div className="col col-sml-12">
+                            <div className="card--secondary card--tny u-mar--bottom--sml">
+                                <div className="row">
+                                    <div className="col col-sml-6">
+                                        <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.PAYER_NAME')}</div>
+                                    </div>
+                                    <div className="col col-sml-6">
+                                        <div className="type--wgt--medium u-push">
+                                        {item && item.payerInformation && item.payerInformation.name}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
                                     <div className="row">
@@ -102,6 +119,144 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                     </div>
                                 </div>
                             </div>
+                            {item && item.donor == null && 
+                            <React.Fragment>
+                            <div className="col col-sml-12">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.ADDRESS_LINE_1')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                                {item && item.payerInformation && item.payerInformation.addressLine1}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-sml-12">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.ADDRESS_LINE_2')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                            {item && item.payerInformation && item.payerInformation.addressLine2}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-sml-12">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.EMAIL')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                            {item && item.payerInformation && item.payerInformation.email}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-sml-12">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.CITY')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                            {item && item.payerInformation && item.payerInformation.city}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-sml-12">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.NUMBER')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                            {item && item.payerInformation && item.payerInformation.number}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-sml-12">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.NUMBER_OF_SHARES')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                            {item  && item.numberOfShares}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-sml-12">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.SECURITY_SYMBOL')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                            {item && item.securitySymbol}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-sml-12">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.STATE')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                            {item && item.payerInformation && item.payerInformation.state}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col col-sml-12">
+                                <div className="card--secondary card--tny u-mar--bottom--sml">
+                                    <div className="row">
+                                        <div className="col col-sml-6">
+                                            <div className="form__group__label type--wgt--regular">{t('CONTRIBUTION.DETAILS.ZIP_CODE')}</div>
+                                        </div>
+                                        <div className="col col-sml-6">
+                                            <div className="type--wgt--medium u-push">
+                                            {item && item.payerInformation && item.payerInformation.zipCode}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            </React.Fragment>
+}
                         </div>
                     </div>
                     <div className="card card--primary card--med u-mar--bottom--med">

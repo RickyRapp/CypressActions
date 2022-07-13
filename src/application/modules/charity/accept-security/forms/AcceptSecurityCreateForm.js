@@ -43,15 +43,15 @@ export default class AcceptSecurityCreateForm extends FormBase {
 				},
 				{
 					name: 'name',
-					label: 'CONTRIBUTION.CREATE.FIELDS.DONOR_NAME_LABEL',
-					placeholder: 'CONTRIBUTION.CREATE.FIELDS.DONOR_NAME_PLACEHOLDER',
-					rules: 'string',
+					label: 'CONTRIBUTION.CREATE.FIELDS.PAYER_NAME_LABEL',
+					placeholder: 'CONTRIBUTION.CREATE.FIELDS.PAYER_NAME_PLACEHOLDER',
+					rules: 'required|string',
 				},
 				{
 					name: 'addressLine1',
 					label: 'CONTRIBUTION.CREATE.FIELDS.DONOR_ADDRESS_LINE_1_LABEL',
 					placeholder: 'CONTRIBUTION.CREATE.FIELDS.DONOR_ADDRESS_LINE_1_PLACEHOLDER',
-					rules: 'string',
+					rules: 'required|string',
 				},
 				{
 					name: 'addressLine2',
@@ -63,31 +63,37 @@ export default class AcceptSecurityCreateForm extends FormBase {
 					name: 'city',
 					label: 'CONTRIBUTION.CREATE.FIELDS.DONOR_CITY_LABEL',
 					placeholder: 'CONTRIBUTION.CREATE.FIELDS.DONOR_CITY_PLACEHOLDER',
-					rules: 'string',
+					rules: 'required|string',
 				},
 				{
 					name: 'zipCode',
 					label: 'CONTRIBUTION.CREATE.FIELDS.DONOR_ZIP_CODE_LABEL',
 					placeholder: 'CONTRIBUTION.CREATE.FIELDS.DONOR_ZIP_CODE_PLACEHOLDER',
-					rules: 'string',
+					rules: 'required|string',
 				},
 				{
 					name: 'state',
 					label: 'CONTRIBUTION.CREATE.FIELDS.DONOR_STATE_LABEL',
 					placeholder: 'CONTRIBUTION.CREATE.FIELDS.DONOR_STATE_PLACEHOLDER',
-					rules: 'string',
+					rules: 'required|string',
 				}, 
 				{
 					name: 'email',
 					label: 'CONTRIBUTION.CREATE.FIELDS.DONOR_EMAIL_LABEL',
 					placeholder: 'CONTRIBUTION.CREATE.FIELDS.DONOR_EMAIL_PLACEHOLDER',
-					rules: 'email',
+					rules: 'required|email',
 				},
 				{
 					name: 'number',
 					label: 'CONTRIBUTION.CREATE.FIELDS.DONOR_PHONE_NUMBER_LABEL',
 					placeholder: 'CONTRIBUTION.CREATE.FIELDS.DONOR_PHONE_NUMBER_PLACEHOLDER',
-					rules: 'string',
+					rules: 'required|string',
+                    options: {
+                        validateOnChange: true
+                    },
+                    extra: {
+                        format: '(###) ###-####'
+                    }
 				},
 			],
 		};

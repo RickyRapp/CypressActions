@@ -7,7 +7,8 @@ import {
     FormatterResolver,
     BaasicButton,
     BasicInput,
-    BaasicModal
+    BaasicModal,
+    NumberFormatInputField
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
@@ -32,8 +33,6 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                     {!summaryInfo && <div className="row row--form">
                         <div className="col col-sml-12 col-xxlrg-6">
                             <div className="card--primary card--med u-mar--bottom--med">
-                                <h2>{t('DONOR-DONOR.CREATE.FROM_TITLE')}</h2>
-                                <h4 className=" u-mar--bottom--lrg">{t('DONOR-DONOR.CREATE.TITLE_LABEL')}</h4>
                                 <div className="row row--form u-mar--bottom--sml">
                                     <div className="form__group col col-sml-12">
                                         <div className="type--center">
@@ -81,7 +80,7 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                                         <BasicInput field={form.$('email')} />
                                     </div>
                                     <div className="form__group col col-sml-12 col-lrg-12">
-                                        <BasicInput field={form.$('number')} />
+                                        <NumberFormatInputField field={form.$('number')} />
                                     </div>
                                 </div>
                                 <div className="row row--form">

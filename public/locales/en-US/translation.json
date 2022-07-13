@@ -1509,6 +1509,8 @@
                 "CHECK_NUMBER_PLACEHOLDER": "Enter check number",
                 "DONOR_NAME_LABEL": "Donor",
                 "DONOR_NAME_PLACEHOLDER": "Donor name",
+                "PAYER_NAME_LABEL": "Payer",
+                "PAYER_NAME_PLACEHOLDER": "Payer name",
                 "DONOR_ADDRESS_LINE_1_LABEL": "Address line 1",
                 "DONOR_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
                 "DONOR_ADDRESS_LINE_2_LABEL": "Address line 2",
@@ -1593,6 +1595,7 @@
             "DETAILS": "Deposit Details",
             "GENERAL_INFORMATION": "General Information",
             "DONOR_NAME": "Donor's Name",
+            "PAYER_NAME": "Payer's Name",
             "CONFRIMATION_NUMBER": "Confirmation Number",
             "THIRD_PARTY": "Third Party",
             "STATUS": "Status",
@@ -1607,7 +1610,15 @@
             "PAYER_ADDRESS": "Address",
             "PAYER_NUMBER": "Number",
             "PAYER_EMAIL": "Email",
-            "PAYER_NAME": "Name"
+            "ADDRESS_LINE_1":"Address line 1",
+            "ADDRESS_LINE_2" :"Address line 2",
+            "EMAIL": "Email",
+            "CITY" : "City",
+            "NUMBER" : "Number",
+            "NUMBER_OF_SHARES":"Number Of Shares",
+            "SECURITY_SYMBOL":"Security Symbol",
+            "STATE": "State",
+            "ZIP_CODE" :"ZIP Code"
         }
     },
     "DONOR_CONTRIBUTION_SETTING": {
@@ -1710,11 +1721,22 @@
             "STOCKS_AND_SECURITIES": "Stocks and Securities",
             "BROKERAGE_INSTITUTION": "Brokerage Institution",
             "SECURITY_TYPE": "Security Type",
-            "DONOR": "Donor"
+            "DONOR": "Donor",
+            "PAYER": "Payer",
+            "ADDRESS_LINE_1": "Address line 1",
+            "ADDRESS_LINE_2": "Address line 2",
+            "CITY": "City",
+            "STATE": "State",
+            "EMAIL": "Email",
+            "NUMBER": "Number",
+            "ZIP_CODE": "ZIP Code",
+            "SECURITY_SYMBOL": "Security symbol",
+            "NUMBER_OF_SHARES": "Number Of Shares"
         }
     },
     "DONOR-DONOR": {
         "CREATE": {
+            "CONFIRM": "Confirm",
             "TITLE": "Send a Gift",
             "FROM_TITLE": "Share the power of giving",
             "TITLE_LABEL": "Share your Giving Power with a new or existing donor",
