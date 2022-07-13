@@ -24,7 +24,8 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
                             resource.paymentTypeId = await this.getPaymentTypeId();
                             resource.partyId = rootStore.userStore.applicationUser.id; //charityId
                             console.log("creating contribution...", resource);
-                            return contributionStore.createContribution(resource);
+                            const response = await contributionStore.createContribution(resource);
+                            return response
                         } catch (error) {
                             console.log("error creating contribution...", error);
 
@@ -33,9 +34,9 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
                 };
             },
             FormClass: AcceptSecurityCreateForm,
-            onAfterAction: () => {
-                this.nextStep();
-            },
+            // onAfterAction: () => {
+            //     this.nextStep();
+            // },
         });
         this.createConfirmModalParams();
         this.createSecurityTypeDropdownStore();
@@ -50,6 +51,7 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
 			partyId: this.rootStore.userStore.applicationUser.id
 		}
 		params.embed = ['paymentTransaction'];
+        console.log(params)
         var recentTransfers = await this.rootStore.application.donor.contributionStore.findContribution(params);
         recentTransfers = recentTransfers.item.slice(0,5);
 		this.recentTransfersTableStore.setData(recentTransfers);
@@ -85,6 +87,7 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
             this.rootStore.routerStore.goBack();
         } else {
             const profile = await this.rootStore.application.charity.charityStore.getCharityLoginProfile(this.rootStore.userStore.user.charityId);
+            console.log(profile)
             this.balance = profile.presentBalance;
         }
     }

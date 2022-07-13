@@ -21,21 +21,24 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			actions: () => {
 				return {
 					update: async resource => {
+						console.log("res",resource)
+						console.log("item", this.item.donor)
 						if (!resource.isThirdParty) {
-							resource.name = this.donor.donorName;
-							resource.addressLine1 = this.donor.donorAddress.addressLine1;
-							resource.addressLine2 = this.donor.donorAddress.addressLine2;
-							resource.city = this.donor.donorAddress.city;
-							resource.state = this.donor.donorAddress.state;
-							resource.zipCode = this.donor.donorAddress.zipCode;
-							resource.email = this.donor.donorEmailAddress.email;
-							resource.number = this.donor.donorPhoneNumber.number;
+							resource.name = this.item.donor.donorName;
+							resource.addressLine1 = this.item.donor.donorAddresses[0].addressLine1;
+							resource.addressLine2 = this.item.donor.donorAddresses[0].addressLine2;
+							resource.city = this.item.donor.donorAddresses[0].city;
+							resource.state = this.item.donor.donorAddresses[0].state;
+							resource.zipCode = this.item.donor.donorAddresses[0].zipCode;
+							resource.email = this.item.donor.donorEmailAddresses[0].email;
+							resource.number = this.item.donor.donorPhoneNumbers[0].number;
 						}
-						return this.contributionStore.updateContribution({ id: this.id, ...resource });
+						const res = await this.contributionStore.updateContribution({ id: this.id, ...resource });
+						return res;
 					},
 					get: async id => {
 						const data = await this.contributionStore.getContribution(id, {
-							embed: 'payerInformation,donorBankAccount,contributionStatus',
+							embed: 'payerInformation,donorBankAccount,contributionStatus,donor,donor.donorPhoneNumbers,donor.donorEmailAddresses,donor.donorAddresses',
 						});
 						return {
 							...data,
