@@ -48,9 +48,7 @@ class GrantProgressTimeline extends Component {
             if (item && item.charityVirtualTransaction && item.charityVirtualTransaction.charityWithdrawTransaction)
                 paymentNumber = item.charityVirtualTransaction.charityWithdrawTransaction.paymentNumber;
         }
-        else {
-            return null;
-        }
+        
        
         return (
             <React.Fragment>
