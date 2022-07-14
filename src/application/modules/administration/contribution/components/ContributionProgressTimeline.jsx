@@ -30,8 +30,8 @@ class ContributionProgressTimeline extends Component {
         return (
             <React.Fragment>
                 <div className="wizard">
-                    {pendingStatus && pendingStatus.abrv == 'pending' ? <div className="wizard__item">
-                        <div className="wizard__item__title">{t('1.Initiated')}</div>
+                    {pendingStatus && pendingStatus.abrv == 'pending' ? <div className="wizard__item  is-checked">
+                        <div className="wizard__item__title">{t('Initiated')}</div>
                         <span className="wizard__item__value">
                             <FormatterResolver
                                 item={{ dateCreated: pendingStatus.dateCreated }}
@@ -40,8 +40,8 @@ class ContributionProgressTimeline extends Component {
                             />
                         </span>
                     </div> : 
-                    <div className="wizard__item">
-                    <div className="wizard__item__title">{t('1.Initiated')}</div>
+                    <div className="wizard__item is-checked">
+                    <div className="wizard__item__title">{t('Initiated')}</div>
                     <span className="wizard__item__value">
                         <FormatterResolver
                             item={{ dateCreated: item.dateCreated }}
@@ -51,8 +51,8 @@ class ContributionProgressTimeline extends Component {
                     </span>
                 </div>
                 }
-                    {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="wizard__item">
-                        <div className="wizard__item__title">{t('2.Canceled')}</div>
+                    {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="wizard__item is-checked">
+                        <div className="wizard__item__title">{t('Canceled')}</div>
                         <span className="wizard__item__value">
                             <FormatterResolver
                                 item={{ dateCreated: canceledStatus.dateCreated }}
@@ -62,8 +62,8 @@ class ContributionProgressTimeline extends Component {
                         </span>
                     </div>}
 
-                    {declinedStatus && declinedStatus.abrv == 'declined' && <div className="wizard__item">
-                        <div className="wizard__item__title">{t('2.Declined')}</div>
+                    {declinedStatus && declinedStatus.abrv == 'declined' && <div className="wizard__item is-checked">
+                        <div className="wizard__item__title">{t('Declined')}</div>
                         <span className="wizard__item__value">
                             <FormatterResolver
                                 item={{ dateCreated: declinedStatus.dateCreated }}
@@ -75,8 +75,8 @@ class ContributionProgressTimeline extends Component {
                     
                     {!declinedStatus && !canceledStatus && inProcessStatus && (inProcessStatus.currentStatus == 'in-process' || inProcessStatus.abrv =='in-process') &&
                         <React.Fragment>
-                            <div className="wizard__item">
-                                <div className="wizard__item__title">{t('2.In process')}</div>
+                            <div className="wizard__item is-checked">
+                                <div className="wizard__item__title">{t('In process')}</div>
                                 <span className="wizard__item__value">
                                     <FormatterResolver
                                         item={{ dateCreated: inProcessStatus.dateCreated }}
@@ -89,8 +89,8 @@ class ContributionProgressTimeline extends Component {
                     }
 
                     {!declinedStatus && !canceledStatus && fundedStatus && (fundedStatus.currentStatus == 'funded' || fundedStatus.abrv =='funded') &&
-                        <div className="wizard__item">
-                            <div className="wizard__item__title">{t('3.Settled')}</div>
+                        <div className="wizard__item is-checked">
+                            <div className="wizard__item__title">{t('Settled')}</div>
                             <span className="wizard__item__value">
                                 <FormatterResolver
                                     item={{ dateCreated: fundedStatus.dateCreated }}
