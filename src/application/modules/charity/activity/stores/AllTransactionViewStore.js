@@ -26,10 +26,13 @@ class AllTransactionViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
+                        this.ackTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
+
                         params.embed = [
                             'donationType',
                             'donationStatus',
-                            'donor'
+                            'donor',
+                            'grant'
                         ];
                         if(!params.dateCreatedFrom){
                             const currentDate = new Date();
@@ -144,8 +147,19 @@ class AllTransactionViewStore extends BaseListViewStore {
                     title: 'Description',
                     format: {
                         type: 'function',
-                        value: (item) => { console.log(item);
-                            try { 
+                        value: (item) => { 
+                            try {  
+                                const anonymous = this.ackTypes.find(x => x.abrv == 'remain-anonymous');
+                                const nameAndAddress = this.ackTypes.find(x => x.abrv == 'name-and-address');
+                                
+                                if(item && item.paymentTransaction && item.paymentTransaction.charityVirtualTransactions.length > 0 && item.paymentTransaction.charityVirtualTransactions[0].grants.length > 0) {
+                                   
+                                    if(item.paymentTransaction.charityVirtualTransactions[0].grants[0].grantAcknowledgmentTypeId == anonymous.id) 
+                                        return 'Grant: Anonymous';
+                                    if(item.paymentTransaction.charityVirtualTransactions[0].grants[0].grantAcknowledgmentTypeId == nameAndAddress.id) 
+                                        return 'Grant: ' + item.donor.donorName;
+                                    return 'Grant: ' + item.donor.fundName;
+                                }
                                 return item.paymentTransaction.description ? ('Grant: '+ item.donor.donorName) : item.paymentTransaction.paymentTransactionType.description;
                             } catch(e) {
                                 return item.paymentTransaction.description ? item.paymentTransaction.description : item.type;
