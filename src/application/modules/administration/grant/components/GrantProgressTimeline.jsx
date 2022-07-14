@@ -43,7 +43,7 @@ class GrantProgressTimeline extends Component {
             <React.Fragment>
                 <div className="wizard">
                     <div className="wizard__item is-checked">
-                        <div className="wizard__item__title">{t('1.Initiated')}</div>
+                        <div className="wizard__item__title">{t('Initiated')}</div>
                         <span className="wizard__item__value ">
                             {item && <FormatterResolver
                                 item={{ dateCreated: item.dateCreated }}
@@ -54,7 +54,7 @@ class GrantProgressTimeline extends Component {
                     </div>
 
                     {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="wizard__item  is-checked">
-                        <div className="wizard__item__title">{t('2.Canceled')}</div>
+                        <div className="wizard__item__title">{t('Canceled')}</div>
                         <span className="wizard__item__value">
                             <FormatterResolver
                                 item={{ dateCreated: canceledStatus.dateCreated }}
@@ -65,7 +65,7 @@ class GrantProgressTimeline extends Component {
                     </div>}
 
                     {declinedStatus && declinedStatus.abrv == 'declined' && <div className="wizard__item  is-checked">
-                        <div className="wizard__item__title">{t('2.Declined')}</div>
+                        <div className="wizard__item__title">{t('Declined')}</div>
                         <span className="wizard__item__value">
                             <FormatterResolver
                                 item={{ dateCreated: declinedStatus.dateCreated }}
@@ -78,7 +78,7 @@ class GrantProgressTimeline extends Component {
                     {!declinedStatus && !canceledStatus && approvedStatus && (approvedStatus.abrv == 'approved' || approvedStatus.currentStatus == 'approved') &&
                         <React.Fragment>
                             <div className="wizard__item is-checked">
-                                <div className="wizard__item__title">{t('2.Approved')}</div>
+                                <div className="wizard__item__title">{t('Approved')}</div>
                                 <span className="wizard__item__value ">
                                     <FormatterResolver
                                         item={{ dateCreated: approvedStatus.dateCreated }}
@@ -93,7 +93,7 @@ class GrantProgressTimeline extends Component {
                                     {isAch ?
                                        
                                              <div className="wizard__item is-checked">
-                                        <div className="wizard__item__title">{t('4.Ach paid')}  - {paymentNumber}</div>
+                                        <div className="wizard__item__title">{t('Ach paid')}  - {paymentNumber}</div>
                                         <span className="wizard__item__value">
                                             <FormatterResolver
                                                 item={{ dateCreated: paymentSubmitedStatus.dateCreated }}
@@ -104,7 +104,7 @@ class GrantProgressTimeline extends Component {
                                     </div>
                                         :
                                         <div className="wizard__item is-checked">
-                                            <div className="wizard__item__title">{t('3.Check mailed')}  - {paymentNumber} </div>
+                                            <div className="wizard__item__title">{t('Check mailed')}  - {paymentNumber} </div>
                                             <span className="wizard__item__value">
                                                 <FormatterResolver
                                                     item={{ dateCreated: paymentSubmitedStatus.dateCreated }}
@@ -118,14 +118,14 @@ class GrantProgressTimeline extends Component {
 </React.Fragment>
                                 :
                                 <div className="wizard__item">
-                                    <div className="wizard__item__title">{t('3.Submited')}</div>
+                                    <div className="wizard__item__title">{t('Submited')}</div>
                                 </div>
                             }
 
                             {!declinedStatus && !canceledStatus && paymentReceivedStatus && (paymentReceivedStatus.currentStatus == 'payment-received' || paymentReceivedStatus.abrv == 'payment-received') ?
                                   <React.Fragment>
                                     {isAch ? <div className="wizard__item is-checked">
-                                        <div className="wizard__item__title">{t('4.Ach funded')}</div>
+                                        <div className="wizard__item__title">{t('Ach funded')}</div>
                                         <span className="wizard__item__value">
                                             <FormatterResolver
                                                 item={{ dateCreated: paymentReceivedStatus.dateCreated }}
@@ -135,7 +135,7 @@ class GrantProgressTimeline extends Component {
                                         </span>
                                     </div> :
                                         <div className="wizard__item is-checked">
-                                            <div className="wizard__item__title">{t('4.Check cashed')}</div>
+                                            <div className="wizard__item__title">{t('Check cashed')}</div>
                                             <span className="wizard__item__value">
                                                 <FormatterResolver
                                                     item={{ dateCreated: paymentReceivedStatus.dateCreated }}
@@ -147,7 +147,7 @@ class GrantProgressTimeline extends Component {
                                         </React.Fragment>
                                 :
                                 <div className="wizard__item ">
-                                    <div className="wizard__item__title">{t('4.Cashed')}</div>
+                                    <div className="wizard__item__title">{t('Cashed')}</div>
                                 </div>
                             }
                         </React.Fragment>

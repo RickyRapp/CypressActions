@@ -11,7 +11,7 @@ class GrantProgressTimeline extends Component {
             <React.Fragment>
                 <div className="wizard">
                     <div className="wizard__item">
-                        <div className="wizard__item__title">{t('1. Submited')}</div>
+                        <div className="wizard__item__title">{t('Submited')}</div>
                         <span className="wizard__item__value">
                             {item && <FormatterResolver
                                 item={{ dateCreated: item.dateCreated }}
@@ -21,7 +21,7 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>
                     <div className="wizard__item">
-                        <div className="wizard__item__title">{t('2. Processed')}</div>
+                        <div className="wizard__item__title">{t('Processed')}</div>
                         <span className="wizard__item__value">
                             {item && item.debitCharityTransaction ?
                                 <React.Fragment>
@@ -54,7 +54,7 @@ class GrantProgressTimeline extends Component {
                         </span>
                     </div>
                     <div className="wizard__item">
-                        <div className="wizard__item__title">{t('3. Cashed')}</div>
+                        <div className="wizard__item__title">{t('Cashed')}</div>
                         <span className="wizard__item__value">
                             {item && item.debitCharityTransaction && item.debitCharityTransaction.isCashed ?
                                 <FormatterResolver
