@@ -48,7 +48,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
 								...params,
 						});
 						this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ donorId: this.donorId, ...params });
-						this.allData = await rootStore.application.donor.contributionStore.findContribution({ donorId: this.donorId, ...params });
+						this.allData = await rootStore.application.donor.contributionStore.findContribution({ partyId: rootStore.userStore.applicationUser.id, ...params });
 
 						if(this.depositTab == 1) {
 							return this.timelineSummary;
