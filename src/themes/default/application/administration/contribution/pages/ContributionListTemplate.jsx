@@ -29,12 +29,13 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 		reviewModal,
 		contributionStatusDropdownStore,
 		dateCreatedDateRangeQueryStore,
+		searchCharityDropdownStore,
+		userTypeDropdownStore,
 		selectedItemsSum,
 		submitPending,
 		onAchNextPaymentNumberClick,
 		achBatchCurrentNumber,
-		form,
-		userTypeDropdownStore
+		form
 	} = contributionViewStore;
 
 	return (
@@ -49,8 +50,11 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 									<BaasicDropdown store={searchDonorDropdownStore} />
 								</div>
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown store={userTypeDropdownStore} />
-								</div>
+								<BaasicDropdown store={searchCharityDropdownStore} />
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown store={userTypeDropdownStore} />
+							</div>
 								<div className="u-mar--bottom--sml col col-sml-12 col-lrg-4">
 									<BaasicInput
 										id="confirmationNumber"
@@ -132,7 +136,7 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 								</div>
 							</div>
 							<div className="col col-sml-12 col-lrg-3">
-								<p>Sum of selected items:</p> 
+								<p>Sum of selected items:</p>
 								<p style={{ fontSize: '2em' }} className="u-mar--top--sml">
 									{<FormatterResolver
                                    		item={{ amount: selectedItemsSum }}
