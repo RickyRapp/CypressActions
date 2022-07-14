@@ -11,7 +11,7 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
     @observable grantAcknowledgmentName = 'Development';
     @observable summaryInfo = false;
     @observable balance = 0;
-
+    @observable availableBalance = 0;
     constructor(rootStore, { contributionStore }) {
         super(rootStore, {
             name: 'accept-security-create',
@@ -43,8 +43,12 @@ class AcceptSecurityCreateViewStore extends BaseEditViewStore {
         this.createBrokerageInstitutionDropdownStore();
         this.createRecentTransfersTableStore();
         this.setRecentTransfersTable();
+        this.getAccountBalance();
     }
 
+    async getAccountBalance(){
+        this.balance = await this.rootStore.application.charity.charityStore.getCharityAvailableBalance(this.rootStore.userStore.user.charityId);
+    }
     @action.bound
 	async setRecentTransfersTable() {
         const params = {

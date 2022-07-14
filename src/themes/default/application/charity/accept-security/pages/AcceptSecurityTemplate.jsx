@@ -24,7 +24,8 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
         balance,
         confirmModal,
         onSubmitClick,
-        recentTransfersTableStore
+        recentTransfersTableStore,
+        accountBalance
     } = acceptSecurityCreateViewStore;
 
     return (

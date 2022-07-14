@@ -151,7 +151,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                             try {  
                                 const anonymous = this.ackTypes.find(x => x.abrv == 'remain-anonymous');
                                 const nameAndAddress = this.ackTypes.find(x => x.abrv == 'name-and-address');
-                                
+                                console.log(item)
                                 if(item && item.paymentTransaction && item.paymentTransaction.charityVirtualTransactions.length > 0 && item.paymentTransaction.charityVirtualTransactions[0].grants.length > 0) {
                                    
                                     if(item.paymentTransaction.charityVirtualTransactions[0].grants[0].grantAcknowledgmentTypeId == anonymous.id) 
