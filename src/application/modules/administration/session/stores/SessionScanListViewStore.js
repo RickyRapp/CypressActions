@@ -11,7 +11,7 @@ class SessionScanListViewStore extends BaseListViewStore {
             authorization: 'theDonorsFundAdministrationSection',
             routes: {
                 edit: async (id) => {
-                    rootStore.routerStore.goTo('master.app.main.administration.session.session-scan.edit', { id: id });
+                    rootStore.routerStore.goTo('master.app.main.administration.scan-details', { id: id });
                 }
             },
             queryConfig: {

@@ -61,7 +61,7 @@ const BaasicTableTemplate = function ({
                     // pageable={hidePager ? false : true}
                     rowRender={customRowRender ? customRowRender : onRowClick ? rowRender : null}
                 >
-                    {defaultRenderBatchActionsToolbar(tableStore, authorization, batchActionsComponent)}
+                    {isBatchSelect ? defaultRenderBatchActionsToolbar(tableStore, authorization, batchActionsComponent) : null}
                     {defaultRenderColumns({ t, columns })}
                     {defaultRenderActions({ actions, actionsComponent, actionsWidth, authorization, t, actionsRender })}
                 </Grid>

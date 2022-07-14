@@ -1,80 +1,58 @@
 import { action, observable } from 'mobx';
-import { TableViewStore, BaseListViewStore } from 'core/stores';
+import { BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import TableImageCell from 'core/components/table/TableImageCell';
+import { SessionService } from '../services';
+import SessionScanEditForm from '../forms/SessionScanEditForm';
+
 import _ from 'lodash';
-import { GridNumericCell } from 'core/components';
 
 @applicationContext
-class SessionScanEditViewStore extends BaseListViewStore {
+class SessionScanEditViewStore extends BaseViewStore {
+
+    @observable data = [];
 
     constructor(rootStore) {
-        super(rootStore, {
-            name: 'session-scan-edit',
-            routes: {},
-            actions: () => {
-                return {
-                    find: async () => {
-                        const response = await rootStore.application.administration.sessionStore.getScannedSessionDetails(this.id);
-                        return response;
-                    }
-                }
-            },
-        });
-
+        super(rootStore);
         this.id = rootStore.routerStore.routerState.params.id;
-
-        this.setTableStore(new TableViewStore(this.queryUtility, {
-            columns: [
-                {
-                    key: 'barcode',
-                    title: 'Barcode',
-                    cell: GridNumericCell,
-                    onChange: this.onTableItemChange
-                },
-                {
-                    key: 'value',
-                    title: 'Amount',
-                    cell: GridNumericCell,
-                    onChange: this.onTableItemChange
-                },
-                {
-                    key: 'mediaGalleryReview.frontImage',
-                    title: 'Front image',
-                    cell: TableImageCell
-                },
-                {
-                    key: 'mediaGalleryReview.backImage',
-                    title: 'Back image',
-                    cell: TableImageCell
-                },
-                {
-                    key: 'dateCreated',
-                    title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DATE_CREATED_LABEL',
-                    format: {
-                        type: 'date',
-                        value: 'short'
-                    }
-                }
-            ],
-            batchActions: {
-                onBatchUpdate: async (items) => {
-                    console.log(items)
-                    const dirtyItems = items.filter(i => i.isDirty);
-
-                    debugger
-                }
-            },
-            disablePaging: true,
-            actionsRender: {}
-        }));
+        this.fileStreamService = rootStore.createApplicationService(SessionService);
+        this.loaderStore = this.createLoaderStore();
+        this.form = new SessionScanEditForm();
     }
 
     @action.bound
-    onTableItemChange({ dataItem, field, value }) {
-        dataItem[field] = value;
-        dataItem.isDirty = true;
-        this.tableStore.updateDataItems();
+    async onInit({ initialLoad }) {
+        if (!initialLoad) {
+            this.rootStore.routerStore.goBack();
+        }
+        else {
+            await this.getResource()
+        }
+    }
+
+    @action.bound
+    async getResource() {
+        try {
+            const response = await this.rootStore.application.administration.sessionStore.getScannedSessionDetails(this.id);
+            this.data = response.item;
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    openImage = async (id) => {
+        try {
+            const response = await this.fileStreamService.get(id);
+            debugger
+            return URL.createObjectURL(response.data);
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    @action.bound
+    saveRowChanges(item) {
+        console.log(item);
+        debugger
     }
 }
 

@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const TableImageCellTemplate = function (props) {
-    const {dataItem, field} = props;
-    // console.log(dataItem, field);
+    const [ image, setImage ] = useState(null);
 
+    const { dataItem, field, onClick } = props;
+
+    const id = field === "frontImage" ? dataItem.mediaGalleryReview[0].id : dataItem.mediaGalleryReview[1].id;
+    
     return (
-        <td>
-            image
+        <td onMouseLeave={() => setImage(null)} onMouseOver={async () => {
+            const response = await onClick(id);
+            setImage(response);
+        }}>
+            Image
+            {image && <img width={200} height={200} src={image} alt="" />}
+            {image && <a href={image} target="_blank">&#x21E9; Blank Certificate</a>}
         </td>)
 };
 
