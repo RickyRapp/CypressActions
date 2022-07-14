@@ -51,9 +51,7 @@ class GrantProgressTimeline extends Component {
         else {
             return null;
         }
-        console.log(item)
-        console.log(statusList)
-        console.log(isInternal)
+       
         return (
             <React.Fragment>
                 <div className="wizard">
