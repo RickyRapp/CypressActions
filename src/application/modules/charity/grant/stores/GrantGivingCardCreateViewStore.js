@@ -16,6 +16,19 @@ class GrantGivingCardCreateViewStore extends BaseEditViewStore {
                         if(!resource.isRecurring)
                             await rootStore.application.charity.grantStore.createGrantGivingCard({ charityId: this.charityId, ...resource });
                         else {
+							resource.donorId = await rootStore.application.charity.grantStore.getDonorFromCard({id: null, cardNumber: resource.cardNumber, cvv: resource.cvv, expirationDate: resource.expirationDate});
+
+							const result = await this.rootStore.application.charity.charityStore.findCharityAddress({ charityId: this.charityId});
+							const charityAdress = result.item.find(x => x.isPrimary === true);
+							resource.addressLine1 = charityAdress.addressLine1;
+							resource.addressLine2 = charityAdress.addressLine2;
+							resource.city = charityAdress.city;
+							resource.state = charityAdress.state;
+							resource.zipCode = charityAdress.zipCode;
+							
+							resource.donationTypeId = (await this.rootStore.application.lookup.donationTypeStore.find()).find( x => x.abrv === 'giving-card').id;
+							resource.cardTypeAbrv = 'internal';
+						
                             resource.grantPurposeTypeId = this.grantPurposeTypeId;
                             resource.grantAcknowledgmentTypeId = this.grantAcknowledgmentTypeId;
                             try{
@@ -35,7 +48,7 @@ class GrantGivingCardCreateViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async onInit({ initialLoad }) {
+    async onInit({ initialLoad }) { 
         if (!initialLoad) {
             this.rootStore.routerStore.goBack();
         }

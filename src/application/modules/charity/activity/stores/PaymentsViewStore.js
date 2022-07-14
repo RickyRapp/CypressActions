@@ -67,12 +67,12 @@ class PaymentsViewStore extends BaseListViewStore {
                     title: 'RECONCILE.LIST.COLUMNS.CHARITY_NAME_LABEL',
                     format:  {
                         type: 'function',
-                        value: (item) => {
+                        value: (item) => { 
                             const grant = item.grants[0];
                             return <div>
                                 {item.charity.name} 
                                 <small style={{ display: "block" }}>
-                                    {grant.address}
+                                    {grant && grant.address}
                                     </small>
                             </div>
                         }

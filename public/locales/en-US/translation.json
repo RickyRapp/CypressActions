@@ -2027,14 +2027,16 @@
         "CREATE": {
             "TITLE": "New Grant Request",
             "FIELDS": {
-                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_LABEL": "Order Amount",
                 "AMOUNT_PLACEHOLDER": "Enter amount",
                 "CARD_NUMBER_LABEL": "Card number",
                 "EXPIRATION_DATE_LABEL": "Expiration date",
                 "EXPIRATION_DATE_PLACEHOLDER": "MM/YY",
-                "CVV_LABEL": "Cvv",
+                "CVV_LABEL": "CVV/CVV2",
                 "NOTE_LABEL": "Note",
-                "NOTE_PLACEHOLDER": "Enter note"
+                "SCHEDULED_LABEL" :"Scheduled the Donation",
+                "NOTE_PLACEHOLDER": "Enter note",
+                "SUBMIT_BUTTON" : "Complete transaction"
             }
         }
     },

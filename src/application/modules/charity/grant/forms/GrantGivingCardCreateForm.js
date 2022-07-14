@@ -125,7 +125,18 @@ export default class GrantRequestCreateForm extends FormBase {
 					rules: 'boolean',
 					type: 'checkbox',
 					value: false,
-				}
+				},
+                {
+					name: 'startFutureDate',
+					label: 'GRANT.CREATE.FIELDS.START_FUTURE_DATE_LABEL',
+					placeholder: 'GRANT.CREATE.FIELDS.START_FUTURE_DATE_PLACEHOLDER',
+					rules: `required_if:isRecurring,false|min_date:${moment().format('YYYY-MM-DD')}`,
+					type: 'date',
+					value: moment().format('YYYY-MM-DD'),
+					options: {
+						validateOnChange: false,
+					}
+                }
             ]
         };
     }
