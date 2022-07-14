@@ -96,6 +96,10 @@
 		}
 	}
 
+    &__status {
+        font-variant-numeric: tabular-nums;
+    }
+
 	&__icons {
 		display: flex;
 		text-align: right;
