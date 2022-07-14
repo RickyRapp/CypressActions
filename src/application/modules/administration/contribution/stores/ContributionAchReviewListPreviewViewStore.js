@@ -1,8 +1,9 @@
-import { action, observable, reaction } from 'mobx';
-import { BaseListViewStore, SelectTableViewStore } from 'core/stores';
-import { applicationContext } from 'core/utils';
+import { action, observable,reaction } from 'mobx';
+import { BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore, SelectTableViewStore } from 'core/stores';
+import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ModalParams } from 'core/models';
-import { ContributionListFilter, ContributionReviewListFilter } from 'application/administration/contribution/models';
+import { ContributionListFilter , ContributionReviewListFilter} from 'application/administration/contribution/models';
+import moment from 'moment';
 import { saveAs } from '@progress/kendo-file-saver';
 import { ContributionAchCreateForm } from '../forms';
 
@@ -11,7 +12,6 @@ class ContributionAchReviewListPreviewViewStore extends BaseListViewStore {
     contributionStatuses = [];
     @observable selectedItemsSum = 0;
     @observable achBatchCurrentNumber = false;
-    form = new ContributionAchCreateForm();
 
     thirdPartyFunds = [
 		{ id: '1', name: 'Fidelity Charitable' },
@@ -42,20 +42,20 @@ class ContributionAchReviewListPreviewViewStore extends BaseListViewStore {
 		{ id: '11', name: 'Jewish Federation of Metropolitan Chicago' },
 		{ id: '12', name: 'Other' },
 	];
-
-
-    constructor(rootStore, props) {
+    constructor(rootStore) {
         super(rootStore, {
             name: 'contribution-review-preview-list',
             authorization: 'theDonorsFundContributionSection',
-            routes: {},
+            routes: {
+               
+            },
             queryConfig: {
                 filter: new ContributionListFilter('dateCreated', 'desc')
             },
             actions: () => {
                 return {
                     find: async (params) => {
-
+                     
                         params.embed = [
                             'donor',
                             'payerInformation',
@@ -67,12 +67,11 @@ class ContributionAchReviewListPreviewViewStore extends BaseListViewStore {
                         params.contributionReviewId =  props.modalParams.data.content.id;
                         this.contributionReviewId = props.modalParams.data.content.id;
                         this.achBatchCurrentNumber = await rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
-                        return rootStore.application.administration.contributionStore.findContribution(params);
+                        return  rootStore.application.administration.contributionStore.findContribution(params);
                     }
                 }
             }
         });
-
         this.contributionReviewId;
         this.createTableStore();
         reaction(() => this.tableStore.dataInitialized, () => {
@@ -80,7 +79,9 @@ class ContributionAchReviewListPreviewViewStore extends BaseListViewStore {
                 this.tableStore.selectedItems.push(item);
             });
         });
+      
     }
+
 
 
     createTableStore() {
@@ -138,19 +139,16 @@ class ContributionAchReviewListPreviewViewStore extends BaseListViewStore {
                     }
                 }
             ],
-            actions: {},
             actionsRender: {},
             disablePaging: true,
         }));
     }
-
-
+ 
     @action.bound
-    async submitPending(){ 
+    async submitPending(){
         if(!this.form.values().paymentNumber){
             return;
         }
-        
         let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending' && s.paymentType.abrv === 'ach');
         let contributionReviewId = this.contributionReviewId;
         var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contributionReviewId: contributionReviewId, isPreview: true ,contentType: 'text/csv' });
@@ -159,7 +157,6 @@ class ContributionAchReviewListPreviewViewStore extends BaseListViewStore {
         const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
         saveAs(response, fileName);
         this.rootStore.notificationStore.success("Contribution report generated.");
-
     }
 
     @action.bound
