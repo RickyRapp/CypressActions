@@ -159,7 +159,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return item.type;
+                            return item.type === "Stocks and securities" ? "Stocks and securities" :  (item.paymentTransaction.charityVirtualTransactions[0] ? this.getTransactionType(item.paymentTransaction.charityVirtualTransactions[0].Deposits[0]) : "Stocks and securities");
                         }
                     }
                 },
