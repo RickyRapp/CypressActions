@@ -39,30 +39,14 @@ const BookletOrderEditRowTemplate = function ({ denominationTypes, item, onAddBo
     );
 
     return (
-        <div className="row row--form">
-            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                <div className="form__group__label u-mar--bottom--sml">Booklet price</div>
-                {item && bookletTypes && bookletType.abrv !== 'classic' && bookletType.name} {denominationType && denominationType.name}
+        <div className="booklet">
+            <div className="booklet__price">
+                {item && bookletTypes && bookletType.abrv !== 'classic' ? `${bookletType.name}: ` : "Denomination: "}{denominationType && denominationType.value === 0 ? "Blank" : `$${denominationType.value}`}
             </div>
-            <div className="form__group col col-sml-6 col-lrg-3 u-mar--bottom--sml">
-                <div className="form__group__label u-mar--bottom--sml">Booklet count</div>
+            <div className="booklet__count">
+                <div className="form__group__label">Booklet count</div>
                 <NumericInput min={1} max={99} value={item.bookletCount} onChange={(e) => item.bookletCount = e.target.value} />
             </div>
-            {/* <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                <div className="form__group__label">Booklet list</div>
-                <BaasicDropdown
-                    store={bookletDropdownStore}
-                    value={item.booklets.slice()}
-                    listNoDataRender={(element) => listNoDataRender(element, isMaxBookletsSelected)}
-                    filterable={!isMaxBookletsSelected}
-                />
-                {!isMaxBookletsSelected &&
-                    <div className="validation__message">
-                        <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>
-                        Need to assign {item.bookletCount - item.booklets.length} more booklet/s.
-                        </div>
-                }
-            </div> */}
         </div>
     )
 };

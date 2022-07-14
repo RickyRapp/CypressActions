@@ -91,6 +91,7 @@
 @import "component.withdraw.css";
 @import "component.wizard.css";
 @import "component.date-range-picker.css";
+@import "component.booklet.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)
