@@ -1,6 +1,5 @@
 import { TableViewStore, BaseListViewStore } from 'core/stores';
-import { FilterParams, ModalParams } from 'core/models';
-import { action } from 'mobx';
+import { FilterParams } from 'core/models';
 
 class SessionScanListViewStore extends BaseListViewStore {
 
@@ -11,8 +10,11 @@ class SessionScanListViewStore extends BaseListViewStore {
             authorization: 'theDonorsFundAdministrationSection',
             routes: {
                 edit: async (id) => {
-                    rootStore.routerStore.goTo('master.app.main.administration.scan-details', { id: id });
-                }
+                    rootStore.routerStore.goTo('master.app.main.administration.session.session-scan.edit', { id });
+                },
+                preview: async (id) => {
+                    rootStore.routerStore.goTo('master.app.main.administration.session.session-scan.preview', { id });
+                },
             },
             queryConfig: {
                 filter: new FilterParams()
@@ -44,6 +46,7 @@ class SessionScanListViewStore extends BaseListViewStore {
             ],
             actions: {
                 onEdit: (session) => this.routes.edit(session.id),
+                onPreview: (session) => this.routes.preview(session.id),
             },
             actionsRender: {}
         }));

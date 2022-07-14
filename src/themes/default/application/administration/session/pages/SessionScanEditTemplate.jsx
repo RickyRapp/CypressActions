@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
     BaasicButton,
     TableImageCell,
+    BasicCheckbox
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, PageFooter, ApplicationEditLayout } from 'core/layouts';
@@ -14,7 +15,9 @@ const SessionScanEditTemplate = function ({ sessionScanEditViewStore, t }) {
         contentLoading,
         data,
         openImage,
-        saveRowChanges,
+        hasDirtyItems,
+        isEdit,
+        saveChanges,
         onItemChange,
     } = sessionScanEditViewStore;
 
@@ -29,64 +32,82 @@ const SessionScanEditTemplate = function ({ sessionScanEditViewStore, t }) {
                                 <th className="table__head--data">Amount</th>
                                 <th className="table__head--data">Front Image</th>
                                 <th className="table__head--data">Back Image</th>
-                                <th className="table__head--data">Actions</th>
+                                <th className="table__head--data">Valid</th>
+                                <th className="table__head--data">Approved</th>
                             </tr>
                         </thead>
                         <tbody className="table__body">
-                            {_.orderBy(data, ['code'], ['asc']).map(item=> <TableRow onItemChange={onItemChange} item={item} openImage={openImage} saveRowChanges={saveRowChanges} /> )}
+                            {_.orderBy(data, ['dateCreated'], ['asc']).map(item => <TableRow key={item.id} onItemChange={onItemChange} item={item} isEdit={isEdit} openImage={openImage} /> )}
                         </tbody>
                     </table>
                 </div>
             </Content>
         <PageFooter>
+            {isEdit && 
+                <BaasicButton
+                    className="btn btn--med btn--med--wide btn--primary"
+                    label='Save'
+                    disabled={!hasDirtyItems}
+                    onClick={() => saveChanges()}
+                />}
         </PageFooter>
     </ApplicationEditLayout >
     )
 };
 
-function TableRow({ item, openImage, saveRowChanges, onItemChange }) {
-    const [ value, setValue ] = useState(item.value);
-    const [ barcode, setBarcode ] = useState(item.barcode);
+function TableRow({ item, openImage, onItemChange, isEdit }) {
+    return (
+    <tr style={{ height: 50 }}>
+        <td className="type--center">
+            {isEdit ? 
+            <input
+                className="input input--lrg input--text"
+                type="text"
+                disabled={!isEdit}
+                value={item.barcode || ''}
+                onChange={event => onItemChange(event, item, "barcode")} 
+            /> : <span>{item.barcode || ""}</span>}
+        </td>
 
-    return <tr>
         <td className="type--center">
-            <input
+            {isEdit ? <input
                 className="input input--lrg input--text"
-                type="number"
-                value={barcode || ''}
-                onChange={event => setBarcode(event.target.value)} 
-            />
+                type="text"
+                disabled={!isEdit}
+                value={item.value || 0}
+                onChange={event => onItemChange(event, item, "value")} 
+            /> : <span>{item.value || 0}</span>}
         </td>
+
+        <TableImageCell onClick={openImage} dataItem={item} field={"frontImage"}  />
+        <TableImageCell onClick={openImage} dataItem={item} field={"backImage"}  />
+
         <td className="type--center">
-            <input
-                className="input input--lrg input--text"
-                type="number"
-                value={value || 0}
-                onChange={event => setValue(event.target.value)} 
+            <BasicCheckbox
+                id={item.id}
+                checked={item.isValid}
+                disabled={true}
+                // classSuffix=" input--check--nolabel"
             />
         </td>
-        <td>
-            <TableImageCell onClick={openImage} dataItem={item} field={"frontImage"}  />
-        </td>
-        <td>
-            <TableImageCell onClick={openImage} dataItem={item} field={"backImage"}  />
-        </td>
+
         <td className="type--center">
-            <BaasicButton
-                disabled={value === item.value && barcode === item.barcode}
-                className="btn btn--med btn--med--wide btn--primary btn--sml"
-                label='BOOKLET.EDIT.BUTTON.SAVE_ROW_CHANGES'
-                onClick={() => saveRowChanges({ ...item, value, barcode })}
-            />
-            <BaasicButton
-                disabled={value === item.value && barcode === item.barcode}
-                className="btn btn--med btn--med--wide btn--primary btn--sml"
-                label='Clear'
-                onClick={() => { setBarcode(item.barcode); setValue(item.value); }}
+            <BasicCheckbox
+                id={item.id}
+                checked={item.isApproved}
+                disabled={true}
+                // classSuffix=" input--check--nolabel"
             />
         </td>
-    </tr>
+    </tr>)
 }
+
+TableRow.propTypes = {
+    item: PropTypes.object,
+    openImage: PropTypes.func,
+    onItemChange: PropTypes.func,
+    isEdit: PropTypes.bool,
+};
 
 SessionScanEditTemplate.propTypes = {
     sessionScanEditViewStore: PropTypes.object.isRequired,

@@ -1,7 +1,7 @@
-import { action, observable } from 'mobx';
+import { action, observable,computed } from 'mobx';
 import { BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { SessionService } from '../services';
+import { CharityFileStreamService } from 'common/services';
 import SessionScanEditForm from '../forms/SessionScanEditForm';
 
 import _ from 'lodash';
@@ -11,12 +11,21 @@ class SessionScanEditViewStore extends BaseViewStore {
 
     @observable data = [];
 
+    @computed get hasDirtyItems() {
+        return this.data.some(i => i.isDirty);
+    }
+
+    get isEdit() {
+        return this.rootStore.routerStore.routerState.routeName.includes("edit");
+    }
+
     constructor(rootStore) {
         super(rootStore);
         this.id = rootStore.routerStore.routerState.params.id;
-        this.fileStreamService = rootStore.createApplicationService(SessionService);
+        this.fileStreamService = rootStore.createApplicationService(CharityFileStreamService);
         this.loaderStore = this.createLoaderStore();
         this.form = new SessionScanEditForm();
+        
     }
 
     @action.bound
@@ -25,7 +34,7 @@ class SessionScanEditViewStore extends BaseViewStore {
             this.rootStore.routerStore.goBack();
         }
         else {
-            await this.getResource()
+            await this.getResource();
         }
     }
 
@@ -42,16 +51,22 @@ class SessionScanEditViewStore extends BaseViewStore {
     openImage = async (id) => {
         try {
             const response = await this.fileStreamService.get(id);
-            debugger
             return URL.createObjectURL(response.data);
         } catch(err) {
             console.log(err);
         }
     }
 
+	@action.bound
+    onItemChange(event, item, field) {
+        item[field] = event.target.value;
+        item.isDirty = true;
+        this.data = [...this.data];
+    }
+
     @action.bound
-    saveRowChanges(item) {
-        console.log(item);
+    saveChanges() {
+        const dirtyItems = this.data.filter(i => i.isDirty);
         debugger
     }
 }

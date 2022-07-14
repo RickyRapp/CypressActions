@@ -36,14 +36,23 @@ import { SessionTab, SessionEdit, SessionPreview, SessionScanEdit, SessionScanPr
                         }
                     },
                     {
-                        name: 'master.app.main.administration.scan-details',
-                        pattern: '/scan-details/:id',
+                        name: 'master.app.main.administration.session.session-scan.edit',
+                        pattern: '/session-scan/edit/:id',
                         component: SessionScanEdit,
                         authorization: 'theDonorsFundAdministrationSection.update',
                         data: {
                             title: "Session scan edit"
                         }
-                    },                
+                    },
+                    {
+                        name: 'master.app.main.administration.session.session-scan.preview',
+                        pattern: '/session-scan/preview/:id',
+                        component: SessionScanEdit,
+                        authorization: 'theDonorsFundAdministrationSection.update',
+                        data: {
+                            title: "Session scan preview"
+                        }
+                    },              
                 ]
             }
         ]

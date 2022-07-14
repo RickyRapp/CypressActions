@@ -25,7 +25,6 @@ const SessionScanListTemplate = function ({ sessionScanViewStore }) {
         <React.Fragment>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--primary card--med">
-					<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility} />
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
@@ -42,11 +41,21 @@ function renderEmpty(routes) {
 }
 
 function renderActions({ item, actions }) {
-    const { onEdit } = actions;
+    const { onEdit, onPreview } = actions;
 
     return (
         <td>
             <div className="type--right">
+                {isSome(onPreview) ? (
+					<BaasicButton
+						className="btn btn--icon"
+						onlyIconClassName="u-mar--right--tny"
+						icon="u-icon u-icon--preview u-icon--base"
+						label="CONTRIBUTION.LIST.BUTTON.PREVIEW"
+						onlyIcon={true}
+						onClick={() => onPreview(item)}
+					></BaasicButton>
+				) : null}
                 {isSome(onEdit) ? (
 					<BaasicButton
 						className="btn btn--icon"
