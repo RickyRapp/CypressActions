@@ -161,9 +161,11 @@ class GrantViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            if(item.donationType.abrv === 'online' || item.donationType.abrv === 'giving-card' || item.donationType.abrv === 'grant-request'){
+                            if(item.donationType.abrv === 'online' || item.donationType.abrv === 'grant-request'){
                                 return `${item.donationType.name} - ${item.confirmationNumber}`;
-                            } else if(item.donationType.abrv === 'session') {
+                            }else if( item.donationType.abrv === 'giving-card') {
+                                return `${item.donationType.name} - ${item.givingCardType.name}`;
+                            }else if(item.donationType.abrv === 'session') {
                                 return `Check ${item.certificate.booklet.code}-${item.certificate.code} `;
                             } else if(item.donationType.abrv === 'charity-website') {
                                 return `${item.url ? item.url : 'Charity website'} - ${item.confirmationNumber}`;
