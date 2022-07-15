@@ -39,6 +39,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                         </div>
                                         <div className="col col-sml-6">
                                             <div className="type--wgt--medium u-push">
+                                                {console.log(item.donor)}
                                                 {item && item.donor && item.donor.name}
                                             </div>
                                         </div>
