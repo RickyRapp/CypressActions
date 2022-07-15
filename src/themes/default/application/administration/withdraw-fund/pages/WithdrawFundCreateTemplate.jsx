@@ -73,7 +73,7 @@ function WithdrawFundCreateTemplate({ withdrawFundCreateViewStore, t }) {
                         </div>
                         {isACH ?
                             <div className="u-mar--top--sml">
-                                {bankAccountDropdownStore.length > 1 || bankAccountDropdownStore.originalItems.length > 1 ?
+                                {bankAccountDropdownStore.length >= 1 || bankAccountDropdownStore.originalItems.length >= 1 ?
                                     <div className="form__group">
                                         <BaasicDropdown
                                             store={bankAccountDropdownStore}
