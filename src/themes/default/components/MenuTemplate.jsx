@@ -5,6 +5,7 @@ import { FormatterResolver, NotifyOutsideClick } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import logo from 'themes/styles/postcss-svg/old/logo-app.svg';
 import logo_collapsed from 'themes/styles/postcss-svg/old/logo-collapsed.svg';
+import ReactTooltip from 'react-tooltip';
 
 function MenuTemplate({ menuStore, t }) {
     return (
@@ -30,7 +31,7 @@ function renderPrimary(menu, menuStore, translate) {
                         if (title === "Manage Fund" && menuStore.isCollapsed) {
                             menuStore.toggleCollapse();
                             menuStore.toggleSecondaryMenu();
-                        } else if(title === "Manage Fund") {
+                        } else if (title === "Manage Fund") {
                             menuStore.toggleSecondaryMenu();
                         } else {
                             menuStore.selectMenuItem(item);
@@ -49,7 +50,7 @@ function renderPrimary(menu, menuStore, translate) {
                     // if (className.includes('selected') || (item.hasChildren && className.includes('active'))) {
                     return (
                         <React.Fragment key={title}>
-                            <div className={`nav--primary__item ${title === "Give" ? "nav--primary__item--give" : className}`} aria-label={title} onClick={secondaryMenuOpen}>
+                            <div data-tip={`${title}`} className={`nav--primary__item ${title === "Give" ? "nav--primary__item--give" : className}`} aria-label={title} onClick={secondaryMenuOpen}>
                                 <i className={!menuStore.isCollapsed ? `u-icon u-icon--med u-icon--${item.icon}` : `u-icon u-icon--med u-icon--${item.icon} u-mar--center`}></i>
                                 {!menuStore.isCollapsed &&
                                     <span title={title} className={title === "Give" ? "u-mar--left--base" : "nav--secondary__text u-mar--left--base"}>
@@ -60,6 +61,10 @@ function renderPrimary(menu, menuStore, translate) {
                                         <span className={`u-icon u-icon--base u-icon--arrow-up ${menuStore.secondaryMenuIsOpen ? "" : "u-rotate--180"}`}></span>
                                     </span>
                                 ) : null}
+
+                                {menuStore.isCollapsed &&
+                                    <ReactTooltip place={"right"} />
+                                }
                             </div>
 
                             {menuStore.secondaryMenuIsOpen &&
@@ -174,7 +179,7 @@ function renderMenuFooter(menuStore, t) {
     return (
         <React.Fragment>
             <div className="nav--primary__footer">
-                <div className="nav--primary__item--logout" onClick={() => menuStore.rootStore.viewStore.logout()}>
+                <div className="nav--primary__item--logout" onClick={() => menuStore.rootStore.viewStore.logout()} data-tip={t('MENU.FOOTER.LOGOUT')}>
                     {menuStore.isCollapsed ? <i className="u-icon u-icon--med u-icon--logout"></i>
                         : <span>{t('MENU.FOOTER.LOGOUT')}</span>
                     }
@@ -182,6 +187,10 @@ function renderMenuFooter(menuStore, t) {
                 <div className="nav--primary__item--menu" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
                     {menuStore.isCollapsed ? <i className="u-icon u-icon--base u-icon--arrow-right"></i> : <i className="u-icon u-icon--base u-icon--arrow-left"></i>}
                 </div>
+
+                {menuStore.isCollapsed &&
+                    <ReactTooltip place={"right"} />
+                }
             </div>
 
         </React.Fragment>
