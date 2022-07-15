@@ -106,5 +106,10 @@ class SessionStore {
         const response = await this.sessionService.getScannedSessionDetails(resource);
         return response.data;
     }
+
+    async updateScannedSession(resource) {
+        const response = await this.sessionService.updateScannedSession(resource);
+        return response.data;
+    }
 }
 export default SessionStore;

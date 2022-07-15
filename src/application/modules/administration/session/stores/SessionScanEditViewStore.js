@@ -41,10 +41,13 @@ class SessionScanEditViewStore extends BaseViewStore {
     @action.bound
     async getResource() {
         try {
+            this.loaderStore.suspend();
             const response = await this.rootStore.application.administration.sessionStore.getScannedSessionDetails(this.id);
             this.data = response.item;
         } catch(err) {
             console.log(err);
+        } finally {
+            this.loaderStore.resume();
         }
     }
 
@@ -65,9 +68,38 @@ class SessionScanEditViewStore extends BaseViewStore {
     }
 
     @action.bound
-    saveChanges() {
-        const dirtyItems = this.data.filter(i => i.isDirty);
-        debugger
+    async saveChanges() {
+        try {
+            this.loaderStore.suspend();
+
+            const items = this.data.filter(item => item.isDirty).map(item => ({ id: item.id, barcode: item.barcode, amount: Number(item.value), key: item.key}));
+            const response = await this.rootStore.application.administration.sessionStore.updateScannedSession(items);
+            
+            const notUpdatedValues = response.map(r => !r.isEligible && r.certificate.barcode);
+            const updatedValues = response.reduce((acc, r) => {
+                r.isEligible && acc.push(r.certificate.barcode);
+                return acc;
+            }, []);
+
+            if (notUpdatedValues.length > 0) {
+                this.rootStore.notificationStore.error(`Failed to update sessions with barcode ${notUpdatedValues.join(", ")}`);
+            }
+
+            if (updatedValues.length > 0 && notUpdatedValues.length === 0) {
+                this.rootStore.notificationStore.success("Resource updated successfully");
+            }
+
+            if (updatedValues.length > 0 && notUpdatedValues.length > 0) {
+                this.rootStore.notificationStore.success(`Sessions with barcode ${updatedValues.join(", ")} updated successfully`);
+            }
+
+            await this.getResource();
+
+        } catch(err) {
+            console.log(err);
+        } finally {
+            this.loaderStore.resume();
+        }
     }
 }
 

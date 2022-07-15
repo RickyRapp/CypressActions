@@ -12,7 +12,7 @@ import _ from "lodash";
 const SessionScanEditTemplate = function ({ sessionScanEditViewStore, t }) {
 
     const {
-        contentLoading,
+        loaderStore,
         data,
         openImage,
         hasDirtyItems,
@@ -23,7 +23,7 @@ const SessionScanEditTemplate = function ({ sessionScanEditViewStore, t }) {
 
     return (
         <ApplicationEditLayout store={sessionScanEditViewStore}>
-            <Content loading={contentLoading} >
+            <Content loading={loaderStore.loading} >
                 <div className="card--primary card--med u-mar--bottom--med">
                     <table className="table w--100 card--primary">
                         <thead className="table__head">
@@ -63,7 +63,6 @@ function TableRow({ item, openImage, onItemChange, isEdit }) {
             <input
                 className="input input--lrg input--text"
                 type="text"
-                disabled={!isEdit}
                 value={item.barcode || ''}
                 onChange={event => onItemChange(event, item, "barcode")} 
             /> : <span>{item.barcode || ""}</span>}
@@ -73,7 +72,6 @@ function TableRow({ item, openImage, onItemChange, isEdit }) {
             {isEdit ? <input
                 className="input input--lrg input--text"
                 type="text"
-                disabled={!isEdit}
                 value={item.value || 0}
                 onChange={event => onItemChange(event, item, "value")} 
             /> : <span>{item.value || 0}</span>}
@@ -87,7 +85,6 @@ function TableRow({ item, openImage, onItemChange, isEdit }) {
                 id={item.id}
                 checked={item.isValid}
                 disabled={true}
-                // classSuffix=" input--check--nolabel"
             />
         </td>
 
@@ -96,7 +93,6 @@ function TableRow({ item, openImage, onItemChange, isEdit }) {
                 id={item.id}
                 checked={item.isApproved}
                 disabled={true}
-                // classSuffix=" input--check--nolabel"
             />
         </td>
     </tr>)

@@ -103,6 +103,10 @@ class SessionRouteService extends BaseRouteService {
     getScannedSessionDetails(id) {
         return super.get(this.scannedSessionBase + '/details/{id}', id);
     }
+
+    updateScannedSession(resource) {
+        return super.update(this.sessionScanBase + '/add-scanned-certificates', resource);
+    }
 }
 
 export default SessionRouteService;

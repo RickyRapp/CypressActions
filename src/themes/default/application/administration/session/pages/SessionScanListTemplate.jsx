@@ -56,7 +56,7 @@ function renderActions({ item, actions }) {
 						onClick={() => onPreview(item)}
 					></BaasicButton>
 				) : null}
-                {isSome(onEdit) ? (
+                {isSome(onEdit) && item.isActive ? (
 					<BaasicButton
 						className="btn btn--icon"
 						icon="u-icon u-icon--edit u-icon--base"

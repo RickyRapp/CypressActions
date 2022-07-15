@@ -119,6 +119,11 @@ class SessionService extends BaseService {
         const url = this.routeService.getScannedSessionDetails(id);
         return this.apiClient.get(url);
     }
+
+    updateScannedSession(resource) {
+        const url = this.routeService.updateScannedSession(resource);
+        return this.apiClient.put(url, resource);
+    }
 }
 
 export default SessionService;

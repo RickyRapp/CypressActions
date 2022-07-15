@@ -22,23 +22,25 @@ const TableImageCellTemplate = function (props) {
     return (
         <td 
             className="type--center"
+            onMouseLeave={onMouseLeave} 
         >
             <span 
                 ref={anchor}
                 onMouseEnter={onMouseEnter} 
-                onMouseLeave={onMouseLeave} 
                 style={{ backgroundColor: "blue", width: 40, height: 40, color: "white", padding: 5, cursor: "pointer" }}>
                 Image
             </span>
 
-            <Popup popupAlign={{ horizontal: "right", vertical: "top" }} anchorAlign={{ horizontal: "left", vertical: "bottom" }} anchor={anchor.current} show={image != null} className="k-dropdown--header" /* offset={offset} */ animate={false}>
-                <img 
-                    style={{ backgroundColor: "white", border: "1px solid black" }} 
-                    width={450} 
-                    height={300} 
-                    src={image} 
-                    alt="" 
-                />
+            <Popup popupAlign={{ horizontal: "right", vertical: "center" }} anchorAlign={{ horizontal: "left", vertical: "bottom" }} animate={false} anchor={anchor.current} show={image != null} >
+                <div style={{ width: 650, height: 250 }}>
+                    <img 
+                        style={{ backgroundColor: "white", border: "1px solid black" }} 
+                        width={650} 
+                        height={250} 
+                        src={image} 
+                        alt="" 
+                    />
+                </div>
             </Popup>
             
         </td>)
