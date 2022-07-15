@@ -30,7 +30,7 @@ function WithdrawFundCreateTemplate({ withdrawFundCreateViewStore, t }) {
                     />
                 </p>
                 <p className="type--lrg">How much would you like to withdraw?</p>
-                <p className="type--sml type--color--opaque u-mar--bottom--sml">Minimum $500 investment required.</p>
+                {/* <p className="type--sml type--color--opaque u-mar--bottom--sml">Minimum $500 investment required.</p> */}
 
                 <div className="withdraw__form">
                     <div className="u-mar--top--sml">
