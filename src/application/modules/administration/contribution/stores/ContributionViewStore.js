@@ -92,6 +92,7 @@ class ContributionViewStore extends BaseListViewStore {
                             'charity'
                         ];
                         this.achBatchCurrentNumber = await rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
+                        console.log(await rootStore.application.administration.contributionStore.findContribution(params))
                         return rootStore.application.administration.contributionStore.findContribution(params);
                     }
                 }
@@ -145,16 +146,8 @@ class ContributionViewStore extends BaseListViewStore {
 
 
     @action.bound
-    getDonorOrCharity(item) {
-        if (item.donor === null) {
-            if (item.charity != null) {
-                return item.charity.name;
-            } else
-                return '';
-        }
-        else {
-            return item.donor.donorName;
-        }
+    getDonorOrCharity(item) { 
+            return item.donor ? item.donor.donorName : item.charity ? item.charity.name: '';
     }
     @action.bound
     async openCancelContribution(item) {
@@ -300,7 +293,7 @@ class ContributionViewStore extends BaseListViewStore {
                 },
             },
             onSelect: (dataItem, isRemoving) => {
-                if(dataItem.contributionStatus.abrv === 'pending'){
+                if(dataItem.contributionStatus.abrv === 'pending' && dataItem.paymentType.abrv === 'ach'){
                     if(isRemoving){
                         this.selectedItemsSum -= dataItem.amount;
                     }else{
@@ -311,7 +304,7 @@ class ContributionViewStore extends BaseListViewStore {
             onSelectAll: (e) => {
                 if(!this.tableStore.hasSelectedItems){
                     this.tableStore.data.map(item => {
-                        if(item.contributionStatus.abrv === 'pending'){
+                        if(item.contributionStatus.abrv === 'pending' && item.paymentType.abrv === 'ach'){
                             this.selectedItemsSum += item.amount;
                         }
                     });
@@ -442,13 +435,14 @@ class ContributionViewStore extends BaseListViewStore {
             return;
         }
         let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending' && s.paymentType.abrv === 'ach');
-        var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contentType: 'text/csv' });
-       
-        const nowDate = new Date();
-        const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
-        saveAs(response, fileName);
-        this.rootStore.notificationStore.success("Contribution report generated.");
-        this.queryUtility.fetch();
+        if(pendingDeposits != 0){
+            var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contentType: 'text/csv' });
+            const nowDate = new Date();
+            const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
+            saveAs(response, fileName);
+            this.rootStore.notificationStore.success("Contribution report generated.");
+            this.queryUtility.fetch();
+        }
     }
 }
 
