@@ -121,6 +121,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             </div>
                             {item && item.donor == null && 
                             <React.Fragment>
+                                {console.log(item.payerInformation)}
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
                                     <div className="row">
@@ -158,7 +159,6 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                         <div className="col col-sml-6">
                                             <div className="type--wgt--medium u-push">
                                             {item && item.payerInformation && item.payerInformation.email}
-
                                             </div>
                                         </div>
                                     </div>
