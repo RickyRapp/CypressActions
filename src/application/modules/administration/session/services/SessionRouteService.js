@@ -97,7 +97,7 @@ class SessionRouteService extends BaseRouteService {
     }
 
     getScannedSessions(filter) {
-        return super.find(this.scannedSessionBase + '/{?search,page,rpp,sort}', filter);
+        return super.find(this.scannedSessionBase + '/{?search,page,rpp}', filter);
     }
 
     getScannedSessionDetails(id) {

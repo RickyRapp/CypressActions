@@ -33,7 +33,7 @@ const SessionScanEditTemplate = function ({ sessionScanEditViewStore, t }) {
                                 <th className="table__head--data">Front Image</th>
                                 <th className="table__head--data">Back Image</th>
                                 <th className="table__head--data">Valid</th>
-                                <th className="table__head--data">Approved</th>
+                                {/* <th className="table__head--data">Approved</th> */}
                             </tr>
                         </thead>
                         <tbody className="table__body">
@@ -47,7 +47,6 @@ const SessionScanEditTemplate = function ({ sessionScanEditViewStore, t }) {
                 <BaasicButton
                     className="btn btn--med btn--med--wide btn--primary"
                     label='Save'
-                    disabled={!hasDirtyItems}
                     onClick={() => saveChanges()}
                 />}
         </PageFooter>
@@ -87,14 +86,14 @@ function TableRow({ item, openImage, onItemChange, isEdit }) {
                 disabled={true}
             />
         </td>
-
+{/* 
         <td className="type--center">
             <BasicCheckbox
                 id={item.id}
                 checked={item.isApproved}
                 disabled={true}
             />
-        </td>
+        </td> */}
     </tr>)
 }
 

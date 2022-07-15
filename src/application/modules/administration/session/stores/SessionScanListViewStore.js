@@ -34,6 +34,7 @@ class SessionScanListViewStore extends BaseListViewStore {
                 {
                     key: 'sessionFolderName',
                     title: 'File name',
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',
@@ -41,7 +42,8 @@ class SessionScanListViewStore extends BaseListViewStore {
                     format: {
                         type: 'date',
                         value: 'short'
-                    }
+                    },
+                    sortable: false
                 }
             ],
             actions: {
