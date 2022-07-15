@@ -95,6 +95,7 @@ function WithdrawFundCreateTemplate({ withdrawFundCreateViewStore, t }) {
                                             className="input input--lrg"
                                             placeholder="ADDRESS.EDIT.FIELDS.ADDRESS_LINE_1_PLACEHOLDER"
                                             value={charityAddress.addressLine1}
+                                            disabled={true}
                                             onChange={event => (charityAddress.addressLine1 = event.target.value)}
                                         />
                                     </div>
@@ -105,6 +106,7 @@ function WithdrawFundCreateTemplate({ withdrawFundCreateViewStore, t }) {
                                             className="input input--lrg"
                                             placeholder="ADDRESS.EDIT.FIELDS.ADDRESS_LINE_2_PLACEHOLDER"
                                             value={charityAddress.addressLine2}
+                                            disabled={true}
                                             onChange={event => (charityAddress.addressLine2 = event.target.value)}
                                         />
                                     </div>
@@ -115,6 +117,7 @@ function WithdrawFundCreateTemplate({ withdrawFundCreateViewStore, t }) {
                                             className="input input--lrg"
                                             placeholder="ADDRESS.EDIT.FIELDS.CITY_PLACEHOLDER"
                                             value={charityAddress.city}
+                                            disabled={true}
                                             onChange={event => (charityAddress.city = event.target.value)}
                                         />
                                     </div>
@@ -125,6 +128,7 @@ function WithdrawFundCreateTemplate({ withdrawFundCreateViewStore, t }) {
                                             className="input input--lrg"
                                             placeholder="ADDRESS.EDIT.FIELDS.STATE_PLACEHOLDER"
                                             value={charityAddress.state}
+                                            disabled={true}
                                             onChange={event => (charityAddress.state = event.target.value)}
                                         />
                                     </div>
@@ -135,6 +139,7 @@ function WithdrawFundCreateTemplate({ withdrawFundCreateViewStore, t }) {
                                             className="input input--lrg"
                                             placeholder="ADDRESS.EDIT.FIELDS.ZIPCODE_PLACEHOLDER"
                                             value={charityAddress.zipCode}
+                                            disabled={true}
                                             onChange={event => (charityAddress.zipCode = event.target.value)}
                                         />
                                     </div>

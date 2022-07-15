@@ -151,7 +151,12 @@ class AllTransactionViewStore extends BaseListViewStore {
                             try {  
                                 const anonymous = this.ackTypes.find(x => x.abrv == 'remain-anonymous');
                                 const nameAndAddress = this.ackTypes.find(x => x.abrv == 'name-and-address');
-                                console.log(item)
+
+                                if(item.type.includes("Withdraw")){
+                                    let desc = item.type.split(".");
+                                    return desc[1] ? desc[1] : item.type;
+                                }
+
                                 if(item && item.paymentTransaction && item.paymentTransaction.charityVirtualTransactions.length > 0 && item.paymentTransaction.charityVirtualTransactions[0].grants.length > 0) {
                                    
                                     if(item.paymentTransaction.charityVirtualTransactions[0].grants[0].grantAcknowledgmentTypeId == anonymous.id) 
@@ -173,7 +178,13 @@ class AllTransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return item.type === "Stocks and securities" ? "Stocks and securities" :  (item.paymentTransaction.charityVirtualTransactions[0] ? this.getTransactionType(item.paymentTransaction.charityVirtualTransactions[0].Deposits[0]) : "Stocks and securities");
+                            if( item.type === "Stock and securities") {
+                                return (item.paymentTransaction.charityVirtualTransactions[0] ? this.getTransactionType(item.paymentTransaction.charityVirtualTransactions[0].Deposits[0]) : "Stocks and securities");
+                            }
+                            if(item.type.includes("Withdraw")){
+                                return item.paymentTransaction.description ? item.paymentTransaction.description : item.type;
+                            }
+                            return item.type;
                         }
                     }
                 },
