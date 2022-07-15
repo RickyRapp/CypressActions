@@ -1428,7 +1428,7 @@
             },
             "FILTER": {
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
-                "SELECT_TYPE_PLACEHOLDER": "Type",
+                "SELECT_TYPE_PLACEHOLDER": "User Type",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
                 "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
                 "CONTRIBUTION_STATUS_PLACEHOLDER": "Deposit status",
