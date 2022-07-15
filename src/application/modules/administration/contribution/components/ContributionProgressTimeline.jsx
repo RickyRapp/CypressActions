@@ -11,14 +11,14 @@ class ContributionProgressTimeline extends Component {
         var declinedStatus = null;
         var inProcessStatus = null;
         var pendingStatus = null;
-        
+
         if (statusList != null) {
             statusList.forEach(stat => {
                 if (stat.abrv == 'pending')
                     pendingStatus = stat;
                 if (stat.abrv == 'in-process' || stat.currentStatus == 'in-process')
                     inProcessStatus = stat;
-                if (stat.abrv == 'funded' || stat.currentStatus =='funded')
+                if (stat.abrv == 'funded' || stat.currentStatus == 'funded')
                     fundedStatus = stat;
                 else if (stat.abrv == 'canceled')
                     canceledStatus = stat;
@@ -39,18 +39,18 @@ class ContributionProgressTimeline extends Component {
                                 format={{ type: 'date', value: 'short' }}
                             />
                         </span>
-                    </div> : 
-                    <div className="wizard__item is-checked">
-                    <div className="wizard__item__title">{t('Initiated')}</div>
-                    <span className="wizard__item__value">
-                        <FormatterResolver
-                            item={{ dateCreated: item.dateCreated }}
-                            field='dateCreated'
-                            format={{ type: 'date', value: 'short' }}
-                        />
-                    </span>
-                </div>
-                }
+                    </div> :
+                        <div className="wizard__item is-checked">
+                            <div className="wizard__item__title">{t('Initiated')}</div>
+                            <span className="wizard__item__value">
+                                <FormatterResolver
+                                    item={{ dateCreated: item.dateCreated }}
+                                    field='dateCreated'
+                                    format={{ type: 'date', value: 'short' }}
+                                />
+                            </span>
+                        </div>
+                    }
                     {canceledStatus && canceledStatus.abrv == 'canceled' && <div className="wizard__item is-checked">
                         <div className="wizard__item__title">{t('Canceled')}</div>
                         <span className="wizard__item__value">
@@ -72,8 +72,8 @@ class ContributionProgressTimeline extends Component {
                             />
                         </span>
                     </div>}
-                    
-                    {!declinedStatus && !canceledStatus && inProcessStatus && (inProcessStatus.currentStatus == 'in-process' || inProcessStatus.abrv =='in-process') &&
+
+                    {!declinedStatus && !canceledStatus && inProcessStatus && (inProcessStatus.currentStatus == 'in-process' || inProcessStatus.abrv == 'in-process') ?
                         <React.Fragment>
                             <div className="wizard__item is-checked">
                                 <div className="wizard__item__title">{t('In process')}</div>
@@ -85,10 +85,16 @@ class ContributionProgressTimeline extends Component {
                                     />
                                 </span>
                             </div>
+                        </React.Fragment> :
+                        <React.Fragment>
+                            <div className="wizard__item ">
+                                <div className="wizard__item__title">{t('In process')}</div>
+                            </div>
                         </React.Fragment>
+
                     }
 
-                    {!declinedStatus && !canceledStatus && fundedStatus && (fundedStatus.currentStatus == 'funded' || fundedStatus.abrv =='funded') &&
+                    {!declinedStatus && !canceledStatus && fundedStatus && (fundedStatus.currentStatus == 'funded' || fundedStatus.abrv == 'funded') ?
                         <div className="wizard__item is-checked">
                             <div className="wizard__item__title">{t('Settled')}</div>
                             <span className="wizard__item__value">
@@ -99,9 +105,15 @@ class ContributionProgressTimeline extends Component {
                                 />
                             </span>
                         </div>
-                        
+                        :
+                        <React.Fragment>
+                            <div className="wizard__item ">
+                                <div className="wizard__item__title">{t('Settled')}</div>
+                            </div>
+                        </React.Fragment>
+
                     }
-                
+
                 </div>
 
             </React.Fragment>
