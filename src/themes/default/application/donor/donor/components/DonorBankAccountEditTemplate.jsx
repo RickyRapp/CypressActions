@@ -24,7 +24,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
     return (
         <EditFormContent form={form} >
             <div className="card--med card--primary">
-            <div>
+            {/*<div>
 				{!item && <span>Create new bank account manually or using : </span>}
 					<div className="col col-sml-12 col-lrg-6">
 						<div className="u-mar--bottom--sml w--100--to-med">
@@ -34,7 +34,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
 						/>
 						</div>
 					</div>
-				</div>
+				</div>*/}
 
                 <h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
                 <div className="row row--form u-mar--bottom--sml">

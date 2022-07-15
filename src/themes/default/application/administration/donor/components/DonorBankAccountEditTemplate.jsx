@@ -24,7 +24,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
             <form className='form' onSubmit={form.onSubmit}>
                 <h3 className=" u-mar--bottom--med">{id ? t('BANK_ACCOUNT.EDIT.TITLE') : t('BANK_ACCOUNT.CREATE.TITLE')}</h3>
                 <div className="row row--form">
-                { item && (
+                {/* item && (
                     <div className="col-lrg-12">
                         { item.verifiedByPlaid != null && 
                             (item.verifiedByPlaid === true ?
@@ -33,7 +33,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, t }) {
                                 <BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.VERIFY_BANK_ACCOUNT" onClick={() => verifyBankAccount()}></BaasicButton>
                         )}
                     </div>
-                )}
+                            ) */}
                 
 
                     <div className="form__group col col-sml-12 col-lrg-6">
