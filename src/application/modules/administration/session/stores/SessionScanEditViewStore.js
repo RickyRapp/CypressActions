@@ -71,25 +71,17 @@ class SessionScanEditViewStore extends BaseViewStore {
     async saveChanges() {
         try {
             this.loaderStore.suspend();
-            console.log(this.data);
             const items = this.data.map(item => ({ id: item.id, barcode: item.barcode, amount: Number(item.value), key: item.key}));
-            
-            // console.log(this.data);
-            // const sessionKey = this.data[0].key;
-            
-            // const responseFinish = await this.rootStore.application.administration.sessionStore.finishSession({ key: parseInt(sessionKey) });
-            // console.log(responseFinish);
             
             const response = await this.rootStore.application.administration.sessionStore.updateScannedSession(items);
             
-            const notUpdatedValues = response.map(r => !r.isEligible);
+            const notUpdatedValues = response.filter(r => !r.isEligible).map(r => `${r.certificate.barcode} - ERROR: ${r.errorCode}`);
             const updatedValues = response.reduce((acc, r) => {
                 r.isEligible && acc.push(r.certificate.barcode);
                 return acc;
             }, []);
 
-            console.log()
-            if ((notUpdatedValues.filter(x => x == true)).length > 0) {
+            if (notUpdatedValues.length > 0) {
                 this.rootStore.notificationStore.error(`Failed to update sessions with barcode ${notUpdatedValues.join(", ")}`);
             }
 
