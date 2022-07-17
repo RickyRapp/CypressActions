@@ -33,7 +33,6 @@ class ContributionEditViewStore extends BaseEditViewStore {
 								resource.number = this.item.donor.donorPhoneNumbers[0].number;
 							}
 							else {
-								console.log(this.item.charity)
 								resource.name = this.item.charity.name;
 								resource.addressLine1 = this.item.charity.charityAddresses && this.item.charity.charityAddresses.length > 0 && this.item.charity.charityAddresses[0].addressLine1;
 								resource.addressLine2 = this.item.charity.charityAddresses && this.item.charity.charityAddresses.length > 0 && this.item.charity.charityAddresses[0].addressLine2;
