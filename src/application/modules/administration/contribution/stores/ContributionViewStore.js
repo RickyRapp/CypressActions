@@ -78,7 +78,6 @@ class ContributionViewStore extends BaseListViewStore {
                         ];
                         
                         this.achBatchCurrentNumber = await rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
-                        console.log(await rootStore.application.administration.contributionStore.findContribution(params))
                         return rootStore.application.administration.contributionStore.findContribution(params);
                     }
                 }
@@ -98,7 +97,6 @@ class ContributionViewStore extends BaseListViewStore {
 
     @action.bound
     openSelectDonorModal() {
-        console.log(this.queryUtility.filter)
         this.selectDonorModal.open(
             {
                 charityId: this.queryUtility.filter.charityId,
@@ -112,7 +110,6 @@ class ContributionViewStore extends BaseListViewStore {
 
     @action.bound
     onClickDonorFromFilter(donorId) {
-        console.log(donorId)
         this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', { id: donorId })
     }
 
@@ -312,7 +309,7 @@ class ContributionViewStore extends BaseListViewStore {
     }
     createUserTypeDropdownStore() {
         this.userTypeDropdownStore = new BaasicDropdownStore({
-            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_TYPE_PLACEHOLDER',
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_USER_TYPE_PLACEHOLDER',
             initFetch: true,
             filterable: false
         },

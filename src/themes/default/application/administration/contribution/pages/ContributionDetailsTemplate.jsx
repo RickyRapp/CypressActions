@@ -39,7 +39,6 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                         </div>
                                         <div className="col col-sml-6">
                                             <div className="type--wgt--medium u-push">
-                                                {console.log(item.donor)}
                                                 {item && item.donor && item.donor.name}
                                             </div>
                                         </div>
@@ -121,7 +120,6 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             </div>
                             {item && item.donor == null && 
                             <React.Fragment>
-                                {console.log(item.payerInformation)}
                             <div className="col col-sml-12">
                                 <div className="card--secondary card--tny u-mar--bottom--sml">
                                     <div className="row">
