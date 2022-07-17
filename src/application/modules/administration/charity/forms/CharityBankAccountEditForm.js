@@ -57,7 +57,7 @@ export default class CharityBankAccountEditForm extends FormBase {
                     name: 'accountHolderName',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER',
-                    rules: 'required_if:isThirdPartyAccount,true|string'
+                    rules: 'string'
                 },
 
                 {
@@ -111,6 +111,20 @@ export default class CharityBankAccountEditForm extends FormBase {
                     extra: {
                         format: '(###) ###-####'
                     }
+                },
+                {
+                    name: 'isPrimary',
+                    label: 'Is primary?',
+                    rules: 'boolean',
+                    type: 'checkbox',
+                    value: false
+                },
+                {
+                    name: 'isDisabled',
+                    label: 'Is disabled?',
+                    rules: 'boolean',
+                    type: 'checkbox',
+                    value: false
                 }
             ]
         }

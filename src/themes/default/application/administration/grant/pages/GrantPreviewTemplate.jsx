@@ -15,7 +15,8 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
     const {
         item,
         loaderStore,
-        isEditable
+        isEditable,
+        statusList
     } = grantPreviewViewStore;
 
     return (
@@ -26,11 +27,10 @@ function GrantPreviewTemplate({ grantPreviewViewStore, t }) {
             layoutFooterVisible={isEditable}
         >
             <div className="row">
-                <div className="col col-sml-12 col-lrg-8">
+                <div className="col col-sml-12 col-xxlrg-10">
                     {item && !(item.donationStatus.abrv === 'processed' && !isSome(item.debitCharityTransaction)) && //old grants
-                        <div className="card--primary card--med u-mar--bottom--med">
-                            <GrantProgressTimeline item={item} />
-                        </div>}
+                        <GrantProgressTimeline item={item} statusList={statusList} />
+                    }
                     <div className="card--primary card--med u-mar--bottom--med">
                         <div className="row">
                             <div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">

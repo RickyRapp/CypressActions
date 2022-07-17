@@ -34,6 +34,10 @@ export default class PendingDonationReviewForm extends FormBase {
                 {
                     name: 'selectedItems',
                     label: 'Selected Items'
+                },
+                {
+                    name: 'accountTransferNumber',
+                    label: 'CA Number'
                 }
             ]
         };

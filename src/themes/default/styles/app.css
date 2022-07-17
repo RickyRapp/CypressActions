@@ -88,6 +88,8 @@
 @import "component.progressbar.css";
 @import "component.summary.css";
 @import "component.booklet.css";
+@import "component.withdraw.css";
+@import "component.wizard.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)

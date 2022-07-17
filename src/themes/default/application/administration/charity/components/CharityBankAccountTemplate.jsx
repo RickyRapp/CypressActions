@@ -7,7 +7,8 @@ import {
     BaasicDropzone,
     NumberFormatInputField,
     BaasicFieldDropdown,
-    BaasicButton
+    BaasicButton,
+    BasicFieldCheckbox
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
@@ -23,6 +24,9 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
         selectCharity,
         resetBankAccount,
         verifiedByPlaid,
+        verifyBankAccount,
+        exportFile,
+        item
     } = charityBankAccountViewStore;
 
     return (<div>
@@ -35,7 +39,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     <div className="form__group col col-sml-12 col-lrg-8">
                         <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore}/>
                     </div> 
-                    <div className="form__group col col-sml-12 col-lrg-4">
+                    <div className="form__group col col-sml-12 col-lrg-6">
                     <button className='btn btn--med' onClick={selectCharity}>
                         Select Bank Account
                     </button>
@@ -44,9 +48,26 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                         Reset
                     </button>
                     </div>
+
+                    <div>
+                    { verifiedByPlaid != null && 
+                    (verifiedByPlaid === true ?
+                            <small>Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i></small>
+                         : 
+                            <BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.VERIFY_BANK_ACCOUNT" onClick={() => verifyBankAccount()}></BaasicButton>
+                    )}
+                    </div>
                 </div>
-                : null}
-                
+                :  
+                <div className="col-lrg-12">
+                    { verifiedByPlaid != null && 
+                        (verifiedByPlaid === true ?
+                            <small>Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i></small>
+                         : 
+                            <BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.VERIFY_BANK_ACCOUNT" onClick={() => verifyBankAccount()}></BaasicButton>
+                    )}
+                </div>}
+
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('accountNumber')} />
                 </div>
@@ -57,6 +78,28 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                     <BasicInput field={form.$('name')} />
                 </div>
             </div>
+
+            <div className="row row--form">
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('accountHolderName')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('addressLine1')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('addressLine2')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('city')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('state')} />
+					</div>
+					<div className="form__group col col-sml-12 col-lrg-4">
+						<BasicInput field={form.$('zipCode')} />
+					</div>
+				</div>
+
             <div className="row row--form">
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <BasicInput field={form.$('email')} />
@@ -64,10 +107,41 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 <div className="form__group col col-sml-12 col-lrg-4">
                     <NumberFormatInputField field={form.$('number')} />
                 </div>
+                <div className="form__group col col-sml-12 col-lrg-4">
+						<div>
+							<span><label className="form__group__label u-mar--right--med">Primary account?</label>
+							<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span>
+						</div>
+						<div >
+							<span><label className="form__group__label u-mar--right--med">Is disabled?</label>
+							<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} /></span>
+                    	</div>
+                    </div>
+
             </div>
-            <div className="row row--form">
-                <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
-            </div>
+            <div className="row row__align--end">
+							<BaasicDropzone
+								store={imageUploadStore}
+							/>
+								{
+                                    item ? (
+										item.charityMedia && (
+										(item.isImage) ?
+										(
+										<div className="imageheight_sml">
+											<img alt="" src={URL.createObjectURL(item.charityMedia)}  />
+										</div>
+										)
+										: (
+											<BaasicButton
+												className='btn btn--sml btn--primary'
+												label='Download'
+												onClick={() => exportFile()}
+											/>
+											))
+									) : null
+                                }
+						</div>
             <div className="type--right">
                 <span className="u-mar--right--sml">
                     <BaasicFormControls form={form} onSubmit={form.onSubmit} />
@@ -78,16 +152,6 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountViewStore, 
                 </BaasicButton>
             </div>
         </EditFormContent >
-
-        <div className="type--right">
-        {
-        verifiedByPlaid ?   <button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
-                                Get Bank Account
-                            </button> 
-                            : null
-        }
-        
-        </div>
     </div>
     )
 };

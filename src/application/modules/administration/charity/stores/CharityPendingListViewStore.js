@@ -23,6 +23,8 @@ class CharityPendingListViewStore extends BaseListViewStore {
                     find: async (params) => {
                         params.embed = [];
                         params.fields = ['id', 'name', 'taxId', 'dateCreated', 'presentBalance', 'isApproved'];
+                        params.isPendingUserAccount = true;
+                        params.isPendingBankAccount = false;
                         return rootStore.application.administration.charityStore.findPendingCharity(params);
                     }
                 }

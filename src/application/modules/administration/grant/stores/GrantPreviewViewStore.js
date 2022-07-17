@@ -5,7 +5,7 @@ import { applicationContext } from 'core/utils';
 @applicationContext
 class GrantPreviewViewStore extends BasePreviewViewStore {
     @observable isEditable = false;
-
+    @observable statusList ;
     constructor(rootStore) {
         super(rootStore, {
             name: 'user',
@@ -28,14 +28,27 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                                 'donationStatus',
                                 'grantAcknowledgmentType',
                                 'thirdPartyWebsite',
-                                'grantScheduledPayment'
+                                'grantScheduledPayment',
+                                'charity.charityAddresses',
+                                'charity.charityBankAccounts',
+                                'charityVirtualTransaction',
+                                'charityVirtualTransaction.paymentType',
+                                'charityVirtualTransaction.charityWithdrawTransaction',
+                                'charityVirtualTransaction.charityWithdrawTransaction.paymentType'
                             ],
                         }
+                      
                         return this.rootStore.application.administration.grantStore.getGrant(id, params);
                     }
                 }
             }
         });
+        this.getStatuses();
+    }
+    async getStatuses(){
+        var grantEntity = 'GrantEntity';
+        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(this.rootStore.routerStore.routerState.params.id,grantEntity);
+        this.statusList = response;
     }
 
     @action.bound

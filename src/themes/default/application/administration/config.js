@@ -68,72 +68,79 @@ import { moduleProviderFactory } from 'core/providers';
                 role: ['Administrators', 'Employees']
             },
             {
+                title: 'MENU.WITHDRAW_FUNDS',
+                icon: 'give',
+                order: 9,
+                route: 'master.app.main.administration.withdraw.list',
+                role: ['Administrators', 'Employees']
+            },
+            {
                 title: 'MENU.USERS',
                 icon: 'users',
-                order: 9,
+                order: 10,
                 route: 'master.app.main.administration.user.list',
                 role: ['Administrators']
             },
             {
                 title: 'MENU.GIVING_CARDS',
                 icon: 'fidelity-cards',
-                order: 10,
+                order: 11,
                 route: 'master.app.main.administration.giving-card.list',
                 role: ['Administrators', 'Employees']
             },
             {
                 title: 'MENU.CHARITY_WEBSITE',
                 icon: 'third-party-website',
-                order: 11,
+                order: 12,
                 route: 'master.app.main.administration.charity-website.tab',
                 role: ['Administrators']
             },
             {
                 title: 'MENU.BANKS',
                 icon: 'banks',
-                order: 12,
+                order: 13,
                 route: 'master.app.main.administration.bank.tab',
                 role: ['Administrators']
             },
             {
                 title: 'MENU.DONATIONS',
                 icon: 'donations',
-                order: 13,
+                order: 14,
                 route: 'master.app.main.administration.donation.list',
                 role: ['Administrators']
             },
             {
                 title: 'MENU.RECONCILE',
                 icon: 'reconcile',
-                order: 14,
+                order: 15,
                 route: 'master.app.main.administration.reconcile.list',
                 role: ['Administrators', 'Employees']
             },
             {
                 title: 'MENU.TESTING',
                 icon: 'test',
-                order: 15,
+                order: 16,
                 route: 'master.app.main.administration.test.tab',
                 role: ['Administrators']
             },
             {
                 title: 'MENU.INVESTMENTS',
                 icon: 'investment',
-                order: 16,
+                order: 17,
                 route: 'master.app.main.administration.investment.list',
                 role: ['Administrators']
             },
             {
                 title: 'MENU.CREDIT_DEBIT',
                 icon: 'contribution',
-                order: 17,
+                order: 18,
                 route: 'master.app.main.administration.credit-debit.list',
 				role: ['Administrators']
 			},
             {
                 title: 'MENU.DONOR-DONOR',
                 icon: 'donor-to-donor',
-                order: 18,
+                order: 19,
                 route: 'master.app.main.administration.donor-donor.list',
                 role: ['Administrators']
             }

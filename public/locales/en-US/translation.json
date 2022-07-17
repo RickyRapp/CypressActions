@@ -70,7 +70,8 @@
         "REMOTE_DEPOSIT": "Remote Deposit",
         "APIS_AND_PAYMENTS": "APIs and Payments Page",
         "INVEST_FUNDS": "Invest Funds",
-        "ACCEPT_STOCKS_AND_SECURITIES": "Accept Stocks and Securities"
+        "ACCEPT_STOCKS_AND_SECURITIES": "Accept Stocks and Securities",
+        "WITHDRAW_FUNDS" :"Withdraw Funds"
     },
     "CORE": {
         "DATE_FORMAT": {
@@ -235,6 +236,7 @@
     "LIST_LAYOUT": {
         "SETTINGS_BUTTON": "Settings",
         "CREATE_BUTTON": "Create New",
+        "WITHDRAW_FUNDS": "Withdraw funds",
         "BACK_BUTTON": "Back",
         "SAVE_BUTTON": "Save",
         "CONFIRM_DELETE": "Are you sure you want to delete selected resource?",
@@ -915,7 +917,8 @@
             },
             "EMPTY_STATE": {
                 "TITLE": "No bank accounts",
-                "ACTION": "Create new bank account"
+                "ACTION": "Create new bank account",
+                "SELECT": "Select Bank Account"
             },
             "BUTTON": {
                 "EDIT": "Edit",
@@ -989,6 +992,7 @@
                 "CREATE": "Create",
                 "DELETE": "Delete",
                 "DELETE_BANK_ACCOUNT": "Delete Bank Account",
+                "VERIFY_BANK_ACCOUNT": "Verify Bank Account",
                 "USE_PRIMARY_ADDRESS": "Use primary",
                 "USE_PRIMARY_EMAIL_ADDRESS": "Use primary",
                 "USE_PRIMARY_PHONE_NUMBER": "Use primary"
@@ -1055,6 +1059,7 @@
         "REMOTE DEPOSITS": "Remote Deposits",
         "DEPOSITS_INSIGHT": "Deposits Insight",
         "PAYMENTS": "Payments Holding",
+        "WITHDRAWS": "Withdraw funds",
         "LIST": {
             "COLUMNS": {
                 "DATE_CREATED_LABEL": "Date created",
@@ -1062,6 +1067,16 @@
                 "TRANSACTION_TYPE_LABEL": "Transaction Type",
                 "PRESENT_BALANCE_LABEL": "Balance"
             }
+        }
+    },
+    "CHARITY_WITHDRAW": {
+        "TAB_TITLE": "Charity Withdraw"
+    },
+    "CHARITY_VERIFICATION":{
+        "TAB":{
+            "PLAID": "Verify using Plaid",
+            "BANK_ACCOUNT": "Create bank account",
+            "DOCUMENT": "Verfiy by uploading document"
         }
     },
     "CHARITY": {
@@ -1078,7 +1093,8 @@
             "TITLE": "Charities",
             "TAB" : {
                 "ALL_CHARITY": "All Charities",
-                "PENDING_CHARITY" : "Pending Charities"
+                "PENDING_CHARITY" : "Pending Charities",
+                "PENDING_ONLINE_USERS" : "Pending Verification Documents/User"
             },
             "COLUMNS": {
                 "NAME_LABEL": "Name",
@@ -1186,7 +1202,8 @@
         "EDIT": {
             "TITLE": "Edit charity",
             "BUTTON": {
-                "WITHDRAW_FUNDS": "Withdraw Funds"
+                "WITHDRAW_FUNDS": "Withdraw Funds",
+                "VERIFY_USER_ACCOUNT": "Verify charity online account"
             },
             "FIELDS": {
                 "TITLE": "General data",
@@ -1243,7 +1260,8 @@
                 "CHARITY_ACCOUNT_NUMBER": "Account Number: ",
                 "CHARITY_API_KEY" : "Api Key: ",
                 "CHARITY_QR_CODE" : "QR Code: ",
-                "CHARITY_VERIFICATION_DOCUMENT" : "Charity verification document: "
+                "CHARITY_VERIFICATION_DOCUMENT" : "Charity verification document: ",
+                "CHARITY_USER_VERIFICATION_DOCUMENT" : "Charity user verification document: "
             }
         },
         "WITHDRAW_FUND": {
@@ -1393,6 +1411,7 @@
             "TITLE": "Deposits",
             "COLUMNS": {
                 "DONOR_NAME_LABEL": "Donor",
+                "DONOR_CHARITY_NAME_LABEL": "Donor/Charity",
                 "AMOUNT_LABEL": "Amount",
                 "DATE_CREATED_LABEL": "Date",
                 "CONFIRMATION_NUMBER_LABEL": "Conf. number",
@@ -1409,6 +1428,7 @@
             },
             "FILTER": {
                 "SELECT_DONOR_PLACEHOLDER": "Donor",
+                "SELECT_TYPE_PLACEHOLDER": "User Type",
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
                 "PAYMENT_TYPE_PLACEHOLDER": "Payment type",
                 "CONTRIBUTION_STATUS_PLACEHOLDER": "Deposit status",
@@ -1498,20 +1518,24 @@
                 "IS_THIRD_PARTY_LABEL": "Is this a third-party deposit?",
                 "CHECK_NUMBER_LABEL": "Check number",
                 "CHECK_NUMBER_PLACEHOLDER": "Enter check number",
-                "FINANCIAL_INSTITUTION_LABEL": "Financial institution",
-                "FINANCIAL_INSTITUTION_PLACEHOLDER": "Financial institution",
-                "FINANCIAL_INSTITUTION_ADDRESS_LINE_1_LABEL": "Address line 1",
-                "FINANCIAL_INSTITUTION_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
-                "FINANCIAL_INSTITUTION_ADDRESS_LINE_2_LABEL": "Address line 2",
-                "FINANCIAL_INSTITUTION_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
-                "FINANCIAL_INSTITUTION_CITY_LABEL": "City",
-                "FINANCIAL_INSTITUTION_CITY_PLACEHOLDER": "City",
-                "FINANCIAL_INSTITUTION_STATE_LABEL": "State",
-                "FINANCIAL_INSTITUTION_STATE_PLACEHOLDER": "State",
-                "FINANCIAL_INSTITUTION_ZIP_CODE_LABEL": "Zip code",
-                "FINANCIAL_INSTITUTION_ZIP_CODE_PLACEHOLDER": "Zip code",
-                "FINANCIAL_INSTITUTION_PHONE_NUMBER_LABEL": "Phone number",
-                "FINANCIAL_INSTITUTION_PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                "DONOR_NAME_LABEL": "Donor",
+                "DONOR_NAME_PLACEHOLDER": "Donor name",
+                "PAYER_NAME_LABEL": "Payer",
+                "PAYER_NAME_PLACEHOLDER": "Payer name",
+                "DONOR_ADDRESS_LINE_1_LABEL": "Address line 1",
+                "DONOR_ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
+                "DONOR_ADDRESS_LINE_2_LABEL": "Address line 2",
+                "DONOR_ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
+                "DONOR_CITY_LABEL": "City",
+                "DONOR_CITY_PLACEHOLDER": "City",
+                "DONOR_STATE_LABEL": "State",
+                "DONOR_STATE_PLACEHOLDER": "State",
+                "DONOR_ZIP_CODE_LABEL": "Zip code",
+                "DONOR_ZIP_CODE_PLACEHOLDER": "Zip code",
+                "DONOR_PHONE_NUMBER_LABEL": "Phone number",
+                "DONOR_PHONE_NUMBER_PLACEHOLDER": "Phone number",
+                "DONOR_EMAIL_LABEL": "E-mail",
+                "DONOR_EMAIL_PLACEHOLDER": "E-mail",
                 "ACCOUNT_NUMBER_LABEL": "Account number",
                 "ACCOUNT_NUMBER_PLACEHOLDER": "Account number",
                 "SECURITY_TYPE_LABEL": "Security type",
@@ -1582,6 +1606,7 @@
             "DETAILS": "Deposit Details",
             "GENERAL_INFORMATION": "General Information",
             "DONOR_NAME": "Donor's Name",
+            "PAYER_NAME": "Payer's Name",
             "CONFRIMATION_NUMBER": "Confirmation Number",
             "THIRD_PARTY": "Third Party",
             "STATUS": "Status",
@@ -1596,7 +1621,15 @@
             "PAYER_ADDRESS": "Address",
             "PAYER_NUMBER": "Number",
             "PAYER_EMAIL": "Email",
-            "PAYER_NAME": "Name"
+            "ADDRESS_LINE_1":"Address line 1",
+            "ADDRESS_LINE_2" :"Address line 2",
+            "EMAIL": "Email",
+            "CITY" : "City",
+            "NUMBER" : "Number",
+            "NUMBER_OF_SHARES":"Number Of Shares",
+            "SECURITY_SYMBOL":"Security Symbol",
+            "STATE": "State",
+            "ZIP_CODE" :"ZIP Code"
         }
     },
     "DONOR_CONTRIBUTION_SETTING": {
@@ -1694,22 +1727,35 @@
         "CREATE": {
             "DONOR_INFO": "Accepting Stocks and Securities:",
             "DONOR_INFO_DESCRIPTION": "Enter information about the donor and the donation",
+            "PAYER_INFO_DESCRIPTION": "Enter information about the payer and the donation",
             "BUTTON_CREATE": "Accept donation",
             "RECENT_SECURITIES": "Recently accepted",
             "STOCKS_AND_SECURITIES": "Stocks and Securities",
             "BROKERAGE_INSTITUTION": "Brokerage Institution",
             "SECURITY_TYPE": "Security Type",
-            "DONOR": "Donor"
+            "DONOR": "Donor",
+            "PAYER": "Payer",
+            "ADDRESS_LINE_1": "Address line 1",
+            "ADDRESS_LINE_2": "Address line 2",
+            "CITY": "City",
+            "STATE": "State",
+            "EMAIL": "Email",
+            "NUMBER": "Number",
+            "ZIP_CODE": "ZIP Code",
+            "SECURITY_SYMBOL": "Security symbol",
+            "NUMBER_OF_SHARES": "Number Of Shares"
         }
     },
     "DONOR-DONOR": {
         "CREATE": {
+            "CONFIRM": "Confirm",
             "TITLE": "Send a Gift",
             "FROM_TITLE": "Share the power of giving",
             "TITLE_LABEL": "Share your Giving Power with a new or existing donor",
             "TRANSFERS": "Transfers",
             "RECENT_TRANSFERS": "Recent transfers",
             "BALANCE": "Your available balance",
+            "ACCOUNT_BALANCE": "Your account balance",
             "SEND_TO": "Send to",
             "SEND_TO_INFO_TITLE": "Enter recipients account number or email address",
             "ADD_ANOTHER_RECIPIENT": "Add another recipient",
@@ -1800,6 +1846,7 @@
                 "CONFIRMATION_NUMBER_PLACEHOLDER": "Confirmation number",
                 "CHECK_NUMBER_PLACEHOLDER": "Check number",
                 "GRANT_STATUS_PLACEHOLDER": "Grant status",
+                "WITHDRAW_STATUS_PLACEHOLDER": "Withdraw status",
                 "GRANT_TYPE_PLACEHOLDER": "Grant type",
                 "GRANT_MEMO_PLACEHOLDER": "Grant memo",
                 "AMOUNT_RANGE_MIN_PLACEHOLDER": "Min amount",
@@ -1991,14 +2038,16 @@
         "CREATE": {
             "TITLE": "New Grant Request",
             "FIELDS": {
-                "AMOUNT_LABEL": "Amount",
+                "AMOUNT_LABEL": "Order Amount",
                 "AMOUNT_PLACEHOLDER": "Enter amount",
                 "CARD_NUMBER_LABEL": "Card number",
                 "EXPIRATION_DATE_LABEL": "Expiration date",
                 "EXPIRATION_DATE_PLACEHOLDER": "MM/YY",
-                "CVV_LABEL": "Cvv",
+                "CVV_LABEL": "CVV/CVV2",
                 "NOTE_LABEL": "Note",
-                "NOTE_PLACEHOLDER": "Enter note"
+                "SCHEDULED_LABEL" :"Scheduled the Donation",
+                "NOTE_PLACEHOLDER": "Enter note",
+                "SUBMIT_BUTTON" : "Complete transaction"
             }
         }
     },
@@ -2043,7 +2092,8 @@
                     "GRANT_REQUEST_LABEL": "Grant Request",
                     "GIVING_CARD_LABEL": "Giving Card",
                     "SESSION_LABEL": "Session",
-                    "ACH_AVAILABLE_LABEL": "ACH available"
+                    "ACH_AVAILABLE_LABEL": "ACH available",
+                    "IS_WITHDRAW": "Withdrawal"
                 },
                 "GRANT": {
                     "COLUMNS": {
@@ -2793,6 +2843,11 @@
             "NOTE_PLACEHOLDER": "Note"
         }
     },
+    "WITHDRAW_FUNDS": {
+        "LIST":{
+            "TITLE" : "Withdraw funds"
+        }
+    },
     "RECONCILE": {
         "LIST": {
             "TITLE": "Reconcile",
@@ -2800,6 +2855,7 @@
                 "AMOUNT_LABEL": "Amount",
                 "PAYMENT_NUMBER_LABEL": "Payment number",
                 "PAYMENT_TYPE_LABEL": "Payment type",
+                "IS_WITHDRAW":"Withdrawal",
                 "CHARITY_NAME_LABEL": "Charity",
                 "DATE_CREATED_LABEL": "Date created",
                 "DESCRIPTION_LABEL": "Description",

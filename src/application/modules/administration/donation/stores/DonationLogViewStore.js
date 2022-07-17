@@ -34,7 +34,7 @@ class DonationLogViewStore extends BaseListViewStore {
     async printReport(donationLog) {
         let extension = 'pdf';
         let contentType = 'application/pdf';
-        if (donationLog.paymentTypeAbrv === 'ach') {
+        if (donationLog.paymentTypeAbrv === 'ach' || donationLog.paymentTypeAbrv === 'charity-account') {
             contentType = 'text/csv';
             extension = 'csv'
         }
@@ -78,6 +78,23 @@ class DonationLogViewStore extends BaseListViewStore {
                         value: 'kendo-input-medium'
                     }
                 },
+                {
+                    key: 'paymentTypeAbrv',
+                    title: 'Payment Type',
+                    format: {
+                        type: 'function',
+                        value: (item) => {
+                            switch(item.paymentTypeAbrv) {
+                                case 'charity-account':
+                                    return 'Charity account';
+                                case 'ach':
+                                    return 'ACH payment';
+                                case 'check':
+                                    return 'Check by mail';
+                            }
+                        }
+                    }
+                }
             ],
             actions: {
                 onPrintReport: (item) => this.printReport(item)

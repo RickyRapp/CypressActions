@@ -19,7 +19,8 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                                 'charityApiKey',
                                 'charityAccountNumber',
                                 'coreUser',
-                                'coreMediaVaultEntry'
+                                'coreMediaVaultEntry',
+                                'userCoreMediaVaultEntry'
                             ]
                         }
                         const data = await rootStore.application.administration.charityStore.getCharity(id, params);
@@ -47,7 +48,10 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                             hasCoreUser : data.coreUserId ? true : false,
                             coreUsername : data.coreUser ? data.coreUser.userName : '',
                             verificationDocumentId : data.coreMediaVaultEntry && data.coreMediaVaultEntry.id,
-                            verificationDocumentName : data.coreMediaVaultEntry && data.coreMediaVaultEntry.id
+                            verificationDocumentName : data.coreMediaVaultEntry && data.coreMediaVaultEntry.fileName,
+                            userVerificatioDocumentId: data.coreMediaVaultEntry_ && data.coreMediaVaultEntry_.id,
+                            userVerificatioDocumentName: data.coreMediaVaultEntry_ && data.coreMediaVaultEntry_.fileName,
+                            isUserVerified: data.isUserVerified
                         }
                     },
                     update: async (resource) => {
@@ -129,6 +133,13 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
         await navigator.clipboard.writeText(this.apiKey);
         this.rootStore.notificationStore.success('API key copied to clipboard');
         this.getResource(this.id);
+    }
+
+    @action.bound
+    async verifyCharityUserAccount(){
+        const charityId = this.rootStore.routerStore.routerState.params.id;
+        await this.rootStore.application.administration.charityStore.verifyCharityUserAccount(charityId);
+        this.rootStore.notificationStore.success('Successfully verified online account');
     }
 }
 

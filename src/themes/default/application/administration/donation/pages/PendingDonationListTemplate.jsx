@@ -56,7 +56,7 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                                             classSuffix=" input--check--nolabel"
                                         />
                                     </td>
-                                    <td>{item.name}</td>
+                                    <td>{item.isWithdraw ? "Withdraw transaction" : item.name}</td>
                                     <td><FormatterResolver
                                         item={{ charityAmount: item.charityAmount }}
                                         field='charityAmount'
@@ -96,6 +96,10 @@ const PendingDonationListTemplate = function ({ pendingDonationViewStore, t }) {
                             <div>
                                 Next ACH batch number: <span className='btn btn--sml btn--link' onClick={onAchNextPaymentNumberClick}>{achBatchCurrentNumber + 1}</span>
                             </div>}
+                        {!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('paymentTypeId').value) && paymentTypeDropdownStore.value && paymentTypeDropdownStore.value.abrv === 'charity-account' &&
+                        <div>
+                            Next charity account transfer number: <span className='btn btn--sml btn--link' onClick={onAchNextPaymentNumberClick}>CA-{achBatchCurrentNumber + 1}</span>
+                        </div>}
                     </div>
 
                     <div className="col col-sml-6 col-lrg-3">

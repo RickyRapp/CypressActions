@@ -6,3 +6,5 @@ export { default as CharityBankAccountService } from './CharityBankAccountServic
 export { default as CharityBankAccountRouteService } from './CharityBankAccountRouteService'
 export { default as CharityCommunicationPreferenceService } from './CharityCommunicationPreferenceService'
 export { default as CharityApiKeyService } from './CharityApiKeyService'
+export { default as WithdrawSettingsService } from './WithdrawSettingsService'
+export { default as WithdrawSettingsRouteService } from './WithdrawSettingsRouteService'

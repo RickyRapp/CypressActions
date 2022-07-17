@@ -98,7 +98,11 @@ function FormatterResolver({ item, field, format }) {
             }
             return null;
         case 'function':
-            return format.value(item);
+            try {
+                return format.value(item);
+            } catch (error) {
+                console.log('FormatResolverError:', error);
+            }
         case 'denomination': {
             const notAvailable = "Out Of Stock.";
             const denominationType = _.get(item, field);

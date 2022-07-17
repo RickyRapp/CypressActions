@@ -75,7 +75,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    onChangeChecked(dataItem, grantId, checked) {
+    onChangeChecked(dataItem, grantId, checked) { console.log(dataItem, grantId);
         const data = this.tableStore.data.map(item => {
             if (item.id === dataItem.id) {
                 item.pendingDonations = item.pendingDonations.map(element => {
@@ -110,12 +110,19 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async onAchNextPaymentNumberClick() {
         this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: true });
-        this.form.$('paymentNumber').set(this.achBatchCurrentNumber.toString());
+        if(this.paymentTypeDropdownStore.value.abrv === 'charity-account')
+            this.form.$('paymentNumber').set("CA-" + this.achBatchCurrentNumber.toString());
+        else 
+            this.form.$('paymentNumber').set(this.achBatchCurrentNumber.toString());
     }
 
     @action.bound
     async onReviewClick(formValues) {
         try {
+            formValues.accountTransferNumber = formValues.paymentNumber;
+            if(this.paymentTypeDropdownStore.value.abrv === 'charity-account')
+                formValues.paymentNumber = formValues.paymentNumber.slice(3);
+
             this.tableStore.suspend();
             if (this.tableStore.selectedItems.length === 0) {
                 this.tableStore.resume();
@@ -125,6 +132,7 @@ class PendingDonationViewStore extends BaseListViewStore {
             
             var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
             this.rootStore.notificationStore.success("Successfully processed.");
+            this.form.$('accountTransferNumber').set(this.form.$('paymentNumber').value);
             this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
             await this.downloadReport(data.response, this.paymentTypeDropdownStore.value.id);
             this.paymentTypeDropdownStore.setValue(null);
@@ -143,8 +151,8 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async getPendingDonationsByCharityId(charityId, address) {
-        var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address);
+    async getPendingDonationsByCharityId(charityId, address, isWithdraw, bankAccount) {
+        var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address, isWithdraw, bankAccount);
         this.data = data.map(e => { return { ...e, checked: false } });
         return this.data;
     }
@@ -152,10 +160,12 @@ class PendingDonationViewStore extends BaseListViewStore {
     @action.bound
     async getPendingDonations() {
         var data = await this.rootStore.application.administration.donationStore.findPendingDonation({ paymentType: this.paymentTypeDropdownStore.value ? this.paymentTypeDropdownStore.value.abrv : 'all' });
-        this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress, checked: false } });
+        this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress + '_'+ (e.isWithdraw ? e.isWithdraw + '_' + e.bankAccount : e.isWithdraw), checked: false } });
     }
 
     async downloadReport(ids, paymentTypeId) {
+        if(this.paymentTypeDropdownStore.value.abrv === 'charity-account')
+            return;
         let extension = 'pdf';
         let contentType = 'application/pdf';
         if (this.paymentTypeDropdownStore.value.abrv === 'ach') {
@@ -174,7 +184,7 @@ class PendingDonationViewStore extends BaseListViewStore {
             {
                 fetchFunc: async () => {
                     const data = await this.rootStore.application.lookup.paymentTypeStore.find();
-                    const availablePaymentTypes = ['check', 'ach'];
+                    const availablePaymentTypes = ['check', 'ach', 'charity-account'];
                     //data.unshift({ id: '0000000-0000-0000-0000-000000000000', abrv: 'all', name: 'All' });
                     //TODO select All as default option
                     return data.filter(c => { return availablePaymentTypes.includes(c.abrv) })
@@ -203,7 +213,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                             type: 'function',
                             value: (item) => {
                                 return <div>
-                                    {item.name} <small style={{ display: "block" }}>{item.charityAddress}</small>
+                                    {item.name} <small style={{ display: "block" }}>{item.charityAddress}</small>  <small style={{ display: "block" }}>{item.bankAccount}</small>
                                 </div>
                             }
                         },
@@ -243,6 +253,16 @@ class PendingDonationViewStore extends BaseListViewStore {
                     {
                         key: 'sessionCount',
                         title: 'DONATION.REVIEW.LIST.COLUMNS.SESSION_LABEL'
+                    },
+                    {
+                        key: 'isWithdraw',
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.IS_WITHDRAW',
+                        format: {
+                            type: 'function',
+                            value: (item) => {
+                                return item.isWithdraw ? <div className="type--center" ><i class="u-icon u-icon--approve u-icon--base "></i></div> : null;
+                            }
+                        },
                     },
                 ],
                 actions: {},

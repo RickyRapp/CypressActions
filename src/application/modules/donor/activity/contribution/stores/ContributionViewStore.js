@@ -71,26 +71,30 @@ class ContributionViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						if(params.dateCreatedFrom){
-                            let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
-                            params.dateCreatedFrom = `${fromDate} 00:00:00`;
-                        }
-                        if(params.dateCreatedTo){
-                            let toDate = params.dateCreatedTo.replace(' 23:59:59','');
-                            params.dateCreatedTo = `${toDate} 23:59:59`;
-                        }
-						params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus', 'bankAccount.accountHolder'];
-						this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
+						try {
+							if (params.dateCreatedFrom) {
+								let fromDate = params.dateCreatedFrom.replace(' 00:00:00', '');
+								params.dateCreatedFrom = `${fromDate} 00:00:00`;
+							}
+							if (params.dateCreatedTo) {
+								let toDate = params.dateCreatedTo.replace(' 23:59:59', '');
+								params.dateCreatedTo = `${toDate} 23:59:59`;
+							}
+							params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus', 'bankAccount.accountHolder'];
+							this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
 								donorId: this.donorId,
 								...params,
-						});
-						this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ donorId: this.donorId, ...params });
-						this.allData = await rootStore.application.donor.contributionStore.findContribution({ donorId: this.donorId, ...params });
+							});
+							this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ donorId: this.donorId, ...params });
+							this.allData = await rootStore.application.donor.contributionStore.findContribution({ donorId: this.donorId, ...params });
 
-						if(this.depositTab == 1) {
-							return this.timelineSummary;
-						} else {
-							return this.allData;
+							if (this.depositTab == 1) {
+								return this.timelineSummary;
+							} else {
+								return this.allData;
+							}
+						} catch (error) {
+							console.log('contribution fetch error', error);
 						}
 					},
 				};
@@ -148,7 +152,7 @@ class ContributionViewStore extends BaseListViewStore {
 	}
 
 	createTableStore() {
-		if(this.depositTab === 0) {
+		if (this.depositTab === 0) {
 			this.setTableStore(
 				new TableViewStore(this.queryUtility, {
 					columns: [
@@ -159,7 +163,7 @@ class ContributionViewStore extends BaseListViewStore {
 								type: 'date',
 								value: 'short',
 							},
-							onClick: (item) => {this.routes.preview(item.id, item.donorId)}
+							onClick: (item) => { this.routes.preview(item.id, item.donorId) }
 						},
 						{
 							key: 'confirmationNumber',
@@ -240,19 +244,19 @@ class ContributionViewStore extends BaseListViewStore {
 						}
 					]
 				})
-				);
+			);
 		}
 	}
 
 	@action.bound
-	setDepositTab(tab){
+	setDepositTab(tab) {
 		this.depositTab = tab;
-		if(tab === 0) {
-			this.createTableStore();		
+		if (tab === 0) {
+			this.createTableStore();
 			this.tableStore.setData(this.allData);
 			this.queryUtility.fetch();
 		} else {
-			this.createTableStore();		
+			this.createTableStore();
 			this.tableStore.setData(this.timelineSummary);
 			this.queryUtility.fetch();
 		}

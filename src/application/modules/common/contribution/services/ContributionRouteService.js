@@ -6,7 +6,7 @@ class ContributionRouteService extends BaseRouteService {
     }
 
     find(filter) {
-        return super.find(this.base + '/{?donorId,paymentTypeIds,contributionReviewId,confirmationNumber,dollarRange,paymentNumber,contributionStatusIds,nameOnCheck,amountRangeMin,amountRangeMax,accountTypeId,dateCreatedFrom,dateCreatedTo,search,nameOnCheck,contributionId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/{?partyId,userType,paymentTypeIds,contributionReviewId,confirmationNumber,dollarRange,paymentNumber,contributionStatusIds,nameOnCheck,amountRangeMin,amountRangeMax,accountTypeId,dateCreatedFrom,dateCreatedTo,search,nameOnCheck,contributionId,page,rpp,sort,embed,fields}', filter);
     }
 
     findSummary(filter) {

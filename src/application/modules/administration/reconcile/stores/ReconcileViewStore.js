@@ -139,6 +139,11 @@ class ReconcileViewStore extends BaseListViewStore {
                                     <small style={{ display: "block" }}>
                                         {grant.address}
                                         </small>
+                                        {item.paymentType.abrv === 'ach' && (
+                                            <small style={{ display: "block" }}>
+                                            {grant.bankAccount}
+                                            </small>
+                                        )}
                                 </div>
                             } else {
                                 return <div>
@@ -156,6 +161,17 @@ class ReconcileViewStore extends BaseListViewStore {
                         type: 'function',
                         value: (item) => {
                             return item.isCashed ? 'Payment Received' : 'Payment Submited'
+                        }
+                    }
+                },
+                {
+                    key: 'isWithdraw',
+                    title: 'RECONCILE.LIST.COLUMNS.IS_WITHDRAW',
+                    format : {
+                        type: 'function',
+                        value: (item) => {
+                            return item.grants[0].isWithdraw ? <div className="type--center" ><i class="u-icon u-icon--approve u-icon--base "></i></div> : null;
+
                         }
                     }
                 },
@@ -189,13 +205,14 @@ class ReconcileViewStore extends BaseListViewStore {
             },
             actionsRender: {
                 onEditRender: (item) => {
+                    console.log(item);
                     return !item.isCashed && item.paymentType.abrv === 'check';
                 },
                 onCashRender: (item) => {
                     return !isSome(item.isCashed);
                 },
                 onPrintReportRender: (item) => {
-                    return item.isCashed !== false || item.isCashed !== null;
+                    return (item.isCashed !== false || item.isCashed !== null) && item.paymentType.abrv !== 'charity-account';
                 },
                 onPreviewRender: (item) => {
                     return item.isCashed && item.json;

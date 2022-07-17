@@ -5,6 +5,7 @@ class SessionRouteService extends BaseRouteService {
         super('session');
         this.sessionScanBase = 'session-scan';
         this.fileStreamBase = 'charity-file-streams';
+        this.scannedSessionBase = 'scanned-session';
     }
 
     find(filter) {
@@ -90,8 +91,21 @@ class SessionRouteService extends BaseRouteService {
     uploadBlankCertificate(certificateId, filename) {
         return super.create(this.fileStreamBase + '/certificate/{certificateId}/{filename}/', { certificateId: certificateId, filename: filename });
     }
+
     getBlank(id, options) {
         return super.get(this.fileStreamBase + '/{id}/{?embed,fields}', id, options);
+    }
+
+    getScannedSessions(filter) {
+        return super.find(this.scannedSessionBase + '/{?search,page,rpp}', filter);
+    }
+
+    getScannedSessionDetails(id) {
+        return super.get(this.scannedSessionBase + '/details/{id}', id);
+    }
+
+    updateScannedSession(resource) {
+        return super.update(this.sessionScanBase + '/add-scanned-certificates', resource);
     }
 }
 

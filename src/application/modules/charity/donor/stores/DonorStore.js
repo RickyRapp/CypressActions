@@ -12,7 +12,10 @@ class DonorStore {
         const response = await this.donorService.find(params);
         return response.data;
     }
-
+    async findDonor(params) {
+        const response = await this.donorService.find(params);
+        return response.data;
+    }
     async searchAccountManager(params) {
         const response = await this.donorService.searchAccountManager(params);
         return response.data;

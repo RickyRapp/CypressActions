@@ -54,6 +54,13 @@ export default class BankAccountEditForm extends FormBase {
                     value: false
                 },
                 {
+                    name: 'isDisabled',
+                    label: 'Is disabled?',
+                    rules: 'boolean',
+                    type: 'checkbox',
+                    value: false
+                },
+                {
                     name: 'accountHolderName',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.THIRD_PARTY_ACCOUNT_HOLDER_NAME_PLACEHOLDER',

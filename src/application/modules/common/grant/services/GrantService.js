@@ -42,6 +42,11 @@ class GrantService extends BaseService {
         return this.apiClient.post(url, resource);
     }
 
+    createWithdraw(resource){
+        const url = this.routeService.createWithdraw(resource);
+        return this.apiClient.post(url, resource);
+    }
+
     createCharityGivingCard(resource) {
         const url = this.routeService.createCharityGivingCard(resource);
         return this.apiClient.post(url, resource);

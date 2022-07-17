@@ -1,0 +1,40 @@
+/*------------------------------------*\
+    # component.withdraw
+\*------------------------------------*/
+
+.withdraw {
+	&__container {
+        max-width: 900px;
+		text-align: center;
+	}
+
+	&__title {
+		color: $color-primary;
+	}
+
+	&__price {
+        margin-bottom: calc($unit * 10);
+        margin-top: calc($unit * 4);
+
+        @mixin type-scale $type-huge, 1.5;
+		@media (--screen-from-med) {
+			@mixin type-scale $type-huge, 2;
+		}
+	}
+
+	&__form {
+		display: flex;
+		flex-direction: column;
+			
+		margin: 0 auto;
+
+		@media (--screen-from-med) {
+			width: 50%;
+		}
+
+		& .form__group {
+			margin-bottom: calc($unit * 2);
+			text-align: left;
+		}
+	}
+}

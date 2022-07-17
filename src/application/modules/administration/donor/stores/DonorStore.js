@@ -248,5 +248,10 @@ class DonorStore {
         const response = await this.donorRecordActivityService.find(params);
         return response.data;
     }
+
+    async verifyDonorBank(resource) {
+        const response = await this.donorBankAccountService.verifyDonorBank(resource);
+        return response.data;
+    }
 }
 export default DonorStore;

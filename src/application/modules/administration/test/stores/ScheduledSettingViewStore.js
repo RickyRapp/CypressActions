@@ -98,6 +98,11 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 description: `Creates a new auto-replenish contribution as a sum of the automatic contribution setting amount 
                 and the total checks on hold amount for the donor`,
                 abrv: 'autoreplenish-with-checks-on-hold'
+            },
+            {
+                name: 'Create auto-withdraws',
+                description: `Creates withdraw transaction automatically`,
+                abrv: 'charity-create-withdraw'
             }
         ];
 

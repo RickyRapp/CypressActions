@@ -79,10 +79,11 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 			</div>
 			<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 			{
-        verifiedByPlaid ?   <button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
-                                Get Bank Account
-                            </button> 
-                            : null
+        	verifiedByPlaid ?  
+				 <button className='btn btn--med btn--ghost search__wrapper__item' onClick={getBankAccounts}>
+                    Get Bank Account
+                </button> 
+            : null
         }
             </div>
 		</EditFormContent>

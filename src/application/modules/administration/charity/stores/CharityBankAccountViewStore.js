@@ -4,6 +4,7 @@ import { applicationContext } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/administration/charity/forms';
 import axios from 'axios';
 import { CharityFileStreamService } from 'common/services';
+import { saveAs } from '@progress/kendo-file-saver';
 
 @applicationContext
 class CharityBankAccountViewStore extends BaseEditViewStore {
@@ -13,20 +14,44 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
         super(rootStore, {
             name: 'bank-account',
             id: undefined,
-            autoInit: false,
             actions: {
                 get: async () => {
                     const data = await rootStore.application.administration.charityStore.getCharityBank(this.id, { embed: 'accountHolder' });
                     if (data) {
+                        this.verifiedByPlaid = data.isVerifiedByPlaid;
+                        this.charityMedia = null;
+                        let isImage = false;
+                        if(data.coreMediaVaultEntryId){
+                            this.charityMedia = await rootStore.application.charity.charityStore.getCharityBankMedia(data.coreMediaVaultEntryId);
+                            isImage = !(this.charityMedia.type === 'application/pdf') && !(this.charityMedia.type === 'application/octet-stream');
+                            this.coreMediaVaultEntryId = data.coreMediaVaultEntryId;
+                            if(!isImage){
+                                this.chariytBankFile = this.charityMedia;
+                                const fileExtensions = (this.charityMedia.type === 'application/pdf') ? 'pdf' : 'csv';
+                                this.fileName = `${data.name}-${data.routingNumber}.${fileExtensions}`;
+                            }
+                        }
+
                         return {
                             name: data.name,
                             accountNumber: data.accountNumber,
                             routingNumber: data.routingNumber,
                             description: data.description,
-                            coreMediaVaultEntryId: data.coreMediaVaultEntryId,
                             isThirdPartyAccount: data.isThirdPartyAccount,
                             email: data.accountHolder.email,
-                            number: data.accountHolder.number
+                            number: data.accountHolder.number,
+                            accountHolderName: data.accountHolder && data.accountHolder.name,
+                            coreMediaVaultEntryId: data.coreMediaVaultEntryId,
+                            addressLine1: data.accountHolder && data.accountHolder.addressLine1,
+                            addressLine2: data.accountHolder && data.accountHolder.addressLine2,
+                            city: data.accountHolder && data.accountHolder.city,
+                            state: data.accountHolder && data.accountHolder.state,
+                            zipCode: data.accountHolder && data.accountHolder.zipCode,
+                            isDisabled : data.isDisabled,
+                            charityMedia : this.charityMedia,
+                            isImage: isImage,
+                            isPrimary: data.accountHolder && data.isPrimary,
+                            isDisabled : data.isDisabled
                         };
                     } else {
                         this.id = null;
@@ -34,10 +59,16 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                     }
                 },
                 update: async (resource) => {
-                    await this.rootStore.application.administration.charityStore.updateBankAccount({ charityId: this.charityId, id: this.id, ...resource });
-                    if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
-                        await this.rootStore.application.administration.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, this.id);
+                    if(!resource.charityMedia){
+                        resource.charityMedia = this.charityMedia;
                     }
+                    
+                    if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) { 
+                        const res = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, this.id);
+                        resource.coreMediaVaultEntryId = res.id;
+                    }
+                    await this.rootStore.application.charity.charityStore.updateBankAccount({ charityId: this.charityId, id: this.id, ...resource });
+                    
                 },
                 create: async (resource) => {
                     const response = await this.rootStore.application.administration.charityStore.createBankAccount({ charityId: this.charityId, ...resource });
@@ -52,6 +83,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
         this.charityId = rootStore.routerStore.routerState.params.id;
         this.createImageUploadStore();
         this.createBankAccountDropdownStore();
+        this.charityMedia;
     }
 
     createBankAccountDropdownStore() {
@@ -81,6 +113,7 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             ]);
             if (this.charity.charityBankAccounts && this.charity.charityBankAccounts.length === 1) {
                 this.id = this.charity.charityBankAccounts[0].id;
+                this.charityMedia = null;
                 await this.fetch([
                     this.getResource(this.id)
                 ]);
@@ -103,8 +136,11 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             await this.fetch([
                 this.getResource(this.id)
             ]);
-            if(this.item.coreMediaVaultEntryId)
+            if(this.item && this.item.coreMediaVaultEntryId){
                 this.imageUploadStore.setInitialItems(this.item.coreMediaVaultEntryId)
+            }else{
+                this.imageUploadStore.clear()
+            }
         }
     }
     @action.bound
@@ -118,6 +154,21 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                 this.form.clear();
                 this.id = null;
                 this.rootStore.notificationStore.success('Successfully deleted Bank account');
+            }
+        );
+    }
+    @action.bound
+    async verifyBankAccount() {
+        this.rootStore.modalStore.showConfirm(
+            `Are you sure you want to verify bank account?`,
+            async () => {
+                await this.rootStore.application.administration.charityStore.verifyCharityBank({ id: this.id, charityId: this.charityId });
+                this.bankAccountDropdownStore = null;
+                this.createBankAccountDropdownStore();
+                this.form.clear();
+                this.id = null;
+                this.verifiedByPlaid = null;
+                this.rootStore.notificationStore.success('Successfully verified Bank account');
             }
         );
     }
@@ -150,7 +201,6 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
 
     async getCharityInfo() {
         this.charity = await this.rootStore.application.administration.charityStore.getCharity(this.charityId, { embed: 'charityBankAccounts' });
-        this.verifiedByPlaid = this.charity.verifiedByPlaid;
     }
 
     async onBlurRoutingNumber(value) {
@@ -169,14 +219,9 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
     }
 
     createImageUploadStore() {
-        this.imageUploadStore = new BaasicUploadStore(null, {
-            onDelete: () => { // eslint-disable-line
-                //async call to delete if needed
-                this.form.$('coreMediaVaultEntryId').clear();
-            }
-        });
-
+        this.imageUploadStore = new BaasicUploadStore;
     }
+
     @action.bound
     getBankAccounts() {
         const access_token = this.charity.accessToken;
@@ -220,6 +265,15 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                   this.rootStore.notificationStore.error('Bank accounts error', err);
                 }
               });
+        }
+    }
+
+    @action.bound
+    async exportFile(){
+        try {
+            saveAs(this.chariytBankFile, this.fileName);
+        } catch (err) {
+            this.rootStore.notificationStore.error("Error", err);
         }
     }
 

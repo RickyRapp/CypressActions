@@ -5,7 +5,6 @@ import { TabLayout, Page } from 'core/layouts';
 import { CharityGeneralData, CharityPersonalData, CharitySecurityAndPreferencesData } from 'application/administration/charity/components';
 import { CharityQuestionnaireAnswers }from 'application/administration/charity/pages';
 import { EmailList } from 'application/administration/email/pages';
-
 function CharityPendingTabTemplate({ charityPendingTabViewStore, rootStore }) {
     const {
         loaderStore

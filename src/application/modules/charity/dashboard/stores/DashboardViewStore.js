@@ -6,11 +6,13 @@ import { RouterState } from 'mobx-state-router';
 @applicationContext
 class DashboardViewStore extends BaseViewStore {
     @observable charity = null;
+    @observable availableBalance = 0;
 
     constructor(rootStore) {
         super(rootStore);
 
         this.createYearDropdownStore();
+        this.getAccountBalance();
     }
 
     @action.bound
@@ -33,17 +35,21 @@ class DashboardViewStore extends BaseViewStore {
     async fetchCharityData() {
         this.yearDropdownStore.setValue({ name: (new Date().getFullYear()).toString(), id: new Date().getFullYear() });
         this.yearDropdownStore.setValue({ name: 'Year To Date', id: 2 });
-        this.charity =await this.rootStore.application.charity.charityStore.getCharity(this.rootStore.userStore.applicationUser.id);
+        this.charity = await this.rootStore.application.charity.charityStore.getCharity(this.rootStore.userStore.applicationUser.id);
     }
 
     @action.bound
     async redirectToWithdrawFundsPage(){
-        //implementirati redirect na Withdraw funds page
+        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.withdraw'));
     }
 
     @action.bound
     async redirectToManageAccount() {
         this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.profile'));
+    }
+
+    async getAccountBalance(){
+        this.availableBalance = await this.rootStore.application.charity.charityStore.getCharityAvailableBalance(this.rootStore.userStore.applicationUser.id);
     }
 }
 

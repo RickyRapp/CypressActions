@@ -59,7 +59,7 @@ const CreditDebitListTemplate = function ({ creditDebitViewStore }) {
 				</div>
 			</Content>
 			<BaasicModal modalParams={selectDonorModal}>
-				<SelectDonor />
+				<SelectDonor/>
 			</BaasicModal>
 		</ApplicationListLayout>
 	);

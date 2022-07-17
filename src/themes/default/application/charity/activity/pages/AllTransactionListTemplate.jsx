@@ -21,7 +21,8 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
         onExpandChecksOnHoldClick,
         dateCreatedDateRangeQueryStore,
         transactionTypeStore,
-        transactionPeriod
+        transactionPeriod,
+        availableBalance
     } = allTransactionViewStore;
 
     return (
@@ -35,7 +36,7 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
 								<div className="transaction__card">
 										<div className={`transaction__card--amount transaction__card--amount--plus`} >
 											<FormatterResolver
-												item={{ balance: 1000 }}
+												item={{ balance: availableBalance }}
 												field="balance"
 												format={{ type: 'currency' }}
 											/>

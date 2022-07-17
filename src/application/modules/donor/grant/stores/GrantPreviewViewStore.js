@@ -30,7 +30,13 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
                                 'donationStatus',
                                 'grantAcknowledgmentType',
                                 'thirdPartyWebsite',
-                                'grantScheduledPayment'
+                                'grantScheduledPayment',
+                                'charity.charityAddresses',
+                                'charity.charityBankAccounts',
+                                'charityVirtualTransaction',
+                                'charityVirtualTransaction.paymentType',
+                                'charityVirtualTransaction.charityWithdrawTransaction',
+                                'charityVirtualTransaction.charityWithdrawTransaction.paymentType'
                             ],
                             donorId: this.donorId
                         }
@@ -41,8 +47,14 @@ class GrantPreviewViewStore extends BasePreviewViewStore {
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
+        this.getStatuses();
     }
 
+    async getStatuses(){
+        var grantEntity = 'GrantEntity';
+        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(this.rootStore.routerStore.routerState.params.id,grantEntity);
+        this.statusList = response;
+    }
     @action.bound
     async onInit({ initialLoad }) {
         if (!initialLoad) {

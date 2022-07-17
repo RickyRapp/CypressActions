@@ -509,7 +509,7 @@ class GrantViewStore extends BaseListViewStore {
         },
             {
                 fetchFunc: () => {
-                    return this.rootStore.application.lookup.donationStatusStore.find();
+                    return  this.rootStore.application.lookup.donationStatusStore.find();
                 },
                 onChange: (donationStatus) => {
                     this.queryUtility.filter.donationStatusIds = donationStatus.map(c => { return c.id });
@@ -522,8 +522,9 @@ class GrantViewStore extends BaseListViewStore {
             multi: true
         },
             {
-                fetchFunc: () => {
-                    return this.rootStore.application.lookup.donationTypeStore.find();
+                fetchFunc: async () => {
+                    var donationType = await this.rootStore.application.lookup.donationTypeStore.find();
+                    return donationType.filter(c => {return c.abrv != 'withdraw' && c });
                 },
                 onChange: (donationType) => {
                     this.queryUtility.filter.donationTypeIds = donationType.map(c => { return c.id });

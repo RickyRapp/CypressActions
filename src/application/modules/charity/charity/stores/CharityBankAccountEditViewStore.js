@@ -4,10 +4,13 @@ import { applicationContext, isSome } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/charity/charity/forms';
 import { saveAs } from '@progress/kendo-file-saver';
 import { async } from 'rxjs/internal/scheduler/async';
+import { RouterState } from 'mobx-state-router';
 
 @applicationContext
 class CharityBankAccountEditViewStore extends BaseEditViewStore {
     @observable image = null;
+    @observable fileError;
+    @observable invalidForm = false;
 
     constructor(rootStore, props) {
         super(rootStore, {
@@ -32,6 +35,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     }
                     
                     return {
+                    id: data.id,
                     name: data.name,
                     accountNumber: data.accountNumber,
                     routingNumber: data.routingNumber,
@@ -47,7 +51,9 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     number: data.accountHolder && data.accountHolder.number,
                     isPrimary: data.accountHolder && data.isPrimary,
                     charityMedia : this.charityMedia,
-                    isImage : isImage
+                    isImage : isImage,
+                    isVerifiedByPlaid : data.isVerifiedByPlaid,
+                    isDisabled : data.isDisabled
                 };
             },    
                 update: async (resource) => {
@@ -62,16 +68,27 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     }
 
                     await this.rootStore.application.charity.charityStore.updateBankAccount({ id: props.editId, charityId: this.charityId, ...resource });
+
+                    if(!this.isVerified){
+                        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.bank-account-verification'));
+                    }
+                    
                     rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                 },
-                create: async (resource) => {
+                create: async (resource) => { 
+                    this.fileError = "";
                     if(props.bankAccountCount < 1) {
 						resource.isPrimary = true;
 					}
+                    if(!this.imageUploadStore.files[0]){
+                        this.fileError = 'Please enter media';
+                        this.invalidForm = true;
+                        return 0;
+                    } 
+                    this.invalidForm = false;
                     let response;
                     try {
                         response = await this.rootStore.application.charity.charityStore.createBankAccount({ charityId: this.charityId, ...resource });
-
                         if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
                             const media = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, response);
                             resource.coreMediaVaultEntryId = media.id; 
@@ -81,12 +98,18 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     } catch (error) {
                         rootStore.notificationStore.error('Create failed', error);
                     }
-                    
+                    if(!this.isVerified){
+                        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.bank-account-verification'));
+                    }
+
                     rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
                 }
             },
             FormClass: CharityBankAccountEditForm,
             onAfterAction: () => {
+                if(this.invalidForm){
+                    return 0;
+                }
 				if (props.onEditCompleted) {
 					props.onEditCompleted();
 				}
@@ -102,6 +125,8 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.chariytBankFile;
         this.fileName;
         this.charityMedia;
+        this.isVerified = this.rootStore.userStore.applicationUser.permissions.verifiedAccountSection ? true : false;
+        this.isNotVerifiedButHasBankAccount = !this.isVerified && this.bankAccountCount > 0;
     }
 
     @action.bound
@@ -112,7 +137,6 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
 			await this.fetch([
                 this.getCharityInfo()
             ]);
-            
 		}
 	}
 
@@ -136,10 +160,14 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.rootStore.modalStore.showConfirm(
             `Are you sure you want to delete bank account?`,
             async () => {
-                await this.rootStore.application.administration.charityStore.deleteCharityBank({ id: this.id, charityId: this.charityId });
-                this.bankAccountDropdownStore = null;
-                this.form.clear();
-                this.rootStore.notificationStore.success('Successfully deleted Bank account');
+                try{
+                    await this.rootStore.application.administration.charityStore.deleteCharityBank({ id: this.id, charityId: this.charityId });
+                    this.bankAccountDropdownStore = null;
+                    this.form.clear();
+                    this.rootStore.notificationStore.success("Successfully deleted Bank account");
+                }catch (error) {
+                    this.rootStore.notificationStore.error('Error: ', error);
+                }
             }
         );
     }

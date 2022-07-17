@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { PreviewLayout } from 'core/layouts';
 import { ApplicationEmptyState, Date, FormatterResolver } from 'core/components';
+import { ContributionProgressTimeline } from 'application/administration/contribution/components';
 
 const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t }) {
     const {
         item,
-        loaderStore
+        loaderStore,
+        statusList
     } = contributionDetailsViewStore;
 
     return (
@@ -18,6 +20,9 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
             layoutFooterVisible={false}
         >
             <h3 className=" u-mar--bottom--med">{t('CONTRIBUTION.DETAILS.DETAILS')}</h3>
+            {item && !(item.contributionStatus.abrv === 'processed' ) && 
+                <ContributionProgressTimeline item={item} statusList={statusList}/>
+            }
             <div className="row">
                 <div className="col col-sml-12 col-lrg-8">
                     <div className="card card--primary card--med u-mar--bottom--med">
@@ -31,7 +36,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                                     </div>
                                     <div className="col col-sml-6">
                                         <div className="type--wgt--medium u-push">
-                                            {item && item.donor.donorName}
+                                            {item && (item.donor ? item.donor.donorName : item.payerInformation.name)}
                                         </div>
                                     </div>
                                     </div>
@@ -203,7 +208,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             <div className="col col-sml-12 u-mar--bottom--sml">
                                 <div className="card--secondary card--med type--center">
                                     <div className="type--lrg type--wgt--bold type--color--note">
-                                        {item && <FormatterResolver
+                                        {item && item.donor && <FormatterResolver
                                             item={{ amount: item.donor.totalMoneyGiven }}
                                             field='amount'
                                             format={{ type: 'currency' }}
@@ -217,7 +222,7 @@ const ContributionDetailsTemplate = function ({ contributionDetailsViewStore, t 
                             <div className="col col-sml-12">
                                 <div className="card--secondary--light card--med type--center">
                                     <div className="type--lrg type--wgt--bold type--color--note">
-                                        {item && <FormatterResolver
+                                    {item && item.donor && <FormatterResolver
                                             item={{ amount: item.donor.totalMoneyUpcoming }}
                                             field='amount'
                                             format={{ type: 'currency' }}
