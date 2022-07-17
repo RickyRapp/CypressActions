@@ -309,7 +309,7 @@ class ContributionViewStore extends BaseListViewStore {
     }
     createUserTypeDropdownStore() {
         this.userTypeDropdownStore = new BaasicDropdownStore({
-            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_USER_TYPE_PLACEHOLDER',
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_TYPE_PLACEHOLDER',
             initFetch: true,
             filterable: false
         },
