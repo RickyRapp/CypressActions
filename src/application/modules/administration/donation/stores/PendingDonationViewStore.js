@@ -75,7 +75,7 @@ class PendingDonationViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    onChangeChecked(dataItem, grantId, checked) { console.log(dataItem, grantId);
+    onChangeChecked(dataItem, grantId, checked) {
         const data = this.tableStore.data.map(item => {
             if (item.id === dataItem.id) {
                 item.pendingDonations = item.pendingDonations.map(element => {

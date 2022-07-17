@@ -89,7 +89,7 @@ class WithdrawFundCreateViewStore extends BaseViewStore {
             || address.zipCode === "")){
             this.addressValidationMessage = "Invalid address."
             return false
-        } console.log(this.bankAccount);
+        }
         if(this.isACH && (this.bankAccount === null || this.bankAccount === undefined || this.bankAccount === "" ) ){
             this.bankAccountValidationMessage = "Please select bank account."
             return false;

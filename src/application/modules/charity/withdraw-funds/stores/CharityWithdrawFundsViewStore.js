@@ -45,7 +45,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
         this.bankAccountDropdownStore = new BaasicDropdownStore(null,
             {
                 fetchFunc: async () => {
-                    const data = await this.rootStore.application.administration.charityStore.getCharity(this.rootStore.userStore.applicationUser.id, { embed: 'charityBankAccounts' }); console.log(data.charityBankAccounts);
+                    const data = await this.rootStore.application.administration.charityStore.getCharity(this.rootStore.userStore.applicationUser.id, { embed: 'charityBankAccounts' });
                     var plaidVerifiedBankAccounts = data.charityBankAccounts.filter(c => {
                         return (
                             c.isVerifiedByPlaid === true
