@@ -18,13 +18,13 @@ class GrantProgressTimeline extends Component {
         var paymentNumber = null;
         if (statusList != null) {
             statusList.forEach(stat => {
-                if (stat.abrv == 'payment-received' || stat.currentStatus == 'payment-received')
+                if (stat.abrv == 'payment-received')
                     paymentReceivedStatus = stat;
-                if (stat.abrv == 'payment-submited' || stat.currentStatus == 'payment-submited')
+                if (stat.abrv == 'payment-submited')
                     paymentSubmitedStatus = stat;
-                    if(stat.abrv == 'pending' || stat.currentStatus == 'pending')
+                    if(stat.abrv == 'pending')
                     pendingStatus = stat;
-                if (stat.abrv == 'approved' || stat.currentStatus == 'approved')
+                if (stat.abrv == 'approved')
                     approvedStatus = stat;
                 else if (stat.abrv == 'canceled')
                     canceledStatus = stat;
