@@ -72,8 +72,8 @@ class ContributionProgressTimeline extends Component {
                             />
                         </span>
                     </div>}
-
-                    {!declinedStatus && !canceledStatus && inProcessStatus && (inProcessStatus.currentStatus == 'in-process' || inProcessStatus.abrv == 'in-process') ?
+                    {!declinedStatus && !canceledStatus && <React.Fragment>
+                        {!declinedStatus && !canceledStatus && inProcessStatus && (inProcessStatus.currentStatus == 'in-process' || inProcessStatus.abrv == 'in-process') ?
                         <React.Fragment>
                             <div className="wizard__item is-checked">
                                 <div className="wizard__item__title">{t('In process')}</div>
@@ -91,7 +91,6 @@ class ContributionProgressTimeline extends Component {
                                 <div className="wizard__item__title">{t('In process')}</div>
                             </div>
                         </React.Fragment>
-
                     }
 
                     {!declinedStatus && !canceledStatus && fundedStatus && (fundedStatus.currentStatus == 'funded' || fundedStatus.abrv == 'funded') ?
@@ -113,6 +112,8 @@ class ContributionProgressTimeline extends Component {
                         </React.Fragment>
 
                     }
+                        </React.Fragment>}
+                 
 
                 </div>
 
