@@ -87,8 +87,8 @@ class GrantProgressTimeline extends Component {
                             />
                         </span>
                     </div>}
-
-                    {!declinedStatus && !canceledStatus && approvedStatus && (approvedStatus.abrv == 'approved' || approvedStatus.currentStatus == 'approved') ?
+                                {!declinedStatus && !canceledStatus && <React.Fragment>
+                                    {!declinedStatus && !canceledStatus && approvedStatus && (approvedStatus.abrv == 'approved' || approvedStatus.currentStatus == 'approved') ?
                         <React.Fragment>
                             <div className="wizard__item is-checked">
                                 <div className="wizard__item__title">{t('Approved')}</div>
@@ -258,6 +258,8 @@ class GrantProgressTimeline extends Component {
                          
                         </React.Fragment>
                     }
+                                    </React.Fragment>}
+               
                 </div>
             </React.Fragment>
         );
