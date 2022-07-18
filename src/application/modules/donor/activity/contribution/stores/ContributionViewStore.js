@@ -82,11 +82,11 @@ class ContributionViewStore extends BaseListViewStore {
 							}
 							params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus', 'bankAccount.accountHolder'];
 							this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
-								donorId: this.donorId,
+								partyId: this.donorId,
 								...params,
 							});
-							this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ donorId: this.donorId, ...params });
-							this.allData = await rootStore.application.donor.contributionStore.findContribution({ donorId: this.donorId, ...params });
+							this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ partyId: this.donorId, ...params });
+							this.allData = await rootStore.application.donor.contributionStore.findContribution({ partyId: this.donorId, ...params });
 
 							if (this.depositTab == 1) {
 								return this.timelineSummary;
