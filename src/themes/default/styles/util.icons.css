@@ -317,6 +317,15 @@
 			}
 		}
 
+		&--profile {
+			background-image: svg-load('../styles/postcss-svg/profile.svg', stroke: $color-text);
+
+			&.checked {
+				outline: 0;
+				background-image: svg-load('../styles/postcss-svg/profile.svg', stroke: $color-note);
+			}
+		}
+
 		&--stock-and-securities {
 			background-image: svg-load('../styles/postcss-svg/stock-and-securities.svg', stroke: $color-text);
 

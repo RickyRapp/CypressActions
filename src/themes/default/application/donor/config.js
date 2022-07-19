@@ -49,7 +49,7 @@ import { moduleProviderFactory } from 'core/providers';
             // {
             //   title: 'MENU.INVESTMENTS',
             //     icon: 'investment',
-           //    order: 5,
+            //    order: 5,
             //    route: 'master.app.main.donor.investment.donor',
             //    role: ['Users']
             // },
@@ -59,13 +59,6 @@ import { moduleProviderFactory } from 'core/providers';
                 order: 6,
                 role: ['Users'],
                 subMenu: [
-                    {
-                        title: 'MENU.PROFILE_SETTING',
-                        icon: 'profile',
-                        order: 1,
-                        role: ['Users'],
-                        route: 'master.app.main.donor.profile'
-                    },
                     {
                         title: 'MENU.ORDER_VOUCHERS',
                         icon: 'booklet-order',
@@ -81,7 +74,14 @@ import { moduleProviderFactory } from 'core/providers';
                     //     route: 'master.app.main.donor.giving-goals.create'
                     // },
                 ]
-            }
+            },
+            {
+                title: 'MENU.PROFILE_SETTING',
+                icon: 'profile',
+                order: 7,
+                role: ['Users'],
+                route: 'master.app.main.donor.profile'
+            },
         ],
         moduleStore: function (context) {
             return {
