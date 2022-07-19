@@ -50,8 +50,12 @@
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
+
 			padding: calc($unit * 3) calc($unit * 4);
+
 			border-bottom: 1px solid color($scandal a(20%));
+
+			cursor: pointer;
 
 			@media (--screen-from-med) {
 				justify-content: center;
@@ -76,8 +80,7 @@
 			margin: -1px 0;
 
 			font-weight: $type-weight-regular;
-			color: white;
-
+			color: $white;
 			transition: color, background-color 250ms ease-out;
 			cursor: pointer;
 

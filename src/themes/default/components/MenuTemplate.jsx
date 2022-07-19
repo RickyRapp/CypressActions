@@ -20,7 +20,7 @@ function MenuTemplate({ menuStore, t }) {
 function renderPrimary(menu, menuStore, translate) {
     return (
         <React.Fragment>
-            {renderMenuHeader(menuStore, translate)}
+            {renderMenuHeader(menu,menuStore, translate)}
 
             <div className={menuStore.isOpen ? 'nav--primary' : 'nav--primary'}>
                 {menu.map((item) => {
@@ -158,16 +158,16 @@ function SecondaryItems({ items, menuStore, t }) {
     );
 }
 
-function renderMenuHeader(menuStore, t) {
+function renderMenuHeader(menu, menuStore, t) {
+    const menuDashboard = menu.find((item) => item.title === "MENU.DASHBOARD");
+    
     return (
-        <div className="nav--primary__logo">
-            <a href="/">
-                <img
-                    className='header__logo'
-                    src={menuStore.isCollapsed ? logo_collapsed : logo}
-                    alt='logo'
+        <div className="nav--primary__logo" onClick={() => menuStore.selectMenuItem(menuDashboard)}>
+            <img
+                className='header__logo'
+                src={menuStore.isCollapsed ? logo_collapsed : logo}
+                alt='logo'
                 />
-            </a>
             <div className="nav--primary__close" onClick={() => menuStore.toggleMenuOpen()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
                 <i className="u-icon u-icon--base u-icon--close-menu"></i>
             </div>
