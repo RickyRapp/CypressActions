@@ -62,9 +62,6 @@ function FormatterResolver({ item, field, format }) {
             const paymentTransaction = _.get(item, field);
             const type = paymentTransaction.paymentTransactionType.abrv;
             params.value = paymentTransaction.amount;
-            if (type === 'debit') {
-                params.value = params.value * (-1)
-            }
             return <NumberFormat {...params} />
         }
         
@@ -72,9 +69,6 @@ function FormatterResolver({ item, field, format }) {
             const paymentTransaction = _.get(item, field);
             const type = paymentTransaction.paymentTransactionType.abrv;
             params.value = paymentTransaction.amount;
-            if (type === 'debit' && params.value > 0) {
-                params.value = params.value * (-1)
-            }
             return <NumberFormat {...params} />
         }
         case 'boolean':
