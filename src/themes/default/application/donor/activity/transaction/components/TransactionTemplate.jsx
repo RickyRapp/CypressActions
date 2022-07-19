@@ -45,7 +45,7 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hide
 						{hideSearch ? null :
 							<div>
 								<TableFilter queryUtility={queryUtility}>
-									<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
+									<div className="col col-sml-12 col-xxlrg-6">
 										<DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
 									</div>
 									<div className="col col-sml-12 col-xxlrg-6">
