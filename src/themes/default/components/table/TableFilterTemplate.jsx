@@ -137,7 +137,7 @@ TableFilterTemplate.defaultProps = {
 	fetchDisabled: false,
 	hideOnFetch: false,
 	debounce: 300,
-	btnClassName: "col col-sml-6 col-xxlrg-3"
+	btnClassName: "col col-sml-12 col-med-2"
 };
 
 function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSeparator, fetchDisabled, btnClassName) {

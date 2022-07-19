@@ -16,16 +16,27 @@
 	}
 
 	&__wrapper {
+		display: flex;
+		gap: calc($unit * 4);
+
+		/* max-width: 580px; */
+	}
+
+	&__input {
 		position: relative;
 		display: inline-block;
 
+		flex: 1;
 		min-width: calc($unit * 40);
 		
 		margin-bottom: calc($unit * 2);
 		
 		& input {
-			text-align: center;
 			cursor: pointer;
 		}
+	}
+
+	&__period {
+		flex: 1;
 	}
 }

@@ -19,7 +19,7 @@ const DateRangePickerTemplate = function(props) {
     store.setErrors(props.errors);
 
 	return (
-		<div className="c-date-range__wrapper">
+		<div className="c-date-range__input">
 			{/* prettier-ignore */}
 			<input
                 className="input input--lrg input--text"
