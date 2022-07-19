@@ -34,7 +34,7 @@ class DateRangePickerViewStore {
 
     /* eslint-disable */
     d1 = cProps => <CustomDateInput label={this.t('DATE_RANGE.START')} error={this.fromError} required={this.required} {...cProps} />
-    d2 = cProps => <CustomDateInput label={this.t('DATE_RANGE.END')} error={this.toError} required={this.required} {...cProps} />
+    // d2 = cProps => <CustomDateInput label={this.t('DATE_RANGE.END')} error={this.toError} required={this.required} {...cProps} />
     /* eslint-enable */
 }
 

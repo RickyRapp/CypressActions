@@ -1,0 +1,31 @@
+.c-date-range {
+	position: absolute;
+	top: 0;
+
+	height: calc($unit * 10);
+	width: 100%;
+
+	opacity: 0;
+
+	& .datepicker__item--aside {
+		display: none;
+	}
+
+	& .datepicker__item {
+		width: 100%;
+	}
+
+	&__wrapper {
+		position: relative;
+		display: inline-block;
+
+		min-width: calc($unit * 40);
+		
+		margin-bottom: calc($unit * 2);
+		
+		& input {
+			text-align: center;
+			cursor: pointer;
+		}
+	}
+}
