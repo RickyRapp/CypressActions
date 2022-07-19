@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore , SelectTableViewStore} from 'core/stores';
-import { applicationContext, donorFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
+import { applicationContext, donorFormatter, charityFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { ContributionListFilter } from 'application/administration/contribution/models';
 import moment from 'moment';
@@ -49,9 +49,13 @@ class ContributionViewStore extends BaseListViewStore {
                     filter.reset();
                     this.searchDonorDropdownStore.setValue(null);
                     this.paymentTypeDropdownStore.setValue(null);
+                    this.searchCharityDropdownStore.setValue(null);
                     this.contributionStatusDropdownStore.setValue(null);
                     this.userTypeDropdownStore.setValue(null);
                     this.dateCreatedDateRangeQueryStore.reset();
+                    this.queryUtility.filter.partyId = null;
+                    this.queryUtility.filter.userType = null;
+                    this.queryUtility.fetch();
                 }
             },
             actions: () => {
@@ -87,6 +91,7 @@ class ContributionViewStore extends BaseListViewStore {
         this.createTableStore();
         this.createDonorSearch();
         this.createContributionStatusDropodownStore();
+        this.createCharitySearchDropdownStore();
         this.createPaymentTypeDropodownStore();
         this.createUserTypeDropdownStore();
 
@@ -321,6 +326,33 @@ class ContributionViewStore extends BaseListViewStore {
         this.userTypeDropdownStore.setItems([{ name: 'Donor', id: 'donor' }, { name: 'Charity', id: 'charity'}]);
     }
   
+    createCharitySearchDropdownStore() {
+        this.searchCharityDropdownStore = new BaasicDropdownStore({
+            placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
+            initFetch: false,
+            filterable: true
+        },
+            {
+                fetchFunc: async (searchQuery) => {
+                    const data = await this.rootStore.application.administration.charityStore.searchCharity({
+                        pageNumber: 1,
+                        pageSize: 10,
+                        search: searchQuery,
+                        sort: 'name|asc',
+                        embed: [
+                            'charityAddresses'
+                        ],
+                        fields: ['id', 'taxId', 'name', 'charityAddresses', 'isAchAvailable', 'charityTypeId', 'addressLine1', 'addressLine2', 'charityAddressId', 'city', 'zipCode', 'state', 'isPrimary']
+                    });
+                    return data.item.map(x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }) } });
+                },
+                onChange: (charityId) => {
+                    console.log(charityId)
+                    this.queryUtility.filter.partyId = charityId;
+                }
+            });
+    }
+
 
     createDonorSearch() {
         this.searchDonorDropdownStore = new BaasicDropdownStore({
@@ -382,7 +414,7 @@ class ContributionViewStore extends BaseListViewStore {
                     }
                 },
                 onChange: (donorId) => {
-                    this.queryUtility.filter.donorId = donorId;
+                    this.queryUtility.filter.partyId = donorId;
                 }
             });
     }

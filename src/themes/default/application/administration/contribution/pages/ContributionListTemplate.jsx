@@ -25,6 +25,7 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 		authorization,
 		selectDonorModal,
 		searchDonorDropdownStore,
+		searchCharityDropdownStore,
 		paymentTypeDropdownStore,
 		reviewModal,
 		contributionStatusDropdownStore,
@@ -47,6 +48,9 @@ const ContributionListTemplate = function ({ contributionViewStore, t }) {
 							<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}>
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicDropdown store={searchDonorDropdownStore} />
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown store={searchCharityDropdownStore} />
 								</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={userTypeDropdownStore} />
