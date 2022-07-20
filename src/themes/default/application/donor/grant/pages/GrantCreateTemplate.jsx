@@ -254,7 +254,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 {isMicroGiving && <span style={{color:"#C36C36", fontSize:"16px"}} >Micro giving ($2.50 fee) </span>}
 											</div>
 
-											{window.innerWidth > 750 && <div className={`form__group col col-sml-12 col-xxxlrg-6`}>
+											{window.innerWidth > 750 && !form.$('isRecurring').value && <div className={`form__group col col-sml-12 col-xxxlrg-6`}>
 												<DatePickerField field={form.$('startFutureDate')} />
 											</div>}
 										</div>
