@@ -37,8 +37,9 @@ function TableFilterTemplate(props) {
 						<div className="search__wrapper">
 							{showSearch && (
 								<SearchFilter
-									className={`input input--med input--search search__input--noborder ${filterStore.filterVisible ? 'is-expanded' : ''
-										}`}
+									className={`input input--med input--search search__input--noborder ${
+										filterStore.filterVisible ? 'is-expanded' : ''
+									}`}
 									inputWrapperClass={`${inputWrapperClass}`}
 									queryUtility={queryUtility}
 									clearVisible={clearVisible}
@@ -56,8 +57,9 @@ function TableFilterTemplate(props) {
 											></i>
 											<span className="search__filter__btn__text search__wrapper__item">Advanced Search</span>
 											<i
-												className={`u-icon u-icon--arrow-down--primary u-icon--sml ${filterStore.filterVisible ? 'u-rotate--180' : ''
-													}`}
+												className={`u-icon u-icon--arrow-down--primary u-icon--sml ${
+													filterStore.filterVisible ? 'u-rotate--180' : ''
+												}`}
 											></i>
 										</div>
 									)}
@@ -99,7 +101,7 @@ function TableFilterTemplate(props) {
 				)}
 			</div>
 			<div className={`${filterClassName || 'u-mar--top--sml'}`.trim()}>
-				{renderFilter(filterStore, queryUtility, children, nextToSearch, showSearch && showToggle, fetchDisabled, btnClassName)}
+				{renderFilter(filterStore, queryUtility, children, nextToSearch, showSearch && showToggle, fetchDisabled)}
 			</div>
 		</React.Fragment>
 	);
@@ -137,10 +139,9 @@ TableFilterTemplate.defaultProps = {
 	fetchDisabled: false,
 	hideOnFetch: false,
 	debounce: 300,
-	btnClassName: "col col-sml-12 col-med-2"
 };
 
-function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSeparator, fetchDisabled, btnClassName) {
+function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSeparator, fetchDisabled) {
 	if (!filters || React.Children.count(filters) === 0) return null;
 
 	return (
@@ -153,22 +154,20 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 					}}
 				>
 					{/* <h5 className="spc--top--sml">{t('GRID.FILTERS_TITLE')}</h5> */}
-					{showSeparator && <div />}
 					<div className="row row--form">{filters}</div>
 					{!nextToSearch && (
-						<div className="row row--form u-mar--top--sml u-mar--bottom--sml">
-
-							<div className={btnClassName}>
+						<div className="u-display--flex u-mar--bottom--med">
+							<div>
 								<BaasicButton
-									className="btn btn--100 btn--primary"
+									className="btn btn--lrg btn--primary"
 									label="GRID.FILTER.SEARCH_BUTTON"
 									onClick={() => queryUtility.fetch()}
 									disabled={fetchDisabled}
 								/>
 							</div>
-							<div className={btnClassName}>
+							<div>
 								<BaasicButton
-									className="btn btn--100 btn--ghost"
+									className="btn btn--lrg btn--ghost u-mar--left--sml"
 									label="GRID.FILTER.CLEAR_BUTTON"
 									onClick={() => queryUtility.resetFilter()}
 									disabled={fetchDisabled}
