@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DateRangePicker } from '@progress/kendo-react-dateinputs';
+import { Popup } from '@progress/kendo-react-popup';
 import { defaultTemplate } from 'core/hoc';
 import moment from 'moment';
 
@@ -16,7 +17,7 @@ const DateRangePickerTemplate = function(props) {
 	// prettier-ignore
 	let inputValue = `${props.value.start ? moment(props.value.start).format("MM/DD/YYYY") : ""} ${props.value.end ? `- ${moment(props.value.end).format("MM/DD/YYYY")}` : ""}`;
 
-    store.setErrors(props.errors);
+	store.setErrors(props.errors);
 
 	return (
 		<div className="c-date-range__input">
@@ -33,12 +34,12 @@ const DateRangePickerTemplate = function(props) {
 					calendarSettings={{ views: 2 }}
 					format={t(format)}
 					startDateInput={store.d1}
-					endDateInput={store.d2}
+					// endDateInput={store.d2}
 					onChange={internalOnChange}
-					startDateInputSettings={store.componentProps.options.startDateInputSettings}
-					endDateInputSettings={store.componentProps.options.endDateInputSettings}
+					// startDateInputSettings={store.componentProps.options.startDateInputSettings}
+					// endDateInputSettings={store.componentProps.options.endDateInputSettings}
 				/>
-            </div>
+			</div>
 		</div>
 	);
 };
