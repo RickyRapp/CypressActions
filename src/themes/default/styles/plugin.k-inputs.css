@@ -69,7 +69,7 @@
 }
 
 .react-select__control {
-	min-height: 60px !important;
+	min-height: calc($unit * 8) !important;
 
 	&:hover,
 	&:focus,
