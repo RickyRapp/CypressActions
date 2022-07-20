@@ -67,7 +67,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
         }
 
         if( this.accountBanalce < value ){
-            this.amountValidationMessage = "Amount can't be greater than account balance."
+            this.amountValidationMessage = "Amount can't be greater than available balance."
             return false;
         }
 
