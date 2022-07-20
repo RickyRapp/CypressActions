@@ -27,7 +27,7 @@
 	display: flex;
 	align-items: center;
 
-	height: calc($unit * 10);
+	height: calc($unit * 8);
 
 	@media (--screen-to-med) {
 		height: calc($unit * 8);

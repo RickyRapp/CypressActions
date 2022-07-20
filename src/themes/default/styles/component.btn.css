@@ -74,9 +74,9 @@
 	&--med {
 		font-size: 15px;
 		/* min-width: calc($unit * 26); */
-		height: calc($unit * 10);
+		height: calc($unit * 8);
 		padding: 0 calc($unit * 4);
-		line-height: calc($unit * 10);
+		line-height: calc($unit * 8);
 
 		&--wide {
 			padding: 0 calc($unit * 8);
@@ -102,14 +102,14 @@
 	}
 
 	&--lrg {
-		height: calc($unit * 10);
+		height: calc($unit * 8);
 		padding: 0 calc($unit * 6);
-		line-height: calc($unit * 10);
+		line-height: calc($unit * 8);
 	}
 
 	&--100 {
 		width: 100%;
-		height: calc($unit * 10);
+		height: calc($unit * 8);
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -169,11 +169,11 @@
 
 	&--show {
 		width: 100%;
-		height: calc($unit * 10);
+		height: calc($unit * 8);
 		display: flex;
 		justify-content: space-between;
 		padding: 0 calc($unit * 6);
-		line-height: calc($unit * 10);
+		line-height: calc($unit * 8);
 
 		align-items: center;
 		color: $color-text;

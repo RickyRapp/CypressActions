@@ -74,8 +74,8 @@
 	}
 
 	&--lrg {
-		height: calc($unit * 10);
-		line-height: calc($unit * 10);
+		height: calc($unit * 8);
+		line-height: calc($unit * 8);
 		padding: 0 calc($unit * 3);
 
 		@media (--screen-to-med) {
