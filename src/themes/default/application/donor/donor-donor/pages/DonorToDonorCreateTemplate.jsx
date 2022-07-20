@@ -39,8 +39,8 @@ const DonorToDonorCreateTemplate = function({ donorToDonorCreateViewStore, t }) 
 					{!summaryInfo && (
 						<div className="row row--form">
 							<div className="col col-sml-12 col-xxlrg-6">
-								<h3 className=" u-mar--bottom--base">{t('DONOR-DONOR.CREATE.FROM_TITLE')}</h3>
 								<div className="card--primary card--med u-mar--bottom--med">
+									<h3 className=" u-mar--bottom--base">{t('DONOR-DONOR.CREATE.FROM_TITLE')}</h3>
 									<h4 className="type--base u-mar--bottom--lrg">{t('DONOR-DONOR.CREATE.TITLE_LABEL')}</h4>
 									<div className="row row--form u-mar--bottom--sml">
 										<div className="form__group col col-sml-12">
@@ -127,8 +127,8 @@ const DonorToDonorCreateTemplate = function({ donorToDonorCreateViewStore, t }) 
 								</div>
 							</div>
 							<div className="col col-sml-12 col-xxlrg-6 u-hide--to--med">
-								<h3 className=" u-mar--bottom--base">{t('DONOR-DONOR.CREATE.TRANSFERS')}</h3>
 								<div className="card--primary card--med u-mar--bottom--med">
+									<h3 className=" u-mar--bottom--base">{t('DONOR-DONOR.CREATE.TRANSFERS')}</h3>
 									<div className="row row--form u-mar--bottom--med">
 										<div className="col col-sml-12 col-lrg-12">
 											<h4 className="type--base type--wgt--medium u-mar--bottom--med">
