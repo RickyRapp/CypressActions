@@ -67,7 +67,7 @@ class WithdrawFundCreateViewStore extends BaseViewStore {
             return false;
         }
 
-        if( this.accountBanalce <= value ){
+        if( this.accountBanalce < value ){
             this.amountValidationMessage = "Amount can't be greater than account balance."
             return false;
         }
