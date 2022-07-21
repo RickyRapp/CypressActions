@@ -5,12 +5,20 @@ import { action, observable } from 'mobx';
 
 class SelectDonorViewStore extends BaseViewStore {
     @observable isCharity = true;
-    constructor(rootStore, { donorId, onClickDonorFromFilter, onChange, displayToggle }) {
+    constructor(rootStore, { donorId, onClickDonorFromFilter,onClickCharityFromFilter, onChange, displayToggle,charityId }) {
         super(rootStore);
         this.displayToggle = displayToggle;
         this.donorId = donorId;
+        this.charityId = charityId;
         this.onClickDonorFromFilter = onClickDonorFromFilter;
-
+        this.onClickCharityFromFilter = onClickCharityFromFilter;
+        
+        if(this.donorId != null){
+            this.isCharity = false;
+        }
+        else{
+            this.isCharity = true;
+        }
         this.searchCharityDropdownStore = new BaasicDropdownStore({
             placeholder: 'SESSION.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
             initFetch: false,
@@ -67,7 +75,7 @@ class SelectDonorViewStore extends BaseViewStore {
     }
     @action.bound
     setCharityToggle() {
-        this.isCharity = !this.isCharity;
+      this.isCharity = !this.isCharity;
     }
 }
 

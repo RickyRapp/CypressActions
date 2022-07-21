@@ -7,22 +7,26 @@ const SelectDonorTemplate = function ({ selectDonorViewStore, t }) {
     const {
         donorId,
         onClickDonorFromFilter,
+        onClickCharityFromFilter,
         selectDonorDropdownStore,
         isCharity,
         setCharityToggle,
         searchCharityDropdownStore,
-        displayToggle
+        displayToggle,
+        charityId
     } = selectDonorViewStore;
 
 
     return (
         <section className="w--400--px">
-            <h3 className="type--med type--wgt--medium u-mar--bottom--sml">{isCharity ? 'Select Donor' : 'Select Charity'}</h3>
+            <h3 className="type--med type--wgt--medium u-mar--bottom--sml">{!isCharity ? 'Select Donor' : 'Select Charity'}</h3>
             <div className="row">
                 <div className="form__group col col-lrg-12">
-                    {displayToggle && <BaasicToggle wrapperClassName="u-display--flex u-display--flex--column u-display--flex--align--end" showLabel={true} label={isCharity ? 'Charity' : 'Donor'} value={isCharity} onChange={setCharityToggle} />}
+                    {displayToggle && <BaasicToggle wrapperClassName="u-display--flex u-display--flex--column u-display--flex--align--end" showLabel={true} label={!isCharity ? 'Charity' : 'Donor'} value={isCharity} onChange={setCharityToggle} />}
                 </div>
-                {donorId &&
+              
+                {!isCharity ? <React.Fragment>
+                    {donorId &&
                     <div className="form__group col col-lrg-12">
                         <a
                             className=""
@@ -30,21 +34,35 @@ const SelectDonorTemplate = function ({ selectDonorViewStore, t }) {
                             {t('SELECT_DONOR_FROM_FILTER')}
                         </a>
                     </div>}
-                {isCharity ? <div className="form__group col col-sml-9 col-lrg-12">
+                <div className="form__group col col-sml-9 col-lrg-12">
                     <BaasicDropdown
                         placeholder={'SELECT_DONOR_PLACEHOLDER'}
                         className='input--dropdown'
                         store={selectDonorDropdownStore}
                         opened={true}
                     />
-                </div> : <div className="form__group col col-sml-9 col-lrg-12">
+                </div>
+                </React.Fragment>
+                    : 
+                    <React.Fragment>
+                          {charityId &&
+                        <div className="form__group col col-lrg-12">
+                            <a
+                                className=""
+                                onClick={() => onClickCharityFromFilter(charityId)}>
+                                {t('SELECT_CHARITY_FROM_FILTER')}
+                            </a>
+                        </div>}
+                        <div className="form__group col col-sml-9 col-lrg-12">
                     <BaasicDropdown
                         placeholder="Select charity"
                         className='input--dropdown'
                         store={searchCharityDropdownStore}
                         opened={true}
                     />
-                </div>}
+                </div>
+                    </React.Fragment>
+                  }
 
             </div>
         </section>

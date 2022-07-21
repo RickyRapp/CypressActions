@@ -57,6 +57,8 @@ class ContributionViewStore extends BaseListViewStore {
                     this.dateCreatedDateRangeQueryStore.reset();
                     this.queryUtility.filter.partyId = null;
                     this.queryUtility.filter.userType = null;
+                    this.charityId = null;
+                    this.partyId = null;
                     this.queryUtility.fetch();
                 }
             },
@@ -109,6 +111,7 @@ class ContributionViewStore extends BaseListViewStore {
                 charityId: this.charityId,
                 donorId: this.partyId,
                 onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', { id: donorId }),
+                onClickCharityFromFilter: (charityId) => this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', { id: charityId }),
                 onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', { id: donorId }),
                 displayToggle: true
             }
