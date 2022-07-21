@@ -12,6 +12,8 @@ class ContributionViewStore extends BaseListViewStore {
     contributionStatuses = [];
     @observable selectedItemsSum = 0;
     @observable achBatchCurrentNumber = false;
+    @observable partyId = null;
+    @observable charityId = null;
     form = new ContributionAchCreateForm();
     thirdPartyFunds = [
         { id: '1', name: 'Fidelity Charitable' },
@@ -104,8 +106,8 @@ class ContributionViewStore extends BaseListViewStore {
     openSelectDonorModal() {
         this.selectDonorModal.open(
             {
-                charityId: this.queryUtility.filter.charityId,
-                donorId: this.queryUtility.filter.donorId,
+                charityId: this.charityId,
+                donorId: this.partyId,
                 onClickDonorFromFilter: (donorId) => this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', { id: donorId }),
                 onChange: (donorId) => this.rootStore.routerStore.goTo('master.app.main.administration.contribution.create', { id: donorId }),
                 displayToggle: true
@@ -347,7 +349,7 @@ class ContributionViewStore extends BaseListViewStore {
                     return data.item.map(x => { return { id: x.id, name: charityFormatter.format(x, { value: 'charity-name-display' }) } });
                 },
                 onChange: (charityId) => {
-                    console.log(charityId)
+                    this.charityId = charityId;
                     this.queryUtility.filter.partyId = charityId;
                 }
             });
@@ -415,6 +417,7 @@ class ContributionViewStore extends BaseListViewStore {
                 },
                 onChange: (donorId) => {
                     this.queryUtility.filter.partyId = donorId;
+                    this.partyId = donorId;
                 }
             });
     }
