@@ -223,7 +223,7 @@ class ReconcileViewStore extends BaseListViewStore {
                     return item.isCashed && item.json;
                 }
             }
-        }, true, loadMethod));
+        }, false, loadMethod));
     }
     createPaymentTypeDropodownStore() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
