@@ -13,9 +13,6 @@
 		border-right: 2px solid color($color-opaque a(30%));
 
 		@media (--screen-to-lrg) {
-			/* padding-bottom: calc($unit * 2);
-			margin-bottom: calc($unit * 2); */
-
 			border-bottom: 0;
 			border-right: 0;
 		}
@@ -25,38 +22,8 @@
 			align-items: center;
 		}
 
-		&--center {
-			/* & .transaction__card--amount,
-			& .transaction__card--title {
-				text-align: center;
-				margin-right: 0;
-			}
-
-			& .transaction__card--amount {
-				@media (--screen-from-sml) {
-					margin-right: calc($unit * 3);
-				}
-			} */
-		}
-
 		&--last {
 			border: none;
-
-			/* & .transaction__card--amount,
-			& .transaction__card--title {
-				text-align: right;
-				margin-right: 0;
-
-				@media (--screen-from-sml) {
-					text-align: center;
-				}
-			}
-
-			& .transaction__card--amount {
-				@media (--screen-from-sml) {
-					margin-right: calc($unit * 3);
-				}
-			} */
 		}
 
 		&--amount {
