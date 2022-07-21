@@ -3,26 +3,39 @@
 \*------------------------------------*/
 
 .transaction {
+	&__list {
+		display: flex;
+		gap: calc($unit * 2);
+
+		@media (--screen-to-xxlrg) {
+			flex-direction: column;
+		}
+	}
+
 	&__card {
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
+		flex: 1;
 
-		padding: $unit 0;
+		padding: calc($unit * 3) 0;
 
 		border-right: 2px solid color($color-opaque a(30%));
 
-		@media (--screen-to-lrg) {
-			border-bottom: 0;
+		@media (--screen-to-xxlrg) {
 			border-right: 0;
+			border-bottom: 2px solid color($color-opaque a(30%));
 		}
 
-		@media (--screen-to-med) {
+		@media (--screen-to-xxlrg) {
 			flex-direction: column;
 			align-items: center;
 		}
 
 		&--last {
+			margin-bottom: 0;
+			padding-bottom: $unit;
+
 			border: none;
 		}
 
@@ -32,16 +45,14 @@
 			font-weight: $type-weight-bold;
 			@mixin type-scale $type-xlarge, 1.5;
 			color: $color-text;
-			text-align: center;
 
 			@media (--screen-from-xlrg) {
 				@mixin type-scale $type-xxlarge, 1.5;
 			}
 
-			@media (--screen-to-lrg) {
+			@media (--screen-to-xxlrg) {
 				width: 100%;
-				text-align: left;
-				@mixin type-scale $type-base, 1;
+				text-align: center;
 
 				order: 2;
 			}
@@ -54,7 +65,6 @@
 		}
 
 		&--title {
-			width: calc($unit * 16);
 			color: $bali-hai;
 			text-transform: uppercase;
 			@mixin type-scale $type-small, 0.75;
@@ -64,9 +74,9 @@
 			@media (--screen-to-xlrg) {
 				@mixin type-scale $type-xsmall, 0.75;
 			}
-
-			@media (--screen-to-lrg) {
-				text-align: left;
+			
+			@media (--screen-to-xxlrg) {
+				text-align: center;
 				order: 1;
 			}
 		}

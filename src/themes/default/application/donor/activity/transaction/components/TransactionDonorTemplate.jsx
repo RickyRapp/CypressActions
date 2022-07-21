@@ -25,42 +25,36 @@ const TransactionDonorTemplate = function({ transactionDonorViewStore, t }) {
 				<div className="col col-sml-12 u-mar--bottom--sml">
 					{/* <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3> */}
 					<div className="card--tertiary">
-						<div className="row row--form">
-							<div className="col col-sml-4">
-								{donor ? (
-									<TransactionInfoCard
-										donor={donor}
-										balance={donor.availableBalance}
-										title={t('DASHBOARD.AVAILABLE_BALANCE')}
-									/>
-								) : (
-									<TransactionInfoCardLoader customClassName={'transaction__card u-padd--right--sml'} />
-								)}
-							</div>
-							<div className="col col-sml-4">
-								{donor ? (
-									<TransactionInfoCard
-										donor={donor}
-										balance={donor.presentBalance}
-										title={t('DASHBOARD.PRESENT_BALANCE')}
-										customClassName={'transaction__card--center'}
-									/>
-								) : (
-									<TransactionInfoCardLoader customClassName={'transaction__card u-padd--right--sml'} />
-								)}
-							</div>
-							<div className="col col-sml-4">
-								{donor ? (
-									<TransactionInfoCard
-										donor={donor}
-										balance={0}
-										title={t('DASHBOARD.INVESTMENTS_BALANCE')}
-										customClassName={'transaction__card--last'}
-									/>
-								) : (
-									<TransactionInfoCardLoader customClassName={'transaction__card--last'} />
-								)}
-							</div>
+						<div className="transaction__list">
+							{donor ? (
+								<TransactionInfoCard
+									donor={donor}
+									balance={donor.availableBalance}
+									title={t('DASHBOARD.AVAILABLE_BALANCE')}
+								/>
+							) : (
+								<TransactionInfoCardLoader customClassName={'transaction__card u-padd--right--sml'} />
+							)}
+							{donor ? (
+								<TransactionInfoCard
+									donor={donor}
+									balance={donor.presentBalance}
+									title={t('DASHBOARD.PRESENT_BALANCE')}
+									customClassName={'transaction__card--center'}
+								/>
+							) : (
+								<TransactionInfoCardLoader customClassName={'transaction__card u-padd--right--sml'} />
+							)}
+							{donor ? (
+								<TransactionInfoCard
+									donor={donor}
+									balance={0}
+									title={t('DASHBOARD.INVESTMENTS_BALANCE')}
+									customClassName={'transaction__card--last'}
+								/>
+							) : (
+								<TransactionInfoCardLoader customClassName={'transaction__card--last'} />
+							)}
 						</div>
 					</div>
 				</div>
