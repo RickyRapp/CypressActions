@@ -12,8 +12,10 @@ class SelectDonorViewStore extends BaseViewStore {
         this.charityId = charityId;
         this.onClickDonorFromFilter = onClickDonorFromFilter;
         this.onClickCharityFromFilter = onClickCharityFromFilter;
-        
-        if(this.donorId != null){
+        if(this.donorId == null && this.charityId == null){
+            this.isCharity = false;
+        }
+        else if(this.donorId != null){
             this.isCharity = false;
         }
         else{
