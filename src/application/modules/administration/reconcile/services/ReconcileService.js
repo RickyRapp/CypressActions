@@ -33,6 +33,10 @@ class ReconcileService extends BaseService {
         return this.apiClient.get(url);
     }
     
+    getReconcileDetailsByCwtId(id){
+        const url = this.routeService.getReconcileDetailsByCwtId(id);
+        return this.apiClient.get(url);
+    }
 }
 
 export default ReconcileService;

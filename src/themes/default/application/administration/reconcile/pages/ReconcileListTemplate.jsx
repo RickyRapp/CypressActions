@@ -21,7 +21,7 @@ const ReconcileListTemplate = function ({ reconcileViewStore, t }) {
 	 } = reconcileViewStore;
 
 
-	 const DetailComponent = ({ dataItem }) => {
+	 const DetailComponent = ({ dataItem }) => { console.log(dataItem);
         {
             return (
                 <table>
