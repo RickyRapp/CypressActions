@@ -10,6 +10,23 @@
 		gap: calc($unit * 1.5);
 
 		margin-bottom: calc($unit * 4);
+
+		&--loader {
+			display: flex;
+			flex-direction: row;
+			gap: calc($unit * 2);
+			width: 100%;
+
+			margin-bottom: calc($unit * 6);
+
+			@media (--screen-from-xxlrg) {
+				flex-direction: column;
+			}
+
+			@media (--screen-from-xxxlrg) {
+				flex-direction: row;
+			}
+		}
 	}
 
 	&__card {

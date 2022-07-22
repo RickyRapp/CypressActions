@@ -19,6 +19,7 @@
 		flex: 1;
 
 		padding: calc($unit * 3) 0;
+		padding-right: calc($unit * 3);
 
 		border-right: 2px solid color($color-opaque a(30%));
 

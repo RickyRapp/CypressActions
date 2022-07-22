@@ -33,7 +33,7 @@ const TransactionDonorTemplate = function({ transactionDonorViewStore, t }) {
 									title={t('DASHBOARD.AVAILABLE_BALANCE')}
 								/>
 							) : (
-								<TransactionInfoCardLoader customClassName={'transaction__card u-padd--right--sml'} />
+								<TransactionInfoCardLoader customclassname={'transaction__card u-padd--right--sml'} />
 							)}
 							{donor ? (
 								<TransactionInfoCard
@@ -43,7 +43,7 @@ const TransactionDonorTemplate = function({ transactionDonorViewStore, t }) {
 									customClassName={'transaction__card--center'}
 								/>
 							) : (
-								<TransactionInfoCardLoader customClassName={'transaction__card u-padd--right--sml'} />
+								<TransactionInfoCardLoader customclassname={'transaction__card u-padd--right--sml'} />
 							)}
 							{donor ? (
 								<TransactionInfoCard
@@ -53,7 +53,7 @@ const TransactionDonorTemplate = function({ transactionDonorViewStore, t }) {
 									customClassName={'transaction__card--last'}
 								/>
 							) : (
-								<TransactionInfoCardLoader customClassName={'transaction__card--last'} />
+								<TransactionInfoCardLoader customclassname={'transaction__card--last'} />
 							)}
 						</div>
 					</div>
