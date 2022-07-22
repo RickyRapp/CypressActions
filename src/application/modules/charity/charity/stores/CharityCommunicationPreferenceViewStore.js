@@ -20,6 +20,11 @@ class CharityCommunicationPreferenceViewStore extends BaseEditViewStore{
             onAfterAction: () => { this.getResource(this.id); }
         })
     }
+
+
+    getCharityCommunicationEmail(){
+        console.log(this.rootStore.userStore.applicationUser.id);
+    }
 }
 
 

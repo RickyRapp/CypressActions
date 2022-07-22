@@ -69,13 +69,6 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                     type: 'checkbox'
                 },
                 {
-                    name: 'isNotifyExceedingTransactionEnabled',
-                    label: 'CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.NOTIFY_TRANSACTIONS_EXCEEDING_LABEL',
-                    placeholder: 'CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.NOTIFY_TRANSACTIONS_EXCEEDING',
-                    rules: 'required|boolean',
-                    type: 'checkbox'
-                },
-                {
                     name: 'notifyExceedingTransactionAmount',
                     label: 'CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.AMOUNT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.AMOUNT_PLACEHOLDER',
@@ -107,7 +100,24 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                         type: 'p2',
                         step: 0.001
                     }
-                }
+                },
+                {
+                    name: 'notifyCardAmount',
+                    label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.AMOUNT_LABEL',
+                    placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.AMOUNT_PLACEHOLDER',
+                    rules: 'numeric|min:0',
+                    extra: {
+                        type: 'p2',
+                        step: 0.001
+                    }
+                },
+                {
+                    name: 'notifyWhenCheckIsReleasedFromOnHold',
+                    label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_WHEN_CHECK_RELEASED',
+                    placeholder: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_WHEN_CHECK_RELEASED',
+                    rules: 'required|boolean',
+                    type: 'checkbox'
+                },
             ]
         };
     }
