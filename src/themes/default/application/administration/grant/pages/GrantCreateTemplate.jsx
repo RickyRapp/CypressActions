@@ -217,7 +217,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         <div className="row row--form">
                                             <div className="form__group col col-sml-12">
                                                 <NumericInputField field={form.$('amount')} onChange={ checkMicroGiving }/>
-                                                {isMicroGiving && <span style={{color:"#C36C36", fontSize:"16px"}} >Micro giving ($2.50 fee) </span>}
+                                                {isMicroGiving && <span style={{color:"#C36C36", fontSize:"16px"}} >Micro giving ($2.5 fee) </span>}
                                             </div>
                                         </div>
                                         {window.innerWidth < 750 ?
