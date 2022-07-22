@@ -14,7 +14,7 @@ const TransactionInfoCardLoader = props => {
 				speed={2}
 				width={loaderWidth}
 				height="100%"
-				viewBox={`0 0 ${loaderWidth} 38`}
+				viewBox={`0 0 ${loaderWidth} 34`}
 				backgroundColor="#a5aec0"
 				foregroundColor="#b5bdc7"
 				{...props}

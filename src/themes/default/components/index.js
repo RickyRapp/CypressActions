@@ -110,3 +110,4 @@ export { default as BankAccountTemplate } from './formatters/BankAccountTemplate
 export { default as ExportTemplate } from './export/ExportTemplate';
 
 export * from './empty-state';
+export * from './content-loader';
