@@ -1,6 +1,8 @@
 import React from 'react';
 import { BaseListViewStore, BaasicDropdownStore, SelectTableWithRowDetailsViewStore } from 'core/stores';
 import { ReconcileListFilter } from 'application/administration/reconcile/models';
+import ReconcileSelectTableWithLoadOnDemand from 'application/administration/donation/stores/ReconcileSelectTableWithLoadOnDemand';
+import { action } from 'mobx';
 
 
 class PaymentsViewStore extends BaseListViewStore {
@@ -30,12 +32,18 @@ class PaymentsViewStore extends BaseListViewStore {
 
         this.charityId = rootStore.userStore.applicationUser.id;
 
-        this.createTableStore();
+        this.createTableStore(this.getReconcileDetailsByCharityId);
         this.createPaymentTypeDropodownStore();
     }
 
+    @action.bound
+    async getReconcileDetailsByCharityId(id){
+        this.data = await this.rootStore.application.administration.reconcileStore.getReconcileDetailsByCwtId(id);
+        return this.data;
+    }
+
     createTableStore(loadMethod) {
-        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
+        this.setTableStore(new ReconcileSelectTableWithLoadOnDemand(this.queryUtility, {
             columns: [
                 {
                     key: 'paymentNumber',
@@ -67,14 +75,29 @@ class PaymentsViewStore extends BaseListViewStore {
                     title: 'RECONCILE.LIST.COLUMNS.CHARITY_NAME_LABEL',
                     format:  {
                         type: 'function',
-                        value: (item) => { 
-                            const grant = item.grants[0];
-                            return <div>
-                                {item.charity.name} 
-                                <small style={{ display: "block" }}>
-                                    {grant && grant.address}
-                                    </small>
-                            </div>
+                        value: (item) => {
+                            if(item.id == '7cccc43a-f85f-4a7b-b422-ae8a0178f358' || item.id =='f7c79590-604d-4319-bdda-ae8a017a512c') {
+                                return <div>
+                                    {item.charity.name} (*)
+                                </div>
+                            } else if(item.address){
+                                return <div>
+                                    {item.charity.name} 
+                                    <small style={{ display: "block" }}>
+                                        {item.address}
+                                        </small>
+                                        {item.paymentType.abrv === 'ach' && (
+                                            <small style={{ display: "block" }}>
+                                            {item.bankAccount}
+                                            </small>
+                                        )}
+                                </div>
+                            } else {
+                                return <div>
+                                    {item.charity.name} 
+                                </div>
+                            }
+                            
                         }
                     },
                 },
@@ -85,6 +108,17 @@ class PaymentsViewStore extends BaseListViewStore {
                         type: 'function',
                         value: (item) => {
                             return item.isCashed ? 'Payment Received' : 'Payment Submited'
+                        }
+                    }
+                },
+                {
+                    key: 'isWithdraw',
+                    title: 'RECONCILE.LIST.COLUMNS.IS_WITHDRAW',
+                    format : {
+                        type: 'function',
+                        value: (item) => {
+                            return item.isWithdraw ? <div className="type--center" ><i class="u-icon u-icon--approve u-icon--base "></i></div> : null;
+
                         }
                     }
                 },
@@ -111,7 +145,7 @@ class PaymentsViewStore extends BaseListViewStore {
             ],
             actions: {},
             disablePaging: false,
-        }, false));
+        }, false, loadMethod));
     }
     createPaymentTypeDropodownStore() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
