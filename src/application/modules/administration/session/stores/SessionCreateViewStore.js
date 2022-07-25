@@ -62,6 +62,7 @@ class SessionViewStore extends BaseEditViewStore {
         if(this.rootStore.userStore.applicationUser.roles.includes('Charities')){
             this.currentStep = 2;
             this.isCharityAccount = true;
+            this.isCharitySelected = true;
             this.charityName = this.rootStore.userStore.applicationUser.charity.name;
             this.form.$('charityId').value = this.rootStore.userStore.applicationUser.charityId;
         } 
@@ -185,6 +186,7 @@ class SessionViewStore extends BaseEditViewStore {
                 embed: ['contactInformation', 'charityAddresses']
             }
             const charityId = this.rootStore.userStore.applicationUser.charityId;
+            this.setCharityId(charityId);
             const data = await this.rootStore.application.charity.charityStore.getCharity(charityId, params);
             const primaryAddress = data && data.charityAddresses && data.charityAddresses.find(c => c.isPrimary);
             this.setAddress(primaryAddress);
@@ -286,9 +288,7 @@ class SessionViewStore extends BaseEditViewStore {
         try {
             let mediaEntry = null;
             if(this.imageUploadStore.files.length > this.imageUploadStore.originalFiles.length) {
-                console.log(this.imageUploadStore);
                 mediaEntry = await this.service.uploadBlankCertificate(this.imageUploadStore.files[0], certificate.certificateId);
-                console.log(mediaEntry);
             }
             const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue, coreMediaVaultEntryId: mediaEntry ? mediaEntry.data.id : null });
             data.response.isBlank = true;
