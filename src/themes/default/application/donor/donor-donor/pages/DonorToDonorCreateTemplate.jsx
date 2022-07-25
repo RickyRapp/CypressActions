@@ -11,7 +11,11 @@ import {
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
-import { TransferConfirmTemplate } from 'themes/application/donor/donor-donor/components';
+import {
+	TransferConfirmTemplate,
+	AvailableBalanceLoaderTemplate,
+	SendGiftLoaderTemplate
+} from 'themes/application/donor/donor-donor/components';
 
 const DonorToDonorCreateTemplate = function({ donorToDonorCreateViewStore, t }) {
 	const {
@@ -34,96 +38,109 @@ const DonorToDonorCreateTemplate = function({ donorToDonorCreateViewStore, t }) 
 
 	return (
 		<React.Fragment>
-			<EditFormLayout store={donorToDonorCreateViewStore} loading={loaderStore.loading} layoutFooterVisible={false}>
+			<EditFormLayout store={donorToDonorCreateViewStore} loading={false} layoutFooterVisible={false}>
 				<Content loading={contentLoading}>
 					{!summaryInfo && (
 						<div className="row row--form">
 							<div className="col col-sml-12 col-xxlrg-6">
 								<div className="card--primary card--med u-mar--bottom--med">
-									<h3 className=" u-mar--bottom--base">{t('DONOR-DONOR.CREATE.FROM_TITLE')}</h3>
-									<h4 className="type--base u-mar--bottom--lrg">{t('DONOR-DONOR.CREATE.TITLE_LABEL')}</h4>
-									<div className="row row--form u-mar--bottom--sml">
-										<div className="form__group col col-sml-12">
-											<div className="type--center">
-												<div className="dashboard-card__body--amount">
-													{donorBalance && (
-														<FormatterResolver
-															item={{ balance: donorBalance.availableBalance }}
-															field="balance"
-															format={{ type: 'currency' }}
-														/>
-													)}
+									{loaderStore.loading ? (
+										<AvailableBalanceLoaderTemplate />
+									) : (
+										<React.Fragment>
+											<h3 className=" u-mar--bottom--base">{t('DONOR-DONOR.CREATE.FROM_TITLE')}</h3>
+											<h4 className="type--base u-mar--bottom--lrg">{t('DONOR-DONOR.CREATE.TITLE_LABEL')}</h4>
+											<div className="row row--form u-mar--bottom--sml">
+												<div className="form__group col col-sml-12">
+													<div className="type--center">
+														<div className="dashboard-card__body--amount">
+															{donorBalance && (
+																<FormatterResolver
+																	item={{ balance: donorBalance.availableBalance }}
+																	field="balance"
+																	format={{ type: 'currency' }}
+																/>
+															)}
+														</div>
+														<p className="type--uppercase">{t('DONOR-DONOR.CREATE.BALANCE')}</p>
+													</div>
 												</div>
-												<p className="type--uppercase">{t('DONOR-DONOR.CREATE.BALANCE')}</p>
 											</div>
-										</div>
-									</div>
-								</div>
-								<div className="card--primary card--med u-mar--bottom--med">
-									<h3>{t('DONOR-DONOR.CREATE.SEND_TO')}:</h3>
-									<h4 className="type--base u-mar--bottom--med">{t('DONOR-DONOR.CREATE.SEND_TO_INFO_TITLE')}</h4>
-									<div className="row row--form">
-										<div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
-											<BasicInput field={form.$('emailOrAccountNumber')} />
-											<p className="validation__message">{errorMessage}</p>
-										</div>
-										<div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
-											<BasicInput field={form.$('contactInformationName')} />
-										</div>
-										<div>
-											<div className="col col-sml-12 col-xlrg-12 u-mar--bottom--sml">
-												<a onClick={() => addAnotherRecipient(true)}>
-													{t(
-														!addAnotherRecipientForm
-															? 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_+'
-															: 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_-'
-													)}
-													{t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}
-												</a>
-											</div>
-										</div>
-									</div>
-									{addAnotherRecipientForm && (
-										<div className="row row--form u-mar--bottom--med">
-											<div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
-												<BasicInput field={form.$('emailOrAccountNumberAnother')} />
-												<p className="validation__message">{additionalErrorMessage}</p>
-											</div>
-											<div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
-												<BasicInput field={form.$('contactInformationNameAnother')} />
-											</div>
-										</div>
+										</React.Fragment>
 									)}
-									<div className="row row--form">
-										<div className="form__group col col-sml-12">
-											<BaasicFieldDropdown
-												field={form.$('grantAcknowledgmentTypeId')}
-												store={grantAcknowledgmentTypeDropdownStore}
-											/>
-										</div>
-										{grantAcknowledgmentName && (
-											<div className="form__group col col-sml-12">
-												<div className="charity-information__card charity-information__card--secondary">
-													{grantAcknowledgmentName}
+								</div>
+
+								<div className="card--primary card--med u-mar--bottom--med">
+									{loaderStore.loading ? (
+										<SendGiftLoaderTemplate />
+									) : (
+										<React.Fragment>
+											<h3>{t('DONOR-DONOR.CREATE.SEND_TO')}:</h3>
+											<h4 className="type--base u-mar--bottom--med">{t('DONOR-DONOR.CREATE.SEND_TO_INFO_TITLE')}</h4>
+											<div className="row row--form">
+												<div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
+													<BasicInput field={form.$('emailOrAccountNumber')} />
+													<p className="validation__message">{errorMessage}</p>
+												</div>
+												<div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
+													<BasicInput field={form.$('contactInformationName')} />
+												</div>
+												<div>
+													<div className="col col-sml-12 col-xlrg-12 u-mar--bottom--sml">
+														<a onClick={() => addAnotherRecipient(true)}>
+															{t(
+																!addAnotherRecipientForm
+																	? 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_+'
+																	: 'DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT_-'
+															)}
+															{t('DONOR-DONOR.CREATE.ADD_ANOTHER_RECIPIENT')}
+														</a>
+													</div>
 												</div>
 											</div>
-										)}
-									</div>
-									<div className="row row--form">
-										<div className="form__group col col-sml-12 col-lrg-12">
-											<NumericInputField field={form.$('amount')} />
-										</div>
-									</div>
-									<div className="type--right">
-										<BaasicButton
-											type="button"
-											className="btn btn--med btn--med--wide btn--secondary"
-											onClick={onSubmitClick}
-											form={form}
-											onSubmit={onSubmitClick}
-											label="DONOR-DONOR.CREATE.BUTTON.CREATE"
-										/>
-									</div>
+											{addAnotherRecipientForm && (
+												<div className="row row--form u-mar--bottom--med">
+													<div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
+														<BasicInput field={form.$('emailOrAccountNumberAnother')} />
+														<p className="validation__message">{additionalErrorMessage}</p>
+													</div>
+													<div className="col col-sml-12 col-lrg-6 col-xxlrg-12 col-xxxlrg-6 u-mar--bottom--sml">
+														<BasicInput field={form.$('contactInformationNameAnother')} />
+													</div>
+												</div>
+											)}
+											<div className="row row--form">
+												<div className="form__group col col-sml-12">
+													<BaasicFieldDropdown
+														field={form.$('grantAcknowledgmentTypeId')}
+														store={grantAcknowledgmentTypeDropdownStore}
+													/>
+												</div>
+												{grantAcknowledgmentName && (
+													<div className="form__group col col-sml-12">
+														<div className="charity-information__card charity-information__card--secondary">
+															{grantAcknowledgmentName}
+														</div>
+													</div>
+												)}
+											</div>
+											<div className="row row--form">
+												<div className="form__group col col-sml-12 col-lrg-12">
+													<NumericInputField field={form.$('amount')} />
+												</div>
+											</div>
+											<div className="type--right">
+												<BaasicButton
+													type="button"
+													className="btn btn--med btn--med--wide btn--secondary"
+													onClick={onSubmitClick}
+													form={form}
+													onSubmit={onSubmitClick}
+													label="DONOR-DONOR.CREATE.BUTTON.CREATE"
+												/>
+											</div>
+										</React.Fragment>
+									)}
 								</div>
 							</div>
 							<div className="col col-sml-12 col-xxlrg-6 u-hide--to--med">

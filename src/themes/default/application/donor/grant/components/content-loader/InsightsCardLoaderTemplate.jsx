@@ -22,7 +22,7 @@ const InsightsCardLoaderTemplate = props => {
 					foregroundColor="#b5bdc7"
 					{...props}
 				>
-					<rect x="0" y={8} rx="4" ry="4" width={'100'} height="14" />
+					<rect x="0" y={8} rx="4" ry="4" width={'100'} height="22" />
 					<rect x="0" y={50} rx="4" ry="4" width={'100%'} height={114} />
 					
                     <rect x="0" y={220} rx="4" ry="4" width={'130'} height="14" />
