@@ -28,9 +28,9 @@ const TotalMoneyLoader = ({ loaderWidth, props }) => {
 		<div className="summary__wrapper--loader">
 			<ContentLoader
 				speed={2}
-				width={loaderWidth}
+				width={loaderWidth / 2}
 				height="114"
-				viewBox={`0 0 ${loaderWidth} 114`}
+				viewBox={`0 0 ${loaderWidth / 2} 114`}
 				backgroundColor="#a5aec0"
 				foregroundColor="#b5bdc7"
 				{...props}
@@ -39,9 +39,9 @@ const TotalMoneyLoader = ({ loaderWidth, props }) => {
 			</ContentLoader>
 			<ContentLoader
 				speed={2}
-				width={loaderWidth}
+				width={loaderWidth / 2}
 				height="114"
-				viewBox={`0 0 ${loaderWidth} 114`}
+				viewBox={`0 0 ${loaderWidth / 2} 114`}
 				backgroundColor="#a5aec0"
 				foregroundColor="#b5bdc7"
 				{...props}
