@@ -14,7 +14,8 @@ import { Content, EditFormLayout } from 'core/layouts';
 import {
 	TransferConfirmTemplate,
 	AvailableBalanceLoaderTemplate,
-	SendGiftLoaderTemplate
+	SendGiftLoaderTemplate,
+	TransfersCardLoaderTemplate
 } from 'themes/application/donor/donor-donor/components';
 
 const DonorToDonorCreateTemplate = function({ donorToDonorCreateViewStore, t }) {
@@ -145,35 +146,39 @@ const DonorToDonorCreateTemplate = function({ donorToDonorCreateViewStore, t }) 
 							</div>
 							<div className="col col-sml-12 col-xxlrg-6 u-hide--to--med">
 								<div className="card--primary card--med u-mar--bottom--med">
-									<h3 className=" u-mar--bottom--base">{t('DONOR-DONOR.CREATE.TRANSFERS')}</h3>
-									<div className="row row--form u-mar--bottom--med">
-										<div className="col col-sml-12 col-lrg-12">
-											<h4 className="type--base type--wgt--medium u-mar--bottom--med">
-												{t('DONOR-DONOR.CREATE.RECENT_TRANSFERS')}
-											</h4>
-											<SimpleBaasicTable tableStore={recentTransfersTableStore} />
-										</div>
-									</div>
-									<div className="row row--form u-mar--bottom--med">
-										<div className="col col-sml-12 col-lrg-12">
-											<div className="card--enh card--med">
-												<h4 className="type--base type--wgt--medium u-mar--bottom--med type--color--note">
-													{t('DONOR-DONOR.CREATE.FAQ')}
-												</h4>
-												<ul className="list--faq">
-													<li className="list--faq__item js-faq-item">
-														<i
-															className="list--faq__icon js-faq-icon whatIsGift is-expanded cursor--pointer"
-															onClick={() => openFAQ('whatIsGift')}
-														></i>
-														<div className="list--faq__text">
-															<h4>{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT')}</h4>
-															<span className="js-faq-hidden list--faq__answer whatIsGift is-expanded">
-																{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT_ANSWER')}
-															</span>
-														</div>
-													</li>
-													{/* 
+									{loaderStore.loading ? (
+										<TransfersCardLoaderTemplate />
+									) : (
+										<React.Fragment>
+											<h3 className=" u-mar--bottom--base">{t('DONOR-DONOR.CREATE.TRANSFERS')}</h3>
+											<div className="row row--form u-mar--bottom--med">
+												<div className="col col-sml-12 col-lrg-12">
+													<h4 className="type--base type--wgt--medium u-mar--bottom--med">
+														{t('DONOR-DONOR.CREATE.RECENT_TRANSFERS')}
+													</h4>
+													<SimpleBaasicTable tableStore={recentTransfersTableStore} />
+												</div>
+											</div>
+											<div className="row row--form u-mar--bottom--med">
+												<div className="col col-sml-12 col-lrg-12">
+													<div className="card--enh card--med">
+														<h4 className="type--base type--wgt--medium u-mar--bottom--med type--color--note">
+															{t('DONOR-DONOR.CREATE.FAQ')}
+														</h4>
+														<ul className="list--faq">
+															<li className="list--faq__item js-faq-item">
+																<i
+																	className="list--faq__icon js-faq-icon whatIsGift is-expanded cursor--pointer"
+																	onClick={() => openFAQ('whatIsGift')}
+																></i>
+																<div className="list--faq__text">
+																	<h4>{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT')}</h4>
+																	<span className="js-faq-hidden list--faq__answer whatIsGift is-expanded">
+																		{t('DONOR-DONOR.CREATE.FAQ_WHAT_IS_GIFT_ANSWER')}
+																	</span>
+																</div>
+															</li>
+															{/* 
                                                 <li className="list--faq__item js-faq-item">
                                                     <i className="list--faq__icon js-faq-icon existingDonor cursor--pointer" onClick={() => openFAQ('existingDonor')}></i>
                                                     <div className="list--faq__text">
@@ -189,10 +194,12 @@ const DonorToDonorCreateTemplate = function({ donorToDonorCreateViewStore, t }) 
                                                     </div>
                                                 </li>
                                                 */}
-												</ul>
+														</ul>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
+										</React.Fragment>
+									)}
 								</div>
 							</div>
 						</div>

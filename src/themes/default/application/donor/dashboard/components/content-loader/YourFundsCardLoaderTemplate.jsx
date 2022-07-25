@@ -35,10 +35,10 @@ const YourFundsCardLoaderTemplate = props => {
 			>
 				{screenWidth > 1200 ? (
 					<React.Fragment>
-						<rect x="0" y={12} rx="4" ry="4" width={'140'} height="16" />
+						<rect x="0" y={12} rx="4" ry="4" width={'140'} height="22" />
 
-						<rect x="32%" y={100} rx="4" ry="4" width={'300'} height="45" />
-						<rect x="39%" y={160} rx="4" ry="4" width={'190'} height="12" />
+						<rect x="32%" y={115} rx="4" ry="4" width={'300'} height="45" />
+						<rect x="39%" y={175} rx="4" ry="4" width={'190'} height="12" />
 
 						<rect x="37%" y={240} rx="4" ry="4" width={'220'} height="35" />
 						<rect x="39%" y={300} rx="4" ry="4" width={'190'} height="12" />
@@ -48,7 +48,7 @@ const YourFundsCardLoaderTemplate = props => {
 					</React.Fragment>
 				) : screenWidth > 544 ? (
 					<React.Fragment>
-						<rect x="0" y={6} rx="4" ry="4" width={'140'} height="16" />
+						<rect x="0" y={6} rx="4" ry="4" width={'140'} height="22" />
 
 						<rect x="32%" y={80} rx="4" ry="4" width={'300'} height="45" />
 						<rect x="39%" y={150} rx="4" ry="4" width={'190'} height="12" />
@@ -61,7 +61,7 @@ const YourFundsCardLoaderTemplate = props => {
 					</React.Fragment>
 				) : (
 					<React.Fragment>
-						<rect x="35%" y={0} rx="4" ry="4" width={'140'} height="16" />
+						<rect x="35%" y={0} rx="4" ry="4" width={'140'} height="22" />
 
 						<rect x="17%" y={50} rx="4" ry="4" width={'300'} height="45" />
 						<rect x="30%" y={110} rx="4" ry="4" width={'190'} height="12" />
