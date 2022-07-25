@@ -189,8 +189,9 @@ class SessionViewStore extends BaseEditViewStore {
             this.setCharityId(charityId);
             const data = await this.rootStore.application.charity.charityStore.getCharity(charityId, params);
             const primaryAddress = data && data.charityAddresses && data.charityAddresses.find(c => c.isPrimary);
-            this.setAddress(primaryAddress);
             this.charity = {label: charityFormatter.format(data, {value: 'charity-name-display'}), value: charityId};
+            if(!this.isChangedDefaultAddress)
+                this.setAddress(primaryAddress);
         } else if (!this.isChangedDefaultAddress) {
             const address = this.charity.item;
             this.setAddress(address);
