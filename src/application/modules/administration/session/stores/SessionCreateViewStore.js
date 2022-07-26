@@ -40,8 +40,6 @@ class SessionViewStore extends BaseEditViewStore {
                         this.session = response.response;
                         this.nextStep(4);
                         this.form.clear();
-                        this.form.$('key').value = null;
-                        this.sessionCertificates = [];
                         this.charityDropdownStore.setValue(null);
                         this.charityDropdownStore.setFilteredItems([]);
                         this.charityDropdownStore.setItems([]);
@@ -217,6 +215,8 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     async onNextStep4Click() {
         clearInterval(this.refreshIntervalId);
+        this.form.$('key').value = null;
+        this.sessionCertificates = [];
         this.nextStep(1);
     }
 
