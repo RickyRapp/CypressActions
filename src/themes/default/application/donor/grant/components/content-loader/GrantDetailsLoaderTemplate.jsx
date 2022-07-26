@@ -1,13 +1,15 @@
-import React, { useRef, useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState, useCallback } from "react";
 import ContentLoader from 'react-content-loader';
 
-const GrantDetailsLoaderTemplate = (props) => {
-    const loaderheight = 600;
-	const ref = useRef(null);
+const GrantDetailsLoaderTemplate = props => {
+	const loaderheight = 600;
 	const [loaderWidth, setLoaderWidth] = useState(0);
-
-	useEffect(() => {
-		setLoaderWidth(ref.current.offsetWidth);
+	
+	const ref = useCallback(node => {
+		if (node !== null) {
+			setLoaderWidth(node.getBoundingClientRect().width);
+		}
 	}, []);
 
     return (

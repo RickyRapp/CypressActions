@@ -1,14 +1,15 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useCallback } from "react";
 import ContentLoader from 'react-content-loader';
 
 const TransfersCardLoaderTemplate = props => {
-    const ref = useRef(null);
 	const [loaderWidth, setLoaderWidth] = useState(0);
-    
-	useEffect(() => {
-        setLoaderWidth(ref.current.offsetWidth);
-    }, []);
-    
+	
+	const ref = useCallback(node => {
+		if (node !== null) {
+			setLoaderWidth(node.getBoundingClientRect().width);
+		}
+	}, []);
+
     const loaderHeight = 490;
 	const tableList = [];
     const tableItems = 3;

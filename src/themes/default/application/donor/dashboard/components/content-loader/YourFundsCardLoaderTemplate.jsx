@@ -1,34 +1,33 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import ContentLoader from 'react-content-loader';
 
 const YourFundsCardLoaderTemplate = props => {
 	const screenWidth = window.innerWidth;
-	let loaderHeight; 
+	let loaderHeight;
 
 	if (screenWidth > 1200) {
 		loaderHeight = 450;
 	} else if (screenWidth > 544) {
-		loaderHeight = 488
+		loaderHeight = 488;
 	} else {
 		loaderHeight = 370;
 	}
 
-	const ref = useRef(null);
 	const [loaderWidth, setLoaderWidth] = useState(0);
-	const [loaderOffset, setLoaderOffset] = useState(0);
 
-	useEffect(() => {
-		setLoaderWidth(ref.current.offsetWidth);
-		setLoaderOffset(ref.current.offsetLeft);
+	const ref = useCallback(node => {
+		if (node !== null) {
+			setLoaderWidth(node.getBoundingClientRect().width);
+		}
 	}, []);
 
 	return (
 		<div className="card--primary card--med" ref={ref}>
 			<ContentLoader
 				speed={2}
-				width={loaderWidth - loaderOffset}
+				width={loaderWidth}
 				height={loaderHeight}
-				viewBox={`0 0 ${loaderWidth - loaderOffset} ${loaderHeight}`}
+				viewBox={`0 0 ${loaderWidth} ${loaderHeight}`}
 				backgroundColor="#a5aec0"
 				foregroundColor="#b5bdc7"
 				{...props}

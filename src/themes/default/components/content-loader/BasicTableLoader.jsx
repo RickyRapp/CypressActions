@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useCallback } from "react";
 import ContentLoader from 'react-content-loader';
 
 const BasicTableLoader = ({ tableItemHeight = 50, tableItems = 10, ...props }) => {
-	const ref = useRef(null);
 	const [loaderWidth, setLoaderWidth] = useState(0);
-
-	useEffect(() => {
-		setLoaderWidth(ref.current.offsetWidth);
+	
+	const ref = useCallback(node => {
+		if (node !== null) {
+			setLoaderWidth(node.getBoundingClientRect().width);
+		}
 	}, []);
 
 	const tableList = [];
