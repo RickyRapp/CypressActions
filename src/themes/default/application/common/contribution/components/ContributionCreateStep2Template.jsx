@@ -18,70 +18,6 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
     );
     return (
         <div>
-            {/* 
-        </div>
-            <div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
-                <div className="row row--form">
-                    <div className="col col-sml-12 col-xxlrg-7 u-mar--bottom--med">
-                        <EditFormContent form={form}>
-                            <div className="card--primary card--med fullheight">
-                                <div className="row row--form fullheight">
-                                    <div className="col col-sml-12 col-lrg-12">
-                                        <p><b>Step 1</b></p>
-                                        <h5 className="type--med type--wgt--medium">{paymentType.abrv === 'stock-and-securities' ? 'Sending us securities' : t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
-                                    </div>
-                                    
-                                    {paymentType.abrv === 'stock-and-securities' ? 
-                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                    <p className="type--color--note">Tell us what you will be sending</p>
-                                                    <br />
-                                                </div> : null}
-                                                
-                                        <h5 className="type--med type--wgt--medium">{paymentType.abrv === 'zelle' ? 'Sending us a Zelle or Quickpay Payment' : t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
-                                    </div>
-                                    {paymentType.abrv === 'zelle' ? 
-                                        <h5 className="type--med type--wgt--medium">{paymentType.abrv === 'third-party-donor-advised-funds' ? 'Sending us a payment from a Third Party Donor Advised Fund' : t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
-                                    </div>
-
-                                    {paymentType.abrv === 'third-party-donor-advised-funds' ? 
-                                        <h5 className="type--med type--wgt--medium">{paymentType.abrv === 'check' ? 'Sending us check payment' : t('CONTRIBUTION.CREATE.FUND_YOUR_ACCOUNT')}</h5>
-                                    </div>
-
-                                    {paymentType.abrv === 'check' ? 
-                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                    <p className="type--color--note">Tell us how much you will be sending</p>
-                                                    <br />
-                                                </div> : null}
-
-                                    {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (
-                                        <React.Fragment>
-                                            <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                {paymentType.abrv === 'wire-transfer' ? 
-                                                <div>
-                                                    <p className="type--color--note">Sending us a wire</p>
-                                                    <br />
-                                                </div> : null}
-                                                <BaasicFieldDropdown
-                                                    field={form.$('bankAccountId')}
-                                                    store={bankAccountDropdownStore}
-                                                    rightLabelComponent={AddButton}
-                                                />
-                                                {onShowBankAccountNumberClick && form.$('bankAccountId').value &&
-                                                    <BaasicButton
-                                                        type="button"
-                                                        className="btn btn--icon"
-                                                        icon='u-icon u-icon--preview u-icon--base'
-                                                        onClick={() => onShowBankAccountNumberClick(form.$('bankAccountId').value)}
-                                                        onlyIcon={true}
-                                                    />}
-                                            </div>
-                                        </React.Fragment>
-                                    )}
-                                    {paymentType.abrv === 'check' && (
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <BasicInput field={form.$('checkNumber')} />
-                })} */}
-
             <div className="row row--form">
                 {window.innerWidth > 767 &&
                     <React.Fragment>
@@ -196,39 +132,6 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                         </div>
                                     </React.Fragment>
                                 )}
-                                {/* {paymentType.abrv === 'stock-and-securities' && (
-                                    <React.Fragment>
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <BaasicFieldDropdown
-                                                field={form.$('brokerageInstitutionId')}
-                                                store={brokerageInstitutionDropdownStore}
-                                            />
-                                        </div>
-                                        {brokerageInstitutionDropdownStore &&
-                                            brokerageInstitutionDropdownStore.value &&
-                                            brokerageInstitutionDropdownStore.value.name === 'Other' && (
-                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                    <BasicInput field={form.$('brokerageInstitutionOther')} />
-                                                </div>
-                                            )}
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <BaasicFieldDropdown field={form.$('securityTypeId')} store={securityTypeDropdownStore} />
-                                        </div>
-                                        {securityTypeDropdownStore &&
-                                            securityTypeDropdownStore.value &&
-                                            securityTypeDropdownStore.value.name === 'Other' && (
-                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                    <BasicInput field={form.$('securityTypeOther')} />
-                                                </div>
-                                            )}
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <BasicInput field={form.$('securitySymbol')} />
-                                        </div>
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <NumericInputField field={form.$('numberOfShares')} />
-                                        </div>
-                                    </React.Fragment>
-                                )} */}
                                 {paymentType.abrv === 'business-and-private-interests' && (
                                     <React.Fragment>
                                         {/* <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
@@ -244,9 +147,6 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                 )}
                                 {paymentType.abrv === 'real-estate' && (
                                     <React.Fragment>
-                                        {/* <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <BaasicFieldDropdown field={form.$('propertyTypeId')} store={propertyTypeDropdownStore} />
-                                        </div> */}
                                         {propertyTypeDropdownStore &&
                                             propertyTypeDropdownStore.value &&
                                             propertyTypeDropdownStore.value.name === 'Other' &&
@@ -272,23 +172,6 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                         <BasicInput field={form.$('checkNumber')} />
                                     </div>
                                 )}
-                                {/* {paymentType.abrv === 'third-party-donor-advised-funds' && (
-                                    <React.Fragment>
-                                        <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                            <BaasicFieldDropdown
-                                                field={form.$('thirdPartyDonorAdvisedFundId')}
-                                                store={thirdPartyDonorAdvisedFundDropdownStore}
-                                            />
-                                        </div>
-                                        {thirdPartyDonorAdvisedFundDropdownStore &&
-                                            thirdPartyDonorAdvisedFundDropdownStore.value &&
-                                            thirdPartyDonorAdvisedFundDropdownStore.value.name === 'Other' && (
-                                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                                    <BasicInput field={form.$('thirdPartyDonorAdvisedFundOther')} />
-                                                </div>
-                                            )}
-                                    </React.Fragment>
-                                )} */}
                                 {paymentType.abrv === 'stock-and-securities' && (
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
@@ -454,11 +337,6 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                             <div className="modal__list__divider"></div>
                                             <div className="modal__list__label">{selectedType ? (selectedType.timeline ? <span> {selectedType.timeline}</span> : null) : 'No information to show'}</div>
                                         </div>
-                                        {/* <div className="modal__list u-mar--bottom--med">
-                                            <div>Deductible Eligibility</div>
-                                            <div className="modal__list__divider"></div>
-                                            <div className="modal__list__label">{selectedType && selectedType.deductibleEligibility ? selectedType.deductibleEligibility : 'No information to show'}</div>
-                                        </div> */}
                                         <div className="modal__list u-mar--bottom--med">
                                             <div>Minimum Deposit</div>
                                             <div className="modal__list__divider"></div>
@@ -473,7 +351,8 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                         <div>Details</div>
                                         <div className="modal__list__divider"></div>
                                         <div className="modal__list__label"><span>No information to show</span></div>
-                                    </div>}
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

@@ -41,6 +41,12 @@
 
 	&--column {
 		&--med {
+			margin-bottom: calc($unit * 3);
+			
+			&:last-child {
+				margin-bottom: 0;
+			}
+
 			@media (--screen-to-med) {
 				display: flex;
 				flex-direction: column;
@@ -257,5 +263,14 @@
 		box-shadow: $shadow-card;
 		border: 1px solid color($color-primary a(50%));
 		border-radius: $radius-base;
+		
+		&--light {
+			padding: calc($unit * 3);
+			margin-bottom: calc($unit * 2);
+			
+			border-radius: $radius-base;
+			border: 1px solid color($zest (0.7));
+			background-color: color($zest a(0.05));
+		}
 	}
 }
