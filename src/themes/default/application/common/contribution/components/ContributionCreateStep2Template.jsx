@@ -80,7 +80,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                             <div className="row row--form fullheight">
                                 <div className="col col-sml-12 col-lrg-12 u-mar--border--sml">
                                     <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
-                                        {paymentType.abrv === 'ach' ? 'How much would you like us to pull' : 'Tell us how much you will be sending'}
+                                        {paymentType && paymentType.abrv === 'ach' ? 'How much would you like us to pull' : 'Tell us how much you will be sending'}
                                     </h5>
                                 </div>
                                 {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (

@@ -124,6 +124,7 @@
 @import 'util.cursor.css';
 @import 'util.hide.css';
 @import 'util.orders.css';
+@import 'util.gap.css';
 
 /**
 * Plugins .......... 3rd party code, external plugin CSS etc
