@@ -22,7 +22,7 @@ import {
 } from 'application/donor/donor/components';
 
 function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }) {
-	const { form, monthDropdownStore, prefixTypeDropdownStore, item, isEditEnabled, onEnableEditClick } = donorAccountInformationViewStore;
+	const { form, monthDropdownStore, prefixTypeDropdownStore, onEnableEditClick } = donorAccountInformationViewStore;
 
 	return (
 		<div className="">
@@ -77,32 +77,6 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 							<BaasicFormControls form={form} onSubmit={form.onSubmit} />
 						</div>
 					</React.Fragment>
-					{/* ) : (
-						<div className="col col-sml-12 col-lrg-9" title="Click to edit" onClick={onEnableEditClick}>
-							<div className="row info-card--scale">
-								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Name:</p>
-									<p className="type--base type--wgt--bold">
-										{item ? `${item.prefixType ? item.prefixType.name : ''} ${item.firstName} ${item.lastName}` : ''}
-									</p>
-								</div>
-								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Date Of Birth:</p>
-									<p className="type--base type--wgt--bold">
-										{item && <Date format="short" value={moment(item.dateOfBirth).utcOffset(1)} />}
-									</p>
-								</div>
-								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Fund Name:</p>
-									<p className="type--base type--wgt--bold">{item && item.fundName}</p>
-								</div>
-								<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Security pin:</p>
-									<p className="type--base type--wgt--bold">{item && item.securityPin}</p>
-								</div>
-							</div>
-						</div>
-					)} */}
 				</div>
 
 			</EditFormContent>
