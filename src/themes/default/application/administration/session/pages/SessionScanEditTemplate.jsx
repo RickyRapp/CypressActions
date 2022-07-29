@@ -19,12 +19,55 @@ const SessionScanEditTemplate = function ({ sessionScanEditViewStore, t }) {
         isEdit,
         saveChanges,
         onItemChange,
+        fullName,
+        phoneNumber,
+        description,
+        email,
+        setFundraiserName,
+        setDescription,
+        setPhoneNumber,
+        setEmail
     } = sessionScanEditViewStore;
 
     return (
         <ApplicationEditLayout store={sessionScanEditViewStore}>
             <Content loading={loaderStore.loading} >
+            
+            {isEdit &&
                 <div className="card--primary card--med u-mar--bottom--med">
+                    <h3 className=" u-mar--bottom--med">Session details</h3>
+                    <label>Fundraiser name</label>
+                    <input
+                        className="input input--lrg input--text"
+                        type="text"
+                        value={fullName || ''}
+                        onChange={event => setFundraiserName(event.target.value)} 
+                    /> 
+                    <label>Phone number</label>
+                    <input
+                        className="input input--lrg input--text"
+                        type="text"
+                        value={phoneNumber || ''}
+                        onChange={event => setPhoneNumber(event.target.value)} 
+                    /> 
+                    <label>Description</label>
+                    <input
+                        className="input input--lrg input--text"
+                        type="text"
+                        value={description || ''}
+                        onChange={event => setDescription(event.target.value)} 
+                    /> 
+                    <label>Email</label>
+                    <input
+                        className="input input--lrg input--text"
+                        type="text"
+                        value={email || ''}
+                        onChange={event => setEmail(event.target.value)} 
+                    /> 
+                </div>
+            }
+                <div className="card--primary card--med u-mar--bottom--med">
+                    <h3 className=" u-mar--bottom--med">Scanned certificate details</h3>
                     <table className="table w--100 card--primary">
                         <thead className="table__head">
                             <tr>
