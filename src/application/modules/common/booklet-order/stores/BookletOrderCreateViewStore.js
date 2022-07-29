@@ -33,7 +33,6 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     create: async (resource) => {
-                        console.log(this.form);
                         if (this.form.$('isCustomizedBook').value) {
                             if (this.form.$('customizedName').value.length == 0 &&
                                 this.form.$('customizedAddressLine1').value.length == 0
@@ -235,12 +234,10 @@ class BookletOrderCreateViewStore extends BaseEditViewStore {
     }
 
     @computed get customizedFee() {
-        console.log(this.donor);
         var oneDollar = this.denominationTypes.find(x => x.abrv == 'one');
         var twoDollar = this.denominationTypes.find(x => x.abrv == 'two');
         var threeDollar = this.denominationTypes.find(x => x.abrv == 'three');
         var fiveDollar = this.denominationTypes.find(x => x.abrv == 'five');
-        console.log(this.form);
         if(this.form.$('customizedName').value.length > 0 || this.form.$('customizedAddressLine1').value.length > 0 || this.form.$('customizedCity').value.length > 0 || this.form.$('customizedZipCode').value.length > 0)
             return this.orderContents.reduce((a, b) => a + b.bookletCount, 0) * 5;
         return this.orderContents.filter(x => x.denominationTypeId != oneDollar.id && x.denominationTypeId != twoDollar.id && x.denominationTypeId != threeDollar.id && x.denominationTypeId != fiveDollar.id).reduce((a, b) => a + b.bookletCount, 0) * 5;

@@ -47,7 +47,6 @@ class GrantCreateViewStore extends BaseEditViewStore {
 			actions: () => {
 				return {
 					create: async resource => {
-						console.log("Resource-> ", resource);
 						
 						resource.donorId = this.donorId;
 						if (!isNullOrWhiteSpacesOrUndefinedOrEmpty(this.grantRequestId) && !resource.isRecurring) {

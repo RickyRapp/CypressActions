@@ -35,7 +35,6 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 
 	const DetailComponent = ({ dataItem }) => {
         {
-			console.log(dataItem, tableStore);
             return (
                 <table>
                     <thead>

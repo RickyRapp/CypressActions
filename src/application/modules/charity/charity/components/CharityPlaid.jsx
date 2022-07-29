@@ -60,7 +60,6 @@ class CharityPlaid extends Component {
 
   render() {
     const { linkToken } = this.state
-    console.log("render plaid", linkToken);
     if ( !(this.props.bankAccount && this.props.bankAccount.isVerifiedByPlaid) && !linkToken) {
       this.getLinkToken();
     }

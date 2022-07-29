@@ -16,7 +16,6 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
                     const data = await rootStore.application.administration.charityStore.getCharity(id);
                         this.charityMedia = null;
                         let isImage = false;
-                        console.log(data);
                         if( data && data.userVerificationDocumentId){
                             this.charityMedia = await rootStore.application.charity.charityStore.getCharityBankMedia(data.userVerificationDocumentId);
                             isImage = !(this.charityMedia.type === 'application/pdf') && !(this.charityMedia.type === 'application/octet-stream');

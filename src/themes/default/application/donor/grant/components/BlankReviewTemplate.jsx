@@ -8,7 +8,6 @@ class BlankReviewTemplate extends React.Component {
     render() {
         const { modalParams, t, children } = this.props;
         const { item, reviewConfirm } = modalParams.data;
-        console.log(item);
         return (
             <section>
                 <div className="u-mar--bottom--med">
