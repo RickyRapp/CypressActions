@@ -93,6 +93,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			this.rootStore.routerStore.goBack();
 		} else {
 			await this.fetch([this.getResource(this.id)]);
+
 			if (this.item.donorId == null)
 				await this.fetch([await this.rootStore.application.charity.donorStore.findDonor({ emails: [this.item.payerInformation.email] }), await this.bankAccountDropdownStore.filterAsync()]);
 			else {
@@ -102,13 +103,12 @@ class ContributionEditViewStore extends BaseEditViewStore {
 					this.previousContributionsTableStore.dataInitialized = true;
 				}
 			}
+
 			if (this.item.donorBankAccount) {
 				this.bankAccountDropdownStore.setValue(this.item.donorBankAccount);
 			}
 
-			if (this.rootStore.userStore.applicationUser.roles.includes('Administrators')) {
-				this.form.$('amount').set('rules', 'required|numeric');
-			}
+			this.onSelectPaymentType(this.item.paymentTypeId);
 		}
 	}
 
@@ -134,14 +134,18 @@ class ContributionEditViewStore extends BaseEditViewStore {
 	@action.bound
 	onSelectPaymentType(id) {
 		this.form.clear();
+
 		this.bankAccountDropdownStore.setValue(null);
 		this.brokerageInstitutionDropdownStore.setValue(null);
 		this.securityTypeDropdownStore.setValue(null);
 		this.businessTypeDropdownStore.setValue(null);
 		this.propertyTypeDropdownStore.setValue(null);
 		this.collectibleTypeDropdownStore.setValue(null);
+
 		this.form.$('paymentTypeId').set(id);
+
 		const paymentType = this.paymentTypes.find(c => c.id === id);
+
 		if (paymentType) {
 			this.selectedAbrv = paymentType.abrv;
 			this.form.$('bankAccountId').setRequired(false);
@@ -157,36 +161,53 @@ class ContributionEditViewStore extends BaseEditViewStore {
 			if (paymentType.abrv === 'ach') {
 				this.form.$('bankAccountId').setRequired(true);
 				this.isThirdPartyFundingAvailable = true;
+
 			} else if (paymentType.abrv === 'wire-transfer') {
 				this.isThirdPartyFundingAvailable = true;
+
 			} else if (paymentType.abrv === 'stock-and-securities') {
 				this.form.$('amount').set('rules', 'required|numeric|min:1000');
 				this.form.$('brokerageInstitutionId').setRequired(true);
 				this.form.$('securityTypeId').setRequired(true);
+
 			} else if (paymentType.abrv === 'zelle') {
 				this.isThirdPartyFundingAvailable = true;
+
 			} else if (paymentType.abrv === 'check') {
 				this.form.$('checkNumber').setRequired(true);
 				this.isThirdPartyFundingAvailable = true;
+
 			} else if (paymentType.abrv === 'business-and-private-interests') {
 				this.form.$('businessTypeId').setRequired(true);
 				this.form.$('amount').set('rules', 'required|numeric|min:50000');
+
 			} else if (paymentType.abrv === 'real-estate') {
 				this.form.$('propertyTypeId').setRequired(true);
 				this.form.$('amount').set('rules', 'required|numeric|min:50000');
+
 			} else if (paymentType.abrv === 'collectible-assets') {
 				this.form.$('collectibleTypeId').setRequired(true);
 				this.form.$('amount').set('rules', 'required|numeric|min:25000');
+
 			}
+
 			if (this.rootStore.userStore.applicationUser.roles.includes('Administrators'))
 				this.form.$('amount').set('rules', 'required|numeric');
-
 		}
+
 		this.form.$('checkNumber').setRequired(paymentType && paymentType.abrv === 'check');
+
 		const json = JSON.parse(paymentType.json);
 		this.form.$('amount').set('rules', `required|numeric|min:${json ? json.minimumDeposit : 0}`);
+
 		if (this.rootStore.userStore.applicationUser.roles.includes('Administrators'))
 			this.form.$('amount').set('rules', 'required|numeric');
+
+		this.form.fields._data.forEach((value, key) => {
+			if (key === "paymentTypeId") return;
+			this.form.$(key).set(this.item[key] || "");
+		})
+
 		this.nextStep(2);
 	}
 

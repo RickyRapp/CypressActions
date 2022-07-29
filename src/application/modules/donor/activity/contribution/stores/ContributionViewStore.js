@@ -195,15 +195,10 @@ class ContributionViewStore extends BaseListViewStore {
 					actionsRender: {
 						onEditRender: item => {
 							if (item.contributionStatus.abrv === 'pending') {
-								const dateToEdit = moment(item.dateCreated).add(15, 'm');
-								return moment().isBetween(moment(item.dateCreated), dateToEdit);
-							}
-							return false;
-						},
-						onCancelRender: item => {
-							if (item.contributionStatus.abrv === 'pending') {
-								const dateToEdit = moment(item.dateCreated).add(30, 'm');
-								return moment().isBetween(moment(item.dateCreated), dateToEdit);
+								const dateCreated = new Date(moment.utc(item.dateCreated).format());
+								const now = new Date(moment.utc(new Date()).format());
+
+								return ((now - dateCreated) / 1000) < 900;
 							}
 							return false;
 						},

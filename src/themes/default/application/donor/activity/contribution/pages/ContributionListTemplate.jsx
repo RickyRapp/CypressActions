@@ -190,13 +190,7 @@ function renderActions({ item, actions, actionsRender }) {
 		}
 	}
 
-	let cancelRender = true;
-	// added Cancel per ticket #74959
-	if (isSome(actionsRender)) {
-		if (actionsRender.onCancelRender) {
-			cancelRender = (item.contributionStatus.abrv === 'pending');
-		}
-	}
+	const cancelRender = item.contributionStatus.abrv === 'pending';
 
 	return (
 		<td>

@@ -187,7 +187,6 @@ class SessionEditViewStore extends BaseEditViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            console.log(this.donationStatuses);
                             if(this.donationStatuses) 
                                 return this.donationStatuses.find(c => c.id == item.donationStatusId).name;
                             return '';
