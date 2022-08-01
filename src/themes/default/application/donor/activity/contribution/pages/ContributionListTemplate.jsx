@@ -190,7 +190,12 @@ function renderActions({ item, actions, actionsRender }) {
 		}
 	}
 
-	const cancelRender = item.contributionStatus.abrv === 'pending';
+	let cancelRender = true;
+	if (isSome(actionsRender)) {
+		if (actionsRender.oncancelRender) {
+			cancelRender = actionsRender.oncancelRender(item);
+		}
+	}
 
 	return (
 		<td>

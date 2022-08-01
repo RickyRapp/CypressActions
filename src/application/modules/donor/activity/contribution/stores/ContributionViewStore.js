@@ -68,11 +68,11 @@ class ContributionViewStore extends BaseListViewStore {
 							}
 							params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus', 'bankAccount.accountHolder'];
 							this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
-								partyId: this.donorId,
+								partyId: this.partyId,
 								...params,
 							});
-							this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ partyId: this.donorId, ...params });
-							this.allData = await rootStore.application.donor.contributionStore.findContribution({ partyId: this.donorId, ...params });
+							this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ partyId: this.partyId, ...params });
+							this.allData = await rootStore.application.donor.contributionStore.findContribution({ partyId: this.partyId, ...params });
 
 							if (this.depositTab == 1) {
 								return this.timelineSummary;
@@ -87,7 +87,7 @@ class ContributionViewStore extends BaseListViewStore {
 			},
 		});
 
-		this.donorId = rootStore.userStore.applicationUser.id;
+		this.partyId = rootStore.userStore.applicationUser.id;
 		this.createTableStore();
 		this.createPaymentTypeDropdownStore();
 		this.createContributionStatusDropdownStore();
@@ -197,9 +197,18 @@ class ContributionViewStore extends BaseListViewStore {
 							if (item.contributionStatus.abrv === 'pending') {
 								const dateCreated = new Date(moment.utc(item.dateCreated).format());
 								const now = new Date(moment.utc(new Date()).format());
-
 								return ((now - dateCreated) / 1000) < 900;
 							}
+							
+							return false;
+						},
+						onCancelRender: item => {
+							if (item.contributionStatus.abrv === 'pending') {
+								const dateCreated = new Date(moment.utc(item.dateCreated).format());
+								const now = new Date(moment.utc(new Date()).format());
+								return ((now - dateCreated) / 1000) < 1800;
+							}
+							
 							return false;
 						},
 					},
