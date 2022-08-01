@@ -94,10 +94,10 @@ class ContributionEditViewStore extends BaseEditViewStore {
 		} else {
 			await this.fetch([this.getResource(this.id)]);
 
-			if (this.item.donorId == null)
+			if (this.item.partyId == null)
 				await this.fetch([await this.rootStore.application.charity.donorStore.findDonor({ emails: [this.item.payerInformation.email] }), await this.bankAccountDropdownStore.filterAsync()]);
 			else {
-				await this.fetch([await this.loadDonor(this.item.donorId), await this.bankAccountDropdownStore.filterAsync()]);
+				await this.fetch([await this.loadDonor(this.item.partyId), await this.bankAccountDropdownStore.filterAsync()]);
 				this.previousContributionsTableStore.setData(this.donor.previousContributions);
 				if (!this.previousContributionsTableStore.dataInitialized) {
 					this.previousContributionsTableStore.dataInitialized = true;
@@ -205,7 +205,8 @@ class ContributionEditViewStore extends BaseEditViewStore {
 
 		this.form.fields._data.forEach((value, key) => {
 			if (key === "paymentTypeId") return;
-			this.form.$(key).set(this.item[key] || "");
+			if (key === "isAgreeToPoliciesAndGuidelines" && this.item[key] == null) return this.form.$(key).set(false);
+			this.form.$(key).set(this.item[key] != null ? this.item[key] : "");
 		})
 
 		this.nextStep(2);
@@ -223,7 +224,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 	@action.bound
 	onAddBankAccountClick() {
 		this.bankAccountModal.open({
-			donorId: this.item.donorId,
+			donorId: this.item.partyId,
 			onAfterAction: async () => {
 				await this.bankAccountDropdownStore.filterAsync(null);
 				const sorted = _.orderBy(this.bankAccountDropdownStore.items, ['dateCreated'], ['desc']);
@@ -274,7 +275,7 @@ class ContributionEditViewStore extends BaseEditViewStore {
 						orderBy: 'dateCreated',
 						orderDirection: 'desc',
 					};
-					params.donorId = this.item.donorId;
+					params.donorId = this.item.partyId;
 					params.onlyVerified = true;
 					return this.contributionStore.findBankAccount(params);
 				},
