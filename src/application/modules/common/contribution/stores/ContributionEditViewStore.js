@@ -42,9 +42,19 @@ class ContributionEditViewStore extends BaseEditViewStore {
 								resource.email =  this.item.charity.charityEmailAddresses && this.item.charity.charityEmailAddresses.length > 0 && this.item.charity.charityEmailAddresses[0].email;
 								resource.number = this.item.charity.charityPhoneNumbers && this.item.charity.charityPhoneNumbers.length > 0 && this.item.charity.charityPhoneNumbers[0].number;
 							}
-							const res = await this.contributionStore.updateContribution({ id: this.id, ...resource });
-							return res;
+						} else {
+							const { addressLine1, addressLine2, city, name, state, zipCode, email, number } = this.form.values();
+ 							resource.name = name;
+							resource.addressLine1 = addressLine1;
+							resource.addressLine2 = addressLine2;
+							resource.city = city;
+							resource.state = state;
+							resource.zipCode = zipCode;
+							resource.email = email;
+							resource.number = number;
 						}
+						const res = await this.contributionStore.updateContribution({ id: this.id, ...resource });
+						return res;
 					},
 					get: async id => {
 						const data = await this.contributionStore.getContribution(id, {
