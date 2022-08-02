@@ -34,12 +34,6 @@ class AllTransactionViewStore extends BaseListViewStore {
                             'donor',
                             'grant'
                         ];
-                        if(!params.dateCreatedFrom){
-                            const currentDate = new Date();
-                            const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
-                            params.dateCreatedFrom = moment(new Date(now_utc)).add(0, 'months').startOf('month').toDate().toISOString();
-                            params.dateCreatedTo = moment(new Date(now_utc)).add(0, 'months').endOf('month').toDate().toISOString();
-                        }
                        
                         var response = await rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
                         return response;
