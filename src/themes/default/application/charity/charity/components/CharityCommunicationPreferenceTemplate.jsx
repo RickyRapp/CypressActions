@@ -11,7 +11,8 @@ import {
 
 const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicationPreferenceViewStore }) {
     const {
-        form
+        form,
+        donorEmail
     } = charityCommunicationPreferenceViewStore;
 
     return (
@@ -24,7 +25,11 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                     <div className="list--preferences__dd">
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicInput showLabel={false} field={form.$('emailToNotify')} disabled />
+                                <input
+                                    className="input input--lrg input--text"
+                                    type="text"
+                                    value={donorEmail}
+                                    disabled />
                             </div>
                         </div>
                     </div>

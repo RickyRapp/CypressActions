@@ -18,13 +18,6 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                     value: true
                 },
                 {
-                    name: 'emailToNotify',
-                    label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.EMAIL_LABEL',
-                    placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.EMAIL_PLACEHOLDER',
-                    rules: 'required|string',
-                    type : 'email'
-                },
-                {
                     name: 'isNotifyCheckPaymentsEnabled',
                     label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_CHECK_PAYMENT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_CHECK_PAYMENT',

@@ -1,7 +1,10 @@
 import { BaseEditViewStore } from 'core/stores';
 import { CharityCommunicationPreferenceForm } from 'application/charity/charity/forms';
+import { observable } from 'mobx';
 
 class CharityCommunicationPreferenceViewStore extends BaseEditViewStore{
+    @observable donorEmail;
+
     constructor(rootStore){
         super(rootStore, {
             name: 'charity-communication-preferences',
@@ -19,11 +22,13 @@ class CharityCommunicationPreferenceViewStore extends BaseEditViewStore{
             FormClass: CharityCommunicationPreferenceForm,
             onAfterAction: () => { this.getResource(this.id); }
         })
+
+        this.getCharityCommunicationEmail();
     }
 
 
-    getCharityCommunicationEmail(){
-        console.log(this.rootStore.userStore.applicationUser.id);
+    async getCharityCommunicationEmail(){
+        this.donorEmail = await this.rootStore.application.charity.charityStore.getDonorCommunicationEmail(this.rootStore.userStore.applicationUser.id);
     }
 }
 
