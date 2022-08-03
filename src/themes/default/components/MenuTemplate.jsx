@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject } from 'mobx-react';
 import { PropTypes } from 'prop-types';
-import { NotifyOutsideClick } from 'core/components';
+import { FormatterResolver, NotifyOutsideClick } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import logo from 'themes/styles/postcss-svg/old/logo-app.svg';
 import logo_collapsed from 'themes/styles/postcss-svg/old/logo-collapsed.svg';
@@ -83,7 +83,11 @@ function renderPrimary(menu, menuStore, translate) {
                     AVAILABLE BALANCE
                 </p>
                 <p className="nav--primary__balance__amount">
-                    $28.56
+                    <FormatterResolver
+						item={{ balance: menuStore.rootStore.userStore.applicationUser.donor.availableBalance }}
+                        field="balance"
+						format={{ type: 'currency' }}
+					/>
                 </p>
                 </div> }
 
