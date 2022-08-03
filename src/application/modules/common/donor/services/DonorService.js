@@ -63,8 +63,6 @@ class DonorService extends BaseService {
   }
   updateOnlineGrantSetting(resource) {
     const url = this.routeService.updateOnlineGrantSetting(resource);
-    console.log(resource);
-    console.log(url);
     return this.apiClient.put(url, resource);
   }
 

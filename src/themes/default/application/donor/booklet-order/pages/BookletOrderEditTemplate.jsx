@@ -18,7 +18,6 @@ const BookletOrderEditTemplate = function ({ bookletOrderEditViewStore }) {
         needsMoreFunds, 
         validateResource
     } = bookletOrderEditViewStore;
-    console.log(bookletOrderEditViewStore);
     return (
         <EditFormLayout store={bookletOrderEditViewStore} layoutFooterVisible={false}>
             <Content loading={contentLoading} >

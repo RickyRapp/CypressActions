@@ -69,7 +69,6 @@ class ScheduledGrantViewStore extends BaseListViewStore {
         });
 
         this.donorId = rootStore.userStore.applicationUser.id;
-        console.log("Query", this.queryUtility);
         this.createTableStore();
         this.createCharityDropdownStore();
         this.queryUtility.filter.done = false;

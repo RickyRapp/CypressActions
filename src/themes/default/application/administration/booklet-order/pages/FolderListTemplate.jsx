@@ -33,8 +33,6 @@ const FolderListTemplate = function ({ folderListViewStore }) {
 		mailModel
 	} = folderListViewStore;
 
-	console.log(tableStore);
-
 	return (
 		<React.Fragment>
 				<PageHeader routes={routes}></PageHeader>

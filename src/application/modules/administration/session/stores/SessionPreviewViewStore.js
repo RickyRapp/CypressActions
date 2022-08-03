@@ -59,7 +59,6 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                         const confirmationNumber = data.confirmationNumber;
 
                         const onHold = await rootStore.application.administration.sessionStore.findSessionPendingCertificate({embed: onHoldEmbed, sessionPendingCertificateStatusIds: sessionPendingCertificateStatusIds, confirmationNumber: confirmationNumber});
-                        console.log(onHold);
                         
                         const adminReview = await rootStore.application.administration.sessionStore.getSession(id, params);
                         adminReview.grants = adminReview.grants.filter(c => (c.certificate.openCertificateAmount && c.certificate.isBlankApprovedByAdmin == null && c.certificate.needsAdminReview))

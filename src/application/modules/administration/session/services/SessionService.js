@@ -95,9 +95,7 @@ class SessionService extends BaseService {
     uploadBlankCertificate(file, certificateId) {
         let formData = new FormData();
         formData.append('file', file.getRawFile(), file.name);
-        //console.log(formData);
         const url = this.routeService.uploadBlankCertificate(certificateId, file.name);
-        //console.log(url);
         return this.apiClient.post(url, formData);
     }
 

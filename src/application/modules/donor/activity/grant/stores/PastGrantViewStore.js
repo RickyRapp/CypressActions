@@ -58,7 +58,6 @@ class PastGrantViewStore extends BaseListViewStore {
 							donorId: this.donorId,
 							...params,
 						});
-						console.log("Table data", tableData);
 						return tableData;
 					},
 				};
@@ -405,7 +404,6 @@ class PastGrantViewStore extends BaseListViewStore {
 	}
 
 	getDescription(item) {
-		console.log("Item", item);
 		if (item && item.donationType) {
 			if (item.donationType.abrv === "online") {
 				if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by') {

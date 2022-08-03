@@ -118,7 +118,6 @@ class DepositsInsightViewStore extends BaseListViewStore {
                         format: {
                             type: 'function',
                             value: (item) => {
-                                console.log(item)
                                 return item.paymentType && item.paymentType.name ? item.paymentType.name : ""
                             }
                         },

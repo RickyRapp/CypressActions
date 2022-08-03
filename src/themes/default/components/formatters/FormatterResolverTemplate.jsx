@@ -101,7 +101,8 @@ function FormatterResolver({ item, field, format }) {
         case 'denomination': {
             const notAvailable = "Out Of Stock.";
             const denominationType = _.get(item, field);
-            const value = denominationType.abrv === 'blank' && format.additionalField ? _.get(item, format.additionalField) : denominationType.value;
+            if(!denominationType) return null;
+            const value =  denominationType.abrv === 'blank' && format.additionalField ? _.get(item, format.additionalField) : denominationType.value;
             const oneCert = <span><NumberFormat value={value} displayType='text' thousandSeparator={true} prefix='$' fixedDecimalScale={true} decimalScale={2} />{denominationType.abrv === 'blank' ? ' (Blank)' : ''}</span>;
 
             switch (format.value) {

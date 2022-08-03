@@ -10,6 +10,11 @@ import _ from 'lodash';
 class SessionScanEditViewStore extends BaseViewStore {
 
     @observable data = [];
+    
+    @observable fullName = '';
+    @observable phoneNumber = '';
+    @observable description = '';
+    @observable email = '';
 
     @computed get hasDirtyItems() {
         return this.data.some(i => i.isDirty);
@@ -68,10 +73,27 @@ class SessionScanEditViewStore extends BaseViewStore {
     }
 
     @action.bound
+    setFundraiserName(val) {
+        this.fullName = val;
+    }
+    @action.bound
+    setDescription(val) {
+        this.description = val;
+    }
+    @action.bound
+    setPhoneNumber(val) {
+        this.phoneNumber = val;
+    }
+    @action.bound
+    setEmail(val) {
+        this.email = val;
+    }
+
+    @action.bound
     async saveChanges() {
         try {
             this.loaderStore.suspend();
-            const items = this.data.map(item => ({ id: item.id, barcode: item.barcode, amount: Number(item.value), key: item.key}));
+            const items = this.data.map(item => ({ id: item.id, barcode: item.barcode, amount: Number(item.value), key: item.key, fullName: this.fullName, phoneNumber: this.phoneNumber, email: this.email, description: this.description}));
             
             const response = await this.rootStore.application.administration.sessionStore.updateScannedSession(items);
             

@@ -33,7 +33,6 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
                         const temp = JSON.parse(data.json)
                         temp.forEach(c => { c.booklets = []; c.denominationTypeValue = this.denominationTypes.find(d => d.id === c.denominationTypeId).value }); //denominationTypeValue is added only for sorting
                         this.orderContents = orderBy(temp, ['denominationTypeValue'], ['desc']);
-                        //console.log(this.orderContents, this.order, this.form);
                         this.form.$('deliveryMethodTypeId').value = data.deliveryMethodTypeId;
                         return { id: data.id, trackingNumber: data.trackingNumber };
                     }
@@ -56,7 +55,6 @@ class BookletOrderEditViewStore extends BaseEditViewStore {
                 this.getResource(this.id),
             ]);
         }
-        //console.log(this.form);
     }
 
     @action.bound

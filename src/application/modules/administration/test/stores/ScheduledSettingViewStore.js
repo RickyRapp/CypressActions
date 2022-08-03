@@ -103,6 +103,11 @@ class ScheduledSettingViewStore extends BaseViewStore {
                 name: 'Create auto-withdraws',
                 description: `Creates withdraw transaction automatically`,
                 abrv: 'charity-create-withdraw'
+            },
+            {
+                name: 'Update ACH Reconcile transactions with grants',
+                description: `Updates ACH transactions and grants to Received based on payment date`,
+                abrv: 'grant-donation-status-using-payment-date'
             }
         ];
 

@@ -5,8 +5,6 @@ import { BaasicInput } from 'core/components';
 import _ from 'lodash';
 
 function BaasicSwitchTemplate({ label, firstLabel, secondLabel, value, onChange, t, disabled, regular, secondarySwitch }) {
-	console.log(onChange);
-
 	const onId = _.uniqueId('on_');
 	const offId = _.uniqueId('off_');
 	return (

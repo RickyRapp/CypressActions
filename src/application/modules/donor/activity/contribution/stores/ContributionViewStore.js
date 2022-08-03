@@ -13,20 +13,6 @@ class ContributionViewStore extends BaseListViewStore {
 	@observable allData = null;
 	@observable depositTab = 0;
 	contributionStatuses = [];
-	thirdPartyFunds = [
-		{ id: '1', name: 'Fidelity Charitable' },
-		{ id: '2', name: 'Schwab Charitable' },
-		{ id: '3', name: 'JP Morgan Charitable Giving Fund' },
-		{ id: '4', name: 'Vanguard Charitable Endowment Fund' },
-		{ id: '5', name: 'Jewish Communal Fund' },
-		{ id: '6', name: 'Goldman Sachs Philanthropy Fund' },
-		{ id: '7', name: 'Greater Kansas City Community Foundation' },
-		{ id: '8', name: 'The OJC Fund' },
-		{ id: '9', name: 'Renaissance Charitable' },
-		{ id: '10', name: 'National Philanthropic Trust' },
-		{ id: '11', name: 'Jewish Federation of Metropolitan Chicago' },
-		{ id: '12', name: 'Other' },
-	];
 
 	thirdPartyFunds = [
 		{ id: '1', name: 'Fidelity Charitable' },
@@ -82,11 +68,11 @@ class ContributionViewStore extends BaseListViewStore {
 							}
 							params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus', 'bankAccount.accountHolder'];
 							this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
-								partyId: this.donorId,
+								partyId: this.partyId,
 								...params,
 							});
-							this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ partyId: this.donorId, ...params });
-							this.allData = await rootStore.application.donor.contributionStore.findContribution({ partyId: this.donorId, ...params });
+							this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ partyId: this.partyId, ...params });
+							this.allData = await rootStore.application.donor.contributionStore.findContribution({ partyId: this.partyId, ...params });
 
 							if (this.depositTab == 1) {
 								return this.timelineSummary;
@@ -101,7 +87,7 @@ class ContributionViewStore extends BaseListViewStore {
 			},
 		});
 
-		this.donorId = rootStore.userStore.applicationUser.id;
+		this.partyId = rootStore.userStore.applicationUser.id;
 		this.createTableStore();
 		this.createPaymentTypeDropdownStore();
 		this.createContributionStatusDropdownStore();
@@ -209,16 +195,20 @@ class ContributionViewStore extends BaseListViewStore {
 					actionsRender: {
 						onEditRender: item => {
 							if (item.contributionStatus.abrv === 'pending') {
-								const dateToEdit = moment(item.dateCreated).add(15, 'm');
-								return moment().isBetween(moment(item.dateCreated), dateToEdit);
+								const dateCreated = new Date(moment.utc(item.dateCreated).format());
+								const now = new Date(moment.utc(new Date()).format());
+								return ((now - dateCreated) / 1000) < 900;
 							}
+							
 							return false;
 						},
 						onCancelRender: item => {
 							if (item.contributionStatus.abrv === 'pending') {
-								const dateToEdit = moment(item.dateCreated).add(30, 'm');
-								return moment().isBetween(moment(item.dateCreated), dateToEdit);
+								const dateCreated = new Date(moment.utc(item.dateCreated).format());
+								const now = new Date(moment.utc(new Date()).format());
+								return ((now - dateCreated) / 1000) < 1800;
 							}
+							
 							return false;
 						},
 					},

@@ -13,8 +13,9 @@ function BookletOrderConfirmTemplate({ modalParams, t }) {
         donor,
         onCancel,
         onConfirm,
-        customizedFee
+        customizedFee,
     } = modalParams.data;
+
 
     return (
         <div className="modal__list__wrap">
@@ -117,7 +118,7 @@ function BookletOrderConfirmTemplate({ modalParams, t }) {
                     onClick={onCancel}
                 />
                 <div className="u-mar--left--auto">
-                    <BaasicButton onClick={onConfirm} className="btn btn--med btn--med--wide btn--primary" label="Confirm" />
+                    <BaasicButton onClick={onConfirm} disabled={form.submitting} className="btn btn--med btn--med--wide btn--primary" label="Confirm" />
                 </div>
             </div>
         </div>
