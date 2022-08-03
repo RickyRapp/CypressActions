@@ -76,14 +76,17 @@ function renderPrimary(menu, menuStore, translate) {
                     }
 
                 })}
-                <div className="nav--primary__balance">
-                    <p className="nav--primary__balance__label">
-                        AVAILABLE BALANCE
-                    </p>
-                    <p className="nav--primary__balance__amount">
-                        $28.56
-                    </p>
-                </div>
+                { menuStore.rootStore.userStore.applicationUser
+                 && menuStore.rootStore.userStore.applicationUser.donor &&
+                 <div className="nav--primary__balance">
+                <p className="nav--primary__balance__label">
+                    AVAILABLE BALANCE
+                </p>
+                <p className="nav--primary__balance__amount">
+                    $28.56
+                </p>
+                </div> }
+
             </div>
             {
                 renderMenuFooter(menuStore, translate)
