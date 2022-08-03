@@ -124,7 +124,7 @@
         "PRESENT": "The [:attribute] field must be present (but can be empty).",
         "REGEX": "The [:attribute] format is invalid.",
         "REQUIRED_IF": "The [:attribute] field is required.",
-        "REQUIRED_IF_MICROGIVING": "Micro giving ($2.5 fee)",
+        "REQUIRED_IF_MICROGIVING": "Micro giving ($2.50 fee)",
         "REQUIRED_UNLESS": "The [:attribute] field is required when [:other] is not [:value].",
         "REQUIRED_WITH": "The [:attribute] field is required when [:field] is not empty.",
         "REQUIRED_WITH_ALL": "The [:attribute] field is required when [:fields] are not empty.",
