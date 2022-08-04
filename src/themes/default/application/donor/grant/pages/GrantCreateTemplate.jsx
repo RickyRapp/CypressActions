@@ -623,7 +623,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 											</div>
 										) : (
 											<div className="col col-sml-12 u-mar--bottom--med">
-												<div className="card--primary card--med">
+												<div>
 													<h4 className="type--base type--wgt--medium u-mar--bottom--sml">
 														{t('GRANT.CREATE.PROFILE_INFO')}
 													</h4>
@@ -640,7 +640,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 									{previousGrantsTableStore.data.length > 0 && (
 										<div className="row row--form u-mar--bottom--med">
 											<div className="col col-sml-12 col-lrg-12">
-												<div className="">
+												<div>
 													<h4 className="type--base type--wgt--medium u-mar--bottom--med">
 														{t('GRANT.CREATE.PREVIOUS_GRANTS')} to
 														{charity && <span> {charity.item.name}</span>}
