@@ -119,10 +119,6 @@
 					color: color($color-note a(70%));
 					border-color: color($color-note a(70%));
 					background-color: $color-text !important;
-
-					& .u-icon--give {
-
-					}
 				}
 
 				&:before {
@@ -536,6 +532,10 @@
 }
 
 .is-collapsed {
+	& .nav--primary__balance {
+		display: none;
+	}
+
 	@media (--screen-from-sml) {
 		.nav--primary__collapse {
 			i {
