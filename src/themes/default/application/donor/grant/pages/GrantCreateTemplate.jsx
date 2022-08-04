@@ -287,7 +287,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 													)}
 												</div>
 
-												{window.innerWidth > 750 && (
+												{window.innerWidth > 750 && !form.$('isRecurring').value && (
 													<div className={`form__group col col-sml-12 col-xxxlrg-6`}>
 														<DatePickerField field={form.$('startFutureDate')} />
 													</div>
@@ -637,42 +637,39 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 										)}
 									</div>
 
-									<div className="row row--form u-mar--bottom--med">
-										<div className="col col-sml-12 col-lrg-12">
-											<div className="card--primary card--med">
-												<h4 className="type--base type--wgt--medium u-mar--bottom--med">
-													{t('GRANT.CREATE.PREVIOUS_GRANTS')} to
-													{charity && <span> {charity.item.name}</span>}
-												</h4>
-												<SimpleBaasicTable tableStore={previousGrantsTableStore} />
-											</div>
-										</div>
-									</div>
-
-									<div className="row row--form">
-										<div className="col col-sml-12 col-lrg-12">
-											<div className="card--med card--primary">
-												<h4 className="type--base type--wgt--medium u-mar--bottom--med">
-													{t('GRANT.CREATE.SIMILAR_GRANTS')}
-												</h4>
-												<div
-													className={
-														grantPurposeTypeDropdownStore &&
-														grantPurposeTypeDropdownStore.value &&
-														grantPurposeTypeDropdownStore.value.name &&
-														'card--primary card--med'
-													}
-												>
-													<h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">
-														{grantPurposeTypeDropdownStore &&
-															grantPurposeTypeDropdownStore.value &&
-															grantPurposeTypeDropdownStore.value.name}
-													</h5>
-													<SimpleBaasicTable tableStore={similarGrantsTableStore} />
+									{previousGrantsTableStore.data.length > 0 && (
+										<div className="row row--form u-mar--bottom--med">
+											<div className="col col-sml-12 col-lrg-12">
+												<div className="">
+													<h4 className="type--base type--wgt--medium u-mar--bottom--med">
+														{t('GRANT.CREATE.PREVIOUS_GRANTS')} to
+														{charity && <span> {charity.item.name}</span>}
+													</h4>
+													<SimpleBaasicTable tableStore={previousGrantsTableStore} />
 												</div>
 											</div>
 										</div>
-									</div>
+									)}
+
+									{similarGrantsTableStore.data.length > 0 && (
+										<div className="row row--form">
+											<div className="col col-sml-12 col-lrg-12">
+												<div className="card--med card--primary">
+													<h4 className="type--base type--wgt--medium u-mar--bottom--med">
+														{t('GRANT.CREATE.SIMILAR_GRANTS')}
+													</h4>
+													<div>
+														<h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">
+															{grantPurposeTypeDropdownStore &&
+																grantPurposeTypeDropdownStore.value &&
+																grantPurposeTypeDropdownStore.value.name}
+														</h5>
+														<SimpleBaasicTable tableStore={similarGrantsTableStore} />
+													</div>
+												</div>
+											</div>
+										</div>
+									)}
 								</React.Fragment>
 							)}
 						</div>
