@@ -23,8 +23,8 @@ const BookletSummaryCardLoader = props => {
 			>
 				<React.Fragment>
 					<rect x="0" y={0} rx="6" ry="6" width="100%" height="80" />
-					<rect x="0" y={120} rx="6" ry="6" width="45%" height="26" />
-					<rect x="0" y={138} rx="6" ry="6" width="100%" height="205" />
+					<rect x="0" y={110} rx="6" ry="6" width="45%" height="26" />
+					<rect x="0" y={148} rx="6" ry="6" width="100%" height="195" />
 
 					<rect x="80%" y={370} rx="6" ry="6" width="20%" height="26" />
 					<rect x="55%" y={405} rx="6" ry="6" width="45%" height="20" />
