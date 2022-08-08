@@ -18,10 +18,10 @@ function DonorTabTemplate({ donorTabViewStore }) {
                 <div label={'DONOR.TAB.ACCOUNT_INFORMATION'} className="container--base">
                     <DonorAccountInformation />
                 </div>
-                <div label={'DONOR.TAB.SECURITY_AND_PREFERENCES'}>
+                <div label={'DONOR.TAB.SECURITY_AND_PREFERENCES'} className="container--base">
                     <DonorSecurityAndPreferencesData />
                 </div>
-                <div label={'DONOR.TAB.COMMUNICATION_PREFERENCE'}>
+                <div label={'DONOR.TAB.COMMUNICATION_PREFERENCE'} className="container--base">
                     <DonorCommunicationPreference />
                 </div>
             </React.Fragment>

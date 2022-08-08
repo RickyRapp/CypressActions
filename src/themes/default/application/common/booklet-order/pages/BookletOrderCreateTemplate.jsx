@@ -8,7 +8,8 @@ import {
 	BaasicFormControls,
 	Address,
 	BaasicModal,
-	//BaasicFieldDropdown,
+    BaasicFieldDropdown,
+    BasicFieldCheckbox
 } from 'core/components';
 
 import { defaultTemplate } from 'core/hoc';
@@ -48,7 +49,14 @@ const BookletOrderCreateTemplate = function({ store, t }) {
 		click2000,
 		onShowBookletsClick,
 		isAdmin,
-		loaderStore,
+		isPrefilledCustomize,
+		totalPrepaidAmount,
+		resetCustomizeDefaults,
+        setCustomizeDefaults,
+        customizedExpirationDateDropdownStore,
+        onShowAddOnItemsClick,
+        showAddOnitems,
+        expiryDate
 	} = store;
 
 	const isMobile = window.innerWidth < 543;
@@ -324,6 +332,134 @@ const BookletOrderCreateTemplate = function({ store, t }) {
 								<BookletSummaryCard store={store} t={t} />
 							</div>
 						)}
+
+						<div>
+							<div className="card--primary card--med">
+								<button
+									type="button"
+									className="btn btn--show type--wgt--medium"
+									onClick={() => form.$('isCustomizedBook').set(!form.$('isCustomizedBook').value)}
+								>
+									<i
+										className={
+											!form.$('isCustomizedBook').value
+												? 'u-icon u-icon--base u-icon--arrow-down--primary'
+												: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
+										}
+									></i>
+									{!form.$('isCustomizedBook').value
+										? t('BOOKLET_ORDER.CREATE.SHOW_CUSTOMIZE_BOOKS')
+										: t('BOOKLET_ORDER.CREATE.HIDE_CUSTOMIZE_BOOKS')}
+									<i
+										className={
+											!form.$('isCustomizedBook').value
+												? 'u-icon u-icon--base u-icon--arrow-down--primary'
+												: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
+										}
+									></i>
+								</button>
+
+								{form.$('isCustomizedBook').value && (
+									<div>
+										{donor && (
+											<div className="message message--note u-mar--top--med u-mar--bottom--med">
+												<p className="u-mar--bottom--tny type--color--note">
+													<strong>Additional charge of $5 per book</strong>
+												</p>
+												<p className="type--sml">
+													<em>
+														*one of the following information is mandatory for custom booklets: Name / Address /
+														Expiration Date
+													</em>
+													<br />
+													{totalPrepaidAmount > 0 && <em>**expiration date for non-prepaid books only</em>}
+												</p>
+											</div>
+										)}
+										<div className="row row--form">
+											<div className="col col-sml-12 u-mar--bottom--sml">
+												<BasicInput field={form.$('customizedName')} />
+											</div>
+											<div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+												<BasicInput field={form.$('customizedAddressLine1')} />
+											</div>
+											<div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+												<BasicInput field={form.$('customizedAddressLine2')} />
+											</div>
+											<div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+												<BasicInput field={form.$('customizedCity')} />
+											</div>
+											<div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+												<BasicInput field={form.$('customizedState')} />
+											</div>
+											<div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+												<BasicInput field={form.$('customizedZipCode')} />
+											</div>
+											<div className="col col-sml-12 col-xlrg-4 u-mar--bottom--sml">
+												<BaasicFieldDropdown
+													field={form.$('customizedExpirationDate')}
+													store={customizedExpirationDateDropdownStore}
+												/>
+											</div>
+											<div className="col col-sml-12">
+												<p className="u-mar--top--sml">{form.$('customizedExpirationDate').value && expiryDate}</p>
+											</div>
+										</div>
+										<BaasicButton
+											className="btn btn--med btn--med--100 btn--primary"
+											label={isPrefilledCustomize ? 'Unset defaults' : 'Set default info'}
+											onClick={() => (isPrefilledCustomize ? resetCustomizeDefaults() : setCustomizeDefaults())}
+										></BaasicButton>
+									</div>
+								)}
+							</div>
+						</div>
+						<div>
+							<div className="card--primary card--med ">
+								<button type="button" className="btn btn--show type--wgt--medium" onClick={onShowAddOnItemsClick}>
+									<i
+										className={
+											!showAddOnitems
+												? 'u-icon u-icon--base u-icon--arrow-down--primary'
+												: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
+										}
+									></i>
+									{showAddOnitems
+										? t('BOOKLET_ORDER.CREATE.HIDE_ADD_ON_ITEMS')
+										: t('BOOKLET_ORDER.CREATE.SHOW_ADD_ON_ITEMS')}
+									<i
+										className={
+											!showAddOnitems
+												? 'u-icon u-icon--base u-icon--arrow-down--primary'
+												: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
+										}
+									></i>
+								</button>
+								{showAddOnitems && (
+									<div className="row">
+										<div className="col col-sml-12">
+											<video
+												autoPlay="true"
+												height="240"
+												width="380"
+												src="https://res.cloudinary.com/the-donors-fund/video/upload/v1653479671/TDF/BookletFolder-AddOnItem.mp4"
+											></video>
+
+											<div className="u-display--flex u-display--flex--justify--space-between">
+												<p>
+													Order a check folder? (Additional $35 fee)
+													{/* <span data-tip='Additional $35 Fee' data-type="info" style={{ cursor: 'pointer' }}>
+                                                        <i className="u-icon u-icon--base u-icon--info--link u-mar--left--tny"></i>
+                                                    <ReactTooltip />
+                                                    </span> */}
+												</p>
+												<BasicFieldCheckbox toggleClass="--toggle" field={form.$('orderFolder')} />
+											</div>
+										</div>
+									</div>
+								)}
+							</div>
+						</div>
 					</div>
 				</div>
 
