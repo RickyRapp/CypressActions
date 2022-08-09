@@ -78,7 +78,7 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                     <div className="list--preferences__dd">
                         <div className="row u-mar--bottom--sml">
                             <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('notifyCardAmount')} />
+                                <NumericInputField field={form.$('cardTransactionExceedingAmount')} />
                             </div>
                         </div>
                     </div>

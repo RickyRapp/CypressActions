@@ -95,7 +95,7 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                     }
                 },
                 {
-                    name: 'notifyCardAmount',
+                    name: 'cardTransactionExceedingAmount',
                     label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.AMOUNT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.AMOUNT_PLACEHOLDER',
                     rules: 'numeric|min:0',
