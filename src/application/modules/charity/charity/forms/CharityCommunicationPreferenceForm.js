@@ -100,8 +100,7 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                     placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.AMOUNT_PLACEHOLDER',
                     rules: 'numeric|min:0',
                     extra: {
-                        type: 'p2',
-                        step: 0.001
+                        type: 'c2'
                     }
                 },
                 {
