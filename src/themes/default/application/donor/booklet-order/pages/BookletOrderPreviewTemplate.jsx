@@ -72,7 +72,7 @@ const BookletOrderPreviewTemplate = function({ bookletOrderPreviewViewStore, t }
 									{item && item.orderFolder && <i className="u-icon u-icon--approve u-icon--base"></i>}
 								</span>
 							</div>
-							<div className="col col-sml-12 col-med-4 u-mar--bottom--sml">
+							<div className="col col-sml-12 col-med-4">
 								<div className="type--base type--wgt--medium type--color--note">
 									{t('BOOKLET_ORDER.PREVIEW.CUSTOM_LABEL')}
 								</div>
@@ -83,15 +83,7 @@ const BookletOrderPreviewTemplate = function({ bookletOrderPreviewViewStore, t }
 						</div>
 					</div>
 				</div>
-				<div className="col col-sml-12">
-					<div className="type--base type--wgt--medium type--color--note u-mar--bottom--tny">
-						{t('BOOKLET_ORDER.PREVIEW.ORDER_LABEL')}
-					</div>
-					<span className="input--preview">
-						<SimpleBaasicTable tableStore={tableStore} />
-					</span>
-				</div>
-				<div>
+				<div className="col col-sml-12 col-lrg-4 col-xxlrg-6">
 					{item &&
 						(item.customName ||
 							item.customizedAddressLine1 ||
@@ -104,22 +96,52 @@ const BookletOrderPreviewTemplate = function({ bookletOrderPreviewViewStore, t }
 									{t('BOOKLET_ORDER.PREVIEW.CUSTOM_LABEL')}
 									<i className="u-icon u-icon--approve u-icon--base u-mar--left--tny"></i>
 								</div>
-								<span className="input--preview">
+								<span>
 									{item && (item.customName || item.expirationDays || item.customizedAddressLine1) && (
-										<div>
-											{item.customName && (<p className="booklet__list__item">Name: <span className="type--base type--color--text">{item.customName}</span></p>)}
-											{item.customizedAddressLine1 && (<p className="booklet__list__item">Address: <span className="type--base type--color--text">{item.customizedAddressLine1}</span></p>)}
-											{item.customizedAddressLine2 && (<p className="booklet__list__item">Address 2: <span className="type--base type--color--text">{item.customizedAddressLine2}</span></p>)}
-											{item.customizedCity && (<p className="booklet__list__item">City: <span className="type--base type--color--text">{item.customizedCity}</span></p>)}
-											{item.customizedState && (<p className="booklet__list__item">State: <span className="type--base type--color--text">{item.customizedState}</span></p>)}
-											{item.customizedCity && (<p className="booklet__list__item">Zip code: <span className="type--base type--color--text">{item.customizedZipCode}</span></p>)}
+										<div className="row">
+											{item.customName && (
+												<p className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+													<p className="type--base type--wgt--medium type--color--note">Name:</p>
+													<span className="type--base type--color--text type--break--word">{item.customName}</span>
+												</p>
+											)}
+											{item.customizedAddressLine1 && (
+												<p className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+													<p className="type--base type--wgt--medium type--color--note">Address:</p>
+													<span className="type--base type--color--text type--break--word">{item.customizedAddressLine1}</span>
+												</p>
+											)}
+											{item.customizedAddressLine2 && (
+												<p className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+													<p className="type--base type--wgt--medium type--color--note">Address 2:</p>
+													<span className="type--base type--color--text type--break--word">{item.customizedAddressLine2}</span>
+												</p>
+											)}
+											{item.customizedCity && (
+												<p className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+													<p className="type--base type--wgt--medium type--color--note">City:</p>
+													<span className="type--base type--color--text type--break--word">{item.customizedCity}</span>
+												</p>
+											)}
+											{item.customizedState && (
+												<p className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+													<p className="type--base type--wgt--medium type--color--note">State:</p>
+													<span className="type--base type--color--text type--break--word">{item.customizedState}</span>
+												</p>
+											)}
+											{item.customizedCity && (
+												<p className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+													<p className="type--base type--wgt--medium type--color--note">Zip code:</p>
+													<span className="type--base type--color--text type--break--word">{item.customizedZipCode}</span>
+												</p>
+											)}
 											{tableStore &&
 												tableStore.data &&
 												tableStore.data.filter(x => !x.isPrePaid).length > 0 &&
 												item.expirationDays && (
 													<p className="booklet__list__item">
 														Expiration date:{' '}
-														<span className="type--base type--color--text">{getExpiryDate(item.expirationDays)}</span>
+														<span className="type--base type--color--text type--break--word">{getExpiryDate(item.expirationDays)}</span>
 													</p>
 												)}
 										</div>
@@ -127,6 +149,14 @@ const BookletOrderPreviewTemplate = function({ bookletOrderPreviewViewStore, t }
 								</span>
 							</div>
 						)}
+				</div>
+				<div className="col col-sml-12">
+					<div className="type--base type--wgt--medium type--color--note u-mar--bottom--tny">
+						{t('BOOKLET_ORDER.PREVIEW.ORDER_LABEL')}
+					</div>
+					<span className="input--preview">
+						<SimpleBaasicTable tableStore={tableStore} />
+					</span>
 				</div>
 			</div>
 		</PreviewLayout>

@@ -654,7 +654,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 									{similarGrantsTableStore.data.length > 0 && (
 										<div className="row row--form">
 											<div className="col col-sml-12 col-lrg-12">
-												<div className="card--med card--primary">
+												<div>
 													<h4 className="type--base type--wgt--medium u-mar--bottom--med">
 														{t('GRANT.CREATE.SIMILAR_GRANTS')}
 													</h4>
