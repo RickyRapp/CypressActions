@@ -533,8 +533,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				this.previousGrantsTableStore.dataInitialized = true;
 			}
 		}
-		this.getLogo();
-		this.getImage();
+
+		if(value){
+			this.getLogo();
+			this.getImage();	
+		}
 	}
 
 	@action.bound
