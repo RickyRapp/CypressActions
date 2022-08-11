@@ -29,9 +29,9 @@ const DonorBankAcountListTemplate = function({ donorBankAccountViewStore, t }) {
 					.filter(c => c.id !== editId)
 					.map(c => {
 						return (
-							<div key={c.id} className={`u-mar--bottom--sml u-padd--x--med`}>
+							<div key={c.id} className={`info-card--scale u-mar--bottom--sml`}>
 								<div className="" title="Click to edit" onClick={() => onEnableEditClick(c)}>
-									<div className="row info-card--scale">
+									<div className="row">
 										<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
 											<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
 												Routing Number:
