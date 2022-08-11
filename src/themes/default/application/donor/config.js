@@ -54,18 +54,13 @@ import { moduleProviderFactory } from 'core/providers';
             //    role: ['Users']
             // },
             {
-                title: 'MENU.MANAGE_FUND',
-                icon: 'administration',
+                title: 'MENU.ORDER_VOUCHERS',
+                icon: 'booklet-order',
                 order: 6,
-                role: ['Users'],
-                subMenu: [
-                    {
-                        title: 'MENU.ORDER_VOUCHERS',
-                        icon: 'booklet-order',
-                        order: 2,
-                        role: ['Users'],
-                        route: 'master.app.main.donor.booklet-order.create'
-                    },
+                route: 'master.app.main.donor.booklet-order.create',
+                role: ['Users']
+                //commented because this page isn't currently used
+                //subMenu: [ 
                     // {
                     //     title: 'MENU.GIVING_GOALS',
                     //     icon: 'grant',
@@ -73,7 +68,7 @@ import { moduleProviderFactory } from 'core/providers';
                     //     role: ['Users'],
                     //     route: 'master.app.main.donor.giving-goals.create'
                     // },
-                ]
+                //]
             },
             {
                 title: 'MENU.PROFILE_SETTING',
