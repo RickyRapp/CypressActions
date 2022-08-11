@@ -28,40 +28,7 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
                 <h3 className=" u-mar--bottom--med">
                     {t('DONOR.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}
                 </h3>
-                <React.Fragment>
-                    <EditFormContent form={form} loading={loaderStore.loading}>
-                        <div className="row">
-                            <div className="form__group col col-sml-12">
-                                <div className="u-display--flex">
-                                    <label className="form__group__label u-mar--right--med">Is enabled?</label>
-                                    <BasicFieldCheckbox field={form.$('isEnabled')} disabled={item && item.isEnabled} showLabel={false} toggleClass="--toggle" onChange={onChangeIsEnabled} />
-                                </div>
-
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6">
-                                <NumericInputField field={form.$('lowBalanceAmount')} disabled={item && item.isEnabled} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6">
-                                <NumericInputField field={form.$('amount')} disabled={item && item.isEnabled} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6">
-                                <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore} disabled={item && item.isEnabled} />
-                            </div>
-                        </div>
-                    </EditFormContent>
-                    <div className="info-card--footer">
-                        <BaasicButton
-                            type="button"
-                            className="btn btn--med btn--med--wide btn--ghost"
-                            onClick={onEnableEditClick}
-                            label="Cancel"
-                        />
-                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-                    </div>
-                </React.Fragment>
-                {/* {isEditEnabled ?
+                {isEditEnabled ?
                     <React.Fragment>
                         <div className="col col-sml-12 col-lrg-12">
                             <div className="card--med card--primary">
@@ -72,7 +39,6 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
                                                 <label className="form__group__label u-mar--right--med">Is enabled?</label>
                                                 <BasicFieldCheckbox field={form.$('isEnabled')} disabled={item && item.isEnabled} showLabel={false} toggleClass="--toggle" onChange={onChangeIsEnabled} />
                                             </div>
-
                                         </div>
                                     </div>
                                     <div className="row">
@@ -140,7 +106,7 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
                                 </div>
                             </div>
                         </div>
-                    </React.Fragment>} */}
+                    </React.Fragment>}
             </div>
         </React.Fragment>
     )

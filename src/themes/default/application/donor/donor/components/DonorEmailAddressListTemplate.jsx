@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 import { DonorEmailAddressEditTemplate } from 'themes/application/donor/donor/components';
 import { EmailAddress } from 'core/components';
 
-const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStore, t }) {
+const DonorEmailAddressListTableTemplate = function({ donorEmailAddressViewStore, t }) {
 	const {
 		emailAddresses,
 		onEnableEditClick,
@@ -25,56 +25,60 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
 
 	return (
 		<div className="card--med card--primary u-mar--bottom--med">
-			<h3 className=" u-mar--bottom--med">
-				{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_EMAIL_ADDRESS')}
-			</h3>
+			<h3 className=" u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_EMAIL_ADDRESS')}</h3>
 
 			<div className="u-mar--bottom--sml">
-				<DonorEmailAddressEditTemplate
-					form={form}
-					title="Primary"
-					onCancelEditClick={onCancelEditClick}
-					isAssignableAsPrimary={false}
-				/>
-
-				{/* {isEditEnabled && primaryEmailAddress && primaryEmailAddress.id === editId ? (
-						<DonorEmailAddressEditTemplate
-							form={form}
-							title="Primary"
-							onCancelEditClick={onCancelEditClick}
-							isAssignableAsPrimary={false}
-						/>
-					) : (
-						<div
-							className={`${(isEditEnabled && secondaryEmailAddress === null) || ((secondaryEmailAddress && secondaryEmailAddress.id === editId)) ? "u-padd--x--med" : ""}`}
-							title="Click to edit"
-							onClick={() => onEnableEditClick(primaryEmailAddress)}
-						>
-							{primaryEmailAddress ? (
-								// <EmailAddress value={primaryEmailAddress} format='full' />
-								<div className="row info-card--scale">
-									<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Email:</p>
-										<p className="type--base type--wgt--bold type--break--all"> {primaryEmailAddress.email} </p>
-									</div>
-									<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Notifications</p>
-										<p className="type--base type--wgt--bold">{primaryEmailAddress.isNotifyEnabled ? "On" : "Off"}</p>
-									</div>
-									<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Primary</p>
-										<p className="type--base type--wgt--bold">{primaryEmailAddress.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ""}</p>
-									</div>
+				{isEditEnabled && primaryEmailAddress && primaryEmailAddress.id === editId ? (
+					<DonorEmailAddressEditTemplate
+						form={form}
+						title="Primary"
+						onCancelEditClick={onCancelEditClick}
+						isAssignableAsPrimary={false}
+					/>
+				) : (
+					<div
+						className={`${
+							(isEditEnabled && secondaryEmailAddress === null) ||
+							(secondaryEmailAddress && secondaryEmailAddress.id === editId)
+								? 'u-padd--x--med'
+								: ''
+						}`}
+						title="Click to edit"
+						onClick={() => onEnableEditClick(primaryEmailAddress)}
+					>
+						{primaryEmailAddress ? (
+							// <EmailAddress value={primaryEmailAddress} format='full' />
+							<div className="row info-card--scale">
+								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Email:</p>
+									<p className="type--base type--wgt--bold type--break--all"> {primaryEmailAddress.email} </p>
 								</div>
-							) : (
-								''
-							)}
-						</div>
-					)} */}
+								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Notifications</p>
+									<p className="type--base type--wgt--bold">{primaryEmailAddress.isNotifyEnabled ? 'On' : 'Off'}</p>
+								</div>
+								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
+									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Primary</p>
+									<p className="type--base type--wgt--bold">
+										{primaryEmailAddress.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ''}
+									</p>
+								</div>
+							</div>
+						) : (
+							''
+						)}
+					</div>
+				)}
 
-				<div className={`u-mar--top--sml ${(isEditEnabled && primaryEmailAddress === null) || (primaryEmailAddress && primaryEmailAddress.id === editId) ? "u-padd--x--med" : ""}`}>
-					{isEditEnabled &&
-						((secondaryEmailAddress && secondaryEmailAddress.id === editId) || undefined === editId) ? (
+				<div
+					className={`u-mar--top--sml ${
+						(isEditEnabled && primaryEmailAddress === null) ||
+						(primaryEmailAddress && primaryEmailAddress.id === editId)
+							? 'u-padd--x--med'
+							: ''
+					}`}
+				>
+					{isEditEnabled && ((secondaryEmailAddress && secondaryEmailAddress.id === editId) || undefined === editId) ? (
 						<DonorEmailAddressEditTemplate
 							form={form}
 							onCancelEditClick={onCancelEditClick}
