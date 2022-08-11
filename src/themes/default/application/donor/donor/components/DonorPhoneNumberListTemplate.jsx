@@ -22,7 +22,7 @@ const DonorAddressListTemplate = function({ donorPhoneNumberViewStore, t }) {
 				<h3 className=" u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PHONE_NUMBER')}</h3>
 
 				<div
-					className={`u-mar--bottom--sml ${
+					className={`info-card--scale u-mar--bottom--sml ${
 						(isEditEnabled && secondaryPhoneNumber === null && primaryPhoneNumber.id !== editId) ||
 						(secondaryPhoneNumber && secondaryPhoneNumber.id === editId)
 							? 'u-padd--x--med'
@@ -38,7 +38,7 @@ const DonorAddressListTemplate = function({ donorPhoneNumberViewStore, t }) {
 						/>
 					) : (
 						<div
-							className="row info-card--scale"
+							className="row"
 							title="Click to edit"
 							onClick={() => onEnableEditClick(primaryPhoneNumber)}
 						>

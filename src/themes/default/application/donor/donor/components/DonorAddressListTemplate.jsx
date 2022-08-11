@@ -32,7 +32,7 @@ const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
 					/>
 				) : (
 					<div
-						className={`type--base type--wgt--bold ${
+						className={`info-card--scale type--base type--wgt--bold ${
 							(isEditEnabled && secondaryAddress === null) || (secondaryAddress && secondaryAddress.id === editId)
 								? 'u-padd--x--med'
 								: ''
@@ -42,7 +42,7 @@ const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
 					>
 						{primaryAddress ? (
 							// <Address value={primaryAddress} format='full' />
-							<div className="row info-card--scale">
+							<div className="row">
 								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
 									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Address Line 1:</p>
 									<p className="type--base type--wgt--bold"> {primaryAddress.addressLine1} </p>

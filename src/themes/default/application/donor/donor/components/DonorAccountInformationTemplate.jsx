@@ -10,7 +10,7 @@ import {
 	NumberFormatInputField,
 	Date,
 	BaasicButton,
-	NumericInputField
+	NumericInputField,
 } from 'core/components';
 import {
 	DonorAddressList,
@@ -28,9 +28,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 		<div className="">
 			<EditFormContent form={form}>
 				<div className="card--primary card--med u-mar--bottom--med">
-					<h3 className=" u-mar--bottom--med">
-						{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PROFILE')}
-					</h3>
+					<h3 className=" u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PROFILE')}</h3>
 
 					<React.Fragment>
 						<div className="row row--form">
@@ -57,8 +55,9 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 									field={form.$('year')}
 									formatOptions={{
 										style: 'decimal',
-										useGrouping: false
-									}} />
+										useGrouping: false,
+									}}
+								/>
 							</div>
 							<div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-4">
 								<BasicInput field={form.$('fundName')} />
@@ -78,8 +77,8 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 						</div>
 					</React.Fragment>
 				</div>
-
 			</EditFormContent>
+
 			<DonorAddressList />
 			<DonorEmailAddressList />
 			<DonorPhoneNumberList />
