@@ -3,20 +3,21 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import shouldRenderContentChildren from './shouldRenderContentChildren';
 
-function EditFormContentTemplate({ form, children }) {
+function EditFormContentTemplate({ className, form, children }) {
     return (
-        <React.Fragment>
+        <div className={className ? className : ""}>
             {shouldRenderContentChildren(children) ? (
                 children
             ) : (
                     <form className="u-mar--bottom--med" onSubmit={form.onSubmit}>{children ? <React.Fragment>{children}</React.Fragment> : null}</form>
                 )}
-        </React.Fragment>
+        </div>
     );
 }
 
 EditFormContentTemplate.propTypes = {
     form: PropTypes.object,
+    className: PropTypes.string,
     children: PropTypes.any,
 };
 
