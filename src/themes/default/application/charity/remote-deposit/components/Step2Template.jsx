@@ -1,37 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { BasicInput, BaasicButton, NumberFormatInputField } from 'core/components';
-import AsyncSelect from 'react-select/async';
-function Step2Template({ form, onPreviousStepClick, onNextStepClick, isCharitySelected, isChangedDefaultAddress, onChangeDefaultAddressClick, filterCharities, setCharityId }) {
-    let promiseOptions = (inputValue) =>
-		new Promise(resolve => {
-			setTimeout(() => {
-				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
-			}, 1000);
-		});
+import { BasicInput, BaasicButton, NumericInputField } from 'core/components';
 
+function Step2Template({ form, onPreviousStepClick, onNextStepClick, isChangedDefaultAddress, charityName, charityAddress, taxId, phoneNumber }) {
 	return (
 		<React.Fragment>
 			<div className="scanner card--med">
-				{/* <h3 className=" u-mar--bottom--med u-mar--left--sml">General Data</h3> */}
 				<div className="row row--form">
 					<div className="col col-sml-12 u-mar--bottom--med">
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							<BasicInput field={form.$('fullName')} />
 						</div>
 						<div className="col col-sml-12 u-mar--bottom--lrg">
-							<NumberFormatInputField field={form.$('phoneNumber')} />
-						</div>
-						<div className="col col-sml-12 u-mar--bottom--lrg">
-							{/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} /> */}
-							<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
-							{isCharitySelected &&
-								<BaasicButton
-									className="btn btn--sml btn--link u-mar--bottom--sml"
-									label={isChangedDefaultAddress ? 'SESSION.CREATE.STEP2.BUTTONS.SET_DEFAULT_DEFAULT_ADDRESS' : 'SESSION.CREATE.STEP2.BUTTONS.CHANGE_DEFAULT_ADDRESS'}
-									onClick={onChangeDefaultAddressClick}>
-								</BaasicButton>}
+							{<p>Charity name: <b>{charityName}</b> <br/>
+								EIN: <b>{taxId} </b> <br/>
+								{charityAddress} <br/>
+								{phoneNumber}
+							 </p> }
 							{isChangedDefaultAddress &&
 								<div className="card--secondary card--med u-mar--bottom--sml">
 									<div className="row">
@@ -56,6 +42,14 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, isCharitySe
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							<BasicInput field={form.$('description')} />
 						</div>
+
+						<div className="form__group col col-sml-12 u-mar--bottom--sml">
+							<NumericInputField field={form.$('checkCount')} />
+						</div>
+						<div className="form__group col col-sml-12 u-mar--bottom--lrg">
+							<NumericInputField field={form.$('estimatedAmount')} />
+						</div>
+						
 						<div className="col col-sml-12 u-mar--bottom--lrg">
 							<p className="type--med type--wgt--regular type--color--opaque u-mar--bottom--med">
 								To receive a report of this session please enter your email address bellow:

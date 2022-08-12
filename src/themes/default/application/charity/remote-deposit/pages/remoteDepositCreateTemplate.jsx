@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { StepCounter, Step1Template, Step2Template, Step3Template, Step4Template } from 'themes/application/charity/remote-deposit/pages';
+import { Step1Template, Step2Template, Step3Template, Step4Template, StepCounter } from '../components';
 
 const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
     const {
@@ -27,12 +27,15 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
         onChangeDefaultAddressClick,
         modalStore,
         filterCharities,
-        setCharityId,
         charity,
         insufficientAmount,
         isCharitySelected,
         givingCardModal,
-        createGivingCardGrant
+        createGivingCardGrant,
+        charityName,
+        charityAddress,
+        taxId,
+        phoneNumber
     } = sessionCreateViewStore;
 
     return (
@@ -64,8 +67,11 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                             isChangedDefaultAddress={isChangedDefaultAddress}
                             onChangeDefaultAddressClick={onChangeDefaultAddressClick}
                             filterCharities={filterCharities}
-                            setCharityId={setCharityId}
                             isCharitySelected={isCharitySelected}
+                            charityName={charityName}
+                            charityAddress={charityAddress}
+                            taxId={taxId}
+                            phoneNumber={phoneNumber}
                         />
                     </div>}
 

@@ -21,7 +21,7 @@ import { remoteDepositList, remoteDepositEdit, remoteDepositPreview, remoteDepos
 						name: "master.app.main.charity.remote-deposit.create",
 						pattern: "/create",
 						component: remoteDepositCreate,
-						authorization: "theDonorsFundCharitySection.create",
+						authorization: "theDonorsFundCharitySection.read",
 						data: {
 							back: "master.app.main.charity.remote-deposit.list",
 						},
