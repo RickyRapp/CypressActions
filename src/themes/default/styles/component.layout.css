@@ -107,6 +107,11 @@ $header-height-mobile: 72px;
         @media (--screen-from-sml) {
             top: $header-height;
         }
+       
+        @media (--screen-from-lrg) {
+            left: $aside-secondary-width;
+        	padding: calc($unit * 3) calc($unit * 5);
+        }
 
         &--secondary {
 
@@ -136,12 +141,7 @@ $header-height-mobile: 72px;
                 } 
             }
         }
-        
-        @media (--screen-from-lrg) {
-            left: $aside-secondary-width;
-            padding: calc($unit * 3) calc($unit * 4);
-        }
-        
+
         &__inner {
             /* position: absolute;
             top: 0;

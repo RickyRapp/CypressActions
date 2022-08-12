@@ -17,7 +17,7 @@ const EmailListTableTemplate = function ({ emailViewStore }) {
 
     return (
         <ListContent>
-            <div className="card--primary card--med">
+            <div className="card--primary card--med u-mar--bottom--med">
                 <Content >
                     <BaasicTable
                         authorization={authorization}
