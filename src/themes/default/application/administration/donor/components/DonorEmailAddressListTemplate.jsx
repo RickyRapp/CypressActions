@@ -33,7 +33,7 @@ const DonorEmailAddressListTableTemplate = function ({ donorEmailAddressViewStor
                         :
                         <BaasicButton
                             className="btn btn--icon"
-                            onlyIconClassName="u-mar--right--sml"
+                            onlyIconClassName="u-mar--left--sml"
                             icon='u-icon u-icon--add u-icon--base'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}

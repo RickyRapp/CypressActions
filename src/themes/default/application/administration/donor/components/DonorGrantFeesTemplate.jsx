@@ -14,7 +14,7 @@ const DonorGrantFeesTemplate = function ({ t, donorGrantFeesViewStore }) {
     } = donorGrantFeesViewStore;
 
     return (
-        <EditFormContent form={form} loading={loaderStore.loading}>
+        <EditFormContent form={form} loading={loaderStore.loading} formClassName={" "}>
             <h3 className=" u-mar--bottom--sml">{t('DONOR.GRANT_FEES.TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-6 col-lrg-6 col-xlrg-5">
