@@ -119,13 +119,13 @@ class BookletOrderPreviewViewStore extends BasePreviewViewStore {
                     title: 'Used certificates',
                     format: {
                         type: 'function',
-                        value: (item) => {
+                        value: (item) => { 
                             let usedCount = 0;
                             let totalCount = 0;
                             if(typeof item !== 'undefined' && item.bookletCount && item.bookletCount > 0){
                                 const usedId = this.certificateStatusLookup.find(c => c.abrv === 'used').id;
-                                for (let i = 0; i < item.booklets && item.booklets.length; i++) {
-                                    if(typeof item.booklets[i] !== 'undefined' || typeof item.booklets[i].certificates !== 'undefined'){
+                                for (let i = 0; i < (item.booklets && item.booklets.length); i++) {
+                                    if(typeof item.booklets[i] !== 'undefined' || typeof item.booklets[i].certificates !== 'undefined'){ 
                                         //usedCount += item.booklets[i].certificates.find(c => c.certificateStatusId === usedId).length;
                                         totalCount += item.booklets[i].certificates.length;
                                         item.booklets[i].certificates.forEach(certificate => {
