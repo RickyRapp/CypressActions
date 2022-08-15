@@ -7,7 +7,7 @@
     margin: calc($unit * 1) 0 calc($unit * 6) 0;
 
     &__item {
-        flex: 1;
+        flex: 2;
         overflow: hidden;
         position: relative;
         margin-right: calc($unit * 1);
@@ -49,6 +49,8 @@
         }
 
         &:last-child {
+            flex: 1;
+            
             &::after {
                 display: none;
             }

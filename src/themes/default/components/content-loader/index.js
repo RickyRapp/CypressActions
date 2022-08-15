@@ -3,3 +3,4 @@ export { default as PreviewCardLoaderTemplate } from './PreviewCardLoaderTemplat
 export { default as BasicInputLoaderTemplate } from './BasicInputLoaderTemplate';
 export { default as BasicFooterActions } from './BasicFooterActions';
 export { default as BasicLineLoaderTemplate } from './BasicLineLoaderTemplate';
+export { default as ProgressTimelineLoaderTemplate } from './ProgressTimelineLoaderTemplate';

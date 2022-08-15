@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import ContentLoader from 'react-content-loader';
 
-const BasicLineLoaderTemplate = ({ setY = 32, numLines = 4, props }) => {
+const GrantPreviewLoaderTemplate = ({ numLines = 4, props }) => {
 	const [loaderWidth, setLoaderWidth] = useState(0);
 
 	const ref = useCallback(node => {
@@ -15,15 +15,16 @@ const BasicLineLoaderTemplate = ({ setY = 32, numLines = 4, props }) => {
 	let y = 0;
 
 	for (let i = 0; i < numLines; i++) {
-		let textWidth = Math.random() * 50 + 150;
+		let textWidth = Math.random() * loaderWidth;
 
 		lineList.push(
 			<React.Fragment key={`${i}_${lineList.length}`}>
-				<rect x="0" y={y} rx="4" ry="4" width={textWidth} height="10" />
+				<rect x="0" y={y} rx="4" ry="4" width={160} height="10" />
+				<rect x="0" y={y + 20} rx="4" ry="4" width={textWidth} height="10" />
 			</React.Fragment>
 		);
 
-		y += setY;
+		y += 60;
 	}
 
 	return (
@@ -31,8 +32,8 @@ const BasicLineLoaderTemplate = ({ setY = 32, numLines = 4, props }) => {
 			<ContentLoader
 				speed={2}
 				width={loaderWidth}
-				height="100%"
-				viewBox={`0 0 ${loaderWidth} ${y}`}
+				height={y}
+				viewBox={`0 0 ${loaderWidth} ${y - 30}`}
 				backgroundColor="#a5aec0"
 				foregroundColor="#b5bdc7"
 				{...props}
@@ -43,4 +44,4 @@ const BasicLineLoaderTemplate = ({ setY = 32, numLines = 4, props }) => {
 	);
 };
 
-export default BasicLineLoaderTemplate;
+export default GrantPreviewLoaderTemplate;

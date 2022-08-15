@@ -11,7 +11,7 @@ import {
 	BaasicFormControls,
 	BasicInput,
 	NumberFormatInputField,
-	EmptyStateWithIcon
+	EmptyStateWithIcon,
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
@@ -21,7 +21,7 @@ import { CharityAdvancedSearch } from 'application/administration/charity/compon
 import logo from 'themes/assets/img/logo.svg';
 import AsyncSelect from 'react-select/async';
 
-const GrantEditTemplate = function ({ grantEditViewStore, t }) {
+const GrantEditTemplate = function({ grantEditViewStore, t }) {
 	const {
 		contentLoading,
 		form,
@@ -48,10 +48,10 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 		image,
 		isMicroGiving,
 		checkMicroGiving,
-		charity
+		charity,
 	} = grantEditViewStore;
 
-	let promiseOptions = (inputValue) =>
+	let promiseOptions = inputValue =>
 		new Promise(resolve => {
 			inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
 		});
@@ -71,7 +71,15 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 											store={charityDropdownStore}
 											additionalLabel="My Favorite Charities"
 										/> */}
-										<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID'} value={asyncPlaceholder} />
+										<AsyncSelect
+											onChange={e => setCharityId(e.value)}
+											cacheOptions
+											defaultOptions={true}
+											loadOptions={promiseOptions}
+											classNamePrefix="react-select"
+											placeholder={isAdvancedInput ? asyncPlaceholder : 'Start typing Charity name or Tax ID'}
+											value={asyncPlaceholder}
+										/>
 									</div>
 								</div>
 								<div className="row row--form row__align--center">
@@ -138,37 +146,47 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 									</div>
 								)}
 
-								{charityDropdownStore.value &&
+								{charityDropdownStore.value && (
 									<CharityShortInformationTemplate
 										charity={charityDropdownStore.value.item}
 										onChangeDefaultAddressClick={onChangeDefaultAddressClick}
 										isChangedDefaultAddress={isChangedDefaultAddress}
-									/>}
+									/>
+								)}
 
-								{charityDropdownStore.value && (charityDropdownStore.value.item ? !charityDropdownStore.value.item.isActive : !charityDropdownStore.value.isActive) ? <div>
-									{isChangedDefaultAddress && (
-										<div className="card--secondary card--med u-mar--bottom--sml">
-											<div className="row row--form">
-												<div className="form__group col col-sml-12">
-													<BasicInput field={form.$('addressLine1')} />
-												</div>
-												<div className="form__group col col-sml-12 col-lrg-6">
-													<BasicInput field={form.$('addressLine2')} />
-												</div>
-												<div className="form__group col col-sml-12 col-lrg-6">
-													<BasicInput field={form.$('city')} />
-												</div>
-												<div className="form__group col col-sml-12 col-lrg-6">
-													<BasicInput field={form.$('state')} />
-												</div>
-												<div className="form__group col col-sml-12 col-lrg-6">
-													<BasicInput field={form.$('zipCode')} />
+								{charityDropdownStore.value &&
+								(charityDropdownStore.value.item
+									? !charityDropdownStore.value.item.isActive
+									: !charityDropdownStore.value.isActive) ? (
+									<div>
+										{isChangedDefaultAddress && (
+											<div className="card--secondary card--med u-mar--bottom--sml">
+												<div className="row row--form">
+													<div className="form__group col col-sml-12">
+														<BasicInput field={form.$('addressLine1')} />
+													</div>
+													<div className="form__group col col-sml-12 col-lrg-6">
+														<BasicInput field={form.$('addressLine2')} />
+													</div>
+													<div className="form__group col col-sml-12 col-lrg-6">
+														<BasicInput field={form.$('city')} />
+													</div>
+													<div className="form__group col col-sml-12 col-lrg-6">
+														<BasicInput field={form.$('state')} />
+													</div>
+													<div className="form__group col col-sml-12 col-lrg-6">
+														<BasicInput field={form.$('zipCode')} />
+													</div>
 												</div>
 											</div>
-										</div>
-									)}
-									<EmptyStateWithIcon icon={"charity"} title={"This charity is not active."} description={"Please, select another charity."} />
-								</div> :
+										)}
+										<EmptyStateWithIcon
+											icon={'charity'}
+											title={'This charity is not active.'}
+											description={'Please, select another charity.'}
+										/>
+									</div>
+								) : (
 									<div>
 										{isChangedDefaultAddress && (
 											<div className="card--secondary card--med u-mar--bottom--sml">
@@ -192,10 +210,12 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 											</div>
 										)}
 										<div className="row row--form">
-										<div className="form__group col col-sml-12">
-											<NumericInputField field={form.$('amount')} onChange={checkMicroGiving} />
-												{isMicroGiving && <span style={{color:"#C36C36", fontSize:"16px"}} >Micro giving ($2.50 fee) </span>}
-										</div>
+											<div className="form__group col col-sml-12">
+												<NumericInputField field={form.$('amount')} onChange={checkMicroGiving} />
+												{isMicroGiving && (
+													<span style={{ color: '#C36C36', fontSize: '16px' }}>Micro giving ($2.50 fee) </span>
+												)}
+											</div>
 										</div>
 										<div className="row row--form">
 											<div className="form__group col col-sml-12">
@@ -214,24 +234,33 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 										</div>
 										<div className="row row--form">
 											<div className="form__group col col-sml-12">
-												<BaasicFieldDropdown field={form.$('grantPurposeTypeId')} store={grantPurposeTypeDropdownStore} />
+												<BaasicFieldDropdown
+													field={form.$('grantPurposeTypeId')}
+													store={grantPurposeTypeDropdownStore}
+												/>
 											</div>
 										</div>
 										<div className="row">
 											<div className="form__group col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-												{form.$('grantPurposeTypeId').value &&
-													<GrantPurposeTypeTemplate form={form} grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)} />}
+												{form.$('grantPurposeTypeId').value && (
+													<GrantPurposeTypeTemplate
+														form={form}
+														grantPurposeType={grantPurposeTypes.find(c => c.id === form.$('grantPurposeTypeId').value)}
+													/>
+												)}
 											</div>
 										</div>
 										{renderEditLayoutFooterContent({ form })}
-
 									</div>
-								}
-									</div>
-
+								)}
 							</div>
-							{charityDropdownStore.value && (charityDropdownStore.value.item ? !charityDropdownStore.value.item.isActive : !charityDropdownStore.value.isActive) ? <div></div> : 
-							
+						</div>
+						{charityDropdownStore.value &&
+						(charityDropdownStore.value.item
+							? !charityDropdownStore.value.item.isActive
+							: !charityDropdownStore.value.isActive) ? (
+							<div></div>
+						) : (
 							<div className="col col-sml-12 col-xxlrg-6">
 								<div className="card--primary card--med u-mar--bottom--med">
 									<h3 className=" u-mar--bottom--med">{t('GRANT.CREATE.INSIGHTS')}</h3>
@@ -270,25 +299,22 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 										</div>
 
 										{charityDropdownStore && charityDropdownStore.value && (
-												<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+											<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
 												<div className="card--secondary card--med">
 													<div className="row">
 														<div className="col col-sml-12 col-lrg-6">
-															<h4 className=" u-mar--bottom--med">
-																{t('GRANT.CREATE.PROFILE_INFO')}
-															</h4>
+															<h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PROFILE_INFO')}</h4>
 														</div>
 													</div>
 													<div className="row row--form u-display--flex u-display--flex--align--center u-display--flex--wrap">
-	
+														<div className="col col-sml-12 col-lrg-4">{charityDropdownStore.value.item.name}</div>
 														<div className="col col-sml-12 col-lrg-4">
-															{charityDropdownStore.value.item.name}
+															{logo ? <img alt="" src={URL.createObjectURL(logo)} style={{ height: '105px' }} /> : null}
 														</div>
 														<div className="col col-sml-12 col-lrg-4">
-														{logo ? (<img alt="" src={URL.createObjectURL(logo)} style={{height:"105px"}}/>) : null}
-														</div>
-														<div className="col col-sml-12 col-lrg-4">
-														{image ? (<img alt="" src={URL.createObjectURL(image)} style={{height:"140px"}}/>) : null}
+															{image ? (
+																<img alt="" src={URL.createObjectURL(image)} style={{ height: '140px' }} />
+															) : null}
 														</div>
 													</div>
 													<div className="row u-padd--top--med">
@@ -300,7 +326,9 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 														<div className="col col-sml-12 col-lrg-4">
 															<div className="u-separator--primary u-mar--bottom--sml"></div>
 															<strong>{t('GRANT.CREATE.EIN')}</strong>
-															<p>{charityFormatter.format(charityDropdownStore.value.item.taxId, { value: 'tax-id' })}</p>
+															<p>
+																{charityFormatter.format(charityDropdownStore.value.item.taxId, { value: 'tax-id' })}
+															</p>
 														</div>
 														<div className="col col-sml-12 col-lrg-4">
 															<div className="u-separator--primary u-mar--bottom--sml"></div>
@@ -327,7 +355,9 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 															<strong>{t('GRANT.CREATE.MAIN_ADDRESS')}</strong>
 															<p>
 																{addressFormatter.format(
-																	charityDropdownStore.value.item && charityDropdownStore.value.item.charityAddresses ? charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true) : charityDropdownStore.value.item,
+																	charityDropdownStore.value.item && charityDropdownStore.value.item.charityAddresses
+																		? charityDropdownStore.value.item.charityAddresses.filter(c => c.isPrimary === true)
+																		: charityDropdownStore.value.item,
 																	'full'
 																)}
 															</p>
@@ -338,41 +368,33 @@ const GrantEditTemplate = function ({ grantEditViewStore, t }) {
 										)}
 									</div>
 
-									<div className="row row--form u-mar--bottom--med">
-										<div className="card--primary card--med col col-sml-12 col-lrg-12">
-											<h4 className=" u-mar--bottom--med">
-												{t('GRANT.CREATE.PREVIOUS_GRANTS')}
-											</h4>
-											<SimpleBaasicTable tableStore={previousGrantsTableStore} />
-										</div>
+									<div className="u-mar--bottom--med">
+										<h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.PREVIOUS_GRANTS')}</h4>
+										<SimpleBaasicTable tableStore={previousGrantsTableStore} />
 									</div>
 
-									<div className="row row--form">
-										<div className="card--primary card--med col col-sml-12 col-lrg-12">
-											<h4 className=" u-mar--bottom--med">
-												{t('GRANT.CREATE.SIMILAR_GRANTS')}
-											</h4>
-											<div
-												className={
-													grantPurposeTypeDropdownStore &&
+									<div>
+										<h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
+										<div
+											className={
+												grantPurposeTypeDropdownStore &&
+												grantPurposeTypeDropdownStore.value &&
+												grantPurposeTypeDropdownStore.value.name &&
+												'card--primary card--med'
+											}
+										>
+											<h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">
+												{grantPurposeTypeDropdownStore &&
 													grantPurposeTypeDropdownStore.value &&
-													grantPurposeTypeDropdownStore.value.name &&
-													'card--primary card--med'
-												}
-											>
-												<h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">
-													{grantPurposeTypeDropdownStore &&
-														grantPurposeTypeDropdownStore.value &&
-														grantPurposeTypeDropdownStore.value.name}
-												</h5>
-												<SimpleBaasicTable tableStore={similarGrantsTableStore} />
-											</div>
+													grantPurposeTypeDropdownStore.value.name}
+											</h5>
+											<SimpleBaasicTable tableStore={similarGrantsTableStore} />
 										</div>
 									</div>
 								</div>
 							</div>
-							}
-						</div>
+						)}
+					</div>
 				</Content>
 			</EditFormLayout>
 			<BaasicModal modalParams={advancedSearchModal}>

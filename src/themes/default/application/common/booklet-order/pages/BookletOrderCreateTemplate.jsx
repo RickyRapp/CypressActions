@@ -338,154 +338,160 @@ const BookletOrderCreateTemplate = function({ store, t }) {
 									<BookletSummaryCardLoader />
 								</div>
 							) : (
-								<div className="card--primary card--med ">
-									<div className="card--med card--secondary--light card--center u-display--flex u-display--flex--wrap">
-										<span className="type--med type--color--text u-mar--right--sml u-mar--bottom--tny">
-											Available balance:{' '}
-										</span>
-										<span className="type--xlrg type--wgt--medium type--color--note">
-											{donor && (
-												<FormatterResolver
-													item={{ availableBalance: donor.availableBalance }}
-													field="availableBalance"
-													format={{ type: 'currency' }}
-												/>
-											)}
-										</span>
-									</div>
-									<div>
-										{' '}
-										{/* className="col col-sml-12 col-xxlrg-12" */}
-										<h3 className="u-mar--top--med u-mar--bottom--sml">Order Summary</h3>
-										<table className="table--total">
-											<thead>
-												<tr>
-													<th>Check</th>
-													<th>Count</th>
-													<th>Amount</th>
-												</tr>
-											</thead>
-											<tbody>
-												{tableData.map((item, index) => {
-													if (item.count > 0)
-														return (
-															<tr key={index}>
-																<td>${item.id}</td>
-																<td>{item.count}</td>
-																<td>${item.amount}</td>
-															</tr>
-														);
-												})}
-											</tbody>
-											<tfoot>
-												<tr>
-													<th colSpan="2">Total pre-paid</th>
-													<th>${totalPrepaidAmount}</th>
-												</tr>
-											</tfoot>
-											{form.$('orderFolder').value == true && (
-												<tfoot>
-													<tr>
-														<th colSpan="2">Booklet folder fee</th>
-														<th>$35.00</th>
-													</tr>
-												</tfoot>
-											)}
-											{donor && !donor.isSessionFeePayedByCharity && (
-												<tfoot>
-													<tr>
-														<th colSpan="2">Pre-paid fee</th>
-														<th>${(totalPrepaidAmount * 0.029).toFixed(2)}</th>
-													</tr>
-												</tfoot>
-											)}
-
-											<tfoot>
-												<tr>
-													<th colSpan="2">Shipping method</th>
-													<th>
-														{deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value)
-															? deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value).name
-															: null}
-													</th>
-												</tr>
-											</tfoot>
-											<tfoot>
-												<tr>
-													<th colSpan="2">Shipping fee</th>
-													<th>
-														{deliveryMethodTypes.find(x => x.abrv === 'express-mail')
-															? deliveryMethodTypes.find(x => x.abrv === 'express-mail').id ==
-															  form.$('deliveryMethodTypeId').value
-																? '$25'
-																: '$0'
-															: null}
-													</th>
-												</tr>
-											</tfoot>
-											{donor && form.$('isCustomizedBook').value ? (
-												<tfoot>
-													<tr>
-														<th colSpan="2">Custom booklet fee</th>
-														<th>${customizedFee.toFixed(2)}</th>
-													</tr>
-												</tfoot>
-											) : null}
-										</table>
-									</div>
-
-									{donor && needsProtectionPlan && (
-										<div className="u-mar--top--med">
-											<div className="message--enh">
-												<span className="u-mar--right--tny">
-													{t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN_MESSAGE')}
-												</span>
-												<a href="#" className="u-anchor--underline" onClick={onAddProtectionPlanClick}>
-													{t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN')}
-												</a>
-												{/* <BaasicButton
-                                        className="btn btn--link"
-                                        label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
-                                        >
-                                    </BaasicButton> */}
-											</div>
-										</div>
-									)}
-									{donor && needsMoreFunds && (
-										<div className="u-mar--top--med">
-											<div className="message--enh">
-												<span className="u-mar--right--tny">
-													You've selected pre-paid check books that exceed your account balance. Kindly initiate a
-													deposit to proceed with this order. &nbsp;
-												</span>
-												<a href="#" className="u-anchor--underline" onClick={goToNewDeposit}>
-													Deposit Funds
-												</a>
-												{/* <BaasicButton
-                                        className="btn btn--link"
-                                        label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
-                                        >
-                                    </BaasicButton> */}
-											</div>
-										</div>
-									)}
-
-									<div className="type--med type--wgt--medium type--right u-mar--top--sml">
-										<div className="u-display--flex u-display--flex--justify--flex-end u-display--flex--align--baseline">
-											<span>Total:</span>
-											<span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml u-push--to--lrg">
-												<FormatterResolver item={{ total: totalAmount }} field="total" format={{ type: 'currency' }} />
+								<div>
+									<div className="card--primary card--med ">
+										<div className="card--med card--secondary--light card--center u-display--flex u-display--flex--wrap">
+											<span className="type--med type--color--text u-mar--right--sml u-mar--bottom--tny">
+												Available balance:{' '}
+											</span>
+											<span className="type--xlrg type--wgt--medium type--color--note">
+												{donor && (
+													<FormatterResolver
+														item={{ availableBalance: donor.availableBalance }}
+														field="availableBalance"
+														format={{ type: 'currency' }}
+													/>
+												)}
 											</span>
 										</div>
+										<div>
+											{' '}
+											{/* className="col col-sml-12 col-xxlrg-12" */}
+											<h3 className="u-mar--top--med u-mar--bottom--sml">Order Summary</h3>
+											<table className="table--total">
+												<thead>
+													<tr>
+														<th>Check</th>
+														<th>Count</th>
+														<th>Amount</th>
+													</tr>
+												</thead>
+												<tbody>
+													{tableData.map((item, index) => {
+														if (item.count > 0)
+															return (
+																<tr key={index}>
+																	<td>${item.id}</td>
+																	<td>{item.count}</td>
+																	<td>${item.amount}</td>
+																</tr>
+															);
+													})}
+												</tbody>
+												<tfoot>
+													<tr>
+														<th colSpan="2">Total pre-paid</th>
+														<th>${totalPrepaidAmount}</th>
+													</tr>
+												</tfoot>
+												{form.$('orderFolder').value == true && (
+													<tfoot>
+														<tr>
+															<th colSpan="2">Booklet folder fee</th>
+															<th>$35.00</th>
+														</tr>
+													</tfoot>
+												)}
+												{donor && !donor.isSessionFeePayedByCharity && (
+													<tfoot>
+														<tr>
+															<th colSpan="2">Pre-paid fee</th>
+															<th>${(totalPrepaidAmount * 0.029).toFixed(2)}</th>
+														</tr>
+													</tfoot>
+												)}
 
-										{donor && donor.hasProtectionPlan && (
-											<div>
-												<small>
-													{t('BOOKLET_ORDER.CREATE.ENROLLED_IN_PROTECTION_PLAN')}
-													<i className="u-icon u-icon--approve u-icon--base u-mar--left--sml"></i>
-												</small>
+												<tfoot>
+													<tr>
+														<th colSpan="2">Shipping method</th>
+														<th>
+															{deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value)
+																? deliveryMethodTypes.find(x => x.id == form.$('deliveryMethodTypeId').value).name
+																: null}
+														</th>
+													</tr>
+												</tfoot>
+												<tfoot>
+													<tr>
+														<th colSpan="2">Shipping fee</th>
+														<th>
+															{deliveryMethodTypes.find(x => x.abrv === 'express-mail')
+																? deliveryMethodTypes.find(x => x.abrv === 'express-mail').id ==
+																  form.$('deliveryMethodTypeId').value
+																	? '$25'
+																	: '$0'
+																: null}
+														</th>
+													</tr>
+												</tfoot>
+												{donor && form.$('isCustomizedBook').value ? (
+													<tfoot>
+														<tr>
+															<th colSpan="2">Custom booklet fee</th>
+															<th>${customizedFee.toFixed(2)}</th>
+														</tr>
+													</tfoot>
+												) : null}
+											</table>
+										</div>
+
+										{donor && needsProtectionPlan && (
+											<div className="u-mar--top--med">
+												<div className="message--enh">
+													<span className="u-mar--right--tny">
+														{t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN_MESSAGE')}
+													</span>
+													<a href="#" className="u-anchor--underline" onClick={onAddProtectionPlanClick}>
+														{t('BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN')}
+													</a>
+													{/* <BaasicButton
+                                        className="btn btn--link"
+                                        label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
+                                        >
+                                    </BaasicButton> */}
+												</div>
 											</div>
 										)}
+										{donor && needsMoreFunds && (
+											<div className="u-mar--top--med">
+												<div className="message--enh">
+													<span className="u-mar--right--tny">
+														You've selected pre-paid check books that exceed your account balance. Kindly initiate a
+														deposit to proceed with this order. &nbsp;
+													</span>
+													<a href="#" className="u-anchor--underline" onClick={goToNewDeposit}>
+														Deposit Funds
+													</a>
+													{/* <BaasicButton
+                                        className="btn btn--link"
+                                        label={'BOOKLET_ORDER.CREATE.BUTTON.ADD_PROTECTION_PLAN'}
+                                        >
+                                    </BaasicButton> */}
+												</div>
+											</div>
+										)}
+
+										<div className="type--med type--wgt--medium type--right u-mar--top--sml">
+											<div className="u-display--flex u-display--flex--justify--flex-end u-display--flex--align--baseline">
+												<span>Total:</span>
+												<span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml u-push--to--lrg">
+													<FormatterResolver
+														item={{ total: totalAmount }}
+														field="total"
+														format={{ type: 'currency' }}
+													/>
+												</span>
+											</div>
+
+											{donor && donor.hasProtectionPlan && (
+												<div>
+													<small>
+														{t('BOOKLET_ORDER.CREATE.ENROLLED_IN_PROTECTION_PLAN')}
+														<i className="u-icon u-icon--approve u-icon--base u-mar--left--sml"></i>
+													</small>
+												</div>
+											)}
+										</div>
 									</div>
 								</div>
 							)}

@@ -101,6 +101,7 @@ $header-height-mobile: 72px;
         right: 0;
         left: 0;
         bottom: 0;
+        padding: calc($unit * 2) calc($unit * 5);
 
         overflow-y: auto;
 
@@ -110,7 +111,6 @@ $header-height-mobile: 72px;
        
         @media (--screen-from-lrg) {
             left: $aside-secondary-width;
-        	padding: calc($unit * 3) calc($unit * 5);
         }
 
         &--secondary {
