@@ -18,8 +18,6 @@ const BookletOrderEditTemplate = function({ bookletOrderEditViewStore }) {
 		needsMoreFunds,
 	} = bookletOrderEditViewStore;
 
-	let totalBookletCount = 0;
-
 	return (
 		<EditFormLayout store={bookletOrderEditViewStore} layoutFooterVisible={false}>
 			<Content loading={contentLoading}>
@@ -85,7 +83,6 @@ const BookletOrderEditTemplate = function({ bookletOrderEditViewStore }) {
 						<div className="card--med card--primary u-mar--bottom--med">
 							<p className="type--color--opaque">Booklet Details (50 checks per book)</p>
 							{orderContents.map(item => {
-								totalBookletCount += item.denominationTypeValue * 50 * item.bookletCount;
 								return (
 									<BookletOrderEditRowTemplate
 										key={`${item.denominationTypeId}_${item.bookletTypeId}_${item.booklets.length}`}
@@ -97,13 +94,6 @@ const BookletOrderEditTemplate = function({ bookletOrderEditViewStore }) {
 									/>
 								);
 							})}
-
-							<div className="u-display--flex u-display--flex--justify--flex-end u-display--flex--align--baseline">
-								<span>Total:</span>
-								<span className="type--xlrg type--wgt--medium type--color--note u-mar--left--sml u-push--to--lrg">
-									<FormatterResolver item={{ total: totalBookletCount }} field="total" format={{ type: 'currency' }} />
-								</span>
-							</div>
 						</div>
 
 						<div className="type--right">
