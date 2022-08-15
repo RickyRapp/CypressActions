@@ -17,7 +17,7 @@ const BookletOrderEditTemplate = function({ bookletOrderEditViewStore }) {
 		order,
 	} = bookletOrderEditViewStore;
 	return (
-		<ApplicationEditLayout store={bookletOrderEditViewStore} footerClassName={'container--base'}>
+		<ApplicationEditLayout store={bookletOrderEditViewStore}>
 			<Content loading={contentLoading}>
 				<div className="container--sidebar container--sidebar--base u-padd--bottom--xlrg">
 					<div>
