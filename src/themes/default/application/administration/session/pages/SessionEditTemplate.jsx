@@ -28,33 +28,19 @@ const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 		onCharitySelected,
 		saveChanges,
 		advancedSearchModal,
+		loaderStore
 	} = sessionEditViewStore;
 	return (
 		<EditFormLayout
 			store={sessionEditViewStore}
 			emptyRenderer={<ApplicationEmptyState />}
-			loading={contentLoading}
+			loading={false}
 			layoutFooterVisible={false}
 		>
 			<div className="container--base">
 				<div className="card--primary card--med u-mar--bottom--med">
 					<h3 className="u-mar--bottom--med">General Data</h3>
 					<div className="row row--form">
-						{/* <div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
-                        <div className="form__group__label">{t('SESSION.EDIT.FIELDS.CHARITY_LABEL')}</div>
-                        
-                        <span className="input input--text input--lrg padd--top--tny input--disabled">
-                            {item && <React.Fragment>{item.charity.name}</React.Fragment>}
-                        </span> */}
-						{/* <BaasicFieldDropdown field={form.$('charityId')} store={charityDropdownStore} />
-                        {!form.$('charityId').disabled && <BaasicButton
-                            className="btn btn--icon"
-                            icon={`u-icon u-icon--preview u-icon--base`} //TODO: advanced search icon
-                            label={t('GRANT.CREATE.ADVANCED_CHARITY_FILTER_BUTTON')}
-                            onlyIcon={true}
-                            onClick={openAdvancedSearchModal}
-                        />} */}
-						{/* </div> */}
 						<div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--med">
 							<BasicInput field={form.$('charityName')} />
 						</div>
@@ -67,7 +53,7 @@ const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 						<div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
 							<BasicInput field={form.$('email')} />
 						</div>
-						<div className="form__group col col-sml-12 col-lrg-4">
+						<div className="form__group col col-sml-12 col-lrg-8">
 							<BasicInput field={form.$('description')} />
 						</div>
 						<div className="form__group col col-sml-12 col-lrg-4">
@@ -93,7 +79,7 @@ const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 								)}
 							</div>
 						</div>
-						<div className="form__group col col-sml-12 col-lrg-4 col-xlrg-4 u-mar--bottom--sml">
+						<div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
 							<div>
 								<label className="form__group__label">Created on</label>
 								{item && (
@@ -111,7 +97,7 @@ const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 
 			<div className="card--primary card--med u-mar--bottom--med">
 				<h3 className="u-mar--bottom--med">Certificates</h3>
-				<SimpleBaasicTable tableStore={tableStore} actionsComponent={renderActions} />
+				<SimpleBaasicTable tableItems={4} loading={loaderStore.loading} tableStore={tableStore} actionsComponent={renderActions} />
 				<div className="row row--form u-mar--top--lrg">
 					<div className="form__group col col-lrg-12">
 						{t('SESSION.EDIT.TOTAL_AMOUNT')}{' '}
@@ -195,12 +181,12 @@ function renderActions({ item, actions, actionsRender, t }) {
 		<td>
 			<div className="type--right">
 				{item.isCertificateApproved ? (
-					<span className="u-icon u-icon--approve u-icon--base" title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} />
+					<i className="u-icon u-icon--approve u-icon--base" title={t('SESSION.EDIT.LIST.BLANK_SESSION_APPROVED')} />
 				) : null}
 				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						onlyIconClassName="u-mar--right--tny"
+						onlyIconClassName="u-mar--left--tny"
 						icon="u-icon u-icon--edit u-icon--base"
 						label="SESSION.EDIT.LIST.BUTTON.EDIT_SESSION_CERTIFICATE"
 						onlyIcon={true}

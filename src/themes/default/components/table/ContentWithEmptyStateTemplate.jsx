@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { defaultRenderNoRecords, defaultRenderEmptyState } from 'core/components/table/utils';
-import BasicTableLoader from '../content-loader/BasicTableLoader';
+import { BasicTableLoader } from 'themes/components';
 
 const ContentWithEmptyStateTemplate = function(props) {
 	const {
