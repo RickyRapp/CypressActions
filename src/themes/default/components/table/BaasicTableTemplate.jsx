@@ -90,6 +90,7 @@ BaasicTableTemplate.propTypes = {
     infiniteScrollCallback: PropTypes.func,
     hideSearch: PropTypes.bool,
     hidePager: PropTypes.bool,
+    tableItems: PropTypes.number
 }
 BaasicTableTemplate.defaultProps = {
     scrollable: 'none',

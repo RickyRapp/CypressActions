@@ -1,37 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import {
-    BaasicButton,
-    BaasicTable,
-} from 'core/components';
+import { BaasicButton, BaasicTable } from 'core/components';
 import { Content } from 'core/layouts';
 import { isSome } from 'core/utils';
 
-function DonationLogTemplate({ donationLogViewStore, t }) {
-    const {
-        tableStore,
-        authorization,
-    } = donationLogViewStore;
+function DonationLogTemplate({ loading, donationLogViewStore, t }) {
+	const { tableStore, authorization } = donationLogViewStore;
 
-    return (
-        <Content>
-            <div>
-                <BaasicTable 
-                    authorization={authorization} 
-                    tableStore={tableStore} 
-                    actionsComponent={renderActions} 
-                />
-            </div>
-        </Content>
-    )
+	return (
+		<Content>
+			<div>
+				<BaasicTable
+					loading={loading}
+					tableItems={10}
+					authorization={authorization}
+					tableStore={tableStore}
+					actionsComponent={renderActions}
+				/>
+			</div>
+		</Content>
+	);
 }
 
 DonationLogTemplate.propTypes = {
-    donationLogViewStore: PropTypes.object.isRequired,
-    t: PropTypes.func
+	donationLogViewStore: PropTypes.object.isRequired,
+	t: PropTypes.func,
 };
-
 
 function renderActions({ item, actions, actionsRender }) {
 	if (!isSome(actions)) return null;
@@ -68,6 +63,7 @@ renderActions.propTypes = {
 	actions: PropTypes.object,
 	actionsRender: PropTypes.object,
 	authorization: PropTypes.any,
+	loading: PropTypes.bool
 };
 
 export default defaultTemplate(DonationLogTemplate);
