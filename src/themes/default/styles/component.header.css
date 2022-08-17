@@ -8,7 +8,7 @@
 	justify-content: flex-start;
 	background-color: $white;
 	align-items: center;
-	padding: 0 calc($unit * 8);
+	padding: 0 calc($unit * 5);
 
 	border-bottom: 1px solid color($color-text a(10%));
 	@mixin type-scale $type-medium, 1.25;

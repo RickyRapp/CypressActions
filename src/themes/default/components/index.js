@@ -108,6 +108,7 @@ export { default as EmailAddressTemplate } from './formatters/EmailAddressTempla
 export { default as BankAccountTemplate } from './formatters/BankAccountTemplate';
 
 export { default as ExportTemplate } from './export/ExportTemplate';
+export { default as CardItem } from './card-item/CardItem.jsx';
 
 export * from './empty-state';
 export * from './content-loader';
