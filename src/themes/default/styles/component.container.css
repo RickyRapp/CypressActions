@@ -6,6 +6,10 @@
 	width: 100%;
 	margin: 0 auto;
 
+	&--tny {
+		max-width: 425px;
+	}
+
 	&--sml {
 		max-width: 768px;
 	}

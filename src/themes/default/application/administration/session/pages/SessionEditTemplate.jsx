@@ -16,6 +16,7 @@ import { isSome } from 'core/utils';
 import { EditFormLayout, PageFooter } from 'core/layouts';
 import { EditBlankCertificate, RemoveSessionCertificate } from 'application/administration/session/components';
 import { CharityAdvancedSearch } from 'application/administration/charity/components';
+import { CardItem } from 'themes/components';
 
 const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 	const {
@@ -28,7 +29,7 @@ const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 		onCharitySelected,
 		saveChanges,
 		advancedSearchModal,
-		loaderStore
+		loaderStore,
 	} = sessionEditViewStore;
 	return (
 		<EditFormLayout
@@ -97,29 +98,52 @@ const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 
 			<div className="card--primary card--med u-mar--bottom--med">
 				<h3 className="u-mar--bottom--med">Certificates</h3>
-				<SimpleBaasicTable tableItems={4} loading={loaderStore.loading} tableStore={tableStore} actionsComponent={renderActions} />
-				<div className="row row--form u-mar--top--lrg">
-					<div className="form__group col col-lrg-12">
-						{t('SESSION.EDIT.TOTAL_AMOUNT')}{' '}
-						<FormatterResolver item={{ amount: item && item.amount }} field="amount" format={{ type: 'currency' }} />
-					</div>
-					<div className="form__group col col-lrg-12">
-						{t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_FEE')}{' '}
-						<FormatterResolver
-							item={{ amount: item && item.totalAmountForCharity }}
-							field="amount"
-							format={{ type: 'currency' }}
+				<SimpleBaasicTable
+					tableItems={4}
+					loading={loaderStore.loading}
+					tableStore={tableStore}
+					actionsComponent={renderActions}
+				/>
+
+				<div className="container--tny">
+					<div className="card--sml card--secondary u-mar--top--lrg">
+						<CardItem
+							t={t}
+							label={'SESSION.EDIT.TOTAL_AMOUNT'}
+							value={
+								<FormatterResolver
+									item={{ amount: item && item.amount }}
+									field="amount"
+									format={{ type: 'currency' }}
+								/>
+							}
 						/>
-					</div>
-					<div className="form__group col col-lrg-12">
-						{t('SESSION.EDIT.TOTAL_COUNT')} {item && item.grants.length}
-					</div>
-					<div className="form__group col col-lrg-12">
-						{t('SESSION.EDIT.TOTAL_CHECKS_ON_HOLD')}{' '}
-						<FormatterResolver
-							item={{ amount: item && item.totalPending }}
-							field="amount"
-							format={{ type: 'currency' }}
+						<CardItem
+							t={t}
+							label={'SESSION.EDIT.TOTAL_AMOUNT_AFTER_FEE'}
+							value={
+								<FormatterResolver
+									item={{ amount: item && item.totalAmountForCharity }}
+									field="amount"
+									format={{ type: 'currency' }}
+								/>
+							}
+						/>
+						<CardItem
+							t={t}
+							label={'SESSION.EDIT.TOTAL_COUNT'}
+							value={item && item.grants.length}
+						/>
+						<CardItem
+							t={t}
+							label={'SESSION.EDIT.TOTAL_CHECKS_ON_HOLD'}
+							value={
+								<FormatterResolver
+									item={{ amount: item && item.totalPending }}
+									field="amount"
+									format={{ type: 'currency' }}
+								/>
+							}
 						/>
 					</div>
 				</div>
