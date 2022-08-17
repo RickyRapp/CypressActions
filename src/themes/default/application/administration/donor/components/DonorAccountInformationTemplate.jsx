@@ -46,9 +46,9 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 							<div className="col col-sml-12 col-lrg-4">
 								<BasicInput field={form.$('lastName')} />
 							</div>
-							<div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml type--right">
-								{/* <label className="form__group__label">Date of Birth</label> */}
-							</div>
+							{/* <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml type--right">
+								<label className="form__group__label">Date of Birth</label>
+							</div> */}
 							<div className="form__group col col-sml-12 col-lrg-4">
 								<BaasicFieldDropdown store={monthDropdownStore} field={form.$('month')} />
 							</div>

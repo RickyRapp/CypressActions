@@ -79,7 +79,6 @@ const PendingDonationListTemplate = function({ pendingDonationViewStore, t }) {
 		dataItem: PropTypes.object.isRequired,
 	};
 
-	const selectedGrants = 0;
 	return (
 		<ApplicationListLayout store={pendingDonationViewStore} authorization={authorization} loading={loaderStore.loading}>
 			<Content>
