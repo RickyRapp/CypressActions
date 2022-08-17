@@ -364,12 +364,12 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
 				if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
 					this.paymentTypes = tempTypes.filter(c => {
-						return !['bill-pay', 'crypto-currency', 'cash'].includes(c.abrv);
+						return !['bill-pay', 'crypto-currency', 'cash', 'charity-account'].includes(c.abrv);
 					});
 				}
 				else {
 					this.paymentTypes = tempTypes.filter(c => {
-						return !['bill-pay', 'crypto-currency', 'credit-card', 'cash'].includes(c.abrv);
+						return !['bill-pay', 'crypto-currency', 'credit-card', 'cash', 'charity-account'].includes(c.abrv);
 					});
 				}
 				return this.paymentTypes;
