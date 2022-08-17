@@ -43,69 +43,69 @@ const ContributionListTemplate = function({ contributionViewStore, t }) {
 			<ApplicationListLayout store={contributionViewStore} authorization={authorization}>
 				<PageHeader routes={routes}></PageHeader>
 				<Content>
-					<div className="card--tertiary card--med u-mar--bottom--sml">
-						<div className="u-mar--bottom--med">
-							<TableFilter colClassName={'col col-sml-12 col-lrg-8'} queryUtility={queryUtility}>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown store={searchDonorDropdownStore} />
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown store={searchCharityDropdownStore} />
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown store={userTypeDropdownStore} />
-								</div>
-								<div className="u-mar--bottom--sml col col-sml-12 col-lrg-4">
-									<BaasicInput
-										id="confirmationNumber"
-										className="input input--lrg"
-										value={queryUtility.filter.confirmationNumber || ''}
-										onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
-										placeholder="CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicInput
-										id="paymentNumber"
-										className="input input--lrg"
-										value={queryUtility.filter.paymentNumber || ''}
-										onChange={event => (queryUtility.filter.paymentNumber = event.target.value)}
-										placeholder="CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown
-										store={paymentTypeDropdownStore}
-										placeholder="CONTRIBUTION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown
-										store={contributionStatusDropdownStore}
-										placeholder="CONTRIBUTION.LIST.FILTER.CONTRIBUTION_STATUS_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicInput
-										id="nameOnCheck"
-										className="input input--lrg"
-										value={queryUtility.filter.nameOnCheck || ''}
-										onChange={event => (queryUtility.filter.nameOnCheck = event.target.value)}
-										placeholder="CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicInput
-										id="dollarRange"
-										className="input input--lrg"
-										value={queryUtility.filter.dollarRange || ''}
-										onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
-										placeholder="CONTRIBUTION.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 u-mar--bottom--sml">
-									<div className="row row--form">
-										<div className="col col-sml-12 col-lrg-8">
+					<div>
+						<div className="container--base u-mar--bottom--med">
+							<div className="card--tertiary card--med u-mar--bottom--med">
+								<div className="">
+									<TableFilter queryUtility={queryUtility}>
+										<div className="col col-sml-12 col-med-6 col-xxxlrg-4 u-mar--bottom--sml">
+											<BaasicDropdown store={searchDonorDropdownStore} />
+										</div>
+										<div className="col col-sml-12 col-med-6 col-xxxlrg-4 u-mar--bottom--sml">
+											<BaasicDropdown store={searchCharityDropdownStore} />
+										</div>
+										<div className="col col-sml-12 col-med-6 col-xxxlrg-4 u-mar--bottom--sml">
+											<BaasicDropdown store={userTypeDropdownStore} />
+										</div>
+										<div className="u-mar--bottom--sml col col-sml-12 col-med-6 col-xxxlrg-4">
+											<BaasicInput
+												id="confirmationNumber"
+												className="input input--lrg"
+												value={queryUtility.filter.confirmationNumber || ''}
+												onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
+												placeholder="CONTRIBUTION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
+											/>
+										</div>
+										<div className="col col-sml-12 col-med-6 col-xxxlrg-4 u-mar--bottom--sml">
+											<BaasicInput
+												id="paymentNumber"
+												className="input input--lrg"
+												value={queryUtility.filter.paymentNumber || ''}
+												onChange={event => (queryUtility.filter.paymentNumber = event.target.value)}
+												placeholder="CONTRIBUTION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER"
+											/>
+										</div>
+										<div className="col col-sml-12 col-med-6 col-xxxlrg-4 u-mar--bottom--sml">
+											<BaasicDropdown
+												store={paymentTypeDropdownStore}
+												placeholder="CONTRIBUTION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
+											/>
+										</div>
+										<div className="col col-sml-12 col-med-6 col-xxxlrg-4 u-mar--bottom--sml">
+											<BaasicDropdown
+												store={contributionStatusDropdownStore}
+												placeholder="CONTRIBUTION.LIST.FILTER.CONTRIBUTION_STATUS_PLACEHOLDER"
+											/>
+										</div>
+										<div className="col col-sml-12 col-med-6 col-xxxlrg-4 u-mar--bottom--sml">
+											<BaasicInput
+												id="nameOnCheck"
+												className="input input--lrg"
+												value={queryUtility.filter.nameOnCheck || ''}
+												onChange={event => (queryUtility.filter.nameOnCheck = event.target.value)}
+												placeholder="CONTRIBUTION.LIST.FILTER.NAME_ON_CHECK_PLACEHOLDER"
+											/>
+										</div>
+										<div className="col col-sml-12 col-med-6 col-xxxlrg-4 u-mar--bottom--sml">
+											<BaasicInput
+												id="dollarRange"
+												className="input input--lrg"
+												value={queryUtility.filter.dollarRange || ''}
+												onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+												placeholder="CONTRIBUTION.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+											/>
+										</div>
+										<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--sml">
 											<DateRangeQueryPicker
 												queryUtility={queryUtility}
 												store={dateCreatedDateRangeQueryStore}
@@ -113,41 +113,52 @@ const ContributionListTemplate = function({ contributionViewStore, t }) {
 												toPropertyName="dateCreatedTo"
 											/>
 										</div>
+									</TableFilter>
+								</div>
+							</div>
+
+							<div className="card--primary card--med">
+								<div className="u-display--flex u-display--flex--wrap u-display--flex--justify--space-between w--100">
+									<div>
+										<BasicInput field={form.$('paymentNumber')} />
+
+										<span className="u-display--flex u-display--flex--align--center">
+											<span className="type--sml">Next ACH batch number:</span>
+											<span className="btn btn--base btn--link u-mar--left--tny" onClick={onAchNextPaymentNumberClick}>
+												{achBatchCurrentNumber + 1}
+											</span>
+										</span>
 									</div>
-								</div>
-							</TableFilter>
-						</div>
 
-						<BaasicButton
-							className="btn btn--med btn--med--med btn--ghost"
-							label={t('ACTIVITY.DEPOSIT_TAB.CSV_BUTTON')}
-							onClick={submitPending}
-						/>
+									<div>
+										<p className="form__group__label">Sum of selected items:</p>
+										<p className="type--xxxlrg">
+											{
+												<FormatterResolver
+													item={{ amount: selectedItemsSum }}
+													field="amount"
+													format={{ type: 'currency' }}
+												/>
+											}
+										</p>
+									</div>
 
-						<div className="row u-mar--top--med">
-							<div className="col col-sml-12 col-lrg-6 col-xxxlrg-3">
-								<BasicInput field={form.$('paymentNumber')} />
-								<div>
-									Next ACH batch number:{' '}
-									<span className="btn btn--sml btn--link" onClick={onAchNextPaymentNumberClick}>
-										{achBatchCurrentNumber + 1}
-									</span>
-								</div>
-							</div>
-							<div className="col col-sml-12 col-lrg-6 col-xxxlrg-3">
-								<p>Sum of selected items:</p>
-								<p style={{ fontSize: '2em' }} className="u-mar--top--sml">
-									{
-										<FormatterResolver
-											item={{ amount: selectedItemsSum }}
-											field="amount"
-											format={{ type: 'currency' }}
+									<div className="u-mar--left--med u-mar--top--med">
+										<BaasicButton
+											className="btn btn--med btn--ghost"
+											label={t('ACTIVITY.DEPOSIT_TAB.CSV_BUTTON')}
+											onClick={submitPending}
 										/>
-									}
-								</p>
+									</div>
+
+									<div className="col col-sml-12 col-lrg-6 col-xxlrg-4"></div>
+								</div>
 							</div>
 						</div>
-						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+
+						<div className="card--primary card--med">
+							<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
+						</div>
 					</div>
 				</Content>
 			</ApplicationListLayout>

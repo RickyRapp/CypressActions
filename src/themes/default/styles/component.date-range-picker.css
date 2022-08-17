@@ -16,9 +16,14 @@
 	}
 
 	&__wrapper {
+		/* max-width: 500px; */
 		display: flex;
-		gap: calc($unit * 4);
-
+		flex-direction: column;
+		
+		@media (--screen-from-xxlrg) {
+			flex-direction: row;
+			gap: calc($unit * 4);
+		}
 		/* max-width: 580px; */
 	}
 

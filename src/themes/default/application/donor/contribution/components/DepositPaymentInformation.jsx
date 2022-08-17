@@ -10,29 +10,13 @@ const DepositPaymentInformation = ({ item, t }) => {
 			
             <div className="card--secondary card--med">
 				<CardItem t={t} label={'CONTRIBUTION.DETAILS.PAYMENT_TYPE'} value={item && item.paymentType.name} />
-				<CardItem
-					t={t}
-					label={'CONTRIBUTION.DETAILS.AMOUNT'}
-					value={
-						item && <FormatterResolver item={{ amount: item.amount }} field="amount" format={{ type: 'currency' }} />
-					}
-				/>
+				<CardItem t={t} label={'CONTRIBUTION.DETAILS.AMOUNT'} value={item && <FormatterResolver item={{ amount: item.amount }} field="amount" format={{ type: 'currency' }} />} />
 				{item && item.isThirdParty && (
 					<React.Fragment>
 						<CardItem t={t} label={'CONTRIBUTION.DETAILS.PAYER_NAME'} value={item.payerInformation.name} />
 						<CardItem t={t} label={'CONTRIBUTION.DETAILS.PAYER_EMAIL'} value={item.payerInformation.email} />
 						<CardItem t={t} label={'CONTRIBUTION.DETAILS.PAYER_NUMBER'} value={item.payerInformation.number} />
-						<CardItem
-							t={t}
-							label={'CONTRIBUTION.DETAILS.PAYER_ADDRESS'}
-							value={
-								<FormatterResolver
-									item={{ address: item.payerInformation }}
-									field="address"
-									format={{ type: 'address', value: 'full' }}
-								/>
-							}
-						/>
+						<CardItem t={t} label={'CONTRIBUTION.DETAILS.PAYER_ADDRESS'} value={ <FormatterResolver item={{ address: item.payerInformation }} field="address" format={{ type: 'address', value: 'full' }} />} />
 					</React.Fragment>
 				)}
 			</div>
