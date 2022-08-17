@@ -17,12 +17,15 @@ const BookletOrderEditTemplate = function({ bookletOrderEditViewStore }) {
 		order,
 	} = bookletOrderEditViewStore;
 	return (
-		<ApplicationEditLayout store={bookletOrderEditViewStore}>
+		<ApplicationEditLayout
+			store={bookletOrderEditViewStore}
+			footerClassName={'container--sidebar container--sidebar--base'}
+		>
 			<Content loading={contentLoading}>
-				<div className="container--sidebar container--sidebar--base u-padd--bottom--xlrg">
+				<div className="container--sidebar container--sidebar--base">
 					<div>
 						<div className="card--primary card--med u-mar--bottom--med">
-							<div className="row row--form u-mar--bottom--lrg">
+							<div className="row row--form">
 								<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
 									<div className="form__group__label">Donor</div>
 									<span className="input input--text input--lrg padd--top--tny input--disabled">
@@ -37,51 +40,64 @@ const BookletOrderEditTemplate = function({ bookletOrderEditViewStore }) {
 								</div>
 								{order &&
 									(order.deliveryMethodType.abrv === 'mail-usps' ||
-										order.deliveryMethodType.abrv === 'express-mail') && (
+									order.deliveryMethodType.abrv === 'express-mail') && (
 										<div className="col col-sml-12 col-xxlrg-6">
+											<div className="form__group__label">Tracking number</div>
 											<BasicInput field={form.$('trackingNumber')} />
 										</div>
 									)}
 							</div>
 						</div>
 						{order && order.deliveryMethodType.abrv !== 'pick-up' ? (
-							<div className="card--primary card--med u-mar--bottom--med">
-								<div className="form__group__label">Address Line 1</div>
-								<BaasicInput
-									value={order.shippingAddressLine1}
-									onChange={e => (order.shippingAddressLine1 = e.target.value)}
-								/>
-								<div className="form__group__label">Address Line 2</div>
-								<BaasicInput
-									value={order.shippingAddressLine2}
-									onChange={e => (order.shippingAddressLine2 = e.target.value)}
-								/>
-								<div className="form__group__label">City</div>
-								<BaasicInput value={order.shippingCity} onChange={e => (order.shippingCity = e.target.value)} />
-								<div className="form__group__label">State</div>
-								<BaasicInput value={order.shippingState} onChange={e => (order.shippingState = e.target.value)} />
-								<div className="form__group__label">Zip Code</div>
-								<BaasicInput value={order.shippingZipCode} onChange={e => (order.shippingZipCode = e.target.value)} />
+							<div className="card--primary card--med">
+								<div className="u-mar--bottom--sml">
+									<div className="form__group__label">Address Line 1</div>
+									<BaasicInput
+										value={order.shippingAddressLine1}
+										onChange={e => (order.shippingAddressLine1 = e.target.value)}
+									/>
+								</div>
+								<div className="u-mar--bottom--sml">
+									<div className="form__group__label">Address Line 2</div>
+									<BaasicInput
+										value={order.shippingAddressLine2}
+										onChange={e => (order.shippingAddressLine2 = e.target.value)}
+									/>
+								</div>
+								<div className="u-mar--bottom--sml">
+									<div className="form__group__label">City</div>
+									<BaasicInput value={order.shippingCity} onChange={e => (order.shippingCity = e.target.value)} />
+								</div>
+								<div className="u-mar--bottom--sml">
+									<div className="form__group__label">State</div>
+									<BaasicInput value={order.shippingState} onChange={e => (order.shippingState = e.target.value)} />
+								</div>
+								<div className="u-mar--bottom--sml">
+									<div className="form__group__label">Zip Code</div>
+									<BaasicInput value={order.shippingZipCode} onChange={e => (order.shippingZipCode = e.target.value)} />
+								</div>
 								{/* <p><b>Shipping address: </b>{order.shippingAddressLine1 ? order.shippingAddressLine1 : ""}, {order.shippingAddressLine2 ? order.shippingAddressLine2 : ""}, {order.shippingCity ? order.shippingCity : ""}, {order.shippingState ? order.shippingState : ""}, {order.shippingZipCode ? order.shippingZipCode : ""}</ p> */}
 							</div>
 						) : null}
 					</div>
 					<div>
-						<div className="card--med card--primary u-mar--bottom--med">
-							<p className="type--color--opaque">Booklet Details (50 checks per book)</p>
-							{orderContents.map(item => {
-								return (
-									<BookletOrderEditRowTemplate
-										key={`${item.denominationTypeId}_${item.bookletTypeId}_${item.booklets.length}`}
-										item={item}
-										fetchFunc={fetchFunc}
-										bookletTypes={bookletTypes}
-										denominationTypes={denominationTypes}
-										onAddBookletsChange={onAddBookletsChange}
-									/>
-								);
-							})}
-						</div>
+						{orderContents.length > 0 && (
+							<div className="card--med card--primary u-mar--bottom--med">
+								<p className="type--color--opaque">Booklet Details (50 checks per book)</p>
+								{orderContents.map(item => {
+									return (
+										<BookletOrderEditRowTemplate
+											key={`${item.denominationTypeId}_${item.bookletTypeId}_${item.booklets.length}`}
+											item={item}
+											fetchFunc={fetchFunc}
+											bookletTypes={bookletTypes}
+											denominationTypes={denominationTypes}
+											onAddBookletsChange={onAddBookletsChange}
+										/>
+									);
+								})}
+							</div>
+						)}
 					</div>
 				</div>
 			</Content>

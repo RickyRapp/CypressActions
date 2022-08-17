@@ -12,7 +12,7 @@ const CustomCellTemplate = (props) => {
                     return (
                         <span
                             key={c.code}
-                            className="btn btn--link"
+                            className="btn btn--link type--left"
                             onClick={() => onClick(c.code)}>{c.code}{(i + 1) === dataItem.booklets.length ? '' : ', '}
                         </span>
                     )
