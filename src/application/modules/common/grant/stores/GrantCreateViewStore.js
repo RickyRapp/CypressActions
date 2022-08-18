@@ -170,7 +170,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 				this.setGrantAcknowledgmentName(this.form.$('grantAcknowledgmentTypeId').value);
 				this.onCharityChange(grant.charityId);
-				this.setSimilarGrantTable(grant.grantPurposeTypeId);
+				this.setSimilarGrantTable(grant.grantPurposeTypeId, grant.charityId);
 				this.setAmount(grant.amount);
 				this.form.$('amount').value = grant.amount;
 				this.form.$('charityId').value = grant.charityId;
@@ -364,7 +364,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@action.bound
 	onGrantPurposeTypeChange(value) {
 		this.setFieldRules(value);
-		this.setSimilarGrantTable(value);
+		this.setSimilarGrantTable(value, this.charityId);
 	}
 
 	@action.bound
@@ -561,7 +561,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.asyncPlaceholder = charityFormatter.format(charity, { value: 'charity-name-display' });
 		this.charity = charity;
 		this.setAddress(charity.charityAddresses.find(c => c.isPrimary));
-		this.setSimilarGrantTable(charity.charityTypeId);
+		this.setSimilarGrantTable(charity.charityTypeId, charity.id);
 		this.advancedSearchModal.close();
 	}
 
@@ -590,8 +590,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-	setSimilarGrantTable(value) {
-		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.charityTypeId === value).sort());
+	setSimilarGrantTable(value, charityId) {
+		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.charityTypeId === value && c.charityId !== charityId).sort());
 		if (!this.similarGrantsTableStore.dataInitialized) {
 			this.similarGrantsTableStore.dataInitialized = true;
 		}
@@ -708,7 +708,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 					});
 				},
 				onChange: value => {
-					this.setSimilarGrantTable(this.charityDropdownStore.value.item.charityTypeId);
+					this.setSimilarGrantTable(this.charityDropdownStore.value.item.charityTypeId, this.charityDropdownStore.value.item.id);
 					if (value) {
 						const address = this.charityDropdownStore.value.item.charityAddresses.find(c => c.isPrimary);
 						this.setAddress(address);
@@ -738,7 +738,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		} else {
 			this.setAddress(this.charity && this.charity.charityAddresses.find(c => c.isPrimary));
 		}
-		this.setSimilarGrantTable(this.charity.item.charityTypeId);
+		this.setSimilarGrantTable(this.charity.item.charityTypeId, this.charity.item.id);
 	}
 	@action.bound
 	setInputValue(value) {
