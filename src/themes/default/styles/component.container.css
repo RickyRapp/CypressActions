@@ -48,5 +48,13 @@
 				grid-template-columns: 1fr 750px;
 			}
 		}
+
+		&--half {
+			grid-template-columns: 1fr;
+			
+			@media (--screen-from-xlrg) {
+				grid-template-columns: 1fr 1fr;
+			}
+		}
 	}
 }

@@ -16,7 +16,7 @@ const DonorGivingCardSettingListTemplate = function ({ donorGivingCardSettingLis
         <div>
             <ListContent>
                 <h3 className=" u-mar--bottom--tny">
-                    {t('DONOR_GIVING_CARD_SETTING.LIST.TITLE')} xx
+                    {t('DONOR_GIVING_CARD_SETTING.LIST.TITLE')}
                 </h3>
                 {tableStore.dataInitialized &&
                     <Content>

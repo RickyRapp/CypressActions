@@ -44,8 +44,16 @@ function DonorTabTemplate({ donorTabViewStore, rootStore }) {
 				<TabsHeader tabsStore={donorTabViewStore}>{children().props.children}</TabsHeader>
 			</PageHeader>
 
-			<div className="container">{renderTabsContent(activeIndex, children().props.children)}</div>
-			{activeIndex == 4 ? '' : <div className={`${activeIndex == 1 || activeIndex == 2 ? "container--base" : ""}`}><DonorNoteList /></div>}
+			<div className={`${activeIndex > 0 ? 'container--sidebar container--sidebar--half' : ''}`}>
+				<div className="container">{renderTabsContent(activeIndex, children().props.children)}</div>
+				{activeIndex == 4 ? (
+					''
+				) : (
+					<div className={`${activeIndex == 1 || activeIndex == 2 ? 'container--base' : ''}`}>
+						<DonorNoteList />
+					</div>
+				)}
+			</div>
 		</Page>
 	);
 }
