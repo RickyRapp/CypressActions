@@ -26,6 +26,12 @@ class CharityBankAccountListViewStore extends BaseViewStore {
         const data = await this.rootStore.application.charity.charityStore.findCharityBank(params);
         this.bankAccounts = data.item;
         this.charity = await this.rootStore.application.charity.charityStore.getCharity(this.charityId, { embed: 'charityBankAccounts' });
+
+        var bankAcc = this.bankAccounts.find(b => b.isPrimary === true);
+        if(!this.editId && bankAcc){
+            this.editId = bankAcc.id;
+            this.onEnableEditClick(bankAcc);
+        }
     }
 
     @action.bound

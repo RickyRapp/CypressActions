@@ -17,7 +17,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
             name: 'charity-bank-account',
             id: props.editId,
             actions: {
-                get: async () => {
+                get: async () => { console.log("Edit 2",props.editId);
                     const data = await rootStore.application.charity.charityStore.getCharityBank(props.editId, { 
                         embed: 'accountHolder'
                      });
