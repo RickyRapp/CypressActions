@@ -25,11 +25,13 @@ function TransferConfirmTemplate({ modalParams, t }) {
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount--secondary">{item && item.addressLine1}</div>
             </section>
-            <section className="modal__list u-mar--bottom--med">
-                <div>{t('ACCEPT-SECURITY.CREATE.ADDRESS_LINE_2')}:&nbsp;</div>
-                <div className="modal__list__divider"></div>
-                <div className="modal__list__amount--secondary">{item && item.addressLine2}</div>
-            </section>
+            {item && item.addressLine2 &&
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('ACCEPT-SECURITY.CREATE.ADDRESS_LINE_2')}:&nbsp;</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount--secondary">{item && item.addressLine2}</div>
+                </section>
+            }
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('ACCEPT-SECURITY.CREATE.EMAIL')}:&nbsp;</div>
                 <div className="modal__list__divider"></div>
@@ -45,16 +47,20 @@ function TransferConfirmTemplate({ modalParams, t }) {
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount--secondary">{item && item.number}</div>
             </section>
-            <section className="modal__list u-mar--bottom--med">
-                <div>{t('ACCEPT-SECURITY.CREATE.NUMBER_OF_SHARES')}:&nbsp;</div>
-                <div className="modal__list__divider"></div>
-                <div className="modal__list__amount--secondary">{item && item.numberOfShares}</div>
-            </section>
-            <section className="modal__list u-mar--bottom--med">
-                <div>{t('ACCEPT-SECURITY.CREATE.SECURITY_SYMBOL')}:&nbsp;</div>
-                <div className="modal__list__divider"></div>
-                <div className="modal__list__amount--secondary">{item && item.securitySymbol}</div>
-            </section>
+            {item && item.numberOfShares &&
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('ACCEPT-SECURITY.CREATE.NUMBER_OF_SHARES')}:&nbsp;</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount--secondary">{item && item.numberOfShares}</div>
+                </section>
+            }
+            {item && item.securitySymbol &&
+                <section className="modal__list u-mar--bottom--med">
+                    <div>{t('ACCEPT-SECURITY.CREATE.SECURITY_SYMBOL')}:&nbsp;</div>
+                    <div className="modal__list__divider"></div>
+                    <div className="modal__list__amount--secondary">{item && item.securitySymbol}</div>
+                </section>
+            }
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('ACCEPT-SECURITY.CREATE.STATE')}:&nbsp;</div>
                 <div className="modal__list__divider"></div>
@@ -76,14 +82,14 @@ function TransferConfirmTemplate({ modalParams, t }) {
                     />
                 </div>
             </section>
-            
+
             <section className="modal__list u-mar--bottom--med">
                 <div>{t('ACCEPT-SECURITY.CREATE.BROKERAGE_INSTITUTION')}</div>
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount">{brokerageInstitution && brokerageInstitution.name}</div>
             </section>
-            
-            <section className="modal__list u-mar--bottom--med">
+
+            <section className="modal__list u-mar--bottom--lrg">
                 <div>{t('ACCEPT-SECURITY.CREATE.SECURITY_TYPE')}</div>
                 <div className="modal__list__divider"></div>
                 <div className="modal__list__amount">{securityType && securityType.name}</div>

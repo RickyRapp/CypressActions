@@ -162,7 +162,7 @@ function renderActions({ item, actions, authorization }) {
         return null;
 
     return (
-        <td className="table__body--data right">
+        <td className="table__body--data u-display--flex--justify--flex-end">
             <div className="table__icons">
                 {isSome(onPreview) ? (
                     <BaasicButton
@@ -170,7 +170,7 @@ function renderActions({ item, actions, authorization }) {
                             authorization ? authorization.read : null
                         }
                         className="btn btn--icon"
-                        icon="u-icon u-icon--preview u-icon--med"
+                        icon="u-icon u-icon--preview u-icon--base"
                         label="Preview"
                         onlyIcon={true}
                         onClick={() => onPreview(item)}
@@ -182,7 +182,7 @@ function renderActions({ item, actions, authorization }) {
                             authorization ? authorization.update : null
                         }
                         className="btn btn--icon"
-                        icon="u-icon u-icon--edit u-icon--sml"
+                        icon="u-icon u-icon--edit u-icon--base"
                         label="REMOTEDEPOSIT.LIST.BUTTON.EDIT"
                         onlyIcon={true}
                         onClick={() => onEdit(item)}
