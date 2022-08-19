@@ -12,6 +12,7 @@ class CharityDescriptionViewStore extends BaseEditViewStore{
                 return {
                     get: async () => {
                         const data = await rootStore.application.charity.charityStore.getCharity(rootStore.userStore.applicationUser.id);
+                        this.isEditEnabled = true;
                         return {
                             description: data.description
                         };
