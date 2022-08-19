@@ -590,7 +590,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-	setSimilarGrantTable(value, charityId) {
+	setSimilarGrantTable(value, charityId) { console.table(this.donor.similarGrants); console.log(charityId);  console.log(value);
 		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.charityTypeId === value && c.charityId !== charityId).sort());
 		if (!this.similarGrantsTableStore.dataInitialized) {
 			this.similarGrantsTableStore.dataInitialized = true;

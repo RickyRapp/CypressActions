@@ -133,7 +133,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 			this.setGrantAcknowledgmentName(this.form.$('grantAcknowledgmentTypeId').value);
 			this.setPreviousGrantTable(this.item.charityId);
-			this.setSimilarGrantTable(this.item.grantPurposeTypeId);
+			this.setSimilarGrantTable(this.item.grantPurposeTypeId, this.item.charityId);
 			this.setAmount(this.item.amount);
 
 			const formattedCharityAddress = addressFormatter.format(
@@ -226,12 +226,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		} else {
 			this.setAddress(charity && charity.item);
 		}
-		this.setSimilarGrantTable(this.charity.item.charityTypeId);
+		this.setSimilarGrantTable(this.charity.item.charityTypeId,this.charity.item.id);
 	}
 
 	@action.bound
 	onGrantPurposeTypeChange(value) {
-		this.setSimilarGrantTable(value);
+		this.setSimilarGrantTable(value, this.charity.id);
 	}
 
 	@action.bound
@@ -364,8 +364,8 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-	setSimilarGrantTable(value) {
-		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value));
+	setSimilarGrantTable(value, charityId) {
+		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value && c.charityId !== charityId).sort());
 		if (!this.similarGrantsTableStore.dataInitialized) {
 			this.similarGrantsTableStore.dataInitialized = true;
 		}
