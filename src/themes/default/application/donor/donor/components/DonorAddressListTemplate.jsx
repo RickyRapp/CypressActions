@@ -5,7 +5,14 @@ import { Address } from 'core/components';
 import { DonorAddressEditTemplate } from 'themes/application/donor/donor/components';
 
 const DonorAddressListTemplate = function({ donorAddressViewStore, t }) {
-	const { addresses, onEnableEditClick, onCancelEditClick, isEditEnabled, form, editId } = donorAddressViewStore;
+	const { 
+		addresses,
+		onEnableEditClick, 
+		onCancelEditClick, 
+		isEditEnabled, 
+		form, 
+		editId 
+	} = donorAddressViewStore;
 
 	let primaryAddress = null;
 	let secondaryAddress = null;

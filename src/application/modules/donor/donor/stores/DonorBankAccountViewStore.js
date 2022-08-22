@@ -24,6 +24,12 @@ class DonorBankAccountViewStore extends BaseViewStore {
         }
         const data = await this.rootStore.application.donor.donorStore.findBankAccount(params);
         this.bankAccounts = data.item;
+
+        let bankAcc = this.bankAccounts.find(b => b.isPrimary === true);
+        if(!this.editId && bankAcc){
+            this.editId = bankAcc.id;
+            this.onEnableEditClick(bankAcc);
+        }
     }
 
     @action.bound

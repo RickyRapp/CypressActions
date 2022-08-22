@@ -6,7 +6,7 @@ import { DonorAddressEditForm } from 'application/donor/donor/forms';
 @applicationContext
 class DonorAddressViewStore extends BaseViewStore {
     addressService = null;
-    @observable isEditEnabled = false;
+    @observable isEditEnabled = true;
     @observable editId = null;
     @observable addresses = [];
 
@@ -38,6 +38,10 @@ class DonorAddressViewStore extends BaseViewStore {
         }
         const data = await this.rootStore.application.donor.donorStore.findAddress(params);
         this.addresses = data.item;
+
+        let primaryAddress = this.addresses.find(b => b.isPrimary === true);
+        this.editId = primaryAddress && primaryAddress.id;
+        this.form.update(primaryAddress);
     }
 
     @action.bound

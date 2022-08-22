@@ -6,7 +6,7 @@ import { DonorEmailAddressEditForm } from 'application/donor/donor/forms';
 @applicationContext
 class DonorEmailAddressViewStore extends BaseViewStore {
     emailAddressService = null;
-    @observable isEditEnabled = false;
+    @observable isEditEnabled = true;
     @observable editId = null;
     @observable emailAddresses = [];
 
@@ -38,6 +38,10 @@ class DonorEmailAddressViewStore extends BaseViewStore {
         }
         const data = await this.rootStore.application.donor.donorStore.findEmailAddress(params);
         this.emailAddresses = data.item;
+
+        let primaryEmail = this.emailAddresses.find(e => e.isPrimary === true);
+        this.editId = primaryEmail && primaryEmail.id;
+        this.form.update(primaryEmail);
     }
 
     @action.bound

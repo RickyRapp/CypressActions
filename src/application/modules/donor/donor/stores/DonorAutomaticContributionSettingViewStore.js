@@ -2,10 +2,11 @@ import { BaseEditViewStore, BaasicDropdownStore } from 'core/stores';
 import { DonorAutomaticContributionSettingForm } from 'application/donor/donor/forms';
 import { action, observable } from 'mobx';
 import { applicationContext } from 'core/utils';
+import { toDataSourceRequestString } from '@progress/kendo-data-query';
 
 @applicationContext
 class DonorAutomaticContributionSettingViewStore extends BaseEditViewStore {
-    @observable isEditEnabled = false;
+    @observable isEditEnabled = toDataSourceRequestString;
 
     constructor(rootStore) {
         super(rootStore, {

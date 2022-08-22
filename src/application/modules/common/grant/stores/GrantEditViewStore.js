@@ -498,6 +498,10 @@ class GrantCreateViewStore extends BaseEditViewStore {
 						value: '$',
 					},
 				},
+				{
+					key: 'charity',
+					title: 'GRANT.LIST.COLUMNS.CHARITY_LABEL'
+				}
 			],
 		});
 	}

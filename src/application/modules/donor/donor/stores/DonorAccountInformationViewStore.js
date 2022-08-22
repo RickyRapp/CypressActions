@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 @applicationContext
 class DonorAccountInformationViewStore extends BaseEditViewStore {
-    @observable isEditEnabled = false;
+    @observable isEditEnabled = TextTrackCueList;
 
     constructor(rootStore) {
         super(rootStore, {

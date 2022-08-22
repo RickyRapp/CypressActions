@@ -38,6 +38,11 @@ class DonorPhoneNumberViewStore extends BaseViewStore {
         }
         const data = await this.rootStore.application.donor.donorStore.findPhoneNumber(params);
         this.phoneNumbers = data.item;
+
+        let primaryPhone = this.phoneNumbers.find(p => p.isPrimary === true);
+        this.editId = primaryPhone && primaryPhone.id;
+        this.form.update(primaryPhone);
+        this.isEditEnabled = true;
     }
 
     @action.bound

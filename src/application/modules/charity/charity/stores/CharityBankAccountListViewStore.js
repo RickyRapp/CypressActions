@@ -36,16 +36,13 @@ class CharityBankAccountListViewStore extends BaseViewStore {
 
     @action.bound
     onEnableEditClick(bankAccount) {
-        this.onCancelEditClick();
-        
         if (bankAccount) {
             this.editId = bankAccount.id;
-            this.isEditEnabled = true;
         }
         else {
             this.editId = undefined;
         }
-       
+        this.isEditEnabled = true;
     }
 
     @action.bound

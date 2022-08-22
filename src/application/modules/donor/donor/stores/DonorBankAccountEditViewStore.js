@@ -10,11 +10,12 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 			name: 'bank-account',
 			id: props.editId,
 			actions: {
-				get: async () => {
-					const data = await rootStore.application.donor.donorStore.getBankAccount(props.editId, {
+				get: async (id) => {
+					const data = await rootStore.application.donor.donorStore.getBankAccount(id || props.editId, {
 						embed: 'accountHolder',
 					});
-					return {
+					
+					return  {
 						id: data.id,
 						name: data.name,
 						accountNumber: data.accountNumber,
@@ -46,7 +47,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 						resource.email = this.primaryEmailAddress.email;
 						resource.number = this.primaryPhoneNumber.number;
 					}
-
+					console.log(resource);
 					await rootStore.application.donor.donorStore.updateBankAccount(resource);
 					if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
 						await rootStore.application.donor.donorStore.uploadDonorBankAccount(
@@ -181,6 +182,16 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 			},
 		});
 	}
+
+	@action.bound
+    onChangeEditId(editId){
+        Promise.resolve(this.actions.get(editId))
+			.then((data) => {
+				this.form.clear();
+				this.form.update(data);
+			});
+		
+    }
 }
 
 export default DonorBankAccountEditViewStore;

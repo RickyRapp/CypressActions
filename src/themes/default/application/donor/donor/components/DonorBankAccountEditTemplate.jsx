@@ -9,7 +9,7 @@ import {
 } from 'core/components';
 import { CharityPlaid } from 'application/charity/charity/components';
 
-function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
+function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId }) {
     const {
         title,
         form,
@@ -18,12 +18,14 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore }) {
         useDonorContactInformations,
         bankAccountCount,
         item,
-        imageUploadStore
+        imageUploadStore,
+        onChangeEditId
     } = donorBankAccountEditViewStore;
 
     return (
-        <EditFormContent form={form} >
+        <EditFormContent form={form} > 
             <div className="card--med card--primary">
+            {item && onChangeEditId(editId)}
             {/*<div>
 				{!item && <span>Create new bank account manually or using : </span>}
 					<div className="col col-sml-12 col-lrg-6">

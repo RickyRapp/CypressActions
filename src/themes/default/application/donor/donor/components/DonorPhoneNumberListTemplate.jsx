@@ -5,7 +5,14 @@ import { FormatterResolver } from 'core/components';
 import { DonorPhoneNumberEditTemplate } from 'themes/application/donor/donor/components';
 
 const DonorAddressListTemplate = function({ donorPhoneNumberViewStore, t }) {
-	const { phoneNumbers, onEnableEditClick, onCancelEditClick, isEditEnabled, form, editId } = donorPhoneNumberViewStore;
+	const { 
+		phoneNumbers,
+		onEnableEditClick, 
+		onCancelEditClick, 
+		isEditEnabled, 
+		form, 
+		editId 
+	} = donorPhoneNumberViewStore;
 
 	let primaryPhoneNumber = null;
 	let secondaryPhoneNumber = null;
