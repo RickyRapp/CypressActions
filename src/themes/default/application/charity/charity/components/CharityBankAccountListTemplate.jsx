@@ -72,7 +72,7 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 						);
 					})}
 				<div className="">
-					{isEditEnabled ? (<div> {console.log("Edit 1", editId) }
+					{isEditEnabled ? (<div>
 						<CharityBankAccountEdit
 							editId={editId}
 							onCancelEditClick={onCancelEditClick}

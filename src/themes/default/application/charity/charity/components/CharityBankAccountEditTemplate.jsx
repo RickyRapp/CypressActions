@@ -12,7 +12,7 @@ import {
 import { defaultTemplate } from 'core/hoc';
 import { CharityPlaid } from 'application/charity/charity/components';
 
-const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewStore, t, charity, editId }) {
+const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewStore }) {
 	const {
 		form,
 		imageUploadStore,
