@@ -373,23 +373,9 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 										<SimpleBaasicTable tableStore={previousGrantsTableStore} />
 									</div>
 
-									<div>
+									<div className="u-mar--bottom--med">
 										<h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
-										<div
-											className={
-												grantPurposeTypeDropdownStore &&
-												grantPurposeTypeDropdownStore.value &&
-												grantPurposeTypeDropdownStore.value.name &&
-												'card--primary card--med'
-											}
-										>
-											<h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">
-												{grantPurposeTypeDropdownStore &&
-													grantPurposeTypeDropdownStore.value &&
-													grantPurposeTypeDropdownStore.value.name}
-											</h5>
-											<SimpleBaasicTable tableStore={similarGrantsTableStore} />
-										</div>
+										<SimpleBaasicTable tableStore={similarGrantsTableStore} />
 									</div>
 								</div>
 							</div>

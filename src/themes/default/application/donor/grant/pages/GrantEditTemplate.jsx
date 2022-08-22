@@ -380,24 +380,10 @@ const GrantEditTemplate = function({ grantEditViewStore, t }) {
 										</div>
 									</div>
 
-									<div className="row row--form">
+									<div className="row row--form  u-mar--bottom--med">
 										<div className="card--primary card--med col col-sml-12 col-lrg-12">
 											<h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
-											<div
-												className={
-													grantPurposeTypeDropdownStore &&
-													grantPurposeTypeDropdownStore.value &&
-													grantPurposeTypeDropdownStore.value.name &&
-													'card--primary card--med'
-												}
-											>
-												<h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">
-													{grantPurposeTypeDropdownStore &&
-														grantPurposeTypeDropdownStore.value &&
-														grantPurposeTypeDropdownStore.value.name}
-												</h5>
 												<SimpleBaasicTable tableStore={similarGrantsTableStore} />
-											</div>
 										</div>
 									</div>
 								</div>

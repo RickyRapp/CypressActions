@@ -133,7 +133,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 			this.setGrantAcknowledgmentName(this.form.$('grantAcknowledgmentTypeId').value);
 			this.setPreviousGrantTable(this.item.charityId);
-			this.setSimilarGrantTable(this.item.grantPurposeTypeId, this.item.charityId);
+			this.setSimilarGrantTable(this.item.charity.charityTypeId, this.item.charityId);
 			this.setAmount(this.item.amount);
 
 			const formattedCharityAddress = addressFormatter.format(
@@ -364,8 +364,9 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	}
 
 	@action.bound
-	setSimilarGrantTable(value, charityId) {
-		this.similarGrantsTableStore.setData(this.donor.similarGrants.filter(c => c.grantPurposeTypeId === value && c.charityId !== charityId).sort());
+	async setSimilarGrantTable(value, charityId) {
+		let data = await this.grantStore.getSimilarByCharityType({donorId: this.donorId, charityId: charityId, charityTypeId: value});
+		this.similarGrantsTableStore.setData(data);
 		if (!this.similarGrantsTableStore.dataInitialized) {
 			this.similarGrantsTableStore.dataInitialized = true;
 		}

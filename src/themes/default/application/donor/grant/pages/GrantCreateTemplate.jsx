@@ -68,22 +68,11 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 		isMicroGiving,
 	} = grantCreateViewStore;
 
-	// let counter = 0;
-	// const countdown = () => setInterval(() => counter++, 1000);
 
 	let promiseOptions = inputValue =>
 		new Promise(resolve => {
 			inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
 		});
-	// let promiseOptionsv2 = (inputValue) =>
-	// 	new Promise(resolve => {
-	// 		if(counter > 1) {
-	// 			setTimeout(() => {
-	// 				resolve(inputValue.length >= 3 ? filterCharities(inputValue) : null);
-	// 			}, 1000);
-	// 			counter = 0;
-	// 		}
-	// 	});
 
 	return (
 		<React.Fragment>
@@ -652,18 +641,13 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 									)}
 
 									{similarGrantsTableStore.data.length > 0 && (
-										<div className="row row--form">
+										<div className="row row--form u-mar--bottom--med">
 											<div className="col col-sml-12 col-lrg-12">
 												<div>
 													<h4 className="type--base type--wgt--medium u-mar--bottom--med">
 														{t('GRANT.CREATE.SIMILAR_GRANTS')}
 													</h4>
 													<div>
-														<h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">
-															{grantPurposeTypeDropdownStore &&
-																grantPurposeTypeDropdownStore.value &&
-																grantPurposeTypeDropdownStore.value.name}
-														</h5>
 														<SimpleBaasicTable tableStore={similarGrantsTableStore} />
 													</div>
 												</div>
@@ -676,9 +660,6 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 					</div>
 				</div>
 			</EditFormLayout>
-			{/* <BaasicModal modalParams={confirmModal}>
-				<GrantConfirmDetailsTemplate form={form} />
-			</BaasicModal> */}
 			<BaasicModal modalParams={confirmModal}>
 				<GrantConfirmTemplate form={form} microGiving={MicroGivingValue} />
 			</BaasicModal>
