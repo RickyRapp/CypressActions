@@ -27,7 +27,7 @@ class CharityBankAccountListViewStore extends BaseViewStore {
         this.bankAccounts = data.item;
         this.charity = await this.rootStore.application.charity.charityStore.getCharity(this.charityId, { embed: 'charityBankAccounts' });
 
-        var bankAcc = this.bankAccounts.find(b => b.isPrimary === true);
+        let bankAcc = this.bankAccounts.find(b => b.isPrimary === true);
         if(!this.editId && bankAcc){
             this.editId = bankAcc.id;
             this.onEnableEditClick(bankAcc);
@@ -36,14 +36,16 @@ class CharityBankAccountListViewStore extends BaseViewStore {
 
     @action.bound
     onEnableEditClick(bankAccount) {
-        this.editId = null;
+        this.onCancelEditClick();
+        
         if (bankAccount) {
             this.editId = bankAccount.id;
+            this.isEditEnabled = true;
         }
         else {
             this.editId = undefined;
         }
-        this.isEditEnabled = true;
+       
     }
 
     @action.bound

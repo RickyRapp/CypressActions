@@ -37,7 +37,7 @@ class CharityAddressViewStore extends BaseViewStore {
         }
         const data = await this.rootStore.application.charity.charityStore.findCharityAddress(params);
         this.addresses = data.item;
-        var primaryAddress = this.addresses.find(b => b.isPrimary === true);
+        let primaryAddress = this.addresses.find(b => b.isPrimary === true);
         this.editId = primaryAddress && primaryAddress.id;
         this.form.update(primaryAddress);
         this.isEditEnabled = true;
