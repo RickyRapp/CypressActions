@@ -42,6 +42,7 @@ class DonorEmailAddressViewStore extends BaseViewStore {
         let primaryEmail = this.emailAddresses.find(e => e.isPrimary === true);
         this.editId = primaryEmail && primaryEmail.id;
         this.form.update(primaryEmail);
+        this.isEditEnabled = true;
     }
 
     @action.bound
@@ -71,7 +72,6 @@ class DonorEmailAddressViewStore extends BaseViewStore {
             await this.rootStore.application.donor.donorStore.updateEmailAddress({ ...entity, id: this.editId });
             this.rootStore.notificationStore.success(message ? message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             await this.loadEmailAddress();
-            this.onCancelEditClick();
         }
         catch (err) {
             this.rootStore.notificationStore.error("Error", err);
@@ -88,7 +88,6 @@ class DonorEmailAddressViewStore extends BaseViewStore {
 
             this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
             await this.loadEmailAddress();
-            this.onCancelEditClick();
         }
         catch (err) {
             this.rootStore.notificationStore.error("Error", err);

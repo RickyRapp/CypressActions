@@ -47,7 +47,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 						resource.email = this.primaryEmailAddress.email;
 						resource.number = this.primaryPhoneNumber.number;
 					}
-					console.log(resource);
+
 					await rootStore.application.donor.donorStore.updateBankAccount(resource);
 					if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
 						await rootStore.application.donor.donorStore.uploadDonorBankAccount(

@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 @applicationContext
 class DonorAccountInformationViewStore extends BaseEditViewStore {
-    @observable isEditEnabled = TextTrackCueList;
+    @observable isEditEnabled = true;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -26,6 +26,11 @@ class DonorAccountInformationViewStore extends BaseEditViewStore {
                 }
             },
             FormClass: DonorEditForm,
+            onAfterAction: async () => {
+                this.isEditEnabled = true;
+				await this.getResource();
+                rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE')
+			},
         });
 
         this.donorId = this.id;
