@@ -19,7 +19,7 @@ const ReconcileEditTemplate = function ({ reconcileEditViewStore }) {
 
     return (
         <EditFormContent form={form} >
-            <div className="card--med card--primary">
+            <div className="">
                 <div className="row">
                     <div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
                         <div>

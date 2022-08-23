@@ -114,5 +114,10 @@ class GrantStore {
         const response = await this.scheduledGrantService.cancel(resource);
         return response.data;
     }
+
+    async getSimilarByCharityType(params){
+        const response = await this.grantService.getSimilarByCharityType(params);
+        return response.data;
+    }
 }
 export default GrantStore;

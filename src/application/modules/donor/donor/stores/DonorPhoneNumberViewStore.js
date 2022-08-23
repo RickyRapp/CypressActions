@@ -38,6 +38,11 @@ class DonorPhoneNumberViewStore extends BaseViewStore {
         }
         const data = await this.rootStore.application.donor.donorStore.findPhoneNumber(params);
         this.phoneNumbers = data.item;
+
+        let primaryPhone = this.phoneNumbers.find(p => p.isPrimary === true);
+        this.editId = primaryPhone && primaryPhone.id;
+        this.form.update(primaryPhone);
+        this.isEditEnabled = true;
     }
 
     @action.bound
@@ -67,7 +72,6 @@ class DonorPhoneNumberViewStore extends BaseViewStore {
             await this.rootStore.application.donor.donorStore.updatePhoneNumber({ ...entity, id: this.editId });
             this.rootStore.notificationStore.success(message ? message : 'EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
             await this.loadPhoneNumbers();
-            this.onCancelEditClick();
         }
         catch (err) {
             this.rootStore.notificationStore.error("Error", err);
@@ -84,7 +88,6 @@ class DonorPhoneNumberViewStore extends BaseViewStore {
 
             this.rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_CREATE');
             await this.loadPhoneNumbers();
-            this.onCancelEditClick();
         }
         catch (err) {
             this.rootStore.notificationStore.error("Error", err);

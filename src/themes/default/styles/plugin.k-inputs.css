@@ -27,7 +27,7 @@
 	display: flex;
 	align-items: center;
 
-	height: calc($unit * 10);
+	height: calc($unit * 8);
 
 	@media (--screen-to-med) {
 		height: calc($unit * 8);
@@ -69,7 +69,7 @@
 }
 
 .react-select__control {
-	min-height: 60px !important;
+	min-height: calc($unit * 8) !important;
 
 	&:hover,
 	&:focus,

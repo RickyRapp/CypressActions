@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '@progress/kendo-react-tooltip';
 
 const CharityNameCell = ({ data }) => {
     const { dataItem } = data;
@@ -8,10 +8,9 @@ const CharityNameCell = ({ data }) => {
 
     return (
         <td>
-            <span data-tip={`${charity.name}`} data-type="info" style={{ cursor: 'pointer' }}>
-                {charity.name}
-                <ReactTooltip />
-            </span>
+            <Tooltip anchorElement="target" position="top">
+                <span style={{ cursor: 'pointer' }} title={charity.name}>{charity.name}</span>
+            </Tooltip>
         </td>
     )
 }

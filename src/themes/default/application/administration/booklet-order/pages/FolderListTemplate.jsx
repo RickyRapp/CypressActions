@@ -1,53 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import {
-	BaasicButton,
-	BaasicTable,
-	TableFilter,
-	BaasicDropdown,
-	BaasicInput,
-	DateRangeQueryPicker,
-	BaasicModal,
-	BaasicTableWithRowDetails,
-	BasicFieldCheckbox,
-	BasicCheckbox,
-} from 'core/components';
+import { BaasicButton, BaasicTable } from 'core/components';
 import { isSome } from 'core/utils';
-import { ApplicationListLayout, Content, PageHeader } from 'core/layouts';
-import { SelectDonor } from 'application/administration/donor/components';
+import { Content, PageHeader } from 'core/layouts';
 
-const FolderListTemplate = function ({ folderListViewStore }) {
-	const {
-		routes,
-		tableStore,
-		queryUtility,
-		authorization,
-		searchDonorDropdownStore,
-		deliveryMethodTypeDropdownStore,
-		bookletOrderStatusDropdownStore,
-		dateCreatedDateRangeQueryStore,
-		selectDonorModal,
-		selectDefaults,
-		exportList,
-		mailModel
-	} = folderListViewStore;
+const FolderListTemplate = function({ folderListViewStore }) {
+	const { routes, tableStore } = folderListViewStore;
 
 	return (
 		<React.Fragment>
-				<PageHeader routes={routes}></PageHeader>
-				<Content>
-					<div className="card--tertiary card--med u-mar--bottom--sml">
-							<BaasicTable
-								tableStore={tableStore}
-								loading={tableStore.loading}
-								className="k-grid--actions"
-								actionsComponent={renderActions}
-							/>
-						{/* <BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} /> */}
-					</div>
-				</Content>
-				{/* <BaasicModal modalParams={selectDonorModal}>
+			<PageHeader routes={routes}></PageHeader>
+			<Content>
+				<div className="card--tertiary card--med u-mar--bottom--sml">
+					<BaasicTable
+						tableStore={tableStore}
+						loading={tableStore.loading}
+						className="k-grid--actions"
+						actionsComponent={renderActions}
+					/>
+					{/* <BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} /> */}
+				</div>
+			</Content>
+			{/* <BaasicModal modalParams={selectDonorModal}>
 					<SelectDonor />
 				</BaasicModal> */}
 		</React.Fragment>
@@ -56,6 +31,7 @@ const FolderListTemplate = function ({ folderListViewStore }) {
 
 FolderListTemplate.propTypes = {
 	bookletOrderViewStore: PropTypes.object.isRequired,
+	folderListViewStore: PropTypes.any,
 	t: PropTypes.func,
 };
 
@@ -99,17 +75,16 @@ function renderActions({ item, actions, actionsRender }) {
 				{isSome(onCancel) && cancelRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--cancel u-icon--base u-mar--right--tny"
+						icon="u-icon u-icon--cancel u-icon--base"
 						label="BOOKLET_ORDER.LIST.BUTTON.CANCEL"
 						onlyIcon={true}
 						onClick={() => onCancel(item)}
 					></BaasicButton>
-				) : null
-				}
+				) : null}
 				{isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
-						icon="u-icon u-icon--edit u-icon--base u-mar--right--tny"
+						icon="u-icon u-icon--edit u-icon--base u-mar--left--tny"
 						label="BOOKLET_ORDER.LIST.BUTTON.EDIT"
 						onlyIcon={true}
 						onClick={() => onEdit(item)}
@@ -119,7 +94,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						authorization="theDonorsFundAdministrationSection.update"
 						className="btn btn--icon"
-						icon="u-icon u-icon--approve u-icon--base u-mar--right--tny"
+						icon="u-icon u-icon--approve u-icon--base u-mar--left--tny"
 						label="BOOKLET_ORDER.LIST.BUTTON.REVIEW"
 						onlyIcon={true}
 						onClick={() => onReview(item.id)}
@@ -129,7 +104,7 @@ function renderActions({ item, actions, actionsRender }) {
 					<BaasicButton
 						authorization="theDonorsFundAdministrationSection.read"
 						className="btn btn--icon"
-						icon="u-icon u-icon--preview u-icon--base"
+						icon="u-icon u-icon--preview u-icon--base u-mar--left--tny"
 						label="BOOKLET_ORDER.LIST.BUTTON.PREVIEW"
 						onlyIcon={true}
 						onClick={() => onDetails(item.id)}

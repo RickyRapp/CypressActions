@@ -35,7 +35,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
 					className={`col col-sml-12 col-lrg-${(isEditEnabled) || undefined === editId ? '12' : '9'
 						}`}
 				>
-					{isEditEnabled && primaryAddress && primaryAddress.id === editId ? (
+					{isEditEnabled && primaryAddress && primaryAddress.id === editId ? ( 
 						<CharityAddressEditForm
 							form={form}
 							title="Primary"

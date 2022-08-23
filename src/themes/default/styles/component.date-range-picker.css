@@ -1,0 +1,47 @@
+.c-date-range {
+	position: absolute;
+	top: 0;
+
+	height: calc($unit * 10);
+	width: 100%;
+
+	opacity: 0;
+
+	& .datepicker__item--aside {
+		display: none;
+	}
+
+	& .datepicker__item {
+		width: 100%;
+	}
+
+	&__wrapper {
+		/* max-width: 500px; */
+		display: flex;
+		flex-direction: column;
+		
+		@media (--screen-from-xxlrg) {
+			flex-direction: row;
+			gap: calc($unit * 4);
+		}
+		/* max-width: 580px; */
+	}
+
+	&__input {
+		position: relative;
+		display: inline-block;
+
+		flex: 1;
+		min-width: calc($unit * 40);
+		
+		margin-bottom: calc($unit * 2);
+		
+		& input {
+			cursor: pointer;
+		}
+	}
+
+	&__period {
+		flex: 1;
+	}
+}

@@ -3,17 +3,32 @@
 \*------------------------------------*/
 
 .charity-information {
-    &__card {
-        display: flex;
-        justify-content: flex-start;
+	&__card {
+		display: flex;
+		justify-content: flex-start;
 
-        padding: calc($unit * 2) calc($unit * 4);
-        background-color: $color-background;
-        border-radius: $radius-base;
+		padding: calc($unit * 2) calc($unit * 4);
+		background-color: $color-background;
+		border-radius: $radius-base;
+
+		&--secondary {
+			text-align: left;
+			font-weight: $type-weight-medium;
+		}
+
+		&__list {
+            padding: calc($unit * 3);
+            margin-bottom: calc($unit * 4);
+            
+            background-color: $color-background;
+			border-radius: $radius-base;
+		}
         
-        &--secondary {
-            text-align: left;
-            font-weight: $type-weight-medium;
-        }
-    }
+		&__item {
+            display: flex;
+			justify-content: flex-start;
+            
+            padding: $unit 0;
+		}
+	}
 }

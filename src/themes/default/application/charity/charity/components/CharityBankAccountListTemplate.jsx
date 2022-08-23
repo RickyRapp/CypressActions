@@ -72,7 +72,7 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 						);
 					})}
 				<div className="">
-					{isEditEnabled ? (
+					{isEditEnabled ? (<div>
 						<CharityBankAccountEdit
 							editId={editId}
 							onCancelEditClick={onCancelEditClick}
@@ -80,6 +80,9 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 							bankAccountCount={bankAccounts.length}
 							charity={charity}
 						/>
+
+					</div>
+						
 					) : (
 						<div className="cursor--pointer type--right" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
 							<button className="btn btn--link btn--sml">Add new bank account</button>

@@ -29,7 +29,7 @@ const DonorBankAccountListTableTemplate = function ({ donorBankAccountViewStore,
                     {t('BANK_ACCOUNT.LIST.TITLE')}
                     <BaasicButton
                         className="btn btn--icon"
-                        onlyIconClassName="u-mar--right--tny"
+                        onlyIconClassName="u-mar--left--tny"
                         icon='u-icon u-icon--add u-icon--base'
                         label='BANK_ACCOUNT.LIST.BUTTON.CREATE'
                         onlyIcon={true}

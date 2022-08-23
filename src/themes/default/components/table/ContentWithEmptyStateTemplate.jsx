@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { defaultRenderNoRecords, defaultRenderEmptyState } from 'core/components/table/utils';
+import { BasicTableLoader } from 'themes/components';
 
-const ContentWithEmptyStateTemplate = function (props) {
+const ContentWithEmptyStateTemplate = function(props) {
 	const {
 		loading,
 		noRecordsComponent,
@@ -12,17 +13,20 @@ const ContentWithEmptyStateTemplate = function (props) {
 		children,
 		hasData,
 		dataInitialized,
+		tableItems,
 	} = props;
 
-	return dataInitialized ? (
+	return loading ? (
+		<BasicTableLoader tableItems={tableItems} />
+	) : dataInitialized ? (
 		hasData ? (
 			<Fragment>{children}</Fragment>
 		) : (
-				defaultRenderNoRecords(noRecordsComponent, noRecordsState)
-			)
+			defaultRenderNoRecords(noRecordsComponent, noRecordsState)
+		)
 	) : (
-			!loading && defaultRenderEmptyState(emptyStateComponent, emptyState)
-		);
+		defaultRenderEmptyState(emptyStateComponent, emptyState)
+	);
 };
 
 ContentWithEmptyStateTemplate.propTypes = {
@@ -33,6 +37,7 @@ ContentWithEmptyStateTemplate.propTypes = {
 	emptyState: PropTypes.object,
 	hasData: PropTypes.bool,
 	dataInitialized: PropTypes.bool,
+	tableItems: PropTypes.number,
 };
 
 export default ContentWithEmptyStateTemplate;

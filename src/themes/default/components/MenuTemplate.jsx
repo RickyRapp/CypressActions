@@ -1,10 +1,11 @@
 import React from 'react';
 import { inject } from 'mobx-react';
 import { PropTypes } from 'prop-types';
-import { NotifyOutsideClick } from 'core/components';
+import { FormatterResolver, NotifyOutsideClick } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import logo from 'themes/styles/postcss-svg/old/logo-app.svg';
 import logo_collapsed from 'themes/styles/postcss-svg/old/logo-collapsed.svg';
+import ReactTooltip from 'react-tooltip';
 
 function MenuTemplate({ menuStore, t }) {
     return (
@@ -19,63 +20,74 @@ function MenuTemplate({ menuStore, t }) {
 function renderPrimary(menu, menuStore, translate) {
     return (
         <React.Fragment>
-            {renderMenuHeader(menuStore, translate)}
+            {renderMenuHeader(menu,menuStore, translate)}
 
             <div className={menuStore.isOpen ? 'nav--primary' : 'nav--primary'}>
                 {menu.map((item) => {
                     const title = translate(item.title);
-                    let className = title === "Give" ? 'nav--primary__item nav--primary__item--give' : 'nav--primary__item';
+                    let className = '';
+
+                    const secondaryMenuOpen = () => {
+                        if (title === "Manage Fund" && menuStore.isCollapsed) {
+                            menuStore.toggleCollapse();
+                            menuStore.toggleSecondaryMenu();
+                        } else if (title === "Manage Fund") {
+                            menuStore.toggleSecondaryMenu();
+                        } else {
+                            menuStore.selectMenuItem(item);
+                        }
+                    }
 
                     if (menuStore.selectedPath && menuStore.selectedPath.length > 0) {
                         if (menuItemActive(item, menuStore.selectedPath)) {
-                            className += ' selected';
+                            className += 'selected';
                         }
                     }
                     if (menuItemActive(item, menuStore.activePath)) {
-                        className += ' active';
+                        className += 'active';
                     }
-                    if (className.includes('selected') || (item.hasChildren && className.includes('active'))) {
-                        return (
-                            <React.Fragment key={title}>
 
-                                <div className={title === "Give" ? `${className}--give` : className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
-                                    <i className={!menuStore.isCollapsed ? `u-icon u-icon--xmed u-icon--${item.icon}` : `u-icon u-icon--xmed u-icon--${item.icon} u-mar--center`}></i>
-                                    {!menuStore.isCollapsed &&
-                                        <span title={title} className={title === "Give" ? "u-mar--left--med" : "nav--secondary__text u-mar--left--med"}>
-                                            {title}
-                                        </span>}
-                                    {item.hasChildren ? (
-                                        <span className="nav--primary__icon">
-                                            <span className="u-icon u-icon--base u-icon--arrow-up"></span>
-                                        </span>
-                                    ) : null}
-                                </div>
+                    // if (className.includes('selected') || (item.hasChildren && className.includes('active'))) {
+                    return (
+                        <React.Fragment key={title}>
+                            <div data-tip={`${title}`} className={`nav--primary__item ${title === "Give" ? "nav--primary__item--give" : className}`} aria-label={title} onClick={secondaryMenuOpen}>
+                                <i className={!menuStore.isCollapsed ? `u-icon u-icon--med u-icon--${item.icon}` : `u-icon u-icon--med u-icon--${item.icon} u-mar--center`}></i>
+                                {!menuStore.isCollapsed &&
+                                    <span title={title} className={title === "Give" ? "u-mar--left--base" : "nav--secondary__text u-mar--left--base"}>
+                                        {title}
+                                    </span>}
+                                {item.hasChildren ? (
+                                    <span className="nav--primary__icon">
+                                        <span className={`u-icon u-icon--base u-icon--arrow-up ${menuStore.secondaryMenuIsOpen ? "" : "u-rotate--180"}`}></span>
+                                    </span>
+                                ) : null}
+
+                                {menuStore.isCollapsed &&
+                                    <ReactTooltip place={"right"} />
+                                }
+                            </div>
+
+                            {menuStore.secondaryMenuIsOpen &&
                                 <SecondaryMenu items={item.subMenu} />
-
-                            </React.Fragment>
-                        );
-                    } else {
-                        return (
-                            <React.Fragment key={title}>
-
-                                <div className={className} aria-label={title} onClick={() => menuStore.selectMenuItem(item)}>
-                                    <i className={!menuStore.isCollapsed ? `u-icon u-icon--xmed u-icon--${item.icon}` : `u-icon u-icon--xmed u-icon--${item.icon} u-mar--center`} title={title}></i>
-                                    {!menuStore.isCollapsed &&
-                                        <span title={title} className={title === "Give" ? "u-mar--left--med" : "nav--secondary__text u-mar--left--med"}>
-                                            {title}
-                                        </span>}
-                                    {item.hasChildren ? (
-                                        <span className="nav--primary__icon">
-                                            <span className="u-icon u-icon--base u-icon--arrow-down"></span>
-                                        </span>
-                                    ) : null}
-                                </div>
-
-                            </React.Fragment>
-                        );
-                    }
-
+                            }
+                        </React.Fragment>
+                    );
                 })}
+                { menuStore.rootStore.userStore.applicationUser
+                 && menuStore.rootStore.userStore.applicationUser.donor &&
+                 <div className="nav--primary__balance">
+                <p className="nav--primary__balance__label">
+                    AVAILABLE BALANCE
+                </p>
+                <p className="nav--primary__balance__amount">
+                    <FormatterResolver
+						item={{ balance: menuStore.rootStore.userStore.applicationUser.donor.availableBalance }}
+                        field="balance"
+						format={{ type: 'currency' }}
+					/>
+                </p>
+                </div> }
+
             </div>
             {
                 renderMenuFooter(menuStore, translate)
@@ -146,16 +158,16 @@ function SecondaryItems({ items, menuStore, t }) {
     );
 }
 
-function renderMenuHeader(menuStore, t) {
+function renderMenuHeader(menu, menuStore, t) {
+    const menuDashboard = menu.find((item) => item.title === "MENU.DASHBOARD");
+    
     return (
-        <div className="nav--primary__logo">
-            <a href="/">
-                <img
-                    className='header__logo'
-                    src={menuStore.isCollapsed ? logo_collapsed : logo}
-                    alt='logo'
+        <div className="nav--primary__logo" onClick={() => menuStore.selectMenuItem(menuDashboard)}>
+            <img
+                className='header__logo'
+                src={menuStore.isCollapsed ? logo_collapsed : logo}
+                alt='logo'
                 />
-            </a>
             <div className="nav--primary__close" onClick={() => menuStore.toggleMenuOpen()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
                 <i className="u-icon u-icon--base u-icon--close-menu"></i>
             </div>
@@ -167,14 +179,18 @@ function renderMenuFooter(menuStore, t) {
     return (
         <React.Fragment>
             <div className="nav--primary__footer">
-                <div className="nav--primary__item--logout" onClick={() => menuStore.rootStore.viewStore.logout()}>
-                    {menuStore.isCollapsed ? <i className="u-icon u-icon--xmed u-icon--logout"></i>
+                <div className="nav--primary__item--logout" onClick={() => menuStore.rootStore.viewStore.logout()} data-tip={t('MENU.FOOTER.LOGOUT')}>
+                    {menuStore.isCollapsed ? <i className="u-icon u-icon--med u-icon--logout"></i>
                         : <span>{t('MENU.FOOTER.LOGOUT')}</span>
                     }
                 </div>
                 <div className="nav--primary__item--menu" onClick={() => menuStore.toggleCollapse()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
                     {menuStore.isCollapsed ? <i className="u-icon u-icon--base u-icon--arrow-right"></i> : <i className="u-icon u-icon--base u-icon--arrow-left"></i>}
                 </div>
+
+                {menuStore.isCollapsed &&
+                    <ReactTooltip place={"right"} />
+                }
             </div>
 
         </React.Fragment>

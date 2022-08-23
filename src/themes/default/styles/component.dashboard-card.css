@@ -23,6 +23,14 @@
 	@media (--screen-from-sml) {
 		min-height: 502px;
 	}
+	
+	&--graph {
+		min-height: auto;
+		
+		@media (--screen-from-lrg) {
+			min-height: 502px;
+		}
+	}
 
 	@media (--screen-to-xlrg) {
 		height: 100%;

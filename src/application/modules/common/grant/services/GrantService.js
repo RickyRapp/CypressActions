@@ -71,6 +71,11 @@ class GrantService extends BaseService {
         const url = this.routeService.cancel(resource);
         return this.apiClient.put(url, resource);
     }
+
+    getSimilarByCharityType(params){
+        const url = this.routeService.getSimilarByCharityType(params);
+        return this.apiClient.get(url);
+    }
 }
 
 export default GrantService;

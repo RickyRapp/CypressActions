@@ -61,7 +61,7 @@
 	&__table {
 		&--head {
 			background: $color-background;
-			height: calc($unit * 10);
+			height: calc($unit * 8);
 			align-items: center;
 			color: $heather;
 		}

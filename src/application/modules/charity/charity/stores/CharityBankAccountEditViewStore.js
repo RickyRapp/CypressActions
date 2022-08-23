@@ -196,7 +196,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
     async getImage(fileId) {
         if (this.attachment != null) {
             try {
-                var service = new CharityFileStreamService(this.rootStore.application.baasic.apiClient);
+                let service = new CharityFileStreamService(this.rootStore.application.baasic.apiClient);
                 this.imageLoading = true;
                 const response = await service.get(fileId);
                 this.imageLoading = false;

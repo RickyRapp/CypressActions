@@ -17,9 +17,10 @@ import {
 import { AccountManager } from 'application/donor/donor/components';
 import { DonorGivingCardActivationTemplate } from '../../donor/components';
 import { Transaction } from 'application/donor/activity/transaction/components';
-import { GivingGoalsTemplate, YourFundsCardTemplate } from '../components';
+import { GivingGoalsTemplate, YourFundsCardLoaderTemplate, YourFundsCardTemplate } from '../components';
 import { localStorageProvider } from 'core/providers';
 import moment from 'moment';
+import YourGivingCardLoaderTemplate from '../components/content-loader/YourGivingCardLoaderTemplate';
 
 function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	const {
@@ -62,7 +63,6 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 	let dataContributions = [];
 	let chartDays = [];
 	let categoriesYearToDate = [];
-
 
 	//let isMultipleYears = false;
 	function checkWeek(donor) {
@@ -256,11 +256,12 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 
 			<div className="row">
 				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
-					<YourFundsCardTemplate donor={donor} newContributionOnClick={newContributionOnClick} t={t} />
+					{donor ? <YourFundsCardTemplate donor={donor} newContributionOnClick={newContributionOnClick} t={t} /> : <YourFundsCardLoaderTemplate />}
 				</div>
 
 				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
-					<div className={`dashboard-card ${mobileResolution ? "u-mar--bottom--sml" : ""}`}>
+					{donor ? (
+						<div className={`dashboard-card dashboard-card--graph ${mobileResolution ? "u-mar--bottom--sml" : ""}`}>
 						<h3 className="dashboard-card__title dashboard-card__title--ordered u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
 
 						{mobileResolution &&
@@ -314,6 +315,9 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					</div>
+					) : (
+						<YourGivingCardLoaderTemplate />
+					)}
 				</div>
 				{donor &&
 					//|| !donor.isInvestmentMade - this isn't implemented yet

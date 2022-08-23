@@ -74,6 +74,10 @@
         &--px{
             width: 400px;
         }
+
+        &--max {
+            max-width: 400px;
+        }
     }
 
     &--500 {

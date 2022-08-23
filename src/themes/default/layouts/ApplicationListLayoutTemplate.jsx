@@ -8,12 +8,11 @@ import { ListLayout } from 'core/layouts';
 function ApplicationListLayout({ store, children }) {
     const {
         routes,
-        tableStore,
         authorization
     } = store;
-    const loaderStore = tableStore.loaderStore;
+
     return (
-        <ListLayout onCreate={routes.create} authorization={authorization} loading={loaderStore.initial && loaderStore.loading}>
+        <ListLayout onCreate={routes.create} authorization={authorization} loading={false}>
             {children}
         </ListLayout>
     )
