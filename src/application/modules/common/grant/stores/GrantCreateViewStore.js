@@ -99,7 +99,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 				};
 			},
 			onAfterAction: () => {
-				if (this.rootStore.userStore.applicationUser.roles[0] === 'Administrators') {
+				if (this.rootStore.userStore.applicationUser.roles.includes('Administrators')) {
 					if (!this.isFuture && !this.form.$('isRecurring').value)
 						this.rootStore.routerStore.goTo('master.app.main.administration.grant.preview', { id: this.grantId });
 					else
