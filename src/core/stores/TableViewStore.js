@@ -1,40 +1,81 @@
-import _ from 'lodash';
-import { action, computed, observable } from 'mobx';
+import React from 'react';
+
+import { assign, some, map, forEach, get, set, remove, find, isArray, isEmpty, isNil } from 'lodash';
+import { action, computed, observable, toJS } from "mobx";
+
 import { LoaderStore } from 'core/stores';
+import { QueryUtility } from 'core/utils';
+
+import { GridEditCell } from '@progress/kendo-react-grid';
 
 const DefaultConfig = {
     columns: [],
     actions: {},
-    actionsRender: {},
     batchActions: {},
-    onRowClick: () => { },
-    // eslint-disable-next-line
+    hideHeader: false,
     onDataChange: () => { },
-    selectedItemKey: 'id',
+    onSelect: null,
+    dataItemKey: null,
+    isSelectable:false,
+    onDataReset: null,
+    rowCustomClassConfig: null,
+    contextMenu: null,
+    virtualScroll: false,
+    virtualPageSize: 20,
+    rootStore: null,
+    customSaveTitle: null,
+    hideReset: false,
+    // used for optimization only - determines whether a given table row should rerender whenever dataItem changes
+    // returns boolean, where true means that row should rerender
+    comparerFunction: null,
+    isDirtyPropertyCheck: 'isDirty',
+    deleteRightBtnPos: false,
+    handleBoolean: true
 };
 
 class TableViewStore {
-    fetchInProgress = false;
+    isBatchSelect = false;
     loaderStore = new LoaderStore();
+
+    @observable selectedField = null;
     @observable dataInitialized = false;
-    @observable selectedItem = null;
-    @observable hasRemainingData = true;
+    @observable rowCustomClassEnabled = true;
+    @observable contextMenuPosition = null;
+    @observable data = [];
+    @observable disableCopyFunc = false;
+    @observable disableDeleteFunc = false;
 
-    constructor(queryUtility, config = {}, isBatchSelect = false) {
-        this.queryUtility = queryUtility;
-        this.isBatchSelect = isBatchSelect;
-        this.config = _.assign({}, DefaultConfig, config);
-        if (!this.config.columns || this.config.columns.length === 0) {
-            throw new Error('TableViewStore columns are not defined.');
-        }
-
-        this.scrollTableToTop = this.scrollTableToTop.bind(this);
-    }
+    @observable skip = 0; // when using virtual scrolling
 
     originalData = [];
     expandedRows = [];
 
-    @observable data = [];
+    constructor(queryUtility, config = {}) {
+        this.queryUtility = queryUtility || new QueryUtility(config.rootStore);
+        this.config = assign({}, DefaultConfig, config);
+        if (this.config.rowCustomClassConfig && !isArray(this.config.rowCustomClassConfig)) {
+            this.config.rowCustomClassConfig = [this.config.rowCustomClassConfig];
+        }
+
+        if (!this.config.columns || this.config.columns.length === 0) {
+            throw new Error('TableViewStore columns are not defined.');
+        }
+
+        // resolve cellProps if passed
+        this.config.columns = resolveColumns(this.config.columns);
+    }
+
+    @computed get items() {
+        if (this.config.virtualScroll) {
+            return this.data.slice(this.skip, this.config.virtualPageSize + this.skip);
+        } else {
+            return this.data.slice();
+        }
+    }
+
+    @computed get numberOfItems() {
+        return this.data.length;
+    }
 
     @computed get hasData() {
         return this.data.length > 0;
@@ -65,89 +106,68 @@ class TableViewStore {
     }
 
     @computed get hasDirtyItems() {
-        return _.some(this.data, item => item.isDirty === true);
+        return some(this.data, item => {
+            const isDirty = get(item, this.config.isDirtyPropertyCheck);
+            const result = isArray(isDirty) ? !isEmpty(isDirty) : (isDirty === true);
+            return result;
+        });
     }
 
     @computed get hasErroredItems() {
-        return _.some(this.data, item => item.errorField && item.errorField.length > 0);
+        return some(this.data, item => item && item.errorField && item.errorField !== undefined && item.errorField.length > 0);
     }
 
-    @computed get hasSelectedItems() {
-        return _.some(this.data, item => item.selected === true);
-    }
+    @action.bound async setData(data, mapper = (i) => i) {
+        let keys = [];
+        forEach(this.config.columns, function (item) {
+            if (item.key) keys.push(item.key)
+        });
 
-    @computed get selectedItems() {
-        return _.filter(this.data, ['selected', true]);
-    }
+        let items = data.item ? data.item : data;
 
-    scrollTableToTop() {
-        // Prevent throwing errors if no data has been initialized on load
-        if (!this.dataInitialized) return;
-
-        // When Kendo Grid is in the scrollable mode with lazy data fetch from the REST API, Grid forces the latest scroll position even
-        // if the collection size has changed. That behavior triggers the onScroll function multiple times which results in sequential uncontrolled
-        // fetch calls. To avoid this, scroll content back to the top.
-        const table = document.getElementsByClassName('k-grid-content k-virtual-content')[0];
-        if (!table) {
-            return;
-        }
-        table.scrollTop = 0;
-        // set back to true, otherwise infinite scroll doesn't work when only changing filters
-        this.hasRemainingData = true;
-    }
-
-    @action.bound
-    async onInfiniteScroll(event, infiniteScrollCallback) {
-        if (this.fetchInProgress || !this.dataInitialized) return;
-
-        const e = event.nativeEvent;
-        if (e.target.scrollTop + 50 >= e.target.scrollHeight - e.target.clientHeight && this.hasRemainingData) {
-            if (infiniteScrollCallback) {
-                this.suspend();
-
-                this.fetchInProgress = true;
-                await this.fetchMore(infiniteScrollCallback);
-                if (this.data.length < this.pageSize * this.pageNumber) {
-                    this.hasRemainingData = false;
+        forEach(items, item => {
+            forEach(keys, key => {
+                if (isNil(get(item, key))) {
+                    set(item, key, "");
                 }
+            });
+        });
 
-                this.resume();
+        items = map(items, mapper);
+
+        const booleanItems = [];
+        forEach(this.config.columns, function (item) {
+            if (item.editor === 'boolean') {
+                booleanItems.push(item.key);
             }
+        });
 
-            this.fetchInProgress = false;
-        }
-    }
+        booleanItems.forEach(booleanItem=>{
+            items.forEach(item=> {
+                if (get(item, booleanItem) !== true) {
+                    this.config.handleBoolean && set(item, booleanItem, false);
+                } else if (get(item, booleanItem) === true) {
+                    set(item, booleanItem, true);
+                }
+            })
+        });
 
-    @action.bound
-    async fetchMore(infiniteScrollCallback) {
-        this.queryUtility.filter.pageNumber++;
-        const data = await infiniteScrollCallback(this.queryUtility.filter);
-        this.setData(this.data.concat(data.item));
-    }
+        this.data = items;
+        this.originalData = toJS(this.data);
 
-    @action.bound
-    setData(data, mapper = i => i) {
-        let items = data ? (data.item ? data.item : data) : [];
-        const setFilter = !!items.length;
-        this.setItems(items, mapper);
-        this.setExpandedRows();
+        this.expandRows();
 
-        if (data && data.item) {
-            this.queryUtility.handleResponse(data, false, setFilter);
-
-            if (!this.dataInitialized) {
-                this.dataInitialized = true;
-            }
+        if (data.item && this.queryUtility) {
+            await this.queryUtility.handleResponse(data);
         }
 
-        this.config.onDataChange();
+        this.dataInitialized = true;
+
+        this.config.onDataChange(data);
     }
 
-    @action.bound
-    setItems(items, mapper = i => i) {
-        const newItems = _.map(items ? items : this.data, mapper);
-        this.originalData = newItems;
-        this.data = newItems;
+    @action.bound onPageChange(e) {
+        this.skip = e.page.skip; // when using virtual scrolling
     }
 
     @computed get loading() {
@@ -155,6 +175,7 @@ class TableViewStore {
     }
 
     @action.bound suspend() {
+        if (this.loaderStore.loading) return;
         this.loaderStore.suspend();
     }
 
@@ -162,67 +183,47 @@ class TableViewStore {
         this.loaderStore.resume();
     }
 
-    @action.bound
-    setPage(page) {
-        this.queryUtility.changePage(page);
+    @action.bound setPage = (page) => {
+        return this.queryUtility.changePage(page);
     }
 
-    @action.bound
-    setPageSize(pageSize) {
-        this.queryUtility.changePageSize(pageSize);
+    @action.bound setPageSize = (pageSize) => this.queryUtility.changePageSize(pageSize);
+    @action.bound setSort = (sort) => this.queryUtility.changeOrder(sort);
+    @action.bound onItemChange = (event) => event;
+
+    @action.bound updateDataItems() {
+        this.data = [...this.data]; // force rerender
     }
 
-    @action.bound
-    setSort(sort) {
-        this.queryUtility.changeOrder(sort);
+    @action.bound resetGridItems() {
+        this.data.replace(this.originalData); // replace is an Observable object method
+
+        this.expandRows();
+
+        if (this.config.onDataReset) {
+            this.config.onDataReset();
+        }
     }
 
-    @action.bound
-    onItemChange(event) {
-        return event;
-    }
-
-    @action.bound
-    updateDataItems(data) {
-        this.data = data && data.length ? data : [...this.data];
-    }
-
-    @action.bound
-    resetGridItems() {
-        this.data = this.originalData;
-        this.setExpandedRows();
-    }
-
-    @action.bound
-    setSelectedItem(item) {
-        this.selectedItem = item;
-        this.data = _.map(this.data, row => {
-            return {
-                ...row,
-                selected: row[this.config.selectedItemKey] === this.selectedItem[this.config.selectedItemKey],
-            };
-        });
-    }
-
-    @action.bound
-    addToExpanded(id) {
+    @action.bound addToExpanded(id) {
+        remove(this.expandedRows, (function (n) {
+            return n == id;
+        }));
         this.expandedRows.push(id);
     }
 
-    @action.bound
-    removeFromExpanded(id) {
-        _.remove(this.expandedRows, function (n) {
+    @action.bound removeFromExpanded(id) {
+        remove(this.expandedRows, (function (n) {
             return n == id;
-        });
+        }));
     }
 
-    @action.bound
-    setExpandedRows() {
-        if (this.expandedRows.length < 1) {
+    @action.bound expandRows() {
+        if (this.expandedRows.length === 0) {
             return;
         }
 
-        this.data.forEach(item => {
+        this.data.forEach((item) => {
             item[this.config.expandField] = this.expandedRows.find(function (element) {
                 return element == item.id;
             });
@@ -230,8 +231,21 @@ class TableViewStore {
     }
 
     getItem(predicate) {
-        return _.find(this.data, predicate);
+        return find(this.data, predicate);
     }
 }
 
 export default TableViewStore;
+
+
+function resolveColumns(columns) {
+    columns.forEach(col=>{
+        if(col.cell && col.cell !== GridEditCell){
+            const CustomCell = col.cell; // you cannot use col.cell as component name
+            const cell = (props)=><CustomCell {...col.cellProps} onClick={col.onClick || null} onDoubleClick={col.onDoubleClick || null} {...col} {...props} />
+            col.cell = cell;
+        }
+    });
+
+    return columns;
+}

@@ -69,37 +69,37 @@ class PendingDonationViewStore extends BaseListViewStore {
         });
         this.loaderStore.suspend();
         this.createPaymentTypeDropdownStore();
-        this.createTableStore(this.getPendingDonationsByCharityId);
+        this.createTableStore();
         this.loaderStore.resume();
         this.createDonationLogModalParams();
     }
 
     @action.bound
     onChangeChecked(dataItem, grantId, checked) {
-        const data = this.tableStore.data.map(item => {
-            if (item.id === dataItem.id) {
-                item.pendingDonations = item.pendingDonations.map(element => {
-                    if (element.id === grantId) {
-                        element.checked = checked;
-                    }
-                    return element;
-                })
-                const parentCheck = item.pendingDonations.some((s) => s.checked);
-                if (parentCheck) {
-                    item.checked = true;
-                    if (!this.tableStore.selectedItems.some((f) => f.id === item.id)) {
-                        this.tableStore.selectedItems.push(item);
-                    }
-                }
-                else {
-                    item.checked = false;
-                    _.remove(this.tableStore.selectedItems, item);
-                }
-            }
-            return item;
-        });
 
-        this.tableStore.updateDataItems(data);
+        const originalIx = this.tableStore.data.findIndex(o => dataItem.id === o.id);
+
+        const item = this.tableStore.data[originalIx];
+
+        item.pendingDonations = item.pendingDonations.map(element => {
+            if (element.id === grantId) {
+                element.checked = checked;
+            }
+            return element;
+        })
+        const parentCheck = item.pendingDonations.some((s) => s.checked);
+        if (parentCheck) {
+            item.checked = true;
+            if (!this.tableStore.selectedItems.some((f) => f.id === item.id)) {
+                this.tableStore.selectedItems.push(item);
+            }
+        }
+        else {
+            item.checked = false;
+            _.remove(this.tableStore.selectedItems, item);
+        }
+
+        this.tableStore.updateDataItems();
     }
 
     @action.bound
@@ -130,7 +130,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                 return;
             }
             
-            var data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
+            const data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
             this.rootStore.notificationStore.success("Successfully processed.");
             this.form.$('accountTransferNumber').set(this.form.$('paymentNumber').value);
             this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
@@ -152,14 +152,14 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     @action.bound
     async getPendingDonationsByCharityId(charityId, address, isWithdraw, bankAccount) {
-        var data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address, isWithdraw, bankAccount);
+        const data = await this.rootStore.application.administration.donationStore.getPendingDonationsByCharityId(charityId, address, isWithdraw, bankAccount);
         this.data = data.map(e => { return { ...e, checked: false } });
         return this.data;
     }
 
     @action.bound
     async getPendingDonations() {
-        var data = await this.rootStore.application.administration.donationStore.findPendingDonation({ paymentType: this.paymentTypeDropdownStore.value ? this.paymentTypeDropdownStore.value.abrv : 'all' });
+        const data = await this.rootStore.application.administration.donationStore.findPendingDonation({ paymentType: this.paymentTypeDropdownStore.value ? this.paymentTypeDropdownStore.value.abrv : 'all' });
         this.data = data.map(e => { return { ...e, id: e.charityId + '_' + e.charityAddress + '_'+ (e.isWithdraw ? e.isWithdraw + '_' + e.bankAccount : e.isWithdraw), checked: false } });
     }
 
@@ -201,7 +201,7 @@ class PendingDonationViewStore extends BaseListViewStore {
             });
     }
 
-    createTableStore(loadMethod) {
+    createTableStore() {
         this.setTableStore(
             new SelectTableWithLoadOnDemand(
                 this.queryUtility, {
@@ -267,35 +267,45 @@ class PendingDonationViewStore extends BaseListViewStore {
                 ],
                 actions: {},
                 disablePaging: true,
-                onSelect: (dataItem, isRemoving) => {
-                    const data = this.tableStore.data.map(item => {
-                        if (item.id === dataItem.id) {
-                            if (item.pendingDonations) {
-                                item.pendingDonations = item.pendingDonations.map(element => {
-                                    element.checked = !isRemoving;
-                                    item.checked = true;
-                                    return element;
-                                });
+                comparerFunction: (p, c) => {
+                    let shouldRerenderRow = false;
+                    if (!_.isNil(c.expanded)) {
+                        return shouldRerenderRow = true;
+                    } else {
+                        _.forEach(this.tableStore.config.columns, col => {
+                            if (_.get(p, col.key) !== _.get(c, col.key)) {
+                                shouldRerenderRow = true;
+                                return false;
                             }
-                        }
-                        return item;
-                    });
-                    this.tableStore.updateDataItems(data);
+                        })
+                        return shouldRerenderRow;
+                    }
+                },
+                onSelect: (dataItem, isRemoving) => {
+                    const originalIx = this.tableStore.data.findIndex(o => dataItem.id === o.id);
+                    const item = this.tableStore.data[originalIx];
+
+                    if (item.pendingDonations) {
+                        item.pendingDonations = item.pendingDonations.map(element => {
+                            element.checked = !isRemoving;
+                            item.checked = true;
+                            return element;
+                        });
+
+                        this.tableStore.updateDataItems();
+                    }
                 },
                 onSelectAll: (e) => {
-                    const data = this.tableStore.data.map(item => {
+                    this.tableStore.data.forEach(item => {
                         if (item.pendingDonations) {
                             item.pendingDonations = item.pendingDonations.map(element => {
                                 element.checked = e.target.checked;
                                 return element;
                             })
                         }
-                        return item;
                     });
-                    this.tableStore.updateDataItems(data);
                 }
-            },
-                true, loadMethod));
+            }, true, this.getPendingDonationsByCharityId));
     }
 
     @action.bound

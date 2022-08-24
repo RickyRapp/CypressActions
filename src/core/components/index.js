@@ -9,6 +9,7 @@ export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as NotifyOutsideClick } from './NotifyOutsideClick';
 
 export { default as BaasicTable } from './table/BaasicTable';
+export { default as GridRow } from './table/GridRow';
 export { default as SimpleBaasicTable } from './table/SimpleBaasicTable';
 export { default as BaasicTableLoader } from './table/BaasicTableLoader';
 export { default as BaasicTableActions } from './table/BaasicTableActions';

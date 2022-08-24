@@ -1,45 +1,29 @@
-import _ from 'lodash';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { isNil } from 'lodash';
 import { defaultTemplate } from 'core/hoc';
-import { BaasicTableLoader, ContentWithEmptyState } from 'core/components';
-import { Grid } from '@progress/kendo-react-grid';
+import { BaasicTableLoader, GridRow, ContentWithEmptyState } from 'core/components';
+import { Grid, GridNoRecords } from '@progress/kendo-react-grid';
 import {
     getSortingParams,
     getPagingProps,
     defaultRenderActions,
     defaultRenderColumns,
-    defaultRenderBatchActionsToolbar,
-    rowRender,
+    defaultRenderNoRecords,
 } from 'core/components/table/utils';
 
-const BaasicTableTemplate = function ({
-    tableStore,
-    loading,
-    actionsComponent,
-    batchActionsComponent,
-    noRecordsComponent,
-    noRecordsState = {},
-    emptyStateComponent,
-    emptyState = {},
-    authorization,
-    t,
-    onScroll,
-    infiniteScrollCallback,
-    tableItems,
-    // hidePager,
-    ...otherProps
-}) {
-    const {
-        isBatchSelect,
-        data,
-        config: { columns, actions, actionsRender, actionsWidth, onRowClick, customRowRender, ...otherStoreFields },
-        onInfiniteScroll,
-        hasData,
-        dataInitialized,
-    } = tableStore;
+// eslint-disable-next-line
+const BaasicTableTemplate = function ({ rootStore, tableItems, tableStore, loading, actionsComponent, noRecordsComponent, emptyStateComponent, noRecordsState = {}, emptyState = {}, queryUtility, children, t, hasCreatePermission, addClassName, ...otherProps }) { // eslint-disable-next-line
+    const { items, hasData, selectedField, dataInitialized, config: { isSelectable, columns, dataItemKey, actions, contextMenu, authorization, ...otherStoreFields} } = tableStore;
+    const isLoading = !isNil(loading) ? loading : tableStore.loading;
+    const SELECTED_FIELD = "selected";
+    const renderSelectableItems = () => items.map(item =>({...item, [SELECTED_FIELD]: selectedField === item[dataItemKey]}))
+    let itemsToRender = items;
+    
+    if(isSelectable && selectedField){
+       itemsToRender = renderSelectableItems();
+    }
 
-    const isLoading = !_.isNil(loading) ? loading : tableStore.loading;
     return (
         <Fragment>
             <ContentWithEmptyState
@@ -53,47 +37,45 @@ const BaasicTableTemplate = function ({
                 emptyState={emptyState}
             >
                 <Grid
-                    data={data.slice()}
-                    onScroll={infiniteScrollCallback ? event => onInfiniteScroll(event, infiniteScrollCallback) : onScroll}
+                    className={(addClassName ? addClassName : "")}
+                    data={itemsToRender}
                     {...otherProps}
                     {...otherStoreFields}
+                    rowRender={(trElement, props) => <GridRow trElement={trElement} {...props} tableStore={tableStore} />}
+                    selectable={isSelectable}
+                    dataItemKey={dataItemKey}
+                    selectedField={SELECTED_FIELD}
                     {...getSortingParams(tableStore)}
                     {...getPagingProps(tableStore)}
-                    onRowClick={event => onRowClick(event.dataItem)}
-                    // pageable={hidePager ? false : true}
-                    rowRender={customRowRender ? customRowRender : onRowClick ? rowRender : null}
+                    pageable={otherProps.pageable !== undefined ? otherProps.pageable : getPagingProps(tableStore).pageable}
                 >
-                    {isBatchSelect ? defaultRenderBatchActionsToolbar(tableStore, authorization, batchActionsComponent) : null}
-                    {defaultRenderColumns({ t, columns })}
-                    {defaultRenderActions({ actions, actionsComponent, actionsWidth, authorization, t, actionsRender })}
+                    {defaultRenderColumns({ tableStore, t, columns })}
+                    {defaultRenderActions({ actions, actionsComponent, authorization, t })}
                 </Grid>
             </ContentWithEmptyState>
             {isLoading ? <BaasicTableLoader /> : null}
         </Fragment>
-    );
+    )
 };
+
 
 BaasicTableTemplate.propTypes = {
     tableStore: PropTypes.object.isRequired,
     loading: PropTypes.bool,
     actionsComponent: PropTypes.any,
-    batchActionsComponent: PropTypes.any,
     noRecordsComponent: PropTypes.any,
-    noRecordsState: PropTypes.object,
-    emptyStateComponent: PropTypes.any,
-    emptyState: PropTypes.object,
     scrollable: PropTypes.string,
     editField: PropTypes.string,
+    queryUtility: PropTypes.any,
+    children: PropTypes.any,
     authorization: PropTypes.any,
     t: PropTypes.func,
-    onScroll: PropTypes.func,
-    infiniteScrollCallback: PropTypes.func,
-    hideSearch: PropTypes.bool,
-    hidePager: PropTypes.bool,
-    tableItems: PropTypes.number
-}
+    hasCreatePermission: PropTypes.any,
+    addClassName: PropTypes.string
+};
+
 BaasicTableTemplate.defaultProps = {
-    scrollable: 'none',
+    scrollable: 'none'
 };
 
 export default defaultTemplate(BaasicTableTemplate);

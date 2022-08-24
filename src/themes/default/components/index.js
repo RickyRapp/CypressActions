@@ -18,6 +18,7 @@ export { default as TableDateColumnCellTemplate } from './table/TableDateColumnC
 export { default as GridNumericCellTemplate } from './table/GridNumericCellTemplate';
 export { default as ContentWithEmptyStateTemplate } from './table/ContentWithEmptyStateTemplate';
 export { default as TableImageCellTemplate } from './table/TableImageCellTemplate';
+export { default as GridRowTemplate } from './table/GridRowTemplate';
 
 export * from './table/utils';
 export { default as SearchFilterTemplate } from './SearchFilterTemplate';
