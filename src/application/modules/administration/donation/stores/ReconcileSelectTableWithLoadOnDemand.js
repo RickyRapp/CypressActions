@@ -13,7 +13,7 @@ class ReconcileSelectTableWithLoadOnDemand extends SelectTableWithRowDetailsView
     @action.bound
     onExpand = async event => {
         //TODO leave only generic code
-        if (!event.dataItem.details) {
+        if (!event.dataItem.grants) {
             var data = await this.loadChildData(event.dataItem.id);
             if (data) {
                 event.dataItem.grants = data;

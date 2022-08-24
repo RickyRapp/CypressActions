@@ -31,7 +31,7 @@ class ReconcileViewStore extends BaseListViewStore {
             }
         });
 
-        this.createTableStore(this.getReconcileDetailsByCharityId);
+        this.createTableStore();
         this.editModal = new ModalParams({});
         this.previewModal = new ModalParams({});
         this.uploadFileTemplateModal = new ModalParams({});
@@ -101,7 +101,7 @@ class ReconcileViewStore extends BaseListViewStore {
         return this.data;
     }
 
-    createTableStore(loadMethod) {
+    createTableStore() {
         this.setTableStore(new ReconcileSelectTableWithLoadOnDemand(this.queryUtility, {
             columns: [
                 {
@@ -202,6 +202,20 @@ class ReconcileViewStore extends BaseListViewStore {
                     }
                 }
             ],
+            comparerFunction: (p, c) => {
+                let shouldRerenderRow = false;
+                if (!_.isNil(c.expanded)) {
+                    return shouldRerenderRow = true;
+                } else {
+                    _.forEach(this.tableStore.config.columns, col => {
+                        if (_.get(p, col.key) !== _.get(c, col.key)) {
+                            shouldRerenderRow = true;
+                            return false;
+                        }
+                    })
+                    return shouldRerenderRow;
+                }
+            },
             actions: {
                 onEdit: (item) => this.openEditModal(item),
                 onCash: (item) => this.cashConfirm(item),
@@ -223,7 +237,7 @@ class ReconcileViewStore extends BaseListViewStore {
                     return item.isCashed && item.json;
                 }
             }
-        }, false, loadMethod));
+        }, false, this.getReconcileDetailsByCharityId));
     }
     createPaymentTypeDropodownStore() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore({
