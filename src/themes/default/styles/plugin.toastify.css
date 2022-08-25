@@ -8,6 +8,10 @@
 
     .Toastify__toast {
         border-radius: $radius-base;
+
+        &-container {
+            bottom: 4.5em;
+        }
     }
 
     .green-background {
