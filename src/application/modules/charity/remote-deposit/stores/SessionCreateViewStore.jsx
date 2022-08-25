@@ -7,7 +7,7 @@ import { ModalParams } from 'core/models';
 import { SessionCreateForm } from '../forms';
 
 class SessionViewStore extends BaseEditViewStore {
-    steps = [1, 2, 3, 4];
+    steps = [1,2,3];
     @observable currentStep = 1;
     @observable barcode = '';
     @observable sessionCertificates = [];
@@ -60,7 +60,7 @@ class SessionViewStore extends BaseEditViewStore {
             }
         });
         if(this.rootStore.userStore.applicationUser.roles.includes('Charities')){
-            this.currentStep = 2;
+            this.currentStep = 1;
             this.isCharityAccount = true;
             this.isCharitySelected = true;
             var charityFromUser = this.rootStore.userStore.applicationUser.charity;

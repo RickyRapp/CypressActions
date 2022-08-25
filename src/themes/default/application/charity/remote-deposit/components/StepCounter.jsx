@@ -4,10 +4,10 @@ import { defaultTemplate } from 'core/hoc';
 import logo from 'themes/assets/img/new-logo.svg';
 import _ from 'lodash';
 
-const StepCounter = function({ currentStep, steps }) {
+const StepCounter = function({ currentStep, steps, hideLogo }) {
 	return (
 		<div className="scanner">
-			<img className="scanner__logo" src={logo} alt="logo" />
+			{!hideLogo && <img className="scanner__logo" src={logo} alt="logo" /> }
 			<div className="scanner__stepper">
 				{_.map(steps, step => {
 					return <Step key={step} step={step} selected={step === currentStep} />;

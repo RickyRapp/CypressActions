@@ -8,7 +8,6 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
         form,
         steps,
         currentStep,
-        onNextStep1Click,
         onNextStep2Click,
         onPreviousStep2Click,
         onNextStep4Click,
@@ -30,8 +29,6 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
         charity,
         insufficientAmount,
         isCharitySelected,
-        givingCardModal,
-        createGivingCardGrant,
         charityName,
         charityAddress,
         taxId,
@@ -44,20 +41,13 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                 <StepCounter
                     steps={steps}
                     currentStep={currentStep}
+                    hideLogo={true}
                 />
             </div>
 
             <form onSubmit={form.onSubmit}>
+                
                 {currentStep === 1 &&
-                    <div className="container container--sml">
-                        <Step1Template 
-                            onNextStepClick={onNextStep1Click}
-                            givingCardModal={givingCardModal}
-                            createGivingCardGrant={createGivingCardGrant}
-                        />
-                    </div>}
-
-                {currentStep === 2 &&
                     <div className="container container--sml">
                         <Step2Template
                             form={form}
@@ -75,7 +65,7 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                         />
                     </div>}
 
-                {currentStep === 3 &&
+                {currentStep === 2 &&
                     <div className="u-padd--left--sml u-padd--right--sml">
                         <Step3Template
                             onPreviousStepClick={onPreviousStep3Click}
@@ -92,7 +82,7 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                             insufficientAmount={insufficientAmount}
                         />
                     </div>}
-                {currentStep === 4 &&
+                {currentStep === 3 &&
                     <div className="container container--base u-padd--bottom--med">
                         <Step4Template
                             onNextStepClick={onNextStep4Click}

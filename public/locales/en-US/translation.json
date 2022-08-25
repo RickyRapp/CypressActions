@@ -2514,7 +2514,8 @@
                 "PHONE_NUMBER_LABEL": "Phone number",
                 "EMAIL_LABEL": "Email",
                 "ESTIMATED_AMOUNT_LABEL": "Estimated Amount",
-                "CHECK_COUNT_LABEL": "Predicted Check Count"
+                "CHECK_COUNT_LABEL": "Predicted Check Count",
+                "PAYMENT_METHOD": "Payment Method"
             }
         },
         "LIST": {
