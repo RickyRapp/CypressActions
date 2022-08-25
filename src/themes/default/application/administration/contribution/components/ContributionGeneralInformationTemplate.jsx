@@ -17,8 +17,6 @@ const ContributionGeneralInformationTemplate = ({ item, t }) => {
                 
                 <CardItem t={t} label={'CONTRIBUTION.DETAILS.CONFRIMATION_NUMBER'} value={item && item.confirmationNumber} />
                 <CardItem t={t} label={'CONTRIBUTION.DETAILS.STATUS'} value={item && item.contributionStatus.name} />
-                <CardItem t={t} label={'CONTRIBUTION.DETAILS.DATE_CREATED'} value={item && <Date format="kendo-input-medium" value={item.dateCreated} />} />
-                <CardItem t={t} label={'CONTRIBUTION.DETAILS.DATE_UPDATED'} value={item && <Date format="kendo-input-medium" value={item.dateUpdated} />} />
 
 				{item && item.donor == null && (
                     <React.Fragment>

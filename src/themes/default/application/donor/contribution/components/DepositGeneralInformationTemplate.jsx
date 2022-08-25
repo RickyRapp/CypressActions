@@ -20,23 +20,13 @@ const DepositGeneralInformationTemplate = ({ item, t }) => {
                     value={item && item.confirmationNumber} />
 				<CardItem
 					t={t}
-					label={'CONTRIBUTION.DETAILS.STATUS'}
+					label={'CONTRIBUTION.DETAILS.PAYER_NAME' }
 					value={item && (item.donor ? item.donor.name : item.payerInformation.name)}
 				/>
                 <CardItem
                     t={t}
-                    label={'CONTRIBUTION.DETAILS.DONOR_NAME'}
+                    label={'CONTRIBUTION.DETAILS.STATUS'}
                     value={item && item.contributionStatus.name} />
-				<CardItem
-					t={t}
-					label={'CONTRIBUTION.DETAILS.DATE_CREATED'}
-					value={item && <Date format="kendo-input-medium" value={item.dateCreated} />}
-				/>
-				<CardItem
-					t={t}
-					label={'CONTRIBUTION.DETAILS.DATE_UPDATED'}
-					value={item && <Date format="kendo-input-medium" value={item.dateUpdated} />}
-				/>
 			</div>
 		</div>
 	);
