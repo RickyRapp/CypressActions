@@ -51,6 +51,7 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                 {
                     key: 'charity.name',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'session.confirmationNumber',
@@ -59,6 +60,7 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                 {
                     key: 'certificate.booklet.bookletOrder.donor.donorName',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DONOR_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'certificate.booklet.bookletOrder.donor.donorName',
@@ -68,7 +70,8 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                         value: (item) => {
                             return (item && item.certificate.booklet && item.certificate.booklet.code) + '-' + (item && item.certificate && item.certificate.code);
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'certificate.denominationType',
@@ -76,14 +79,14 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                     format: {
                         type: 'denomination',
                         value: 'short'
-                    }
+                    },
                 },
                 {
                     key: 'blankCertificateValue',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency'
-                    }
+                    },
                 },
                 {
                     key: 'dateCreated',

@@ -189,11 +189,13 @@ class GrantViewStore extends BaseListViewStore {
                     title: 'GRANT.LIST.COLUMNS.DONOR_NAME_LABEL',
                     onClick: (grant) => grant.donationStatus.abrv === 'pending' ?
                         this.routes.edit(grant.id, grant.donor.id) :
-                        this.routes.preview(grant.id)
+                        this.routes.preview(grant.id),
+                    sortable: false
                 },
                 {
                     key: 'charity.name',
                     title: 'GRANT.LIST.COLUMNS.CHARITY_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'amount',
@@ -219,7 +221,8 @@ class GrantViewStore extends BaseListViewStore {
                                 return item.donationStatus.name;
                             }
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'donationType.name',
@@ -233,7 +236,8 @@ class GrantViewStore extends BaseListViewStore {
                                 return item.donationType.name;
                             }
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'grantPurposeType.name',
@@ -241,7 +245,8 @@ class GrantViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: this.renderGrantPurposeType
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',

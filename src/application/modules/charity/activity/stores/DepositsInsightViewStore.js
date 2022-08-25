@@ -111,6 +111,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
                     {
                         key: 'contributionStatus.name',
                         title: 'CONTRIBUTION.LIST.COLUMNS.CONTRIBUTION_STATUS_NAME_LABEL',
+                        sortable: false
                     },
                     {
                         key: 'paymentType.name',
@@ -130,7 +131,8 @@ class DepositsInsightViewStore extends BaseListViewStore {
                             value: (item) => {
                                 return item.bankAccount && item.bankAccount.isThirdPartyAccount && item.bankAccount.accountHolder ? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != "" ? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.payerInformation.name
                             }
-                        }
+                        },
+                        sortable: false
                     },
                     {
                         key: 'amount',

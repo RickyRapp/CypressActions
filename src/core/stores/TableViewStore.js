@@ -30,7 +30,11 @@ const DefaultConfig = {
     comparerFunction: null,
     isDirtyPropertyCheck: 'isDirty',
     deleteRightBtnPos: false,
-    handleBoolean: true
+    handleBoolean: true,
+    onRowClick: () => { },
+    actionsRender: {},
+    selectedItemKey: 'id',
+
 };
 
 class TableViewStore {
@@ -44,14 +48,17 @@ class TableViewStore {
     @observable data = [];
     @observable disableCopyFunc = false;
     @observable disableDeleteFunc = false;
+    @observable hasRemainingData = true;
+    fetchInProgress = false;
 
     @observable skip = 0; // when using virtual scrolling
 
     originalData = [];
     expandedRows = [];
 
-    constructor(queryUtility, config = {}) {
-        this.queryUtility = queryUtility || new QueryUtility(config.rootStore);
+    constructor(queryUtility, config = {}, isBatchSelect = false) {
+        this.queryUtility = queryUtility;
+        this.isBatchSelect = isBatchSelect;
         this.config = assign({}, DefaultConfig, config);
         if (this.config.rowCustomClassConfig && !isArray(this.config.rowCustomClassConfig)) {
             this.config.rowCustomClassConfig = [this.config.rowCustomClassConfig];
@@ -111,6 +118,59 @@ class TableViewStore {
             const result = isArray(isDirty) ? !isEmpty(isDirty) : (isDirty === true);
             return result;
         });
+    }
+
+    @computed get hasSelectedItems() {
+        return _.some(this.data, item => item.selected === true);
+    }
+
+    @computed get selectedItems() {
+        return _.filter(this.data, ['selected', true]);
+    }
+
+    scrollTableToTop() {
+        // Prevent throwing errors if no data has been initialized on load
+        if (!this.dataInitialized) return;
+
+        // When Kendo Grid is in the scrollable mode with lazy data fetch from the REST API, Grid forces the latest scroll position even
+        // if the collection size has changed. That behavior triggers the onScroll function multiple times which results in sequential uncontrolled
+        // fetch calls. To avoid this, scroll content back to the top.
+        const table = document.getElementsByClassName('k-grid-content k-virtual-content')[0];
+        if (!table) {
+            return;
+        }
+        table.scrollTop = 0;
+        // set back to true, otherwise infinite scroll doesn't work when only changing filters
+        this.hasRemainingData = true;
+    }
+
+    @action.bound
+    async onInfiniteScroll(event, infiniteScrollCallback) {
+        if (this.fetchInProgress || !this.dataInitialized) return;
+
+        const e = event.nativeEvent;
+        if (e.target.scrollTop + 50 >= e.target.scrollHeight - e.target.clientHeight && this.hasRemainingData) {
+            if (infiniteScrollCallback) {
+                this.suspend();
+
+                this.fetchInProgress = true;
+                await this.fetchMore(infiniteScrollCallback);
+                if (this.data.length < this.pageSize * this.pageNumber) {
+                    this.hasRemainingData = false;
+                }
+
+                this.resume();
+            }
+
+            this.fetchInProgress = false;
+        }
+    }
+
+    @action.bound
+    async fetchMore(infiniteScrollCallback) {
+        this.queryUtility.filter.pageNumber++;
+        const data = await infiniteScrollCallback(this.queryUtility.filter);
+        this.setData(this.data.concat(data.item));
     }
 
     @computed get hasErroredItems() {

@@ -103,7 +103,8 @@ class BookletOrderViewStore extends BaseListViewStore {
                 {
                     key: 'donor.donorName',
                     title: 'BOOKLET_ORDER.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    disableClick: true
+                    disableClick: true,
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',
@@ -127,6 +128,7 @@ class BookletOrderViewStore extends BaseListViewStore {
                 {
                     key: 'bookletOrderStatus.name',
                     title: 'BOOKLET_ORDER.LIST.COLUMNS.STATUS_LABEL',
+                    sortable: false
                 }
             ],
             comparerFunction: (p, c) => {

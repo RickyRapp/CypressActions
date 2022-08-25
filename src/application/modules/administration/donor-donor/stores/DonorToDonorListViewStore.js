@@ -17,7 +17,6 @@ class DonorToDonorListViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        params.orderDirection = 'desc';
                         return this.rootStore.application.donor.transactionStore.findDonorToDonorTransactions(params);
                     }
                 }

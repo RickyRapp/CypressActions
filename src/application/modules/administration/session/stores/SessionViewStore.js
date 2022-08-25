@@ -137,6 +137,7 @@ class SessionViewStore extends BaseListViewStore {
                 {
                     key: 'charity.name',
                     title: 'SESSION.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'amount',
@@ -190,7 +191,8 @@ class SessionViewStore extends BaseListViewStore {
                             }
                             return '';
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',
