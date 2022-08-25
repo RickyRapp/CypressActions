@@ -1,0 +1,71 @@
+/*------------------------------------*\
+    # component.deposit
+\*------------------------------------*/
+
+.c-deposit {
+	&__list {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: calc($unit * 2);
+
+		margin-bottom: calc($unit * 4);
+
+		@media (--screen-from-sml) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@media (--screen-from-med) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		@media (--screen-from-xlrg) {
+			grid-template-columns: repeat(5, 1fr);
+		}
+
+		@media (--screen-from-xxlrg) {
+			grid-template-columns: repeat(6, 1fr);
+		}
+
+		@media (--screen-from-xxxlrg) {
+			grid-template-columns: repeat(7, 1fr);
+		}
+	}
+
+	&__card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		min-height: 136px;
+
+		padding: calc($unit * 2);
+
+		text-align: center;
+		border: 1px solid transparent;
+		border-radius: $radius-base;
+		background-color: $white;
+
+		transition: all 250ms ease-in-out;
+		cursor: pointer;
+
+		&:hover {
+			border: 1px solid $color-opaque;
+			box-shadow: $shadow-card;
+		}
+
+		& .u-icon {
+			width: calc($unit * 6);
+			height: calc($unit * 6);
+
+			margin-bottom: $unit;
+
+			background-size: calc($unit * 6);
+		}
+
+		&.active {
+			background-color: $color-text;
+			color: $white;
+		}
+	}
+}

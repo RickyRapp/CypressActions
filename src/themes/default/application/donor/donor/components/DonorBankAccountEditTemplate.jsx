@@ -23,30 +23,19 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId })
     } = donorBankAccountEditViewStore;
 
     return (
-        <EditFormContent form={form} > 
-            <div className="card--med card--primary">
-            {item && onChangeEditId(editId)}
-            {/*<div>
-				{!item && <span>Create new bank account manually or using : </span>}
-					<div className="col col-sml-12 col-lrg-6">
-						<div className="u-mar--bottom--sml w--100--to-med">
-						<CharityPlaid
-                            entityType={"donor"}
-							bankAccount={item}
-						/>
-						</div>
-					</div>
-				</div>*/}
+        <EditFormContent form={form} >
+            <div>
+                {item && onChangeEditId(editId)}
 
                 <h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
                 <div className="row row--form u-mar--bottom--sml">
-                    <div className="form__group col col-sml-12 col-lrg-3">
+                    <div className="form__group col col-sml-12 col-lrg-4">
                         <BasicInput field={form.$('accountNumber')} disabled={item != null} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
+                    <div className="form__group col col-sml-12 col-lrg-4">
                         <NumberFormatInputField field={form.$('routingNumber')} onBlur={onBlurRoutingNumber} disabled={item != null} />
                     </div>
-                    <div className="form__group col col-sml-12 col-lrg-3">
+                    <div className="form__group col col-sml-12 col-lrg-4">
                         <BasicInput field={form.$('name')} />
                     </div>
                 </div>
@@ -60,15 +49,12 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId })
                             </div>
                             <div>
                                 {bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Primary account?</label>
-                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span> : null}
+                                    <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span> : null}
                             </div>
                             <div>
                                 {bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Is disabled?</label>
-                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} disabled={item != null && ( item && item.isPrimary)} /></span> : null}
+                                    <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} disabled={item != null && (item && item.isPrimary)} /></span> : null}
                             </div>
-                        </div>
-                        <div className="u-display--flex">
-
                         </div>
                     </div>
                 </div>
@@ -77,7 +63,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId })
                     <React.Fragment>
                         <div className="row row--form row__align--end">
                             <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicInput field={form.$('accountHolderName')}  disabled={item != null} />
+                                <BasicInput field={form.$('accountHolderName')} disabled={item != null} />
                             </div>
                             <div className="form__group col col-sml-12 col-lrg-6">
                                 <BasicInput field={form.$('addressLine1')} />
@@ -131,7 +117,7 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId })
                     </React.Fragment>}
             </div>
 
-            <div className="info-card--footer">
+            <div className="type--right">
                 <BaasicButton
                     type='button'
                     className="btn btn--med btn--med--wide btn--ghost"
@@ -140,11 +126,11 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId })
                 />
 
                 <BaasicFormControls
-                form={form}
-                onSubmit={form.onSubmit}
-                disabled={item != null}
-                className="btn btn--med btn--med--wide btn--secondary" />
-                
+                    form={form}
+                    onSubmit={form.onSubmit}
+                    disabled={item != null}
+                    className="btn btn--med btn--med--wide btn--secondary u-mar--left--sml"
+                />
             </div>
         </EditFormContent>
     );

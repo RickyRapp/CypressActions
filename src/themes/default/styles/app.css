@@ -94,6 +94,7 @@
 @import "component.booklet.css";
 @import "component.footer.css";
 @import "component.charity.css";
+@import "component.deposit.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)
