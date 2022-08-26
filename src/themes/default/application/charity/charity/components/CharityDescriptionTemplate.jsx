@@ -9,29 +9,27 @@ import {
 	BaasicButton,
 } from 'core/components';
 
-const CharityDescriptionTemplate = function({ t, charityDescriptionViewStore }) {
+const CharityDescriptionTemplate = function ({ t, charityDescriptionViewStore }) {
 	const { form, item, isEditEnabled, onEnableEditClick } = charityDescriptionViewStore;
 
 	return (
 		<div className="card--med card--primary u-mar--bottom--med">
-			<EditFormContent form={form}>
+			<EditFormContent form={form} formClassName={" "}>
 				<h3 className="u-mar--bottom--med">{t('CHARITY.DESCRIPTION.TITLE')}</h3>
 				{isEditEnabled ? (
 					<React.Fragment>
-						<div className="card--med card--primary">
-							<div className="u-mar--bottom--med">
-								<BasicTextArea field={form.$('description')} />
-							</div>
+						<div className="u-mar--bottom--med">
+							<BasicTextArea field={form.$('description')} />
+						</div>
 
-							<div className="info-card--footer">
-								<BaasicButton
-									type="button"
-									className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
-									onClick={onEnableEditClick}
-									label="Cancel"
-								/>
-								<BaasicFormControls form={form} onSubmit={form.onSubmit} />
-							</div>
+						<div className="info-card--footer">
+							<BaasicButton
+								type="button"
+								className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
+								onClick={onEnableEditClick}
+								label="Cancel"
+							/>
+							<BaasicFormControls form={form} onSubmit={form.onSubmit} />
 						</div>
 					</React.Fragment>
 				) : (
