@@ -57,6 +57,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                                 totalRecords: this.data.length
                             };
                         } else {
+                            this.loaderStore.resume();
                             return {
                                 item: [],
                                 totalRecords: 0
@@ -118,6 +119,7 @@ class PendingDonationViewStore extends BaseListViewStore {
 
     @action.bound
     async onReviewClick(formValues) {
+        let data = {};
         try {
             formValues.accountTransferNumber = formValues.paymentNumber;
             if(this.paymentTypeDropdownStore.value.abrv === 'charity-account')
@@ -130,7 +132,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                 return;
             }
             
-            const data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
+            data = await this.rootStore.application.administration.donationStore.reviewPendingDonations(formValues);
             this.rootStore.notificationStore.success("Successfully processed.");
             this.form.$('accountTransferNumber').set(this.form.$('paymentNumber').value);
             this.achBatchCurrentNumber = await this.rootStore.application.administration.donationStore.achBatchCurrentNumber({ increment: false });
@@ -138,15 +140,16 @@ class PendingDonationViewStore extends BaseListViewStore {
             this.paymentTypeDropdownStore.setValue(null);
             this.form.clear();
             this.queryUtility.fetch();
-            this.tableStore.resume();
         } catch (error) {
-            this.tableStore.resume();
             if(error.data) {
                 this.rootStore.notificationStore.error(error.data.message);
             } else {
                 this.rootStore.notificationStore.error("Something went wrong.");
             }
+        } finally {
+            this.tableStore.resume();
         }
+
         return data;
     }
 
