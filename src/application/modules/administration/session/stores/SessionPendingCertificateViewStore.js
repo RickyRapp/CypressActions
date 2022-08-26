@@ -2,6 +2,7 @@ import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryP
 import { FilterParams } from 'core/models';
 import { charityFormatter, donorFormatter } from 'core/utils';
 import { SessionListFilter } from '../models';
+import { orderBy } from 'lodash';
 
 class SessionPendingCertificateViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -36,7 +37,13 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                         const statuses = await rootStore.application.lookup.sessionPendingCertificateStatusStore.find();
                         params.sessionPendingCertificateStatusIds = statuses.find(c => c.abrv === 'pending').id;
 
-                        return rootStore.application.administration.sessionStore.findSessionPendingCertificate(params);
+                        const response = await rootStore.application.administration.sessionStore.findSessionPendingCertificate(params);
+
+                        if (params.orderBy === "certificate.denominationType") {
+                            response.item = orderBy(response.item, "certificate.denominationType.value", params.orderDirection);
+                        }
+
+                        return response;
                     }
                 }
             }

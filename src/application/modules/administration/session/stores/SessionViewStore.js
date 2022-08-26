@@ -6,7 +6,7 @@ import { applicationContext, donorFormatter } from 'core/utils';
 import { FormatterResolver } from 'core/components';
 import { charityFormatter } from 'core/utils';
 import ReactTooltip from 'react-tooltip';
-import _ from 'lodash'
+import _, { orderBy } from 'lodash'
 
 @applicationContext
 class SessionViewStore extends BaseListViewStore {
@@ -54,7 +54,37 @@ class SessionViewStore extends BaseListViewStore {
                             'grants.donationStatus',
                             'grants.certificate.denominationType'
                         ];
-                        return this.rootStore.application.administration.sessionStore.findSession(params);
+                        const response = await this.rootStore.application.administration.sessionStore.findSession(params);
+
+                        response.item.forEach(item => {
+                            if(item.grants && item.grants.length > 0) {
+                                if((item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0) {
+                                    item.grant = 'Pending';
+                                } else if((item.grants.filter(c => c.donationStatus.abrv == 'declined')).length == item.grants.length) {
+                                    item.grant = 'Declined';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length) {
+                                    item.grant = 'Canceled';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'admin-review')).length > 0) {
+                                    item.grant = 'Admin Review';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'donor-review-first' || c.donationStatus.abrv == 'donor-review-second')).length > 0) {
+                                    item.grant = 'Donor review';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0) {
+                                    item.grant = 'Approved';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length > 0) {
+                                    item.grant = 'Payment Submitted';
+                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length == item.grants.length) {
+                                    item.grant = 'Payment Received';
+                                } else {
+                                    item.grant = 'Pending';
+                                }
+                            }
+                        })
+
+                        if (params.orderBy === "grant") {
+                            response.item = orderBy(response.item, "grant", params.orderDirection);
+                        }
+
+                        return response;
                     }
                 }
             }
@@ -163,36 +193,8 @@ class SessionViewStore extends BaseListViewStore {
                     }
                 },
                 {
-                    key: 'grants',
+                    key: 'grant',
                     title: 'SESSION.LIST.COLUMNS.SESSION_STATUS_LABEL',
-                    format: {
-                        type: 'function',
-                        value: (item) => {
-                            if(item.grants && item.grants.length > 0) {
-                                if((item.grants.filter(c => c.donationStatus.abrv == 'pending')).length > 0) {
-                                    return 'Pending';
-                                } else if((item.grants.filter(c => c.donationStatus.abrv == 'declined')).length == item.grants.length) {
-                                    return 'Declined';
-                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'canceled')).length == item.grants.length) {
-                                    return 'Canceled';
-                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'admin-review')).length > 0) {
-                                    return 'Admin Review';
-                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'donor-review-first' || c.donationStatus.abrv == 'donor-review-second')).length > 0) {
-                                    return 'Donor review';
-                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'approved')).length > 0) {
-                                    return 'Approved';
-                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'payment-submited')).length > 0) {
-                                    return 'Payment Submitted';
-                                } else if ((item.grants.filter(c => c.donationStatus.abrv == 'payment-received')).length == item.grants.length) {
-                                    return 'Payment Received';
-                                } else {
-                                    return 'Pending';
-                                }
-                            }
-                            return '';
-                        }
-                    },
-                    sortable: false
                 },
                 {
                     key: 'dateCreated',

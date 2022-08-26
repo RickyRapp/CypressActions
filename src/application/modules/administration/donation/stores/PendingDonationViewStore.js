@@ -217,6 +217,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                                 </div>
                             }
                         },
+                        sortable: false
                     },
                     {
                         key: 'isACHAvailable',
@@ -225,6 +226,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                             type: 'boolean',
                             value: 'yes-no'
                         },
+                        sortable: false
                     },
                     {
                         key: 'amount',
@@ -236,23 +238,28 @@ class PendingDonationViewStore extends BaseListViewStore {
                     },
                     {
                         key: 'onlineCount',
-                        title: 'DONATION.REVIEW.LIST.COLUMNS.ONLINE_LABEL'
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.ONLINE_LABEL',
+                        sortable: false
                     },
                     {
                         key: 'charityWebsiteCount',
-                        title: 'DONATION.REVIEW.LIST.COLUMNS.CHARITY_WEBSITE_LABEL'
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.CHARITY_WEBSITE_LABEL',
+                        sortable: false
                     },
                     {
                         key: 'grantRequestCount',
-                        title: 'DONATION.REVIEW.LIST.COLUMNS.GRANT_REQUEST_LABEL'
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.GRANT_REQUEST_LABEL',
+                        sortable: false
                     },
                     {
                         key: 'givingCardCount',
-                        title: 'DONATION.REVIEW.LIST.COLUMNS.GIVING_CARD_LABEL'
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.GIVING_CARD_LABEL',
+                        sortable: false
                     },
                     {
                         key: 'sessionCount',
-                        title: 'DONATION.REVIEW.LIST.COLUMNS.SESSION_LABEL'
+                        title: 'DONATION.REVIEW.LIST.COLUMNS.SESSION_LABEL',
+                        sortable: false
                     },
                     {
                         key: 'isWithdraw',
@@ -263,6 +270,7 @@ class PendingDonationViewStore extends BaseListViewStore {
                                 return item.isWithdraw ? <div className="type--center" ><i class="u-icon u-icon--approve u-icon--base "></i></div> : null;
                             }
                         },
+                        sortable: false
                     },
                 ],
                 actions: {},

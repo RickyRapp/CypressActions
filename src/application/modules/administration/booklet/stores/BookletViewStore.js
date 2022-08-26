@@ -123,7 +123,6 @@ class BookletViewStore extends BaseListViewStore {
                 {
                     key: 'bookletStatus.name',
                     title: 'BOOKLET.LIST.COLUMNS.STATUS_LABEL',
-                    sortable: false
                 }
             ],
             actions: {

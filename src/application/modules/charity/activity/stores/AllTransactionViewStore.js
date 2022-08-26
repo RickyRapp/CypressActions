@@ -2,6 +2,7 @@ import { TransactionListFilter } from 'application/donor/activity/transaction/mo
 import { BaseListViewStore, BaasicDropdownStore,  TableViewStore, DateRangeQueryPickerStore } from 'core/stores';
 import { action, observable } from 'mobx';
 import moment from 'moment';
+import { orderBy } from 'lodash';
 
 
 class AllTransactionViewStore extends BaseListViewStore {
@@ -35,7 +36,12 @@ class AllTransactionViewStore extends BaseListViewStore {
                             'grant'
                         ];
                        
-                        var response = await rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
+                        const response = await rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
+
+                        if (params.orderBy === "paymentTransaction") {
+                            response.item = orderBy(response.item, "paymentTransaction.amount", params.orderDirection);
+                        }
+
                         return response;
                     }
                 }
@@ -144,7 +150,8 @@ class AllTransactionViewStore extends BaseListViewStore {
                         value: (item) => {
                             return item.description;
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'type',
@@ -154,7 +161,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                         value: (item) => {
                             return item.type;
                         }
-                    }
+                    },
                 },
                 {
                     key: 'paymentTransaction',
@@ -185,7 +192,6 @@ class AllTransactionViewStore extends BaseListViewStore {
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
-            disableSorting: true,
         },
             true));
     }

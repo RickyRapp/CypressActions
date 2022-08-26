@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicTableLoader, GridRow, ContentWithEmptyState } from 'core/components';
-import { Grid, GridNoRecords } from '@progress/kendo-react-grid';
+import { Grid } from '@progress/kendo-react-grid';
 import {
     getSortingParams,
     getPagingProps,
     defaultRenderActions,
     defaultRenderColumns,
-    defaultRenderNoRecords,
 } from 'core/components/table/utils';
 
 // eslint-disable-next-line

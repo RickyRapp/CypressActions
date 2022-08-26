@@ -41,7 +41,8 @@ class CharityPendingListViewStore extends BaseListViewStore {
                     key: 'name',
                     title: 'CHARITY.LIST.COLUMNS.NAME_LABEL',
                     onClick: item => this.routes.edit(item.id),
-                    authorization: this.authorization.update
+                    authorization: this.authorization.update,
+                    sortable: false
                 },
                 {
                     key: 'taxId',

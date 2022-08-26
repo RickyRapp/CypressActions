@@ -62,14 +62,16 @@ class BankViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'description',
-                    title: 'BANK.LIST.COLUMNS.DESCRIPTION_LABEL'
+                    title: 'BANK.LIST.COLUMNS.DESCRIPTION_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'routingNumbers',
                     title: 'BANK.LIST.COLUMNS.ROUTING_NUMBERS_COUNT_LABEL',
                     format: {
                         type: 'count'
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',

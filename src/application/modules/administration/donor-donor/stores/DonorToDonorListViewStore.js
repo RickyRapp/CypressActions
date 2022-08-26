@@ -38,11 +38,13 @@ class DonorToDonorListViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'emailOrAccountNumber',
-                    title: 'DONOR_DONOR_ADMIN.LIST.COLUMNS.EMAIL_ACCOUNT_NUMBER'
+                    title: 'DONOR_DONOR_ADMIN.LIST.COLUMNS.EMAIL_ACCOUNT_NUMBER',
+                    sortable: false
                 },
                 {
                     key: 'fullName',
-                    title: 'DONOR_DONOR_ADMIN.LIST.COLUMNS.FULLNAME'
+                    title: 'DONOR_DONOR_ADMIN.LIST.COLUMNS.FULLNAME',
+                    sortable: false
                 },
                 {
                     key: 'amount',
@@ -62,7 +64,8 @@ class DonorToDonorListViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'sender',
-                    title: 'DONOR_DONOR_ADMIN.LIST.COLUMNS.SENDER'
+                    title: 'DONOR_DONOR_ADMIN.LIST.COLUMNS.SENDER',
+                    sortable: false
                 },
 
             ],

@@ -111,7 +111,6 @@ class DepositsInsightViewStore extends BaseListViewStore {
                     {
                         key: 'contributionStatus.name',
                         title: 'CONTRIBUTION.LIST.COLUMNS.CONTRIBUTION_STATUS_NAME_LABEL',
-                        sortable: false
                     },
                     {
                         key: 'paymentType.name',
@@ -122,6 +121,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
                                 return item.paymentType && item.paymentType.name ? item.paymentType.name : ""
                             }
                         },
+                        sortable: false
                     },
                     {
                         key: 'payerInformation.name',
@@ -141,6 +141,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
                             type: 'currency',
                             value: '$',
                         },
+                        sortable: false
                     },
                 ],
                 actions: {

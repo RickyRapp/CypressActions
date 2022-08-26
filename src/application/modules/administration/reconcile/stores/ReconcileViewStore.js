@@ -159,16 +159,11 @@ class ReconcileViewStore extends BaseListViewStore {
                             
                         }
                     },
+                    sortable: false
                 },
                 {
                     key: 'isCashed',
                     title: 'RECONCILE.LIST.COLUMNS.STATUS_LABEL',
-                    format: {
-                        type: 'function',
-                        value: (item) => {
-                            return item.isCashed ? 'Payment Received' : 'Payment Submited'
-                        }
-                    }
                 },
                 {
                     key: 'isWithdraw',
@@ -179,7 +174,8 @@ class ReconcileViewStore extends BaseListViewStore {
                             return item.isWithdraw ? <div className="type--center" ><i class="u-icon u-icon--approve u-icon--base "></i></div> : null;
 
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'dateCashed',
@@ -191,7 +187,8 @@ class ReconcileViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'description',
-                    title: 'RECONCILE.LIST.COLUMNS.DESCRIPTION_LABEL'
+                    title: 'RECONCILE.LIST.COLUMNS.DESCRIPTION_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',

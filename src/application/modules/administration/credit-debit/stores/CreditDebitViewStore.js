@@ -90,7 +90,8 @@ class CreditDebitViewStore extends BaseListViewStore {
                             } 
                             return val.charity.name;
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',
@@ -105,11 +106,12 @@ class CreditDebitViewStore extends BaseListViewStore {
                     title: 'CREDIT_DEBIT.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency'
-                    }
+                    },
                 },
                 {
                     key: 'description',
-                    title: 'CREDIT_DEBIT.LIST.COLUMNS.DESCRIPTION_LABEL'
+                    title: 'CREDIT_DEBIT.LIST.COLUMNS.DESCRIPTION_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'coreUser',
@@ -117,7 +119,8 @@ class CreditDebitViewStore extends BaseListViewStore {
                     format: {
                         type: 'created-by',
                         value: 'short'
-                    }
+                    },
+                    sortable: false
                 }
             ],
             actions: {
