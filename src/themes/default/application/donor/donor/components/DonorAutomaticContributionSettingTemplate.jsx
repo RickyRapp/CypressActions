@@ -29,7 +29,7 @@ const DonorAutomaticContributionSettingTemplate = function({ t, donorAutomaticCo
 				{isEditEnabled ? (
 					<React.Fragment>
 						<div>
-							<div className="card--med card--primary">
+							<div>
 								<EditFormContent form={form} loading={loaderStore.loading}>
 									<div className="row">
 										<div className="form__group col col-sml-12">

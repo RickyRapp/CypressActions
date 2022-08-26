@@ -44,7 +44,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
 						/>
 					) : (
 						<div
-							className={`type--base type--wgt--bold ${(isEditEnabled && secondaryAddress === null) || (secondaryAddress && secondaryAddress.id === editId) ? "u-padd--x--med" : ""}`}
+							className={`type--base type--wgt--bold`}
 							title="Click to edit"
 							onClick={() => onEnableEditClick(primaryAddress)}
 						>
@@ -88,7 +88,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
 						</div>
 					)}
 
-					<div className={`u-mar--top--sml ${(isEditEnabled && primaryAddress === null) || (primaryAddress && primaryAddress.id === editId) ? "u-padd--x--med" : ""}`}>
+					<div className={`u-mar--top--sml`}>
 						{isEditEnabled && ((secondaryAddress && secondaryAddress.id === editId) || undefined === editId) ? (
 							<CharityAddressEditForm
 								form={form}

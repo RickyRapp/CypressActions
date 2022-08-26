@@ -40,7 +40,7 @@ function DonorAccountInformationTemplate({ donorAccountInformationViewStore, t }
 							<h3 className=" u-mar--bottom--med">{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_PROFILE')}</h3>
 						</div>
 						{isEditEnabled ? (
-							<div className="card--primary card--med">
+							<div>
 								<div className="row row--form">
 									<div className="form__group col col-sml-12 col-xlrg-4">
 										<BaasicFieldDropdown field={form.$('prefixTypeId')} store={prefixTypeDropdownStore} />
