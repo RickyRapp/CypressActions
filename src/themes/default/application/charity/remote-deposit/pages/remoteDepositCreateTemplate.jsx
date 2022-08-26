@@ -32,7 +32,8 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
         charityName,
         charityAddress,
         taxId,
-        phoneNumber
+        phoneNumber,
+        paymentMethod
     } = sessionCreateViewStore;
 
     return (
@@ -62,6 +63,7 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                             charityAddress={charityAddress}
                             taxId={taxId}
                             phoneNumber={phoneNumber}
+                            paymentMethod={paymentMethod}
                         />
                     </div>}
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { BasicInput, BaasicButton, NumericInputField } from 'core/components';
 
-function Step2Template({ form, onPreviousStepClick, onNextStepClick, isChangedDefaultAddress, charityName, charityAddress, taxId, phoneNumber }) {
+function Step2Template({ form, onPreviousStepClick, onNextStepClick, isChangedDefaultAddress, charityName, charityAddress, taxId, phoneNumber, paymentMethod }) {
 	return (
 		<React.Fragment>
 			<div className="scanner card--med">
@@ -16,7 +16,8 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, isChangedDe
 							{<p>Charity name: <b>{charityName}</b> <br/>
 								EIN: <b>{taxId} </b> <br/>
 								{charityAddress} <br/>
-								{phoneNumber}
+								{phoneNumber} <br/> <br/>
+								Payment method: <b> {paymentMethod} </b>
 							 </p> }
 							{isChangedDefaultAddress &&
 								<div className="card--secondary card--med u-mar--bottom--sml">

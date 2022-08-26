@@ -1,8 +1,7 @@
 import { action, computed, observable } from 'mobx';
 import { BaasicDropdownStore, BaasicUploadStore, BaseEditViewStore } from 'core/stores';
 import { SessionService } from 'application/administration/session/services';
-import { GrantService } from 'application/common/grant/services';
-import { charityFormatter, isSome } from 'core/utils';
+import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { SessionCreateForm } from '../forms';
 
@@ -28,6 +27,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable charityAddress = null;
     @observable taxId = null;
     @observable phoneNumber = null;
+    @observable paymentMethod = null;
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -59,22 +59,24 @@ class SessionViewStore extends BaseEditViewStore {
                 this.nextStep(4);
             }
         });
-        if(this.rootStore.userStore.applicationUser.roles.includes('Charities')){
-            this.currentStep = 1;
-            this.isCharityAccount = true;
-            this.isCharitySelected = true;
-            var charityFromUser = this.rootStore.userStore.applicationUser.charity;
-            this.charityName = charityFromUser.name;
-            this.charityAddress = `${charityFromUser.addressLine1}, ${charityFromUser.city}, ${charityFromUser.state}, ${charityFromUser.zipCode}`;
-            this.taxId = charityFromUser.taxId;
-            this.phoneNumber = charityFromUser.phoneNumber;
-            this.form.$('charityId').value = this.rootStore.userStore.applicationUser.charityId;
-        } 
+        
+        this.currentStep = 1;
+        this.isCharityAccount = true;
+        this.isCharitySelected = true;
+        var charityFromUser = this.rootStore.userStore.applicationUser.charity;
+        this.charityName = charityFromUser.name;
+        this.charityAddress = `${charityFromUser.addressLine1}, ${charityFromUser.city}, ${charityFromUser.state}, ${charityFromUser.zipCode}`;
+        this.taxId = charityFromUser.taxId;
+        this.phoneNumber = charityFromUser.phoneNumber;
+        this.form.$('email').value = charityFromUser.email;
+        this.form.$('charityId').value = this.rootStore.userStore.applicationUser.charityId;
+        
         if(this.rootStore.userStore.applicationUser.roles.includes('Scanners')) {
             this.isScannerAccount = true;
         }
         this.createCharityDropdownStore();
         this.createImageUploadStore();
+        this.getPaymentMethod();
         this.blankCertificateModal = new ModalParams({});
         this.givingCardModal = new ModalParams({});
         this.service = service;
@@ -383,32 +385,10 @@ class SessionViewStore extends BaseEditViewStore {
         this.sessionCertificates.length > 0 ? this.sessionCertificates.filter(c => c.insufficientFunds).map(c => c.certificateValue).reduce((a, b) => a + b, 0) : 0;
     }
 
-    @action.bound
-    async createGivingCardGrant() {
-        this.givingCardModal.open({
-            form: this.form,
-            charityDropdownStore: this.charityDropdownStore,
-            processCard: async () => {
-                this.form.$('taxId').value =  this.charityDropdownStore.value && this.charityDropdownStore.value.item.taxId;
-                const postData = {
-                    cardNumber: this.form.$('cardNumber').value,
-                    amount: this.form.$('amount').value,
-                    description: this.form.$('note').value,
-                    taxId:  this.charityDropdownStore.value && this.form.$('taxId').value.slice(0, 2) + '-' + this.form.$('taxId').value.slice(2)
-                }
-                const service = new GrantService(this.rootStore.application.baasic.apiClient);
-                try {
-                    const response = await service.createGivingCard({...postData});
-                    if(response.data.error || response.data.errorCode)
-                        throw response.data.error;
-                    this.rootStore.notificationStore.success(`Grant approved`);
-                    this.givingCardModal.close();
-                } catch (e) {
-                    this.rootStore.notificationStore.error(e);
-                }
-            }
-        });
+    async getPaymentMethod(){
+        this.paymentMethod = await this.rootStore.application.administration.sessionStore.getPaymentMethod(this.rootStore.userStore.applicationUser.charityId); console.log(this.paymentMethod);
     }
+
 }
 
 export default SessionViewStore;
