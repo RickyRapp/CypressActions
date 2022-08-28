@@ -15,7 +15,7 @@ const CharityBankAccountListTemplate = function ({ charityBankAccountListViewSto
 	} = charityBankAccountListViewStore;
 
 	return (
-		<div>
+		<div className="card--primary card--med u-mar--bottom--med">
 			<h3 className=" u-mar--bottom--med">
 				{t('DONOR.ACCOUNT_INFORMATION_FIELDS.TITLE_BANK_ACCOUNT')}
 			</h3>
@@ -25,7 +25,7 @@ const CharityBankAccountListTemplate = function ({ charityBankAccountListViewSto
 					return (
 						<div key={c.id}>
 							<div
-								className=""
+								className="card--med"
 								title="Click to edit"
 								onClick={() => onEnableEditClick(c)}
 							>

@@ -22,15 +22,13 @@ const CharityUploadLogoTemplate = function ({ t, charityUploadLogoViewStore }) {
     return (
         <div>
             <EditFormContent form={form}>
-                <div className="row">
-                    <div className="col col-sml-12 col-lrg-3">
+                <div className="card--med card--primary u-mar--bottom--med">
                         <h3 className=" u-mar--bottom--med">
                             {t('CHARITY.UPLOAD_LOGO.TITLE')}
                         </h3>
-                    </div>
                     {isEditEnabled ? (
                         <React.Fragment>
-                            <div className='col col-sml-12 col-lrg-12'>
+                            <div>
                                 <div className='card--med card--primary'>
                                     <div className="row row--form u-mar--bottom--med">
                                         <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
@@ -54,7 +52,7 @@ const CharityUploadLogoTemplate = function ({ t, charityUploadLogoViewStore }) {
                             </div>
                         </React.Fragment>
                     ) : (
-                        <div className="col col-sml-12 col-lrg-9" title="Click to edit" onClick={onEnableEditClick}>
+                        <div title="Click to edit" onClick={onEnableEditClick}>
                             <div className="row info-card--scale">
                                 <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
                                     <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Logo:</p>
