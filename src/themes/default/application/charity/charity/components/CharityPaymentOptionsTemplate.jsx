@@ -9,9 +9,7 @@ import {
     BasicFieldCheckbox
 } from 'core/components'
 
-
-const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewStore}){
-
+const CharityPaymentOptionsTemplate = function ({ t, charityPaymentOptionsViewStore }) {
     const {
         loaderStore,
         form,
@@ -20,38 +18,38 @@ const CharityPaymentOptionsTemplate = function ({t, charityPaymentOptionsViewSto
 
     return (
         <div>
-            <EditFormContent form={form}
+            <EditFormContent
+                form={form}
                 emptyRenderer={<ApplicationEmptyState />}
                 loading={loaderStore.loading}
+                formClassName={" "}
             >
                 <h3 className="list--preferences__title">{t('CHARITY.PAYMENT_OPTIONS.TITLE')}</h3>
 
-                <div className="list--preferences">
-                    <div className="list--preferences__label"> {t('CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY')}  </div>
-                    <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('keepFundsUntilManuallyDistributedIsEnabled')} />
+                <div className="row u-mar--bottom--med">
+                    <div className="col col-sml-12 col-lrg-10">{t('CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY')}</div>
+                    <div className="col col-sml-12 col-lrg-2">
+                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('keepFundsUntilManuallyDistributedIsEnabled')} />
+                    </div>
                 </div>
 
-                <div className="list--preferences">
-                    <div className="list--preferences__label">
-                        <div className="form__group col col-sml-5 col-lrg-5">
+                <div className="row">
+                    <div className="col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6">
+                        <div className="form__group">
                             <NumericInputField field={form.$('accumulatedAmountExceeding')} />
                         </div>
                     </div>
-                    <div className="list--preferences__dd">
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('withdrawAmount')} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox 
-                                    field={form.$('keepFundsUntilAccumulatedAmountIsEnabled')} 
-                                    onChange={e => {
-                                        changeManuallWithdrawSetting(e.target.checked);
-                                    }}
-                                />
-                            </div>
-                            </div>
+                    <div className="col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6">
+                        <div className="form__group">
+                            <NumericInputField field={form.$('withdrawAmount')} />
+                        </div>
+                        <div className="form__group">
+                            <BasicFieldCheckbox
+                                field={form.$('keepFundsUntilAccumulatedAmountIsEnabled')}
+                                onChange={e => {
+                                    changeManuallWithdrawSetting(e.target.checked);
+                                }}
+                            />
                         </div>
                     </div>
                 </div>

@@ -26,7 +26,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 	} = charityBankAccountEditViewStore;
 
 	return (
-		<EditFormContent form={form}>
+		<EditFormContent form={form} formClassName={" "}>
 			<div className="card--med card--primary">
 				<div>
 					{!item && <span>Create new bank account manually or using : </span>}
@@ -130,7 +130,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					label='Cancel'
 				/>
 
-				<span className="u-mar--right--sml">
+				<span>
 					<BaasicFormControls form={form} onSubmit={form.onSubmit} />
 				</span>
 

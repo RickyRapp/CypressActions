@@ -14,7 +14,6 @@ const CharityUploadLogoTemplate = function ({ t, charityUploadLogoViewStore }) {
     const {
         imageUploadStore,
         form,
-        isEditEnabled,
         onEnableEditClick,
         item
     } = charityUploadLogoViewStore;
@@ -23,54 +22,30 @@ const CharityUploadLogoTemplate = function ({ t, charityUploadLogoViewStore }) {
         <div>
             <EditFormContent form={form}>
                 <div className="card--med card--primary u-mar--bottom--med">
-                        <h3 className=" u-mar--bottom--med">
-                            {t('CHARITY.UPLOAD_LOGO.TITLE')}
-                        </h3>
-                    {isEditEnabled ? (
-                        <React.Fragment>
-                            <div>
-                                <div className='card--med card--primary'>
-                                    <div className="row row--form u-mar--bottom--med">
-                                        <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
-                                        <div className="col col-sml-4">
-                                            {
-                                                item ? (<img alt="" src={URL.createObjectURL(item)} />) : null
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="info-card--footer">
-
-                                        <BaasicButton
-                                            type="button"
-                                            className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
-                                            onClick={onEnableEditClick}
-                                            label="Cancel"
-                                        />
-                                        <BaasicFormControls form={form} onSubmit={form.onSubmit} />
-                                    </div>
-                                </div>
-                            </div>
-                        </React.Fragment>
-                    ) : (
-                        <div title="Click to edit" onClick={onEnableEditClick}>
-                            <div className="row info-card--scale">
-                                <div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-                                    <p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Logo:</p>
-                                    <p className="type--base type--wgt--bold">
-                                        {
-                                            item ? (<img alt="" src={URL.createObjectURL(item)} />) : null
-                                        }
-                                    </p>
-                                </div>
+                    <h3 className="u-mar--bottom--med">
+                        {t('CHARITY.UPLOAD_LOGO.TITLE')}
+                    </h3>
+                    <div>
+                        <div className="row row--form u-mar--bottom--med">
+                            <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
+                            <div className="col col-sml-4">
+                                {item ? (<img alt="" src={URL.createObjectURL(item)} />) : null}
                             </div>
                         </div>
-                    )}
+                        <div className="info-card--footer">
+                            <BaasicButton
+                                type="button"
+                                className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
+                                onClick={onEnableEditClick}
+                                label="Cancel"
+                            />
+                            <BaasicFormControls form={form} onSubmit={form.onSubmit} />
+                        </div>
+                    </div>
                 </div>
             </EditFormContent>
         </div>
     );
-
-
 }
 
 CharityUploadLogoTemplate.propTypes = {

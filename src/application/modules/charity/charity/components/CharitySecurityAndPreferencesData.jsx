@@ -10,21 +10,19 @@ import {
 function CharitySecurityAndPreferencesData() {
     return (
         <div className="u-mar--bottom--med">
-            <div className="row">
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <div className="card--primary card--med">
-                        <CharityPaymentOptions />
-                    </div>
+            <div className="u-mar--bottom--med">
+                <div className="card--primary card--med">
+                    <CharityPaymentOptions />
                 </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <div className="card--primary card--med">
-                        <CharityChangeUsername />
-                    </div>
+            </div>
+            <div className="u-mar--bottom--med">
+                <div className="card--primary card--med">
+                    <CharityChangeUsername />
                 </div>
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <div className="card--primary card--med">
-                        <CharityResetPassword />
-                    </div>
+            </div>
+            <div className="u-mar--bottom--med">
+                <div className="card--primary card--med">
+                    <CharityResetPassword />
                 </div>
             </div>
         </div>

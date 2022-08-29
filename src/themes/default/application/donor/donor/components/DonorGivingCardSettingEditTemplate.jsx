@@ -109,7 +109,7 @@ const DonorGivingCardSettingEditTemplate = function ({ t, donorGivingCardSetting
                     </div>
                 </div> :
                     <div>
-                        <div className="row">
+                        <div className="row u-mar--bottom--sml">
                             <BasicRadio
                                 label={t('DONOR_GIVING_CARD_SETTING.EDIT.FIELDS.IS_STOLEN_LABEL')}
                                 value={'true'}
