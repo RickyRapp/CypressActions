@@ -2,58 +2,59 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
-import { 
+import {
 	BaasicFieldDropdown,
 	BaasicFieldToggle,
-	BasicInput, 
-	DatePickerField, 
+	BasicInput,
+	DatePickerField,
 	FormatterResolver,
 	NumberFormatInputField,
 	NumericInputField,
-	BaasicButton 
+	BaasicButton
 } from 'core/components';
 
 function GrantGivingCardCreateTemplate({ grantGivingCardCreateViewStore, t }) {
-	const { 
+	const {
 		form,
-		contentLoading, 
-		getNumberOfReocurrency, 
-		grantScheduleTypeDropdownStore 
+		contentLoading,
+		getNumberOfReocurrency,
+		grantScheduleTypeDropdownStore
 	} = grantGivingCardCreateViewStore;
 
 	return (
-		<React.Fragment>
-		<EditFormLayout store={grantGivingCardCreateViewStore} layoutFooterVisible={false} >
-			<Content loading={contentLoading}>
-				<div className="card--med card--primary">
-					<div className="row row--form">
-						<div className="form__group col col-sml-12 col-lrg-12">
-							<NumericInputField field={form.$('amount')} />
-						</div>
-						<div className="form__group col col-sml-12 col-lrg-12">
-							<NumberFormatInputField field={form.$('cardNumber')} />
-						</div>
-						<div className="form__group col col-sml-12 col-lrg-6">
-							<NumberFormatInputField field={form.$('expirationDate')} />
-						</div>
-						<div className="form__group col col-sml-12 col-lrg-6">
-							<NumberFormatInputField field={form.$('cvv')} />
-						</div>
-						<div className="form__group col col-sml-12 col-lrg-6">
-							<BasicInput field={form.$('note')} />
-						</div>
-						{window.innerWidth > 750 && (form.$('isRecurring').value !== true && (
-							<div className={`form__group col col-sml-12 col-xxxlrg-6`}>
-							<DatePickerField field={form.$('startFutureDate')} />
+		<div className="container--sml">
+			<EditFormLayout store={grantGivingCardCreateViewStore} layoutFooterVisible={false} >
+				<Content loading={contentLoading}>
+					<div className="card--med card--primary">
+						<div className="row row--form">
+							<div className="form__group col col-sml-12 col-lrg-12">
+								<NumericInputField field={form.$('amount')} />
 							</div>
-						))}
-						
-					</div>
-					<div className="row row--form">
+							<div className="form__group col col-sml-12 col-lrg-12">
+								<NumberFormatInputField field={form.$('cardNumber')} />
+							</div>
+							<div className="form__group col col-sml-12 col-lrg-6">
+								<NumberFormatInputField field={form.$('expirationDate')} />
+							</div>
+							<div className="form__group col col-sml-12 col-lrg-6">
+								<NumberFormatInputField field={form.$('cvv')} />
+							</div>
+							<div className="form__group col col-sml-12 col-lrg-6">
+								<BasicInput field={form.$('note')} />
+							</div>
+							{window.innerWidth > 750 && (form.$('isRecurring').value !== true && (
+								<div className={`form__group col col-sml-12 col-xxxlrg-6`}>
+									<DatePickerField field={form.$('startFutureDate')} />
+								</div>
+							))}
+						</div>
+
+						<div className="row row--form">
 							<div className="form__group col col-sml-12 type--color--note u-mar--bottom--sml">
 								<BaasicFieldToggle field={form.$('isRecurring')} showLabel={true} />
 							</div>
 						</div>
+
 						{form.$('isRecurring').value &&
 							<div className="card--form card--med u-mar--bottom--med">
 								<div className="row row--form">
@@ -89,15 +90,17 @@ function GrantGivingCardCreateTemplate({ grantGivingCardCreateViewStore, t }) {
 													format={{ type: 'currency' }}
 												/>}
 										</div>
-									</div>}
-							</div>}
-				</div>
-				<div className="u-mar--top--sml u-mar--bottom--sml type--right">
-					<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={form.onSubmit} label='CHARITY_GIVING_CARD.CREATE.FIELDS.SUBMIT_BUTTON' />
-				</div>
-			</Content>		
-		</EditFormLayout>
-		</React.Fragment>
+									</div>
+								}
+							</div>
+						}
+					</div>
+					<div className="u-mar--top--sml u-mar--bottom--sml type--right">
+						<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={form.onSubmit} label='CHARITY_GIVING_CARD.CREATE.FIELDS.SUBMIT_BUTTON' />
+					</div>
+				</Content>
+			</EditFormLayout>
+		</div>
 	);
 }
 
