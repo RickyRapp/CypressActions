@@ -77,7 +77,7 @@ class GridNumericCellTemplate extends GridCell{
                     className={_.includes(this.props.dataItem.errorField, this.props.field) ? 'input--warning' : ''}
                     value={!this.props.dataItem[this.props.field] ? 0 : this.props.dataItem[this.props.field]}
                     onChange={this.handleChange}
-                    format={this.props.format}
+                    format={this.props.format || "n2"}
                     max={this.props.max ? this.props.max : 100000000}
                     min={this.props.min ? this.props.min : 0}
                 />

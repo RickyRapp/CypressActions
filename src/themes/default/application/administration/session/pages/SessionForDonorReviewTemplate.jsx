@@ -13,8 +13,8 @@ const SessionForDonorReviewTemplate = function ({ sessionForDonorReviewViewStore
 		authorization, 
 		routes
     } = sessionForDonorReviewViewStore;
-console.log(tableStore);
-	return (
+
+    return (
 		<React.Fragment>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--primary card--med">

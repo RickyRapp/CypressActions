@@ -44,7 +44,7 @@ $table-width: 1024px;
             width: 25%;
             border: 1px solid $color-background;
             background-color: white;
-            height: calc($unit * 10);
+            height: calc($unit * 8);
             padding: 0 calc($unit * 2);
             text-align: center;
 
@@ -151,7 +151,7 @@ $table-width: 1024px;
             align-items: center;
             width: 100%;
 
-            height: calc($unit * 10);
+            height: calc($unit * 8);
 
             * {
                 line-height: 1;

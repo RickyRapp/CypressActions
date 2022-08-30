@@ -6,7 +6,7 @@ class DonorBankAccountRouteService extends BaseRouteService {
   }
 
   find(filter) {
-    return super.find(this.base + '/{?donorId,page,rpp,sort,embed,searchFields}', filter);
+    return super.find(this.base + '/{?donorId,page,rpp,sort,embed,searchFields,onlyVerified}', filter);
   }
 
   get(id, options) {
@@ -27,6 +27,10 @@ class DonorBankAccountRouteService extends BaseRouteService {
 
   update(resource) {
     return super.update(this.base + '/{id}', resource);
+  }
+
+  verifyDonorBank(resource){
+    return super.update(this.base + '/verify/{id}', resource);
   }
 }
 

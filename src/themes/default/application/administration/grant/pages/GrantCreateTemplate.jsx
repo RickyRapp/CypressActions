@@ -217,7 +217,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         <div className="row row--form">
                                             <div className="form__group col col-sml-12">
                                                 <NumericInputField field={form.$('amount')} onChange={ checkMicroGiving }/>
-                                                {isMicroGiving && <span style={{color:"#C36C36", fontSize:"16px"}} >Micro giving ($2.5 fee) </span>}
+                                                {isMicroGiving && <span style={{color:"#C36C36", fontSize:"16px"}} >Micro giving ($2.50 fee) </span>}
                                             </div>
                                         </div>
                                         {window.innerWidth < 750 ?
@@ -306,8 +306,6 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                                 <BaasicButton className="btn btn--med btn--secondary" form={form} onClick={onSubmitClick} label='GRANT.CREATE.BUTTON.CREATE' />
                                             </div>
                                     </div>}
-
-
                             </div>
                         </div>
                         {charity && (charity.item ? !charity.item.isActive : !charity.isActive) ? <div></div> :
@@ -468,13 +466,10 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
                                         </div>
                                     </div>
 
-                                    <div className="row row--form">
+                                    <div className="row row--form u-mar--bottom--med">
                                         <div className="col col-sml-12 col-lrg-12">
-                                            <h4 className=" u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
-                                            <div className={grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name && "card--primary card--med"}>
-                                                <h5 className="type--med type--wgt--medium type--color--note u-mar--bottom--med">{grantPurposeTypeDropdownStore && grantPurposeTypeDropdownStore.value && grantPurposeTypeDropdownStore.value.name}</h5>
+                                            <h4 className="u-mar--bottom--med">{t('GRANT.CREATE.SIMILAR_GRANTS')}</h4>
                                                 <SimpleBaasicTable tableStore={similarGrantsTableStore} />
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

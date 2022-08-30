@@ -104,7 +104,6 @@ class ScheduledGrantEditViewStore extends BaseEditViewStore {
 	async getDonor() {
 		var isMicroGivingEnabled = (await this.rootStore.application.donor.grantStore.getDonorInformation(this.donorId)).isMicroGivingEnabled;
 		this.MicroGivingValue = isMicroGivingEnabled;
-		console.log(this.MicroGivingValue);
 		this.checkMicroGiving();
 		if (this.MicroGivingValue) {
 			this.form.$('amount').set('rules', 'required|numeric|min:0');

@@ -9,10 +9,10 @@ class GrantProgressTimeline extends Component {
 
         return (
             <React.Fragment>
-                <div className="row">
-                    <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('1. Submited')}</div>
-                        <span className="input--preview">
+                <div className="wizard">
+                    <div className="wizard__item">
+                        <div className="wizard__item__title">{t('Submited')}</div>
+                        <span className="wizard__item__value">
                             {item && <FormatterResolver
                                 item={{ dateCreated: item.dateCreated }}
                                 field='dateCreated'
@@ -20,9 +20,9 @@ class GrantProgressTimeline extends Component {
                             />}
                         </span>
                     </div>
-                    <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('2. Processed')}</div>
-                        <span className="input--preview">
+                    <div className="wizard__item">
+                        <div className="wizard__item__title">{t('Processed')}</div>
+                        <span className="wizard__item__value">
                             {item && item.debitCharityTransaction ?
                                 <React.Fragment>
                                     <FormatterResolver
@@ -53,9 +53,9 @@ class GrantProgressTimeline extends Component {
                                 : ''}
                         </span>
                     </div>
-                    <div className="col col-sml-12 col-lrg-4">
-                        <div className="type--base type--wgt--medium type--color--note">{t('3. Cashed')}</div>
-                        <span className="input--preview">
+                    <div className="wizard__item">
+                        <div className="wizard__item__title">{t('Cashed')}</div>
+                        <span className="wizard__item__value">
                             {item && item.debitCharityTransaction && item.debitCharityTransaction.isCashed ?
                                 <FormatterResolver
                                     item={{ dateCashed: item.debitCharityTransaction.dateCashed }}

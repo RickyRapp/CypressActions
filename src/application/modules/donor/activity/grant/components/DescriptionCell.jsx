@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from '@progress/kendo-react-tooltip';
 
 const DescriptionCell = ({ desc }) => {
     return (
         <td>
-            <span data-tip={`${desc}`} data-type="info" style={{ cursor: 'pointer' }}>
-                {desc}
-                <ReactTooltip />
-            </span>
+            <Tooltip anchorElement="target" position="top">
+                <span style={{ cursor: 'pointer' }} title={desc}>{desc}</span>
+            </Tooltip>
         </td>
     )
 }

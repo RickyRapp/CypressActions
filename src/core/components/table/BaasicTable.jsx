@@ -23,6 +23,7 @@ BaasicTable.propTypes = {
     infiniteScrollCallback: PropTypes.func,
     hideSearch: PropTypes.bool,
     hidePager: PropTypes.bool,
+    tableItems: PropTypes.number,
 };
 
 export default BaasicTable;

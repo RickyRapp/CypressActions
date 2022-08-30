@@ -11,6 +11,7 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 		onEditCompleted,
 		isEditEnabled,
 		editId,
+		charity,
 	} = charityBankAccountListViewStore;
 
 	return (
@@ -26,7 +27,7 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 					.filter(c => c.id !== editId)
 					.map(c => {
 						return (
-							<div key={c.id} className={`u-mar--bottom--sml ${isEditEnabled ? "u-padd--x--med" : ""}`}>
+							<div key={c.id} className={`${isEditEnabled ? "u-padd--x--med" : ""}`}>
 								<div
 									className=""
 									title="Click to edit"
@@ -71,17 +72,21 @@ const CharityBankAccountListTemplate = function({ charityBankAccountListViewStor
 						);
 					})}
 				<div className="">
-					{isEditEnabled ? (
+					{isEditEnabled ? (<div>
 						<CharityBankAccountEdit
 							editId={editId}
 							onCancelEditClick={onCancelEditClick}
 							onEditCompleted={onEditCompleted}
 							bankAccountCount={bankAccounts.length}
+							charity={charity}
 						/>
+
+					</div>
+						
 					) : (
-						<span className="cursor--pointer" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
+						<div className="cursor--pointer type--right" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
 							<button className="btn btn--link btn--sml">Add new bank account</button>
-						</span>
+						</div>
 					)}
 				</div>
 			</div>

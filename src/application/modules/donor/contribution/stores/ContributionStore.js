@@ -34,8 +34,12 @@ class ContributionStore {
     }
 
     async createContribution(resource) {
-        const response = await this.contributionService.create(resource);
-        return response.data;
+        try {
+            const response = await this.contributionService.create(resource);
+            return response.data;
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async updateContribution(resource) {

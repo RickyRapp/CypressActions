@@ -8,3 +8,5 @@ export { default as ReviewCertificateTemplate } from './ReviewCertificateTemplat
 export { default as SessionPendingCertificateListTemplate } from './SessionPendingCertificateListTemplate'
 export { default as AdminReviewListTemplate } from './AdminReviewListTemplate'
 export { default as SessionForDonorReviewTemplate } from './SessionForDonorReviewTemplate'
+export { default as SessionScanListTemplate } from './SessionScanListTemplate'
+export { default as SessionScanEditTemplate } from './SessionScanEditTemplate'

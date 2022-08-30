@@ -1,6 +1,8 @@
 import { BasePreviewViewStore } from 'core/stores';
+import { action, observable } from 'mobx';
 
 class ContributionDetailsViewStore extends BasePreviewViewStore {
+    @observable statusList;
     constructor(rootStore) {
         super(rootStore, {
             name: 'contribution',
@@ -26,6 +28,12 @@ class ContributionDetailsViewStore extends BasePreviewViewStore {
                 }
             }
         });
+        this.getStatuses();
+    }
+    async getStatuses(){
+        var contributionEntity = 'ContributionEntity'
+        var response = await this.rootStore.application.administration.entityStatusLogStore.findStatus(this.rootStore.routerStore.routerState.params.id,contributionEntity);
+        this.statusList = response;
     }
 }
 

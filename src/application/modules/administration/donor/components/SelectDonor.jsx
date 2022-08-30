@@ -6,7 +6,9 @@ import { SelectDonorViewStore } from 'application/administration/donor/stores';
 
 @setCurrentView((rootStore, props) => new SelectDonorViewStore(rootStore, {
     donorId: props.modalParams.data.donorId,
+    charityId: props.modalParams.data.charityId,
     onClickDonorFromFilter: props.modalParams.data.onClickDonorFromFilter,
+    onClickCharityFromFilter: props.modalParams.data.onClickCharityFromFilter,
     onChange: props.modalParams.data.onChange,
     displayToggle: props.modalParams.data.displayToggle
 }), 'selectDonorViewStore')

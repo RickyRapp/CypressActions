@@ -26,8 +26,6 @@ class TransactionViewStore extends BaseListViewStore {
                         params.embed = [
                             'paymentTransaction',
                         ]
-                        var test = await this.rootStore.application.donor.transactionStore.findTransactions({ donorId: this.donorId, ...params });
-                        console.log(test);
                         return this.rootStore.application.donor.transactionStore.findTransactions({ donorId: this.donorId, ...params });
                     }
                 }

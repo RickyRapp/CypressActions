@@ -1,9 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { Export, BaasicTable, TableFilter, BaasicDropdown, FormatterResolver, BaasicButton, BaasicInput, NumberFormatInput, DateRangeQueryPicker, BaasicModal } from 'core/components';
+import {
+	Export,
+	BaasicTable,
+	TableFilter,
+	BaasicDropdown,
+	FormatterResolver,
+	BaasicButton,
+	BaasicInput,
+	NumberFormatInput,
+	DateRangeQueryPicker,
+	BaasicModal,
+} from 'core/components';
 import { Content } from 'core/layouts';
-import { ProgressLineTemplate } from '../components'
+import { ProgressLineTemplate } from '../components';
 
 import {
 	Chart,
@@ -22,8 +33,9 @@ import {
 import { isSome } from 'core/utils';
 import moment from 'moment';
 import { BlankReviewTemplate, GrantCreateOverviewTemplate } from 'themes/application/donor/grant/components';
+import { PastGrantSummaryLoader } from '../components/content-loader';
 
-const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
+const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
 	const {
 		tableStore,
 		queryUtility,
@@ -39,15 +51,21 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		onShowMoreOptionsClick,
 		showMoreOptions,
 		upcomingGrants,
-		reviewModal
+		reviewModal,
 	} = pastGrantViewStore;
 	//Color palette
-	let colors = ["#99bdf3", "#F9EA9A", "#A8C69F", "#223A5E", "#C36C36", "#D8D4F2", "#E0EEC6", "#5DB7DE", "#CEB1BE"];
+	let colors = ['#99bdf3', '#F9EA9A', '#A8C69F', '#223A5E', '#C36C36', '#D8D4F2', '#E0EEC6', '#5DB7DE', '#CEB1BE'];
 	let dataDonut = [];
-	console.log("SummaryData", summaryData);
 	if (summaryData) {
 		dataDonut = summaryData.donationsByCharityType.map(c => {
-			return { charityType: c.charityType.name, value: c.amount, color: c.color, legend: `${c.charityType.name} ${summaryData ? ((c.amount / summaryData.totalMoneyGiven) * 100).toFixed(2) + '%' : c.charityType.name}` };
+			return {
+				charityType: c.charityType.name,
+				value: c.amount,
+				color: c.color,
+				legend: `${c.charityType.name} ${
+					summaryData ? ((c.amount / summaryData.totalMoneyGiven) * 100).toFixed(2) + '%' : c.charityType.name
+				}`,
+			};
 		});
 	}
 	for (let i = 0; i < dataDonut.length; i++) {
@@ -60,20 +78,19 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 	});
 
 	//const labelContent = e => `${e.category}: \n $${e.value.toFixed(2)}`;
-	const DonutChartContainer = () => {// eslint-disable-line
+	const DonutChartContainer = () => {
+		// eslint-disable-line
 		return (
 			<div className="u-mar--bottom--med">
-				<p className="type--base">
-					{t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')}
-				</p>
-				<Chart style={{
-					height: 250,
-				}}>
+				<p className="type--base">{t('DONATION.PAST_GRANT.LIST.SUMMARY.DONAUT_CHART_TITLE')}</p>
+				<Chart
+					style={{
+						height: 250,
+					}}
+				>
 					<ChartLegend position="right" visible={true} />
 					<ChartArea background="none" />
-					<ChartTooltip render={({ point }) => (
-						point ? point.category + ' ' + '$' + point.value.toFixed(2) : null)}
-					/>
+					<ChartTooltip render={({ point }) => (point ? point.category + ' ' + '$' + point.value.toFixed(2) : null)} />
 					<ChartTooltip />
 					<ChartSeries>
 						<ChartSeriesItem
@@ -86,7 +103,16 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 							border={'1px'}
 						>
 							{/* $${point.value.toFixed(2)} */}
-							<ChartSeriesItemTooltip render={({ point }) => point ? <span>{point.dataItem.charityType}: <FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} /></span> : null} />
+							<ChartSeriesItemTooltip
+								render={({ point }) =>
+									point ? (
+										<span>
+											{point.dataItem.charityType}:{' '}
+											<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
+										</span>
+									) : null
+								}
+							/>
 							{/* <ChartSeriesLabels position="outsideEnd" background="none" content={labelContent} /> */}
 						</ChartSeriesItem>
 					</ChartSeries>
@@ -128,8 +154,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 					if (dayOfWeek < 7) {
 						chartDays.push(categoriesDays[dayOfWeek++]);
 						counter++;
-					}
-					else {
+					} else {
 						dayOfWeek = 0;
 					}
 				}
@@ -194,7 +219,17 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			} else {
 				let multipleYears = [];
 				for (let i = 0; i < donor.donationsPerYear.length; i++) {
-					multipleYears.push({ year: donor.donationsPerYear[i].year, grants: donor.donationsPerYear[i].grants.length > 0 ? donor.donationsPerYear[i].grants[donor.donationsPerYear[i].grants.length - 1] : 0, contributions: donor.donationsPerYear[i].contributions.length > 0 ? donor.donationsPerYear[i].contributions[donor.donationsPerYear[i].contributions.length - 1] : 0 });
+					multipleYears.push({
+						year: donor.donationsPerYear[i].year,
+						grants:
+							donor.donationsPerYear[i].grants.length > 0
+								? donor.donationsPerYear[i].grants[donor.donationsPerYear[i].grants.length - 1]
+								: 0,
+						contributions:
+							donor.donationsPerYear[i].contributions.length > 0
+								? donor.donationsPerYear[i].contributions[donor.donationsPerYear[i].contributions.length - 1]
+								: 0,
+					});
 					categoriesYears.push(donor.donationsPerYear[i].year);
 					dataGrants.push(multipleYears[i].grants);
 					dataContributions.push(multipleYears[i].contributions);
@@ -202,7 +237,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			}
 		}
 		if (yearDropdownStore.value.id === 2) {
-			const month = parseInt(moment().format("M"));
+			const month = parseInt(moment().format('M'));
 			if (month == 0) {
 				yearDropdownStore.value.id = 30;
 				checkMonth(donor);
@@ -210,39 +245,49 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 				yearDropdownStore.value.id = new Date().getFullYear();
 				checkYear(donor);
 			} else {
-				dataGrants = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).grants.slice(0, month);
-				dataContributions = donor.donationsPerYear.find(c => c.year === (new Date()).getFullYear()).contributions.slice(0, month);
+				dataGrants = donor.donationsPerYear.find(c => c.year === new Date().getFullYear()).grants.slice(0, month);
+				dataContributions = donor.donationsPerYear
+					.find(c => c.year === new Date().getFullYear())
+					.contributions.slice(0, month);
 				categoriesYearToDate = categoriesMonths.slice(0, month);
 			}
 		}
 	}
 
 	if (yearDropdownStore && yearDropdownStore.value && yearDropdownStore.value.id != 1) {
-		let previousYearGrants = 0, previousYearContributions = 0;
+		let previousYearGrants = 0,
+			previousYearContributions = 0;
 		if (donor && donor.donationsPerYear.length > 1) {
 			if (yearDropdownStore.value.id > donor.donationsPerYear[0].year || yearDropdownStore.value.id == 2) {
-				const previousYear = donor.donationsPerYear.find(c => c.year == (yearDropdownStore.value.id == 2 ? ((new Date().getFullYear()) - 1) : yearDropdownStore.value.id - 1));
+				const previousYear = donor.donationsPerYear.find(
+					c =>
+						c.year == (yearDropdownStore.value.id == 2 ? new Date().getFullYear() - 1 : yearDropdownStore.value.id - 1)
+				);
 				previousYearGrants = previousYear.grants[11] ? previousYear.grants[11] : 0;
 				previousYearContributions = previousYear.contributions[11] ? previousYear.contributions[11] : 0;
 			}
-			if (dataGrants.length > 0)
-				dataGrants = dataGrants.map(c => c - previousYearGrants);
-			if (dataContributions.length > 0)
-				dataContributions = dataContributions.map(c => c - previousYearContributions);
-
+			if (dataGrants.length > 0) dataGrants = dataGrants.map(c => c - previousYearGrants);
+			if (dataContributions.length > 0) dataContributions = dataContributions.map(c => c - previousYearContributions);
 		} else {
 			if (dataGrants.length > 0)
-				dataGrants = dataGrants.map(c => dataGrants[dataGrants.length - 1] != (c - dataGrants[0]) ? (c - dataGrants[0]) : c);
+				dataGrants = dataGrants.map(c =>
+					dataGrants[dataGrants.length - 1] != c - dataGrants[0] ? c - dataGrants[0] : c
+				);
 			if (dataContributions.length > 0)
-				dataContributions = dataContributions.map(c => dataContributions[dataContributions.length - 1] != (c - dataContributions[0]) ? (c - dataContributions[0]) : c);
+				dataContributions = dataContributions.map(c =>
+					dataContributions[dataContributions.length - 1] != c - dataContributions[0] ? c - dataContributions[0] : c
+				);
 		}
 	}
 
-	const labelVisual = (e) => {
-		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+	const labelVisual = e => {
+		return `$${e.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 	};
-	const currencyFormat = (e) => {
-		return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+	const currencyFormat = e => {
+		return `$${e
+			.toFixed(2)
+			.toString()
+			.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 	};
 
 	let categoryDropDown = 0;
@@ -254,7 +299,7 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 		} else if (yearDropdownStore.value.id === 1) {
 			categoryDropDown = categoriesYears;
 		} else if (yearDropdownStore.value.id === 2) {
-			categoryDropDown = categoriesYearToDate
+			categoryDropDown = categoriesYearToDate;
 		} else {
 			categoryDropDown = categoriesWeeks;
 		}
@@ -275,34 +320,68 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 			/>
 			<ChartLegend position="bottom" orientation="horizontal" />
 			<ChartSeries>
-				<ChartSeriesItem color="#bc6d11" name={`Total contributed: ${dataContributions[dataContributions.length - 1] ? `${currencyFormat(dataContributions[dataContributions.length - 1])}` : '$' + (0).toFixed(2).toString()}`} type="line" data={dataContributions} />
-				<ChartSeriesItem color="#223a5e" name={`Total granted: ${dataGrants[dataGrants.length - 1] ? `${currencyFormat(dataGrants[dataGrants.length - 1])}` : '$' + (0).toFixed(2).toString()}`} type="line" data={dataGrants} />
+				<ChartSeriesItem
+					color="#bc6d11"
+					name={`Total contributed: ${
+						dataContributions[dataContributions.length - 1]
+							? `${currencyFormat(dataContributions[dataContributions.length - 1])}`
+							: '$' + (0).toFixed(2).toString()
+					}`}
+					type="line"
+					data={dataContributions}
+				/>
+				<ChartSeriesItem
+					color="#223a5e"
+					name={`Total granted: ${
+						dataGrants[dataGrants.length - 1]
+							? `${currencyFormat(dataGrants[dataGrants.length - 1])}`
+							: '$' + (0).toFixed(2).toString()
+					}`}
+					type="line"
+					data={dataGrants}
+				/>
 			</ChartSeries>
 		</Chart>
 	);
 
 	return (
 		<Content>
-			<div className={`row u-mar--top--sml ${!showMoreOptions ? "u-mar--bottom--sml" : ""}`}>
+			<div className={`row u-mar--top--sml ${!showMoreOptions ? 'u-mar--bottom--sml' : ''}`}>
 				<div className="col col-sml-12 type--center">
-					<button type="button" className={`btn btn--show btn--show--secondary type--wgt--medium ${showMoreOptions ? "show" : ""}`} onClick={onShowMoreOptionsClick}>
-						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+					<button
+						type="button"
+						className={`btn btn--show btn--show--secondary type--wgt--medium ${showMoreOptions ? 'show' : ''}`}
+						onClick={onShowMoreOptionsClick}
+					>
+						<i
+							className={
+								!showMoreOptions
+									? 'u-icon u-icon--base u-icon--arrow-down--primary'
+									: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
+							}
+						></i>
 						{showMoreOptions ? 'HIDE EXPORT' : 'SHOW EXPORT'}
-						<i className={!showMoreOptions ? "u-icon u-icon--base u-icon--arrow-down--primary" : "u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180"}></i>
+						<i
+							className={
+								!showMoreOptions
+									? 'u-icon u-icon--base u-icon--arrow-down--primary'
+									: 'u-icon u-icon--base u-icon--arrow-down--primary u-rotate--180'
+							}
+						></i>
 					</button>
 				</div>
 			</div>
-			{showMoreOptions ?
-				<div className={`card--primary card--med u-mar--bottom--sml ${showMoreOptions ? "show" : ""}`}>
+			{showMoreOptions ? (
+				<div className={`card--primary card--med u-mar--bottom--sml ${showMoreOptions ? 'show' : ''}`}>
 					<Export config={exportConfig} hideLimit={true} />
 				</div>
-				: null}
+			) : null}
 
 			<div className="row row--form">
 				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">
 						<div className="u-mar--bottom--med">
-							<TableFilter colClassName={"col col-sml-12 col-lrg-12"} queryUtility={queryUtility}>
+							<TableFilter colClassName={'col col-sml-12 col-lrg-12'} queryUtility={queryUtility}>
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicDropdown store={charityDropdownStore} />
 								</div>
@@ -373,18 +452,15 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 								</span>
 							</p>
 						</div> */}
-						<BaasicTable
-							authorization={authorization}
-							tableStore={tableStore}
-							actionsComponent={renderActions} />
+						<BaasicTable tableItems={14} authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 					</div>
 					<BaasicModal modalParams={reviewModal}>
-						<BlankReviewTemplate>
-						</BlankReviewTemplate>
+						<BlankReviewTemplate></BlankReviewTemplate>
 					</BaasicModal>
 				</div>
+
 				<div className="col col-sml-12 col-xxxlrg-4 u-mar--bottom--med">
-					<div className={`card--primary card--med ${!summaryData && "fullheight"}`}>
+					<div className={`card--primary card--med ${!summaryData && 'fullheight'}`}>
 						<h4 className="type--med type--wgt--medium u-mar--bottom--med">
 							{t('DONATION.PAST_GRANT.LIST.SUMMARY.TITLE')}
 						</h4>
@@ -393,26 +469,22 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 								<div className="summary__wrapper">
 									<div className="summary__card summary__card--primary">
 										<div className="summary__card__amount summary__card__amount--secondary--primary">
-											{summaryData && (
-												<FormatterResolver
-													item={{ amount: summaryData.totalMoneyGivenThisYear }}
-													field="amount"
-													format={{ type: 'currency' }}
-												/>
-											)}
+											<FormatterResolver
+												item={{ amount: summaryData.totalMoneyGivenThisYear }}
+												field="amount"
+												format={{ type: 'currency' }}
+											/>
 											<p className="type--xsml type--wgt--medium type--color--text">Total money given this year</p>
 										</div>
 									</div>
 
 									<div className="summary__card summary__card--secondary">
 										<div className="summary__card__amount summary__card__amount--secondary">
-											{summaryData && (
-												<FormatterResolver
-													item={{ amount: upcomingGrants }}
-													field="amount"
-													format={{ type: 'currency' }}
-												/>
-											)}
+											<FormatterResolver
+												item={{ amount: upcomingGrants }}
+												field="amount"
+												format={{ type: 'currency' }}
+											/>
 											<p className="type--xsml type--wgt--medium type--color--note"> Total money upcoming this year</p>
 										</div>
 									</div>
@@ -427,18 +499,16 @@ const PastGrantListTemplate = function ({ pastGrantViewStore, t }) {
 										</p>
 										<div className="u-display--flex row__align--center">
 											<span className="type--sml type--wgt--medium u-mar--right--sml">Total Given</span>
-											{donor && donor.isContributionMade &&
+											{donor && donor.isContributionMade && (
 												<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
-											}
+											)}
 										</div>
 										<LineChartContainer />
 									</div>
 								</div>
 							</React.Fragment>
 						) : (
-							<div className="card--med">
-								<p className="type--sml type--wgt--bold type--color--opaque">No activity yet.</p>
-							</div>
+							<PastGrantSummaryLoader />
 						)}
 					</div>
 				</div>

@@ -10,7 +10,6 @@ import { BaasicSwitchTemplate } from 'themes/components';
 
 const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore, fetchSwitchType, summaryData, upcomingGrants } = scheduledGrantViewStore;
-	console.log("Summary", summaryData);
 	return (
 		<Content emptyRenderer={renderEmpty(routes)}>
 			<div className="row row--form">

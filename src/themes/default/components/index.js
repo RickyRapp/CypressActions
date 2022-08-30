@@ -17,6 +17,7 @@ export { default as TableFilterTemplate } from './table/TableFilterTemplate';
 export { default as TableDateColumnCellTemplate } from './table/TableDateColumnCellTemplate';
 export { default as GridNumericCellTemplate } from './table/GridNumericCellTemplate';
 export { default as ContentWithEmptyStateTemplate } from './table/ContentWithEmptyStateTemplate';
+export { default as TableImageCellTemplate } from './table/TableImageCellTemplate';
 
 export * from './table/utils';
 export { default as SearchFilterTemplate } from './SearchFilterTemplate';
@@ -107,5 +108,7 @@ export { default as EmailAddressTemplate } from './formatters/EmailAddressTempla
 export { default as BankAccountTemplate } from './formatters/BankAccountTemplate';
 
 export { default as ExportTemplate } from './export/ExportTemplate';
+export { default as CardItem } from './card-item/CardItem.jsx';
 
 export * from './empty-state';
+export * from './content-loader';

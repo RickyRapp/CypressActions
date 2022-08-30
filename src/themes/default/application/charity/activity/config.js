@@ -8,7 +8,7 @@ import { ActivityTab } from 'application/charity/activity/pages';
                 name: 'master.app.main.charity.activity',
                 pattern: '/transactions',
                 component: ActivityTab,
-                authorization: 'theDonorsFundCharitySection.read',
+                //authorization: 'theDonorsFundCharitySection.read',
                 data: {
                     title: "CHARITY_ACTIVITY.TAB_TITLE"
                 }

@@ -10,7 +10,7 @@ function DonorRecordActivityListTemplate({ donorRecordActivityViewStore }) {
 		<Content>
 			<div className="card--tertiary card--med">
 				<div className="u-mar--bottom--med">
-					<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility}>
+					<TableFilter queryUtility={queryUtility}>
 						<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
 							<DateRangeQueryPicker queryUtility={queryUtility}
 								store={dateCreatedDateRangeQueryStore}

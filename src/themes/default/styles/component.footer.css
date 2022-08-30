@@ -1,0 +1,11 @@
+/*------------------------------------*\
+    # component.footer
+\*------------------------------------*/
+
+.c-footer {
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc($unit * 2);
+    }
+}

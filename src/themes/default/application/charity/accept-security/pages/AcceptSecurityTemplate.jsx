@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import {
     BaasicFieldDropdown,
     NumericInputField,
-    //SimpleBaasicTable,
+    SimpleBaasicTable,
     FormatterResolver,
     BaasicButton,
     BasicInput,
     BaasicModal,
-    BaasicDropdown
+    NumberFormatInputField,
+    BasicFieldCheckbox
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
 import { Content, EditFormLayout } from 'core/layouts';
@@ -19,11 +20,12 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
         form,
         summaryInfo,
         brokerageInstitutionDropdownStore,
-        searchDonorDropdownStore,
         securityTypeDropdownStore,
         balance,
         confirmModal,
-        onSubmitClick
+        onSubmitClick,
+        recentTransfersTableStore,
+        accountBalance
     } = acceptSecurityCreateViewStore;
 
     return (
@@ -33,8 +35,6 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                     {!summaryInfo && <div className="row row--form">
                         <div className="col col-sml-12 col-xxlrg-6">
                             <div className="card--primary card--med u-mar--bottom--med">
-                                <h2>{t('DONOR-DONOR.CREATE.FROM_TITLE')}</h2>
-                                <h4 className=" u-mar--bottom--lrg">{t('DONOR-DONOR.CREATE.TITLE_LABEL')}</h4>
                                 <div className="row row--form u-mar--bottom--sml">
                                     <div className="form__group col col-sml-12">
                                         <div className="type--center">
@@ -45,23 +45,46 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                                                         field="balance"
                                                         format={{ type: 'currency' }}
                                                     />
-                                                )} 
+                                                )}
                                             </div>
-                                            <p className="type--uppercase">{t('DONOR-DONOR.CREATE.BALANCE')}</p>
+                                            <p className="type--uppercase">{t('DONOR-DONOR.CREATE.ACCOUNT_BALANCE')}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="card--primary card--med u-mar--bottom--med">
                                 <h2>{t('ACCEPT-SECURITY.CREATE.DONOR_INFO')}</h2>
-                                <h4 className=" u-mar--bottom--med">{t('ACCEPT-SECURITY.CREATE.DONOR_INFO_DESCRIPTION')}</h4>
+                                <h4 className=" u-mar--bottom--med">{t('ACCEPT-SECURITY.CREATE.PAYER_INFO_DESCRIPTION')}</h4>
                                 <div className="row row--form">
-                                    <div className="col col-sml-12 col-lrg-12 u-mar--bottom--sml">
-                                        <div className="form__group__label">Donor<span className="type--color--note u-mar--left--tny">*</span></div>
-                                        <BaasicDropdown store={searchDonorDropdownStore} />
+                                    <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BasicInput field={form.$('name')} />
                                     </div>
                                 </div>
-                                
+                                <div className="row row--form">
+                                    <div className="form__group col col-sml-12 col-lrg-6">
+                                        <BasicInput field={form.$('addressLine1')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-6">
+                                        <BasicInput field={form.$('addressLine2')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-3">
+                                        <BasicInput field={form.$('city')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-3">
+                                        <BasicInput field={form.$('state')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-3">
+                                        <BasicInput field={form.$('zipCode')} />
+                                    </div>
+                                </div>
+                                <div className="row row--form">
+                                    <div className="form__group col col-sml-12 col-lrg-12">
+                                        <BasicInput field={form.$('email')} />
+                                    </div>
+                                    <div className="form__group col col-sml-12 col-lrg-12">
+                                        <NumberFormatInputField field={form.$('number')} />
+                                    </div>
+                                </div>
                                 <div className="row row--form">
                                     <div className="form__group col col-sml-12">
                                         <BaasicFieldDropdown field={form.$('brokerageInstitutionId')} store={brokerageInstitutionDropdownStore} />
@@ -88,7 +111,9 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                                         <NumericInputField field={form.$('amount')} />
                                     </div>
                                 </div>
-
+                                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
+                                    <BasicFieldCheckbox field={form.$('isAgreeToPoliciesAndGuidelines')} />
+                                </div>
                                 <div className="type--right">
                                     <BaasicButton
                                         type="button"
@@ -110,10 +135,10 @@ const AcceptSecurityTemplate = function ({ acceptSecurityCreateViewStore, t }) {
                                                 {t('ACCEPT-SECURITY.CREATE.RECENT_SECURITIES')}
                                             </h4>
                                             <div className="card--primary card--med type--center">
-                                                <i className="u-icon u-icon--rounded u-icon--rounded--coming-soon"></i>
-                                                <p className="type--lrg type--wgt--medium type--color--opaque u-mar--top--sml">Coming Soon</p>
+                                                {/* <i className="u-icon u-icon--rounded u-icon--rounded--coming-soon"></i>
+                                                <p className="type--lrg type--wgt--medium type--color--opaque u-mar--top--sml">Coming Soon</p> */}
+                                            <SimpleBaasicTable tableStore={recentTransfersTableStore} />
                                             </div>
-                                            {/* <SimpleBaasicTable tableStore={recentTransfersTableStore} /> */}
                                         </div>
                                     </div>
                                 </div>

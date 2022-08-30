@@ -33,6 +33,13 @@ class CharityFileStreamService extends BaseService {
         return this.apiClient.post(url, formData);
     }
 
+    uploadCharityVerificationDocument(file, charityId) {
+        let formData = new FormData();
+        formData.append('file', file.getRawFile(), file.name);
+        const url = this.routeService.uploadCharityVerificationDocument(charityId, file.name);
+        return this.apiClient.post(url, formData);
+    }
+
     uploadCharityMedia(file, charityId, mediaType) {
         let formData = new FormData();
         formData.append('file', file.getRawFile(), file.name);

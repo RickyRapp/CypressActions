@@ -13,7 +13,6 @@ class CharityAddressViewStore extends BaseViewStore {
     form = new CharityAddressEditForm({
         onSuccess: async form => {
             const address = form.values();
-
             if (this.editId) {
                 await this.updateAddressAsync(address);
             }
@@ -26,7 +25,6 @@ class CharityAddressViewStore extends BaseViewStore {
     constructor(rootStore) {
         super(rootStore)
         this.charityId = rootStore.userStore.applicationUser.id;
-
         this.loadAddress();
     }
 
@@ -39,6 +37,10 @@ class CharityAddressViewStore extends BaseViewStore {
         }
         const data = await this.rootStore.application.charity.charityStore.findCharityAddress(params);
         this.addresses = data.item;
+        let primaryAddress = this.addresses.find(b => b.isPrimary === true);
+        this.editId = primaryAddress && primaryAddress.id;
+        this.form.update(primaryAddress);
+        this.isEditEnabled = true;
     }
 
     @action.bound

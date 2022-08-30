@@ -13,20 +13,6 @@ class ContributionViewStore extends BaseListViewStore {
 	@observable allData = null;
 	@observable depositTab = 0;
 	contributionStatuses = [];
-	thirdPartyFunds = [
-		{ id: '1', name: 'Fidelity Charitable' },
-		{ id: '2', name: 'Schwab Charitable' },
-		{ id: '3', name: 'JP Morgan Charitable Giving Fund' },
-		{ id: '4', name: 'Vanguard Charitable Endowment Fund' },
-		{ id: '5', name: 'Jewish Communal Fund' },
-		{ id: '6', name: 'Goldman Sachs Philanthropy Fund' },
-		{ id: '7', name: 'Greater Kansas City Community Foundation' },
-		{ id: '8', name: 'The OJC Fund' },
-		{ id: '9', name: 'Renaissance Charitable' },
-		{ id: '10', name: 'National Philanthropic Trust' },
-		{ id: '11', name: 'Jewish Federation of Metropolitan Chicago' },
-		{ id: '12', name: 'Other' },
-	];
 
 	thirdPartyFunds = [
 		{ id: '1', name: 'Fidelity Charitable' },
@@ -71,33 +57,37 @@ class ContributionViewStore extends BaseListViewStore {
 			actions: () => {
 				return {
 					find: async params => {
-						if(params.dateCreatedFrom){
-                            let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
-                            params.dateCreatedFrom = `${fromDate} 00:00:00`;
-                        }
-                        if(params.dateCreatedTo){
-                            let toDate = params.dateCreatedTo.replace(' 23:59:59','');
-                            params.dateCreatedTo = `${toDate} 23:59:59`;
-                        }
-						params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus', 'bankAccount.accountHolder'];
-						this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
-								donorId: this.donorId,
+						try {
+							if (params.dateCreatedFrom) {
+								let fromDate = params.dateCreatedFrom.replace(' 00:00:00', '');
+								params.dateCreatedFrom = `${fromDate} 00:00:00`;
+							}
+							if (params.dateCreatedTo) {
+								let toDate = params.dateCreatedTo.replace(' 23:59:59', '');
+								params.dateCreatedTo = `${toDate} 23:59:59`;
+							}
+							params.embed = ['donor', 'payerInformation', 'bankAccount', 'paymentType', 'contributionStatus', 'bankAccount.accountHolder'];
+							this.summaryData = await rootStore.application.donor.grantStore.findSummaryPastGrant({
+								partyId: this.partyId,
 								...params,
-						});
-						this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ donorId: this.donorId, ...params });
-						this.allData = await rootStore.application.donor.contributionStore.findContribution({ donorId: this.donorId, ...params });
+							});
+							this.timelineSummary = await rootStore.application.donor.contributionStore.findTimelineSummary({ partyId: this.partyId, ...params });
+							this.allData = await rootStore.application.donor.contributionStore.findContribution({ partyId: this.partyId, ...params });
 
-						if(this.depositTab == 1) {
-							return this.timelineSummary;
-						} else {
-							return this.allData;
+							if (this.depositTab == 1) {
+								return this.timelineSummary;
+							} else {
+								return this.allData;
+							}
+						} catch (error) {
+							console.log('contribution fetch error', error);
 						}
 					},
 				};
 			},
 		});
 
-		this.donorId = rootStore.userStore.applicationUser.id;
+		this.partyId = rootStore.userStore.applicationUser.id;
 		this.createTableStore();
 		this.createPaymentTypeDropdownStore();
 		this.createContributionStatusDropdownStore();
@@ -148,7 +138,7 @@ class ContributionViewStore extends BaseListViewStore {
 	}
 
 	createTableStore() {
-		if(this.depositTab === 0) {
+		if (this.depositTab === 0) {
 			this.setTableStore(
 				new TableViewStore(this.queryUtility, {
 					columns: [
@@ -159,7 +149,7 @@ class ContributionViewStore extends BaseListViewStore {
 								type: 'date',
 								value: 'short',
 							},
-							onClick: (item) => {this.routes.preview(item.id, item.donorId)}
+							onClick: (item) => { this.routes.preview(item.id, item.donorId) }
 						},
 						{
 							key: 'confirmationNumber',
@@ -205,16 +195,20 @@ class ContributionViewStore extends BaseListViewStore {
 					actionsRender: {
 						onEditRender: item => {
 							if (item.contributionStatus.abrv === 'pending') {
-								const dateToEdit = moment(item.dateCreated).add(15, 'm');
-								return moment().isBetween(moment(item.dateCreated), dateToEdit);
+								const dateCreated = new Date(moment.utc(item.dateCreated).format());
+								const now = new Date(moment.utc(new Date()).format());
+								return ((now - dateCreated) / 1000) < 900;
 							}
+							
 							return false;
 						},
 						onCancelRender: item => {
 							if (item.contributionStatus.abrv === 'pending') {
-								const dateToEdit = moment(item.dateCreated).add(30, 'm');
-								return moment().isBetween(moment(item.dateCreated), dateToEdit);
+								const dateCreated = new Date(moment.utc(item.dateCreated).format());
+								const now = new Date(moment.utc(new Date()).format());
+								return ((now - dateCreated) / 1000) < 1800;
 							}
+							
 							return false;
 						},
 					},
@@ -240,19 +234,19 @@ class ContributionViewStore extends BaseListViewStore {
 						}
 					]
 				})
-				);
+			);
 		}
 	}
 
 	@action.bound
-	setDepositTab(tab){
+	setDepositTab(tab) {
 		this.depositTab = tab;
-		if(tab === 0) {
-			this.createTableStore();		
+		if (tab === 0) {
+			this.createTableStore();
 			this.tableStore.setData(this.allData);
 			this.queryUtility.fetch();
 		} else {
-			this.createTableStore();		
+			this.createTableStore();
 			this.tableStore.setData(this.timelineSummary);
 			this.queryUtility.fetch();
 		}

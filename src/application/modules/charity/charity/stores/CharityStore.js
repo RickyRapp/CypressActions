@@ -3,7 +3,8 @@ import {
     CharityService, 
     CharityBankAccountService, 
     CharityAddressService, 
-    CharityCommunicationPreferenceService
+    CharityCommunicationPreferenceService,
+    WithdrawSettingsService
  } from 'application/common/charity/services';
 import { DonationService } from 'application/donor/activity/services';
 import { CharityFileStreamService } from 'common/services';
@@ -18,7 +19,7 @@ class CharityStore {
         this.donationService = moduleStore.rootStore.createApplicationService(DonationService);
         this.routingNumberService = moduleStore.rootStore.createApplicationService(RoutingNumberService);
         this.charityCommunicationPreferenceService = moduleStore.rootStore.createApplicationService(CharityCommunicationPreferenceService);
-
+        this.withdrawSettings = moduleStore.rootStore.createApplicationService(WithdrawSettingsService);
     }
 
     async findCharity(params) {
@@ -48,6 +49,16 @@ class CharityStore {
 
     async getCharityBank(id, options) {
         const response = await this.bankAccountService.get(id, options);
+        return response.data;
+    }
+
+    async getCharityAccountBalance(id){
+        const response = await this.charityService.getCharityAccountBalance(id);
+        return response.data;
+    }
+
+    async getCharityAvailableBalance(id){
+        const response = await this.charityService.getCharityAvailableBalance(id);
         return response.data;
     }
 
@@ -85,6 +96,11 @@ class CharityStore {
         const response = await this.charityService.update(resource);
         return response.data;
     }
+    
+    async updateCharityVerificationDocument(resource) {
+        const response = await this.charityService.updateCharityVerificationDocument(resource);
+        return response.data;
+    }
 
     async updateCharityAddress(resource) {
         const response = await this.charityAddressService.update(resource);
@@ -116,6 +132,11 @@ class CharityStore {
         return response.data;
     }
 
+    async uploadCharityVerificationDocument(file, charityId) {
+        const response = await this.fileStreamService.uploadCharityVerificationDocument(file, charityId);
+        return response.data;
+    }
+
     async withdrawFundCharity(resource) {
         const response = await this.donationService.withdrawFundCharity(resource);
         return response.data;
@@ -143,6 +164,16 @@ class CharityStore {
 
     async updateGeneralData(resource) {
         const response = await this.charityService.updateGeneralData(resource);
+        return response.data;
+    }
+
+    async getWithdrawSettings(partyId){ 
+        const response = await this.withdrawSettings.getbyParty(partyId);
+        return response.data;
+    }
+
+    async updateWithdrawSettings(resource){ 
+        const response = await this.withdrawSettings.update(resource);
         return response.data;
     }
 

@@ -1,22 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { ApplicationEditLayout, Content } from 'core/layouts';
-import { BaasicFieldDropdown, BaasicFieldToggle, BasicInput, DatePickerField, FormatterResolver, NumberFormatInputField, NumericInputField } from 'core/components';
+import { Content, EditFormLayout } from 'core/layouts';
+import { 
+	BaasicFieldDropdown,
+	BaasicFieldToggle,
+	BasicInput, 
+	DatePickerField, 
+	FormatterResolver,
+	NumberFormatInputField,
+	NumericInputField,
+	BaasicButton 
+} from 'core/components';
 
 function GrantGivingCardCreateTemplate({ grantGivingCardCreateViewStore, t }) {
-	const { form, contentLoading, getNumberOfReocurrency, grantScheduleTypeDropdownStore } = grantGivingCardCreateViewStore;
+	const { 
+		form,
+		contentLoading, 
+		getNumberOfReocurrency, 
+		grantScheduleTypeDropdownStore 
+	} = grantGivingCardCreateViewStore;
 
 	return (
-		<ApplicationEditLayout store={grantGivingCardCreateViewStore}>
+		<React.Fragment>
+		<EditFormLayout store={grantGivingCardCreateViewStore} layoutFooterVisible={false} >
 			<Content loading={contentLoading}>
-				<h3 className=" u-mar--bottom--med">{t('CHARITY_GIVING_CARD.CREATE.TITLE')}</h3>
 				<div className="card--med card--primary">
 					<div className="row row--form">
-						<div className="form__group col col-sml-12 col-lrg-6">
+						<div className="form__group col col-sml-12 col-lrg-12">
 							<NumericInputField field={form.$('amount')} />
 						</div>
-						<div className="form__group col col-sml-12 col-lrg-6">
+						<div className="form__group col col-sml-12 col-lrg-12">
 							<NumberFormatInputField field={form.$('cardNumber')} />
 						</div>
 						<div className="form__group col col-sml-12 col-lrg-6">
@@ -28,6 +42,11 @@ function GrantGivingCardCreateTemplate({ grantGivingCardCreateViewStore, t }) {
 						<div className="form__group col col-sml-12 col-lrg-6">
 							<BasicInput field={form.$('note')} />
 						</div>
+						{window.innerWidth > 750 && (form.$('isRecurring').value !== true && (
+							<div className={`form__group col col-sml-12 col-xxxlrg-6`}>
+							<DatePickerField field={form.$('startFutureDate')} />
+							</div>
+						))}
 						
 					</div>
 					<div className="row row--form">
@@ -73,8 +92,12 @@ function GrantGivingCardCreateTemplate({ grantGivingCardCreateViewStore, t }) {
 									</div>}
 							</div>}
 				</div>
-			</Content>
-		</ApplicationEditLayout>
+				<div className="u-mar--top--sml u-mar--bottom--sml type--right">
+					<BaasicButton className="btn btn--med btn--secondary" form={form} onClick={form.onSubmit} label='CHARITY_GIVING_CARD.CREATE.FIELDS.SUBMIT_BUTTON' />
+				</div>
+			</Content>		
+		</EditFormLayout>
+		</React.Fragment>
 	);
 }
 

@@ -3,7 +3,7 @@ import { BaseRouteService } from 'core/services';
 class GrantRouteService extends BaseRouteService {
     constructor() {
         super('grant');
-        this.filterFields = 'donorId,charityId,confirmationNumber,bookletCertificateCode,purposeNote,dollarRange,donationStatusIds,donationTypeIds,dateCreatedFrom,dateCreatedTo,search,name,taxId,grantId,page,rpp,sort,embed,fields'
+        this.filterFields = 'donorId,charityId,confirmationNumber,bookletCertificateCode,purposeNote,dollarRange,donationStatusIds,donationTypeIds,dateCreatedFrom,dateCreatedTo,search,name,taxId,grantId,page,rpp,sort,embed,fields,isWithdraw'
     }
 
     find(filter) {
@@ -27,7 +27,7 @@ class GrantRouteService extends BaseRouteService {
     }
 
     getDonorFromCard(resource) {
-        return super.find(this.base + '/card-number/{?cardNumber,cvv}', resource);
+        return super.find(this.base + '/card-number/{?cardNumber,cvv,expirationDate}', resource);
     }
 
     isEligibleForEdit(id) {
@@ -40,6 +40,10 @@ class GrantRouteService extends BaseRouteService {
 
     createGivingCard() {
         return super.create(this.base + '/create')
+    }
+
+    createWithdraw(){
+        return super.create(this.base + '/withdraw');
     }
 
     createCharityGivingCard() {
@@ -68,6 +72,10 @@ class GrantRouteService extends BaseRouteService {
 
     exportDonor(filter) {
         return super.find(this.base + `/search-export-donor/{?exportFields,donorId,exportLimit,exportType,${this.filterFields}}`, filter);
+    }
+
+    getSimilarByCharityType(params){
+        return super.find(this.base + '/similar/{?donorId,charityId,charityTypeId}', params);
     }
 }
 

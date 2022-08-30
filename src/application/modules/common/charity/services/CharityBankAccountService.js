@@ -6,6 +6,11 @@ class CharityBankAccountService extends BaseService {
     super(apiClient, new CharityBankAccountRouteService());
     this.apiClient = apiClient;
   }
+
+  verifyCharityBank(resource) {
+    const url = this.routeService.verifyCharityBank(resource);
+    return this.apiClient.put(url, resource);
+}
 }
 
 export default CharityBankAccountService;

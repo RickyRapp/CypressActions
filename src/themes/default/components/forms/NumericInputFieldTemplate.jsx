@@ -61,7 +61,7 @@ const NumericInputFieldTemplate = defaultTemplate(({ field, showLabel = true, di
                 placeholder={field.placeholder}
             />
             {renderIf(isSome(field.localizedError))(<div
-                className="validation__message"> <i className="u-icon u-icon--xsml u-icon--warning u-mar--right--tny"></i>{field.localizedError}</div>)}
+                className="validation__message"> <i className="u-icon u-icon--sml u-icon--warning u-mar--right--tny u-mar--bottom--tny"></i>{field.localizedError}</div>)}
         </React.Fragment>
     )
 });

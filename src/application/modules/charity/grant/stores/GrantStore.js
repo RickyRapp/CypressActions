@@ -28,6 +28,11 @@ class GrantStore {
         return response.data;
     }
 
+    async createWithdraw(resource){
+        const response = await this.grantService.createWithdraw(resource);
+        return response.data;
+    }
+
     async createGrantGivingCard(resource) {
         const response = await this.grantService.createCharityGivingCard(resource);
         return response.data;

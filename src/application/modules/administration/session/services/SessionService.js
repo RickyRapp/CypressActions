@@ -95,11 +95,10 @@ class SessionService extends BaseService {
     uploadBlankCertificate(file, certificateId) {
         let formData = new FormData();
         formData.append('file', file.getRawFile(), file.name);
-        //console.log(formData);
         const url = this.routeService.uploadBlankCertificate(certificateId, file.name);
-        //console.log(url);
         return this.apiClient.post(url, formData);
     }
+
     getBlank(id) {
         const url = this.routeService.getBlank(id);
         return this.apiClient.request({
@@ -107,6 +106,21 @@ class SessionService extends BaseService {
             url: url,
             responseType: 'blob',
         });
+    }
+
+    getScannedSessions(filter) {
+        const url = this.routeService.getScannedSessions(filter);
+        return this.apiClient.get(url);
+    }
+
+    getScannedSessionDetails(id) {
+        const url = this.routeService.getScannedSessionDetails(id);
+        return this.apiClient.get(url);
+    }
+
+    updateScannedSession(resource) {
+        const url = this.routeService.updateScannedSession(resource);
+        return this.apiClient.put(url, resource);
     }
 }
 

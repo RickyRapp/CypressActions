@@ -33,7 +33,7 @@ const DonorPhoneNumberListTableTemplate = function ({ donorPhoneNumberViewStore,
                         :
                         <BaasicButton
                             className="btn btn--icon"
-                            onlyIconClassName="u-mar--right--tny"
+                            onlyIconClassName="u-mar--left--tny"
                             icon='u-icon u-icon--add u-icon--base'
                             label='PHONE_NUMBER.LIST.BUTTON.CREATE'
                             onlyIcon={true}

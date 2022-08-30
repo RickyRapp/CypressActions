@@ -4,7 +4,7 @@
 
 $aside-width: 362px;
 $aside-sml-width: 70px;
-$aside-secondary-width: 300px;
+$aside-secondary-width: 280px;
 $header-height: 96px;
 $header-height-mobile: 72px;
 
@@ -23,11 +23,7 @@ $header-height-mobile: 72px;
         }
 
         @media (--screen-from-lrg) {
-            left: calc($aside-width - calc($unit * 13));
-        }
-        
-        @media (--screen-from-xlrg) {
-            left: $aside-width;
+            left: $aside-secondary-width;
         }
     }
 
@@ -51,11 +47,7 @@ $header-height-mobile: 72px;
         }
 
         @media (--screen-from-lrg) {
-            width: calc($aside-width - calc($unit * 13));
-        }
-        
-        @media (--screen-from-xlrg) {
-            width: $aside-width;
+            width: $aside-secondary-width;
         }
 
         &--secondary {
@@ -91,7 +83,7 @@ $header-height-mobile: 72px;
             
             & .nav--primary__item--give {
                 margin: calc($unit * 3) calc($unit * 1);
-                padding: calc($unit * 3) calc($unit * 2);
+                padding: calc($unit * 2);
             }  
         }
 
@@ -109,9 +101,30 @@ $header-height-mobile: 72px;
         right: 0;
         left: 0;
         bottom: 0;
+        padding: calc($unit * 2) calc($unit * 5);
+
+        overflow-y: auto;
 
         @media (--screen-from-sml) {
             top: $header-height;
+        }
+       
+        @media (--screen-from-lrg) {
+            left: $aside-secondary-width;
+        }
+
+        &--secondary {
+
+            padding: calc($unit * 2);
+
+            margin: 0 auto;
+
+            @media (--screen-from-med) {
+            max-width: 95vw;
+            padding: calc($unit * 10);
+
+            margin: 0 auto;
+            }
         }
 
         &.is-collapsed {
@@ -128,19 +141,9 @@ $header-height-mobile: 72px;
                 } 
             }
         }
-        
-        @media (--screen-from-lrg) {
-            left: calc($aside-width - calc($unit * 13));
-            padding: calc($unit * 3) calc($unit * 4);
-        }
-        
-        @media (--screen-from-xlrg) {
-            left: $aside-width;
-            padding: calc($unit * 3) calc($unit * 8);
-        }
 
         &__inner {
-            position: absolute;
+            /* position: absolute;
             top: 0;
             right: 0;
             left: 0;
@@ -156,7 +159,7 @@ $header-height-mobile: 72px;
             @media (--screen-from-xxlrg) {
                 padding: calc($unit * 3) calc($unit * 8);
                 padding-right: calc($unit * 4);
-            }
+            } */
         }
     }
 

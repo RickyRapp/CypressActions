@@ -44,7 +44,7 @@ class CharityWithdrawFundViewStore extends BaseEditViewStore {
             {
                 fetchFunc: async () => {
                     const data = await this.rootStore.application.lookup.paymentTypeStore.find();
-                    const availablePaymentTypes = ['check', 'ach'];
+                    const availablePaymentTypes = ['check', 'ach', 'charity-account'];
                     return data.filter(c => { return availablePaymentTypes.includes(c.abrv) })
                 }
             });

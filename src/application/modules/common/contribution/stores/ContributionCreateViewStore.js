@@ -15,6 +15,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 	@observable step = 2;
 	@observable isThirdPartyFundingAvailable = false;
 	@observable clipboardText = '1';
+	@observable item = null;
 	donor = null;
 
 	constructor(rootStore, { donorId, contributionStore }) {
@@ -26,6 +27,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				return {
 					create: resource => {
 						if (!resource.isThirdParty) {
+							if (this.donor && this.donor.donorName) {
 							resource.name = this.donor.donorName;
 							resource.addressLine1 = this.donor.donorAddress.addressLine1;
 							resource.addressLine2 = this.donor.donorAddress.addressLine2;
@@ -36,7 +38,28 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 							resource.number = this.donor.donorPhoneNumber.number;
 							resource.isAdmin = rootStore.userStore.user.roles.includes('Administrators');
 						}
-						return this.contributionStore.createContribution({ donorId: this.donorId, ...resource });
+						else {
+							resource.name = this.donor.charityName;
+							resource.addressLine1 = this.donor.charityAddress && this.donor.charityAddress.addressLine1;
+							resource.addressLine2 = this.donor.charityAddress  && this.donor.charityAddress.addressLine2;
+							resource.city = this.donor.charityAddress && this.donor.charityAddress.city;
+							resource.state = this.donor.charityAddress  && this.donor.charityAddress.state;
+							resource.zipCode = this.donor.charityAddress  &&  this.donor.charityAddress.zipCode;
+							resource.email =  this.donor.charityBankAccounts  ? this.donor.charityBankAccounts.email : this.donor.contactInformation ? this.donor.contactInformation.email : '';
+							resource.number = this.donor.charityBankAccounts ? this.donor.charityBankAccounts.number : this.donor.contactInformation ? this.donor.contactInformation.number: '';
+							resource.isAdmin = rootStore.userStore.user.roles.includes('Administrators');
+						}
+					}
+							return this.contributionStore.createContribution({ partyId: this.donorId, ...resource });
+					},
+					get: async id => {
+						const data = await this.contributionStore.getContribution(id, {
+							embed: 'payerInformation,donorBankAccount,contributionStatus,donor,donor.donorPhoneNumbers,donor.donorEmailAddresses,donor.donorAddresses,charity,charity.charityAddresses,charity.charityEmailAddresses,charity.charityPhoneNumbers,charity.charityBankAccounts,charity.charityContactInformation',
+						});
+						return {
+							...data,
+							...data.payerInformation,
+						};
 					},
 				};
 			},
@@ -51,8 +74,8 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 
 		this.routes = {
 			allContributions: () => {
-				if(this.rootStore.userStore.applicationUser.roles[0] === 'Administrators') {
-					this.rootStore.routerStore.goTo('master.app.main.administration.contribution.list');
+				if(this.rootStore.userStore.applicationUser.roles.includes('Administrators')) {
+					this.rootStore.routerStore.goTo('master.app.main.administration.contribution.tab');
 				} else {
 					this.rootStore.routerStore.goTo('master.app.main.donor.activity', {}, { headerTab: 1 });
 				}
@@ -341,12 +364,12 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 				const tempTypes = await this.rootStore.application.lookup.paymentTypeStore.find();
 				if (this.rootStore.permissionStore.hasPermission('theDonorsFundAdministrationSection.read')) {
 					this.paymentTypes = tempTypes.filter(c => {
-						return !['bill-pay', 'crypto-currency', 'cash'].includes(c.abrv);
+						return !['bill-pay', 'crypto-currency', 'cash', 'charity-account'].includes(c.abrv);
 					});
 				}
 				else {
 					this.paymentTypes = tempTypes.filter(c => {
-						return !['bill-pay', 'crypto-currency', 'credit-card', 'cash'].includes(c.abrv);
+						return !['bill-pay', 'crypto-currency', 'credit-card', 'cash', 'charity-account'].includes(c.abrv);
 					});
 				}
 				return this.paymentTypes;
@@ -371,6 +394,7 @@ class ContributionCreateViewStore extends BaseEditViewStore {
 					orderBy: 'dateCreated',
 					orderDirection: 'desc',
 				};
+				params.onlyVerified = true;
 				params.donorId = this.donorId;
 				return this.contributionStore.findBankAccount(params);
 			}

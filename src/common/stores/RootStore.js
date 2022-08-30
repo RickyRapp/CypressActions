@@ -82,6 +82,9 @@ export default class RootStore {
                 return new RouterState('master.app.main.donor.dashboard');
             }
             else if (user.roles.includes('Charities')) {
+                if(!user.permissions.verifiedAccountSection){
+                    return new RouterState('master.app.main.charity.bank-account-verification');
+                }
                 return new RouterState('master.app.main.charity.dashboard');
             }
             else if (user.roles.some(c => ['Administrators', 'Employees'].includes(c))) {
@@ -100,7 +103,7 @@ export default class RootStore {
         return new Type(this.application.baasic.apiClient);
     }
 
-    async routeChange({ toState, options }) {
+    async routeChange({ toState, options }) { 
         const { authStore, permissionStore } = this;
 
         if (options.isPublic === false) {

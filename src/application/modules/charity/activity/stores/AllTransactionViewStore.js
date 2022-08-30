@@ -6,6 +6,7 @@ import moment from 'moment';
 
 class AllTransactionViewStore extends BaseListViewStore {
 	@observable isChecksOnHoldVisible = false;
+    @observable availableBalance = 0;
 
     constructor(rootStore) {
         super(rootStore, {
@@ -25,18 +26,17 @@ class AllTransactionViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
+                        this.ackTypes = await this.rootStore.application.lookup.grantAcknowledgmentTypeStore.find();
+
                         params.embed = [
                             'donationType',
                             'donationStatus',
-                            'donor'
+                            'donor',
+                            'grant'
                         ];
-                        // if(!params.dateCreatedFrom){
-                        //     const currentDate = new Date();
-                        //     const now_utc = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate(), 0, 0, 0);
-                        //     params.dateCreatedFrom = moment(new Date(now_utc)).add(-1, 'months').startOf('month').toDate().toISOString();
-                        //     params.dateCreatedTo = moment(new Date(now_utc)).add(-1, 'months').endOf('month').toDate().toISOString();
-                        // }
-                        return rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
+                       
+                        var response = await rootStore.application.charity.activityStore.findCharityTransactions({ charityId: this.charityId, ...params });
+                        return response;
                     }
                 }
             }
@@ -53,6 +53,7 @@ class AllTransactionViewStore extends BaseListViewStore {
         this.createDateCreatedDateRangeQueryStore();
         this.createTransactionTypeStore();
         this.createTransactionPeriodStore();
+        this.getAvailableBalance();
 
         this.checksOnHoldTableStore = new TableViewStore(null, {
             columns: [
@@ -140,8 +141,24 @@ class AllTransactionViewStore extends BaseListViewStore {
                     title: 'Description',
                     format: {
                         type: 'function',
-                        value: (item) => {
-                            try {
+                        value: (item) => { 
+                            try {  
+                                const anonymous = this.ackTypes.find(x => x.abrv == 'remain-anonymous');
+                                const nameAndAddress = this.ackTypes.find(x => x.abrv == 'name-and-address');
+
+                                if(item.type.includes("Withdraw")){
+                                    let desc = item.type.split(".");
+                                    return desc[1] ? desc[1] : item.type;
+                                }
+
+                                if(item && item.paymentTransaction && item.paymentTransaction.charityVirtualTransactions.length > 0 && item.paymentTransaction.charityVirtualTransactions[0].grants.length > 0) {
+                                   
+                                    if(item.paymentTransaction.charityVirtualTransactions[0].grants[0].grantAcknowledgmentTypeId == anonymous.id) 
+                                        return 'Grant: Anonymous';
+                                    if(item.paymentTransaction.charityVirtualTransactions[0].grants[0].grantAcknowledgmentTypeId == nameAndAddress.id) 
+                                        return 'Grant: ' + item.donor.donorName;
+                                    return 'Grant: ' + item.donor.fundName;
+                                }
                                 return item.paymentTransaction.description ? ('Grant: '+ item.donor.donorName) : item.paymentTransaction.paymentTransactionType.description;
                             } catch(e) {
                                 return item.paymentTransaction.description ? item.paymentTransaction.description : item.type;
@@ -155,7 +172,13 @@ class AllTransactionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            return item.type === "Withdraw" || item.type === "Credit" || item.type === "Debit" ? item.type :  this.getTransactionType(item.paymentTransaction.charityVirtualTransactions[0].grants[0]);
+                            if( item.type === "Stock and securities") {
+                                return (item.paymentTransaction.charityVirtualTransactions[0] ? this.getTransactionType(item.paymentTransaction.charityVirtualTransactions[0].Deposits[0]) : "Stocks and securities");
+                            }
+                            if(item.type.includes("Withdraw")){
+                                return item.paymentTransaction.description ? item.paymentTransaction.description : item.type;
+                            }
+                            return item.type;
                         }
                     }
                 },
@@ -180,7 +203,7 @@ class AllTransactionViewStore extends BaseListViewStore {
                                     style: 'currency',
                                     currency: 'USD',
                                     });
-                                return formatter.format(item.paymentTransaction.presentBalance);
+                                return formatter.format(item.accountBalance);
                             }
                     }
                 }
@@ -287,15 +310,19 @@ class AllTransactionViewStore extends BaseListViewStore {
     }
 
     getTransactionType(grant) {
-		if (grant.grantType === "Check") {
+		if (grant && grant.grantType === "Check") {
 			return `${grant.grantType}  ${grant.certificate.booklet.code}-${grant.certificate.code}`;
-		} else if (grant.grantType === 'Charity Website') {
+		} else if (grant && grant.grantType === 'Charity Website') {
 			return `Charity website `+ (grant.charity.url && `- ${grant.charity.url} `)+ grant.confirmationNumber;
 		}
 		else {
 			return `${grant.grantType} ${grant.confirmationNumber}`;
 		}
 	}
+
+    async getAvailableBalance(){
+        this.availableBalance = await this.rootStore.application.charity.charityStore.getCharityAvailableBalance(this.rootStore.userStore.applicationUser.id);
+    }
 
 }
 

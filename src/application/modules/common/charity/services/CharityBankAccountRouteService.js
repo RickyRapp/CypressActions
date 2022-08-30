@@ -24,6 +24,10 @@ class CharityBankAccountRouteService extends BaseRouteService {
   update(resource) {
     return super.update(this.base + '/{id}', resource);
   }
+
+  verifyCharityBank(resource){
+    return super.update(this.base + '/verify/{id}', resource);
+  }
 }
 
 export default CharityBankAccountRouteService;

@@ -291,11 +291,11 @@
 		}
 
 		&--check {
-			background-image: svg-load('../styles/postcss-svg/check.svg', stroke: $color-text);
+			background-image: svg-load('../styles/postcss-svg/check.svg', fill: $color-text);
 
 			&.checked {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/check.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/check.svg', fill: $color-note);
 			}
 		}
 
@@ -314,6 +314,15 @@
 			&.checked {
 				outline: 0;
 				background-image: svg-load('../styles/postcss-svg/wire-transfer.svg', stroke: $color-note);
+			}
+		}
+
+		&--profile {
+			background-image: svg-load('../styles/postcss-svg/profile.svg', stroke: $color-text);
+
+			&.checked {
+				outline: 0;
+				background-image: svg-load('../styles/postcss-svg/profile.svg', stroke: $color-note);
 			}
 		}
 
@@ -469,11 +478,15 @@
 
 		&--clear {
 			background-image: svg-load('../styles/postcss-svg/clear_circle.svg', fill: $grey-4);
-
+			
 			&--absolute {
 				position: absolute;
 				right: calc($unit * 7);
 			}
+		}
+		
+		&--warning {
+			background-image: svg-load('../styles/postcss-svg/icon-warning.svg', stroke: $color-warning);
 		}
 
 		&--user {

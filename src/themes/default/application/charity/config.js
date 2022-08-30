@@ -16,7 +16,8 @@ import { moduleProviderFactory } from 'core/providers'
                 icon: 'dashboard',
                 order: 1,
                 role: ['Charities'],
-                route: 'master.app.main.charity.dashboard'
+                route: 'master.app.main.charity.dashboard',
+                permission: ['VerifiedAccountSection']
             },
             {
                 title: 'MENU.ACTIVITY',
@@ -28,7 +29,7 @@ import { moduleProviderFactory } from 'core/providers'
                 title: 'MENU.WITHDRAW',
                 icon: 'give',
                 order: 3,
-                route: 'master.app.main.charity.dashboard',
+                route: 'master.app.main.charity.withdraw',
                 role: ['Charities']
             },
             {

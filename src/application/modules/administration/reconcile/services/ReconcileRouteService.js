@@ -32,6 +32,10 @@ class ReconcileRouteService extends BaseRouteService {
         return super.get(this.base + '/charity/reconcile-grants/' + '{id}', resource);
     }
 
+    getReconcileDetailsByCwtId(resource){
+        return super.get(this.base + '/detailed/' + '{id}', resource);
+    }
+
 }
 
 export default ReconcileRouteService;

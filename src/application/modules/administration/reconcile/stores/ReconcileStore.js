@@ -40,5 +40,10 @@ class ReconcileStore {
         const response = await this.reconcileService.getGrantsByReconcileId(resource);
         return response.data;
     }
+    
+    async getReconcileDetailsByCwtId(id){
+        const response = await this.reconcileService.getReconcileDetailsByCwtId(id);
+        return response.data;
+    }
 }
 export default ReconcileStore;

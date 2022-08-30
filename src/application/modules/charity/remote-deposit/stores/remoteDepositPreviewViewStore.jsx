@@ -104,7 +104,6 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            console.log(this.donationStatuses);
                             if(this.donationStatuses) 
                                 return this.donationStatuses.find(c => c.id == item.donationStatusId).name;
                             return '';
@@ -117,7 +116,6 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            console.log(item);
                             try{
                                 this.baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
 
@@ -126,7 +124,7 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
                                 return item.certificate.coreMediaVaultEntryId == '00000000-0000-0000-0000-000000000000' ? null : <b><a href={url} target="_blank">&#x21E9; Blank Certificate</a></b>
                                 
                             }catch(e) {
-                                console.log('ex')
+                                console.log(e);
                             }
                             return ' ';
                         }

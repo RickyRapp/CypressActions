@@ -42,6 +42,11 @@ class GrantService extends BaseService {
         return this.apiClient.post(url, resource);
     }
 
+    createWithdraw(resource){
+        const url = this.routeService.createWithdraw(resource);
+        return this.apiClient.post(url, resource);
+    }
+
     createCharityGivingCard(resource) {
         const url = this.routeService.createCharityGivingCard(resource);
         return this.apiClient.post(url, resource);
@@ -65,6 +70,11 @@ class GrantService extends BaseService {
     cancel(resource) {
         const url = this.routeService.cancel(resource);
         return this.apiClient.put(url, resource);
+    }
+
+    getSimilarByCharityType(params){
+        const url = this.routeService.getSimilarByCharityType(params);
+        return this.apiClient.get(url);
     }
 }
 

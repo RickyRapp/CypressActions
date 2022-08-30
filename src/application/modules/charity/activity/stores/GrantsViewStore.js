@@ -38,6 +38,8 @@ class GrantViewStore extends BaseListViewStore {
                             'donationType',
                             'scheduledGrantPayment',
                             'givingCardType',
+                            'certificate',
+                            'certificate.booklet'
                         ];
                         params.fields = [
                             'id',
@@ -55,7 +57,9 @@ class GrantViewStore extends BaseListViewStore {
                             'scheduledGrantPayment',
                             'declinationTypeId',
                             'givingCardTypeId',
-                            'givingCardType'
+                            'givingCardType',
+                            'url',
+                            'certificate'
                         ];
                         if(params.dateCreatedFrom){
                             let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
@@ -157,9 +161,15 @@ class GrantViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: (item) => {
-                            if(item.donationType.abrv === 'giving-card'){
+                            if(item.donationType.abrv === 'online' || item.donationType.abrv === 'grant-request'){
+                                return `${item.donationType.name} - ${item.confirmationNumber}`;
+                            }else if( item.donationType.abrv === 'giving-card') {
                                 return `${item.donationType.name} - ${item.givingCardType.name}`;
-                            }else{
+                            }else if(item.donationType.abrv === 'session') {
+                                return `Check ${item.certificate.booklet.code}-${item.certificate.code} `;
+                            } else if(item.donationType.abrv === 'charity-website') {
+                                return `${item.url ? item.url : 'Charity website'} - ${item.confirmationNumber}`;
+                            } else{
                                 return item.donationType.name;
                             }
                         }

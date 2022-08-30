@@ -29,6 +29,10 @@
                 color: $color-primary;
             }
 
+            &:first-child {
+                padding-left: 0;
+            }
+
             @media (--screen-to-sml) {
                 @mixin type-scale $type-small, 0.75;
                 padding: calc($unit * 1) calc($unit * 2);
@@ -102,6 +106,29 @@
             @media (--screen-to-sml) {
                 padding: calc($unit * 1) calc($unit * 2);
                 @mixin type-scale $type-small, 1;
+            }
+        }
+    }
+
+    &__verify {
+
+        &__body {
+
+            .tabs--primary {
+                width: 100%;
+                border-bottom: 1px solid $grey-3;
+                margin-bottom: calc($unit * 4);
+
+                @media (--screen-to-med) {
+                    display: block;
+                }
+            }
+
+            .tabs--primary__item {
+
+                @media (--screen-to-med) {
+                    float: none;
+                }
             }
         }
     }

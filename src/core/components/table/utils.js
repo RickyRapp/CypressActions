@@ -63,7 +63,7 @@ function getPagingProps(tableStore) {
             buttonCount: tableStore.config.buttonCount || 5,
             info: tableStore.recordCount > tableStore.pageSize,
             type: 'numeric',
-            pageSizes: [20, 50, 100],
+            pageSizes: [10, 20, 50, 100],
             previousNext: tableStore.config.previousNext || true,
         },
     };

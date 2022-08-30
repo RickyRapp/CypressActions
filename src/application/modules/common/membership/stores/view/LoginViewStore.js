@@ -44,9 +44,9 @@ class LoginViewStore extends BaseViewStore {
 				await this.rootStore.routerStore.goTo(redirect);
 			} else {
 				const {
-					data: { roles: roles },
+					data: { roles: roles, permissions: permissions },
 				} = await this.app.membershipModule.login.loadUserData({ embed: 'permissions' });
-				if (roles) {
+				if (roles) { 
 					if(localStorage.getItem('apiVersion') !== null) {
 						if(localStorage.getItem('apiVersion') !== ApplicationSettings.apiVersion) {
 							localStorage.clear();
@@ -58,7 +58,11 @@ class LoginViewStore extends BaseViewStore {
 					if (roles.includes('Users')) {
 						this.rootStore.routerStore.goTo(new RouterState('master.app.main.donor.dashboard'));
 					} else if (roles.includes('Charities')) {
-						this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.dashboard'));
+						if(!permissions.verifiedAccountSection){
+							this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.bank-account-verification'));
+						}else{
+							this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.dashboard'));
+						}
 					} else if (roles.some(c => ['Administrators', 'Employees'].includes(c))) {
 						this.rootStore.routerStore.goTo(new RouterState('master.app.main.administration.dashboard'));
 					} else if (roles.includes('Scanners')) {

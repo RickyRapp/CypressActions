@@ -8,6 +8,7 @@ export default class MenuStore {
     @observable selectedPath = [];
     @observable isCollapsed = false;
     @observable isOpen = false;
+    @observable secondaryMenuIsOpen = false;
     rawMenu = null;
     @observable selectedRootMenuItemTitle = '';
 
@@ -71,7 +72,16 @@ export default class MenuStore {
         if (this.isCollapsed) {
             this.closeMenu();
         }
+        this.secondaryMenuIsOpen = false;
         this.isOpen = false;
+    }
+
+    //toggle secondary menu items 
+    @action.bound toggleSecondaryMenu() {
+        this.secondaryMenuIsOpen = !this.secondaryMenuIsOpen;
+        if(this.isCollapsed) {
+            this.secondaryMenuIsOpen = true;
+        }
     }
 
     //toggles menu open/close is-open, for mobile
@@ -88,9 +98,11 @@ export default class MenuStore {
             this.setActivePath(item.path);
             this.rootStore.routerStore.goTo(route);
             this.toggleMenuOpen();
+            this.secondaryMenuIsOpen = false;
         } else {
             this.setSelectedPath(item.path);
         }
+        
         e && e.preventDefault();
     };
 

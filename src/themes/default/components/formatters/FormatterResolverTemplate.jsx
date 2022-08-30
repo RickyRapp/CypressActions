@@ -62,18 +62,13 @@ function FormatterResolver({ item, field, format }) {
             const paymentTransaction = _.get(item, field);
             const type = paymentTransaction.paymentTransactionType.abrv;
             params.value = paymentTransaction.amount;
-            if (type === 'debit') {
-                params.value = params.value * (-1)
-            }
             return <NumberFormat {...params} />
         }
+        
         case 'transaction-currency-charity': {
             const paymentTransaction = _.get(item, field);
             const type = paymentTransaction.paymentTransactionType.abrv;
             params.value = paymentTransaction.amount;
-            if (type === 'debit' && params.value > 0) {
-                params.value = params.value * (-1)
-            }
             return <NumberFormat {...params} />
         }
         case 'boolean':
@@ -98,11 +93,16 @@ function FormatterResolver({ item, field, format }) {
             }
             return null;
         case 'function':
-            return format.value(item);
+            try {
+                return format.value(item);
+            } catch (error) {
+                console.log('FormatResolverError:', error);
+            }
         case 'denomination': {
             const notAvailable = "Out Of Stock.";
             const denominationType = _.get(item, field);
-            const value = denominationType.abrv === 'blank' && format.additionalField ? _.get(item, format.additionalField) : denominationType.value;
+            if(!denominationType) return null;
+            const value =  denominationType.abrv === 'blank' && format.additionalField ? _.get(item, format.additionalField) : denominationType.value;
             const oneCert = <span><NumberFormat value={value} displayType='text' thousandSeparator={true} prefix='$' fixedDecimalScale={true} decimalScale={2} />{denominationType.abrv === 'blank' ? ' (Blank)' : ''}</span>;
 
             switch (format.value) {

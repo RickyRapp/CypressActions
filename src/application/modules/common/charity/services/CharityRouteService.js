@@ -9,12 +9,20 @@ class CharityRouteService extends BaseRouteService {
         return super.get(this.base + '/login-profile/{id}', id);
     }
 
+    getCharityAccountBalance(id){
+        return super.get(this.base + '/account-balance/{id}', id);
+    }
+
+    getCharityAvailableBalance(id){
+        return super.get(this.base + '/available-balance/{id}', id);
+    }
+
     find(filter) {
         return super.find(this.base + '/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
     }
 
     findPending(filter) { 
-        return super.find(this.base + '/get-pending/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields}', filter);
+        return super.find(this.base + '/get-pending/{?search,name,taxId,address,charityId,page,rpp,sort,embed,fields,isPendingUserAccount,isPendingBankAccount}', filter);
     }
 
     findGrants(filter) {
@@ -61,6 +69,10 @@ class CharityRouteService extends BaseRouteService {
         return super.update(this.base + '/approve/{id}', {id: id});
     }
 
+    updateCharityVerificationDocument(resource){
+        return super.update(this.base + '/user-verification-document/{id}', {id: resource.id});
+    }
+
     search(filter) {
         return super.find(this.base + '/search/{?id,search,name,dba,taxId,address,charityTypeIds,page,rpp,sort,embed,fields,exceptId,advancedSearch}', filter);
     }
@@ -71,6 +83,10 @@ class CharityRouteService extends BaseRouteService {
 
     createOnlineAccount(resource) {
         return super.create(this.base + '/create-online-account/{id}', resource);
+    }
+
+    verifyCharityUserAccount(id){
+        return super.update(this.base + '/verify-user-account/{id}', {id: id});
     }
 }
 

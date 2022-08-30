@@ -12,6 +12,16 @@ class CharityService extends BaseService {
         return this.apiClient.get(url);
     }
 
+    getCharityAccountBalance(id){
+        const url = this.routeService.getCharityAccountBalance(id);
+        return this.apiClient.get(url);
+    }
+
+    getCharityAvailableBalance(id){
+        const url = this.routeService.getCharityAvailableBalance(id);
+        return this.apiClient.get(url);
+    }
+
     findGrants(filter) {
         const url = this.routeService.findGrants(filter);
         return this.apiClient.get(url);
@@ -42,6 +52,11 @@ class CharityService extends BaseService {
         return this.apiClient.put(url, id);
     }
 
+    updateCharityVerificationDocument(resource){
+        const url = this.routeService.updateCharityVerificationDocument(resource);
+        return this.apiClient.put(url, resource);
+    }
+
     taxIdExists(taxId) {
         const url = this.routeService.taxIdExists(taxId);
         return this.apiClient.get(url);
@@ -70,6 +85,11 @@ class CharityService extends BaseService {
     async getCharityQuestionnaireAnswers(id, options = {}) { 
         const url = this.routeService.getCharityQuestionnaireAnswers(id, options);
         return this.apiClient.get(url);
+    }
+
+    verifyCharityUserAccount(id){
+        const url = this.routeService.verifyCharityUserAccount(id);
+        return this.apiClient.put(url, id);
     }
 }
 

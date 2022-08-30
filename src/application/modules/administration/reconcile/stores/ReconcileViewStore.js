@@ -6,6 +6,7 @@ import { ModalParams } from 'core/models';
 import { isSome } from 'core/utils';
 import { ReconcileEditForm } from 'application/administration/reconcile/forms';
 import { saveAs } from '@progress/kendo-file-saver';
+import ReconcileSelectTableWithLoadOnDemand from 'application/administration/donation/stores/ReconcileSelectTableWithLoadOnDemand';
 
 class ReconcileViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -30,7 +31,7 @@ class ReconcileViewStore extends BaseListViewStore {
             }
         });
 
-        this.createTableStore();
+        this.createTableStore(this.getReconcileDetailsByCharityId);
         this.editModal = new ModalParams({});
         this.previewModal = new ModalParams({});
         this.uploadFileTemplateModal = new ModalParams({});
@@ -94,8 +95,14 @@ class ReconcileViewStore extends BaseListViewStore {
         this.rootStore.notificationStore.success("Report generated.");
     }
 
+    @action.bound
+    async getReconcileDetailsByCharityId(id){
+        this.data = await this.rootStore.application.administration.reconcileStore.getReconcileDetailsByCwtId(id);
+        return this.data;
+    }
+
     createTableStore(loadMethod) {
-        this.setTableStore(new SelectTableWithRowDetailsViewStore(this.queryUtility, {
+        this.setTableStore(new ReconcileSelectTableWithLoadOnDemand(this.queryUtility, {
             columns: [
                 {
                     key: 'paymentNumber',
@@ -132,13 +139,17 @@ class ReconcileViewStore extends BaseListViewStore {
                                 return <div>
                                     {item.charity.name} (*)
                                 </div>
-                            } else if(item.grants[0]){
-                                const grant = item.grants[0];
+                            } else if(item.address){
                                 return <div>
                                     {item.charity.name} 
                                     <small style={{ display: "block" }}>
-                                        {grant.address}
+                                        {item.address}
                                         </small>
+                                        {item.paymentType.abrv === 'ach' && (
+                                            <small style={{ display: "block" }}>
+                                            {item.bankAccount}
+                                            </small>
+                                        )}
                                 </div>
                             } else {
                                 return <div>
@@ -156,6 +167,17 @@ class ReconcileViewStore extends BaseListViewStore {
                         type: 'function',
                         value: (item) => {
                             return item.isCashed ? 'Payment Received' : 'Payment Submited'
+                        }
+                    }
+                },
+                {
+                    key: 'isWithdraw',
+                    title: 'RECONCILE.LIST.COLUMNS.IS_WITHDRAW',
+                    format : {
+                        type: 'function',
+                        value: (item) => {
+                            return item.isWithdraw ? <div className="type--center" ><i class="u-icon u-icon--approve u-icon--base "></i></div> : null;
+
                         }
                     }
                 },
@@ -195,13 +217,13 @@ class ReconcileViewStore extends BaseListViewStore {
                     return !isSome(item.isCashed);
                 },
                 onPrintReportRender: (item) => {
-                    return item.isCashed !== false || item.isCashed !== null;
+                    return (item.isCashed !== false || item.isCashed !== null) && item.paymentType.abrv !== 'charity-account';
                 },
                 onPreviewRender: (item) => {
                     return item.isCashed && item.json;
                 }
             }
-        }));
+        }, false, loadMethod));
     }
     createPaymentTypeDropodownStore() {
         this.paymentTypeDropdownStore = new BaasicDropdownStore({

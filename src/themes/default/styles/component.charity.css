@@ -1,0 +1,21 @@
+/*------------------------------------*\
+    # component.charity
+\*------------------------------------*/
+
+.c-charity {
+    &__wrapper {
+        /* display: inline-block; */
+        margin-bottom: calc($unit * 6);
+    }
+
+	&__barcode-card {
+		display: flex;
+        gap: calc($unit * 6);
+        align-items: flex-start;
+
+		padding: calc($unit * 4);
+
+		background-color: $color-background-seashellt;
+        border-radius: $radius-base;
+	}
+}
