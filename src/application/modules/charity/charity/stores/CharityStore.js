@@ -1,4 +1,5 @@
 import { RoutingNumberService } from 'application/administration/bank/services';
+import { ActivityService } from 'application/charity/activity/services';
 import { 
     CharityService, 
     CharityBankAccountService, 
@@ -20,6 +21,7 @@ class CharityStore {
         this.routingNumberService = moduleStore.rootStore.createApplicationService(RoutingNumberService);
         this.charityCommunicationPreferenceService = moduleStore.rootStore.createApplicationService(CharityCommunicationPreferenceService);
         this.withdrawSettings = moduleStore.rootStore.createApplicationService(WithdrawSettingsService);
+        this.activityService = moduleStore.rootStore.createApplicationService(ActivityService);
     }
 
     async findCharity(params) {
@@ -174,6 +176,11 @@ class CharityStore {
 
     async updateWithdrawSettings(resource){ 
         const response = await this.withdrawSettings.update(resource);
+        return response.data;
+    }
+
+    async getDashboardChartData(resource){ 
+        const response = await this.activityService.getDashboardChartData(resource);
         return response.data;
     }
 

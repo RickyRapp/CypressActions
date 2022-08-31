@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Page } from 'core/layouts';
 import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, FormatterResolver, BaasicDropdown } from 'core/components';
@@ -15,146 +15,188 @@ import {
 } from '@progress/kendo-react-charts';
 import { AllTransactionList } from 'application/charity/activity/pages';
 
-function DashboardTemplate({ dashboardViewStore, t }) {
-	const { 
-		charity, 
-		newContributionOnClick, 
-		redirectToWithdrawFundsPage, 
-		yearDropdownStore,
-		notImplemented,
-		manageAccount, 
-		balance, 
-		grantsPerYear,
-		redirectToManageAccount,
-		availableBalance
-	} = dashboardViewStore;
-	let categories = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-	let dataGrants = [];
-	const LineChartContainer = () => (
-		<Chart style={{ height: 260 }}>
-			<ChartCategoryAxis>
-				<ChartCategoryAxisItem categories={categories} />
-			</ChartCategoryAxis>
-			<ChartTooltip
-				render={({ point }) => (
-					<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
-				)}
-			/>
-			<ChartLegend position="bottom" orientation="horizontal" />
-			<ChartSeries>
-				<ChartSeriesItem color="#223a5e" name="Total grants received" type="line" data={dataGrants} />
-			</ChartSeries>
-		</Chart>
-	);
-	return (
-		<Page>
-			<DashboardHeader />
+class DashboardTemplate extends Component {
 
-			<div className="card card--sml card--primary u-mar--bottom--med">
-				<div className="dashboard__top">
-					<h3>
-						Finish setting up your account
-					</h3>
-					<div className="dashboard__top__buttons">
-						{charity && (
-							<BaasicButton
-								className="btn btn--med btn--primary--light "
-								icon="u-icon u-icon--arrow-forward u-icon--base"
-								label="VIEW INVESTMENT OPTIONS"
-								onClick={() => alert(true)}
-							/>
-						)}
-						{charity && (
-							<BaasicButton
-								className="btn btn--med btn--primary--light "
-								icon="u-icon u-icon--arrow-forward u-icon--base"
-								label="CONNECT TO YOUR WEBSITE"
-								onClick={() => alert(true)}
-							/>
-						)}
-					</div>
-				</div>
-			</div>
+	render() {
+		const { dashboardViewStore, t } = this.props;
+	
+		const { 
+			charity, 
+			newContributionOnClick, 
+			redirectToWithdrawFundsPage, 
+			yearDropdownStore,
+			notImplemented,
+			manageAccount, 
+			dataGrants, 
+			grantsPerYear,
+			redirectToManageAccount,
+			availableBalance
+		} = dashboardViewStore;
 
-			<div className="row">
-				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
-					{charity && charity.name ? (
-						<div className="dashboard-card dashboard-card--secondary">
-							<h3 className=" u-mar--bottom--med">Your Funds</h3>
-							<div className="dashboard-card__body">
-								<div className="dashboard-card__body--amount">
-									<FormatterResolver
-										item={{ balance: availableBalance }}
-										field="balance"
-										format={{ type: 'currency' }}
+		this.categories = {
+			categoriesDays: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+			categoriesWeeks: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+			categoriesYears: ["2017", "2018", "2019", "2020", "2021", "2022"],
+		}
+
+		const monthsWords = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+		const monthsNums = ['1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '10.', '11.', '12.'];
+
+		const mobileResolution = window.innerWidth > 750;
+		if (mobileResolution) {
+			this.categories.categoriesMonths = monthsWords;
+			this.categories.categoriesYearToDate = monthsWords;
+		} else {
+			this.categories.categoriesMonths = monthsNums;
+			this.categories.categoriesYearToDate = monthsNums;
+		}
+
+		const categories = this.categories[dataGrants.type];
+
+		if (dataGrants.type === "categoriesWeeks" && dataGrants.item.every(i => i.name != 5)) {
+			categories.splice(categories.length - 1);
+		}
+
+		const items = categories.map(cat => {
+			const item = dataGrants.item.find(grant => cat.includes(grant.name)); 
+			return (item && item.value) ? item.value : 0 
+		});
+
+		const LineChartContainer = () => (
+			<Chart style={{ height: 260 }}>
+				<ChartCategoryAxis>
+					<ChartCategoryAxisItem categories={categories} />
+				</ChartCategoryAxis>
+				<ChartTooltip
+					render={({ point }) => (
+						<FormatterResolver item={{ amount: point.value }} field="amount" format={{ type: 'currency' }} />
+					)}
+				/>
+				<ChartLegend position="bottom" orientation="horizontal" />
+				<ChartSeries>
+					<ChartSeriesItem color="#223a5e" name="Total grants received" type="line" data={items} />
+				</ChartSeries>
+			</Chart>
+		);
+		return (
+			<Page>
+				<DashboardHeader />
+				<div className="row">
+					<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
+						{charity && charity.name ? (
+							<div className="dashboard-card dashboard-card--secondary">
+								<h3 className=" u-mar--bottom--med">Your Funds</h3>
+								<div className="dashboard-card__body">
+									<div className="dashboard-card__body--amount">
+										<FormatterResolver
+											item={{ balance: availableBalance }}
+											field="balance"
+											format={{ type: 'currency' }}
+										/>
+									</div>
+									<p className="dashboard-card__body--title">ACCOUNT BALANCE</p>
+								</div>
+								<div className="row">
+									<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
+										<BaasicButton
+											className="btn btn--med btn--100 btn--primary--light"
+											label="Withdraw Funds"
+											onClick={redirectToWithdrawFundsPage}
+										/>
+									</div></div>
+									<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
+										<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Manage Account" onClick={redirectToManageAccount} />
+									</div></div>
+								</div>
+							</div>
+						) : (
+							<div className="dashboard-card--emptystate">
+								<h3 className=" u-mar--bottom--med">Your Funds</h3>
+								<div className="dashboard-card--emptystate__body">
+									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+									<BaasicButton
+										className="btn btn--secondary btn--med btn--med--wide"
+										// label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+										onClick={newContributionOnClick}
 									/>
 								</div>
-								<p className="dashboard-card__body--title">ACCOUNT BALANCE</p>
 							</div>
-							<div className="dashboard-card__footer dashboard-card__footer--buttons">
-								<BaasicButton
-									className="btn btn--med btn--100 btn--primary--light"
-									label="Withdraw Funds"
-									onClick={redirectToWithdrawFundsPage}
-								/>
-								<BaasicButton
-									className="btn btn--med btn--100 btn--primary--light"
-									label="Manage Account"
-									onClick={redirectToManageAccount}
-								/>
+						)}
+					</div>
+
+					<div className="col col-sml-12 col-xxlrg-6">
+						{charity && charity.name ? (
+							<div className="dashboard-card dashboard-card--secondary">
+								<div className="row u-mar--bottom--tny remove--sml">
+									<div className="col col-sml-12">
+										<div className="u-display--flex row__align--center">
+											<span className="type--base type--wgt--medium u-mar--right--med">Total grants received</span>
+											{/* <LineChartContainer /> */}
+											<BaasicDropdown store={yearDropdownStore} />
+										</div>
+									</div>
+								</div>
+								<div className="row u-mar--bottom--med">
+									<div className="col col-sml-12"><LineChartContainer className="col-xlrg-12 col-xxlrg-12" /></div>
+								</div>
+							</div>
+						) : (
+							<div className="dashboard-card--emptystate card--med">
+								<h3 className=" u-mar--bottom--med">Your Giving</h3>
+								<div className="dashboard-card--emptystate__body">
+									<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
+									<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
+									<BaasicButton
+										className="btn btn--secondary btn--med btn--med--wide"
+										// label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
+										onClick={newContributionOnClick}
+									/>
+								</div>
+							</div>
+						)}
+					</div>
+					<div className="col col-sml-12 col-lrg-12">
+						<div className="u-mar--bottom--med u-mar--top--med">
+							<h3 className=" u-mar--bottom--med type--center">
+								Finish setting up your account
+							</h3>
+							<div className="row type--center u-display--flex u-display--flex--justify--center">
+								{charity && (
+									<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
+										<BaasicButton
+											className="btn btn--med btn--med--100 btn--tertiary "
+											icon="u-icon u-icon--arrow-forward u-icon--med"
+											label="VIEW INVESTMENT OPTIONS"
+											onClick={() => alert(true)}
+										/>
+									</div>
+								)}
+								{charity && (
+									<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
+										<BaasicButton
+											className="btn btn--med btn--med--100 btn--tertiary "
+											icon="u-icon u-icon--arrow-forward u-icon--med"
+											label="CONNECT TO YOUR WEBSITE"
+											onClick={() => alert(true)}
+										/>
+									</div>
+								)}
 							</div>
 						</div>
-					) : (
-						<div className="dashboard-card--emptystate">
-							<h3 className=" u-mar--bottom--med">Your Funds</h3>
-							<div className="dashboard-card--emptystate__body">
-								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-								<BaasicButton
-									className="btn btn--secondary btn--med btn--med--wide"
-									// label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-									onClick={newContributionOnClick}
-								/>
-							</div>
-						</div>
-					)}
+					</div>
 				</div>
-
-				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
-					{charity && charity.name ? (
-						<div className="dashboard-card dashboard-card--secondary">
-							<div className="u-display--flex u-display--flex--justify--space-between u-mar--bottom--sml">
-								<h3 className="u-mar--right--med">Total grants received</h3>
-								{/* <LineChartContainer /> */}
-								<BaasicDropdown store={yearDropdownStore} />
-							</div>
-
-							<LineChartContainer className="" />
+				<div className="row">
+					<div className="col col-sml-12 col-lrg-12">
+						<div className="card card--primary card--med u-mar--bottom--med">
+							<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
+							<AllTransactionList hideSearch={true} hideCheckBox={true} />
 						</div>
-					) : (
-						<div className="dashboard-card--emptystate card--med">
-							<h3 className=" u-mar--bottom--med">Your Giving</h3>
-							<div className="dashboard-card--emptystate__body">
-								<p className="dashboard-card--emptystate__body--title">No Activity yet!</p>
-								<p className="dashboard-card--emptystate__body--info">Make your first contribution today</p>
-								<BaasicButton
-									className="btn btn--secondary btn--med btn--med--wide"
-									// label="DASHBOARD.BUTTON.DEPOSIT_FUNDS"
-									onClick={newContributionOnClick}
-								/>
-							</div>
-						</div>
-					)}
+					</div>
 				</div>
-			</div>
-
-			<div className="card card--sml card--primary">
-				<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
-				<AllTransactionList removeCardStyle hideSearch={true} hideCheckBox={true} />
-			</div>
-
-		</Page>
-	);
+			</Page>
+		);
+	}
 }
 
 DashboardTemplate.propTypes = {
