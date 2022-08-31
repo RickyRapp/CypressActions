@@ -13,7 +13,7 @@ const DepositGeneralInformationTemplate = ({ item, t }) => {
 					t={t}
 					label={'CONTRIBUTION.DETAILS.DONOR_NAME'}
 					value={item && item.donor && item.donor.name}
-				/> {console.log(item && item)}
+				/>
                 <CardItem
                     t={t}
                     label={'CONTRIBUTION.DETAILS.CONFRIMATION_NUMBER'}
