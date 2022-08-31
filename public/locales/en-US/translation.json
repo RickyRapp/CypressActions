@@ -1071,6 +1071,9 @@
             }
         }
     },
+    "CHARITY_REMOTE_DEPOSIT": {
+        "TAB_TITLE": "Remote Deposit"
+    },
     "CHARITY_WITHDRAW": {
         "TAB_TITLE": "Charity Withdraw"
     },

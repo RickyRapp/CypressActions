@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { Step1Template, Step2Template, Step3Template, Step4Template, StepCounter } from '../components';
+import { Page } from 'core/layouts';
 
 const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
     const {
@@ -37,13 +38,15 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
     } = sessionCreateViewStore;
 
     return (
-        <React.Fragment>
-            <div className="container--sml u-mar--bottom--sml">
-                <StepCounter
-                    steps={steps}
-                    currentStep={currentStep}
-                    hideLogo={true}
-                />
+        <Page>
+            <div className="container--lrg u-mar--bottom--sml">
+                <div className="container--sidebar">
+                    <StepCounter
+                        steps={steps}
+                        currentStep={currentStep}
+                        hideLogo={true}
+                    />
+                </div>
             </div>
 
             <div className="container--lrg">
@@ -95,7 +98,7 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                     }
                 </form>
             </div>
-        </React.Fragment>
+        </Page>
     )
 };
 

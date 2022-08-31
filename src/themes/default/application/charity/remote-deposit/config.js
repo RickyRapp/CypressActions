@@ -7,6 +7,9 @@ import { remoteDepositList, remoteDepositEdit, remoteDepositPreview, remoteDepos
 			{
 				name: "master.app.main.charity.remote-deposit",
 				pattern: "/remote-deposit",
+				data: {
+                    title: "CHARITY_REMOTE_DEPOSIT.TAB_TITLE"
+                },
 				children: [
 					{
 						name: "master.app.main.charity.remote-deposit.list",

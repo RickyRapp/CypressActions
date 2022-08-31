@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { FormatterResolver, BasicInput, BaasicButton, NumericInputField } from 'core/components';
 
-function Step2Template({ form, onPreviousStepClick, onNextStepClick, isChangedDefaultAddress, charityName, charityAddress, taxId, phoneNumber, paymentMethod }) {
+function Step2Template({ form, onNextStepClick, isChangedDefaultAddress, charityName, charityAddress, taxId, phoneNumber, paymentMethod }) {
 	const charityPhoneNumber = {
 		number: phoneNumber
 	}
@@ -11,7 +11,7 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, isChangedDe
 	return (
 		<div className="container--sidebar">
 			<div className="card--primary card--med">
-				<div className="u-mar--bottom--med">
+				<div className="form__group">
 					<BasicInput field={form.$('fullName')} />
 				</div>
 
@@ -48,20 +48,15 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, isChangedDe
 					<NumericInputField field={form.$('estimatedAmount')} />
 				</div>
 
-				<div className="">
-					<p className="type--color--primary u-mar--bottom--med">
+				<div className="card--enh--light card--sml">
+					<p className="type--color--primary">
 						To receive a report of this session please enter your email address bellow
 					</p>
-					<BasicInput field={form.$('email')} />
 				</div>
 
+				<BasicInput field={form.$('email')} />
+
 				<div className="type--right u-mar--top--med">
-					{/* <BaasicButton
-					className="btn btn--med btn--primary u-mar--right--sml"
-					classNameExtend="u-display--flex--justify--center"
-					onClick={onPreviousStepClick}
-					label="SESSION.CREATE.STEP2.BUTTONS.BACK"
-				/> */}
 					<BaasicButton
 						className="btn btn--med btn--secondary"
 						classNameExtend="u-display--flex--justify--center"
@@ -87,13 +82,13 @@ function Step2Template({ form, onPreviousStepClick, onNextStepClick, isChangedDe
 					</div>
 					<div className="u-mar--bottom--sml">
 						<labael className="form__group__label">Phone number:</labael>
-						<div>
+						<p className="type--wgt--bold">
 							<FormatterResolver
 								item={charityPhoneNumber}
 								field='number'
 								format={{ type: 'phone-number' }}
 							/>
-						</div>
+						</p>
 					</div>
 					<div>
 						<labael className="form__group__label">Payment method:</labael>

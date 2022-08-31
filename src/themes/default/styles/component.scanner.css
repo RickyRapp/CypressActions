@@ -12,11 +12,12 @@
 	}
 
 	&__stepper {
+		max-width: 768px;
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		/* margin: 0 auto; */
+		margin: 0 auto;
 		margin-bottom: calc($unit * 4);
 
 		&__step {
@@ -38,7 +39,7 @@
 
 			&--line {
 				height: calc($unit / 6);
-				width: 36%;
+				width: 25%;
 				background-color: $color-text;
 
 				&:last-child {
