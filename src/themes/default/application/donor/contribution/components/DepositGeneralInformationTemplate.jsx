@@ -21,7 +21,9 @@ const DepositGeneralInformationTemplate = ({ item, t }) => {
 				<CardItem
 					t={t}
 					label={'CONTRIBUTION.DETAILS.PAYER_NAME' }
-					value={item && (item.bankAccount ? (item.bankAccount.isThirdPartyAccount ? item.bankAccount.accountHolder.name : item.donor.name ) : ( item.isThirdParty ? item.payerInformation.name : item.donor.name )) }
+					value={item && (item.bankAccount && item.bankAccount.isThirdPartyAccount && item.bankAccount.accountHolder
+						 ? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != "" 
+						 ? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.payerInformation.name) }
 				/>
                 <CardItem
                     t={t}
