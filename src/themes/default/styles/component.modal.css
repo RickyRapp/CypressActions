@@ -24,7 +24,7 @@
 		max-height: calc(100% - 24px);
 		max-width: 1200px;
 		overflow-y: auto;
-		
+
 		padding: calc($unit * 4);
 		padding-top: calc($unit * 6);
 		border: none;
@@ -38,6 +38,12 @@
 			width: 600px;
 			max-width: 600px;
 		}
+	}
+
+	&__list {
+		display: flex;
+		align-items: center;
+		gap: calc($unit * 2);
 	}
 
 	&__icon {
@@ -97,7 +103,7 @@
 			flex-grow: 2;
 			margin: 0 6px 3px 6px;
 
-			@media (--screen-from-sml) {		
+			@media (--screen-from-sml) {
 				border-bottom: 2px dotted $color-text;
 			}
 		}

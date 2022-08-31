@@ -311,7 +311,8 @@ class PastGrantViewStore extends BaseListViewStore {
 							title: 'DONATION.PAST_GRANT.LIST.COLUMNS.CHARITY_LABEL',
 							cell: (data) => {
 								return (<CharityNameCell data={data} />)
-							}
+							},
+							sortable: false
 						},
 						{
 							key: 'donationType.name',
@@ -322,6 +323,7 @@ class PastGrantViewStore extends BaseListViewStore {
 									return this.getTransactionType(item);
 								}
 							},
+							sortable: false
 						},
 						{
 							key: 'amount',
@@ -345,7 +347,8 @@ class PastGrantViewStore extends BaseListViewStore {
 										return item.donationStatus.name;
 									}
 								}
-							}
+							},
+							sortable: false
 						},
 						{
 							key: 'desciption',
@@ -359,7 +362,8 @@ class PastGrantViewStore extends BaseListViewStore {
 								value: (item) => {
 									return this.getDescription(item);
 								}
-							}
+							},
+							sortable: false
 						},
 					],
 					actions: {

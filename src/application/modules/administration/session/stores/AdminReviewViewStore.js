@@ -25,6 +25,7 @@ class AdminReviewViewStore extends BaseListViewStore {
                 {
                     key: 'charityName',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'openCertificateAmount',
@@ -40,6 +41,7 @@ class AdminReviewViewStore extends BaseListViewStore {
                 {
                     key: 'donorName',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DONOR_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'confirmationNumber',

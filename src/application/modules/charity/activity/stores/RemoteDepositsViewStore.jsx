@@ -138,7 +138,8 @@ class RemoteDepositsViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'certificate.booklet.bookletOrder.donor.donorName',
-                    title: 'ACTIVITY.CHECK.LIST.COLUMNS.DONOR_LABEL'
+                    title: 'ACTIVITY.CHECK.LIST.COLUMNS.DONOR_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'certificate.code',
@@ -158,7 +159,7 @@ class RemoteDepositsViewStore extends BaseListViewStore {
                         additionalField: 'certificate.openCertificateAmount',
                         value: 'short'
                     }
-                },
+                }
             ],
             actions: {},
             actionsRender: {}
@@ -182,6 +183,7 @@ class RemoteDepositsViewStore extends BaseListViewStore {
                     {
                         key: 'charity.name',
                         title: 'SESSION.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                        sortable: false
                     },
                     {
                         key: 'amount',
@@ -235,7 +237,8 @@ class RemoteDepositsViewStore extends BaseListViewStore {
                                 }
                                 return '';
                             }
-                        }
+                        },
+                        sortable: false
                     },
                     {
                         key: 'dateCreated',

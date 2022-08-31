@@ -105,6 +105,10 @@ $header-height-mobile: 72px;
 
         overflow-y: auto;
 
+        @media (--screen-to-med) {
+            padding: calc($unit * 2);
+        }
+
         @media (--screen-from-sml) {
             top: $header-height;
         }

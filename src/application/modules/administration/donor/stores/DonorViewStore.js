@@ -72,7 +72,8 @@ class DonorViewStore extends BaseListViewStore {
                     key: 'donorName',
                     title: 'DONOR.LIST.COLUMNS.DONOR_NAME',
                     onClick: item => this.routes.edit(item.id),
-                    authorization: this.authorization.update
+                    authorization: this.authorization.update,
+                    sortable: false
                 },
                 {
                     key: 'accountNumber',
@@ -80,7 +81,8 @@ class DonorViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'accountType.name',
-                    title: 'DONOR.LIST.COLUMNS.ACCOUNT_TYPE'
+                    title: 'DONOR.LIST.COLUMNS.ACCOUNT_TYPE',
+                    sortable: false
                 },
                 {
                     key: 'presentBalance',

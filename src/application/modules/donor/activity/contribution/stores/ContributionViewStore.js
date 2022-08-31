@@ -158,6 +158,7 @@ class ContributionViewStore extends BaseListViewStore {
 						{
 							key: 'contributionStatus.name',
 							title: 'CONTRIBUTION.LIST.COLUMNS.CONTRIBUTION_STATUS_NAME_LABEL',
+							sortable: false
 						},
 						{
 							key: 'paymentType.name',
@@ -166,6 +167,7 @@ class ContributionViewStore extends BaseListViewStore {
 								type: 'function',
 								value: this.renderPaymentType,
 							},
+							sortable: false
 						},
 						{
 							key: 'payerInformation.name',
@@ -175,7 +177,8 @@ class ContributionViewStore extends BaseListViewStore {
 								value: (item) => {
 									return item.bankAccount && item.bankAccount.isThirdPartyAccount && item.bankAccount.accountHolder ? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != "" ? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.payerInformation.name
 								}
-							}
+							},
+							sortable: false
 						},
 						{
 							key: 'amount',

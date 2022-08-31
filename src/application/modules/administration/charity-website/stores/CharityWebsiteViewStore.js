@@ -54,16 +54,19 @@ class CharityWebsiteViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'ip',
-                    title: 'CHARITY_WEBSITE.LIST.COLUMNS.IP_LABEL'
+                    title: 'CHARITY_WEBSITE.LIST.COLUMNS.IP_LABEL',
+                    sortable: false
                     
                 },
                 {
                     key: 'url',
-                    title: 'CHARITY_WEBSITE.LIST.COLUMNS.URL_LABEL'
+                    title: 'CHARITY_WEBSITE.LIST.COLUMNS.URL_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'charity.name',
-                    title: 'CHARITY_WEBSITE.LIST.COLUMNS.CHARITY_LABEL'
+                    title: 'CHARITY_WEBSITE.LIST.COLUMNS.CHARITY_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'isDeleted',
@@ -71,7 +74,8 @@ class CharityWebsiteViewStore extends BaseListViewStore {
                     format: {
                         type: 'boolean',
                         value: 'yes-no'
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',

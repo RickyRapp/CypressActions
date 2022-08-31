@@ -65,7 +65,8 @@ class ContributionAchReviewListViewStore extends BaseListViewStore {
                     format: {
                         type: 'boolean',
                         value: 'yes-no'
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'isValid',
@@ -73,7 +74,8 @@ class ContributionAchReviewListViewStore extends BaseListViewStore {
                     format: {
                         type: 'boolean',
                         value: 'yes-no'
-                    }
+                    },
+                    sortable: false
                 }
             ],
             actions: {

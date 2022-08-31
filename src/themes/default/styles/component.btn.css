@@ -75,7 +75,7 @@
 		font-size: 15px;
 		/* min-width: calc($unit * 26); */
 		height: calc($unit * 8);
-		padding: 0 calc($unit * 4);
+		padding: 0 calc($unit * 3);
 		line-height: calc($unit * 8);
 
 		&--wide {
@@ -141,6 +141,10 @@
 
 			&:hover {
 				background: color($color-background a(80%));
+			}
+
+			.u-icon--arrow-forward {
+				background-image: svg-load('../styles/postcss-svg/arrow-right.svg', stroke: $color-text);
 			}
 		}
 	}

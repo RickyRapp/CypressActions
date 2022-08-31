@@ -5,7 +5,7 @@ import { BaasicButton, BaasicDropdown, BaasicFieldDropdown, BaasicModal, BasicFi
 import { ContributionConfirmTemplate } from 'themes/application/administration/contribution/components';
 
 const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, step, form, bankAccountDropdownStore,
-    onSelectPaymentType, t, nextStep, thirdPartyDonorAdvisedFundDropdownStore, securityTypeDropdownStore, brokerageInstitutionDropdownStore,
+    onSelectPaymentType, t, thirdPartyDonorAdvisedFundDropdownStore, securityTypeDropdownStore, brokerageInstitutionDropdownStore,
     collectibleTypeDropdownStore, propertyTypeDropdownStore, onAddBankAccountClick, businessTypeDropdownStore, onSubmitClick, confirmModal, routes,
     previousContributionsTableStore, isThirdPartyFundingAvailable, onShowBankAccountNumberClick, selectedType, paymentTypeDropdownStore }) {
 
@@ -18,55 +18,37 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
     );
     return (
         <div>
-            <div className="row row--form">
-                {window.innerWidth > 767 &&
-                    <React.Fragment>
-
-                        <div className="col col-sml-12 u-mar--bottom--sml">
-                            <BaasicButton
-                                type="button"
-                                className="btn btn--link btn--med card--contribution--back"
-                                onClick={() => nextStep(step - 1)}
-                                label={'Overview'}
-                            />
-                        </div>
-                        <div className="col col-sml-12 col-lrg-6 col-xxlrg-3 u-mar--bottom--sml">
-                            {paymentTypes.map((c) => {
-                                return (
-                                    <div
-                                        key={c.id}
-                                        onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
+            {window.innerWidth > 767 &&
+                <div className="c-deposit__list">
+                    {paymentTypes.map((c) => {
+                        return (
+                            <div
+                                key={c.id}
+                                onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
+                                className={`c-deposit__card ${c.id === form.$('paymentTypeId').value && 'active'}`}
+                            >
+                                <div className="flex--grow--1">
+                                    <i className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value ? 'active' : ''}`}></i>
+                                </div>
+                                <div className="flex--grow--2">
+                                    <h5
+                                        className={
+                                            c.id !== form.$('paymentTypeId').value
+                                                ? 'type--base type--wgt--medium'
+                                                : 'type--base type--wgt--medium type--color--negative'
+                                        }
                                     >
-                                        <div
-                                            className={`card--contribution card--contribution--primary card--contribution--standalone ${c.id ===
-                                                form.$('paymentTypeId').value && 'checked'}`}
-                                        >
-                                            <div className="flex--grow--1 u-mar--right--sml">
-                                                <i
-                                                    className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value &&
-                                                        'checked'} u-mar--right--sml`}
-                                                ></i>
-                                            </div>
-                                            <div className="flex--grow--2">
-                                                <h5
-                                                    className={
-                                                        c.id !== form.$('paymentTypeId').value
-                                                            ? 'type--base type--wgt--medium'
-                                                            : 'type--base type--wgt--medium type--color--note'
-                                                    }
-                                                >
-                                                    {c.name}
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </React.Fragment>
-                }
+                                        {c.name}
+                                    </h5>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            }
 
-                <div className="col col-sml-12 col-lrg-6 col-xxlrg-5 u-mar--bottom--med">
+            < div className="container--sidebar" >
+                <div className="u-mar--bottom--med">
                     <EditFormContent form={form}>
                         {window.innerWidth <= 767 &&
                             <div className="card--primary card--med u-mar--bottom--med">
@@ -76,13 +58,11 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                 <BaasicDropdown store={paymentTypeDropdownStore} />
                             </div>
                         }
+                        <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
+                            {paymentType && paymentType.abrv === 'ach' ? 'How much would you like us to pull' : 'Tell us how much you will be sending'}
+                        </h5>
                         <div className="card--primary card--med">
                             <div className="row row--form fullheight">
-                                <div className="col col-sml-12 col-lrg-12 u-mar--border--sml">
-                                    <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
-                                        {paymentType && paymentType.abrv === 'ach' ? 'How much would you like us to pull' : 'Tell us how much you will be sending'}
-                                    </h5>
-                                </div>
                                 {(paymentType.abrv === 'ach' || paymentType.abrv === 'wire-transfer') && (
                                     <React.Fragment>
                                         <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med u-mar--top--sml">
@@ -249,7 +229,7 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                                     </React.Fragment>
                                 )}
                                 <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                                    <NumericInputField field={form.$('amount')}/>
+                                    <NumericInputField field={form.$('amount')} />
                                 </div>
                                 {isThirdPartyFundingAvailable && (
                                     <React.Fragment>
@@ -306,60 +286,43 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
                         </BaasicModal>
                     </EditFormContent>
                 </div>
-                <div className="col col-sml-12 col-xxlrg-4 u-mar--bottom--med">
+                <div>
+                    <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
+                        Information
+                    </h5>
                     <div className="card--primary card--med">
-                        <div className="u-display--flex u-display--flex--column u-display--flex--justify--space-between fullheight">
+                        {selectedType ?
                             <div>
-                                <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
-                                    {t('CONTRIBUTION.CREATE.PREVIOUS_CONTRIBUTIONS')}
-                                </h5>
-                                <SimpleBaasicTable tableStore={previousContributionsTableStore} />
-                            </div>
-
-                            <BaasicButton
-                                className="btn btn--100 btn--primary u-mar--top--med"
-                                label="CONTRIBUTION.CREATE.ALL_CONTRIBUTIONS"
-                                onClick={routes.allContributions}
-                            ></BaasicButton>
-                        </div>
-                    </div>
-                    <br />
-                    <div className="card--primary card--med">
-                        <div>
-                            <div>
-                                <h5 className="type--med type--wgt--medium u-mar--bottom--sml">
-                                    Information
-                                </h5>
-                                {selectedType ?
-                                    <div>
-                                        <div className="modal__list u-mar--bottom--med">
-                                            <div>Timeline</div>
-                                            <div className="modal__list__divider"></div>
-                                            <div className="modal__list__label">{selectedType ? (selectedType.timeline ? <span> {selectedType.timeline}</span> : null) : 'No information to show'}</div>
-                                        </div>
-                                        <div className="modal__list u-mar--bottom--med">
-                                            <div>Minimum Deposit</div>
-                                            <div className="modal__list__divider"></div>
-                                            <div className="modal__list__label">{selectedType ? <FormatterResolver item={{ amount: selectedType.minimumDeposit }} field='amount' format={{ type: 'currency' }} /> : 'No information to show'}</div>
-                                        </div>
-                                        <div className="modal__list u-mar--bottom--med">
-                                            <div>More</div>
-                                            <div className="modal__list__divider"></div>
-                                            <div className="modal__list__label">{selectedType ? (selectedType.more ? <span> {selectedType.more}</span> : null) : 'No information to show'}</div>
-                                        </div>
-                                    </div> : <div className="modal__list u-mar--bottom--med">
-                                        <div>Details</div>
-                                        <div className="modal__list__divider"></div>
-                                        <div className="modal__list__label"><span>No information to show</span></div>
+                                <div className="modal__list u-mar--bottom--med">
+                                    <div><i className="u-icon u-icon--med u-icon--clock"></i></div>
+                                    <div className="modal__list__label">
+                                        {selectedType ? (selectedType.timeline ? <span> {selectedType.timeline}</span> : null) : 'No information to show'}
                                     </div>
-                                }
+                                </div>
+                                <div className="modal__list u-mar--bottom--med">
+                                    <div><i className="u-icon u-icon--med u-icon--give--dark"></i></div>
+                                    <p className="u-display--flex">
+                                        Min. deposit:
+                                        <div className="modal__list__label u-mar--left--tny">
+                                            {selectedType ? <FormatterResolver item={{ amount: selectedType.minimumDeposit }} field='amount' format={{ type: 'currency' }} /> : 'No information to show'}
+                                        </div>
+                                    </p>
+                                </div>
+                                <div className="modal__list">
+                                    <div><i className="u-icon u-icon--med u-icon--info-regular"></i></div>
+                                    <div className="modal__list__label">{selectedType ? (selectedType.more ? <span> {selectedType.more}</span> : "-") : 'No information to show'}</div>
+                                </div>
+                            </div> :
+                            <div className="modal__list">
+                                <div><i className="u-icon u-icon--med u-icon--details"></i></div>
+                                <div className="modal__list__label"><span>No information to show</span></div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
 
-        </div >
+        </div>
     )
 }
 

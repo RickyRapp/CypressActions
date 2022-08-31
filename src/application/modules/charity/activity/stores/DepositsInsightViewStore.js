@@ -121,6 +121,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
                                 return item.paymentType && item.paymentType.name ? item.paymentType.name : ""
                             }
                         },
+                        sortable: false
                     },
                     {
                         key: 'payerInformation.name',
@@ -130,7 +131,8 @@ class DepositsInsightViewStore extends BaseListViewStore {
                             value: (item) => {
                                 return item.bankAccount && item.bankAccount.isThirdPartyAccount && item.bankAccount.accountHolder ? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != "" ? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.payerInformation.name
                             }
-                        }
+                        },
+                        sortable: false
                     },
                     {
                         key: 'amount',
@@ -139,6 +141,7 @@ class DepositsInsightViewStore extends BaseListViewStore {
                             type: 'currency',
                             value: '$',
                         },
+                        sortable: false
                     },
                 ],
                 actions: {
