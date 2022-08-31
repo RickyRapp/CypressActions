@@ -159,8 +159,7 @@ class RemoteDepositsViewStore extends BaseListViewStore {
                         additionalField: 'certificate.openCertificateAmount',
                         value: 'short'
                     }
-                },
-                sortable: false
+                }
             ],
             actions: {},
             actionsRender: {}
