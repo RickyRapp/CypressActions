@@ -18,11 +18,12 @@ const DepositGeneralInformationTemplate = ({ item, t }) => {
                     t={t}
                     label={'CONTRIBUTION.DETAILS.CONFRIMATION_NUMBER'}
                     value={item && item.confirmationNumber} />
+				{/* will be implemented in sprint 14
 				<CardItem
 					t={t}
 					label={'CONTRIBUTION.DETAILS.PAYER_NAME' }
 					value={item && (item.donor ? item.donor.name : item.payerInformation.name)}
-				/>
+				/> */}
                 <CardItem
                     t={t}
                     label={'CONTRIBUTION.DETAILS.STATUS'}
