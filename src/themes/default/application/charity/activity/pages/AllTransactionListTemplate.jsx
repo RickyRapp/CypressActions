@@ -11,7 +11,7 @@ import {
     DateRangeQueryPicker
 } from 'core/components';
 
-const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSearch, t }) {
+const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSearch, removeCardStyle, t }) {
     const {
         tableStore,
         queryUtility,
@@ -109,16 +109,16 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, hideSear
                 </div>
             )}
             
-            <div className="row">
-                <div className="col col-sml-12 col-lrg-12 u-mar--bottom--med">
-                    <div className="card--primary card--med">
+           
+             
+                    <div className={`${!removeCardStyle ? "card--primary card--med" : ""}`}>
                         <BaasicTable
                             authorization={authorization}
                             tableStore={tableStore}
                         />
                     </div>
-                </div>
-            </div>
+               
+               
         </React.Fragment>
     )
 };
@@ -127,6 +127,7 @@ AllTransactionListTemplate.propTypes = {
     allTransactionViewStore: PropTypes.object.isRequired,
     t: PropTypes.func,
     hideSearch: PropTypes.bool,
+    removeCardStyle: PropTypes.bool,
     hideCheckBox: PropTypes.bool
 };
 

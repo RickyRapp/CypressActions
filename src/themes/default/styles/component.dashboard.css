@@ -1,0 +1,41 @@
+/*------------------------------------*\
+    # component.dashboard
+\*------------------------------------*/
+
+.dashboard {
+    &__top {
+        
+        @media (--screen-from-xlrg) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+		}
+
+        h3 {
+            @media (--screen-to-xlrg) {
+                margin-bottom: calc($unit * 4);
+            }
+        }
+
+        &__buttons {
+
+            @media (--screen-from-med) {
+                display: flex;
+            }
+
+            .btn {
+                @media (--screen-to-xlrg) {
+                    width: 100%;
+                }
+    
+                &:not(:last-child) {
+                    margin-right: calc($unit * 2);
+    
+                    @media (--screen-to-med) {
+                        margin-bottom: calc($unit * 2);
+                    }
+                }
+            }
+        }
+    }
+}

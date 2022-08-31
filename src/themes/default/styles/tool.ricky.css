@@ -8,7 +8,7 @@
  * $f-grid-columns - number of columns of the grid
  */
 
-$grid-gutter: 42px;
+$grid-gutter: 24px;
 $grid-columns: 12;
 
 /**
@@ -70,7 +70,7 @@ $grid-columns: 12;
 .row--form {
 
     .col {
-        padding-left: calc($grid-gutter / 4);
-        padding-right: calc($grid-gutter / 4);
+        padding-left: calc($grid-gutter / 3);
+        padding-right: calc($grid-gutter / 3);
     }
 }
