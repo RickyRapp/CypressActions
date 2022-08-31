@@ -185,7 +185,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 
 	@action.bound
     onChangeEditId(editId){
-        Promise.resolve(this.actions.get(editId))
+        Promise.resolve(this.actions.get(editId)) 
 			.then((data) => {
 				this.form.clear();
 				this.form.update(data);
