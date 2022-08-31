@@ -13,7 +13,7 @@ const DepositGeneralInformationTemplate = ({ item, t }) => {
 					t={t}
 					label={'CONTRIBUTION.DETAILS.DONOR_NAME'}
 					value={item && item.donor && item.donor.name}
-				/>
+				/> {console.log(item && item)}
                 <CardItem
                     t={t}
                     label={'CONTRIBUTION.DETAILS.CONFRIMATION_NUMBER'}
@@ -21,7 +21,7 @@ const DepositGeneralInformationTemplate = ({ item, t }) => {
 				<CardItem
 					t={t}
 					label={'CONTRIBUTION.DETAILS.PAYER_NAME' }
-					value={item &&  item.payerInformation.name }
+					value={item && (item.bankAccount ? (item.bankAccount.isThirdPartyAccount ? item.bankAccount.accountHolder.name : item.donor.name ) : ( item.isThirdParty ? item.payerInformation.name : item.donor.name )) }
 				/>
                 <CardItem
                     t={t}
