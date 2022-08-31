@@ -38,7 +38,7 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
 
     return (
         <React.Fragment>
-            <div className="container u-mar--bottom--sml">
+            <div className="container--sml u-mar--bottom--sml">
                 <StepCounter
                     steps={steps}
                     currentStep={currentStep}
@@ -49,7 +49,7 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
             <form onSubmit={form.onSubmit}>
                 
                 {currentStep === 1 &&
-                    <div className="container container--sml">
+                    <div className="container--sml">
                         <Step2Template
                             form={form}
                             onNextStepClick={onNextStep2Click}

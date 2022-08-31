@@ -6,7 +6,7 @@ import { BasicInput, BaasicButton, NumericInputField } from 'core/components';
 function Step2Template({ form, onPreviousStepClick, onNextStepClick, isChangedDefaultAddress, charityName, charityAddress, taxId, phoneNumber, paymentMethod }) {
 	return (
 		<React.Fragment>
-			<div className="scanner card--med">
+			<div className="card--primary card--med">
 				<div className="row row--form">
 					<div className="col col-sml-12 u-mar--bottom--med">
 						<div className="col col-sml-12 u-mar--bottom--lrg">
