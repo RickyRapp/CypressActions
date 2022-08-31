@@ -22,6 +22,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                         const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
                         const charityAccNumber = data.charityAccountNumber ? data.charityAccountNumber.accountNumber : '';
                         this.apiKey = charityApiKey;
+                        this.isEditEnabled = true;
                         return {
                             name: data.name,
                             taxId: data.taxId,

@@ -26,6 +26,7 @@ const BaasicTableTemplate = function ({
     t,
     onScroll,
     infiniteScrollCallback,
+    tableItems,
     // hidePager,
     ...otherProps
 }) {
@@ -42,6 +43,7 @@ const BaasicTableTemplate = function ({
     return (
         <Fragment>
             <ContentWithEmptyState
+                tableItems={tableItems}
                 loading={isLoading}
                 hasData={hasData}
                 dataInitialized={dataInitialized}
@@ -88,6 +90,7 @@ BaasicTableTemplate.propTypes = {
     infiniteScrollCallback: PropTypes.func,
     hideSearch: PropTypes.bool,
     hidePager: PropTypes.bool,
+    tableItems: PropTypes.number
 }
 BaasicTableTemplate.defaultProps = {
     scrollable: 'none',

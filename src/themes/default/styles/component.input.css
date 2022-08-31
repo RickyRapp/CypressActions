@@ -74,14 +74,15 @@
 	}
 
 	&--lrg {
-		height: calc($unit * 10);
-		line-height: calc($unit * 10);
-		padding: 0 calc($unit * 3);
+		height: calc($unit * 8);
+		line-height: calc($unit * 8);
+		padding: 0 calc($unit * 2);
 
 		@media (--screen-to-med) {
 			height: calc($unit * 8);
+			padding: 0 calc($unit * 2);
+			
 			line-height: calc($unit * 8);
-			padding: 0 calc($unit * 4);
 			@mixin type-scale $type-small, 1;
 		}
 	}

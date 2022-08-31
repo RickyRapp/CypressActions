@@ -49,30 +49,18 @@ import { moduleProviderFactory } from 'core/providers';
             // {
             //   title: 'MENU.INVESTMENTS',
             //     icon: 'investment',
-           //    order: 5,
+            //    order: 5,
             //    route: 'master.app.main.donor.investment.donor',
             //    role: ['Users']
             // },
             {
-                title: 'MENU.MANAGE_FUND',
-                icon: 'administration',
+                title: 'MENU.ORDER_VOUCHERS',
+                icon: 'booklet-order',
                 order: 6,
-                role: ['Users'],
-                subMenu: [
-                    {
-                        title: 'MENU.PROFILE_SETTING',
-                        icon: 'profile',
-                        order: 1,
-                        role: ['Users'],
-                        route: 'master.app.main.donor.profile'
-                    },
-                    {
-                        title: 'MENU.ORDER_VOUCHERS',
-                        icon: 'booklet-order',
-                        order: 2,
-                        role: ['Users'],
-                        route: 'master.app.main.donor.booklet-order.create'
-                    },
+                route: 'master.app.main.donor.booklet-order.create',
+                role: ['Users']
+                //commented because this page isn't currently used
+                //subMenu: [ 
                     // {
                     //     title: 'MENU.GIVING_GOALS',
                     //     icon: 'grant',
@@ -80,8 +68,15 @@ import { moduleProviderFactory } from 'core/providers';
                     //     role: ['Users'],
                     //     route: 'master.app.main.donor.giving-goals.create'
                     // },
-                ]
-            }
+                //]
+            },
+            {
+                title: 'MENU.PROFILE_SETTING',
+                icon: 'profile',
+                order: 7,
+                role: ['Users'],
+                route: 'master.app.main.donor.profile'
+            },
         ],
         moduleStore: function (context) {
             return {

@@ -15,7 +15,6 @@ const DonorCommunicationPreferenceTemplate = function ({ t, donorCommunicationPr
         <div className="card--primary card--med u-mar--bottom--med">
             <EditFormContent form={form}>
                 <div className="row">
-
                     <div className="col col-sml-12 col-lrg-6">
                         <h3 className="type--lrg type--wgt--bold u-mar--bottom--sml">{t('DONOR.COMMUNICATION_PREFERENCE.TITLE_CARD')}</h3>
                         <div className="row u-mar--bottom--sml">

@@ -111,7 +111,6 @@ class PastGrantViewStore extends BaseListViewStore {
 		});
 	}
 
-
 	@action.bound
 	async cancelGrant(grant) {
 		this.rootStore.modalStore.showConfirm(

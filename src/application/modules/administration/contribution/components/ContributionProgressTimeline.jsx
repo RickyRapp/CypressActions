@@ -16,9 +16,9 @@ class ContributionProgressTimeline extends Component {
             statusList.forEach(stat => {
                 if (stat.abrv == 'pending')
                     pendingStatus = stat;
-                if (stat.abrv == 'in-process' || stat.currentStatus == 'in-process')
+                if (stat.abrv == 'in-process')
                     inProcessStatus = stat;
-                if (stat.abrv == 'funded' || stat.currentStatus == 'funded')
+                if (stat.abrv == 'funded')
                     fundedStatus = stat;
                 else if (stat.abrv == 'canceled')
                     canceledStatus = stat;

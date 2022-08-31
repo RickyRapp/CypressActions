@@ -18,7 +18,7 @@ const DonorAutomaticContributionSettingTemplate = function ({ t, donorAutomaticC
     } = donorAutomaticContributionSettingViewStore;
 
     return (
-        <EditFormContent form={form} loading={loaderStore.loading}>
+        <EditFormContent form={form} loading={loaderStore.loading} formClassName={" "}>
             <h3 className=" u-mar--bottom--sml">{t('DONOR.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-12 col-lrg-4">

@@ -21,7 +21,7 @@
 			height: calc($unit * 7);
 
 			@media (--screen-from-lrg) {
-				height: calc($unit * 10);
+				height: calc($unit * 8);
 				margin: calc($unit * 6) 0;
 			}
 		}

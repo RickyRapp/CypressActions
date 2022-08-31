@@ -90,6 +90,10 @@
 @import "component.booklet.css";
 @import "component.withdraw.css";
 @import "component.wizard.css";
+@import "component.date-range-picker.css";
+@import "component.booklet.css";
+@import "component.footer.css";
+@import "component.charity.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)
@@ -121,6 +125,7 @@
 @import 'util.cursor.css';
 @import 'util.hide.css';
 @import 'util.orders.css';
+@import 'util.gap.css';
 
 /**
 * Plugins .......... 3rd party code, external plugin CSS etc

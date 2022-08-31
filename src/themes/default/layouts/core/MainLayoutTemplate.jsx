@@ -17,12 +17,12 @@ function MainLayoutTemplate({ render, initialized, viewStore, ...props }) {
             <div className="layout">
                 {/* <Header /> */}
                 { menuStore.rootStore.userStore.applicationUser && (
-                    menuStore.rootStore.userStore.applicationUser.roles[0] == 'Charities' ? 
+                    menuStore.rootStore.userStore.applicationUser.roles.includes('Charities') ? 
                     (menuStore.rootStore.userStore.applicationUser.permissions.verifiedAccountSection ? <Menu /> : null)
                 : <Menu /> )  }
                 <div
                     className={
-                         menuStore.rootStore.userStore.applicationUser && ( menuStore.rootStore.userStore.applicationUser.roles[0] == 'Charities' ?
+                         menuStore.rootStore.userStore.applicationUser && ( menuStore.rootStore.userStore.applicationUser.roles.includes('Charities') ?
                           (menuStore.rootStore.userStore.applicationUser.permissions.verifiedAccountSection ? 'layout__content' : "layout__content--secondary") : 'layout__content' +
                         (menuStore.isCollapsed ? ' is-collapsed' : '') +
                         (menuStore.secondaryMenuVisible ? ' active' : ''))

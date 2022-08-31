@@ -3310,6 +3310,7 @@
         "PRESENT_BALANCE": "Present Balance",
         "PRESENT_BALANCE_DESCRIPTION": "Includes pending grants",
         "INVESTMENTS": "Investments",
+        "INVESTMENTS_BALANCE": "INVESTMENTS BALANCE",
         "BUTTON": {
             "ACTIVATE_CARD": "Activate your welcome package",
             "ORDER_CERTIFICATES": "Order Checks",

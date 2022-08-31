@@ -76,7 +76,8 @@ class UserStore {
                         accountManager: data.accountManager,
                         fundName: data.fundName,
                         accountNumber: data.accountNumber,
-                        accountType: data.accountType
+                        accountType: data.accountType,
+                        availableBalance: data.availableBalance
                     }
                 }
             }

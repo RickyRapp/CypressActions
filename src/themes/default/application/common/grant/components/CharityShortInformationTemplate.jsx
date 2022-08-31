@@ -9,32 +9,25 @@ const CharityShortInformationTemplate = function ({ charity, t, onChangeDefaultA
     return (
         <React.Fragment>
             <h3 className="">{t('GRANT.CREATE.CHARITY_INFORMATION_TITLE')}</h3>
-            <div className="row row--form u-mar--top--sml">
-                <div className="col col-sml-12 u-mar--bottom--sml">
-                    <div className="charity-information__card ">
-                        <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
-                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.name}</span>
-                    </div>
+            <div className="charity-information__card__list u-mar--top--sml">
+                <div className="charity-information__card__item">
+                    <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_NAME')}</span>
+                    <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.name}</span>
                 </div>
-                <div className="col col-sml-12 u-mar--bottom--sml">
-                    <div className="charity-information__card ">
-                        <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
-                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{taxId}</span>
-                    </div>
+                <div className="charity-information__card__item">
+                    <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_TAX_ID')}</span>
+                    <span className="type--base type--wgt--medium u-mar--left--auto type--right">{taxId}</span>
                 </div>
-                <div className="col col-sml-12 u-mar--bottom--sml">
-                    <div className="charity-information__card ">
-                        <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_IS_ACH_AVAILABLE')}</span>
-                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.isAchAvailable ? 'Yes' : 'No'}</span>
-                    </div>
+                <div className="charity-information__card__item">
+                    <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_IS_ACH_AVAILABLE')}</span>
+                    <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.isAchAvailable ? 'Yes' : 'No'}</span>
                 </div>
                 {!isChangedDefaultAddress &&
-                    <div className="col col-sml-12 u-mar--bottom--sml">
-                        <div className="charity-information__card ">
-                            <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
-                            <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.charityAddresses ? addressFormatter.format(charity.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</span>
-                        </div>
-                    </div>}
+                    <div className="charity-information__card__item">
+                        <span className="type--base type--wgt--regular type--color--opaque">{t('GRANT.CREATE.CHARITY_INFORMATION_ADDRESS')}</span>
+                        <span className="type--base type--wgt--medium u-mar--left--auto type--right">{charity.charityAddresses ? addressFormatter.format(charity.charityAddresses.find(c => c.isPrimary), 'full') : addressFormatter.format(charity, 'full')}</span>
+                    </div>
+                }
             </div>
             {isNullOrWhiteSpacesOrUndefinedOrEmpty(grantRequestId) &&
                 <a href="#" onClick={onChangeDefaultAddressClick} className="u-mar--bottom--med u-display--b type--underline">

@@ -4,8 +4,10 @@ import { defaultTemplate } from 'core/hoc';
 import { BaasicButton, BaasicModal, FormatterResolver, SimpleBaasicTable } from 'core/components';
 import { MonthlyFeeJsonTemplate } from 'themes/application/donor/activity/transaction/components';
 import { isSome } from 'core/utils';
+import { TransactionInfoCard } from 'application/donor/activity/transaction/components';
+import { TransactionInfoCardLoader } from './content-loader';
 
-const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
+const TransactionDonorTemplate = function({ transactionDonorViewStore, t }) {
 	const {
 		donor,
 		isPendingTransactionVisible,
@@ -14,7 +16,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 		previewFeesModal,
 		isChecksOnHoldVisible,
 		checksOnHoldTableStore,
-		onExpandChecksOnHoldClick
+		onExpandChecksOnHoldClick,
 	} = transactionDonorViewStore;
 
 	return (
@@ -23,57 +25,36 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 				<div className="col col-sml-12 u-mar--bottom--sml">
 					{/* <h3 className="type--med type--wgt--medium u-mar--bottom--med">{t('DASHBOARD.YOUR_FUNDS')}</h3> */}
 					<div className="card--tertiary">
-						<div className="row row--form">
-							<div className="col col-sml-4">
-								<div className="transaction__card">
-									
-									{donor && (
-										<div className={`transaction__card--amount ${donor.availableBalance >= 0 ? 'transaction__card--amount--plus' : ''}`} >
-											<FormatterResolver
-												item={{ balance: donor.availableBalance }}
-												field="balance"
-												format={{ type: 'currency' }}
-											/>
-										</div>
-									)}
-									<h5 className="transaction__card--title">{t('DASHBOARD.AVAILABLE_BALANCE')}</h5>
-
-								</div>
-							</div>
-							<div className="col col-sml-4">
-								<div className="transaction__card transaction__card--center">
-									
-									{donor && (
-										<div
-											className={`transaction__card--amount ${donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
-												}`}
-										>
-											<FormatterResolver
-												item={{ balance: donor.presentBalance }}
-												field="balance"
-												format={{ type: 'currency' }}
-											/>
-										</div>
-									)}
-									<h5 className="transaction__card--title">{t('DASHBOARD.PRESENT_BALANCE')}</h5>
-
-								</div>
-							</div>
-							<div className="col col-sml-4">
-								<div className="transaction__card transaction__card--last">
-									
-									{donor && (
-										<div
-											className={`transaction__card--amount ${donor.presentBalance >= 0 ? 'transaction__card--amount--plus' : ''
-												}`}
-										>
-											<FormatterResolver item={{ balance: 0 }} field="balance" format={{ type: 'currency' }} />
-										</div>
-									)}
-									<h5 className="transaction__card--title">Investments balance</h5>
-
-								</div>
-							</div>
+						<div className="transaction__list">
+							{donor ? (
+								<TransactionInfoCard
+									donor={donor}
+									balance={donor.availableBalance}
+									title={t('DASHBOARD.AVAILABLE_BALANCE')}
+								/>
+							) : (
+								<TransactionInfoCardLoader customclassname={'transaction__card u-padd--right--sml'} />
+							)}
+							{donor ? (
+								<TransactionInfoCard
+									donor={donor}
+									balance={donor.presentBalance}
+									title={t('DASHBOARD.PRESENT_BALANCE')}
+									customClassName={'transaction__card--center'}
+								/>
+							) : (
+								<TransactionInfoCardLoader customclassname={'transaction__card u-padd--right--sml'} />
+							)}
+							{donor ? (
+								<TransactionInfoCard
+									donor={donor}
+									balance={0}
+									title={t('DASHBOARD.INVESTMENTS_BALANCE')}
+									customClassName={'transaction__card--last'}
+								/>
+							) : (
+								<TransactionInfoCardLoader customclassname={'transaction__card--last'} />
+							)}
 						</div>
 					</div>
 				</div>
@@ -86,7 +67,11 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 									<FormatterResolver
 										item={{
 											balance: pendingTransactionTableStore.data
-												.map(c => c.paymentTransaction.paymentTransactionType.abrv == 'credit' ? (c.paymentTransaction.amount * (-1)) :  c.paymentTransaction.amount)
+												.map(c =>
+													c.paymentTransaction.paymentTransactionType.abrv == 'credit'
+														? c.paymentTransaction.amount * -1
+														: c.paymentTransaction.amount
+												)
 												.reduce((t, a) => t + a),
 										}}
 										field="balance"
@@ -97,8 +82,9 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 							<BaasicButton
 								className="btn btn--icon"
 								onlyIconClassName="u-mar--right--sml"
-								icon={`u-icon ${isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
-									} u-icon--base`}
+								icon={`u-icon ${
+									isPendingTransactionVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
+								} u-icon--base`}
 								label="EXPAND"
 								onlyIcon={true}
 								onClick={() => onExpandPendingTransactionClick()}
@@ -108,7 +94,11 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 						{isPendingTransactionVisible && (
 							<div className="row">
 								<div className="col col-sml-12 u-mar--top--sml">
-									<SimpleBaasicTable className="table--transaction" tableStore={pendingTransactionTableStore} actionsComponent={renderActions} />
+									<SimpleBaasicTable
+										className="table--transaction"
+										tableStore={pendingTransactionTableStore}
+										actionsComponent={renderActions}
+									/>
 								</div>
 							</div>
 						)}
@@ -123,7 +113,11 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 									<FormatterResolver
 										item={{
 											balance: checksOnHoldTableStore.data
-												.map(c => c.certificate.openCertificateAmount ? c.certificate.openCertificateAmount : c.certificate.denominationType.value)
+												.map(c =>
+													c.certificate.openCertificateAmount
+														? c.certificate.openCertificateAmount
+														: c.certificate.denominationType.value
+												)
 												.reduce((t, a) => t + a),
 										}}
 										field="balance"
@@ -134,8 +128,7 @@ const TransactionDonorTemplate = function ({ transactionDonorViewStore, t }) {
 							<BaasicButton
 								className="btn btn--icon"
 								onlyIconClassName="u-mar--right--sml"
-								icon={`u-icon ${isChecksOnHoldVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
-									} u-icon--base`}
+								icon={`u-icon ${isChecksOnHoldVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'} u-icon--base`}
 								label="EXPAND"
 								onlyIcon={true}
 								onClick={() => onExpandChecksOnHoldClick()}

@@ -18,7 +18,8 @@ class ContributionDetailsViewStore extends BasePreviewViewStore {
                                 'payerInformation',
                                 'bankAccount',
                                 'paymentType',
-                                'contributionStatus'
+                                'contributionStatus',
+                                'bankAccount.accountHolder'
                             ]
                         }
 

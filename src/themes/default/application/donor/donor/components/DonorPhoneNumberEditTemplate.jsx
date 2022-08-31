@@ -16,13 +16,13 @@ class DonorPhoneNumberEditTemplate extends Component {
 
         return (
             <EditFormContent form={form}>
-                <div className="card--med card--primary">
+                <div>
                     <h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
                     <div className="row row--form u-mar--bottom--sml">
-                        <div className="form__group col col-sml-12 col-lrg-3">
+                        <div className="form__group col col-sml-12 col-lrg-4">
                             <NumberFormatInputField field={form.$('number')} />
                         </div>
-                        <div className="form__group col col-sml-12 col-lrg-9">
+                        <div className="form__group col col-sml-12 col-lrg-8">
                             <BasicInput field={form.$('description')} />
                         </div>
                         {isAssignableAsPrimary &&

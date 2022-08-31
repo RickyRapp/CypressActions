@@ -73,6 +73,10 @@ class GrantRouteService extends BaseRouteService {
     exportDonor(filter) {
         return super.find(this.base + `/search-export-donor/{?exportFields,donorId,exportLimit,exportType,${this.filterFields}}`, filter);
     }
+
+    getSimilarByCharityType(params){
+        return super.find(this.base + '/similar/{?donorId,charityId,charityTypeId}', params);
+    }
 }
 
 export default GrantRouteService;
