@@ -38,7 +38,7 @@
 
 			&--line {
 				height: calc($unit / 6);
-				width: 25%;
+				width: 36%;
 				background-color: $color-text;
 
 				&:last-child {

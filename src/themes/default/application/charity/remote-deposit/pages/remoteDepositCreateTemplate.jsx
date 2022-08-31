@@ -46,10 +46,10 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                 />
             </div>
 
-            <form onSubmit={form.onSubmit}>
-                
-                {currentStep === 1 &&
-                    <div className="container--sml">
+            <div className="container--lrg">
+                <form onSubmit={form.onSubmit}>
+
+                    {currentStep === 1 &&
                         <Step2Template
                             form={form}
                             onNextStepClick={onNextStep2Click}
@@ -65,10 +65,9 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                             phoneNumber={phoneNumber}
                             paymentMethod={paymentMethod}
                         />
-                    </div>}
+                    }
 
-                {currentStep === 2 &&
-                    <div className="u-padd--left--sml u-padd--right--sml">
+                    {currentStep === 2 &&
                         <Step3Template
                             onPreviousStepClick={onPreviousStep3Click}
                             form={form}
@@ -83,9 +82,9 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                             charity={charity}
                             insufficientAmount={insufficientAmount}
                         />
-                    </div>}
-                {currentStep === 3 &&
-                    <div className="container container--base u-padd--bottom--med">
+                    }
+
+                    {currentStep === 3 &&
                         <Step4Template
                             onNextStepClick={onNextStep4Click}
                             currentCount={currentCount}
@@ -93,8 +92,9 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                             session={session}
                             charity={charity}
                         />
-                    </div>}
-            </form>
+                    }
+                </form>
+            </div>
         </React.Fragment>
     )
 };
