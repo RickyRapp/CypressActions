@@ -14,9 +14,12 @@ class UserStore {
 
         const user = this.user.donor || this.user.charity;
 
+        if (!user) return {};
+
         return {
             availableBalance: user.availableBalance,
-            accountBalance: user.accountBalance
+            accountBalance: user.accountBalance,
+            presentBalance: user.presentBalance
         };
     }
 

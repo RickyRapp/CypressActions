@@ -14,8 +14,8 @@ class DashboardViewStore extends BaseViewStore {
     constructor(rootStore) {
         super(rootStore);
 
-        this.getChartData();
         this.createYearDropdownStore();
+        this.getChartData();
     }
 
     @action.bound

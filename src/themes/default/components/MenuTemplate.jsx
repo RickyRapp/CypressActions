@@ -75,22 +75,26 @@ function renderPrimary(menu, menuStore, translate) {
                         </React.Fragment>
                     );
                 })}
-                <div className="nav--primary__balance">
-                    <p className="nav--primary__balance__label">
-                        AVAILABLE BALANCE
-                    </p>
-                    <p className="nav--primary__balance__amount">
-                        {balance ?
-                            <FormatterResolver
-                                item={{ balance: balance }}
-                                field="balance"
-                                format={{ type: 'currency' }}
-                            />
-                            : 
-                            "$0.00"
-                        }
-                    </p>
-                </div>
+                {
+                    balance && (
+                        <div className="nav--primary__balance">
+                            <p className="nav--primary__balance__label">
+                                AVAILABLE BALANCE
+                            </p>
+                            <p className="nav--primary__balance__amount">
+                                {balance ?
+                                    <FormatterResolver
+                                        item={{ balance: balance }}
+                                        field="balance"
+                                        format={{ type: 'currency' }}
+                                    />
+                                    : 
+                                    "$0.00"
+                                }
+                            </p>
+                        </div>
+                    )
+                }
 
             </div>
             {
