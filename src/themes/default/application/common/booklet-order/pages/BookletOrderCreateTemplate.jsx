@@ -736,7 +736,7 @@ const BookletOrderCreateTemplate = function({ store, t }) {
 						)}
 				</Content>
 				<PageFooter>
-					<div className="u-padd--bottom--huge">
+					<div>
 						<BaasicFormControls
 							form={form}
 							onSubmit={onOrderSubmit}

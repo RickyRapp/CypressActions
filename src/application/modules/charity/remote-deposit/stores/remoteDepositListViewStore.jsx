@@ -138,7 +138,8 @@ class remoteDepositListViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'certificate.booklet.bookletOrder.donor.donorName',
-                    title: 'ACTIVITY.CHECK.LIST.COLUMNS.DONOR_LABEL'
+                    title: 'ACTIVITY.CHECK.LIST.COLUMNS.DONOR_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'certificate.code',
@@ -157,7 +158,8 @@ class remoteDepositListViewStore extends BaseListViewStore {
                         type: 'denomination',
                         additionalField: 'certificate.openCertificateAmount',
                         value: 'short'
-                    }
+                    },
+                    sortable: false
                 },
             ],
             actions: {},

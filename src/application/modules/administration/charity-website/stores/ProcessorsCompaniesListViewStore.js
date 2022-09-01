@@ -48,11 +48,13 @@ class ProcessorsCompaniesListViewStore extends BaseListViewStore {
             columns: [
                 {
                     key: 'name',
-                    title: 'PROCESSING_COMPANY.LIST.COLUMNS.NAME_LABEL'
+                    title: 'PROCESSING_COMPANY.LIST.COLUMNS.NAME_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'description',
-                    title: 'PROCESSING_COMPANY.LIST.COLUMNS.DESCRIPTION_LABEL'
+                    title: 'PROCESSING_COMPANY.LIST.COLUMNS.DESCRIPTION_LABEL',
+                    sortable: false
                     
                 },
                 {

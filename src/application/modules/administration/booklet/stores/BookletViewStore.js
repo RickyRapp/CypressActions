@@ -102,7 +102,8 @@ class BookletViewStore extends BaseListViewStore {
                                 return item.certificates[0].denominationType.name;
                             }
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'certificates',
@@ -116,11 +117,12 @@ class BookletViewStore extends BaseListViewStore {
                             const active = item.certificates.filter(c => c.isActive).length;
                             return `${clean} / ${used} / ${canceled} | ${active}`;
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'bookletStatus.name',
-                    title: 'BOOKLET.LIST.COLUMNS.STATUS_LABEL'
+                    title: 'BOOKLET.LIST.COLUMNS.STATUS_LABEL',
                 }
             ],
             actions: {

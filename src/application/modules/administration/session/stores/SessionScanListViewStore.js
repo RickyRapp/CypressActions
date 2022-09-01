@@ -43,7 +43,6 @@ class SessionScanListViewStore extends BaseListViewStore {
                         type: 'date',
                         value: 'short'
                     },
-                    sortable: false
                 }
             ],
             actions: {

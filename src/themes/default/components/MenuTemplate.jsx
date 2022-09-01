@@ -20,7 +20,7 @@ function MenuTemplate({ menuStore, t }) {
 function renderPrimary(menu, menuStore, translate) {
     return (
         <React.Fragment>
-            {renderMenuHeader(menu,menuStore, translate)}
+            {renderMenuHeader(menu, menuStore, translate)}
 
             <div className={menuStore.isOpen ? 'nav--primary' : 'nav--primary'}>
                 {menu.map((item) => {
@@ -73,20 +73,20 @@ function renderPrimary(menu, menuStore, translate) {
                         </React.Fragment>
                     );
                 })}
-                { menuStore.rootStore.userStore.applicationUser
-                 && menuStore.rootStore.userStore.applicationUser.donor &&
-                 <div className="nav--primary__balance">
-                <p className="nav--primary__balance__label">
-                    AVAILABLE BALANCE
-                </p>
-                <p className="nav--primary__balance__amount">
-                    <FormatterResolver
-						item={{ balance: menuStore.rootStore.userStore.applicationUser.donor.availableBalance }}
-                        field="balance"
-						format={{ type: 'currency' }}
-					/>
-                </p>
-                </div> }
+                {menuStore.rootStore.userStore.applicationUser
+                    && menuStore.rootStore.userStore.applicationUser.donor &&
+                    <div className="nav--primary__balance">
+                        <p className="nav--primary__balance__label">
+                            AVAILABLE BALANCE
+                        </p>
+                        <p className="nav--primary__balance__amount">
+                            <FormatterResolver
+                                item={{ balance: menuStore.rootStore.userStore.applicationUser.donor.availableBalance }}
+                                field="balance"
+                                format={{ type: 'currency' }}
+                            />
+                        </p>
+                    </div>}
 
             </div>
             {
@@ -160,16 +160,19 @@ function SecondaryItems({ items, menuStore, t }) {
 
 function renderMenuHeader(menu, menuStore, t) {
     const menuDashboard = menu.find((item) => item.title === "MENU.DASHBOARD");
-    
+    const handleCloseMenu = () => menuStore.closeMobileMenu();
+    const handleRedirectToDashboard = () => menuStore.selectMenuItem(menuDashboard)
+
     return (
-        <div className="nav--primary__logo" onClick={() => menuStore.selectMenuItem(menuDashboard)}>
+        <div className="nav--primary__logo">
             <img
                 className='header__logo'
                 src={menuStore.isCollapsed ? logo_collapsed : logo}
                 alt='logo'
-                />
-            <div className="nav--primary__close" onClick={() => menuStore.toggleMenuOpen()} title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
-                <i className="u-icon u-icon--base u-icon--close-menu"></i>
+                onClick={handleRedirectToDashboard}
+            />
+            <div className="nav--primary__close" title={menuStore.isCollapsed ? t('MENU.FOOTER.EXPAND') : t('MENU.FOOTER.COLLAPSE')}>
+                <i className="u-icon u-icon--base u-icon--close-menu" onClick={handleCloseMenu}></i>
             </div>
         </div>
     )

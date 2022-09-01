@@ -258,27 +258,27 @@
 		&--ach {
 			background-image: svg-load('../styles/postcss-svg/ach.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/ach.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/ach.svg', stroke: $white);
 			}
 		}
 
 		&--bill-pay {
 			background-image: svg-load('../styles/postcss-svg/bill-pay.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/bill-pay.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/bill-pay.svg', stroke: $white);
 			}
 		}
 
 		&--cash {
 			background-image: svg-load('../styles/postcss-svg/cash.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/cash.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/cash.svg', stroke: $white);
 			}
 
 			&--primary {
@@ -293,126 +293,126 @@
 		&--check {
 			background-image: svg-load('../styles/postcss-svg/check.svg', fill: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/check.svg', fill: $color-note);
+				background-image: svg-load('../styles/postcss-svg/check.svg', fill: $white);
 			}
 		}
 
 		&--credit-card {
 			background-image: svg-load('../styles/postcss-svg/credit-card.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/credit-card.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/credit-card.svg', stroke: $white);
 			}
 		}
 
 		&--wire-transfer {
 			background-image: svg-load('../styles/postcss-svg/wire-transfer.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/wire-transfer.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/wire-transfer.svg', stroke: $white);
 			}
 		}
 
 		&--profile {
 			background-image: svg-load('../styles/postcss-svg/profile.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/profile.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/profile.svg', stroke: $white);
 			}
 		}
 
 		&--stock-and-securities {
 			background-image: svg-load('../styles/postcss-svg/stock-and-securities.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/stock-and-securities.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/stock-and-securities.svg', stroke: $white);
 			}
 		}
 
 		&--third-party-donor-advised-funds {
 			background-image: svg-load('../styles/postcss-svg/third-party-donor-advised-funds.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/third-party-donor-advised-funds.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/third-party-donor-advised-funds.svg', stroke: $white);
 			}
 		}
 
 		&--stock-and-mutual-funds {
 			background-image: svg-load('../styles/postcss-svg/stock-and-mutual-funds.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/stock-and-mutual-funds.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/stock-and-mutual-funds.svg', stroke: $white);
 			}
 		}
 
 		&--business-and-private-interests {
 			background-image: svg-load('../styles/postcss-svg/business-and-private-interests.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/business-and-private-interests.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/business-and-private-interests.svg', stroke: $white);
 			}
 		}
 
 		&--real-estate {
 			background-image: svg-load('../styles/postcss-svg/real-estate.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/real-estate.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/real-estate.svg', stroke: $white);
 			}
 		}
 
 		&--collectible-assets {
 			background-image: svg-load('../styles/postcss-svg/collectible-assets.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/collectible-assets.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/collectible-assets.svg', stroke: $white);
 			}
 		}
 
 		&--crypto-currency {
 			background-image: svg-load('../styles/postcss-svg/crypto-currency.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/crypto-currency.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/crypto-currency.svg', stroke: $white);
 			}
 		}
 
 		&--zelle {
 			background-image: svg-load('../styles/postcss-svg/zelle.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/zelle.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/zelle.svg', stroke: $white);
 			}
 		}
 
 		&--paycheck-direct {
 			background-image: svg-load('../styles/postcss-svg/paycheck-direct.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/paycheck-direct.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/paycheck-direct.svg', stroke: $white);
 			}
 		}
 
 		&--chase-quickpay {
 			background-image: svg-load('../styles/postcss-svg/chase-quickpay.svg', stroke: $color-text);
 
-			&.checked {
+			&.active {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/chase-quickpay.svg', stroke: $color-note);
+				background-image: svg-load('../styles/postcss-svg/chase-quickpay.svg', stroke: $white);
 			}
 		}
 
@@ -437,6 +437,25 @@
 				background-image: svg-load('../styles/postcss-svg/sync.svg', stroke: $color-background);
 			}
 		}
+
+		&--clock {
+			background-image: svg-load('../styles/postcss-svg/clock.svg', stroke: $color-text);
+		}
+
+		&--info-regular {
+			background-image: svg-load('../styles/postcss-svg/info-regular.svg', stroke: $color-text);
+		}
+
+		&--details {
+			background-image: svg-load('../styles/postcss-svg/details.svg', stroke: $color-text);
+		}
+
+		&--give {
+			&--dark {
+				background-image: svg-load('../styles/postcss-svg/give.svg', stroke: $color-text);
+			}
+		}
+
 		&--email {
 			background-image: svg-load('../styles/postcss-svg/email-icon.svg', stroke: $color-primary);
 
@@ -478,13 +497,13 @@
 
 		&--clear {
 			background-image: svg-load('../styles/postcss-svg/clear_circle.svg', fill: $grey-4);
-			
+
 			&--absolute {
 				position: absolute;
 				right: calc($unit * 7);
 			}
 		}
-		
+
 		&--warning {
 			background-image: svg-load('../styles/postcss-svg/icon-warning.svg', stroke: $color-warning);
 		}

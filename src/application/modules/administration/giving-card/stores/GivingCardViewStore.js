@@ -59,7 +59,8 @@ class GivingCardViewStore extends BaseListViewStore {
                 },
                 {
                     key: 'donorGivingCardSetting.donor.donorName',
-                    title: 'GIVING_CARD.LIST.COLUMNS.DONOR_NAME_LABEL'
+                    title: 'GIVING_CARD.LIST.COLUMNS.DONOR_NAME_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'isLostOrStolen',
@@ -67,7 +68,8 @@ class GivingCardViewStore extends BaseListViewStore {
                     format: {
                         type: 'boolean',
                         value: 'yes-no'
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'isPossibleLostOrStolen',
@@ -75,11 +77,13 @@ class GivingCardViewStore extends BaseListViewStore {
                     format: {
                         type: 'boolean',
                         value: 'yes-no'
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'reportDescription',
-                    title: 'GIVING_CARD.LIST.COLUMNS.LOST_OR_STOLEN_DESCRIPTION_LABEL'
+                    title: 'GIVING_CARD.LIST.COLUMNS.LOST_OR_STOLEN_DESCRIPTION_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'isLockedOut',
@@ -87,7 +91,8 @@ class GivingCardViewStore extends BaseListViewStore {
                     format: {
                         type: 'boolean',
                         value: 'yes-no'
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'isActivated',
@@ -95,7 +100,8 @@ class GivingCardViewStore extends BaseListViewStore {
                     format: {
                         type: 'boolean',
                         value: 'yes-no'
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',

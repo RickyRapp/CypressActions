@@ -36,6 +36,7 @@
 
 	&__hamburger {
 		display: inline-block;
+		cursor: pointer;
 
 		@media (--screen-from-lrg) {
 			display: none;

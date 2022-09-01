@@ -44,7 +44,7 @@
 	.k-dropdown-wrap {
 		display: flex;
 		align-items: center;
-		padding: 0 calc($unit * 2);
+		padding: 0 0 0 calc($unit * 2);
 
 		background: $white;
 		background-image: none !important;
@@ -61,7 +61,7 @@
 			padding: 0;
 			@mixin type-scale $type-base, 1;
 
-			height: calc($unit * 3.5 + 1px);
+			height: calc($unit * 4 + 2px);
 			width: 100%;
 
 			overflow: hidden;
@@ -77,6 +77,8 @@
 		/* Dropdown caret icon */
 		.k-select {
 			width: auto;
+			height: 100%;
+			padding: $unit calc($unit * 3 - 2px);
 
 			.k-icon {
 				background-image: svg-load('../styles/postcss-svg/arrow-down-icon.svg', fill: $grey-6);
@@ -86,6 +88,7 @@
 
 				width: calc($unit * 2);
 				height: calc($unit * 2);
+				margin-top: 2px;
 				background-size: calc($unit * 2);
 
 				font-size: 0;

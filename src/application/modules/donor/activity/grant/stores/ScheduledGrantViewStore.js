@@ -120,6 +120,7 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                 {
                     key: 'charity.name',
                     title: 'SCHEDULED_GRANT.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'amount',
@@ -135,7 +136,8 @@ class ScheduledGrantViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: this.renderGrantScheduleType
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'nextDate',

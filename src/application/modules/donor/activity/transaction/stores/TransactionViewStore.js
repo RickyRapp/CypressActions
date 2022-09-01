@@ -155,11 +155,13 @@ class TransactionViewStore extends BaseListViewStore {
                                     return `Declined ${item.description}`;
                                 return item.description;
                             }
-                        }
+                        },
+                        sortable: false
                     },
                     {
                         key: 'type',
                         title: 'ACTIVITY.LIST.COLUMNS.TRANSACTION_TYPE_LABEL',
+                        sortable: false
                     },
                     {
                         key: 'paymentTransaction',
@@ -191,7 +193,6 @@ class TransactionViewStore extends BaseListViewStore {
                     onSort: (column) => this.queryUtility.changeOrder(column.key)
                 },
                 actionsRender: {},
-                disableSorting: true,
                 disablePaging: this.hidePager
             }));
         } else {

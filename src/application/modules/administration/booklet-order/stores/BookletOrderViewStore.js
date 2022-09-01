@@ -5,6 +5,8 @@ import { ModalParams } from 'core/models';
 import { BookletOrderListFilter } from 'application/administration/booklet-order/models';
 import moment from 'moment';
 import { saveAs } from '@progress/kendo-file-saver';
+import _ from 'lodash';
+
 class BookletOrderViewStore extends BaseListViewStore {
     constructor(rootStore) {
         super(rootStore, {
@@ -101,7 +103,8 @@ class BookletOrderViewStore extends BaseListViewStore {
                 {
                     key: 'donor.donorName',
                     title: 'BOOKLET_ORDER.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    disableClick: true
+                    disableClick: true,
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',
@@ -125,8 +128,23 @@ class BookletOrderViewStore extends BaseListViewStore {
                 {
                     key: 'bookletOrderStatus.name',
                     title: 'BOOKLET_ORDER.LIST.COLUMNS.STATUS_LABEL',
+                    sortable: false
                 }
             ],
+            comparerFunction: (p, c) => {
+                let shouldRerenderRow = false;
+                if (!_.isNil(c.expanded)) {
+                    return shouldRerenderRow = true;
+                } else {
+                    _.forEach(this.tableStore.config.columns, col => {
+                        if (_.get(p, col.key) !== _.get(c, col.key)) {
+                            shouldRerenderRow = true;
+                            return false;
+                        }
+                    })
+                    return shouldRerenderRow;
+                }
+            },
             actions: {
                 onReview: (bookletOrderId) => this.routes.review(bookletOrderId),
                 onDetails: (bookletOrderId) => this.routes.details(bookletOrderId),

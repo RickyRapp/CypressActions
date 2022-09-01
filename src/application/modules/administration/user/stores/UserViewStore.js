@@ -97,13 +97,15 @@ class UserViewStore extends BaseListViewStore {
                     key: 'isApproved',
                     title: 'USER.LIST.COLUMNS.APPROVED',
                     onClick: item => this.routes.edit(item.id),
-                    authorization: this.authorization.update
+                    authorization: this.authorization.update,
+                    sortable: false
                 },
                 {
                     key: 'isLockedOut',
                     title: 'USER.LIST.COLUMNS.LOCKED_OUT',
                     onClick: item => this.routes.edit(item.id),
-                    authorization: this.authorization.update
+                    authorization: this.authorization.update,
+                    sortable: false
                 }
             ],
             actions: {

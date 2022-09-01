@@ -2,6 +2,7 @@ import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryP
 import { FilterParams } from 'core/models';
 import { charityFormatter, donorFormatter } from 'core/utils';
 import { SessionListFilter } from '../models';
+import { orderBy } from 'lodash';
 
 class SessionPendingCertificateViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -36,7 +37,13 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                         const statuses = await rootStore.application.lookup.sessionPendingCertificateStatusStore.find();
                         params.sessionPendingCertificateStatusIds = statuses.find(c => c.abrv === 'pending').id;
 
-                        return rootStore.application.administration.sessionStore.findSessionPendingCertificate(params);
+                        const response = await rootStore.application.administration.sessionStore.findSessionPendingCertificate(params);
+
+                        if (params.orderBy === "certificate.denominationType") {
+                            response.item = orderBy(response.item, "certificate.denominationType.value", params.orderDirection);
+                        }
+
+                        return response;
                     }
                 }
             }
@@ -51,6 +58,7 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                 {
                     key: 'charity.name',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.CHARITY_NAME_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'session.confirmationNumber',
@@ -59,6 +67,7 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                 {
                     key: 'certificate.booklet.bookletOrder.donor.donorName',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.DONOR_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'certificate.booklet.bookletOrder.donor.donorName',
@@ -68,7 +77,8 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                         value: (item) => {
                             return (item && item.certificate.booklet && item.certificate.booklet.code) + '-' + (item && item.certificate && item.certificate.code);
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'certificate.denominationType',
@@ -76,14 +86,14 @@ class SessionPendingCertificateViewStore extends BaseListViewStore {
                     format: {
                         type: 'denomination',
                         value: 'short'
-                    }
+                    },
                 },
                 {
                     key: 'blankCertificateValue',
                     title: 'SESSION_PENDING_CERTIFICATE.LIST.COLUMNS.AMOUNT_LABEL',
                     format: {
                         type: 'currency'
-                    }
+                    },
                 },
                 {
                     key: 'dateCreated',

@@ -7,14 +7,15 @@ import { defaultTemplate } from 'core/hoc';
 function PageHeaderTemplate({ children, rootStore, routes, t, hideTitle = false, coreResolving, menuStore, ...props }) {
 	const activeRoute = rootStore.routerStore.routes.find(c => c.name === rootStore.routerStore.routerState.routeName);
 	const title = activeRoute.data ? activeRoute.data.title : '';
-
+	const handleToggleMenu = () => menuStore.toggleMenuOpen();
+	
 	return (
 		<div className="layout__header header">
 			{!coreResolving ? renderHeaderContent(children, props, routes, hideTitle, t, title) : null}
 
 			{!coreResolving && (
 				<div className="header__options">
-					<div className="header__hamburger" onClick={() => menuStore.toggleMenuOpen()}>
+					<div className="header__hamburger" onClick={handleToggleMenu}>
 						<i className="u-icon u-icon--med u-icon--menu"></i>
 					</div>
 				</div>

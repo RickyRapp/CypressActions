@@ -172,6 +172,7 @@ class WithdrawFundViewStore extends BaseListViewStore {
                 {
                     key: 'charity.name',
                     title: 'GRANT.LIST.COLUMNS.CHARITY_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'amount',
@@ -197,7 +198,8 @@ class WithdrawFundViewStore extends BaseListViewStore {
                                 return item.donationStatus.name;
                             }
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',

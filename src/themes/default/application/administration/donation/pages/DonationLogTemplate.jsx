@@ -8,6 +8,10 @@ import { isSome } from 'core/utils';
 function DonationLogTemplate({ loading, donationLogViewStore, t }) {
 	const { tableStore, authorization } = donationLogViewStore;
 
+	if (tableStore.loading) {
+		return <div>Loading...</div>
+	}
+
 	return (
 		<Content>
 			<div>

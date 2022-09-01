@@ -222,7 +222,8 @@ class ContributionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: this.getDonorOrCharity
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'amount',
@@ -239,6 +240,7 @@ class ContributionViewStore extends BaseListViewStore {
                 {
                     key: 'contributionStatus.name',
                     title: 'CONTRIBUTION.LIST.COLUMNS.CONTRIBUTION_STATUS_NAME_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'paymentType.name',
@@ -246,7 +248,8 @@ class ContributionViewStore extends BaseListViewStore {
                     format: {
                         type: 'function',
                         value: this.renderPaymentType
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'payerInformation.name',
@@ -256,11 +259,13 @@ class ContributionViewStore extends BaseListViewStore {
                         value: (item) => {
                             return item.bankAccount && item.bankAccount.isThirdPartyAccount && item.bankAccount.accountHolder ? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != "" ? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.paymentType && item.paymentType.abrv == 'credit-card' ? 'PayPal Giving' : item.payerInformation.name;
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'checkNumber',
                     title: 'CONTRIBUTION.LIST.COLUMNS.PAYMENT_NUMBER_LABEL',
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',

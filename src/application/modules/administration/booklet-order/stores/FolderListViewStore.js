@@ -60,7 +60,8 @@ class FolderListViewStore extends BaseListViewStore {
                 {
                     key: 'donor.donorName',
                     title: 'BOOKLET_ORDER.LIST.COLUMNS.DONOR_NAME_LABEL',
-                    disableClick: true
+                    disableClick: true,
+                    sortable: false
                 },
                 {
                     key: 'dateCreated',
@@ -80,7 +81,8 @@ class FolderListViewStore extends BaseListViewStore {
                     format: {
                         type: 'boolean',
                         value: 'yes-no'
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'bookletOrders[0].shippingAddressLine1',
@@ -93,11 +95,13 @@ class FolderListViewStore extends BaseListViewStore {
                             }
                             return `${item.bookletOrders[0].shippingAddressLine1}, ${item.bookletOrders[0].shippingCity}, ${item.bookletOrders[0].shippingState}, ${item.bookletOrders[0].shippingZipCode}`
                         }
-                    }
+                    },
+                    sortable: false
                 },
                 {
                     key: 'trackingNumber',
                     title: 'Tracking Number',
+                    sortable: false
                 }
             ],
             actions: {
