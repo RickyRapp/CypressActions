@@ -84,6 +84,10 @@ export default class MenuStore {
         }
     }
 
+    @action.bound closeMobileMenu() {
+        this.isOpen = false;
+    }
+
     //toggles menu open/close is-open, for mobile
     @action.bound toggleMenuOpen() {
         this.isOpen = !this.isOpen;

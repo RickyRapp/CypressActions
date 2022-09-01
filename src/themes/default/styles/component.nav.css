@@ -55,11 +55,13 @@
 
 			border-bottom: 1px solid color($scandal a(20%));
 
-			cursor: pointer;
-
 			@media (--screen-from-med) {
 				justify-content: center;
 				height: $header-height;
+			}
+
+			& img {
+				cursor: pointer;
 			}
 		}
 
@@ -99,19 +101,19 @@
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				
+
 				padding: calc($unit * 2) calc($unit * 1);
 				margin: calc($unit * 3) calc($unit * 4);
-				
+
 				@mixin type-scale $type-base, 1;
 
 				@media (--screen-from-med) {
 					@mixin type-scale $type-medium, 1;
 				}
-				
+
 				border: 1px solid color($scandal a(20%));
 				border-radius: calc($unit / 1.6);
-				
+
 				cursor: pointer;
 				transition: all 250ms ease-out;
 
@@ -129,18 +131,18 @@
 			&--logout {
 				display: flex;
 				justify-content: center;
-				
+
 				padding: calc($unit * 2) calc($unit * 1);
 				margin: calc($unit * 3) calc($unit * 4);
-				
+
 				color: color($white a(80%));
-				
+
 				@mixin type-scale $type-base, 1;
 				text-transform: uppercase;
-				
+
 				border: 1px solid color($scandal a(20%));
 				border-radius: calc($unit / 1.6);
-				
+
 				cursor: pointer;
 				transition: all 250ms ease-out;
 
@@ -189,7 +191,6 @@
 			}
 
 			& .u-icon {
-
 				&--give {
 					background-image: svg-load('postcss-svg/give.svg', stroke: color($white a(50%)));
 				}
@@ -304,7 +305,6 @@
 				background-color: color($color-text blackness(70%));
 
 				& .u-icon {
-
 					&--give {
 						background-image: svg-load('postcss-svg/give.svg', stroke: color($color-note a(100%)));
 					}
@@ -429,8 +429,10 @@
 
 		&__close {
 			position: absolute;
-			top: calc($unit * 4.5);
-			right: calc($unit * 3);
+			cursor: pointer;
+
+			top: calc($unit * 4);
+			right: calc($unit * 4);
 		}
 
 		&__footer {
@@ -447,7 +449,7 @@
 		&__text {
 			position: relative;
 			display: block;
-			
+
 			@mixin type-scale $type-base, 1;
 
 			@media (--screen-from-med) {
@@ -475,10 +477,10 @@
 			color: color($white a(75%));
 			border-bottom: 1px solid color($white a(10%));
 			background-color: color($color-text a(15%));
-			
+
 			cursor: pointer;
 			transition: all 250ms ease-out;
-			
+
 			&:hover {
 				color: color($white a(100%));
 				background-color: color($smalt-blue a(50%));

@@ -11,12 +11,13 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
             profileMenuOpen,
         },
     } = rootStore;
+    const handleToggleMenu = () => menuStore.toggleMenuOpen()
 
     const imgUrl = 'https://www.pngkit.com/png/full/281-2812821_user-account-management-logo-user-icon-png.png'
 
     return (
         <header className="layout__header header">
-            <div className="header__options"> 
+            <div className="header__options">
                 {/* 
                     uncomment this if you need to debug session expiration modal
                     
@@ -63,8 +64,7 @@ function HeaderTemplate({ rootStore, routerStore, t, menuStore }) {
                         </div>
                     </NotifyOutsideClick>
                 </div>
-                <div className="header__hamburger"
-                    onClick={() => menuStore.toggleMenuOpen()}>
+                <div className="header__hamburger" onClick={handleToggleMenu}>
                     <i className="u-icon u-icon--med u-icon--menu"></i>
                 </div>
             </div>
