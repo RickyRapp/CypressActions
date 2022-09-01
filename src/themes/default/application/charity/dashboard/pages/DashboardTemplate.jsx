@@ -19,15 +19,15 @@ class DashboardTemplate extends Component {
 
 	render() {
 		const { dashboardViewStore, t } = this.props;
-	
-		const { 
-			charity, 
-			newContributionOnClick, 
-			redirectToWithdrawFundsPage, 
+
+		const {
+			charity,
+			newContributionOnClick,
+			redirectToWithdrawFundsPage,
 			yearDropdownStore,
 			notImplemented,
-			manageAccount, 
-			dataGrants, 
+			manageAccount,
+			dataGrants,
 			grantsPerYear,
 			redirectToManageAccount,
 			availableBalance
@@ -58,8 +58,8 @@ class DashboardTemplate extends Component {
 		}
 
 		const items = categories.map(cat => {
-			const item = dataGrants.item.find(grant => cat.includes(grant.name)); 
-			return (item && item.value) ? item.value : 0 
+			const item = dataGrants.item.find(grant => cat.includes(grant.name));
+			return (item && item.value) ? item.value : 0
 		});
 
 		const LineChartContainer = () => (
@@ -88,11 +88,14 @@ class DashboardTemplate extends Component {
 								<h3 className=" u-mar--bottom--med">Your Funds</h3>
 								<div className="dashboard-card__body">
 									<div className="dashboard-card__body--amount">
-										<FormatterResolver
-											item={{ balance: availableBalance }}
-											field="balance"
-											format={{ type: 'currency' }}
-										/>
+										{availableBalance ?
+											<FormatterResolver
+												item={{ balance: availableBalance }}
+												field="balance"
+												format={{ type: 'currency' }}
+											/> :
+											"$0.00"
+										}
 									</div>
 									<p className="dashboard-card__body--title">ACCOUNT BALANCE</p>
 								</div>
