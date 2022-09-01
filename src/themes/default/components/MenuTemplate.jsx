@@ -18,6 +18,8 @@ function MenuTemplate({ menuStore, t }) {
 }
 
 function renderPrimary(menu, menuStore, translate) {
+    const balance = menuStore.rootStore.userStore.userBalances.availableBalance;
+
     return (
         <React.Fragment>
             {renderMenuHeader(menu, menuStore, translate)}
@@ -73,15 +75,14 @@ function renderPrimary(menu, menuStore, translate) {
                         </React.Fragment>
                     );
                 })}
-                {menuStore.rootStore.userStore.applicationUser
-                    && menuStore.rootStore.userStore.applicationUser.donor &&
+                {balance != null &&
                     <div className="nav--primary__balance">
                         <p className="nav--primary__balance__label">
                             AVAILABLE BALANCE
                         </p>
                         <p className="nav--primary__balance__amount">
                             <FormatterResolver
-                                item={{ balance: menuStore.rootStore.userStore.applicationUser.donor.availableBalance }}
+                                item={{ balance: balance}}
                                 field="balance"
                                 format={{ type: 'currency' }}
                             />

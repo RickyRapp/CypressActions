@@ -74,7 +74,6 @@ export default class APITestingForm extends FormBase {
                     value: false,
                     handlers: {
                         onChange: (field) => (event) => {
-                            debugger;
                             const value = event.target.checked;
                             let rule = 'numeric|min:1';
                             if (value) {

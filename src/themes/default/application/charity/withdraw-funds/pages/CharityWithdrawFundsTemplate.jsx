@@ -6,7 +6,7 @@ import { BaasicButton, BaasicDropdown, BaasicInput, FormatterResolver } from 'co
 
 function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
     const {
-        accountBanalce,
+        availableBalance,
         isACH,
         onChange,
         charityAddress,
@@ -24,7 +24,7 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
                 <p className="withdraw__title">Available Balance</p>
                 <p className="withdraw__price">
                     <FormatterResolver
-                        item={{ balance: accountBanalce }}
+                        item={{ balance: availableBalance }}
                         field="balance"
                         format={{ type: 'currency' }}
                     />

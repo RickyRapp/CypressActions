@@ -1,13 +1,16 @@
 import { TransactionListFilter } from 'application/donor/activity/transaction/models';
 import { BaseListViewStore, BaasicDropdownStore,  TableViewStore, DateRangeQueryPickerStore } from 'core/stores';
-import { action, observable } from 'mobx';
+import { action, observable, computed } from 'mobx';
 import moment from 'moment';
 import { orderBy } from 'lodash';
 
 
 class AllTransactionViewStore extends BaseListViewStore {
 	@observable isChecksOnHoldVisible = false;
-    @observable availableBalance = 0;
+    
+    @computed get accountBalance() {
+        return this.rootStore.userStore.userBalances.accountBalance;
+    }
 
     constructor(rootStore) {
         super(rootStore, {
@@ -59,7 +62,6 @@ class AllTransactionViewStore extends BaseListViewStore {
         this.createDateCreatedDateRangeQueryStore();
         this.createTransactionTypeStore();
         this.createTransactionPeriodStore();
-        this.getAvailableBalance();
 
         this.checksOnHoldTableStore = new TableViewStore(null, {
             columns: [
@@ -306,10 +308,6 @@ class AllTransactionViewStore extends BaseListViewStore {
 			return `${grant.grantType} ${grant.confirmationNumber}`;
 		}
 	}
-
-    async getAvailableBalance(){
-        this.availableBalance = await this.rootStore.application.charity.charityStore.getCharityAvailableBalance(this.rootStore.userStore.applicationUser.id);
-    }
 
 }
 
