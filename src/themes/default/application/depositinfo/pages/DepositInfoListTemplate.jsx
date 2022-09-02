@@ -22,7 +22,7 @@ const DepositInfoListTemplate = function({ depositinfoListViewStore }) {
                 <div className="u-mar--bottom--sml">
                     <TableFilter queryUtility={queryUtility}></TableFilter>
                 </div>
-                <div className="card--form card--primary card--med">
+                <div className="card--primary card--med">
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}

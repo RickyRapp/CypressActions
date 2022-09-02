@@ -26,7 +26,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 	} = charityBankAccountEditViewStore;
 
 	return (
-		<EditFormContent form={form}>
+		<EditFormContent form={form} formClassName={" "}>
 			<div className="card--med card--primary">
 				<div>
 					{!item && <span>Create new bank account manually or using : </span>}
@@ -83,13 +83,15 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 						<NumberFormatInputField field={form.$('number')} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-4">
-						<div>
-							{bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Primary account?</label>
-								<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span> : null}
-						</div>
-						<div >
-							{bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Is disabled?</label>
-								<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} disabled={item != null && (item && item.isPrimary)} /></span> : null}
+						<div className="u-display--flex">
+							<div>
+								{bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Primary account?</label>
+									<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span> : null}
+							</div>
+							<div >
+								{bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Is disabled?</label>
+									<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} disabled={item != null && (item && item.isPrimary)} /></span> : null}
+							</div>
 						</div>
 					</div>
 
@@ -128,12 +130,12 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					label='Cancel'
 				/>
 
-				<span className="u-mar--right--sml">
+				<span>
 					<BaasicFormControls form={form} onSubmit={form.onSubmit} />
 				</span>
 
 				{item != null &&
-					<BaasicButton className='btn btn--med btn--ghost search__wrapper__item' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >
+					<BaasicButton className='btn btn--med btn--ghost' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >
 						{/* {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')} */}
 					</BaasicButton>
 				}

@@ -9,3 +9,4 @@ export { default as CharityUploadLogoTemplate } from './CharityUploadLogoTemplat
 export { default as CharityBankAccountListTemplate } from './CharityBankAccountListTemplate'
 export { default as CharityUploadPhotoTemplate } from './CharityUploadPhotoTemplate'
 export { default as CharityCommunicationPreferenceTemplate } from './CharityCommunicationPreferenceTemplate'
+export { default as CharityQRCardTemplate } from './CharityQRCardTemplate'

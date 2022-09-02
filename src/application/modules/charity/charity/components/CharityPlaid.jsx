@@ -19,7 +19,7 @@ class CharityPlaid extends Component {
     this.plaidService = new PlaidService(this.props.application.baasic.apiClient);
     this.state = {
       linkToken: "",
-      bankAccount : this.props.bankAccount
+      bankAccount: this.props.bankAccount
     };
   }
 
@@ -36,11 +36,11 @@ class CharityPlaid extends Component {
     //b.verifiedByPlaid = response.data;
     //this.setState({ bankAccount: b });
     //this.state.bankAccount.verifiedByPlaid = response.data;
-    if(response.data){
+    if (response.data) {
       location.reload();
       this.props.routerStore.goTo('master.app.main.charity.dashboard');
       this.notificationStore.success('Verification successful!');
-    }else{
+    } else {
       this.notificationStore.error('Verification unsuccessful!');
     }
   }
@@ -48,25 +48,45 @@ class CharityPlaid extends Component {
   handleOnExit = async () => {
     // handle the case when your user exits Link 
     //ToDo - handling when close Plaid window and other errors... 
-    if(this.props.entityType === 'donor'){
+    if (this.props.entityType === 'donor') {
       if (!this.notificationStore.rootStore.userStore.applicationUser.donor.verifiedByPlaid)
-      this.notificationStore.error('Verification unsuccessful, you have closed Plaid!');
-    }else{
+        this.notificationStore.error('Verification unsuccessful, you have closed Plaid!');
+    } else {
       if (!this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid)
-      this.notificationStore.error('Verification unsuccessful, you have closed Plaid!');
+        this.notificationStore.error('Verification unsuccessful, you have closed Plaid!');
     }
 
   }
 
   render() {
     const { linkToken } = this.state
-    if ( !(this.props.bankAccount && this.props.bankAccount.isVerifiedByPlaid) && !linkToken) {
+    if (!(this.props.bankAccount && this.props.bankAccount.isVerifiedByPlaid) && !linkToken) {
       this.getLinkToken();
     }
 
     return (
       this.props.bankAccount ? (
         !this.props.bankAccount.isVerifiedByPlaid ?
+          <div>
+            {linkToken && linkToken.toString() !== 'undefined' ?
+              <PlaidLink
+                token={linkToken.toString()}
+                env={ApplicationSettings.env}
+                onSuccess={this.handleOnSuccess}
+                onExit={this.handleOnExit}
+                style={{ background: 'transparent', color: '#c36c36', border: '1px solid #c36c36' }}
+              >
+                <div className="btn btn--med btn--100 " onClick={this.getLinkToken}>Verify bank account using Plaid</div>
+              </PlaidLink>
+              : null
+            }
+          </div> :
+          <div>
+            <p className="type--tny">
+              Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i>
+            </p>
+          </div>
+      ) : (
         <div>
           {linkToken && linkToken.toString() !== 'undefined' ?
             <PlaidLink
@@ -74,32 +94,16 @@ class CharityPlaid extends Component {
               env={ApplicationSettings.env}
               onSuccess={this.handleOnSuccess}
               onExit={this.handleOnExit}
-              style={{background: 'transparent', color: '#c36c36', border: '1px solid #c36c36'}}
-              >
-              <div className="btn btn--med btn--100 " onClick={this.getLinkToken}>Verify bank account using Plaid</div>
-            </PlaidLink>
-            : null
-          }
-        </div> :
-        <div><br /><small>Account verified by Plaid: <i className="u-icon u-icon--approve u-icon--base"></i></small></div>
-    ) : (
-      <div>
-          {linkToken && linkToken.toString() !== 'undefined' ?
-            <PlaidLink
-              token={linkToken.toString()}
-              env={ApplicationSettings.env}
-              onSuccess={this.handleOnSuccess}
-              onExit={this.handleOnExit}
-              style={{background: 'transparent', color: '#c36c36', border: '1px solid #c36c36'}}
-              >
+              style={{ background: 'transparent', color: '#c36c36', border: '1px solid #c36c36' }}
+            >
               <div className="btn btn--med btn--100 " onClick={this.getLinkToken}>Create bank account using Plaid</div>
             </PlaidLink>
             : null
           }
         </div>
-    )
+      )
     );
-      
+
   }
 }
 

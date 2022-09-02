@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Date } from 'core/components';
 import { CardItem } from 'themes/components';
 
 const DepositGeneralInformationTemplate = ({ item, t }) => {
@@ -10,25 +9,19 @@ const DepositGeneralInformationTemplate = ({ item, t }) => {
 
 			<div className="card--secondary card--med">
 				<CardItem
-					t={t}
-					label={'CONTRIBUTION.DETAILS.DONOR_NAME'}
+					label={t('CONTRIBUTION.DETAILS.DONOR_NAME')}
 					value={item && item.donor && item.donor.name}
 				/>
-                <CardItem
-                    t={t}
-                    label={'CONTRIBUTION.DETAILS.CONFRIMATION_NUMBER'}
-                    value={item && item.confirmationNumber} />
 				<CardItem
-					t={t}
-					label={'CONTRIBUTION.DETAILS.PAYER_NAME' }
+					label={t('CONTRIBUTION.DETAILS.PAYER_NAME')}
 					value={item && (item.bankAccount && item.bankAccount.isThirdPartyAccount && item.bankAccount.accountHolder
-						 ? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != "" 
-						 ? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.payerInformation.name) }
+						? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != ""
+							? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.payerInformation.name)}
 				/>
-                <CardItem
-                    t={t}
-                    label={'CONTRIBUTION.DETAILS.STATUS'}
-                    value={item && item.contributionStatus.name} />
+				<CardItem
+					label={t('CONTRIBUTION.DETAILS.PAYER_NAME')}
+					value={item && (item.donor ? item.donor.name : item.payerInformation.name)}
+				/>
 			</div>
 		</div>
 	);

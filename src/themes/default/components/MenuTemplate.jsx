@@ -18,6 +18,8 @@ function MenuTemplate({ menuStore, t }) {
 }
 
 function renderPrimary(menu, menuStore, translate) {
+    const balance = menuStore.rootStore.userStore.userBalances.availableBalance;
+
     return (
         <React.Fragment>
             {renderMenuHeader(menu, menuStore, translate)}
@@ -73,20 +75,26 @@ function renderPrimary(menu, menuStore, translate) {
                         </React.Fragment>
                     );
                 })}
-                {menuStore.rootStore.userStore.applicationUser
-                    && menuStore.rootStore.userStore.applicationUser.donor &&
-                    <div className="nav--primary__balance">
-                        <p className="nav--primary__balance__label">
-                            AVAILABLE BALANCE
-                        </p>
-                        <p className="nav--primary__balance__amount">
-                            <FormatterResolver
-                                item={{ balance: menuStore.rootStore.userStore.applicationUser.donor.availableBalance }}
-                                field="balance"
-                                format={{ type: 'currency' }}
-                            />
-                        </p>
-                    </div>}
+                {
+                    balance && (
+                        <div className="nav--primary__balance">
+                            <p className="nav--primary__balance__label">
+                                AVAILABLE BALANCE
+                            </p>
+                            <p className="nav--primary__balance__amount">
+                                {balance ?
+                                    <FormatterResolver
+                                        item={{ balance: balance }}
+                                        field="balance"
+                                        format={{ type: 'currency' }}
+                                    />
+                                    : 
+                                    "$0.00"
+                                }
+                            </p>
+                        </div>
+                    )
+                }
 
             </div>
             {

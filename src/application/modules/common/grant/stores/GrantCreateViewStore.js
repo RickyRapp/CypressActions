@@ -535,16 +535,12 @@ class GrantCreateViewStore extends BaseEditViewStore {
 
 	@action.bound
 	async setDonor() {
-		var isMicroGivingEnabled = (await this.grantStore.getDonorInformation(this.donorId)).isMicroGivingEnabled;
-		this.donor = await this.grantStore.getDonorInformation(this.donorId);
-		this.MicroGivingValue = isMicroGivingEnabled;
+		const response = await this.grantStore.getDonorInformation(this.donorId);
+		this.donor = response;
+		this.MicroGivingValue = response.isMicroGivingEnabled;
 		if (this.MicroGivingValue) {
 			this.form.$('amount').set('rules', 'required|numeric|min:0');
 		}
-	
-		//const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.rootStore.userStore.applicationUser.id);
-		const dataDonor = await this.rootStore.application.donor.dashboardStore.loadDashboardData(this.donorId);
-		this.donor.availableBalance = dataDonor.presentBalance;
 	}
 
 	@action.bound
