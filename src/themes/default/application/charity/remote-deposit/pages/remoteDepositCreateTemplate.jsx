@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { Step1Template, Step2Template, Step3Template, Step4Template, StepCounter } from '../components';
+import { Step2Template, Step3Template, Step4Template, StepCounter } from '../components';
 import { Page } from 'core/layouts';
 
 const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
@@ -9,11 +9,10 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
         form,
         steps,
         currentStep,
-        onNextStep2Click,
+        onNextStep1Click,
         onPreviousStep2Click,
-        onNextStep4Click,
+        onNextStep3Click,
         charityDropdownStore,
-        onPreviousStep3Click,
         barcode,
         onBarcodeChange,
         cancelCertificate,
@@ -55,8 +54,8 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                     {currentStep === 1 &&
                         <Step2Template
                             form={form}
-                            onNextStepClick={onNextStep2Click}
                             onPreviousStepClick={onPreviousStep2Click}
+                            onNextStepClick={onNextStep1Click}
                             charityDropdownStore={charityDropdownStore}
                             isChangedDefaultAddress={isChangedDefaultAddress}
                             onChangeDefaultAddressClick={onChangeDefaultAddressClick}
@@ -72,7 +71,7 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
 
                     {currentStep === 2 &&
                         <Step3Template
-                            onPreviousStepClick={onPreviousStep3Click}
+                            onPreviousStepClick={onPreviousStep2Click}
                             form={form}
                             sessionCertificates={sessionCertificates}
                             barcode={barcode}
@@ -89,7 +88,7 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
 
                     {currentStep === 3 &&
                         <Step4Template
-                            onNextStepClick={onNextStep4Click}
+                            onNextStepClick={onNextStep3Click}
                             currentCount={currentCount}
                             sessionCertificates={sessionCertificates}
                             session={session}

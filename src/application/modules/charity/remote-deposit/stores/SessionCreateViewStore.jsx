@@ -40,7 +40,7 @@ class SessionViewStore extends BaseEditViewStore {
                     create: async (resource) => {
                         const response = await this.rootStore.application.administration.sessionStore.finishSession({ key: resource.key });
                         this.session = response.response;
-                        this.nextStep(4);
+                        this.nextStep(3);
                         this.form.clear();
                         this.charityDropdownStore.setValue(null);
                         this.charityDropdownStore.setFilteredItems([]);
@@ -56,7 +56,7 @@ class SessionViewStore extends BaseEditViewStore {
             },
             FormClass: SessionCreateForm,
             onAfterAction: () => {
-                this.nextStep(4);
+                this.nextStep(3);
             }
         });
         
@@ -127,12 +127,6 @@ class SessionViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    onNextStep1Click(language) {
-        this.form.$('language').set(language);
-        this.nextStep(2);
-    }
-
-    @action.bound
 	setCharityId(id) {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
@@ -170,7 +164,7 @@ class SessionViewStore extends BaseEditViewStore {
 	};
 
     @action.bound
-    async onNextStep2Click() {
+    async onNextStep1Click() {
         if(this.isCharityAccount) {
             const params = {
                 embed: ['contactInformation', 'charityAddresses']
@@ -190,7 +184,7 @@ class SessionViewStore extends BaseEditViewStore {
         if (isValid) {
             const data = await this.rootStore.application.administration.sessionStore.createInitialSession(this.form.values());
             this.form.$('key').set(data.response);
-            this.nextStep(3);
+            this.nextStep(2);
         }
     }
 
@@ -205,7 +199,7 @@ class SessionViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async onNextStep4Click() {
+    async onNextStep3Click() {
         clearInterval(this.refreshIntervalId);
         this.form.$('key').value = null;
         this.sessionCertificates = [];
@@ -386,7 +380,7 @@ class SessionViewStore extends BaseEditViewStore {
     }
 
     async getPaymentMethod(){
-        this.paymentMethod = await this.rootStore.application.administration.sessionStore.getPaymentMethod(this.rootStore.userStore.applicationUser.charityId); console.log(this.paymentMethod);
+        this.paymentMethod = await this.rootStore.application.administration.sessionStore.getPaymentMethod(this.rootStore.userStore.applicationUser.charityId);
     }
 
 }
