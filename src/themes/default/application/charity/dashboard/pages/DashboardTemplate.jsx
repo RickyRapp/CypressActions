@@ -51,7 +51,7 @@ class DashboardTemplate extends Component {
 			this.categories.categoriesYearToDate = monthsNums;
 		}
 
-		const categories = this.categories[dataGrants.type];
+		const categories = this.categories[dataGrants.type] || [];
 
 		if (dataGrants.type === "categoriesWeeks" && dataGrants.item.every(i => i.name != 5)) {
 			categories.splice(categories.length - 1);
