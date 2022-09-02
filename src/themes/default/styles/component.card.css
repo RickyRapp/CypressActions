@@ -76,6 +76,10 @@
 
 	&--column {
 		&--med {
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			
 			margin-bottom: calc($unit * 3);
 			
 			&:last-child {

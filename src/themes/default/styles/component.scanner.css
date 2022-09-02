@@ -68,7 +68,7 @@
 		}
 
 		&--body {
-			height: calc($unit * 13);
+			height: calc($unit * 7);
 			align-items: center;
 			border-bottom: 1px solid color($color-text a(30%));
 		}
