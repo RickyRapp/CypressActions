@@ -1,11 +1,10 @@
 import { BaasicDropdownStore, BaseViewStore } from 'core/stores';
 import { applicationContext } from 'core/utils';
-import { action, observable } from 'mobx';
+import { action, observable, computed } from 'mobx';
 import { RouterState } from 'mobx-state-router';
 
 @applicationContext
 class CharityWithdrawFundsViewStore extends BaseViewStore {
-    @observable accountBanalce = 0;
     @observable isACH = true;
     @observable charityAddress;
     @observable bankAccount;
@@ -14,16 +13,15 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
     @observable addressValidationMessage;
     @observable bankAccountValidationMessage;
 
+    @computed get availableBalance() {
+        return this.rootStore.userStore.userBalances.availableBalance;
+    }
+
     constructor(rootStore) {
         super(rootStore);
 
-        this.getAccountBalance();
         this.getCharityAddress();
         this.createBankAccountDropdownStore();
-    }
-
-    async getAccountBalance(){
-        this.accountBanalce = await this.rootStore.application.charity.charityStore.getCharityAccountBalance(this.rootStore.userStore.applicationUser.id);
     }
 
     @action.bound
@@ -77,7 +75,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
 
     @action.bound
     async createWithdraw(){
-        var address = this.charityAddress;
+        const address = this.charityAddress;
         this.bankAccountValidationMessage = "";
         this.amountValidationMessage = "";
         this.addressValidationMessage = "";
@@ -99,7 +97,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
             return false;
         }
 
-        var resource = {
+        const resource = {
             charityId: this.rootStore.userStore.applicationUser.id,
             amount: this.amount,
             charityBankAccountId: this.bankAccount,
@@ -114,6 +112,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
         }
 
        const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
+       await this.rootStore.userStore.updateCharityBalances();
        this.rootStore.notificationStore.success('Successfully created withdraw');
        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.dashboard')); 
     }

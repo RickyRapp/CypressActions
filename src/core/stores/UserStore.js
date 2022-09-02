@@ -9,6 +9,21 @@ class UserStore {
         return this.applicationUser;
     }
 
+    @computed get userBalances() {
+        if (!this.user) return {};
+
+        const user = this.user.donor || this.user.charity;
+
+        if (!user) return {};
+
+        return {
+            availableBalance: user.availableBalance,
+            accountBalance: user.accountBalance,
+            presentBalance: user.presentBalance
+        };
+    }
+
+
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -29,7 +44,6 @@ class UserStore {
              }
          }
         
-
         runInAction(() => {
             this.applicationUser = applicationUser;
             this.loaderStore.resume();
@@ -93,11 +107,44 @@ class UserStore {
                 const charityApiKey = data.charityApiKey ? data.charityApiKey.apiKey : '';
                 if (data) {
                     user.charityId = data.id;
-                    user.charity = { name: data.name, taxId: data.taxId, apiKey: charityApiKey, accountNumber: data.charityAccountNumber.accountNumber };
+                    user.charity = { 
+                        name: data.name, 
+                        taxId: data.taxId, 
+                        apiKey: charityApiKey, 
+                        accountNumber: data.charityAccountNumber.accountNumber,
+                        accountBalance: data.accountBalance,
+                        availableBalance: data.availableBalance
+                    };
                 }
             }
         } catch (ex) {
             // eslint-disable-line
+        }
+    }
+
+    async updateCharityBalances() {
+        try {
+            const availableBalance = await this.rootStore.application.charity.charityStore.getCharityAvailableBalance(this.applicationUser.id);
+            this.applicationUser.charity.availableBalance = availableBalance;
+
+            const accountBalance = await this.rootStore.application.charity.charityStore.getCharityAccountBalance(this.applicationUser.id);
+            this.applicationUser.charity.accountBalance = accountBalance;
+
+            this.applicationUser = { ...this.applicationUser };
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    async updateDonorBalances() {
+        try {
+            const response = await this.rootStore.application.donor.grantStore.getDonorInformation(this.applicationUser.id);
+            this.applicationUser.donor.availableBalance = response.availableBalance;
+            this.applicationUser.donor.presentBalance = response.presentBalance;
+            
+            this.applicationUser = { ...this.applicationUser };
+        } catch(err) {
+            console.log(err);
         }
     }
 

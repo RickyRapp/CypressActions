@@ -37,12 +37,7 @@ const DonorEmailAddressListTableTemplate = function({ donorEmailAddressViewStore
 					/>
 				) : (
 					<div
-						className={`info-card--scale ${
-							(isEditEnabled && secondaryEmailAddress === null) ||
-							(secondaryEmailAddress && secondaryEmailAddress.id === editId)
-								? 'u-padd--x--med'
-								: ''
-						}`}
+						className={`info-card--scale`}
 						title="Click to edit"
 						onClick={() => onEnableEditClick(primaryEmailAddress)}
 					>
@@ -71,12 +66,7 @@ const DonorEmailAddressListTableTemplate = function({ donorEmailAddressViewStore
 				)}
 
 				<div
-					className={`u-mar--top--sml ${
-						(isEditEnabled && primaryEmailAddress === null) ||
-						(primaryEmailAddress && primaryEmailAddress.id === editId)
-							? 'u-padd--x--med'
-							: ''
-					}`}
+					className={`u-mar--top--sml`}
 				>
 					{isEditEnabled && ((secondaryEmailAddress && secondaryEmailAddress.id === editId) || undefined === editId) ? (
 						<DonorEmailAddressEditTemplate

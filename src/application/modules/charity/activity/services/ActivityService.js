@@ -15,6 +15,11 @@ class ActivityService extends BaseService {
         const url = this.routeService.findPendingCheck(filter);
         return this.apiClient.get(url);
     }
+
+    getDashboardChartData(filter) {
+        const url = this.routeService.getDashboardChartData(filter);
+        return this.apiClient.post(url, filter);
+    }
 }
 
 export default ActivityService;

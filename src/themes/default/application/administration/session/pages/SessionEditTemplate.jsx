@@ -18,7 +18,7 @@ import { EditBlankCertificate, RemoveSessionCertificate } from 'application/admi
 import { CharityAdvancedSearch } from 'application/administration/charity/components';
 import { CardItem } from 'themes/components';
 
-const SessionEditTemplate = function({ sessionEditViewStore, t }) {
+const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
 	const {
 		contentLoading,
 		form,
@@ -108,8 +108,7 @@ const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 				<div className="container--tny">
 					<div className="card--sml card--secondary u-mar--top--lrg">
 						<CardItem
-							t={t}
-							label={'SESSION.EDIT.TOTAL_AMOUNT'}
+							label={t('SESSION.EDIT.TOTAL_AMOUNT')}
 							value={
 								<FormatterResolver
 									item={{ amount: item && item.amount }}
@@ -119,8 +118,7 @@ const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 							}
 						/>
 						<CardItem
-							t={t}
-							label={'SESSION.EDIT.TOTAL_AMOUNT_AFTER_FEE'}
+							label={t('SESSION.EDIT.TOTAL_AMOUNT_AFTER_FEE')}
 							value={
 								<FormatterResolver
 									item={{ amount: item && item.totalAmountForCharity }}
@@ -130,13 +128,11 @@ const SessionEditTemplate = function({ sessionEditViewStore, t }) {
 							}
 						/>
 						<CardItem
-							t={t}
-							label={'SESSION.EDIT.TOTAL_COUNT'}
+							label={t('SESSION.EDIT.TOTAL_COUNT')}
 							value={item && item.grants.length}
 						/>
 						<CardItem
-							t={t}
-							label={'SESSION.EDIT.TOTAL_CHECKS_ON_HOLD'}
+							label={t('SESSION.EDIT.TOTAL_CHECKS_ON_HOLD')}
 							value={
 								<FormatterResolver
 									item={{ amount: item && item.totalPending }}

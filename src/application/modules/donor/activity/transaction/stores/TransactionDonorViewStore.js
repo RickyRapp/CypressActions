@@ -3,7 +3,7 @@ import { BaseViewStore, TableViewStore } from 'core/stores';
 import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { action, observable } from 'mobx';
 
-class TransactionTabViewStore extends BaseViewStore {
+class TransactionDonorViewStore extends BaseViewStore {
     @observable donor = null;
     @observable isPendingTransactionVisible = null;
     @observable isChecksOnHoldVisible = null;
@@ -133,4 +133,4 @@ class TransactionTabViewStore extends BaseViewStore {
     }
 }
 
-export default TransactionTabViewStore;
+export default TransactionDonorViewStore;

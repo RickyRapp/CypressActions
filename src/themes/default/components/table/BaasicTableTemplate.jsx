@@ -13,7 +13,7 @@ import {
 
 // eslint-disable-next-line
 const BaasicTableTemplate = function ({ rootStore, tableItems, tableStore, loading, actionsComponent, noRecordsComponent, emptyStateComponent, noRecordsState = {}, emptyState = {}, queryUtility, children, t, hasCreatePermission, addClassName, ...otherProps }) { // eslint-disable-next-line
-    const { items, hasData, selectedField, dataInitialized, config: { isSelectable, columns, dataItemKey, actions, contextMenu, authorization, ...otherStoreFields} } = tableStore;
+    const { items, hasData, selectedField, dataInitialized, config: { isSelectable, actionsRender, columns, dataItemKey, actions, contextMenu, authorization, ...otherStoreFields} } = tableStore;
     const isLoading = !isNil(loading) ? loading : tableStore.loading;
     const SELECTED_FIELD = "selected";
     const renderSelectableItems = () => items.map(item =>({...item, [SELECTED_FIELD]: selectedField === item[dataItemKey]}))
@@ -49,7 +49,7 @@ const BaasicTableTemplate = function ({ rootStore, tableItems, tableStore, loadi
                     pageable={otherProps.pageable !== undefined ? otherProps.pageable : getPagingProps(tableStore).pageable}
                 >
                     {defaultRenderColumns({ tableStore, t, columns })}
-                    {defaultRenderActions({ actions, actionsComponent, authorization, t })}
+                    {defaultRenderActions({ actions, actionsComponent, authorization, t, actionsRender })}
                 </Grid>
             </ContentWithEmptyState>
             {isLoading ? <BaasicTableLoader /> : null}
