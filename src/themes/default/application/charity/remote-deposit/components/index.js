@@ -8,3 +8,4 @@ export { default as EditBlankCertificateTemplate } from './EditBlankCertificateT
 export { default as RemoveSessionCertificateTemplate } from './RemoveSessionCertificateTemplate'
 export { default as GivingCardModal } from './GivingCardModal'
 export { default as GeneralInformationTemplate } from './GeneralInformationTemplate'
+export { default as CharityRemoteDepositInfoTemplate } from './CharityRemoteDepositInfoTemplate'
