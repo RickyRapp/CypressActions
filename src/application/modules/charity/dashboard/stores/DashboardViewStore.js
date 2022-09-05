@@ -13,9 +13,6 @@ class DashboardViewStore extends BaseViewStore {
 
     constructor(rootStore) {
         super(rootStore);
-
-        this.createYearDropdownStore();
-        this.getChartData();
     }
 
     @action.bound
@@ -24,7 +21,9 @@ class DashboardViewStore extends BaseViewStore {
             this.rootStore.routerStore.goBack();
         }
         else {
+            this.createYearDropdownStore();
             await this.fetch([
+                this.getChartData(),
                 this.fetchCharityData()
             ]);
         }
@@ -55,7 +54,7 @@ class DashboardViewStore extends BaseViewStore {
             });
 
             this.dataGrants = {
-                item: response.item.slice(0, 4),
+                item: response.item,
                 type: this.yearDropdownStore.value.code
             }
 
@@ -66,8 +65,6 @@ class DashboardViewStore extends BaseViewStore {
 
     @action.bound
     async fetchCharityData() {
-        this.yearDropdownStore.setValue({ name: (new Date().getFullYear()).toString(), id: new Date().getFullYear() });
-        this.yearDropdownStore.setValue({ name: 'Year To Date', id: 2 });
         this.charity = await this.rootStore.application.charity.charityStore.getCharity(this.rootStore.userStore.applicationUser.id);
     }
 
