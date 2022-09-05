@@ -1,5 +1,13 @@
 name: End-to-end tests
-on: [push, pull-request] 
+on:
+  push:
+    branches:
+    - develop
+    - staging
+  pull_request:
+    branches:
+    - main
+    - staging
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04 
@@ -14,5 +22,5 @@ jobs:
           install-command: npm install --force
           browser: electron
           start: npm start
-          wait-on: 'http://localhost:3000'
+          #wait-on: 'http://localhost:3000'
           headed: true
