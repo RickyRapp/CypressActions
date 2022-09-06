@@ -9,6 +9,7 @@ import {
 	SimpleBaasicTable,
 	FormatterResolver,
 	DateRangeQueryPicker,
+	BaasicTableWithRowDetails,
 } from 'core/components';
 
 const AllTransactionListTemplate = function({ allTransactionViewStore, removeCardClassName, hideSearch, t }) {
@@ -24,6 +25,55 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 		transactionPeriod,
 		accountBalance,
 	} = allTransactionViewStore;
+
+
+	const DetailComponent = ({ dataItem }) => { 
+        {
+            return (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DONOR_NAME')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.CHARITY_AMOUNT')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.GRANT_CONFIRMATION_NUMBER')}</th>
+                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DATE_CREATED')}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dataItem 
+                            && dataItem.grants
+                            && dataItem.grants.map((item) => { 
+                            return (
+                                <tr key={item.id}>
+                                    <td>{item.donorName}</td>
+                                    <td><FormatterResolver
+                                        item={{amount: item.amount}}
+                                        field='amount'
+                                        format={{type: 'currency'}}
+                                    /></td>
+                                    <td>
+                                        {item.confirmationNumber}
+                                    </td>
+                                    <td> {item.donorName.includes('Session') ?
+                                     <FormatterResolver
+                                        item={{ dateCreated: item.dateCreated }}
+                                        field='dateCreated'
+                                        format={{ type: 'date', value: 'short' }}
+                                    />
+                                     : ''} </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>)
+        }
+    }
+
+    DetailComponent.propTypes = {
+        dataItem: PropTypes.object.isRequired
+    };
+
 
 	return (
 		<React.Fragment>
@@ -119,7 +169,12 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 			)}
 
 			<div className={`${!removeCardClassName ? 'card--primary card--med' : ''}`}>
-				<BaasicTable authorization={authorization} tableStore={tableStore} />
+				<BaasicTableWithRowDetails 
+					authorization={authorization} 
+					tableStore={tableStore} 
+					detailComponent={DetailComponent}
+                    loading={tableStore.loading}
+					/>
 			</div>
 		</React.Fragment>
 	);

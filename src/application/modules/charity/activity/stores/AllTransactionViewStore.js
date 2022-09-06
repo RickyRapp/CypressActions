@@ -3,6 +3,7 @@ import { BaseListViewStore, BaasicDropdownStore,  TableViewStore, DateRangeQuery
 import { action, observable, computed } from 'mobx';
 import moment from 'moment';
 import { orderBy } from 'lodash';
+import ReconcileSelectTableWithLoadOnDemand from 'application/administration/donation/stores/ReconcileSelectTableWithLoadOnDemand';
 
 
 class AllTransactionViewStore extends BaseListViewStore {
@@ -134,7 +135,7 @@ class AllTransactionViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore( new TableViewStore(this.queryUtility, {
+        this.setTableStore( new ReconcileSelectTableWithLoadOnDemand(this.queryUtility, {
             columns: [
                 {
                     key: 'paymentTransaction.dateCreated',
@@ -201,8 +202,12 @@ class AllTransactionViewStore extends BaseListViewStore {
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
-        },
-            true));
+        }, false, this.getTransactionDetails));
+    }
+
+    @action.bound
+    async getTransactionDetails(item){
+        console.log(item);
     }
 
     @action.bound
