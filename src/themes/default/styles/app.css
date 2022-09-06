@@ -156,6 +156,7 @@
 @import 'plugin.k-upload.css';
 @import 'plugin.multi-select.css';
 @import 'plugin.rbc-calendar.css';
+@import 'p.trengo-widget.css';
 
 /**
 * Shame .......... CSS shame file, to be avoided, exists only if REALLY necessary or legacy code.
