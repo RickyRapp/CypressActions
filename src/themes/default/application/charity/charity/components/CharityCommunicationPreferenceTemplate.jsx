@@ -23,15 +23,11 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                 <div className="list--preferences">
                     <div className="list--preferences__label">{t('CHARITY.CARD_PREFERENCES.CARD.FIELDS.EMAIL_TO_NOTIFY')}</div>
                     <div className="list--preferences__dd">
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <input
-                                    className="input input--lrg input--text"
-                                    type="text"
-                                    value={donorEmail}
-                                    disabled />
-                            </div>
-                        </div>
+                        <input
+                            className="input input--lrg input--text"
+                            type="text"
+                            value={donorEmail}
+                            disabled />
                     </div>
                 </div>
             </div>
@@ -49,11 +45,7 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                 <div className="list--preferences">
                     <div className="list--preferences__label">{t('CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT')}</div>
                     <div className="list--preferences__dd">
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} disabled field={form.$('isNotifyAchPaymentsEnabled')} />
-                            </div>
-                        </div>
+                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} disabled field={form.$('isNotifyAchPaymentsEnabled')} />
                     </div>
                 </div>
 
@@ -73,14 +65,10 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
             <div className="card--primary card--med u-mar--bottom--med">
                 <h3 className="list--preferences__title">{t('CHARITY.CARD_PREFERENCES.CARD.NAME')}</h3>
 
-                 <div className="list--preferences">
+                <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">{t('CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_CARD_AMOUNT')}</div>
                     <div className="list--preferences__dd">
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('cardTransactionExceedingAmount')} />
-                            </div>
-                        </div>
+                        <NumericInputField field={form.$('cardTransactionExceedingAmount')} />
                     </div>
                 </div>
 
@@ -93,7 +81,7 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
             <div className="card--primary card--med u-mar--bottom--med">
                 <h3 className="list--preferences__title">{t('CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.NAME')}</h3>
 
-            {/*  now hidden... maybe will be activated later
+                {/*  now hidden... maybe will be activated later
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">{t('CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_CHECK_DONATION')}</div>
                     <div className="list--preferences__dd">
@@ -122,7 +110,7 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                     </div>
                 </div>
 
-            {/*  now hidden... maybe will be activated later
+                {/*  now hidden... maybe will be activated later
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown"> {t('CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_APPROVED_SESSION')}  </div>
                     <div className="list--preferences__dd">
@@ -130,7 +118,6 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                     </div>
                 </div>
              
-
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown"> {t('CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_DELAYED_CHECK')}  </div>
                     <div className="list--preferences__dd">
@@ -151,10 +138,8 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                     <div className="list--preferences__label is-dropdown">{t('CHARITY.CARD_PREFERENCES.API_WEBSITE_DONATIONS.FIELDS.NOTIFY_TRANSACTIONS_EXCEEDING')}</div>
                     <div className="list--preferences__dd">
                         <div className="list--preferences__dd">
-                            <div className="row u-mar--bottom--sml">
-                                <div className="form__group col col-sml-12 col-lrg-12">
-                                    <NumericInputField field={form.$('notifyExceedingTransactionAmount')} />
-                                </div>
+                            <div className="u-mar--bottom--sml">
+                                <NumericInputField field={form.$('notifyExceedingTransactionAmount')} />
                             </div>
                         </div>
                     </div>
@@ -165,19 +150,17 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                 </div>
             </div>
 
-           <div className="card--primary card--med u-mar--bottom--med">
+            <div className="card--primary card--med u-mar--bottom--med">
                 <h3 className="list--preferences__title">{t('CHARITY.CARD_PREFERENCES.INVESTMENT.NAME')}</h3>
 
                 <div className="list--preferences">
-                    <div className="list--preferences__label is-dropdown">{t('CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.NOTIFY_INVESTMENT_DAILY')}</div>
+                    <div className="list--preferences__label is-dropdown">
+                        <p className="u-mar--bottom--tny">{t('CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.NOTIFY_INVESTMENT_DAILY')}</p>
+                        <BasicFieldCheckbox toggleClass="--toggle" field={form.$('isNotifyOnDailyChangesEnabled')} />
+                    </div>
                     <div className="list--preferences__dd">
-                        <div className="row u-mar--bottom--sml">
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <NumericInputField field={form.$('notifyOnDailyChangesAmount')} />
-                            </div>
-                            <div className="form__group col col-sml-12 col-lrg-12">
-                                <BasicFieldCheckbox field={form.$('isNotifyOnDailyChangesEnabled')} />
-                            </div>
+                        <div className="u-mar--bottom--sml">
+                            <NumericInputField field={form.$('notifyOnDailyChangesAmount')} />
                         </div>
                     </div>
                 </div>

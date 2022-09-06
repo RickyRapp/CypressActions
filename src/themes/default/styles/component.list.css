@@ -17,7 +17,7 @@ $dd-width-sml: 200px;
         padding-bottom: calc($unit * 2);
         margin-bottom: calc($unit * 2);
         border-bottom: 1px dotted $grey-2;
-        min-height: 73px;
+        min-height: 53px;
         
         @media(--screen-from-lrg) {
             align-items: center;
@@ -28,8 +28,11 @@ $dd-width-sml: 200px;
             width: 100%;
             font-weight: $type-weight-light;
 
+            margin-bottom: calc($unit * 2);
+            
             @media (--screen-from-lrg) {
                 width: calc(100% - $field-width);
+                margin-bottom: 0;
             }
 
             .is-dropdown {
