@@ -51,10 +51,14 @@ class DashboardTemplate extends Component {
 			this.categories.categoriesYearToDate = monthsNums;
 		}
 
-		const categories = this.categories[dataGrants.type] || [];
+		let categories = this.categories[dataGrants.type] || [];
 
 		if (dataGrants.type === "categoriesWeeks" && dataGrants.item.every(i => i.name != 5)) {
 			categories.splice(categories.length - 1);
+		}
+
+		if (dataGrants.type === "categoriesYearToDate" && dataGrants.item.length > 0) {
+			categories = categories.slice(0, categories.indexOf(dataGrants.item.slice(-1)[0].name) + 1);
 		}
 
 		const items = categories.map(cat => {
