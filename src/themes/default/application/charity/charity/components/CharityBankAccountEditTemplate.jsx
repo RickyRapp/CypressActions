@@ -130,9 +130,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					label='Cancel'
 				/>
 
-				<span>
-					<BaasicFormControls form={form} onSubmit={form.onSubmit} />
-				</span>
+				<BaasicFormControls form={form} onSubmit={form.onSubmit} />
 
 				{item != null &&
 					<BaasicButton className='btn btn--med btn--ghost' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >

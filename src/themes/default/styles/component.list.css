@@ -17,7 +17,7 @@ $dd-width-sml: 200px;
         padding-bottom: calc($unit * 2);
         margin-bottom: calc($unit * 2);
         border-bottom: 1px dotted $grey-2;
-        min-height: 53px;
+        min-height: 36px;
         
         @media(--screen-from-lrg) {
             align-items: center;
@@ -65,6 +65,12 @@ $dd-width-sml: 200px;
 
             @media (--screen-from-lrg) {
                 width: $dd-width;
+            }
+
+            & label {
+                @media (--screen-from-lrg) {
+                    margin-left: auto;
+                }
             }
         }
 
