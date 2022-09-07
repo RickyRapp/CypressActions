@@ -14,3 +14,6 @@ export { default as CharityCommunicationPreferenceViewStore } from './CharityCom
 export { default as CharityVerificationViewStore } from './CharityVerificationViewStore'
 export { default as CharityVerificationTabViewStore } from './CharityVerificationTabViewStore'
 export { default as CharityFileVerificationViewStore } from './CharityFileVerificationViewStore'
+export { default as PlaidUnsuccessfulVerificatonViewStore } from './PlaidUnsuccessfulVerificatonViewStore'
+export { default as PlaidSuccessfulVerificatonViewStore } from './PlaidSuccessfulVerificatonViewStore'
+export { default as ManuallySucessMessageViewStore } from './ManuallySucessMessageViewStore'

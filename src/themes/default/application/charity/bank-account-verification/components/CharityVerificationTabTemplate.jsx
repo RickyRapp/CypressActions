@@ -23,17 +23,16 @@ function CharityVerificationTabTemplate({ charityVerificationTabViewStore }) {
                                 <p className="card--plaid__subtitle">There's one final step before getting you started.</p>
                                 <p className="card--plaid__text">We need to verify your connection to this organization.</p>
 
-                                <button className="btn btn--med btn--secondary u-mar--bottom--med" type="button">Verify electronically</button>
-                                {/* <CharityPlaid
+                                <CharityPlaid
                                     entityType={"charity"}
                                     bankAccount={null}
-                                /> */}
+                                />
 
                                 <p className="card--plaid__text">Verify your connection to this organization electronically by securely logging in to the organizations bank account. Alternatively, you can also <a href="#">verify mannualy</a>.</p>
                             </div>
                         </div>
 
-                        <div className="card--primary card--plaid">
+                        {/* <div className="card--primary card--plaid">
                             <div className="card--plaid__container">
                                 <i class="u-icon u-icon--verification u-icon--verification-match"></i>
 
@@ -57,7 +56,7 @@ function CharityVerificationTabTemplate({ charityVerificationTabViewStore }) {
                             </div>
                         </div>
 
-                        <div className="card--primary card--plaid">
+                       <div className="card--primary card--plaid">
                             <div className="card--plaid__container">
                                 <i class="u-icon u-icon--verification u-icon--verification-manual"></i>
 
@@ -71,7 +70,7 @@ function CharityVerificationTabTemplate({ charityVerificationTabViewStore }) {
 
                                 <button className="btn btn--med btn--secondary" type="button">Verify Manually <span>Both documents are required.</span></button>
                             </div>
-                        </div>
+                            </div>
 
                         <div className="card--primary card--plaid">
                             <div className="card--plaid__container">
@@ -80,7 +79,7 @@ function CharityVerificationTabTemplate({ charityVerificationTabViewStore }) {
                                 <h2 className="card--plaid__title u-mar--bottom--med">Thanks! Your documents have been received.</h2>
                                 <p className="card--plaid__text">You'll be notified once they have been approved.</p>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div label={'CHARITY_VERIFICATION.TAB.BANK_ACCOUNT'}>
                         <CharityBankAccountList />
