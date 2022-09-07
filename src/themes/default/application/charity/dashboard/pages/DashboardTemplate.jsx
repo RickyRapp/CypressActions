@@ -73,7 +73,6 @@ class DashboardTemplate extends Component {
 				categories = this.categories.categoriesDays;
 			} else {
 				categories = [];
-				dayOfWeek += 1;
 				while (counter < 7) {
 					if (dayOfWeek < 7) {
 						categories.push(this.categories.categoriesDays[dayOfWeek++]);
