@@ -33,11 +33,11 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
                 <table>
                     <thead>
                         <tr>
+							<th>{'Donor'}</th>
+							<th>{'Date Created'}</th>
+							<th>{'Amount'}</th>
                             <th>{'Description'}</th>
                             <th>{'Type'}</th>
-                            <th>{'Amount'}</th>
-                            <th>{'Date Created'}</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -46,20 +46,23 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
                             && dataItem.grants.data.map((item) => { 
                             return (
                                 <tr key={item.id}>
-                                    <td>{item.description}</td>
-									<td>{item.type}</td>
-                                    <td><FormatterResolver
-                                        item={{amount: item.amount}}
-                                        field='amount'
-                                        format={{type: 'currency'}}
-                                    /></td>
-                                    <td>
-                                     <FormatterResolver
-                                        item={{ dateCreated: item.dateCreated }}
-                                        field='dateCreated'
-                                        format={{ type: 'date', value: 'short' }}
-                                    />
+									<td>{item.donor}</td>
+									<td>
+										<FormatterResolver
+											item={{ dateCreated: item.dateCreated }}
+											field='dateCreated'
+											format={{ type: 'date', value: 'short' }}
+										/>
 									</td>
+									<td>
+										<FormatterResolver
+											item={{amount: item.amount}}
+											field='amount'
+											format={{type: 'currency'}}
+										/>
+									</td>
+                                    <td>{item.description}</td>
+									<td>{item.type}</td>                                    
                                 </tr>
                             );
                         })}
