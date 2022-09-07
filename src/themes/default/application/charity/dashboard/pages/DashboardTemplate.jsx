@@ -38,7 +38,7 @@ class DashboardTemplate extends Component {
 		};
 
 		this.categories = {
-			categoriesDays: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+			categoriesDays: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
 			categoriesWeeks: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
 			categoriesYears: ["2017", "2018", "2019", "2020", "2021", "2022"],
 		}
