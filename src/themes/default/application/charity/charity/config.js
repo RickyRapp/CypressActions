@@ -11,7 +11,7 @@ import { CharityModuleStore } from 'application/common/charity/stores';
                 authorization: 'theDonorsFundCharitySection.read',
                 component: CharityTab,
                 data: {
-                    title: "CHARITY.EDIT.TITLE"
+                    // title: "CHARITY.EDIT.TITLE"
                 }
             }
         ],
