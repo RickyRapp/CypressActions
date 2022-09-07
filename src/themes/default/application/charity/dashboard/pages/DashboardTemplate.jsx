@@ -57,6 +57,10 @@ class DashboardTemplate extends Component {
 			categories.splice(categories.length - 1);
 		}
 
+		if (dataGrants.type === "categoriesDays" && dataGrants.item.length > 0) {
+			dataGrants.item.forEach(item => item.name = this.categories.categoriesDays[Number(item.name)])
+		}
+
 		if (dataGrants.type === "categoriesYearToDate" && dataGrants.item.length > 0) {
 			categories = categories.slice(0, categories.indexOf(dataGrants.item.slice(-1)[0].name) + 1);
 		}
