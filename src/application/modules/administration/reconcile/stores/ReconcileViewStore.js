@@ -7,6 +7,7 @@ import { isSome } from 'core/utils';
 import { ReconcileEditForm } from 'application/administration/reconcile/forms';
 import { saveAs } from '@progress/kendo-file-saver';
 import ReconcileSelectTableWithLoadOnDemand from 'application/administration/donation/stores/ReconcileSelectTableWithLoadOnDemand';
+import { t } from 'i18next';
 
 class ReconcileViewStore extends BaseListViewStore {
     constructor(rootStore) {
@@ -164,6 +165,12 @@ class ReconcileViewStore extends BaseListViewStore {
                 {
                     key: 'isCashed',
                     title: 'RECONCILE.LIST.COLUMNS.STATUS_LABEL',
+                    format : {
+                        type: 'function',
+                        value: (item) => {
+                            return item.isCashed ? t('RECONCILE.LIST.STATUS.IS_CASHED') : t('RECONCILE.LIST.STATUS.IS_NOT_CASHED');
+                        }
+                    },
                 },
                 {
                     key: 'isWithdraw',
