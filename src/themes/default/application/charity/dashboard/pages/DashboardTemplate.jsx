@@ -33,6 +33,10 @@ class DashboardTemplate extends Component {
 			availableBalance
 		} = dashboardViewStore;
 
+		const currencyFormat = (e) => {
+			return `$${e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+		};
+
 		this.categories = {
 			categoriesDays: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
 			categoriesWeeks: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
@@ -57,12 +61,34 @@ class DashboardTemplate extends Component {
 			categories.splice(categories.length - 1);
 		}
 
-		if (dataGrants.type === "categoriesDays" && dataGrants.item.length > 0) {
-			dataGrants.item.forEach(item => item.name = this.categories.categoriesDays[Number(item.name)])
-		}
-
 		if (dataGrants.type === "categoriesYearToDate" && dataGrants.item.length > 0) {
 			categories = categories.slice(0, categories.indexOf(dataGrants.item.slice(-1)[0].name) + 1);
+		}
+
+		const checkWeek = () => {
+			const todayDate = new Date();
+			let dayOfWeek = todayDate.getDay();
+			let counter = 0;
+			if (dayOfWeek === 0) {
+				categories = this.categories.categoriesDays;
+			} else {
+				categories = [];
+				dayOfWeek += 1;
+				while (counter < 7) {
+					if (dayOfWeek < 7) {
+						categories.push(this.categories.categoriesDays[dayOfWeek++]);
+						counter++;
+					}
+					else {
+						dayOfWeek = 0;
+					}
+				}
+			}
+		}
+
+		if (dataGrants.type === "categoriesDays" && dataGrants.item.length > 0) {
+			dataGrants.item.forEach(item => item.name = this.categories.categoriesDays[Number(item.name)]);
+			checkWeek();
 		}
 
 		const items = categories.map(cat => {
@@ -82,7 +108,7 @@ class DashboardTemplate extends Component {
 				/>
 				<ChartLegend position="bottom" orientation="horizontal" />
 				<ChartSeries>
-					<ChartSeriesItem color="#223a5e" name="Total grants received" type="line" data={items} />
+					<ChartSeriesItem color="#223a5e" name={"Total grants received:" + " " + currencyFormat(dataGrants.totalValue)} type="line" data={items} />
 				</ChartSeries>
 			</Chart>
 		);
