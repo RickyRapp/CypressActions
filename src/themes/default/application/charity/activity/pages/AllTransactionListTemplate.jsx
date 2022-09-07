@@ -9,6 +9,7 @@ import {
 	SimpleBaasicTable,
 	FormatterResolver,
 	DateRangeQueryPicker,
+	BaasicTableWithRowDetails,
 } from 'core/components';
 
 const AllTransactionListTemplate = function({ allTransactionViewStore, removeCardClassName, hideSearch, t }) {
@@ -24,6 +25,56 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 		transactionPeriod,
 		accountBalance,
 	} = allTransactionViewStore;
+
+
+	const DetailComponent = ({ dataItem }) => { 
+        {
+            return (
+                <table>
+                    <thead>
+                        <tr>
+							<th>{'Donor'}</th>
+							<th>{'Date Created'}</th>
+							<th>{'Amount'}</th>
+                            <th>{'Description'}</th>
+                            <th>{'Type'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dataItem 
+                            && dataItem.grants
+                            && dataItem.grants.data.map((item) => { 
+                            return (
+                                <tr key={item.id}>
+									<td>{item.donor}</td>
+									<td>
+										<FormatterResolver
+											item={{ dateCreated: item.dateCreated }}
+											field='dateCreated'
+											format={{ type: 'date', value: 'short' }}
+										/>
+									</td>
+									<td>
+										<FormatterResolver
+											item={{amount: item.amount}}
+											field='amount'
+											format={{type: 'currency'}}
+										/>
+									</td>
+                                    <td>{item.description}</td>
+									<td>{item.type}</td>                                    
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>)
+        }
+    }
+
+    DetailComponent.propTypes = {
+        dataItem: PropTypes.object.isRequired
+    };
+
 
 	return (
 		<React.Fragment>
@@ -119,7 +170,12 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 			)}
 
 			<div className={`${!removeCardClassName ? 'card--primary card--med' : ''}`}>
-				<BaasicTable authorization={authorization} tableStore={tableStore} />
+				<BaasicTableWithRowDetails 
+					authorization={authorization} 
+					tableStore={tableStore} 
+					detailComponent={DetailComponent}
+                    loading={tableStore.loading}
+					/>
 			</div>
 		</React.Fragment>
 	);

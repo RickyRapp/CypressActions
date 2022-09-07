@@ -16,6 +16,10 @@ class ActivityRouteService extends BaseRouteService {
     getDashboardChartData(filter) {
         return super.create(this.base + '/charity-dashboard-chart', filter)
     }
+
+    getCharityDetailedTransactions(id){
+        return super.get(this.base + '/charity-transactions-detailed/'+ '{id}', id);
+    }
 }
 
 export default ActivityRouteService;

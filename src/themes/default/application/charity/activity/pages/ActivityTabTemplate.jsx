@@ -12,7 +12,7 @@ const ActivityTabTemplate = function ({ activityTabViewStore }) {
     const children = () => {
         return (
             <React.Fragment>
-                <div label={'CHARITY_ACTIVITY.ALL_TRANSACTIONS'}>
+                <div label={'CHARITY_ACTIVITY.OUR_WALLET'}>
                     <AllTransactionList hideSearch={false} />
                 </div>
                 <div label={'CHARITY_ACTIVITY.GRANTS'}>
