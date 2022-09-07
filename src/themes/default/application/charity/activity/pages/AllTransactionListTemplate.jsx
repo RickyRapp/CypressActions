@@ -33,35 +33,33 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
                 <table>
                     <thead>
                         <tr>
-                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DONOR_NAME')}</th>
-                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.CHARITY_AMOUNT')}</th>
-                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.GRANT_CONFIRMATION_NUMBER')}</th>
-                            <th>{t('DONATION.REVIEW.LIST.GRANT.COLUMNS.DATE_CREATED')}</th>
+                            <th>{'Description'}</th>
+                            <th>{'Type'}</th>
+                            <th>{'Amount'}</th>
+                            <th>{'Date Created'}</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         {dataItem 
                             && dataItem.grants
-                            && dataItem.grants.map((item) => { 
+                            && dataItem.grants.data.map((item) => { 
                             return (
                                 <tr key={item.id}>
-                                    <td>{item.donorName}</td>
+                                    <td>{item.description}</td>
+									<td>{item.type}</td>
                                     <td><FormatterResolver
                                         item={{amount: item.amount}}
                                         field='amount'
                                         format={{type: 'currency'}}
                                     /></td>
                                     <td>
-                                        {item.confirmationNumber}
-                                    </td>
-                                    <td> {item.donorName.includes('Session') ?
                                      <FormatterResolver
                                         item={{ dateCreated: item.dateCreated }}
                                         field='dateCreated'
                                         format={{ type: 'date', value: 'short' }}
                                     />
-                                     : ''} </td>
+									</td>
                                 </tr>
                             );
                         })}

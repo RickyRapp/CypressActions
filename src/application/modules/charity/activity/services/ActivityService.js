@@ -20,6 +20,11 @@ class ActivityService extends BaseService {
         const url = this.routeService.getDashboardChartData(filter);
         return this.apiClient.post(url, filter);
     }
+
+    getCharityDetailedTransactions(id){
+        const url = this.routeService.getCharityDetailedTransactions(id);
+        return this.apiClient.get(url);
+    }
 }
 
 export default ActivityService;

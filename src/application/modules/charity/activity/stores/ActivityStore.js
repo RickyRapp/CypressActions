@@ -14,5 +14,10 @@ class ActivityStore {
         const url = this.routeService.findPendingCheck(filter);
         return this.apiClient.get(url);
     }
+
+    async getCharityDetailedTransactions(id){
+        const response = await this.activityService.getCharityDetailedTransactions(id);
+        return response;
+    }
 }
 export default ActivityStore;

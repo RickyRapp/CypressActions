@@ -206,8 +206,9 @@ class AllTransactionViewStore extends BaseListViewStore {
     }
 
     @action.bound
-    async getTransactionDetails(item){
-        console.log(item);
+    async getTransactionDetails(id){
+        this.data = await this.rootStore.application.charity.activityStore.getCharityDetailedTransactions(id);
+        return this.data;
     }
 
     @action.bound
