@@ -4,10 +4,12 @@ import { action, observable, computed } from 'mobx';
 import moment from 'moment';
 import { orderBy } from 'lodash';
 import ReconcileSelectTableWithLoadOnDemand from 'application/administration/donation/stores/ReconcileSelectTableWithLoadOnDemand';
+import { RouterState } from 'mobx-state-router';
 
 
 class AllTransactionViewStore extends BaseListViewStore {
 	@observable isChecksOnHoldVisible = false;
+    @observable isWalletEnabled = true;
     
     @computed get accountBalance() {
         return this.rootStore.userStore.userBalances.accountBalance;
@@ -63,6 +65,7 @@ class AllTransactionViewStore extends BaseListViewStore {
         this.createDateCreatedDateRangeQueryStore();
         this.createTransactionTypeStore();
         this.createTransactionPeriodStore();
+        this.getWalletSetting();
 
         this.checksOnHoldTableStore = new TableViewStore(null, {
             columns: [
@@ -314,6 +317,15 @@ class AllTransactionViewStore extends BaseListViewStore {
 			return `${grant.grantType} ${grant.confirmationNumber}`;
 		}
 	}
+
+    async getWalletSetting(){
+        const data = await this.rootStore.application.charity.charityStore.getWithdrawSettings(this.charityId);
+        this.isWalletEnabled = data.keepFundsUntilManuallyDistributedIsEnabled;
+    }
+    @action.bound
+    goToCharitySecurityAndPreferences() {
+        this.rootStore.routerStore.goTo('master.app.main.charity.profile', null, {tab: '1'});
+    }
 
 }
 

@@ -24,6 +24,8 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 		transactionTypeStore,
 		transactionPeriod,
 		accountBalance,
+		isWalletEnabled,
+		goToCharitySecurityAndPreferences
 	} = allTransactionViewStore;
 
 
@@ -88,8 +90,24 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 		<React.Fragment>
 			{!hideSearch && (
 				<div>
+					{ !isWalletEnabled && (
 					<div className="card--tertiary u-mar--bottom--sml">
 						<div className="col col-sml-12 u-mar--bottom--sml">
+							<div className="row row--form">
+								<div className="col">
+									<div className="transaction__show--body">
+										<p className="type--base type--wgt--medium type--color--text" style={{ color: '#C36C36', fontSize: '16px' }}>
+										The Charity Wallet option provides You the possibility to redirect grant payments processed through The Donors Fund page into Your created charity account. 
+										Also, it adds the possibility to withdraw the funds from Your wallet anytime. You can enable or disable wallet option at any time by <b> <a onClick={goToCharitySecurityAndPreferences}> updating your settings. </a></b>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					)}
+					<div className="card--tertiary u-mar--bottom--sml">
+						<div className="col col-sml-6 u-mar--bottom--sml">
 							<div className="row row--form">
 								<div className="col col-sml-4">
 									<div className="transaction__card">
