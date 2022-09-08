@@ -13,9 +13,7 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                     label: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT_LABEL',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT',
                     rules: 'required|boolean',
-                    type: 'checkbox',
-                    disabled: true,
-                    value: true
+                    type: 'checkbox'
                 },
                 {
                     name: 'isNotifyCheckPaymentsEnabled',

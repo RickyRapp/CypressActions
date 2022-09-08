@@ -45,7 +45,7 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                 <div className="list--preferences">
                     <div className="list--preferences__label">{t('CHARITY.CARD_PREFERENCES.CARD.FIELDS.NOTIFY_ACH_PAYMENT')}</div>
                     <div className="list--preferences__dd">
-                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} disabled field={form.$('isNotifyAchPaymentsEnabled')} />
+                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isNotifyAchPaymentsEnabled')} />
                     </div>
                 </div>
 
