@@ -37,7 +37,7 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 							{ dataItem.type !== "Withdraw" && 
 							<th>{'Donor'}</th> 
 							}
-							<th>{'Date Created'}</th>
+							<th>{'Date'}</th>
 							<th>{'Amount'}</th>
                             <th>{'Description'}</th>
                             <th>{'Type'}</th>
