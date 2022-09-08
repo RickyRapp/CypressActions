@@ -29,15 +29,19 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 
 	const DetailComponent = ({ dataItem }) => { 
         {
-            return (
+            return ( 
+				(dataItem.type == "Withdraw" || dataItem.type == "Grants") && (
                 <table>
                     <thead>
                         <tr>
-							<th>{'Donor'}</th>
+							{ dataItem.type !== "Withdraw" && 
+							<th>{'Donor'}</th> 
+							}
 							<th>{'Date Created'}</th>
 							<th>{'Amount'}</th>
                             <th>{'Description'}</th>
                             <th>{'Type'}</th>
+							<th>{'Payment number'}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +50,9 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
                             && dataItem.grants.data.map((item) => { 
                             return (
                                 <tr key={item.id}>
+									{item.donor && 
 									<td>{item.donor}</td>
+									}
 									<td>
 										<FormatterResolver
 											item={{ dateCreated: item.dateCreated }}
@@ -62,12 +68,14 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 										/>
 									</td>
                                     <td>{item.description}</td>
-									<td>{item.type}</td>                                    
+									<td>{item.type}</td>
+									<td>{item.paymentNumber}</td>                              
                                 </tr>
                             );
                         })}
                     </tbody>
                 </table>)
+			)
         }
     }
 
@@ -171,8 +179,8 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 
 			<div className={`${!removeCardClassName ? 'card--primary card--med' : ''}`}>
 				<BaasicTableWithRowDetails 
-					authorization={authorization} 
-					tableStore={tableStore} 
+					authorization={authorization}
+					tableStore={tableStore}
 					detailComponent={DetailComponent}
                     loading={tableStore.loading}
 					/>
