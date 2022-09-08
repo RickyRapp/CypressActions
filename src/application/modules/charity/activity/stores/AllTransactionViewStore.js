@@ -3,10 +3,13 @@ import { BaseListViewStore, BaasicDropdownStore,  TableViewStore, DateRangeQuery
 import { action, observable, computed } from 'mobx';
 import moment from 'moment';
 import { orderBy } from 'lodash';
+import ReconcileSelectTableWithLoadOnDemand from 'application/administration/donation/stores/ReconcileSelectTableWithLoadOnDemand';
+import { RouterState } from 'mobx-state-router';
 
 
 class AllTransactionViewStore extends BaseListViewStore {
 	@observable isChecksOnHoldVisible = false;
+    @observable isWalletEnabled = true;
     
     @computed get accountBalance() {
         return this.rootStore.userStore.userBalances.accountBalance;
@@ -62,6 +65,7 @@ class AllTransactionViewStore extends BaseListViewStore {
         this.createDateCreatedDateRangeQueryStore();
         this.createTransactionTypeStore();
         this.createTransactionPeriodStore();
+        this.getWalletSetting();
 
         this.checksOnHoldTableStore = new TableViewStore(null, {
             columns: [
@@ -134,7 +138,7 @@ class AllTransactionViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        this.setTableStore( new TableViewStore(this.queryUtility, {
+        this.setTableStore( new ReconcileSelectTableWithLoadOnDemand(this.queryUtility, {
             columns: [
                 {
                     key: 'paymentTransaction.dateCreated',
@@ -201,8 +205,13 @@ class AllTransactionViewStore extends BaseListViewStore {
             actions: {
                 onSort: (column) => this.queryUtility.changeOrder(column.key)
             },
-        },
-            true));
+        }, false, this.getTransactionDetails));
+    }
+
+    @action.bound
+    async getTransactionDetails(id){
+        this.data = await this.rootStore.application.charity.activityStore.getCharityDetailedTransactions(id);
+        return this.data;
     }
 
     @action.bound
@@ -308,6 +317,15 @@ class AllTransactionViewStore extends BaseListViewStore {
 			return `${grant.grantType} ${grant.confirmationNumber}`;
 		}
 	}
+
+    async getWalletSetting(){
+        const data = await this.rootStore.application.charity.charityStore.getWithdrawSettings(this.charityId);
+        this.isWalletEnabled = data.keepFundsUntilManuallyDistributedIsEnabled;
+    }
+    @action.bound
+    goToCharitySecurityAndPreferences() {
+        this.rootStore.routerStore.goTo('master.app.main.charity.profile', null, {tab: '1'});
+    }
 
 }
 

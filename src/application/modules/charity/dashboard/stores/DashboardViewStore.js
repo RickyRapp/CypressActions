@@ -6,16 +6,13 @@ import { RouterState } from 'mobx-state-router';
 @applicationContext
 class DashboardViewStore extends BaseViewStore {
     @observable charity = null;
-    @observable dataGrants = { item: [], type: "categoriesYearToDate" };
+    @observable dataGrants = { item: [], type: "categoriesYearToDate", totalValue: 0 };
     @computed get availableBalance() {
         return this.rootStore.userStore.userBalances.accountBalance;
     }
 
     constructor(rootStore) {
         super(rootStore);
-
-        this.createYearDropdownStore();
-        this.getChartData();
     }
 
     @action.bound
@@ -24,7 +21,9 @@ class DashboardViewStore extends BaseViewStore {
             this.rootStore.routerStore.goBack();
         }
         else {
+            this.createYearDropdownStore();
             await this.fetch([
+                this.getChartData(),
                 this.fetchCharityData()
             ]);
         }
@@ -54,9 +53,12 @@ class DashboardViewStore extends BaseViewStore {
                 Range: this.yearDropdownStore.value.id
             });
 
+            const totalValue = response.item.reduce((acc, item) => acc = acc + item.value, 0);
+
             this.dataGrants = {
-                item: response.item.slice(0, 4),
-                type: this.yearDropdownStore.value.code
+                item: response.item,
+                type: this.yearDropdownStore.value.code,
+                totalValue
             }
 
         } catch (err) {
@@ -66,8 +68,6 @@ class DashboardViewStore extends BaseViewStore {
 
     @action.bound
     async fetchCharityData() {
-        this.yearDropdownStore.setValue({ name: (new Date().getFullYear()).toString(), id: new Date().getFullYear() });
-        this.yearDropdownStore.setValue({ name: 'Year To Date', id: 2 });
         this.charity = await this.rootStore.application.charity.charityStore.getCharity(this.rootStore.userStore.applicationUser.id);
     }
 

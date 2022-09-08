@@ -36,7 +36,7 @@ $header-height-mobile: 72px;
 		width: 0;
 		overflow: hidden;
 		background-color: $color-text;
-		z-index: 9;
+		z-index: 13;
 
 		display: flex;
 		flex-direction: column;
