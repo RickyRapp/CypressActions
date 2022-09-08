@@ -106,7 +106,7 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown"> {t('CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_WHEN_CHECK_RELEASED')}  </div>
                     <div className="list--preferences__dd">
-                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('notifyWhenCheckIsReleasedFromOnHold')} />
+                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isNotifyWhenCheckReleasedFromHold')} />
                     </div>
                 </div>
 

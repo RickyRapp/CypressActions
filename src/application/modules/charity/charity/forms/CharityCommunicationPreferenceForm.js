@@ -102,7 +102,7 @@ export default class CharityCommunicationPreferenceForm extends FormBase {
                     }
                 },
                 {
-                    name: 'notifyWhenCheckIsReleasedFromOnHold',
+                    name: 'isNotifyWhenCheckReleasedFromHold',
                     label: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_WHEN_CHECK_RELEASED',
                     placeholder: 'CHARITY.CARD_PREFERENCES.CHECKS_REMOTE_DEPOSITS.FIELDS.NOTIFY_WHEN_CHECK_RELEASED',
                     rules: 'required|boolean',
