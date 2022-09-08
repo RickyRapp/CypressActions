@@ -6,7 +6,7 @@ import { RouterState } from 'mobx-state-router';
 @applicationContext
 class DashboardViewStore extends BaseViewStore {
     @observable charity = null;
-    @observable dataGrants = { item: [], type: "categoriesYearToDate" };
+    @observable dataGrants = { item: [], type: "categoriesYearToDate", totalValue: 0 };
     @computed get availableBalance() {
         return this.rootStore.userStore.userBalances.accountBalance;
     }
@@ -53,9 +53,12 @@ class DashboardViewStore extends BaseViewStore {
                 Range: this.yearDropdownStore.value.id
             });
 
+            const totalValue = response.item.reduce((acc, item) => acc = acc + item.value, 0);
+
             this.dataGrants = {
                 item: response.item,
-                type: this.yearDropdownStore.value.code
+                type: this.yearDropdownStore.value.code,
+                totalValue
             }
 
         } catch (err) {

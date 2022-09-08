@@ -9,9 +9,10 @@ import {
 	SimpleBaasicTable,
 	FormatterResolver,
 	DateRangeQueryPicker,
+	BaasicTableWithRowDetails,
 } from 'core/components';
 
-const AllTransactionListTemplate = function({ allTransactionViewStore, removeCardClassName, hideSearch, t }) {
+const AllTransactionListTemplate = function ({ allTransactionViewStore, removeCardClassName, hideSearch, t }) {
 	const {
 		tableStore,
 		queryUtility,
@@ -23,26 +24,92 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 		transactionTypeStore,
 		transactionPeriod,
 		accountBalance,
+		isWalletEnabled,
+		goToCharitySecurityAndPreferences
 	} = allTransactionViewStore;
+
+	const DetailComponent = ({ dataItem }) => {
+		{
+			return (
+				(dataItem.type == "Withdraw" || dataItem.type == "Grants") && (
+					<table>
+						<thead>
+							<tr>
+								{dataItem.type !== "Withdraw" &&
+									<th>{'Donor'}</th>
+								}
+								<th>{'Date'}</th>
+								<th>{'Amount'}</th>
+								<th>{'Description'}</th>
+								<th>{'Type'}</th>
+								<th>{'Payment number'}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{dataItem
+								&& dataItem.grants
+								&& dataItem.grants.data.map((item) => {
+									return (
+										<tr key={item.id}>
+											{item.donor &&
+												<td>{item.donor}</td>
+											}
+											<td>
+												<FormatterResolver
+													item={{ dateCreated: item.dateCreated }}
+													field='dateCreated'
+													format={{ type: 'date', value: 'short' }}
+												/>
+											</td>
+											<td>
+												<FormatterResolver
+													item={{ amount: item.amount }}
+													field='amount'
+													format={{ type: 'currency' }}
+												/>
+											</td>
+											<td>{item.description}</td>
+											<td>{item.type}</td>
+											<td>{item.paymentNumber}</td>
+										</tr>
+									);
+								})}
+						</tbody>
+					</table>)
+			)
+		}
+	}
+
+	DetailComponent.propTypes = {
+		dataItem: PropTypes.object.isRequired
+	};
 
 	return (
 		<React.Fragment>
 			{!hideSearch && (
 				<div>
+					{!isWalletEnabled && (
+						<div className="container--xsml">
+							<div className="card--enh--light u-mar--bottom--sml">
+								<p className="type--base type--color--primary">
+									The Charity Wallet option provides You the possibility to redirect grant payments processed through The Donors Fund page into Your created charity account.
+									Also, it adds the possibility to withdraw the funds from Your wallet anytime. You can enable or disable wallet option at any time by <span className="type--wgt--bold type--underline"> <a onClick={goToCharitySecurityAndPreferences}> updating your settings. </a></span>
+								</p>
+							</div>
+						</div>
+					)}
 					<div className="card--tertiary u-mar--bottom--sml">
-						<div className="col col-sml-12 u-mar--bottom--sml">
-							<div className="row row--form">
-								<div className="col col-sml-4">
-									<div className="transaction__card">
-										<div className={`transaction__card--amount transaction__card--amount--plus`}>
-											<FormatterResolver
-												item={{ balance: accountBalance }}
-												field="balance"
-												format={{ type: 'currency' }}
-											/>
-										</div>
-										<h5 className="transaction__card--title">{t('DASHBOARD.ACCOUNT_BALANCE')}</h5>
+						<div className="row row--form">
+							<div className="col col-sml-4">
+								<div className="transaction__card">
+									<div className={`transaction__card--amount transaction__card--amount--plus`}>
+										<FormatterResolver
+											item={{ balance: accountBalance }}
+											field="balance"
+											format={{ type: 'currency' }}
+										/>
 									</div>
+									<h5 className="transaction__card--title">{t('DASHBOARD.ACCOUNT_BALANCE')}</h5>
 								</div>
 							</div>
 						</div>
@@ -72,9 +139,8 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 								<BaasicButton
 									className="btn btn--icon"
 									onlyIconClassName="u-mar--right--sml"
-									icon={`u-icon ${
-										isChecksOnHoldVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
-									} u-icon--base`}
+									icon={`u-icon ${isChecksOnHoldVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
+										} u-icon--base`}
 									label="EXPAND"
 									onlyIcon={true}
 									onClick={() => onExpandChecksOnHoldClick()}
@@ -119,7 +185,12 @@ const AllTransactionListTemplate = function({ allTransactionViewStore, removeCar
 			)}
 
 			<div className={`${!removeCardClassName ? 'card--primary card--med' : ''}`}>
-				<BaasicTable authorization={authorization} tableStore={tableStore} />
+				<BaasicTableWithRowDetails
+					authorization={authorization}
+					tableStore={tableStore}
+					detailComponent={DetailComponent}
+					loading={tableStore.loading}
+				/>
 			</div>
 		</React.Fragment>
 	);

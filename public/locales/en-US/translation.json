@@ -1056,6 +1056,7 @@
     "CHARITY_ACTIVITY": {
         "TAB_TITLE": "Activity",
         "ALL_TRANSACTIONS": "All Transactions",
+        "OUR_WALLET": "Our wallet",
         "GRANTS": "Giving Insight",
         "REMOTE DEPOSITS": "Remote Deposits",
         "DEPOSITS_INSIGHT": "Deposits Insight",
@@ -1063,7 +1064,7 @@
         "WITHDRAWS": "Withdraw Insight",
         "LIST": {
             "COLUMNS": {
-                "DATE_CREATED_LABEL": "Date created",
+                "DATE_CREATED_LABEL": "Date",
                 "AMOUNT_LABEL": "Amount",
                 "TRANSACTION_TYPE_LABEL": "Transaction Type",
                 "PRESENT_BALANCE_LABEL": "Balance"
