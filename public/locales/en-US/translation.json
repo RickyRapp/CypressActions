@@ -1340,8 +1340,14 @@
                     "EMAIL_LABEL" : "Email",
                     "EMAIL_PLACEHOLDER" : "Email address",
                     "NOTIFY_CHECK_PAYMENT" : "Notify check payment",
-                    "NOTIFY_CHECK_PAYMENT_LABEL" : "Is enabled"
+                    "NOTIFY_CHECK_PAYMENT_LABEL" : "Is enabled",
+                    "NOTIFY_CARD_AMOUNT": "Notify us for card transactions exceeding",
+                    "AMOUNT_LABEL" : "Amount",
+                    "AMOUNT_PLACEHOLDER" : "$"
                 }
+            },
+            "EMAIL":{
+                "NAME": "Email to send notifications"
             },
             "CHECKS_REMOTE_DEPOSITS" : {
                 "NAME" : "Checks and remote deposits",
@@ -1352,7 +1358,8 @@
                     "AMOUNT_PLACEHOLDER" : "$",
                     "NOTIFY_PROCESSED_SESSION" : "Notify us when a session has been processed",
                     "NOTIFY_APPROVED_SESSION" : "Notify us when a remote session has been approved",
-                    "NOTIFY_DELAYED_CHECK" : "Notify us when check is delayd due to insufficiend funds"
+                    "NOTIFY_DELAYED_CHECK" : "Notify us when check is delayd due to insufficiend funds",
+                    "NOTIFY_WHEN_CHECK_RELEASED" : "Notify us when checks are released from Check on hold"
                 }
             },
             "API_WEBSITE_DONATIONS" : {

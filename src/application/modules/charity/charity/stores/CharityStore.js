@@ -184,5 +184,10 @@ class CharityStore {
         return response.data;
     }
 
+    async getDonorCommunicationEmail(id){
+        const response = await this.charityCommunicationPreferenceService.getDonorCommunicationEmail(id);
+        return response.data;
+    }
+
 }
 export default CharityStore;
