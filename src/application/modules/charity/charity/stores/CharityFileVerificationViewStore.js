@@ -75,6 +75,7 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
 
     createImageUploadStore() {
         this.imageUploadStore = new BaasicUploadStore;
+        this.imageUploadStore.options.multiple = true;
     }
 
     @action.bound
@@ -87,21 +88,28 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async uploadVerificationFile(){        
-        if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
-            const res = await this.rootStore.application.charity.charityStore.uploadCharityVerificationDocument(this.imageUploadStore.files[0], this.charityId, this.id);
-            var userVerificationDocumentId = res.id;
-        }else{
-            this.rootStore.notificationStore.success('Please upload a file');
-            return;
+    async uploadVerificationFile(){
+        let userVerificationDocumentIdCsv = ''; 
+        let index = 1;
+    if (this.imageUploadStore.files && this.imageUploadStore.files.length >= 1) {
+        for(const element of this.imageUploadStore.files ){
+            const res = await this.rootStore.application.charity.charityStore.uploadCharityVerificationDocument(element, this.charityId, this.id);
+            userVerificationDocumentIdCsv += res.id + (index < this.imageUploadStore.files.length ? ',' : '');
+            index++;
         }
-        var response = await this.rootStore.application.charity.charityStore.updateCharityVerificationDocument({ id: this.charityId, userVerificationDocumentId: userVerificationDocumentId });
-        if(response.statusCode === 200){
-            window.location.reload();
-            this.rootStore.notificationStore.success('Successfully uploaded verification document');
-        }else{
-            this.rootStore.notificationStore.success('There was a problem uploading a file');
-        }
+    }else{
+        this.rootStore.notificationStore.success('Please upload a file');
+        return;
+    }
+
+    var response = await this.rootStore.application.charity.charityStore.updateCharityVerificationDocument({ id: this.charityId, userVerificationDocumentIdCsv: userVerificationDocumentIdCsv });
+    if(response.statusCode === 200){
+        window.location.reload();
+        this.rootStore.notificationStore.success('Successfully uploaded verification document');
+    }else{
+        this.rootStore.notificationStore.success('There was a problem uploading a file');
+    } 
+
     }
 
 }

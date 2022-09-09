@@ -38,7 +38,6 @@ const CharityFileVerificationTemplate = function ({charityFileVerificationViewSt
 								className="btn btn--med btn--secondary" 
 								type="button" 
 								label="Verify Manually"
-								multi={true}
 							/> <span>Both documents are required.</span>
 						</div>
 				</div>
