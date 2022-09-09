@@ -9,26 +9,25 @@ import {
     BaasicButton,
     BaasicTable,
     DateRangeQueryPicker,
-	FormatterResolver
+    FormatterResolver
 } from 'core/components';
 import { isSome } from 'core/utils';
 
 
 const DepositsInsightTemplate = function ({ depositsInsightViewStore, t }) {
     const {
-		tableStore,
+        tableStore,
         queryUtility,
-		authorization,
+        authorization,
         paymentTypeDropdownStore,
         contributionStatusDropdownStore,
         dateCreatedDateRangeQueryStore
     } = depositsInsightViewStore;
     return (
         <Content>
-            <div className="col col-sml-12 col-xxlrg-12 u-mar--bottom--med">
-                <div className="card--tertiary card--med u-mar--bottom--sml">
-                    <div className="u-mar--bottom--med">
-                        {/* <TableFilter queryUtility={queryUtility}>
+            <div className="card--tertiary card--med u-mar--bottom--sml">
+                <div>
+                    {/* <TableFilter queryUtility={queryUtility}>
                             <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml ">
                                 <BaasicInput
                                     id="confirmationNumber"
@@ -89,9 +88,8 @@ const DepositsInsightTemplate = function ({ depositsInsightViewStore, t }) {
                                 </div>
                             </div>
                         </TableFilter> */}
-                    </div>
-                    <BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
                 </div>
+                <BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
             </div>
         </Content>
     )
@@ -103,37 +101,37 @@ DepositsInsightTemplate.propTypes = {
 };
 
 function renderActions({ item, actions, actionsRender }) {
-	if (!isSome(actions)) return null;
+    if (!isSome(actions)) return null;
 
-	const { onEdit, onReview, onPreview, onCancel } = actions;
-	if (!isSome(onEdit) && !isSome(onReview) && !isSome(onPreview) && !isSome(onCancel)) return null;
+    const { onEdit, onReview, onPreview, onCancel } = actions;
+    if (!isSome(onEdit) && !isSome(onReview) && !isSome(onPreview) && !isSome(onCancel)) return null;
 
-	let editRender = true;
-	if (isSome(actionsRender)) {
-		if (actionsRender.onEditRender) {
-			editRender = actionsRender.onEditRender(item);
-		}
-	}
+    let editRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onEditRender) {
+            editRender = actionsRender.onEditRender(item);
+        }
+    }
 
-	let previewRender = true;
-	if (isSome(actionsRender)) {
-		if (actionsRender.onPreviewRender) {
-			previewRender = actionsRender.onPreviewRender(item);
-		}
-	}
+    let previewRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onPreviewRender) {
+            previewRender = actionsRender.onPreviewRender(item);
+        }
+    }
 
-	let cancelRender = true;
-	// added Cancel per ticket #74959
-	if (isSome(actionsRender)) {
-		if (actionsRender.onCancelRender) {
-			cancelRender = (item.contributionStatus.abrv === 'pending');
-		}
-	}
+    let cancelRender = true;
+    // added Cancel per ticket #74959
+    if (isSome(actionsRender)) {
+        if (actionsRender.onCancelRender) {
+            cancelRender = (item.contributionStatus.abrv === 'pending');
+        }
+    }
 
-	return (
-		<td>
-			<div className="type--right">
-				{/* {isSome(onEdit) && editRender ? (
+    return (
+        <td>
+            <div className="type--right">
+                {/* {isSome(onEdit) && editRender ? (
 					<BaasicButton
 						className="btn btn--icon"
 						onlyIconClassName="u-mar--right--tny"
@@ -143,36 +141,36 @@ function renderActions({ item, actions, actionsRender }) {
 						onClick={() => onEdit(item)}
 					></BaasicButton>
 				) : null} */}
-				{isSome(onPreview) && previewRender ? (
-					<BaasicButton
-						className="btn btn--icon"
-						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--preview u-icon--base"
-						label="CONTRIBUTION.LIST.BUTTON.PREVIEW"
-						onlyIcon={true}
-						onClick={() => onPreview(item)}
-					></BaasicButton>
-				) : null}
-				{isSome(onCancel) && cancelRender ? (
-					<BaasicButton
-						className="btn btn--icon"
-						onlyIconClassName="u-mar--right--tny"
-						icon="u-icon u-icon--close--secondary u-icon--base"
-						label="CONTRIBUTION.LIST.BUTTON.CANCEL"
-						onlyIcon={true}
-						onClick={() => onCancel(item)}
-					></BaasicButton>
-				) : null}
-			</div>
-		</td>
-	);
+                {isSome(onPreview) && previewRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon="u-icon u-icon--preview u-icon--base"
+                        label="CONTRIBUTION.LIST.BUTTON.PREVIEW"
+                        onlyIcon={true}
+                        onClick={() => onPreview(item)}
+                    ></BaasicButton>
+                ) : null}
+                {isSome(onCancel) && cancelRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon="u-icon u-icon--close--secondary u-icon--base"
+                        label="CONTRIBUTION.LIST.BUTTON.CANCEL"
+                        onlyIcon={true}
+                        onClick={() => onCancel(item)}
+                    ></BaasicButton>
+                ) : null}
+            </div>
+        </td>
+    );
 }
 
 renderActions.propTypes = {
-	item: PropTypes.object,
-	actions: PropTypes.object,
-	actionsRender: PropTypes.object,
-	authorization: PropTypes.any,
+    item: PropTypes.object,
+    actions: PropTypes.object,
+    actionsRender: PropTypes.object,
+    authorization: PropTypes.any,
 };
 
 export default defaultTemplate(DepositsInsightTemplate);
