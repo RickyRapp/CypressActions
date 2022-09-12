@@ -29,7 +29,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 		<EditFormContent form={form} formClassName={" "}>
 			<div className="u-mar--top--xlrg">
 				<div>
-					{!item && <span>Create new bank account manually or using : </span>}
+					{!item && <span className='u-display--b u-mar--bottom--sml'>Create new bank account manually or using : </span>}
 					<div className="btn--plaid btn--plaid--outline u-mar--bottom--sml">
 						<CharityPlaid
 							entityType={"charity"}

@@ -60,7 +60,7 @@ const CharityBankAccountListTemplate = function ({ charityBankAccountListViewSto
 						</div>
 					);
 				})}
-			<div className="">
+			<div className='u-mar--top--med'>
 				{isEditEnabled ? (<div>
 					<CharityBankAccountEdit
 						editId={editId}
@@ -73,8 +73,10 @@ const CharityBankAccountListTemplate = function ({ charityBankAccountListViewSto
 				</div>
 
 				) : (
-					<div className="cursor--pointer type--right" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
-						<button className="btn btn--link btn--sml">Add new bank account</button>
+					<div className="type--right">
+						<button className="btn btn--med btn--med--wide btn--secondary " title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
+							Connect your bank
+						</button>
 					</div>
 				)}
 			</div>
