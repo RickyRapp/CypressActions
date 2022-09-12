@@ -59,18 +59,17 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
 
     @action.bound
     changeValue(value){
+        this.amount = value;
         if(value <=0){
             this.amountValidationMessage = "Amount can't be lower than 0."
             return false;
         }
 
-        if( this.accountBanalce < value ){
+        if( this.availableBalance < value ){
             this.amountValidationMessage = "Amount can't be greater than available balance."
             return false;
         }
-
         this.amountValidationMessage = '';
-        this.amount = value;
     }
 
     @action.bound
@@ -92,7 +91,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
             return false;
         }
 
-        if(!this.amount || this.amount <=0 || this.accountBanalce <= this.amount){
+        if(!this.amount || this.amount <=0 || this.availableBalance <= this.amount){
             this.amountValidationMessage = 'Please enter valid Amount.';
             return false;
         }
