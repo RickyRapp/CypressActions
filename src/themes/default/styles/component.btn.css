@@ -264,6 +264,47 @@
 		}
 	}
 
+	&--plaid {
+		button {
+			display: inline-flex;
+			justify-content: center;
+			
+			height: calc($unit * 8) !important;
+			padding: 0 calc($unit * 3) !important;
+			
+			font-size: 15px !important;
+			line-height: calc($unit * 8);
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+			color: $white;
+			
+			border-radius: $radius-base !important;
+			border: 0 !important;
+			background: $color-text !important;
+
+			transition: all 250ms ease-in-out;
+
+			cursor: pointer;
+
+			&:hover {
+				color: color($white a(80%));
+				background: color($color-text a(80%));
+			}
+		}
+
+		&--outline {
+			button {
+				background-color: transparent !important;
+				color: $color-primary;
+				border: 1px solid $color-primary !important;
+		
+				&:hover {
+					color: color($color-primary blackness(+10%));
+				}
+			}
+		}
+	}
+
 	/* Fake button as Kendo tooltip position fix */
 	&--icon {
 		padding: 0;

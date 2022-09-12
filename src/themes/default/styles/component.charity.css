@@ -8,14 +8,15 @@
         margin-bottom: calc($unit * 6);
     }
 
-	&__barcode-card {
-		display: flex;
-        gap: calc($unit * 6);
-        align-items: flex-start;
+	&__account {
+		&__info {
+            @media (--screen-to-med) {
+                margin-bottom: calc($unit * 2);
+			}
+        }
 
-		padding: calc($unit * 4);
-
-		background-color: $color-background-seashellt;
-        border-radius: $radius-base;
+        &__qr {
+            text-align: center;
+        }
 	}
 }

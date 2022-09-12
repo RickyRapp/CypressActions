@@ -27,10 +27,10 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 
 	return (
 		<EditFormContent form={form} formClassName={" "}>
-			<div className="card--med card--primary">
+			<div className="u-mar--top--xlrg">
 				<div>
 					{!item && <span>Create new bank account manually or using : </span>}
-					<div className="u-mar--bottom--sml w--100--to-med">
+					<div className="btn--plaid btn--plaid--outline u-mar--bottom--sml">
 						<CharityPlaid
 							entityType={"charity"}
 							bankAccount={item}
@@ -102,14 +102,15 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					label='Cancel'
 				/>
 
-				<BaasicFormControls form={form} onSubmit={form.onSubmit} />
-
 				{item != null &&
-					<BaasicButton className='btn btn--med btn--ghost' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >
+					<BaasicButton className='btn btn--med btn--warning u-mar--left--sml' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >
 						{/* {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')} */}
 					</BaasicButton>
 				}
 
+				<span>
+					<BaasicFormControls form={form} onSubmit={form.onSubmit} />
+				</span>
 			</div>
 		</EditFormContent>
 	);
