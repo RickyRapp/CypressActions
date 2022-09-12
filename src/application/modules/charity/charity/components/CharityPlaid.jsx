@@ -33,14 +33,12 @@ class CharityPlaid extends Component {
     var accountId = this.props.bankAccount && this.props.bankAccount.id;
     var response = await this.plaidService.validateAccount(public_token, accountId); //validate primary account
     var b = this.state.bankAccount;
-    //b.verifiedByPlaid = response.data;
-    //this.setState({ bankAccount: b });
-    //this.state.bankAccount.verifiedByPlaid = response.data;
+
     if (response.data) {
-      location.reload();
-      this.props.routerStore.goTo('master.app.main.charity.dashboard');
+      this.props.changeToPlaidSucessful();
       this.notificationStore.success('Verification successful!');
     } else {
+      this.props.changeToPlaidUnsucessful();
       this.notificationStore.error('Verification unsuccessful!');
     }
   }

@@ -7,9 +7,6 @@ import {
 
 const CharityFileVerificationTemplate = function ({charityFileVerificationViewStore}) {
 	const {
-        item,
-        form,
-        exportFile,
         imageUploadStore,
         uploadVerificationFile
     } = charityFileVerificationViewStore;
@@ -32,13 +29,13 @@ const CharityFileVerificationTemplate = function ({charityFileVerificationViewSt
 								store={imageUploadStore}
 							/>
 
-							<BaasicFormControls 
-								form={form} 
-								onSubmit={uploadVerificationFile} 
+							<button 
 								className="btn btn--med btn--secondary" 
-								type="button" 
-								label="Verify Manually"
-							/> <span>Both documents are required.</span>
+								onClick={uploadVerificationFile}  
+								type="button">
+									Verify Manually 
+									<span>Both documents are required.</span>
+							</button>
 						</div>
 				</div>
 		</React.Fragment>

@@ -4,8 +4,9 @@ import { action } from 'mobx';
 
 @applicationContext
 class PlaidUnsuccessfulVerificatonViewStore extends BaseViewStore {
-    constructor(rootStore) {
+    constructor(rootStore, props) {
         super(rootStore);
+        this.props = props;
     }
 
     @action.bound
@@ -16,6 +17,16 @@ class PlaidUnsuccessfulVerificatonViewStore extends BaseViewStore {
         else {
             this.loaderStore.suspend();
         }
+    }
+
+    @action.bound
+    redirectToPlaid(){
+        this.props.changeToPlaid();
+    }
+
+    @action.bound
+    redirectToManual(){
+        this.props.changeToManually();
     }
 }
 

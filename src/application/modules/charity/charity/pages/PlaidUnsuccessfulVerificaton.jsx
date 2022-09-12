@@ -4,7 +4,7 @@ import { setCurrentView } from 'core/utils';
 import { PlaidUnsuccessfulVerificatonTemplate } from 'themes/application/charity/bank-account-verification/components';
 import { PlaidUnsuccessfulVerificatonViewStore } from '../stores';
 
-@setCurrentView((rootStore) => new PlaidUnsuccessfulVerificatonViewStore(rootStore), 'plaidUnsuccessfulVerificatonViewStore')
+@setCurrentView((rootStore, props) => new PlaidUnsuccessfulVerificatonViewStore(rootStore, props), 'plaidUnsuccessfulVerificatonViewStore')
 @observer
 class PlaidUnsuccessfulVerificaton extends React.Component {
     render() {

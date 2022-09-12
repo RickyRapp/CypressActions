@@ -7,7 +7,7 @@ import { CharifyFileVerificationForm } from '../forms';
 @applicationContext
 class CharityFileVerificationViewStore extends BaseEditViewStore {
 
-    constructor(rootStore) {
+    constructor(rootStore, props) {
         super(rootStore, {
             name: 'charity-file-verification',
             id: rootStore.userStore.applicationUser.id,
@@ -22,6 +22,7 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
         this.createImageUploadStore();
         this.charityMedia;
         this.charityId = this.rootStore.userStore.applicationUser.id;
+        this.props = props;
     }
     
     @action.bound
@@ -67,7 +68,7 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
 
     var response = await this.rootStore.application.charity.charityStore.updateCharityVerificationDocument({ id: this.charityId, userVerificationDocumentIdCsv: userVerificationDocumentIdCsv });
     if(response){
-        //window.location.reload();
+        this.props.changeToManuallySucessful();
         this.rootStore.notificationStore.success('Successfully uploaded verification document');
     }else{
         this.rootStore.notificationStore.success('There was a problem uploading a file');
