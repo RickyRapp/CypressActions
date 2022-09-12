@@ -6,6 +6,11 @@ class CharityCommunicationPreferenceService extends BaseService {
     super(apiClient, new CharityCommunicationPreferenceRouteService());
     this.apiClient = apiClient;
   }
+
+  getDonorCommunicationEmail(id) {
+    const url = this.routeService.getDonorCommunicationEmail(id);
+    return this.apiClient.get(url);
+}
 }
 
 export default CharityCommunicationPreferenceService;

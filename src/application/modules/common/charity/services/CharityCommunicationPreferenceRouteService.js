@@ -20,6 +20,10 @@ class CharityCommunicationPreferenceRouteService extends BaseRouteService {
   update(resource) {
     return super.update(this.base + '/{id}', resource);
   }
+
+  getDonorCommunicationEmail(id){
+    return super.get(this.base + '/communication-email/{id}', id, null);
+  }
 }
 
 export default CharityCommunicationPreferenceRouteService;

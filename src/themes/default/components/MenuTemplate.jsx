@@ -76,7 +76,7 @@ function renderPrimary(menu, menuStore, translate) {
                     );
                 })}
                 {
-                    balance && (
+                    balance !== null && balance !== undefined && (
                         <div className="nav--primary__balance">
                             <p className="nav--primary__balance__label">
                                 AVAILABLE BALANCE
