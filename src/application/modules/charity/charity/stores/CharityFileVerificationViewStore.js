@@ -12,28 +12,8 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
             name: 'charity-file-verification',
             id: rootStore.userStore.applicationUser.id,
             actions: {
-                get: async (id) => {
-                    const data = await rootStore.application.administration.charityStore.getCharity(id);
-                        this.charityMedia = null;
-                        let isImage = false;
-                        if( data && data.userVerificationDocumentId){
-                            this.charityMedia = await rootStore.application.charity.charityStore.getCharityBankMedia(data.userVerificationDocumentId);
-                            isImage = !(this.charityMedia.type === 'application/pdf') && !(this.charityMedia.type === 'application/octet-stream');
-                            this.userVerificationDocumentId = data.userVerificationDocumentId;
-                            if(!isImage){
-                                this.chariytBankFile = this.charityMedia;
-                                const fileExtensions = (this.charityMedia.type === 'application/pdf') ? 'pdf' : 'csv';
-                                this.fileName = `${data.name}-${data.routingNumber}.${fileExtensions}`;
-                            }
-                        }else{
-                            return null;
-                        }
-
-                        return {
-                            charityMedia : this.charityMedia,
-                            isImage: isImage
-                        };
-
+                get: async () => {
+                    return null;
                 }
             },
             FormClass: CharifyFileVerificationForm
@@ -52,25 +32,6 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
         else {
             this.loaderStore.suspend();
         }
-    }
-
-    
-    @action.bound
-    async getImage(fileId) {
-        if (this.attachment != null) {
-            try {
-                var service = new CharityFileStreamService(this.rootStore.application.baasic.apiClient);
-                this.imageLoading = true;
-                const response = await service.get(fileId);
-                this.imageLoading = false;
-                return response;
-            }
-            catch (err) {
-                this.uploadLoading = false;
-                this.rootStore.notificationStore.error('ERROR', err);
-            }
-        }
-        return null;
     }
 
     createImageUploadStore() {
@@ -94,8 +55,10 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
     if (this.imageUploadStore.files && this.imageUploadStore.files.length >= 1) {
         for(const element of this.imageUploadStore.files ){
             const res = await this.rootStore.application.charity.charityStore.uploadCharityVerificationDocument(element, this.charityId, this.id);
-            userVerificationDocumentIdCsv += res.id + (index < this.imageUploadStore.files.length ? ',' : '');
-            index++;
+            if(res){
+                userVerificationDocumentIdCsv += res.id + (index < this.imageUploadStore.files.length ? ',' : '');
+                index++;
+            }
         }
     }else{
         this.rootStore.notificationStore.success('Please upload a file');
@@ -103,8 +66,8 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
     }
 
     var response = await this.rootStore.application.charity.charityStore.updateCharityVerificationDocument({ id: this.charityId, userVerificationDocumentIdCsv: userVerificationDocumentIdCsv });
-    if(response.statusCode === 200){
-        window.location.reload();
+    if(response){
+        //window.location.reload();
         this.rootStore.notificationStore.success('Successfully uploaded verification document');
     }else{
         this.rootStore.notificationStore.success('There was a problem uploading a file');

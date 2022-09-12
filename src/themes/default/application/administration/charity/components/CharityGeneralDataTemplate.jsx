@@ -11,7 +11,7 @@ import {
     BaasicModal,
     BasicCheckbox
 } from 'core/components';
-import { CharityWithdrawFund } from 'application/administration/charity/components';
+import { CharityVerificationDocumentList, CharityWithdrawFund } from 'application/administration/charity/components';
 import CharityBarcodeCardTemplate from './CharityBarcodeCardTemplate';
 
 function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
@@ -23,7 +23,9 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
         withdrawFundModalParams,
         openWithdrawFundModalClick,
         url,
-        verifyCharityUserAccount
+        verifyCharityUserAccount,
+        charityDocumentsModalParams,
+        openCharityDocumentsModalClick
     } = charityGeneralDataViewStore;
 
     return (
@@ -105,19 +107,17 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
                                             disabled={true}
                                         />}
                                     </div>
-                                    <div className="col col-sml-12 col-lrg-6">
-                                        {item && item.userVerificatioDocumentId &&
-                                            <div>
-                                                <label className="type--color--opaque">
-                                                    {t('CHARITY.EDIT.FIELDS.CHARITY_USER_VERIFICATION_DOCUMENT')}
-                                                </label>
-                                                <br></br>
-                                                <a href={url+item.userVerificatioDocumentId} target="_blank" className="type--wgt--bold">{item.userVerificatioDocumentName}</a>
-                                            </div>
-                                        }
+
+                                    <div className="col col-sml-12 col-lrg-6 u-mar--top--med">
+                                        <BaasicButton
+                                            className="btn btn--med btn--secondary"
+                                            label="Charity Documents"
+                                            onClick={openCharityDocumentsModalClick}
+                                        />
                                     </div>
+
                                     {item && item.coreUsername && item.isUserVerified == false &&
-                                        <div className="col col-sml-12 col-lrg-6">
+                                        <div className="col col-sml-12 col-lrg-6 u-mar--top--med">
                                             <BaasicButton
                                                 authorization={'theDonorsFundAdministrationSection.update'}
                                                 className="btn btn--med btn--primary"
@@ -139,6 +139,9 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
             </EditFormContent>
             <BaasicModal modalParams={withdrawFundModalParams}>
                 <CharityWithdrawFund />
+            </BaasicModal> 
+            <BaasicModal modalParams={charityDocumentsModalParams}>
+				<CharityVerificationDocumentList />
             </BaasicModal>
         </React.Fragment>
     )

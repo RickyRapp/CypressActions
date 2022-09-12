@@ -78,6 +78,7 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
         this.createCharityTypeDropdownStore();
         this.createCharityStatusDropdownStore();
         this.createWithdrawFundModalParams();
+        this.charityDocumentsModalParams = new ModalParams({});
 
         const baseUrl = ApplicationSettings.useSSL ? 'https://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" : 'http://' + ApplicationSettings.appUrl + "/" + ApplicationSettings.appId + "/" ;
         this.url = baseUrl + "charity-file-streams/";
@@ -89,7 +90,6 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
             charityId: this.id,
             charity: this.item,
             onAfterAction: () => {
-                this.getResource(this.id);
                 this.createModal.close();
             }
         });
@@ -141,6 +141,19 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
         await this.rootStore.application.administration.charityStore.verifyCharityUserAccount(charityId);
         this.rootStore.notificationStore.success('Successfully verified online account');
     }
+
+    @action.bound
+    async openCharityDocumentsModalClick() {
+        this.charityDocumentsModalParams.open({
+            charityId: this.id,
+            charity: this.item,
+            onAfterAction: () => {
+                this.getResource(this.id);
+                this.createModal.close();
+            }
+        });
+    }
+
 }
 
 export default CharityGeneralDataViewStore;

@@ -5,3 +5,4 @@ export { default as CharityAdvancedSearchTemplate } from './CharityAdvancedSearc
 export { default as CharityWithdrawFundTemplate } from './CharityWithdrawFundTemplate'
 export { default as CharityPaymentOptionsTemplate } from './CharityPaymentOptionsTemplate'
 export { default as SelectCharityTemplate } from './SelectCharityTemplate'
+export { default as CharityVerificationDocumentListTemplate } from './CharityVerificationDocumentListTemplate'
