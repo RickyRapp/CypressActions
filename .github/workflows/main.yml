@@ -3,10 +3,15 @@ on:
   push:
     branches:
     - develop
+    - develop_AT
+    - stage
     - staging
   pull_request:
     branches:
     - main
+    - develop
+    - develop_AT
+    - stage
     - staging
 jobs:
   cypress-run:
