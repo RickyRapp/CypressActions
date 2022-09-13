@@ -40,48 +40,20 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 
 				<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
 				<div className="row row--form">
+
+					<div className="form__group col col-sml-12 col-lrg-6">
+						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
+					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('routingNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('name')} />
 					</div>
-					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('description')} />
-					</div>
+					
 				</div>
 
 				<div className="row row--form">
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('accountHolderName')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('addressLine1')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('addressLine2')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('city')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('state')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('zipCode')} />
-					</div>
-				</div>
-
-				<div className="row row--form">
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('email')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<NumberFormatInputField field={form.$('number')} />
-					</div>
 					<div className="form__group col col-sml-12 col-lrg-4">
 						<div className="u-display--flex">
 							<div>

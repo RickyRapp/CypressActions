@@ -26,6 +26,7 @@ class DashboardViewStore extends BaseViewStore {
 
         this.donorId = rootStore.userStore.applicationUser.id;
 
+        this.rootStore.userStore.updateDonorBalances();
         this.createTableStore();
     }
     @action.bound 

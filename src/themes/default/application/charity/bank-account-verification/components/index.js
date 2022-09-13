@@ -1,3 +1,6 @@
 export { default as CharityVerificationTemplate } from './CharityVerificationTemplate'
-export {default as CharityVerificationTabTemplate } from './CharityVerificationTabTemplate'
+export { default as CharityVerificationTabTemplate } from './CharityVerificationTabTemplate'
 export { default as CharityFileVerificationTemplate } from './CharityFileVerificationTemplate'
+export { default as PlaidSuccessfulVerificatonTemplate } from './PlaidSuccessfulVerificatonTemplate'
+export { default as PlaidUnsuccessfulVerificatonTemplate } from './PlaidUnsuccessfulVerificatonTemplate'
+export { default as ManuallySucessMessageTemplate } from './ManuallySucessMessageTemplate'

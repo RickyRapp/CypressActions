@@ -49,6 +49,7 @@ const BaasicDropzoneTemplate = function(props) {
 					restrictions={{ allowedExtensions: store.options.acceptFiles }}
 					onAdd={onChange}
 					disabled={getDisabled()}
+					multiple={store.options.multiple}
 				></Upload>
 				{loading && (
 					<div className="loader--overlay">

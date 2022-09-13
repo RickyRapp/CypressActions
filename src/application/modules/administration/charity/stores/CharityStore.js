@@ -130,5 +130,10 @@ class CharityStore {
         const response = await this.charityService.verifyCharityUserAccount(id);
         return response.data;
     }
+
+    async getCharityVerificationDocuments(id){
+        const response = await this.charityService.getCharityVerificationDocuments(id);
+        return response.data;
+    }
 }
 export default CharityStore;

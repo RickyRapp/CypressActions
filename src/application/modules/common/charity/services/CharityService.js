@@ -91,6 +91,11 @@ class CharityService extends BaseService {
         const url = this.routeService.verifyCharityUserAccount(id);
         return this.apiClient.put(url, id);
     }
+
+    getCharityVerificationDocuments(id){
+        const url = this.routeService.getCharityVerificationDocuments(id);
+        return this.apiClient.get(url);
+    }
 }
 
 export default CharityService;

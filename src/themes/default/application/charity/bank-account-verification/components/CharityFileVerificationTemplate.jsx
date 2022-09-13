@@ -7,48 +7,37 @@ import {
 
 const CharityFileVerificationTemplate = function ({charityFileVerificationViewStore}) {
 	const {
-        item,
-        form,
-        exportFile,
         imageUploadStore,
         uploadVerificationFile
     } = charityFileVerificationViewStore;
 
 	return (
 		<React.Fragment>
+			<div className="card--primary card--plaid">
+						<div className="card--plaid__container">
+							<i class="u-icon u-icon--verification u-icon--verification-manual"></i>
 
-				<div className="row row--form u-mar--top--med">
-					<div className='col col-sml-12 col-lrg-4'></div>
+							<h2 className="card--plaid__title u-mar--bottom--med">Manual verification</h2>
+							<p className="card--plaid__text">Verify your connection to this organization by uploading the following documents.</p>
 
-						<BaasicDropzone
-							store={imageUploadStore}
-						/>
-						{
-							item ? (
-								item.charityMedia && (
-									(item.isImage) ?
-										(
-											<div className="imageheight_sml">
-												<img alt="" src={URL.createObjectURL(item.charityMedia)} />
-											</div>
-										)
-										: (
-											<BaasicButton
-												className='btn btn--sml btn--primary'
-												label='Download'
-												onClick={() => exportFile()}
-											/>
-										))
-							) : null
-						}
+							<ul className="card--plaid__list">
+								<li>US Drivers License</li>
+								<li><strong>Charity Name</strong> charity bank statement</li>
+							</ul>
 
+							<BaasicDropzone
+								store={imageUploadStore}
+							/>
+
+							<button 
+								className="btn btn--med btn--secondary" 
+								onClick={uploadVerificationFile}  
+								type="button">
+									Verify Manually 
+									<span>Both documents are required.</span>
+							</button>
+						</div>
 				</div>
-
-            <div className="type--center u-mar--top--med">
-                <span className="u-mar--right--sml">
-					<BaasicFormControls form={form} onSubmit={uploadVerificationFile} />
-				</span>
-            </div>
 		</React.Fragment>
 	);
 };
