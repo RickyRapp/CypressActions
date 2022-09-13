@@ -16,7 +16,7 @@ context('Paycheck Direct deposit', () => {
         cy.visitDashboard()
         cy.get('.dashboard-card__body--amount').then((theElement) => { 
             
-            const currentBalance = parseFloat(theElement.text().slice(1).replace(',',''))   
+            const currentBalance = parseFloat(theElement.text().replace('$','').replace(/,/g,''))  
           //  const num =`${Math.floor(Math.random() * (1500 - 1000) + 1000)}`
             const num =`${Math.floor(Math.random() * (60000 - 50000) + 50000)}`
             cy.log(num)

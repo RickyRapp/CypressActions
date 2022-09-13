@@ -22,7 +22,7 @@ context('Real Estate deposit', () => {
             })
             cy.get('.u-icon--check').click()
             cy.get('.u-icon--check').should('have.class', 'active') 
-            cy.get('.k-dropdown-wrap').click().type('{downArrow} {enter} {esc}') 
+            cy.get('.u-icon--check').click().type('{downArrow} {enter} {esc}') 
             cy.findByPlaceholderText('Enter Amount').type(num).wait(500)
             cy.addAndCheckDeposit(num, currentBalance)
 
