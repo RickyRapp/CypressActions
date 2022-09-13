@@ -273,6 +273,15 @@
 			}
 		}
 
+		&--charity-account {
+			background-image: svg-load('../styles/postcss-svg/charity-account.svg', stroke: $color-text);
+			
+			&.active {
+				outline: 0;
+				background-image: svg-load('../styles/postcss-svg/charity-account.svg', stroke: $white);
+			}
+		}
+
 		&--bill-pay {
 			background-image: svg-load('../styles/postcss-svg/bill-pay.svg', stroke: $color-text);
 
