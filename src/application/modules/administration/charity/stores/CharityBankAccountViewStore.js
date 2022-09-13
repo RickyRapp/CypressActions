@@ -36,21 +36,11 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
                             name: data.name,
                             accountNumber: data.accountNumber,
                             routingNumber: data.routingNumber,
-                            description: data.description,
-                            isThirdPartyAccount: data.isThirdPartyAccount,
-                            email: data.accountHolder.email,
-                            number: data.accountHolder.number,
-                            accountHolderName: data.accountHolder && data.accountHolder.name,
                             coreMediaVaultEntryId: data.coreMediaVaultEntryId,
-                            addressLine1: data.accountHolder && data.accountHolder.addressLine1,
-                            addressLine2: data.accountHolder && data.accountHolder.addressLine2,
-                            city: data.accountHolder && data.accountHolder.city,
-                            state: data.accountHolder && data.accountHolder.state,
-                            zipCode: data.accountHolder && data.accountHolder.zipCode,
                             isDisabled : data.isDisabled,
                             charityMedia : this.charityMedia,
                             isImage: isImage,
-                            isPrimary: data.accountHolder && data.isPrimary,
+                            isPrimary: data.isPrimary,
                             isDisabled : data.isDisabled
                         };
                     } else {

@@ -40,18 +40,17 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 
 				<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
 				<div className="row row--form">
+
+					<div className="form__group col col-sml-12 col-lrg-6">
+						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
+					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('routingNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('name')} />
 					</div>
-					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('description')} />
-					</div>
+					
 				</div>
 
 				<div className="row row--form">
