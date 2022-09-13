@@ -8,7 +8,7 @@
 
         &__item {
             display: block;
-            padding: calc($unit * 2) calc($unit * 4);
+            padding: calc($unit * 2) calc($unit * 3);
             
             @mixin type-scale $type-medium, 1.25;
 
@@ -36,6 +36,29 @@
             @media (--screen-to-sml) {
                 @mixin type-scale $type-small, 0.75;
                 padding: calc($unit * 1) calc($unit * 2);
+            }
+
+            &--enh {
+                margin-left: calc($unit * 3);
+                padding: calc($unit * 2) calc($unit * 3) !important;
+
+                color: $grey-6;
+
+                border-radius: $radius-base;
+                background-color: $color-background-seashellt;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:hover {
+                    color: $color-primary;
+                }
+
+                @media (--screen-to-sml) {
+                    margin-left: calc($unit * 2);
+                    padding: calc($unit * 1) calc($unit * 2) !important;
+                }
             }
         }
     }

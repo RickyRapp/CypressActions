@@ -88,6 +88,14 @@
                 &--alt {
                     margin-right: calc($unit * 3.5);
                 }
+
+                &--from {
+                    &-med {
+                        @media (--screen-from-med) {
+                            margin-right: calc($unit * 2);
+                        }
+                    }
+                }
             }
 
             &--base {
