@@ -452,10 +452,6 @@
 
 			@mixin type-scale $type-base, 1;
 
-			@media (--screen-from-med) {
-				@mixin type-scale $type-medium, 1;
-			}
-
 			font-weight: $type-weight-regular;
 			color: color($white a(100%));
 			transition: color, background-color 250ms ease-out;

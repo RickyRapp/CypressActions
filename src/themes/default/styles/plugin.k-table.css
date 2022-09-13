@@ -34,6 +34,39 @@ $table-width: 1024px;
 }
 
 .table {
+    &--tertiary {
+        .k-detail-row {
+            .k-hierarchy-cell,
+            .k-detail-cell {
+                background-color: $bianca;
+            }
+
+            .k-detail-cell {
+                padding: calc($unit * 2);
+
+                tr,
+                th,
+                td {
+                    background-color: transparent !important;
+                }
+
+                th {
+                    color: $bali-hai;
+                    @mixin type-scale $type-xsmall, 1;
+                    font-weight: $type-weight-bold;
+
+                    border-bottom: 1px solid color($color-background blackness(+15%));
+                }
+
+                td {
+                    border-bottom: 1px solid color($color-background blackness(+10%));
+                }
+            }
+        }
+    }
+}
+
+.table {
 
     &--payment {
         display:flex;
