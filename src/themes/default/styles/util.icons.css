@@ -264,6 +264,15 @@
 			}
 		}
 
+		&--check {
+			background-image: svg-load('../styles/postcss-svg/email-icon.svg', stroke: $color-text);
+			
+			&.active {
+				outline: 0;
+				background-image: svg-load('../styles/postcss-svg/email-icon.svg', stroke: $white);
+			}
+		}
+
 		&--bill-pay {
 			background-image: svg-load('../styles/postcss-svg/bill-pay.svg', stroke: $color-text);
 
@@ -291,12 +300,12 @@
 		}
 
 		&--check {
-			background-image: svg-load('../styles/postcss-svg/check.svg', fill: $color-text);
+			/* background-image: svg-load('../styles/postcss-svg/check.svg', fill: $color-text);
 
 			&.active {
 				outline: 0;
 				background-image: svg-load('../styles/postcss-svg/check.svg', fill: $white);
-			}
+			} */
 		}
 
 		&--credit-card {
