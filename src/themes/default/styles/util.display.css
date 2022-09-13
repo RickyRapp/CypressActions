@@ -25,6 +25,12 @@
 		&--flex {
 			display: flex;
 
+			&--from-med {
+				@media (--screen-from-med) {
+					display: flex;
+				}
+			}
+
 			&--column {
 				flex-direction: column;
 			}
@@ -68,6 +74,12 @@
 
 			&--wrap {
 				flex-wrap: wrap;
+			}
+
+			&--size {
+				&--auto {
+					flex: 1;
+				}
 			}
 		}
 

@@ -29,6 +29,34 @@
 		@media (--screen-from-xxxlrg) {
 			grid-template-columns: repeat(7, 1fr);
 		}
+
+		&--5 {
+			@media (--screen-from-sml) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			@media (--screen-from-med) {
+				grid-template-columns: repeat(4, 1fr);
+			}
+
+			@media (--screen-from-xlrg) {
+				grid-template-columns: repeat(5, 1fr);
+			}
+		}
+
+		&--6 {
+			@media (--screen-from-sml) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			@media (--screen-from-med) {
+				grid-template-columns: repeat(4, 1fr);
+			}
+
+			@media (--screen-from-xxlrg) {
+				grid-template-columns: repeat(6, 1fr);
+			}
+		}
 	}
 
 	&__card {

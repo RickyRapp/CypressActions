@@ -1,0 +1,31 @@
+/*------------------------------------*\
+    # component.note
+\*------------------------------------*/
+
+.note {
+    display: flex;
+    padding: calc($unit * 2);
+    border-radius: $radius-base;
+    box-shadow: $shadow-card;
+
+    &__message {
+        flex: 1;
+        @mixin type-scale $type-small, 0.875;
+    }
+    
+    &--info {
+        background-color: $bianca;
+        
+        i {
+            background-image: svg-load('../styles/postcss-svg/info.svg', fill: $color-primary);
+        }
+        
+        p {
+            color: $color-primary;
+        }
+    }
+
+    .u-icon {
+        margin-right: calc($unit * 2);
+    }
+}
