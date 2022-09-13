@@ -18,37 +18,40 @@ const ContributionCreateStep2Template = function ({ paymentTypes, paymentType, s
     );
     return (
         <div>
-            {window.innerWidth > 767 &&
-                <div className="c-deposit__list">
-                    {paymentTypes.map((c) => {
-                        return (
-                            <div
-                                key={c.id}
-                                onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
-                                className={`c-deposit__card ${c.id === form.$('paymentTypeId').value && 'active'}`}
-                            >
-                                <div className="flex--grow--1">
-                                    <i className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value ? 'active' : ''}`}></i>
-                                </div>
-                                <div className="flex--grow--2">
-                                    <h5
-                                        className={
-                                            c.id !== form.$('paymentTypeId').value
-                                                ? 'type--base type--wgt--medium'
-                                                : 'type--base type--wgt--medium type--color--negative'
-                                        }
-                                    >
-                                        {c.name}
-                                    </h5>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            }
-
             < div className="container--sidebar" >
                 <div className="u-mar--bottom--med">
+                    {window.innerWidth > 767 &&
+                        <div>
+                            <h5 className="type--med type--wgt--medium u-mar--bottom--sml">Choose your deposit</h5>
+                            <div className={`c-deposit__list c-deposit__list--${paymentTypes.length > 10 ? "6" : "5"}`}>
+                                {paymentTypes.map((c) => {
+                                    return (
+                                        <div
+                                            key={c.id}
+                                            onClick={() => c.id !== form.$('paymentTypeId').value && onSelectPaymentType(c.id)}
+                                            className={`c-deposit__card ${c.id === form.$('paymentTypeId').value && 'active'}`}
+                                        >
+                                            <div className="flex--grow--1">
+                                                <i className={`u-icon u-icon--med u-icon--${c.abrv} ${c.id === form.$('paymentTypeId').value ? 'active' : ''}`}></i>
+                                            </div>
+                                            <div className="flex--grow--2">
+                                                <h5
+                                                    className={
+                                                        c.id !== form.$('paymentTypeId').value
+                                                            ? 'type--base type--wgt--medium'
+                                                            : 'type--base type--wgt--medium type--color--negative'
+                                                    }
+                                                >
+                                                    {c.name}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    }
+
                     <EditFormContent form={form}>
                         {window.innerWidth <= 767 &&
                             <div className="card--primary card--med u-mar--bottom--med">
