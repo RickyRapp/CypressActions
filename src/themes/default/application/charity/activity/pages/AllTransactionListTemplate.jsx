@@ -88,33 +88,29 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, removeCa
 		<React.Fragment>
 			{!hideSearch && (
 				<div>
-					{!isWalletEnabled && (
-						<div className="container--xsml">
-							<div className="card--enh--light u-mar--bottom--sml">
-								<p className="type--base type--color--primary">
+					<div className="u-display--flex--from-med">
+						{!isWalletEnabled && (
+							<div className="note note--info u-display--flex--size--auto u-mar--bottom--sml u-mar--right--sml--from-med">
+								<i className='u-icon u-icon--lrg u-icon--info'></i>
+								<p className="note__message">
 									The Charity Wallet option provides You the possibility to redirect grant payments processed through The Donors Fund page into Your created charity account.
 									Also, it adds the possibility to withdraw the funds from Your wallet anytime. You can enable or disable wallet option at any time by <span className="type--wgt--bold type--underline"> <a onClick={goToCharitySecurityAndPreferences}> updating your settings. </a></span>
 								</p>
 							</div>
-						</div>
-					)}
-					<div className="card--tertiary u-mar--bottom--sml">
-						<div className="row row--form">
-							<div className="col col-sml-4">
-								<div className="transaction__card">
-									<div className={`transaction__card--amount transaction__card--amount--plus`}>
-										<FormatterResolver
-											item={{ balance: accountBalance }}
-											field="balance"
-											format={{ type: 'currency' }}
-										/>
-									</div>
-									<h5 className="transaction__card--title">{t('DASHBOARD.ACCOUNT_BALANCE')}</h5>
+						)}
+						<div className="card--tertiary u-display--flex--size--auto u-mar--bottom--sml">
+							<div className="transaction__card transaction__card--single">
+								<div className={`transaction__card--amount transaction__card--amount--plus`}>
+									<FormatterResolver
+										item={{ balance: accountBalance }}
+										field="balance"
+										format={{ type: 'currency' }}
+									/>
 								</div>
+								<h5 className="transaction__card--title">{t('DASHBOARD.ACCOUNT_BALANCE')}</h5>
 							</div>
 						</div>
 					</div>
-
 					<div className="col-sml-12 u-mar--bottom--sml">
 						<div className="transaction__show">
 							<div className="transaction__show--body">
@@ -158,7 +154,7 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, removeCa
 					</div>
 
 					<div className="card--tertiary card--med u-mar--bottom--sml">
-						<div className="row row--form u-mar--bottom--base">
+						<div className="row">
 							<div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
 								<div>
 									<TableFilter queryUtility={queryUtility}>
@@ -184,7 +180,7 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, removeCa
 				</div>
 			)}
 
-			<div className={`${!removeCardClassName ? 'card--primary card--med' : ''}`}>
+			<div className={`${!removeCardClassName ? 'card--primary card--med table--tertiary' : ''}`}>
 				<BaasicTableWithRowDetails
 					authorization={authorization}
 					tableStore={tableStore}

@@ -81,6 +81,15 @@
 				order: 1;
 			}
 		}
+
+		&--single {
+			justify-content: flex-start;
+
+			margin-bottom: 0;
+			padding-bottom: $unit;
+
+			border: none;
+		}
 	}
 
 	&__show {
