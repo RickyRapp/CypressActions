@@ -134,7 +134,7 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, removeCa
 								</span>
 								<BaasicButton
 									className="btn btn--icon"
-									onlyIconClassName="u-mar--right--sml"
+									onlyIconClassName=""
 									icon={`u-icon ${isChecksOnHoldVisible ? 'u-icon--close' : 'u-icon--arrow-down--primary'
 										} u-icon--base`}
 									label="EXPAND"
@@ -152,41 +152,38 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, removeCa
 							)}
 						</div>
 					</div>
-
-					<div className="card--tertiary card--med u-mar--bottom--sml">
-						<div className="row">
-							<div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
-								<div>
-									<TableFilter queryUtility={queryUtility}>
-										<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
-											<DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
-										</div>
-										<div className="col col-sml-12 col-xxlrg-6">
-											<BaasicDropdown store={transactionTypeStore} className="input--dropdown--secondary" />
-										</div>
-									</TableFilter>
-								</div>
-							</div>
-							<div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
-								<BaasicDropdown
-									store={transactionPeriod}
-									queryUtility={queryUtility}
-									placeholder="Recent transactions"
-									className="input--dropdown--secondary"
-								/>
-							</div>
-						</div>
-					</div>
 				</div>
 			)}
 
-			<div className={`${!removeCardClassName ? 'card--primary card--med table--tertiary' : ''}`}>
-				<BaasicTableWithRowDetails
-					authorization={authorization}
-					tableStore={tableStore}
-					detailComponent={DetailComponent}
-					loading={tableStore.loading}
-				/>
+			<div className={`${!removeCardClassName ? 'card--primary card--med' : ''}`}>
+				<div className="row">
+					<div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
+						<TableFilter queryUtility={queryUtility}>
+							<div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--sml">
+								<DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
+							</div>
+							<div className="col col-sml-12 col-xxlrg-4">
+								<BaasicDropdown store={transactionTypeStore} className="input--dropdown--secondary" />
+							</div>
+						</TableFilter>
+					</div>
+					<div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
+							<BaasicDropdown
+								store={transactionPeriod}
+								queryUtility={queryUtility}
+								placeholder="Recent transactions"
+								className="input--dropdown--secondary"
+							/>
+					</div>
+				</div>
+				<div className="table--tertiary">
+					<BaasicTableWithRowDetails
+						authorization={authorization}
+						tableStore={tableStore}
+						detailComponent={DetailComponent}
+						loading={tableStore.loading}
+					/>
+				</div>
 			</div>
 		</React.Fragment>
 	);

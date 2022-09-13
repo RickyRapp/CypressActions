@@ -86,7 +86,7 @@
 			justify-content: flex-start;
 
 			margin-bottom: 0;
-			padding-bottom: $unit;
+			padding: 0;
 
 			border: none;
 		}

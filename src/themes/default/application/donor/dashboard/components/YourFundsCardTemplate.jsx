@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const YourFundsCardTemplate = (props) => {
     const { donor, newContributionOnClick, t } = props;
     return (
-        <div className="dashboard-card">
+        <div className="dashboard-card dashboard-card--secondary">
             <h3 className="dashboard-card__title u-mar--bottom--sml">
                 {t('DASHBOARD.YOUR_FUNDS')}
             </h3>
@@ -37,26 +37,18 @@ const YourFundsCardTemplate = (props) => {
                 </p>
             </div>
 
-            <div className="row">
-                <div className="col col-sml-12 col-med-6">
-                    <div className="u-mar--bottom--sml w--100--to-med">
-                        <BaasicButton
-                            className="btn btn--med btn--100 btn--primary--light"
-                            label="DASHBOARD.BUTTON.CONTRIBUTE"
-                            onClick={newContributionOnClick}
-                        />
-                    </div>
-                </div>
-                <div className="col col-sml-12 col-med-6">
-                    <div className="u-mar--bottom--sml w--100--to-med u-position--rel">
-                        <BaasicButton
-                            className="btn btn--med btn--100 btn--primary--light u-display--flex--column"
-                            label="DASHBOARD.BUTTON.INVEST_FUNDS"
-                            disabled={true}
-                            message={"Coming Soon"}
-                        />
-                    </div>
-                </div>
+            <div className="dashboard-card--secondary__footer">
+                <BaasicButton
+                    className="btn btn--med btn--100 btn--primary--light"
+                    label="DASHBOARD.BUTTON.CONTRIBUTE"
+                    onClick={newContributionOnClick}
+                />
+                <BaasicButton
+                    className="btn btn--med btn--100 btn--primary--light u-display--flex--column"
+                    label="DASHBOARD.BUTTON.INVEST_FUNDS"
+                    disabled={true}
+                    message={"Coming Soon"}
+                />
             </div>
         </div>
     );
