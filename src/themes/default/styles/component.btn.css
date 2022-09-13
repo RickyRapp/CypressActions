@@ -118,7 +118,7 @@
 		@media (--screen-to-med) {
 			height: calc($unit * 8);
 			line-height: calc($unit * 8);
-			padding: 0 calc($unit * 4);
+			padding: 0 calc($unit * 3);
 			@mixin type-scale $type-small, 1;
 		}
 	}
@@ -183,6 +183,8 @@
 		color: $color-text;
 		background-color: $color-background;
 		border-radius: calc($unit * 4);
+
+		box-shadow: $shadow-card;
 
 		@mixin type-scale $type-base, 1;
 
