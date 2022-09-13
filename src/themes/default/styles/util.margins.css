@@ -158,6 +158,14 @@
 
             &--med {
                 margin-bottom: calc($unit * 4);
+
+                &--to {
+                    &-med {
+                        @media (--screen-to-med) {
+                            margin-bottom: calc($unit * 4);
+                        }
+                    }
+                }
             }
 
             &--lrg {

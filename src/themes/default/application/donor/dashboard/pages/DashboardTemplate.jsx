@@ -254,67 +254,67 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 				) : null}
 			</PageHeader>
 
-			<div className="row">
-				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
+			<div className="row u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med--to-med">
 					{donor ? <YourFundsCardTemplate donor={donor} newContributionOnClick={newContributionOnClick} t={t} /> : <YourFundsCardLoaderTemplate />}
 				</div>
 
-				<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
+				<div className="col col-sml-12 col-xxlrg-6">
 					{donor ? (
-						<div className={`dashboard-card dashboard-card--graph ${mobileResolution ? "u-mar--bottom--sml" : ""}`}>
-						<h3 className="dashboard-card__title dashboard-card__title--ordered u-mar--bottom--sml">{t('DASHBOARD.YOUR_GIVING')}</h3>
+						<div className={`dashboard-card  dashboard-card--secondary dashboard-card--graph ${mobileResolution ? "u-mar--bottom--sml" : ""}`}>
+							<h3 className="dashboard-card__title dashboard-card__title--ordered u-mar--bottom--lrg">{t('DASHBOARD.YOUR_GIVING')}</h3>
 
-						{mobileResolution &&
-							<React.Fragment>
-								<div className="dashboard-card__giving-goal">
-									<p className="dashboard-card__giving-goal__label">Giving goal:</p>
-									<div className="dashboard-card__giving-goal--range">
-										<div
-											style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : (oneTimeToGive + yearlyGoalAmount) > 0 && grantsThisYear > 0 ? 100 : 0}%` }}
-											className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
-											{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. {mobileResolution && <a onClick={() => noGivingGoals()}>Set up your giving goal?</a>}</span> : (oneTimeToGive + yearlyGoalAmount) > 0 && grantsThisYear > 0 ? (100).toFixed(2) + '%' : 0 + '%')}
+							{mobileResolution &&
+								<React.Fragment>
+									<div className="dashboard-card__giving-goal">
+										<p className="dashboard-card__giving-goal__label">Giving goal:</p>
+										<div className="dashboard-card__giving-goal--range">
+											<div
+												style={{ 'width': `${givingTotal <= 100 && givingTotal > 0 ? givingTotal : oneTimeToGive == 0 && yearlyGoalAmount == 0 ? 100 : (oneTimeToGive + yearlyGoalAmount) > 0 && grantsThisYear > 0 ? 100 : 0}%` }}
+												className={`dashboard-card__giving-goal--range--progress${givingTotal >= 95 || (oneTimeToGive + yearlyGoalAmount) == 0 ? " dashboard-card__giving-goal--range--progress--rounded" : ""}`}>
+												{givingTotal <= 100 ? <span className={`${givingTotal <= 12 ? "dashboard-card__giving-goal--goal" : ""}`}>{givingTotal.toFixed(2) + '%'}</span> : ((oneTimeToGive + yearlyGoalAmount) == 0 ? <span>No goals entered. {mobileResolution && <a onClick={() => noGivingGoals()}>Set up your giving goal?</a>}</span> : (oneTimeToGive + yearlyGoalAmount) > 0 && grantsThisYear > 0 ? (100).toFixed(2) + '%' : 0 + '%')}
+											</div>
+											<p className="dashboard-card__giving-goal__income">
+												<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
+												<FormatterResolver
+													item={{ amount: (oneTimeToGive + yearlyGoalAmount) }}
+													field='amount'
+													format={{ type: 'currency' }}
+												/></p>
 										</div>
-										<p className="dashboard-card__giving-goal__income">
-											<span className="type--wgt--regular type--base type--color--opaque">Yearly Goal:</span>{" "}
-											<FormatterResolver
-												item={{ amount: (oneTimeToGive + yearlyGoalAmount) }}
-												field='amount'
-												format={{ type: 'currency' }}
-											/></p>
-									</div>
 
-									{yearly > 0 &&
-										<div>
-											<button className="btn btn--link type--inherit" onClick={() => editIncomeOnClick(yearlyGoal)}>
-												Manage
-											</button>
-										</div>
-									}
-								</div>
-
-								<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml dashboard-card__separator"></div>
-							</React.Fragment>
-						}
-
-						<div className="dashboard-card__chart">
-							<div className="row u-mar--bottom--tny">
-								<div className="col col-sml-12">
-									<div className="u-display--flex row__align--center">
-										<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
-										{donor && donor.isContributionMade &&
-											<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
+										{yearly > 0 &&
+											<div>
+												<button className="btn btn--link type--inherit" onClick={() => editIncomeOnClick(yearlyGoal)}>
+													Manage
+												</button>
+											</div>
 										}
 									</div>
-								</div>
-							</div>
 
-							<div className={`row ${mobileResolution ? "u-mar--bottom--med" : ""}`}>
-								<div className="col col-sml-12">
-									<LineChartContainer />
+									<div className="u-separator--primary u-mar--top--sml u-mar--bottom--sml dashboard-card__separator"></div>
+								</React.Fragment>
+							}
+
+							<div className="dashboard-card__chart">
+								<div className="row u-mar--bottom--tny">
+									<div className="col col-sml-12">
+										<div className="u-display--flex row__align--center">
+											<span className="type--base type--wgt--medium u-mar--right--med">Total Given</span>
+											{donor && donor.isContributionMade &&
+												<BaasicDropdown className="form-field--sml" store={yearDropdownStore} />
+											}
+										</div>
+									</div>
+								</div>
+
+								<div className="row">
+									<div className="col col-sml-12">
+										<LineChartContainer />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 					) : (
 						<YourGivingCardLoaderTemplate />
 					)}
@@ -372,6 +372,8 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 							</div>
 						</div>
 					)}
+			</div>
+			<div className="row">
 				{mobileResolution &&
 					<div className="col col-sml-12 col-lrg-12 u-mar--bottom--med" id="giving-goals-card">
 						<button type="button" className={`btn btn--show btn--show--secondary type--wgt--medium ${showMoreOptions ? "show" : ""}`} onClick={onShowMoreOptionsClick}>
@@ -456,9 +458,11 @@ function DashboardTemplate({ dashboardViewStore, t, rootStore }) {
 						}
 					</div>
 				}
+			</div>
+			<div className="row u-mar--bottom--med">
 				<div className="col col-sml-12 col-lrg-12">
 					<div className="card card--primary card--med u-mar--bottom--med">
-						<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
+						<h3 className="dashboard-card__title u-mar--bottom--sml">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
 						<Transaction
 							hideSearch={true}
 							hidePager={true}
