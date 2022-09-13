@@ -32,7 +32,7 @@ function TableFilterTemplate(props) {
 	return (
 		<React.Fragment>
 			<div className={`${searchClassName || ''}`.trim()}>
-				<div className={`${colClassName ? 'row row--form' : ''}`.trim()}>
+				<div className={`${colClassName ? '' : ''}`.trim()}>
 					<div className={`${colClassName ? colClassName : ''}`.trim()}>
 						<div className="search__wrapper">
 							{showSearch && (
