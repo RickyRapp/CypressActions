@@ -21,16 +21,18 @@ class BaasicUploadStore {
         deleteUploaded: true,
         disabled: false,
         label: 'DROPZONE.TITLE',
-        acceptFiles: ['.png', '.jpg', '.jpeg', '.csv'],
+        acceptFiles: ['.png', '.jpg', '.jpeg', '.csv', '.pdf'],
         showPreview: true,
         showLivePreview: true,
-        routeService: new FileStreamRouteService()
+        routeService: new FileStreamRouteService(),
+        accept: null
     };
 
     actions = {
         onRemove: () => { },
         onDelete: () => { },
-        onChange: () => { }
+        onChange: () => { },
+        onRemoveFromBuffer : () => { }
     };
 
     constructor(options = null, actions = null, initialState = null) {

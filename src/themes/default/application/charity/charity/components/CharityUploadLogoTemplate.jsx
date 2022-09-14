@@ -27,7 +27,10 @@ const CharityUploadLogoTemplate = function ({ t, charityUploadLogoViewStore }) {
                     </h3>
                     <div>
                         <div className="row row--form u-mar--bottom--med">
-                            <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
+                            <BaasicDropzone 
+                                store={imageUploadStore} 
+                                disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} 
+                                />
                             <div className="col col-sml-4">
                                 {item ? (<img alt="" src={URL.createObjectURL(item)} />) : null}
                             </div>

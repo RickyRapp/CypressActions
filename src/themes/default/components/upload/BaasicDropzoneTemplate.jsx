@@ -37,7 +37,7 @@ const BaasicDropzoneTemplate = function(props) {
 	}
 
 	return (
-		<React.Fragment>
+		<React.Fragment> 
 			<div>
 				<label className="form__group__label">{t(store.options.label)}</label>
 				<Upload
@@ -50,6 +50,7 @@ const BaasicDropzoneTemplate = function(props) {
 					onAdd={onChange}
 					disabled={getDisabled()}
 					multiple={store.options.multiple}
+					accept={store.options.accept}
 				></Upload>
 				{loading && (
 					<div className="loader--overlay">
