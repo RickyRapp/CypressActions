@@ -2,7 +2,7 @@ import { BaasicUploadStore, BaseEditViewStore } from 'core/stores';
 import { BankAccountEditForm } from 'application/donor/donor/forms';
 import { action } from 'mobx';
 import { applicationContext, isSome } from 'core/utils';
-
+ 
 @applicationContext
 class DonorBankAccountEditViewStore extends BaseEditViewStore {
 	constructor(rootStore, props) {
@@ -107,9 +107,10 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 		this.bankAccountCount = props.bankAccountCount;
 		this.donorId = rootStore.userStore.applicationUser.id;
 		this.createImageUploadStore();
-		this.onCancelEditClick = props.onCancelEditClick;
+		this.closeModel=props.modalParams.close; 
 	}
-
+	
+	
 	@action.bound
 	async onInit({ initialLoad }) {
 		if (!initialLoad) {

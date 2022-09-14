@@ -9,7 +9,7 @@ import {
 } from 'core/components';
 import { CharityPlaid } from 'application/charity/charity/components';
 
-function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId }) {
+function DonorBankAccountEditTemplate(props) { 
     const {
         title,
         form,
@@ -19,8 +19,9 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId })
         bankAccountCount,
         item,
         imageUploadStore,
-        onChangeEditId
-    } = donorBankAccountEditViewStore;
+        onChangeEditId,
+        closeModel
+    } = props.donorBankAccountEditViewStore;
 
     item && onChangeEditId(editId);
 
@@ -115,13 +116,12 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId })
                             </div>
                         </div>
                     </React.Fragment>}
-            </div>
-
+            </div> 
             <div className="type--right">
                 <BaasicButton
                     type='button'
                     className="btn btn--med btn--med--wide btn--ghost"
-                    onClick={onCancelEditClick}
+                    onClick={closeModel}
                     label='Cancel'
                 />
 
