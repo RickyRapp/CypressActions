@@ -68,7 +68,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					</div>
 
 				</div>
-				<div className="row row__align--end">
+				<div>
 					<BaasicDropzone
 						store={imageUploadStore}
 					/>
