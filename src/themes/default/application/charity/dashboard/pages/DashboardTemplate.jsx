@@ -86,7 +86,7 @@ class DashboardTemplate extends Component {
 		}
 
 		if (dataGrants.type === "categoriesDays" && dataGrants.item.length > 0) {
-			dataGrants.item.forEach(item => item.name = this.categories.categoriesDays[Number(item.name)]);
+			dataGrants.item.forEach(item => item.name = this.categories.categoriesDays[Number(item.name)-1]);
 			checkWeek();
 		}
 
