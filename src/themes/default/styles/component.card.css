@@ -226,8 +226,12 @@
 	}
 
 	&--plaid {
-		padding: calc($unit * 7);
+		padding: calc($unit * 4);
 		text-align: center;
+
+		@media (--screen-from-med) {
+			padding: calc($unit * 7);
+		}
 
 		&__container {
 			max-width: 450px;
@@ -256,9 +260,15 @@
 
 		&__list {
 			max-width: 360px;
-			margin: 0 auto calc($unit * 4);
+			margin: 0 auto calc($unit * 4) calc($unit * 4);
 			text-align: left;
 			list-style-type: disc;
+		}
+
+		&__upload {
+			.col {
+				width: 100% !important;
+			}
 		}
 
 		.u-icon {
@@ -266,17 +276,27 @@
 		}
 
 		.btn {
-			display: inline-block;
-			height: auto;
+			@media (--screen-from-med) {
+				display: inline-block;
+				height: auto;
+			}
 
 			span {
 				display: block;
-				margin-top: calc(-$unit * 3);
-				margin-bottom: calc($unit * 2);
 				
 				@mixin type-scale $type-tiny, 1;
 				text-transform: initial;
 				font-weight: $type-weight-thin;
+				
+				@media (--screen-from-med) {
+					margin-top: calc(-$unit * 3);
+					margin-bottom: calc($unit * 2);
+				}
+			}
+
+			&--multiline {
+				display: inline-block;
+				height: 72px;
 			}
 		}
 	}

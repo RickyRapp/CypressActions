@@ -63,15 +63,11 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 				</div>
 			</div>
 
-			<div className="row row--form u-mar--bottom--med">
-				<div className="col col-sml-12 col-lrg-12">
-					<div className="row row__align--end">
-						<BaasicDropzone
-							store={imageUploadStore}
-							disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)}
-						/>
-					</div>
-				</div>
+			<div className="u-mar--bottom--med">
+				<BaasicDropzone
+					store={imageUploadStore}
+					disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)}
+				/>
 			</div>
 
 			<div className="type--right">

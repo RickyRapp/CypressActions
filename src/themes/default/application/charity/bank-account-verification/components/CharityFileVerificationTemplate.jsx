@@ -25,12 +25,14 @@ const CharityFileVerificationTemplate = function ({charityFileVerificationViewSt
 								<li><strong>Charity Name</strong> charity bank statement</li>
 							</ul>
 
-							<BaasicDropzone
-								store={imageUploadStore}
-							/>
+							<div className='card--plaid__upload u-mar--bottom--med'>
+								<BaasicDropzone
+									store={imageUploadStore}
+								/>
+							</div>
 
 							<button 
-								className="btn btn--med btn--secondary" 
+								className="btn btn--med btn--secondary btn--multiline" 
 								onClick={uploadVerificationFile}  
 								type="button">
 									Verify Manually 

@@ -38,7 +38,7 @@ const BaasicDropzoneTemplate = function(props) {
 
 	return (
 		<React.Fragment>
-			<div className="col col-sml-12 col-lrg-4">
+			<div>
 				<label className="form__group__label">{t(store.options.label)}</label>
 				<Upload
 					className="u-mar--top--tny"
@@ -96,41 +96,40 @@ const BaasicDropzoneTemplate = function(props) {
 					);
 				})}
 
-			{store.files.length > 0 &&
-				store.files.map(c => {
-					let rawAttachment = c.getRawFile();
-					return (
-						<div key={c.uid} className="col col-sml-12 col-lrg-6 col-xlrg-4 u-display--flex u-display--flex--column">
-							{store.options.showLivePreview && (
-								<React.Fragment>
-									<label className="form__group__label">
-										<span className="u-mar--right--tny">
+			<div className="k-upload__list">
+				{store.files.length > 0 &&
+					store.files.map(c => {
+						let rawAttachment = c.getRawFile();
+						return (
+							<div key={c.uid} className="k-upload__list__item">
+								{store.options.showLivePreview && (
+									<React.Fragment>
+										<ImagePreview
+											image={window.URL.createObjectURL(new Blob([rawAttachment], { type: rawAttachment.type }))}
+										/>
+										<p className="k-upload__list__item__label">
 											{c.name.split('').length > 32
 												? c.name
 														.split('')
 														.splice(0, 32)
 														.join('') + '...'
 												: c.name}
-										</span>
+										</p>
 										{store.options.removeFromBuffer && (
 											<BaasicButton
-												className="btn btn--icon u-mar--right--tny"
+												className="k-upload__list__item__close btn btn--icon u-mar--right--tny"
 												icon={'u-icon u-icon--close u-icon--tny'}
 												label={t('')}
 												onlyIcon={true}
 												onClick={() => store.onRemoveFromBuffer(c)}
 											/>
 										)}
-									</label>
-
-									<ImagePreview
-										image={window.URL.createObjectURL(new Blob([rawAttachment], { type: rawAttachment.type }))}
-									/>
-								</React.Fragment>
-							)}
-						</div>
-					);
-				})}
+									</React.Fragment>
+								)}
+							</div>
+						);
+					})}
+			</div>
 		</React.Fragment>
 	);
 };
@@ -156,7 +155,8 @@ const ImagePreview = function({ image }) {
 		<div
 			style={{
 				display: 'inline-flex',
-				borderRadius: 2,
+				justifyContent: "center",
+				borderRadius: 6,
 				border: '1px solid #eaeaea',
 				width: '100%',
 				height: 100,
