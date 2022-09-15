@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx';
-import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore , SelectTableViewStore} from 'core/stores';
+import { TableViewStore, BaseListViewStore, BaasicDropdownStore, DateRangeQueryPickerStore, SelectTableViewStore } from 'core/stores';
 import { applicationContext, donorFormatter, charityFormatter, isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 import { ModalParams } from 'core/models';
 import { ContributionListFilter } from 'application/administration/contribution/models';
@@ -84,7 +84,7 @@ class ContributionViewStore extends BaseListViewStore {
                             'bankAccount.accountHolder',
                             'charity'
                         ];
-                        
+
                         this.achBatchCurrentNumber = await rootStore.application.administration.contributionStore.achBatchCurrentNumber({ increment: false });
                         return rootStore.application.administration.contributionStore.findContribution(params);
                     }
@@ -143,9 +143,15 @@ class ContributionViewStore extends BaseListViewStore {
 
 
     @action.bound
-    getDonorOrCharity(item) { 
-            return item.donor ? item.donor.donorName : item.charity ? item.charity.name: '';
+    getDonorOrCharity(item) {
+        if (item.donor && item.donor.donorName) {
+            return item.donor.donorName;
+        }
+        else if (item.charity && item.charity.name) {
+            return item.charity.name;
+        }
     }
+    
     @action.bound
     async openCancelContribution(item) {
         const pageNumber = this.tableStore.pageNumber;
@@ -295,22 +301,22 @@ class ContributionViewStore extends BaseListViewStore {
                 },
             },
             onSelect: (dataItem, isRemoving) => {
-                if(dataItem.contributionStatus.abrv === 'pending' && dataItem.paymentType.abrv === 'ach'){
-                    if(isRemoving){
+                if (dataItem.contributionStatus.abrv === 'pending' && dataItem.paymentType.abrv === 'ach') {
+                    if (isRemoving) {
                         this.selectedItemsSum -= dataItem.amount;
-                    }else{
+                    } else {
                         this.selectedItemsSum += dataItem.amount;
                     }
                 }
             },
             onSelectAll: (e) => {
-                if(!this.tableStore.hasSelectedItems){
+                if (!this.tableStore.hasSelectedItems) {
                     this.tableStore.data.map(item => {
-                        if(item.contributionStatus.abrv === 'pending' && item.paymentType.abrv === 'ach'){
+                        if (item.contributionStatus.abrv === 'pending' && item.paymentType.abrv === 'ach') {
                             this.selectedItemsSum += item.amount;
                         }
                     });
-                }else{
+                } else {
                     this.selectedItemsSum = 0;
                 }
             }
@@ -328,14 +334,14 @@ class ContributionViewStore extends BaseListViewStore {
             initFetch: true,
             filterable: false
         },
-        {
-            onChange: (userType) => {
-                this.queryUtility.filter.userType = userType;
-            }
-        });
-        this.userTypeDropdownStore.setItems([{ name: 'Donor', id: 'donor' }, { name: 'Charity', id: 'charity'}]);
+            {
+                onChange: (userType) => {
+                    this.queryUtility.filter.userType = userType;
+                }
+            });
+        this.userTypeDropdownStore.setItems([{ name: 'Donor', id: 'donor' }, { name: 'Charity', id: 'charity' }]);
     }
-  
+
     createCharitySearchDropdownStore() {
         this.searchCharityDropdownStore = new BaasicDropdownStore({
             placeholder: 'CONTRIBUTION.LIST.FILTER.SELECT_CHARITY_PLACEHOLDER',
@@ -460,13 +466,13 @@ class ContributionViewStore extends BaseListViewStore {
 
     }
     @action.bound
-    async submitPending(){
-        if(!this.form.values().paymentNumber){
+    async submitPending() {
+        if (!this.form.values().paymentNumber) {
             return;
         }
         let pendingDeposits = this.tableStore.selectedItems.filter(s => s.contributionStatus.abrv === 'pending' && s.paymentType.abrv === 'ach');
-        if(pendingDeposits != 0){
-            var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ids: pendingDeposits.map(item => {return item.id}), achBatchNumber: this.form.values().paymentNumber, contentType: 'text/csv' });
+        if (pendingDeposits != 0) {
+            var response = await this.rootStore.application.administration.contributionStore.generateCsvContributionFile({ ids: pendingDeposits.map(item => { return item.id }), achBatchNumber: this.form.values().paymentNumber, contentType: 'text/csv' });
             const nowDate = new Date();
             const fileName = `${"Contribution".split(' ').join('_')}_${nowDate.getFullYear()}_${nowDate.getMonth()}_${nowDate.getDay()}_${nowDate.getHours()}_${nowDate.getMinutes()}_${nowDate.getSeconds()}_${nowDate.getMilliseconds()}.csv`;
             saveAs(response, fileName);
