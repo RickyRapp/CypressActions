@@ -22,11 +22,11 @@ function DonorBankAccountEditTemplate({ donorBankAccountEditViewStore, editId })
         onChangeEditId
     } = donorBankAccountEditViewStore;
 
+    item && onChangeEditId(editId);
+
     return (
         <EditFormContent form={form} >
             <div>
-                {item && onChangeEditId(editId)}
-
                 <h3 className="title--secondary u-mar--bottom--med">{title}</h3>
                 <div className="row row--form u-mar--bottom--sml">
                     <div className="form__group col col-sml-12 col-lrg-4">

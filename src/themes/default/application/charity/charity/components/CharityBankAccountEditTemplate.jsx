@@ -12,7 +12,7 @@ import {
 import { defaultTemplate } from 'core/hoc';
 import { CharityPlaid } from 'application/charity/charity/components';
 
-const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewStore }) {
+const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewStore, editId }) {
 	const {
 		form,
 		imageUploadStore,
@@ -22,11 +22,17 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 		item,
 		onCancelEditClick,
 		exportFile,
-		fileError
+		fileError,
+		onChangeEditId,
+		charityMedia,
+		isImage
 	} = charityBankAccountEditViewStore;
 
+	item && onChangeEditId(editId);
+	
 	return (
 		<EditFormContent form={form} formClassName={" "}>
+			
 			<div className="u-mar--top--xlrg">
 				<div>
 					{!item && <span className='u-display--b u-mar--bottom--sml'>Create new bank account manually or using : </span>}
@@ -74,15 +80,15 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					/>
 					<p className="validation__message">{fileError}</p>
 					{
-						item ? (
-							item.charityMedia && (
-								(item.isImage) ?
+						charityMedia ? ( 
+							charityMedia && ( 
+								(isImage) ? 
 									(
-										<div className="imageheight_sml">
-											<img alt="" src={URL.createObjectURL(item.charityMedia)} />
+										<div className="imageheight_sml"> 
+											<img alt="" src={URL.createObjectURL(charityMedia)} />
 										</div>
 									)
-									: (
+									: ( 
 										<BaasicButton
 											className='btn btn--sml btn--primary'
 											label='Download'

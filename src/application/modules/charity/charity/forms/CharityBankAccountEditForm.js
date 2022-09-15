@@ -9,6 +9,11 @@ export default class CharityBankAccountEditForm extends FormBase {
         return {
             fields: [
                 {
+                    name: 'id',
+                    label: '',
+                    placeholder: ''
+                },
+                {
                     name: 'name',
                     label: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_LABEL',
                     placeholder: 'BANK_ACCOUNT.EDIT.FIELDS.NAME_PLACEHOLDER',
