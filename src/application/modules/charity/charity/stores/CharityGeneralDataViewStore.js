@@ -40,12 +40,6 @@ class CharityGeneralDataViewStore extends BaseEditViewStore {
                         }
                     },
                     update: async (resource) => {
-                        const data = await rootStore.application.charity.charityStore.getCharity(rootStore.userStore.applicationUser.id);
-                        resource.name = data.name;
-                        resource.keepFundsUntilManuallyDistributedIsEnabled = data.keepFundsUntilManuallyDistributedIsEnabled;
-                        resource.keepFundsUntilAccumulatedAmountIsEnabled = data.keepFundsUntilAccumulatedAmountIsEnabled;
-                        resource.accumulatedAmountExceeding = data.accumulatedAmountExceeding;
-
                         await this.rootStore.application.charity.charityStore.updateCharity({ contactInformation: { name: resource.contactInformationName, email: resource.contactInformationEmail, number: resource.contactInformationNumber }, ...resource });
                         rootStore.notificationStore.success('EDIT_FORM_LAYOUT.SUCCESS_UPDATE');
                     }
