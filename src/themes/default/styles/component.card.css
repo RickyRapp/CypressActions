@@ -99,6 +99,12 @@
 		border: 1px solid color($color-primary a(25%));
 		border-radius: $radius-base;
 		box-shadow: $shadow-card;
+
+		&--secondary {
+			border: 1px solid $mountain-meadow;
+			background-color: $pot-pourri;
+			border-radius: $radius-base;
+		}
 	}
 
 	&--session {

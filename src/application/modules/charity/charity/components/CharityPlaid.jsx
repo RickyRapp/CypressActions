@@ -74,7 +74,7 @@ class CharityPlaid extends Component {
                 onExit={this.handleOnExit}
                 style={{ background: 'transparent', border:"0px solid rgba(0, 0, 0, .4)" }}
               >
-                <span onClick={this.getLinkToken}>Verify bank account electronically</span>
+                <span  onClick={this.getLinkToken}>Verify bank account electronically</span>
               </PlaidLink>
               : null
             }
@@ -94,7 +94,7 @@ class CharityPlaid extends Component {
               onExit={this.handleOnExit}
               style={{ background: 'transparent', border:"0px solid rgba(0, 0, 0, .4)" }}
             >
-              <span onClick={this.getLinkToken}>Create bank account electronically</span>
+              <span className="btn btn--med btn--secondary u-mar--bottom--med" onClick={this.getLinkToken}>Create bank account electronically</span>
             </PlaidLink>
             : null
           }
