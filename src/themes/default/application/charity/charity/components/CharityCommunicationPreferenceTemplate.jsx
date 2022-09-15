@@ -156,11 +156,11 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">
                         <p className="u-mar--bottom--tny">{t('CHARITY.CARD_PREFERENCES.INVESTMENT.FIELDS.NOTIFY_INVESTMENT_DAILY')}</p>
-                        <BasicFieldCheckbox toggleClass="--toggle" field={form.$('isNotifyOnDailyChangesEnabled')} />
+                        <BasicFieldCheckbox toggleClass="--toggle" disabled={true} field={form.$('isNotifyOnDailyChangesEnabled')} />
                     </div>
                     <div className="list--preferences__dd">
                         <div className="u-mar--bottom--sml">
-                            <NumericInputField field={form.$('notifyOnDailyChangesAmount')} />
+                            <NumericInputField disabled={true} field={form.$('notifyOnDailyChangesAmount')} />
                         </div>
                     </div>
                 </div>

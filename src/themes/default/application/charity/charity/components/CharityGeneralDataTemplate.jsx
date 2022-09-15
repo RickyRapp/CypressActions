@@ -56,10 +56,10 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
 									<BasicInput field={form.$('dba')} />
 								</div>
 								<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-									<BaasicFieldDropdown field={form.$('charityTypeId')} store={charityTypeDropdownStore} />
+									<BaasicFieldDropdown field={form.$('charityTypeId')} disabled={true} store={charityTypeDropdownStore} />
 								</div>
 								<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-									<BaasicFieldDropdown field={form.$('charityStatusId')} store={charityStatusDropdownStore} />
+									<BaasicFieldDropdown field={form.$('charityStatusId')} disabled={true} store={charityStatusDropdownStore} />
 								</div>
 								<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
 									<BasicInput field={form.$('url')} />

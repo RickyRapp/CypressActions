@@ -31,13 +31,15 @@ export default class CharityEditForm extends FormBase {
                     name: 'charityTypeId',
                     label: 'CHARITY.EDIT.FIELDS.CHARITY_TYPE_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.CHARITY_TYPE_PLACEHOLDER',
-                    rules: 'required|string'
+                    rules: 'required|string',
+                    disabled: true
                 },
                 {
                     name: 'charityStatusId',
                     label: 'CHARITY.EDIT.FIELDS.CHARITY_STATUS_LABEL',
                     placeholder: 'CHARITY.EDIT.FIELDS.CHARITY_STATUS_PLACEHOLDER',
-                    rules: 'required|string'
+                    rules: 'required|string',
+                    disabled: true
                 },
                 {
                     name: 'contactInformationName',
