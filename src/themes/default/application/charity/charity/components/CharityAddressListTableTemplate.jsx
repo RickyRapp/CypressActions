@@ -2,20 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import {
-	Address
-} from 'core/components';
+import { Address } from 'core/components';
 import { CharityAddressEditForm } from 'application/charity/charity/components';
 
-const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }) {
-	const {
-		addresses,
-		onEnableEditClick,
-		onCancelEditClick,
-		isEditEnabled,
-		form,
-		editId
-	} = charityAddressViewStore;
+const CharityAddressListTableTemplate = function({ charityAddressViewStore, t }) {
+	const { addresses, onEnableEditClick, onCancelEditClick, isEditEnabled, form, editId } = charityAddressViewStore;
 
 	let primaryAddress = null;
 	let secondaryAddress = null;
@@ -39,46 +30,43 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
 				/>
 			) : (
 				<div
-					className={`type--base type--wgt--bold`}
+					className={`u-mar--bottom--lrg`}
 					title="Click to edit"
 					onClick={() => onEnableEditClick(primaryAddress)}
 				>
 					{primaryAddress ? (
 						// <Address value={primaryAddress} format='full' />
-						<div className="card--med">
-							<div className="row info-card--scale">
-								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-										Address Line 1:
+						<React.Fragment>
+							<h3 className="title--secondary u-mar--bottom--sml">Primary Address</h3>
+							<div className="info-card__container">
+								<div className="info-card__item">
+									<p className="info-card__label">Address Line 1:</p>
+									<p className="info-card__value"> {primaryAddress.addressLine1} </p>
+								</div>
+								<div className="info-card__item">
+									<p className="info-card__label">Address Line 2:</p>
+									<p className="info-card__value"> {primaryAddress.addressLine2} </p>
+								</div>
+								<div className="info-card__item">
+									<p className="info-card__label">City:</p>
+									<p className="info-card__value">{primaryAddress.city}</p>
+								</div>
+								<div className="info-card__item">
+									<p className="info-card__label">State:</p>
+									<p className="info-card__value">{primaryAddress.state}</p>
+								</div>
+								<div className="info-card__item">
+									<p className="info-card__label">Zip Code:</p>
+									<p className="info-card__value">{primaryAddress.zipCode}</p>
+								</div>
+								<div className="info-card__item">
+									<p className="info-card__label">Primary</p>
+									<p className="info-card__value">
+										{primaryAddress.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : 'No'}
 									</p>
-									<p className="type--base type--wgt--bold"> {primaryAddress.addressLine1} </p>
-								</div>
-								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-										Address Line 2:
-									</p>
-									<p className="type--base type--wgt--bold"> {primaryAddress.addressLine2} </p>
-								</div>
-								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">City:</p>
-									<p className="type--base type--wgt--bold">{primaryAddress.city}</p>
-								</div>
-								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">State:</p>
-									<p className="type--base type--wgt--bold">{primaryAddress.state}</p>
-								</div>
-								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Zip Code:</p>
-									<p className="type--base type--wgt--bold">{primaryAddress.zipCode}</p>
-								</div>
-								<div className="col col-sml-6 col-lrg-4 u-mar--bottom--med">
-									<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-										Primary
-									</p>
-									<p className="type--base type--wgt--bold">{primaryAddress.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : 'No'}</p>
 								</div>
 							</div>
-						</div>
+						</React.Fragment>
 					) : (
 						''
 					)}
@@ -95,16 +83,14 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
 					/>
 				) : (
 					<React.Fragment>
-						<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-							Secondary Address
-						</p>
+						<h3 className="title--secondary u-mar--bottom--sml">Secondary Address</h3>
 						<span
 							className="cursor--pointer type--base type--wgt--bold"
 							title={`Click to ${secondaryAddress ? 'edit' : 'insert'}`}
 							onClick={() => onEnableEditClick(secondaryAddress)}
 						>
 							{secondaryAddress ? (
-								< Address value={secondaryAddress} format="full" />
+								<Address value={secondaryAddress} format="full" />
 							) : (
 								<button className="btn btn--link btn--sml">Add new address</button>
 							)}
@@ -119,8 +105,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
 CharityAddressListTableTemplate.propTypes = {
 	item: PropTypes.object,
 	actions: PropTypes.object,
-	authorization: PropTypes.any
+	authorization: PropTypes.any,
 };
 
 export default defaultTemplate(CharityAddressListTableTemplate);
-

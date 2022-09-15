@@ -86,7 +86,7 @@ class DashboardTemplate extends Component {
 		}
 
 		if (dataGrants.type === "categoriesDays" && dataGrants.item.length > 0) {
-			dataGrants.item.forEach(item => item.name = this.categories.categoriesDays[Number(item.name)]);
+			dataGrants.item.forEach(item => item.name = this.categories.categoriesDays[Number(item.name)-1]);
 			checkWeek();
 		}
 
@@ -114,11 +114,36 @@ class DashboardTemplate extends Component {
 		return (
 			<Page>
 				<DashboardHeader />
-				<div className="row">
-					<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med">
+				<div className="card card--primary card--sml u-mar--bottom--med">
+					<div className="dashboard__top">
+						<h3 className="dashboard__top__title">
+							Finish setting up your account
+						</h3>
+						<div className="dashboard__top__buttons">
+							{charity && (
+								<BaasicButton
+									className="btn btn--med btn--100 btn--primary--light"
+									icon="u-icon u-icon--arrow-forward u-icon--base"
+									label="VIEW INVESTMENT OPTIONS"
+									onClick={() => alert(true)}
+								/>
+							)}
+							{charity && (
+								<BaasicButton
+									className="btn btn--med btn--100 btn--primary--light"
+									icon="u-icon u-icon--arrow-forward u-icon--base"
+									label="CONNECT TO YOUR WEBSITE"
+									onClick={() => alert(true)}
+								/>
+							)}
+						</div>
+					</div>
+				</div>
+				<div className="row u-mar--bottom--med">
+					<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--med--to-med">
 						{charity && charity.name ? (
 							<div className="dashboard-card dashboard-card--secondary">
-								<h3 className=" u-mar--bottom--med">Your Funds</h3>
+								<h3 className="u-mar--bottom--med">Your Funds</h3>
 								<div className="dashboard-card__body">
 									<div className="dashboard-card__body--amount">
 										{availableBalance ?
@@ -132,17 +157,13 @@ class DashboardTemplate extends Component {
 									</div>
 									<p className="dashboard-card__body--title">ACCOUNT BALANCE</p>
 								</div>
-								<div className="row">
-									<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
-										<BaasicButton
-											className="btn btn--med btn--100 btn--primary--light"
-											label="Withdraw Funds"
-											onClick={redirectToWithdrawFundsPage}
-										/>
-									</div></div>
-									<div className="col col-sml-12 col-lrg-6"><div className="u-mar--bottom--sml w--100--to-med">
-										<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Manage Account" onClick={redirectToManageAccount} />
-									</div></div>
+								<div className="dashboard-card--secondary__footer">
+									<BaasicButton
+										className="btn btn--med btn--100 btn--primary--light"
+										label="Withdraw Funds"
+										onClick={redirectToWithdrawFundsPage}
+									/>
+									<BaasicButton className="btn btn--med btn--100 btn--primary--light" label="Manage Account" onClick={redirectToManageAccount} />
 								</div>
 							</div>
 						) : (
@@ -160,21 +181,16 @@ class DashboardTemplate extends Component {
 							</div>
 						)}
 					</div>
-
 					<div className="col col-sml-12 col-xxlrg-6">
 						{charity && charity.name ? (
 							<div className="dashboard-card dashboard-card--secondary">
-								<div className="row u-mar--bottom--tny remove--sml">
-									<div className="col col-sml-12">
-										<div className="u-display--flex row__align--center">
-											<span className="type--base type--wgt--medium u-mar--right--med">Total grants received</span>
-											{/* <LineChartContainer /> */}
-											<BaasicDropdown store={yearDropdownStore} />
-										</div>
-									</div>
+								<div className="u-display--flex u-display--flex--justify--space-between u-mar--bottom--med">
+									<h3 className="u-mar--right--med">Total grants received</h3>
+									{/* <LineChartContainer /> */}
+									<BaasicDropdown store={yearDropdownStore} />
 								</div>
-								<div className="row u-mar--bottom--med">
-									<div className="col col-sml-12"><LineChartContainer className="col-xlrg-12 col-xxlrg-12" /></div>
+								<div className="dashboard-card__body">
+									<LineChartContainer className="col-xlrg-12 col-xxlrg-12" />
 								</div>
 							</div>
 						) : (
@@ -192,41 +208,12 @@ class DashboardTemplate extends Component {
 							</div>
 						)}
 					</div>
-					<div className="col col-sml-12 col-lrg-12">
-						<div className="u-mar--bottom--med u-mar--top--med">
-							<h3 className=" u-mar--bottom--med type--center">
-								Finish setting up your account
-							</h3>
-							<div className="row type--center u-display--flex u-display--flex--justify--center">
-								{charity && (
-									<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
-										<BaasicButton
-											className="btn btn--med btn--med--100 btn--tertiary "
-											icon="u-icon u-icon--arrow-forward u-icon--med"
-											label="VIEW INVESTMENT OPTIONS"
-											onClick={() => alert(true)}
-										/>
-									</div>
-								)}
-								{charity && (
-									<div className="col col-sml-12 col-xlrg-6 col-xxlrg-3 u-mar--bottom--med">
-										<BaasicButton
-											className="btn btn--med btn--med--100 btn--tertiary "
-											icon="u-icon u-icon--arrow-forward u-icon--med"
-											label="CONNECT TO YOUR WEBSITE"
-											onClick={() => alert(true)}
-										/>
-									</div>
-								)}
-							</div>
-						</div>
-					</div>
 				</div>
 				<div className="row">
 					<div className="col col-sml-12 col-lrg-12">
 						<div className="card card--primary card--med u-mar--bottom--med">
 							<h3 className="dashboard-card__title u-mar--bottom--med">{t('DASHBOARD.RECENT_ACTIVITY')}</h3>
-							<AllTransactionList hideSearch={true} hideCheckBox={true} />
+							<AllTransactionList hideSearch={true} hideCheckBox={true} removeCardClassName={true} />
 						</div>
 					</div>
 				</div>

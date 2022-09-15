@@ -12,7 +12,7 @@ import {
 import { defaultTemplate } from 'core/hoc';
 import { CharityPlaid } from 'application/charity/charity/components';
 
-const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewStore }) {
+const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewStore, editId }) {
 	const {
 		form,
 		imageUploadStore,
@@ -22,15 +22,21 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 		item,
 		onCancelEditClick,
 		exportFile,
-		fileError
+		fileError,
+		onChangeEditId,
+		charityMedia,
+		isImage
 	} = charityBankAccountEditViewStore;
 
+	item && onChangeEditId(editId);
+	
 	return (
 		<EditFormContent form={form} formClassName={" "}>
-			<div className="card--med card--primary">
+			
+			<div className="u-mar--top--xlrg">
 				<div>
-					{!item && <span>Create new bank account manually or using : </span>}
-					<div className="u-mar--bottom--sml w--100--to-med">
+					{!item && <span className='u-display--b u-mar--bottom--sml'>Create new bank account manually or using : </span>}
+					<div className="btn--plaid btn--plaid--outline u-mar--bottom--sml">
 						<CharityPlaid
 							entityType={"charity"}
 							bankAccount={item}
@@ -40,48 +46,20 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 
 				<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
 				<div className="row row--form">
+
+					<div className="form__group col col-sml-12 col-lrg-6">
+						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
+					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('routingNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('name')} />
 					</div>
-					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('description')} />
-					</div>
+					
 				</div>
 
 				<div className="row row--form">
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('accountHolderName')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('addressLine1')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('addressLine2')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('city')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('state')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('zipCode')} />
-					</div>
-				</div>
-
-				<div className="row row--form">
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('email')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<NumberFormatInputField field={form.$('number')} />
-					</div>
 					<div className="form__group col col-sml-12 col-lrg-4">
 						<div className="u-display--flex">
 							<div>
@@ -96,21 +74,21 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					</div>
 
 				</div>
-				<div className="row row__align--end">
+				<div>
 					<BaasicDropzone
 						store={imageUploadStore}
 					/>
 					<p className="validation__message">{fileError}</p>
 					{
-						item ? (
-							item.charityMedia && (
-								(item.isImage) ?
+						charityMedia ? ( 
+							charityMedia && ( 
+								(isImage) ? 
 									(
-										<div className="imageheight_sml">
-											<img alt="" src={URL.createObjectURL(item.charityMedia)} />
+										<div className="imageheight_sml"> 
+											<img alt="" src={URL.createObjectURL(charityMedia)} />
 										</div>
 									)
-									: (
+									: ( 
 										<BaasicButton
 											className='btn btn--sml btn--primary'
 											label='Download'
@@ -130,14 +108,15 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					label='Cancel'
 				/>
 
-				<BaasicFormControls form={form} onSubmit={form.onSubmit} />
-
 				{item != null &&
-					<BaasicButton className='btn btn--med btn--ghost' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >
+					<BaasicButton className='btn btn--med btn--warning u-mar--left--sml' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >
 						{/* {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')} */}
 					</BaasicButton>
 				}
 
+				<span>
+					<BaasicFormControls form={form} onSubmit={form.onSubmit} />
+				</span>
 			</div>
 		</EditFormContent>
 	);

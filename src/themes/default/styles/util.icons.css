@@ -601,32 +601,32 @@
 		}
 
 		&--lock {
-			background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-primary);
+			background-image: svg-load('../styles/postcss-svg/lock.svg', stroke: $color-primary);
 
 			&:hover,
 			&:active,
 			&:focus {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-note);
+				background-image: svg-load('../styles/postcss-svg/lock.svg', stroke: $color-note);
 			}
 
 			&--warning {
-				background-image: svg-load('../styles/postcss-svg/lock.svg', fill: $color-warning);
+				background-image: svg-load('../styles/postcss-svg/lock.svg', stroke: $color-warning);
 			}
 		}
 
 		&--unlock {
-			background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-primary);
+			background-image: svg-load('../styles/postcss-svg/unlock.svg', stroke: $color-primary);
 
 			&:hover,
 			&:active,
 			&:focus {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: color($color-note a(80%)));
+				background-image: svg-load('../styles/postcss-svg/unlock.svg', stroke: color($color-note a(80%)));
 			}
 
 			&--success {
-				background-image: svg-load('../styles/postcss-svg/unlock.svg', fill: $color-success);
+				background-image: svg-load('../styles/postcss-svg/unlock.svg', stroke: $color-success);
 			}
 		}
 
@@ -683,13 +683,13 @@
 		}
 
 		&--delete {
-			background-image: svg-load('../styles/postcss-svg/delete.svg', fill: $color-note);
+			background-image: svg-load('../styles/postcss-svg/delete.svg', stroke: $color-note);
 
 			&:hover,
 			&:active,
 			&:focus {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/delete.svg', fill: $color-primary);
+				background-image: svg-load('../styles/postcss-svg/delete.svg', stroke: $color-primary);
 			}
 
 			&--warning {
@@ -868,6 +868,36 @@
 				background-image: svg-load('../styles/postcss-svg/empty-state/charity.svg');
 				width: 222px;
 				height: 222px;
+			}
+		}
+
+		&--verification {
+			width: calc($unit * 34);
+			height: calc($unit * 34);
+			background-size: calc($unit * 34);
+
+			&-pin {
+				background-image: svg-load('../styles/postcss-svg/verification-pin.svg');
+			}
+
+			&-welcome {
+				background-image: svg-load('../styles/postcss-svg/verification-welcome.svg');
+			}
+
+			&-match {
+				background-image: svg-load('../styles/postcss-svg/verification-match.svg');
+			}
+
+			&-error {
+				background-image: svg-load('../styles/postcss-svg/verification-error.svg');
+			}
+
+			&-manual {
+				background-image: svg-load('../styles/postcss-svg/verification-manual.svg');
+			}
+
+			&-received {
+				background-image: svg-load('../styles/postcss-svg/verification-received.svg');
 			}
 		}
 	}

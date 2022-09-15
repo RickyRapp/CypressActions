@@ -1,35 +1,77 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { TabLayout, Content } from 'core/layouts';
-import { CharityBankAccountList, CharityPlaid } from 'application/charity/charity/components';
-import { CharityFileVerification } from 'application/charity/charity/pages';
+import { Content } from 'core/layouts';
+import { CharityPlaid } from 'application/charity/charity/components';
+import { CharityFileVerification, ManuallySucessMessage, PlaidSuccessfulVerificaton, PlaidUnsuccessfulVerificaton } from 'application/charity/charity/pages';
 
 function CharityVerificationTabTemplate({ charityVerificationTabViewStore }) {
     const {
-        loaderStore
+        loaderStore,
+        plaidVerification,
+        plaidSuccessful,
+        plaidUnsuccessful,
+        manuallyVerify,
+        manualSuccessful,
+        changeToManually,
+        changeToPlaidSucessful,
+        changeToPlaidUnsucessful,
+        changeToPlaid,
+        changeToManuallySucessful
     } = charityVerificationTabViewStore;
 
     return (
         <Content loading={loaderStore.loading} >
-            <div className="tabs__verify__body">
-                <TabLayout store={charityVerificationTabViewStore}>
+            <div>
+                <div>
+                    { plaidVerification &&
                     <div label={'CHARITY_VERIFICATION.TAB.PLAID'}>
-                    <div className="row row--form u-mar--top--med">
-                        <div className='col col-sml-12 col-lrg-3'></div>
-                            <CharityPlaid
-                                entityType={"charity"}
-                                bankAccount={null}
-                            />
+                        <div className="card--primary card--plaid">
+                            <div className="card--plaid__container">
+                                <i class="u-icon u-icon--verification u-icon--verification-welcome"></i>
+
+                                <h2 className="card--plaid__title">Welcome aboard!</h2>
+                                <p className="card--plaid__subtitle">There's one final step before getting you started.</p>
+                                <p className="card--plaid__text">We need to verify your connection to this organization.</p>
+
+                                <CharityPlaid
+                                    entityType={"charity"}
+                                    bankAccount={null}
+                                    changeToPlaidSucessful={changeToPlaidSucessful}
+                                    changeToPlaidUnsucessful={changeToPlaidUnsucessful}
+                                />
+
+                                <p className="card--plaid__text">Verify your connection to this organization electronically by securely logging in to the organizations bank account. Alternatively, you can also <a href="#" onClick={changeToManually}>verify manually</a>.</p>
+                            </div>
                         </div>
                     </div>
-                    <div label={'CHARITY_VERIFICATION.TAB.BANK_ACCOUNT'}>
-                        <CharityBankAccountList />
+                    }
+                    { plaidSuccessful &&
+                    <div>
+                        <PlaidSuccessfulVerificaton />
                     </div>
-                    <div label={'CHARITY_VERIFICATION.TAB.DOCUMENT'}>
-                        <CharityFileVerification />
+                    }
+                    { plaidUnsuccessful && 
+                    <div>
+                        <PlaidUnsuccessfulVerificaton
+                            changeToPlaid={changeToPlaid}
+                            changeToManually={changeToManually}
+                        />
                     </div>
-                </TabLayout>
+                    }
+                    { manuallyVerify &&
+                    <div>
+                        <CharityFileVerification
+                            changeToManuallySucessful={changeToManuallySucessful}
+                        />
+                    </div>
+                    }
+                    { manualSuccessful &&
+                    <div>
+                        <ManuallySucessMessage />
+                    </div>
+                    }
+                </div>
             </div>
         </Content>
     );

@@ -3,27 +3,57 @@
 \*------------------------------------*/
 
 .info-card {
-	&--scale {
-		padding: calc($unit * 4) 0;
-		cursor: pointer;
-		transition: all 250ms ease-out;
+	margin-bottom: calc($unit * 1);
+	padding: calc($unit * 1.5) calc($unit * 2);
+	border: 1px solid $color-background;
+	border-radius: $radius-base;
 
-		&:hover {
-			padding: calc($unit * 4);
-			background-color: $white;
-			border-radius: $radius-base;
-			box-shadow: $shadow-card;
-		}
+	transition: all 250ms ease-in-out;
+	cursor: pointer;
+
+	&:hover {
+		/* padding: calc($unit * 4); */
+		background-color: $color-background;
+		border-radius: $radius-base;
+	}
+
+	/* &:last-of-type {
+		margin-bottom: calc($unit * 4);
+	} */
+
+	&__container {
+		display: flex;
+		gap: calc($unit * 2);
+	}
+
+	&__item {
+		flex-grow: 1;
+	}
+
+	&__label {
+		@mixin type-scale $type-small, 1;
+		font-weight: $type-weight-regular;
+		color: $bali-hai;
+	}
+
+	&__value {
+		font-weight: $type-weight-bold;
+		word-break: break-all;
 	}
 
 	&--footer {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+
 		width: 100%;
 		text-align: right;
 		margin-top: calc($unit * 3);
 
 		& .btn {
-			&:first-child {
-				margin-right: 12px;
+			&:last-child {
+				margin-left: 12px;
 			}
 		}
 
@@ -35,8 +65,8 @@
 			& .btn {
 				min-width: 48%;
 
-				&:first-child {
-					margin-right: 2%;
+				&:last-child {
+					margin-left: 2%;
 				}
 			}
 		}

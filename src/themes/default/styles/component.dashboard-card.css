@@ -18,6 +18,25 @@
 		height: 100%;
 		justify-content: space-between;
 		padding: calc($unit * 3);
+
+		@media (--screen-to-med) {
+			margin-bottom: calc($unit * 2);
+		}
+
+		&__footer {			
+			@media (--screen-from-med) {
+				display: flex;
+				gap: calc($unit * 2);
+			}
+
+			.btn {
+				&:first-child {
+					@media (--screen-to-med) {
+						margin-bottom: calc($unit * 2);
+					}
+				}
+			}
+		}
 	}
 	
 	/* @media (--screen-from-sml) {
@@ -249,7 +268,7 @@
 
 			&--info {
 				margin-bottom: calc($unit * 8);
-				color: $color-opaque;
+				color: $bali-hai;
 				@mixin type-scale $type-base, 1;
 				font-weight: $type-weight-regular;
 			}

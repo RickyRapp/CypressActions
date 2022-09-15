@@ -73,6 +73,7 @@ class CharityUploadLogoViewStore extends BaseEditViewStore{
                 this.form.$('coreMediaVaultEntryId').clear();
             }
         });
+        this.imageUploadStore.options.accept = '.jpg, .png, .jpeg, .gif';
     }
 
     @action.bound

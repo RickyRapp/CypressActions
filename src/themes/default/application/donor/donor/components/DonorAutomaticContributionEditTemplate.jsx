@@ -13,7 +13,7 @@ function DonorAutomaticContributionEditTemplate({ modalParams, t }) {
 
     return (
         <EditFormContent form={form} >
-            <h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{t('DONOR.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}</h3>
+            <h3 className="title--secondary u-mar--bottom--med">{t('DONOR.AUTOMATIC_CONTRIBUTION_SETTING.TITLE')}</h3>
             <div className="row">
                 <div className="form__group col col-sml-12 col-lrg-6 col-xxxlrg-4">
                     <BaasicFieldDropdown field={form.$('donorBankAccountId')} store={bankAccountDropdownStore} />

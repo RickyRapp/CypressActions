@@ -16,3 +16,4 @@ export { default as CharityQuestionnaireAnswersViewStore } from './CharityQuesti
 export { default as CharityPaymentOptionsViewStore } from './CharityPaymentOptionsViewStore'
 export { default as SelectCharityViewStore } from './SelectCharityViewStore'
 export { default as CharityInvalidBankAccountListViewStore } from './CharityInvalidBankAccountListViewStore'
+export { default as CharityVerificationDocumentListViewStore } from './CharityVerificationDocumentListViewStore'

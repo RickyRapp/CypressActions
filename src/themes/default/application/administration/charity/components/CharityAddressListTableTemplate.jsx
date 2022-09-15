@@ -30,18 +30,18 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
                 <h3 className="u-mar--bottom--sml">
                     {t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}
                     {maxAddressesEntered ?
-                        <span className="u-icon u-icon--lock u-icon--base u-mar--left--tny" />
+                        <span className="u-icon u-icon--add u-icon--base u-mar--left--tny" />
                         :
                         <BaasicButton
                             authorization={authorization ? authorization.create : null}
                             className="btn btn--icon"
-                            icon='u-icon u-icon--unlock u-icon--base u-mar--left--tny'
+                            icon='u-icon u-icon--add u-icon--base u-mar--left--tny'
                             label='ADDRESS.LIST.BUTTON.CREATE'
                             onlyIcon={true}
                             onClick={() => openAddressModal()}>
                         </BaasicButton>}
                 </h3>
-                <Content emptyRenderer={renderEmpty(routes)} >
+                <Content emptyRenderer={renderEmpty(routes)}>
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
