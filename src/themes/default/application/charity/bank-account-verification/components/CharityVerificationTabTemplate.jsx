@@ -41,7 +41,7 @@ function CharityVerificationTabTemplate({ charityVerificationTabViewStore }) {
                                     changeToPlaidUnsucessful={changeToPlaidUnsucessful}
                                 />
 
-                                <p className="card--plaid__text">Verify your connection to this organization electronically by securely logging in to the organizations bank account. Alternatively, you can also <a href="#" onClick={changeToManually}>verify mannualy</a>.</p>
+                                <p className="card--plaid__text">Verify your connection to this organization electronically by securely logging in to the organizations bank account. Alternatively, you can also <a href="#" onClick={changeToManually}>verify manually</a>.</p>
                             </div>
                         </div>
                     </div>
