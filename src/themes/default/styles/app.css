@@ -97,6 +97,7 @@
 @import "component.deposit.css";
 @import "component.dashboard.css";
 @import "component.note.css";
+@import "component.title.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)

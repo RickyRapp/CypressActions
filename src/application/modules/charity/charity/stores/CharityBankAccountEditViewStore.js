@@ -17,16 +17,15 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
             name: 'charity-bank-account',
             id: props.editId,
             actions: {
-                get: async () => {
-                    const data = await rootStore.application.charity.charityStore.getCharityBank(props.editId, { 
+                get: async (id) => {
+                    const data = await rootStore.application.charity.charityStore.getCharityBank(id || props.editId, { 
                         embed: 'accountHolder'
                      });
-                    
                     let isImage = false;
+                    this.charityMedia = null;
                     if(data.coreMediaVaultEntryId){
                         this.charityMedia = await rootStore.application.charity.charityStore.getCharityBankMedia(data.coreMediaVaultEntryId);
                         isImage = !(this.charityMedia.type === 'application/pdf') && !(this.charityMedia.type === 'application/octet-stream');
-
                         if(!isImage){
                             this.chariytBankFile = this.charityMedia;
                             const fileExtensions = (this.charityMedia.type === 'application/pdf') ? 'pdf' : 'csv';
@@ -34,15 +33,14 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                         }
                     }
                     
+                    this.isImage = isImage;
                     return {
                     id: data.id,
                     name: data.name,
                     accountNumber: data.accountNumber,
                     routingNumber: data.routingNumber,
                     coreMediaVaultEntryId: data.coreMediaVaultEntryId,
-                    isPrimary: data.accountHolder && data.isPrimary,
-                    charityMedia : this.charityMedia,
-                    isImage : isImage,
+                    isPrimary: data.isPrimary,
                     isVerifiedByPlaid : data.isVerifiedByPlaid,
                     isDisabled : data.isDisabled
                 };
@@ -54,11 +52,12 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     }
 
                     if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) { 
-                        const res = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, this.id);
+                        const res = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, resource.id);
                         resource.coreMediaVaultEntryId = res.id;
                     }
 
-                    await this.rootStore.application.charity.charityStore.updateBankAccount({ id: props.editId, charityId: this.charityId, ...resource });
+                    resource.charityId = this.charityId;
+                    await this.rootStore.application.charity.charityStore.updateBankAccount(resource);
 
                     if(!this.isVerified){
                         this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.bank-account-verification'));
@@ -115,9 +114,11 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.onCancelEditClick = props.onCancelEditClick;
         this.chariytBankFile;
         this.fileName;
-        this.charityMedia;
         this.isVerified = this.rootStore.userStore.applicationUser.permissions.verifiedAccountSection ? true : false;
         this.isNotVerifiedButHasBankAccount = !this.isVerified && this.bankAccountCount > 0;
+        this.propEditId = props.editId;
+        this.charityMedia = null;
+        this.isImage;
     }
 
     @action.bound
@@ -213,6 +214,15 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         } catch (err) {
             this.rootStore.notificationStore.error("Error", err);
         }
+    }
+
+    @action.bound
+    onChangeEditId(editId){
+        Promise.resolve(this.actions.get(editId)) 
+			.then((data) => {
+				this.form.clear();
+				this.form.update(data);
+			});
     }
 
 }

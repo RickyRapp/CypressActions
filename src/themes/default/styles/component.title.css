@@ -1,0 +1,17 @@
+/*------------------------------------*\
+    # component.title
+\*------------------------------------*/
+
+.title {
+    &--primary {}
+
+    &--secondary {
+        @mixin type-scale $type-base, 1;
+        font-weight: $type-weight-medium;
+        color: $bali-hai;
+
+		@media (--screen-from-med) {
+			@mixin type-scale $type-medium, 1;
+		}
+    }
+}

@@ -15,8 +15,8 @@ class CharityAddressEditForm extends Component {
 
 		return (
 			<EditFormContent form={form}>
-				<div className={className ? className : "card--med card--primary u-mar--bottom--sml"}>
-					<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
+				<div className={className ? className : "u-mar--bottom--sml"}>
+					<h3 className="title--secondary u-mar--bottom--med">{title}</h3>
 					<div className="row row--form">
 						<div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-4">
 							<BasicInput field={form.$('addressLine1')} />
