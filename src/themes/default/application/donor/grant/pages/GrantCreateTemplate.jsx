@@ -68,11 +68,29 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 		isMicroGiving,
 	} = grantCreateViewStore;
 
+	let giftAmountValue = 0;
+	let accumulatedAmount = 0;
+	if (form.$('amount').value) {
+		giftAmountValue = <FormatterResolver
+			item={{ amount: form.$('amount').value }}
+			field="amount"
+			format={{ type: 'currency' }}
+		/>
+	}
+
+	if (form.$('amount').value && form.$('numberOfPayments').value) {
+		accumulatedAmount = <FormatterResolver
+			item={{ amount: form.$('amount').value * form.$('numberOfPayments').value }}
+			field="amount"
+			format={{ type: 'currency' }}
+		/>
+	}
 
 	let promiseOptions = inputValue =>
 		new Promise(resolve => {
 			inputValue.length >= 3 ? debouncedSearchCharities(inputValue, resolve) : resolve(null);
 		});
+
 	return (
 		<React.Fragment>
 			<EditFormLayout loading={false} store={grantCreateViewStore} layoutFooterVisible={false}>
@@ -323,9 +341,17 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 												<div className="card--form card--med u-mar--bottom--lrg">
 													<div className="row row--form">
 														<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+															<p className="form__group__label">
+																Starting day of payment
+																<span className="type--color--note u-mar--left--tny">*</span>
+															</p>
 															<DatePickerField field={form.$('recurringDate')} showLabel={false} />
 														</div>
 														<div className="form__group col col-sml-12 col-lrg-6 u-mar--bottom--sml">
+															<p className="form__group__label">
+																Recurring Option
+																<span className="type--color--note u-mar--left--tny">*</span>
+															</p>
 															<BaasicFieldDropdown
 																field={form.$('grantScheduleTypeId')}
 																store={grantScheduleTypeDropdownStore}
@@ -341,33 +367,24 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 															<BaasicFieldToggle field={form.$('noEndDate')} showLabel={true} />
 														</div>
 													</div>
-													{form.$('amount').value &&
-														form.$('noEndDate').value === false &&
-														(form.$('numberOfPayments').value || form.$('endDate').value) && (
+													{giftAmountValue && form.$('noEndDate').value === false && form.$('numberOfPayments').value ? (
+														<div className="card--tny card--form--secondary type--sml">
+															<span>
+																Your Gift amount of <span className="type--wgt--bold">{giftAmountValue}</span> will be repeated <span className="type--wgt--bold">{form.$('numberOfPayments').value}</span> times, resulting in accumulated amount of <span className="type--wgt--bold">{accumulatedAmount}</span>
+															</span>
+														</div>
+													)
+														:
+														form.$('noEndDate').value === true && grantScheduleTypeDropdownStore.value !== null ? (
 															<div className="card--tny card--form--secondary type--sml">
-																<span>Your Gift amount of <span className="type--wgt--bold">
-																	<FormatterResolver
-																		item={{ amount: form.$('amount').value }}
-																		field="amount"
-																		format={{ type: 'currency' }}
-																	/></span>
-																</span>
-																<span>
-																	{" "}will be repeated <span className="type--wgt--bold">{form.$('numberOfPayments').value}</span> times,
-																</span>
-																<span> resulting in accumulated amount of {" "}
-																	{form.$('numberOfPayments').value &&
-																		<span className="type--wgt--bold">
-																			<FormatterResolver
-																				item={{ amount: form.$('amount').value * form.$('numberOfPayments').value }}
-																				field="amount"
-																				format={{ type: 'currency' }}
-																			/>
-																		</span>
-																	}
-																</span>
+																Your Gift amount of <span className="type--wgt--bold">{giftAmountValue}</span> will be recurring <span className="type--wgt--bold">{grantScheduleTypeDropdownStore.value.description}</span> until canceled in Scheduled grants page
 															</div>
-														)}
+														) : form.$('noEndDate').value === true ? (
+															<div className="card--tny card--form--secondary type--sml">
+																Select recurring option
+															</div>
+														) : null
+													}
 												</div>
 											)}
 											<div className="row row--form">
