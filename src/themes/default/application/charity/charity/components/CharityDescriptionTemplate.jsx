@@ -23,12 +23,12 @@ const CharityDescriptionTemplate = function ({ t, charityDescriptionViewStore })
 						</div>
 
 						<div className="info-card--footer">
-							<BaasicButton
+							{/* <BaasicButton
 								type="button"
 								className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
 								onClick={onEnableEditClick}
 								label="Cancel"
-							/>
+							/> */}
 							<BaasicFormControls form={form} onSubmit={form.onSubmit} />
 						</div>
 					</React.Fragment>

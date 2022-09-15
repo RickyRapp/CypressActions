@@ -118,7 +118,7 @@
 		@media (--screen-to-med) {
 			height: calc($unit * 8);
 			line-height: calc($unit * 8);
-			padding: 0 calc($unit * 4);
+			padding: 0 calc($unit * 3);
 			@mixin type-scale $type-small, 1;
 		}
 	}
@@ -183,6 +183,8 @@
 		color: $color-text;
 		background-color: $color-background;
 		border-radius: calc($unit * 4);
+
+		box-shadow: $shadow-card;
 
 		@mixin type-scale $type-base, 1;
 
@@ -258,6 +260,47 @@
 
 			&:hover {
 				text-decoration: underline;
+			}
+		}
+	}
+
+	&--plaid {
+		button {
+			display: inline-flex;
+			justify-content: center;
+			
+			height: calc($unit * 8) !important;
+			padding: 0 calc($unit * 3) !important;
+			
+			font-size: 15px !important;
+			line-height: calc($unit * 8);
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+			color: $white;
+			
+			border-radius: $radius-base !important;
+			border: 0 !important;
+			background: $color-text !important;
+
+			transition: all 250ms ease-in-out;
+
+			cursor: pointer;
+
+			&:hover {
+				color: color($white a(80%));
+				background: color($color-text a(80%));
+			}
+		}
+
+		&--outline {
+			button {
+				background-color: transparent !important;
+				color: $color-primary;
+				border: 1px solid $color-primary !important;
+		
+				&:hover {
+					color: color($color-primary blackness(+10%));
+				}
 			}
 		}
 	}

@@ -36,6 +36,7 @@ class CharityBankAccountListViewStore extends BaseViewStore {
 
     @action.bound
     onEnableEditClick(bankAccount) {
+        this.editId = null;
         if (bankAccount) {
             this.editId = bankAccount.id;
         }

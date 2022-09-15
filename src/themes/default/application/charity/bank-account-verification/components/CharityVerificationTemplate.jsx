@@ -21,9 +21,7 @@ const CharityVerificationTemplate = function ({charityVerificationViewStore}) {
 					onClick={charityLogout}
 				/>
 			</div>
-			<div className="card--med card--primary ">
-				<CharityVerificationTab />
-			</div>
+			<CharityVerificationTab />
 		</div>
 	);
 };

@@ -88,6 +88,10 @@ class CharityRouteService extends BaseRouteService {
     verifyCharityUserAccount(id){
         return super.update(this.base + '/verify-user-account/{id}', {id: id});
     }
+
+    getCharityVerificationDocuments(id){
+        return super.get(this.base + '/user-verification-documents/{id}', id);
+    }
 }
 
 export default CharityRouteService;

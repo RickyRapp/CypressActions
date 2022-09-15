@@ -25,22 +25,16 @@ const CharityUploadPhotoTemplate = function ({ t, charityUploadPhotoViewStore })
                     {t('CHARITY.UPLOAD_PHOTO.TITLE')}
                 </h3>
                 <div>
-                    <div className="row row--form">
-                        <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
-                        <div className="col col-sml-12 col-lrg-4">
-                            {
-                                item ? (<img alt="" src={URL.createObjectURL(item)} />) : null
-                            }
-                        </div>
-                    </div>
+                    <BaasicDropzone store={imageUploadStore} disabled={!isNullOrWhiteSpacesOrUndefinedOrEmpty(form.$('coreMediaVaultEntryId').value)} />
+                    {item ? (<img alt="" src={URL.createObjectURL(item)} />) : null}
 
                     <div className="info-card--footer">
-                        <BaasicButton
+                        {/* <BaasicButton
                             type="button"
                             className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
                             onClick={onEnableEditClick}
                             label="Cancel"
-                        />
+                        /> */}
                         <BaasicFormControls form={form} onSubmit={form.onSubmit} />
                     </div>
                 </div>

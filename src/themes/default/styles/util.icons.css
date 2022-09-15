@@ -870,5 +870,35 @@
 				height: 222px;
 			}
 		}
+
+		&--verification {
+			width: calc($unit * 34);
+			height: calc($unit * 34);
+			background-size: calc($unit * 34);
+
+			&-pin {
+				background-image: svg-load('../styles/postcss-svg/verification-pin.svg');
+			}
+
+			&-welcome {
+				background-image: svg-load('../styles/postcss-svg/verification-welcome.svg');
+			}
+
+			&-match {
+				background-image: svg-load('../styles/postcss-svg/verification-match.svg');
+			}
+
+			&-error {
+				background-image: svg-load('../styles/postcss-svg/verification-error.svg');
+			}
+
+			&-manual {
+				background-image: svg-load('../styles/postcss-svg/verification-manual.svg');
+			}
+
+			&-received {
+				background-image: svg-load('../styles/postcss-svg/verification-received.svg');
+			}
+		}
 	}
 }

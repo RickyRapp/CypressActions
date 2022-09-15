@@ -25,41 +25,34 @@ const CharityBankAccountListTemplate = function ({ charityBankAccountListViewSto
 					return (
 						<div key={c.id}>
 							<div
-								className="card--med"
+								className="info-card"
 								title="Click to edit"
 								onClick={() => onEnableEditClick(c)}
 							>
-								<div className="row info-card--scale">
-									<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Routing Number:</p>
-										<p className="type--base type--wgt--bold">{c.routingNumber}</p>
+								<div className="row">
+									<div className="col col-sml-6 col-xxlrg-2">
+										<p className="info-card__label">Routing Number:</p>
+										<p className="info-card__value">{c.routingNumber}</p>
 									</div>
 
-									<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">Name:</p>
-										<p className="type--base type--wgt--bold">{c.name}</p>
+									<div className="col col-sml-6 col-xxlrg-4">
+										<p className="info-card__label">Name:</p>
+										<p className="info-card__value">{c.name}</p>
 									</div>
 
-									<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+									<div className="col col-sml-6 col-xxlrg-2">
+										<p className="info-card__label">
 											Account Number:
 										</p>
-										<p className="type--base type--wgt--bold">{c.accountNumber}</p>
-									</div>
-
-									<div className="col col-sml-6 col-xxlrg-4 u-mar--bottom--med">
-										<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
-											Description:
-										</p>
-										<p className="type--base type--wgt--bold">{c.description}</p>
+										<p className="info-card__value">{c.accountNumber}</p>
 									</div>
 
 									{bankAccounts.length > 0 ?
-										<div className="col col-sml-6 col-xxlrg-4">
-											<p className="type--sml type--wgt--regular type--color--opaque u-mar--bottom--sml">
+										<div className="col col-sml-6 col-xxlrg-1">
+											<p className="info-card__label">
 												Primary
 											</p>
-											<p className="type--base type--wgt--bold">{c.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ''}</p>
+											<p className="info-card__value">{c.isPrimary ? <i className="u-icon u-icon--approve u-icon--base"></i> : ''}</p>
 										</div> : null}
 
 								</div>
@@ -67,7 +60,7 @@ const CharityBankAccountListTemplate = function ({ charityBankAccountListViewSto
 						</div>
 					);
 				})}
-			<div className="">
+			<div className='u-mar--top--med'>
 				{isEditEnabled ? (<div>
 					<CharityBankAccountEdit
 						editId={editId}
@@ -80,8 +73,10 @@ const CharityBankAccountListTemplate = function ({ charityBankAccountListViewSto
 				</div>
 
 				) : (
-					<div className="cursor--pointer type--right" title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
-						<button className="btn btn--link btn--sml">Add new bank account</button>
+					<div className="type--right">
+						<button className="btn btn--med btn--med--wide btn--secondary " title={'Click to insert'} onClick={() => onEnableEditClick(null)}>
+							Connect your bank
+						</button>
 					</div>
 				)}
 			</div>

@@ -4,7 +4,7 @@
 
 .k-upload {
     width: 100%;
-    height: 100px;
+    height: 150px;
     margin: 0;
 
     background-color: #ffffff;
@@ -30,7 +30,7 @@
         position: relative;
         display: inline-block;
 
-        height: calc($unit * 4);
+        height: calc($unit * 5);
         padding: 0 calc($unit * 1.5);
         padding-left: calc($unit * 5.5);
         margin: 0;
@@ -88,6 +88,75 @@
 
     .k-upload-status {
         display: none !important;
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc($unit * 3);
+        margin-top: calc($unit * 3);
+
+        &__item {
+            position: relative;
+            flex: 0 1 calc(50% - 12px);
+            margin-top: calc($unit * 2);
+
+            @media (--screen-from-med) {
+                flex: 0 1 30%;
+            }
+
+            &__label {
+                margin-top: calc($unit * 1);
+                @mixin type-scale $type-xsmall, 0.75;
+                text-align: center;
+            }
+
+            &__close {
+                position: absolute;
+                top: -9px;
+                right: -15px;
+
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                width: calc($unit * 4);
+                height: calc($unit * 4) !important;
+
+                border: 1px solid $color-text;
+                border-radius: $radius-full;
+                background-color: $white;
+
+                @media (--screen-from-med) {
+                    width: calc($unit * 3);
+                    height: calc($unit * 3) !important;
+                }
+
+                &:hover {
+                    border: 1px solid $color-primary;
+
+                    .u-icon {
+                        background-image: svg-load('../styles/postcss-svg/close.svg', fill: $color-primary);
+                    }
+                }
+
+                .u-icon {
+                    width: 12px;
+                    height: 12px;
+                    margin-bottom: 0;
+
+                    transition: all 250ms ease-in-out;
+
+                    background-image: svg-load('../styles/postcss-svg/close.svg', fill: $color-text);
+                    background-size: 12px;
+
+                    @media (--screen-from-med) {
+                        width: 8px;
+                        height: 8px;
+                        background-size: 8px;
+                    }
+                }
+            }
+        }
     }
 
     &__item {

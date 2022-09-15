@@ -11,7 +11,6 @@ import {
 	BasicFieldCheckbox,
 } from 'core/components';
 import { defaultTemplate } from 'core/hoc';
-import { isNullOrWhiteSpacesOrUndefinedOrEmpty } from 'core/utils';
 
 const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t }) {
 	const {
@@ -102,33 +101,6 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 
 				<div className="row row--form">
 					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('accountHolderName')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('addressLine1')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('addressLine2')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('city')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('state')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('zipCode')} />
-					</div>
-				</div>
-
-				<div className="row row--form">
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<BasicInput field={form.$('email')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
-						<NumberFormatInputField field={form.$('number')} />
-					</div>
-					<div className="form__group col col-sml-12 col-lrg-4">
 						<div className="u-display--flex">
 							<div>
 								<span>
@@ -145,7 +117,7 @@ const CharityBankAccountEditTemplate = function({ charityBankAccountViewStore, t
 						</div>
 					</div>
 				</div>
-				<div className="row row__align--end">
+				<div>
 					<BaasicDropzone store={imageUploadStore} />
 					{item
 						? item.charityMedia &&

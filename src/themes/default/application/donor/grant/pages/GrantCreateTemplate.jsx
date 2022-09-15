@@ -462,7 +462,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 												<div className="card--secondary card--med ">
 													<div className="row row--form">
 														<div className="col col-sml-12 col-lrg-6">
-															<h4 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">
+															<h4 className="title--secondary u-mar--bottom--med">
 																{t('GRANT.CREATE.PROFILE_INFO')}
 															</h4>
 														</div>
@@ -536,7 +536,7 @@ const GrantCreateTemplate = function({ grantCreateViewStore, t }) {
 												<div className="card--secondary card--med ">
 													<div className="row row--form">
 														<div className="col col-sml-12 col-lrg-6">
-															<h4 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">
+															<h4 className="title--secondary u-mar--bottom--med">
 																{t('GRANT.CREATE.PROFILE_INFO')}
 															</h4>
 														</div>

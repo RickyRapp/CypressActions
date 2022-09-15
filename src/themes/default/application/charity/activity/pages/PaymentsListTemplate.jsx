@@ -64,26 +64,25 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
     return (
         <Content>
                 <div className="card--tertiary card--med u-mar--bottom--sml">
-                    <div className="row u-mar--bottom--med">
-                        <div className="col col-sml-12 col-xxlrg-10">
-                            <TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility}>
-                                <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                    <BaasicDropdown
-                                        store={paymentTypeDropdownStore}
-                                        placeholder="RECONCILE.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
-                                    />
-                                </div>
-                            </TableFilter>
+                    <TableFilter colClassName={"u-mar--bottom--sml"} queryUtility={queryUtility}>
+                        <div className="col col-sml-12 col-med-8 u-mar--bottom--sml">
+                            <BaasicDropdown
+                                store={paymentTypeDropdownStore}
+                                placeholder="RECONCILE.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
+                            />
                         </div>
+                    </TableFilter>
+
+                    <div className="table--tertiary">
+                        <BaasicTableWithRowDetails 
+                            authorization={authorization} 
+                            tableStore={tableStore}
+                            detailComponent={DetailComponent}
+                            loading={tableStore.loading}
+                        />
                     </div>
-                    <BaasicTableWithRowDetails 
-                        authorization={authorization} 
-                        tableStore={tableStore}
-                        detailComponent={DetailComponent}
-                        loading={tableStore.loading}
-                    />
                 </div>
-    </Content>
+        </Content>
     )
 };
 

@@ -13,15 +13,17 @@ const DepositGeneralInformationTemplate = ({ item, t }) => {
 					value={item && item.donor && item.donor.name}
 				/>
 				<CardItem
+                    label={t('CONTRIBUTION.DETAILS.CONFRIMATION_NUMBER')}
+                    value={item && item.confirmationNumber} />
+				<CardItem
 					label={t('CONTRIBUTION.DETAILS.PAYER_NAME')}
 					value={item && (item.bankAccount && item.bankAccount.isThirdPartyAccount && item.bankAccount.accountHolder
 						? item.bankAccount.accountHolder.name : item.thirdPartyDonorAdvisedFundId && item.thirdPartyDonorAdvisedFundId != ""
 							? (this.thirdPartyFunds.find(c => c.id == item.thirdPartyDonorAdvisedFundId)).name : item.payerInformation.name)}
 				/>
 				<CardItem
-					label={t('CONTRIBUTION.DETAILS.PAYER_NAME')}
-					value={item && (item.donor ? item.donor.name : item.payerInformation.name)}
-				/>
+                    label={t('CONTRIBUTION.DETAILS.STATUS')}
+                    value={item && item.contributionStatus.name} />
 			</div>
 		</div>
 	);

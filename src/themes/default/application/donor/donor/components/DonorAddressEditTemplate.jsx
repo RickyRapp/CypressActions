@@ -10,7 +10,7 @@ class DonorEmailAddressEditFormTemplate extends Component {
 		return (
 			<EditFormContent form={form}>
 				<div className="u-mar--bottom--med">
-					<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
+					<h3 className="title--secondary u-mar--bottom--med">{title}</h3>
 					<div className="row row--form">
 						<div className="form__group col col-sml-12 col-lrg-4">
 							<BasicInput field={form.$('addressLine1')} />
