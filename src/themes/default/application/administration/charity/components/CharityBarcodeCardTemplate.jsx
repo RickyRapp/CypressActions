@@ -10,7 +10,7 @@ const CharityBarcodeCardTemplate = ({ charityGeneralDataViewStore, t }) => {
 
 	return (
 		<div className="c-charity__wrapper">
-			<div className="c-charity__barcode-card">
+			<div className="card--secondary--light card--med c-charity__account__wrapper u-mar--bottom--sml">
 				<div>
 					<div className="u-mar--bottom--sml">
 						<p className="type--sml">{t('CHARITY.EDIT.FIELDS.CHARITY_ACCOUNT_NUMBER')} </p>

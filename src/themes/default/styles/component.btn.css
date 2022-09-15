@@ -314,10 +314,6 @@
 			padding: 0 calc($unit * 2);
 		}
 
-		.u-icon {
-			border-radius: $radius-base;
-		}
-
 		/* Sizes */
 		&--sml {
 			padding: calc($unit * 3 - 1px) calc($unit * 3 - 1px);

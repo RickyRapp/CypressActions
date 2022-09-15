@@ -9,6 +9,12 @@
     }
 
 	&__account {
+        &__wrapper {
+            display: flex;
+            justify-content: space-between;
+            gap: calc($unit * 2);
+        }
+
 		&__info {
             @media (--screen-to-med) {
                 margin-bottom: calc($unit * 2);
