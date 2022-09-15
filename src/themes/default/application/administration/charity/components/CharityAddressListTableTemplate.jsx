@@ -41,7 +41,7 @@ const CharityAddressListTableTemplate = function ({ charityAddressViewStore, t }
                             onClick={() => openAddressModal()}>
                         </BaasicButton>}
                 </h3>
-                <Content emptyRenderer={renderEmpty(routes)} >
+                <Content emptyRenderer={renderEmpty(routes)}>
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
