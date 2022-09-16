@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, reaction } from 'mobx';
 import { BaasicUploadStore, BaseEditViewStore } from 'core/stores';
 import { applicationContext, isSome } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/charity/charity/forms';
@@ -11,6 +11,9 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
     @observable image = null;
     @observable fileError;
     @observable invalidForm = false;
+    @observable bankAccountId = null;
+    @observable charityMedia = null;
+    @observable isImage = false;
 
     constructor(rootStore, props) {
         super(rootStore, {
@@ -42,7 +45,9 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     coreMediaVaultEntryId: data.coreMediaVaultEntryId,
                     isPrimary: data.isPrimary,
                     isVerifiedByPlaid : data.isVerifiedByPlaid,
-                    isDisabled : data.isDisabled
+                    isDisabled : data.isDisabled,
+                    charityMedia : this.charityMedia,
+                    isImage : this.isImage
                 };
             },    
                 update: async (resource) => {
@@ -116,9 +121,9 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.fileName;
         this.isVerified = this.rootStore.userStore.applicationUser.permissions.verifiedAccountSection ? true : false;
         this.isNotVerifiedButHasBankAccount = !this.isVerified && this.bankAccountCount > 0;
-        this.propEditId = props.editId;
-        this.charityMedia = null;
-        this.isImage;
+        this.react(() => this.bankAccountId, () => {
+            this.onChangeEditId(this.bankAccountId);
+        });
     }
 
     @action.bound
@@ -222,7 +227,14 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
 			.then((data) => {
 				this.form.clear();
 				this.form.update(data);
+                this.charityMedia = data.charityMedia;
+                this.isImage = data.isImage;
 			});
+    }
+
+    @action.bound
+    changeBankAccountId(editId){
+        this.bankAccountId = editId;
     }
 
 }

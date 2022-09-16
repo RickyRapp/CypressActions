@@ -25,11 +25,12 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 		fileError,
 		onChangeEditId,
 		charityMedia,
-		isImage
+		isImage,
+		changeBankAccountId
 	} = charityBankAccountEditViewStore;
 
-	item && onChangeEditId(editId);
-	
+	changeBankAccountId(editId);
+
 	return (
 		<EditFormContent form={form} formClassName={" "}>
 			

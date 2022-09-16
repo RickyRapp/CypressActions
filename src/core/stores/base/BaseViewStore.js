@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { action, observe } from 'mobx';
+import { action, observe, reaction } from 'mobx';
 import { LoaderStore } from 'core/stores';
 
 class BaseViewStore {
@@ -7,6 +7,7 @@ class BaseViewStore {
     observeDisposers = [];
     eventDisposers = [];
     loaderStore = this.createLoaderStore();
+    reactDisposers = [];
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -42,6 +43,13 @@ class BaseViewStore {
     destroy() {
         _.each(this.observeDisposers, disposer => disposer());
         _.each(this.eventDisposers, disposer => disposer());
+        _.each(this.reactDisposers, disposer => _.isFunction(disposer) && disposer());
+    }
+
+    react(target, listener, options = {}) {
+        const disposer = reaction(target, listener, options);
+        this.reactDisposers.push(disposer);
+        return disposer;
     }
 }
 
