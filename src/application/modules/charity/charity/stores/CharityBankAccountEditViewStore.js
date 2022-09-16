@@ -49,8 +49,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     isVerifiedByPlaid : data.isVerifiedByPlaid
                 };
             },    
-                update: async (resource) => {
-
+                update: async (resource) => {                    
                     if(!resource.charityMedia){
                         resource.charityMedia = this.charityMedia;
                     }
@@ -85,8 +84,10 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                         response = await this.rootStore.application.charity.charityStore.createBankAccount({ charityId: this.charityId, ...resource });
                         if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
                             const media = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, response);
-                            resource.coreMediaVaultEntryId = media.id; 
-                            await this.rootStore.application.charity.charityStore.updateBankAccount({ id: response, charityId: this.charityId, ...resource });
+                            resource.coreMediaVaultEntryId = media.id;
+                            resource.id = response;
+                            resource.charityId = this.charityId;
+                            await this.rootStore.application.charity.charityStore.updateBankAccount(resource);
                         }
 
                     } catch (error) {

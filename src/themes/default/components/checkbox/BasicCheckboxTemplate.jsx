@@ -4,7 +4,7 @@ import { defaultTemplate } from 'core/hoc';
 
 const className = suffix => (suffix ? `${suffix}` : '');
 const BasicCheckboxTemplate = function ({ id, label, checked, onChange, t, showLabel=false, disabled, classSuffix = null }) {
-    console.log(label, "BASIC CHECK BOX", showLabel)
+
     return (
         <React.Fragment>
             <span className='u-display--if'>
