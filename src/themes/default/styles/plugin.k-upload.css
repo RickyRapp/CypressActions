@@ -185,6 +185,13 @@
             }
         }
     }
+
+    &__image {
+        &--original {
+            width: auto;
+            height: 102px;
+        }
+    }
 }
 
 .k-listview {

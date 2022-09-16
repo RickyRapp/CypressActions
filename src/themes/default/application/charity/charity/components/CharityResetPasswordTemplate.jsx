@@ -39,7 +39,7 @@ const CharityResetPasswordTemplate = function ({ t, charityResetPasswordViewStor
 
                 <div className="type--right">
                     <BaasicButton
-                        className="btn btn--med btn--primary display--ib u-mar--right--sml"
+                        className="btn btn--med btn--med--wide btn--secondary"
                         type="submit"
                         label={t('PASSWORD_RECOVERY.RESET_BUTTON')}
                         disabled={form.submitting || form.validating}
