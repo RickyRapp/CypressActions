@@ -1823,7 +1823,7 @@
         "CONFIRM" : {
             "TITLE" : "Confirm Details",
             "GRANT_ACKNOWLEDGMENT_NAME" : "Grant Acknowledgment Name",
-            "RECEPIENT_CHARITY" : "Recepient Charity",
+            "RECEPIENT_CHARITY" : "Recipient Charity",
             "GIVEN_AMOUNT" : "Given Amount",
             "GIVE_GRANT" : "Give Grant",
             "RECURRING" : "Recurring Grant?",
@@ -1990,7 +1990,7 @@
             "CONFIRM": {
                 "TITLE": "Confirm details",
                 "ACKNOWLEDGEMENT_NAME": "Grant acknowledgment name",
-                "RECEPIENT_CHARITY": "Recepient charity",
+                "RECEPIENT_CHARITY": "Recipient charity",
                 "AMOUNT": "Given amount",
                 "CONFIRM_DETAILS": "Confirm details"
             }
@@ -2620,7 +2620,7 @@
                 "TOTAL": "Total",
                 "FINISH_MESSAGE1": "To complete the session please click the finish button and hand the certificates to the cashier desk. ",
                 "FINISH_MESSAGE2": "Please make a note of your session number as this can be used for more information should you wish to contact us. ",
-                "FINISH_MESSAGE3": "That You for using The Donors Fund. ",
+                "FINISH_MESSAGE3": "Thank You for using The Donors Fund. ",
                 "AUTOCLOSE_MESSAGE": "This page will close in "
             },
             "FIELDS": {
