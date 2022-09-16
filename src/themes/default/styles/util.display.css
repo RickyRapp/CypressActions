@@ -22,6 +22,10 @@
 			}
 		}
 
+		&--if {
+			display: inline-flex;
+		}
+
 		&--flex {
 			display: flex;
 
