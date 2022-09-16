@@ -55,12 +55,16 @@ class DashboardViewStore extends BaseViewStore {
 
             const totalValue = response.item.reduce((acc, item) => acc = acc + item.value, 0);
 
+            if(!this.yearDropdownStore.value.code){
+                this.yearDropdownStore.value.code = 'categoriesYearToDate';
+            }
+
             this.dataGrants = {
                 item: response.item,
                 type: this.yearDropdownStore.value.code,
                 totalValue
             }
-
+            
         } catch (err) {
             console.log(err);
         }
