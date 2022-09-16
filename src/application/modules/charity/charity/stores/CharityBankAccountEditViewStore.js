@@ -35,7 +35,6 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                             this.fileName = `${data.name}-${data.routingNumber}.${fileExtensions}`;
                         }
                     }
-                    
                     this.isImage = isImage;
                     return {
                     id: data.id,
@@ -44,10 +43,10 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     routingNumber: data.routingNumber,
                     coreMediaVaultEntryId: data.coreMediaVaultEntryId,
                     isPrimary: data.isPrimary,
-                    isVerifiedByPlaid : data.isVerifiedByPlaid,
                     isDisabled : data.isDisabled,
                     charityMedia : this.charityMedia,
-                    isImage : this.isImage
+                    isImage : this.isImage,
+                    isVerifiedByPlaid : data.isVerifiedByPlaid
                 };
             },    
                 update: async (resource) => {
@@ -227,8 +226,7 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
 			.then((data) => {
 				this.form.clear();
 				this.form.update(data);
-                this.charityMedia = data.charityMedia;
-                this.isImage = data.isImage;
+                this.setItem(data);
 			});
     }
 

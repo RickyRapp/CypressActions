@@ -23,7 +23,6 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 		onCancelEditClick,
 		exportFile,
 		fileError,
-		onChangeEditId,
 		charityMedia,
 		isImage,
 		changeBankAccountId
@@ -52,7 +51,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('routingNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
+						<NumberFormatInputField field={form.$('routingNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('name')} />
