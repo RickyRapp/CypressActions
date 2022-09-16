@@ -108,7 +108,7 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 		});
 		this.bankAccountCount = props.bankAccountCount;
 		this.donorId = rootStore.userStore.applicationUser.id;
-		this.onCancelEditClick = props.onCancelEditClick;
+		this.onCancelEditClick = props.modalParams ? props.modalParams.close : props.onCancelEditClick;
 		this.createImageUploadStore();
 		this.react(() => this.bankAccountId, () => {
             this.onChangeEditId(this.bankAccountId);
