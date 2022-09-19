@@ -23,7 +23,7 @@ class CharityVerificationTabViewStore extends BaseTabViewStore {
     }
 
     @action.bound
-    async changeToManually(){
+    changeToManually(){
         this.manuallyVerify = true;
         this.plaidUnsuccessful = this.plaidSuccessful = this.manualSuccessful = this.plaidVerification = false;
     }
