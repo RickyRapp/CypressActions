@@ -137,6 +137,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.createConfirmModalParams();
 		this.checkMicroGiving();
 		this.advancedSearchModal = new ModalParams({});
+		this.enableMicroGiveModal = new ModalParams({});
 	}
 
 	
@@ -448,6 +449,11 @@ class GrantCreateViewStore extends BaseEditViewStore {
 	@action.bound
 	openAdvancedSearchModal() {
 		this.advancedSearchModal.open();
+	}
+
+	@action.bound
+	openEnableMicroGiveModal() {
+		this.enableMicroGiveModal.open();
 	}
 
 	@action.bound

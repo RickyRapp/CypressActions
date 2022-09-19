@@ -64,7 +64,7 @@ class DashboardTemplate extends Component {
 		if (dataGrants.type === "categoriesYearToDate" && dataGrants.item.length > 0) {
 			categories = categories.slice(0, categories.indexOf(dataGrants.item.slice(-1)[0].name) + 1);
 		}
-
+		
 		const checkWeek = () => {
 			const todayDate = new Date();
 			let dayOfWeek = todayDate.getDay();
@@ -84,7 +84,7 @@ class DashboardTemplate extends Component {
 				}
 			}
 		}
-
+		
 		if (dataGrants.type === "categoriesDays" && dataGrants.item.length > 0) {
 			dataGrants.item.forEach(item => item.name = this.categories.categoriesDays[Number(item.name)-1]);
 			checkWeek();
@@ -94,7 +94,7 @@ class DashboardTemplate extends Component {
 			const item = dataGrants.item.find(grant => cat.includes(grant.name));
 			return (item && item.value) ? item.value : 0
 		});
-
+		
 		const LineChartContainer = () => (
 			<Chart style={{ height: 260 }}>
 				<ChartCategoryAxis>

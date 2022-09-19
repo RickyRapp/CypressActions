@@ -22,6 +22,7 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
         this.createImageUploadStore();
         this.charityMedia;
         this.charityId = this.rootStore.userStore.applicationUser.id;
+        this.charityName = this.rootStore.userStore.applicationUser.charity.name;
         this.props = props;
     }
     
@@ -36,7 +37,11 @@ class CharityFileVerificationViewStore extends BaseEditViewStore {
     }
 
     createImageUploadStore() {
-        this.imageUploadStore = new BaasicUploadStore;
+       this.imageUploadStore = new BaasicUploadStore(null, {
+            onDelete: () => {
+                this.form.$('coreMediaVaultEntryId').clear();
+            }
+        });
         this.imageUploadStore.options.multiple = true;
     }
 

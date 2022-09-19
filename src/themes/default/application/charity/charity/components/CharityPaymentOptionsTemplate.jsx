@@ -26,30 +26,38 @@ const CharityPaymentOptionsTemplate = function ({ t, charityPaymentOptionsViewSt
             >
                 <h3 className="list--preferences__title">{t('CHARITY.PAYMENT_OPTIONS.TITLE')}</h3>
 
-                <div className="row u-mar--bottom--med">
-                    <div className="col col-sml-12 col-lrg-10">{t('CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY')}</div>
-                    <div className="col col-sml-12 col-lrg-2">
-                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('keepFundsUntilManuallyDistributedIsEnabled')} />
-                    </div>
-                </div>
-
-                <div className="row">
-                    <div className="col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6">
-                        <div className="form__group">
-                            <NumericInputField field={form.$('accumulatedAmountExceeding')} />
+                <div className="list--preferences">
+                    <div className="w--100">
+                        <div className="row u-mar--bottom--med">
+                            <div className="col col-sml-12 col-lrg-10 u-mar--bottom--sml">{t('CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY')}</div>
+                            <div className="col col-sml-12 col-lrg-2 type--right--from--med">
+                                <span className="u-display--ib">
+                                    <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('keepFundsUntilManuallyDistributedIsEnabled')} />
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6">
-                        <div className="form__group">
-                            <NumericInputField field={form.$('withdrawAmount')} />
-                        </div>
-                        <div className="form__group">
-                            <BasicFieldCheckbox
-                                field={form.$('keepFundsUntilAccumulatedAmountIsEnabled')}
-                                onChange={e => {
-                                    changeManuallWithdrawSetting(e.target.checked);
-                                }}
-                            />
+                        <div className="row">
+                            <div className="col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6">
+                                <div className="form__group">
+                                    <NumericInputField field={form.$('accumulatedAmountExceeding')} />
+                                </div>
+                            </div>
+                            <div className="col col-sml-12 col-lrg-6 col-xlrg-12 col-xxlrg-6">
+                                <div className="form__group">
+                                    <NumericInputField field={form.$('withdrawAmount')} />
+                                </div>
+                                <div className="form__group">
+                                    <BasicFieldCheckbox
+                                        field={form.$('keepFundsUntilAccumulatedAmountIsEnabled')}
+                                        showLabel
+                                        toggleClass="--toggle"
+                                        label={"CHARITY.PAYMENT_OPTIONS.FIELDS.KEEP_UNTIL_MANUALLY"}
+                                        onChange={e => {
+                                            changeManuallWithdrawSetting(e.target.checked);
+                                        }}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

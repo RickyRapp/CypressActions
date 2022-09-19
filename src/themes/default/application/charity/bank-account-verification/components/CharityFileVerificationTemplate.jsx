@@ -8,7 +8,8 @@ import {
 const CharityFileVerificationTemplate = function ({charityFileVerificationViewStore}) {
 	const {
         imageUploadStore,
-        uploadVerificationFile
+        uploadVerificationFile,
+		charityName
     } = charityFileVerificationViewStore;
 
 	return (
@@ -22,7 +23,7 @@ const CharityFileVerificationTemplate = function ({charityFileVerificationViewSt
 
 							<ul className="card--plaid__list">
 								<li>US Drivers License</li>
-								<li><strong>Charity Name</strong> charity bank statement</li>
+								<li><strong>{charityName}</strong> charity bank statement</li>
 							</ul>
 
 							<div className='card--plaid__upload u-mar--bottom--med'>

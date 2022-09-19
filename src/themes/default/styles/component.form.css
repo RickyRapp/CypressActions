@@ -7,9 +7,10 @@
         margin-bottom: calc($unit * 3);
 
         &__label {
+            display: inline-block;
             @mixin type-scale $type-small, 1;
             font-weight: $type-weight-medium;
-            /* margin-bottom: calc($unit / 2); */
+            margin-bottom: calc($unit * 1);
 
             & .btn--primary {
                 float: right;

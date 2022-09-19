@@ -38,7 +38,7 @@ const CharityCommunicationPreferenceTemplate = function ({ t, charityCommunicati
                 <div className="list--preferences">
                     <div className="list--preferences__label is-dropdown">{t('CHARITY.CARD_PREFERENCES.GENERAL_NOTIFICATIONS.FIELDS.NOTIFY_APPROVED_GRANT')}</div>
                     <div className="list--preferences__dd">
-                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} value={true} field={form.$('isNotifyDonorsApprovedGrantEnabled')} />
+                        <BasicFieldCheckbox toggleClass="--toggle" showLabel={false} disabled={true} value={true} field={form.$('isNotifyDonorsApprovedGrantEnabled')} />
                     </div>
                 </div>
 

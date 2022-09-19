@@ -1,17 +1,17 @@
-context('Deposits ACH Funds', () => {  
+context('Makes Wire transfer Deposit', () => {  
 
     before(() => { 
         //cy.liveUserLogin().wait(700)
-    })
-
+    }) 
+ 
     beforeEach(() => {
         cy.liveUserLogin().wait(7000)
         cy.on('uncaught:exception', () => false);
         cy.viewport(1440, 900) 
-    }) 
+    })
 
 
-    it('deposits ACH', () => {
+    it('Makes Wire transfer Deposit', () => {
        // console.log(theElement.text())  
        cy.visitDashboard()
        cy.get('.dashboard-card__body--amount').then((theElement) => { 
@@ -24,10 +24,10 @@ context('Deposits ACH Funds', () => {
             const num =`${Math.floor(Math.random() * (350 - 250) + 250)}`
             console.log(`num ${num}`)
             cy.findByText('Deposit funds').click().wait(2500).then(() => { 
-                cy.get('.u-icon--ach').should('exist')
+                cy.get('.u-icon--wire-transfer').should('exist')
             })
-            cy.get('.u-icon--ach').click()
-            cy.get('.u-icon--ach').click().should('have.class', 'active')  
+            cy.get('.u-icon--wire-transfer').click()
+            cy.get('.u-icon--wire-transfer').should('have.class', 'active')  
             cy.get('.k-dropdown-wrap').click().type('{downArrow} {enter}').wait(1000)
             //cy.get('.k-dropdown-wrap').should('not.have.value','')
             cy.findByPlaceholderText('Enter Amount').type(num, {force:true})

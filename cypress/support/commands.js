@@ -94,7 +94,7 @@ Cypress.Commands.add("addAndCheckDeposit", (num, currentBalance) => {
     cy.findByText('All Deposits').click()
     cy.findByText('Advanced Search').click()
     cy.findByPlaceholderText('Amount e.g. $100 or $100-$500').type(num)
-    cy.get('.btn--primary').eq(1).click({force: true}).wait(500) 
+    cy.get('.btn--primary').eq(1).click({force: true}).wait(1000) 
     cy.get('body').should('contain', 'Pending')  
     cy.get('td').eq(1).then((theElement) => { 
 
@@ -120,6 +120,7 @@ Cypress.Commands.add("addAndCheckDeposit", (num, currentBalance) => {
         cy.get('.u-icon--approve').click().wait(500)
         cy.findByText('YES').click()
 
+
         //logout and back in as a user to make sure the current avaialable amount is correct
         cy.findByText('Logout').click() 
         cy.liveUserLogin().wait(700)
@@ -128,7 +129,37 @@ Cypress.Commands.add("addAndCheckDeposit", (num, currentBalance) => {
         cy.findByText('Dashboard').click()
         //cy.log(`currentBalance ${currentBalance}`)  
         //cy.log(`num ${num}`)  
-        const newBalance = parseFloat(currentBalance) + parseFloat(num)
+        var newBalance = parseFloat(currentBalance) + parseFloat(num)
+  
+        cy.log(`newBalance ${newBalance}`)  
+        cy.get('.dashboard-card__body--amount').then((shouldBalance) => { 
+            //cy.log(`with math.trunc, and slice and replace comma ${Math.trunc(shouldBalance.text().slice(1).replace(',',''))}`)
+            //cy.log(`with math.trunc, and double replace ${Math.trunc(shouldBalance.text().replace('$','').replace(/\,/,''))}`)
+            //cy.log(` no math.trunc ${parseFloat(shouldBalance.text().replace('$','').replace(/,/g,''))}`)
+            expect(parseFloat(newBalance).toFixed(2)*1).to.equal(parseFloat(shouldBalance.text().replace('$','').replace(/,/g,''))) 
+        }) 
+
+        //logout and log back in as admin to reject    
+        cy.findByText('Logout').click() 
+        cy.liveAdminLogin().wait(700)
+
+        cy.findByText('Deposit').click()
+        cy.findByText('Advanced Search').click()
+        cy.get('#confirmationNumber').type(confirmationNum) 
+        cy.get('.btn--primary').eq(1).click({force: true}).wait(1000)
+        cy.get('.u-icon--approve').click()
+        cy.findByText('YES').click().wait(500)
+        cy.get('body').should('contain', 'Declined') 
+
+        //logout and back in as a user to make sure the current avaialable amount is correct
+        cy.findByText('Logout').click() 
+        cy.liveUserLogin().wait(700)
+
+        //check that the deposited funds are available 
+        cy.findByText('Dashboard').click()
+        //cy.log(`currentBalance ${currentBalance}`)  
+        //cy.log(`num ${num}`)  
+        newBalance = parseFloat(currentBalance) - parseFloat(num)
   
         cy.log(`newBalance ${newBalance}`)  
         cy.get('.dashboard-card__body--amount').then((shouldBalance) => { 
