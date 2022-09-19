@@ -113,8 +113,9 @@ class UserStore {
                         apiKey: charityApiKey, 
                         accountNumber: data.charityAccountNumber.accountNumber,
                         accountBalance: data.accountBalance,
-                        availableBalance: data.availableBalance
-                    };
+                        availableBalance: data.availableBalance,
+                        logo: await this.rootStore.application.charity.charityStore.getCharityMedia(data.id, 'logo')
+                    }; 
                 }
             }
         } catch (ex) {
@@ -147,7 +148,6 @@ class UserStore {
             console.log(err);
         }
     }
-
 }
 
 export default UserStore;
