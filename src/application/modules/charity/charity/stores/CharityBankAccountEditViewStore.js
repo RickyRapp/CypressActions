@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, reaction } from 'mobx';
 import { BaasicUploadStore, BaseEditViewStore } from 'core/stores';
 import { applicationContext, isSome } from 'core/utils';
 import { CharityBankAccountEditForm } from 'application/charity/charity/forms';
@@ -11,6 +11,9 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
     @observable image = null;
     @observable fileError;
     @observable invalidForm = false;
+    @observable bankAccountId = null;
+    @observable charityMedia = null;
+    @observable isImage = false;
 
     constructor(rootStore, props) {
         super(rootStore, {
@@ -32,7 +35,6 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                             this.fileName = `${data.name}-${data.routingNumber}.${fileExtensions}`;
                         }
                     }
-                    
                     this.isImage = isImage;
                     return {
                     id: data.id,
@@ -41,12 +43,13 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     routingNumber: data.routingNumber,
                     coreMediaVaultEntryId: data.coreMediaVaultEntryId,
                     isPrimary: data.isPrimary,
-                    isVerifiedByPlaid : data.isVerifiedByPlaid,
-                    isDisabled : data.isDisabled
+                    isDisabled : data.isDisabled,
+                    charityMedia : this.charityMedia,
+                    isImage : this.isImage,
+                    isVerifiedByPlaid : data.isVerifiedByPlaid
                 };
             },    
-                update: async (resource) => {
-
+                update: async (resource) => {                    
                     if(!resource.charityMedia){
                         resource.charityMedia = this.charityMedia;
                     }
@@ -81,8 +84,10 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                         response = await this.rootStore.application.charity.charityStore.createBankAccount({ charityId: this.charityId, ...resource });
                         if (this.imageUploadStore.files && this.imageUploadStore.files.length === 1) {
                             const media = await this.rootStore.application.charity.charityStore.uploadBankAccount(this.imageUploadStore.files[0], this.charityId, response);
-                            resource.coreMediaVaultEntryId = media.id; 
-                            await this.rootStore.application.charity.charityStore.updateBankAccount({ id: response, charityId: this.charityId, ...resource });
+                            resource.coreMediaVaultEntryId = media.id;
+                            resource.id = response;
+                            resource.charityId = this.charityId;
+                            await this.rootStore.application.charity.charityStore.updateBankAccount(resource);
                         }
 
                     } catch (error) {
@@ -116,9 +121,9 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
         this.fileName;
         this.isVerified = this.rootStore.userStore.applicationUser.permissions.verifiedAccountSection ? true : false;
         this.isNotVerifiedButHasBankAccount = !this.isVerified && this.bankAccountCount > 0;
-        this.propEditId = props.editId;
-        this.charityMedia = null;
-        this.isImage;
+        this.react(() => this.bankAccountId, () => {
+            this.onChangeEditId(this.bankAccountId);
+        });
     }
 
     @action.bound
@@ -222,7 +227,13 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
 			.then((data) => {
 				this.form.clear();
 				this.form.update(data);
+                this.setItem(data);
 			});
+    }
+
+    @action.bound
+    changeBankAccountId(editId){
+        this.bankAccountId = editId;
     }
 
 }

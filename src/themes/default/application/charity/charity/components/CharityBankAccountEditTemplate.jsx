@@ -23,13 +23,13 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 		onCancelEditClick,
 		exportFile,
 		fileError,
-		onChangeEditId,
 		charityMedia,
-		isImage
+		isImage,
+		changeBankAccountId
 	} = charityBankAccountEditViewStore;
 
-	item && onChangeEditId(editId);
-	
+	changeBankAccountId(editId);
+
 	return (
 		<EditFormContent form={form} formClassName={" "}>
 			
@@ -51,7 +51,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
-						<BasicInput field={form.$('routingNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
+						<NumberFormatInputField field={form.$('routingNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('name')} />
@@ -74,26 +74,38 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					</div>
 
 				</div>
-				<div>
-					<BaasicDropzone
-						store={imageUploadStore}
-					/>
-					<p className="validation__message">{fileError}</p>
+				<div className="row">
+					<div className="col col-sml-12 col-lrg-8">
+						<BaasicDropzone
+							store={imageUploadStore}
+						/>
+						<p className="validation__message">{fileError}</p>
+					</div>
 					{
 						charityMedia ? ( 
 							charityMedia && ( 
 								(isImage) ? 
 									(
-										<div className="imageheight_sml"> 
-											<img alt="" src={URL.createObjectURL(charityMedia)} />
+										<div className="col col-sml-12 col-lrg-4">
+											<p className="form__group__label">Bank Document</p>
+
+											<div className="card--image card--med u-mar--bottom--sml type--center"> 
+												<img className="k-upload__image--original" alt="" src={URL.createObjectURL(charityMedia)} />
+											</div>
 										</div>
 									)
 									: ( 
-										<BaasicButton
-											className='btn btn--sml btn--primary'
-											label='Download'
-											onClick={() => exportFile()}
-										/>
+										<div className="col col-sml-12 col-lrg-4">
+											<p className="form__group__label">Download PDF</p>
+
+											<div className="card--image card--med u-mar--bottom--sml type--center"> 
+												<BaasicButton
+													className='btn btn--med btn--med--wide btn--secondary btn--icon--pdf'
+													label='Download'
+													onClick={() => exportFile()}
+												/>
+											</div>
+										</div>
 									))
 						) : null
 					}

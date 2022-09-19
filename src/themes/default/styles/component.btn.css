@@ -322,6 +322,29 @@
 		&--lrg {
 			padding: calc($unit * 4 - 1px) calc($unit * 4 - 1px);
 		}
+
+		&--pdf {
+			display: flex;
+			padding: 0 calc($unit * 4);
+			
+			&::before {
+				content: "";
+
+				display: block;
+
+				width: calc($unit * 3);
+				height: calc($unit * 3);
+				background-size: calc($unit * 3);
+				margin-right: calc($unit * 2);
+	
+				background-image: svg-load('../styles/postcss-svg/pdf.svg', stroke: $white);
+				background-repeat: no-repeat;
+				background-position: center center;
+				vertical-align: middle;
+		
+				transition: all 250ms ease-in-out;
+			}
+		}
 	}
 
 	&.is-disabled,

@@ -1,10 +1,12 @@
 import { BaasicUploadStore, BaseEditViewStore } from 'core/stores';
 import { BankAccountEditForm } from 'application/donor/donor/forms';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { applicationContext, isSome } from 'core/utils';
-
+ 
 @applicationContext
 class DonorBankAccountEditViewStore extends BaseEditViewStore {
+	@observable bankAccountId = null;
+
 	constructor(rootStore, props) {
 		super(rootStore, {
 			name: 'bank-account',
@@ -106,10 +108,14 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 		});
 		this.bankAccountCount = props.bankAccountCount;
 		this.donorId = rootStore.userStore.applicationUser.id;
+		this.onCancelEditClick = props.modalParams ? props.modalParams.close : props.onCancelEditClick;
 		this.createImageUploadStore();
-		this.onCancelEditClick = props.onCancelEditClick;
+		this.react(() => this.bankAccountId, () => {
+            this.onChangeEditId(this.bankAccountId);
+        });
 	}
-
+	
+	
 	@action.bound
 	async onInit({ initialLoad }) {
 		if (!initialLoad) {
@@ -190,7 +196,11 @@ class DonorBankAccountEditViewStore extends BaseEditViewStore {
 				this.form.clear();
 				this.form.update(data);
 			});
-		
+    }
+
+    @action.bound
+    changeBankAccountId(editId){
+        this.bankAccountId = editId;
     }
 }
 

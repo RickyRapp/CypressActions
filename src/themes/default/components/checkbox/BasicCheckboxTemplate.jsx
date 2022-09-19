@@ -4,21 +4,25 @@ import { defaultTemplate } from 'core/hoc';
 
 const className = suffix => (suffix ? `${suffix}` : '');
 const BasicCheckboxTemplate = function ({ id, label, checked, onChange, t, showLabel=false, disabled, classSuffix = null }) {
+
     return (
         <React.Fragment>
-            <input
-                id={id}
-                checked={checked}
-                onChange={onChange}
-                disabled={disabled}
-                type="checkbox"
-                className={`input--check${className(classSuffix)}`}
-            />
-            {showLabel ?
-                <label htmlFor={id}>{t(label)}</label>
-                :
-                <label htmlFor={id}>&nbsp;</label>
-            }
+            <span className='u-display--if'>
+                {showLabel ?
+                    <span className='u-mar--right--sml'>{t(label)}</span>
+                    :
+                    null
+                }
+                <input
+                    id={id}
+                    checked={checked}
+                    onChange={onChange}
+                    disabled={disabled}
+                    type="checkbox"
+                    className={`input--check${className(classSuffix)}`}
+                />
+                <label htmlFor={id}></label>
+            </span>
         </React.Fragment>
     );
 };

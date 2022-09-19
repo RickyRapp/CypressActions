@@ -22,8 +22,8 @@ class PlaidSuccessfulVerificatonViewStore extends BaseViewStore {
     }
 
     @action.bound
-    redirectToDashboard(){
-        location.reload();
+    async redirectToDashboard(){
+        await this.rootStore.userStore.resolveUser();
         this.rootStore.routerStore.goTo('master.app.main.charity.dashboard');
     }
 
@@ -37,8 +37,8 @@ class PlaidSuccessfulVerificatonViewStore extends BaseViewStore {
     }
 
     @action.bound
-    redirectToSettings(){
-        location.reload();
+    async redirectToSettings(){
+        await this.rootStore.userStore.resolveUser();
         this.rootStore.routerStore.goTo('master.app.main.charity.profile', null, {tab: '1'});
     }
 

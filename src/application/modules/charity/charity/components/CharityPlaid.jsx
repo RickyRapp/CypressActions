@@ -47,7 +47,7 @@ class CharityPlaid extends Component {
     // handle the case when your user exits Link 
     //ToDo - handling when close Plaid window and other errors... 
     if (this.props.entityType === 'donor') {
-      if (!this.notificationStore.rootStore.userStore.applicationUser.donor.verifiedByPlaid)
+      if (!this.notificationStore.rootStore.userStore.applicationUser.donor.verifiedByPlaid){}
         this.notificationStore.error('Verification unsuccessful, you have closed Plaid!');
     } else {
       if (!this.notificationStore.rootStore.userStore.applicationUser.charity.verifiedByPlaid)
@@ -61,6 +61,8 @@ class CharityPlaid extends Component {
     if (!(this.props.bankAccount && this.props.bankAccount.isVerifiedByPlaid) && !linkToken) {
       this.getLinkToken();
     }
+
+    const buttonStyle = this.props.isCharityVerification ? 'btn btn--med btn--secondary u-mar--bottom--med' : '';
 
     return (
       this.props.bankAccount ? (
@@ -94,7 +96,7 @@ class CharityPlaid extends Component {
               onExit={this.handleOnExit}
               style={{ background: 'transparent', border:"0px solid rgba(0, 0, 0, .4)" }}
             >
-              <span className="btn btn--med btn--secondary u-mar--bottom--med" onClick={this.getLinkToken}>Create bank account electronically</span>
+              <span className={buttonStyle} onClick={this.getLinkToken}>Create bank account electronically</span>
             </PlaidLink>
             : null
           }

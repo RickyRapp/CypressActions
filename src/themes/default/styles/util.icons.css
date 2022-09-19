@@ -560,28 +560,28 @@
 		}
 
 		&--preview {
-			background-image: svg-load('../styles/postcss-svg/preview.svg', fill: $color-primary);
+			background-image: svg-load('../styles/postcss-svg/preview.svg', stroke: $color-primary);
 
 			&:hover,
 			&:active,
 			&:focus {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/preview.svg', fill: $color-primary);
+				background-image: svg-load('../styles/postcss-svg/preview.svg', stroke: $color-primary);
 			}
 		}
 
 		&--decline {
-			background-image: svg-load('../styles/postcss-svg/decline.svg', fill: $color-primary);
+			background-image: svg-load('../styles/postcss-svg/decline.svg', stroke: $color-primary);
 
 			&:hover,
 			&:active,
 			&:focus {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/decline.svg', fill: $color-primary);
+				background-image: svg-load('../styles/postcss-svg/decline.svg', stroke: $color-primary);
 			}
 
 			&--warning {
-				background-image: svg-load('../styles/postcss-svg/decline.svg', fill: $color-warning);
+				background-image: svg-load('../styles/postcss-svg/decline.svg', stroke: $color-warning);
 			}
 		}
 
@@ -749,19 +749,19 @@
 			background-image: svg-load('../styles/postcss-svg/close.svg', stroke: $color-primary);
 
 			&--secondary {
-				background-image: svg-load('../styles/postcss-svg/close.svg', fill: $color-note);
+				background-image: svg-load('../styles/postcss-svg/close.svg', stroke: $color-note);
 			}
 
 			&:hover,
 			&:active,
 			&:focus {
 				outline: 0;
-				background-image: svg-load('../styles/postcss-svg/close.svg', fill: $color-primary);
+				background-image: svg-load('../styles/postcss-svg/close.svg', stroke: $color-primary);
 			}
 		}
 
 		&--close-menu {
-			background-image: svg-load('../styles/postcss-svg/close.svg', fill: white);
+			background-image: svg-load('../styles/postcss-svg/close.svg', stroke: white);
 		}
 
 		&--clipboard {
