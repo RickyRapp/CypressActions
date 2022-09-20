@@ -559,6 +559,14 @@
 			}
 		}
 
+		&--bank {
+			background-image: svg-load('postcss-svg/banks.svg', stroke: $color-text);
+			
+			&--grey {
+				background-image: svg-load('postcss-svg/banks.svg', stroke: color($color-text a(0.4)));
+			}
+		}
+
 		&--preview {
 			background-image: svg-load('../styles/postcss-svg/preview.svg', stroke: $color-primary);
 

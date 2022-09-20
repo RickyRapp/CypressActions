@@ -44,18 +44,28 @@
 		}
 
 		&--base {
-    		@media (--screen-from-xlrg) {
-                grid-template-columns: 1fr;
-            }
+			@media (--screen-from-xlrg) {
+				grid-template-columns: 1fr;
+			}
 
 			@media (--screen-from-xxxlrg) {
 				grid-template-columns: 1fr 750px;
 			}
 		}
 
+		&--lrg {
+			@media (--screen-from-xlrg) {
+				grid-template-columns: 1fr 400px;
+			}
+
+			@media (--screen-from-xxlrg) {
+				grid-template-columns: 1fr 450px;
+			}
+		}
+
 		&--half {
 			grid-template-columns: 1fr;
-			
+
 			@media (--screen-from-xlrg) {
 				grid-template-columns: 1fr 1fr;
 			}

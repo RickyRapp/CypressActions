@@ -4,6 +4,8 @@
 
 .u-order {
 	&--1 {
+		order: 1;
+
 		@media (--screen-to-sml) {
 			order: 1;
 		}
@@ -13,9 +15,25 @@
 				order: 1;
 			}
 		}
+
+		&--from {
+			&--lrg {
+				@media (--screen-from-lrg) {
+					order: 1;
+				}
+			}
+			
+			&--xlrg {
+				@media (--screen-from-xlrg) {
+					order: 1;
+				}
+			}
+		}
 	}
 	
 	&--2 {
+		order: 2;
+
 		@media (--screen-to-sml) {
 			order: 2;
 		}
@@ -23,6 +41,14 @@
 		&--xxxlrg {
 			@media (--screen-to-xxlrg) {
 				order: 2;
+			}
+		}
+		
+		&--from {
+			&--xlrg {
+				@media (--screen-from-xlrg) {
+					order: 2;
+				}
 			}
 		}
 	}

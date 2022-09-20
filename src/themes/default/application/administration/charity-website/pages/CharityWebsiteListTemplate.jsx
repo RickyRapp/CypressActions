@@ -7,7 +7,6 @@ import { CharityWebsiteCreate } from 'application/administration/charity-website
 
 const CharityWebsiteListTemplate = function ({ charityWebsiteViewStore }) {
 	const { tableStore, queryUtility, authorization, createModal, routes } = charityWebsiteViewStore;
-
 	
 	return (
 		<ApplicationListLayout store={charityWebsiteViewStore} authorization={authorization}>
