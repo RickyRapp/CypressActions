@@ -14,7 +14,9 @@ class CharityUploadLogoViewStore extends BaseEditViewStore{
             actions: () => {
                 return {
                     get: async (id) => {
-                        return await rootStore.application.charity.charityStore.getCharityMedia(id, 'logo');
+                        let logo =  await rootStore.application.charity.charityStore.getCharityMedia(id, 'logo'); 
+                        this.rootStore.userStore.user.charity.logo = logo;
+                        return logo;
                     },
                     update: async () => {
                         await rootStore.application.charity.charityStore.uploadMedia(this.imageUploadStore.files[0], rootStore.userStore.applicationUser.id, 'logo');
