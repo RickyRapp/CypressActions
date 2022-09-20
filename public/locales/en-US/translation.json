@@ -1382,7 +1382,7 @@
                 "NAME" : "Investment (coming soon)",
                 "FIELDS" : {
                     "NOTIFY_INVESTMENT_DAILY" : "Notify us for investment daily percentage changes",
-                    "NOTIFY_INVESTMENT_DAILY_LABEL" : "Is enabled",
+                    "NOTIFY_INVESTMENT_DAILY_LABEL" : "Enable",
                     "AMOUNT_LABEL" :"Percentage",
                     "AMOUNT_PLACEHOLDER" : "%"
                 }
