@@ -4,6 +4,8 @@
 
 .u-order {
 	&--1 {
+		order: 1;
+
 		@media (--screen-to-sml) {
 			order: 1;
 		}
@@ -30,6 +32,8 @@
 	}
 	
 	&--2 {
+		order: 2;
+
 		@media (--screen-to-sml) {
 			order: 2;
 		}
@@ -41,8 +45,8 @@
 		}
 		
 		&--from {
-			&--lrg {
-				@media (--screen-from-lrg) {
+			&--xlrg {
+				@media (--screen-from-xlrg) {
 					order: 2;
 				}
 			}

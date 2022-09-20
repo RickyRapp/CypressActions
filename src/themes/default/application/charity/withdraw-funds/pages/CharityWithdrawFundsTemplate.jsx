@@ -14,10 +14,12 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
         bankAccountDropdownStore,
         createWithdraw,
         changeValue,
+        redirectToManageAccount,
         amountValidationMessage,
         bankAccountValidationMessage,
         addressValidationMessage
     } = charityWithdrawFundsViewStore;
+    
     const hasBankAccount = bankAccountDropdownStore.length >= 1 || bankAccountDropdownStore.originalItems.length >= 1;
 
     const handleAchTab = (e) => {
@@ -32,18 +34,18 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
 
     return (
         <Page>
-            <div className="container--base container--sidebar">
+            <div className="container--base container--sidebar container--sidebar--lrg">
                 <div className="c-deposit__list c-deposit__list--2">
                     <CardTab action={handleAchTab} title={"ACH"} isActive={isACH} icon={"ach"} />
                     <CardTab action={handleEmailTab} title={"Check by mail"} isActive={!isACH} icon={"check"} />
                 </div>
             </div>
 
-            <div className="container--lrg container--sidebar">
-                <div className="card--primary card--med u-order--1--from--xlrg">
-                    {hasBankAccount || !isACH && <h3 className="u-mar--bottom--med">How much would you like to withdraw?</h3>}
+            <div className="container--lrg container--sidebar container--sidebar--lrg">
+                <div className="card--primary card--med u-order--2 u-order--1--from--xlrg">
+                    {(hasBankAccount || !isACH) && <h3 className="u-mar--bottom--med">How much would you like to withdraw?</h3>}
                     <div>
-                        {hasBankAccount || !isACH &&
+                        {(hasBankAccount || !isACH) &&
                             <div className="u-mar--top--sml">
                                 <BaasicInput
                                     id="withdrawAmount"
@@ -70,7 +72,7 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
                                             </div>
                                         </div>
                                         :
-                                        <EmptyState t={t} />
+                                        <EmptyState t={t} redirectToManageAccount={redirectToManageAccount} />
                                     }
                                 </React.Fragment>
                                 :
@@ -78,7 +80,7 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
                             }
                         </div>
                     </div>
-                    {!isACH &&
+                    {(!isACH || hasBankAccount) &&
                         <div>
                             <BaasicButton
                                 className="btn btn--med btn--primary"
@@ -89,7 +91,7 @@ function CharityWithdrawFundsTemplate({ charityWithdrawFundsViewStore, t }) {
                     }
                 </div>
 
-                <div className="u-order--1 u-order--2--from--lrg">
+                <div className="u-order--1 u-order--2--from--xlrg">
                     <AvailableBalance availableBalance={availableBalance} />
                 </div>
             </div >
@@ -102,13 +104,13 @@ CharityWithdrawFundsTemplate.propTypes = {
     t: PropTypes.func,
 };
 
-const EmptyState = ({ t }) => {
+const EmptyState = ({ redirectToManageAccount, t }) => {
     return (
         <div className="emptystate--primary">
             <i className="u-icon u-icon--lrg u-icon--bank--grey u-mar--bottom--tny"></i>
             <p className="emptystate--primary__title u-mar--bottom--med">{t("BANK_ACCOUNT.LIST.EMPTY_STATE.TITLE")}</p>
 
-            <button className="btn btn--med btn--med--wide btn--secondary " title={'Click to insert'}>
+            <button className="btn btn--med btn--med--wide btn--secondary " title={'Click to insert'} onClick={redirectToManageAccount}>
                 Connect your bank
             </button>
         </div>
@@ -133,7 +135,7 @@ const CardTab = ({ isActive, action, title, icon }) => {
 const AvailableBalance = ({ availableBalance }) => {
     return (
         <div className="card--primary card--med ">
-            <p className="dashboard-card__body--title">Available Balance</p>
+            <p className="dashboard-card__body--title u-mar--reset">Available Balance</p>
             <p className="dashboard-card__body--amount">
                 <FormatterResolver
                     item={{ balance: availableBalance }}
