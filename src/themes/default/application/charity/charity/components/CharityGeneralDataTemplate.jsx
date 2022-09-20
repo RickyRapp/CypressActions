@@ -35,52 +35,56 @@ function CharityGeneralDataTemplate({ charityGeneralDataViewStore, t }) {
 			<div className="u-mar--bottom--sml">
 				<EditFormContent form={form}>
 					<React.Fragment>
-						<div className="card--med card--primary">
-							<h3 className="u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.TITLE')}</h3>
-							{item && item.availableBalance > 0 && (
-								<BaasicButton
-									authorization={'theDonorsFundAdministrationSection.update'}
-									className="btn btn--sml btn--sml--wide btn--primary u-push"
-									label="CHARITY.EDIT.BUTTON.WITHDRAW_FUNDS"
-									onClick={openWithdrawFundModalClick}
-								/>
-							)}
+						<div className="card--primary card--med">
+							<div className="card--primary__header">
+								<h3 className="u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.TITLE')}</h3>
+							</div>
+							<div className="card--primary__body">
+								{item && item.availableBalance > 0 && (
+									<BaasicButton
+										authorization={'theDonorsFundAdministrationSection.update'}
+										className="btn btn--sml btn--sml--wide btn--primary u-push"
+										label="CHARITY.EDIT.BUTTON.WITHDRAW_FUNDS"
+										onClick={openWithdrawFundModalClick}
+									/>
+								)}
 
-                            <CharityQRCardTemplate charityGeneralDataViewStore={charityGeneralDataViewStore} t={t} />
+								<CharityQRCardTemplate charityGeneralDataViewStore={charityGeneralDataViewStore} t={t} />
 
-							<div className="row row--form u-mar--bottom--med">
-								<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-									<BasicInput field={form.$('name')} disabled={true} />
+								<div className="row row--form u-mar--bottom--med">
+									<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
+										<BasicInput field={form.$('name')} disabled={true} />
+									</div>
+									<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
+										<BasicInput field={form.$('dba')} />
+									</div>
+									<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
+										<BaasicFieldDropdown field={form.$('charityTypeId')} disabled={true} store={charityTypeDropdownStore} />
+									</div>
+									<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
+										<BaasicFieldDropdown field={form.$('charityStatusId')} disabled={true} store={charityStatusDropdownStore} />
+									</div>
+									<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
+										<BasicInput field={form.$('url')} />
+									</div>
 								</div>
-								<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-									<BasicInput field={form.$('dba')} />
-								</div>
-								<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-									<BaasicFieldDropdown field={form.$('charityTypeId')} disabled={true} store={charityTypeDropdownStore} />
-								</div>
-								<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-									<BaasicFieldDropdown field={form.$('charityStatusId')} disabled={true} store={charityStatusDropdownStore} />
-								</div>
-								<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-									<BasicInput field={form.$('url')} />
+								<div>
+									<h3 className="title--secondary u-mar--bottom--med">Contact info</h3>
+									<div className="row row--form">
+										<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
+											<BasicInput field={form.$('contactInformationName')} />
+										</div>
+										<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
+											<BasicInput field={form.$('contactInformationEmail')} />
+										</div>
+										<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
+											<NumberFormatInputField field={form.$('contactInformationNumber')} />
+										</div>
+									</div>
 								</div>
 							</div>
-							<div className="u-mar--bottom--sml">
-								<h3 className="type--med type--wgt--medium">Contact info</h3>
-								<div className="row row--form">
-									<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-										<BasicInput field={form.$('contactInformationName')} />
-									</div>
-									<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-										<BasicInput field={form.$('contactInformationEmail')} />
-									</div>
-									<div className="form__group col col-sml-12 col-lrg-6 col-xlrg-4 u-mar--bottom--sml">
-										<NumberFormatInputField field={form.$('contactInformationNumber')} />
-									</div>
-								</div>
-							</div>
 
-							<div className="info-card--footer">
+							<div className="card--primary__footer">
 								{/* <BaasicButton
 									type="button"
 									className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"

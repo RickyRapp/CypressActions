@@ -15,6 +15,23 @@
             @media (--screen-from-med) {
                 justify-content: flex-end;
             }
+
+            .btn {
+                @media (--screen-to-med) {
+                    margin-bottom: calc($unit * 2);
+                    width: 100%;
+                }
+
+                &:not(:first-child) {
+                    margin-left: calc($unit * 2);
+                }
+
+                &:last-child {
+                    @media (--screen-to-med) {
+                        margin-bottom: 0;
+                    }
+                }
+            }
         }
     }
 

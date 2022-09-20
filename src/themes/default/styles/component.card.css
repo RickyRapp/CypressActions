@@ -8,6 +8,41 @@
 		border-radius: $radius-base;
 		box-shadow: $shadow-card;
 
+		&__header {}
+
+		&__body {}
+
+		&__footer {
+			display: flex;
+			margin-top: calc($unit * 4);
+	
+			@media (--screen-to-med) {
+				align-items: flex-end;
+				flex-direction: column;
+			}
+	
+			@media (--screen-from-med) {
+				justify-content: flex-end;
+			}
+	
+			.btn {
+				@media (--screen-to-med) {
+					margin-bottom: calc($unit * 2);
+					width: 100%;
+				}
+	
+				&:not(:first-child) {
+					margin-left: calc($unit * 2);
+				}
+	
+				&:last-child {
+					@media (--screen-to-med) {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+
 		&.show {
 			box-shadow: none;
 			border-top-left-radius: 0;
@@ -92,6 +127,11 @@
 				padding: calc($unit * 4);
 			}
 		}
+	}
+
+	&--light {
+		border-radius: $radius-base;
+		background-color: $color-background;
 	}
 
 	&--form {

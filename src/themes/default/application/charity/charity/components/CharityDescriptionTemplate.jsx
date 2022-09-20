@@ -13,16 +13,18 @@ const CharityDescriptionTemplate = function ({ t, charityDescriptionViewStore })
 	const { form, item, isEditEnabled, onEnableEditClick } = charityDescriptionViewStore;
 
 	return (
-		<div className="card--med card--primary u-mar--bottom--med">
+		<div className="card--primary card--med u-mar--bottom--med">
 			<EditFormContent form={form} formClassName={" "}>
-				<h3 className="u-mar--bottom--med">{t('CHARITY.DESCRIPTION.TITLE')}</h3>
+				<div className="card--primary__header">
+					<h3 className="u-mar--bottom--med">{t('CHARITY.DESCRIPTION.TITLE')}</h3>
+				</div>
 				{isEditEnabled ? (
 					<React.Fragment>
-						<div className="u-mar--bottom--med">
+						<div className="card--primary__body">
 							<BasicTextArea field={form.$('description')} />
 						</div>
 
-						<div className="info-card--footer">
+						<div className="card--primary__footer">
 							{/* <BaasicButton
 								type="button"
 								className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"

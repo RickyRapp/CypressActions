@@ -23,6 +23,12 @@
 
         &__qr {
             text-align: center;
+
+            @media (--screen-to-med) {
+                margin-top: calc($unit * 2);
+                padding-top: calc($unit * 2);
+                border-top: 1px solid $almond;
+			}
         }
 	}
 }
