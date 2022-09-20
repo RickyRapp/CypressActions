@@ -3,6 +3,21 @@
 \*------------------------------------*/
 
 .emptystate {
+	&--primary {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		padding: calc($unit * 6);
+
+		border: 1px solid color($color-text a(0.2));
+
+		&__title {
+			color: color($color-text a(0.7));
+			@mixin type-scale $type-base, 1;
+		}
+	}
+
 	&--vertical {
 		display: flex;
 		flex-direction: column;
