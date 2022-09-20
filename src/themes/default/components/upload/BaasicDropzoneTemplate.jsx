@@ -70,67 +70,63 @@ const BaasicDropzoneTemplate = function(props) {
 			{store.originalFiles.length > 0 &&
 				store.originalFiles.map(c => {
 					return (
-						<div key={c} className="col col-sml-6 col-lrg-3">
-							{store.options.showPreview && (
-								<React.Fragment>
-									<div className="row">
-										<div className="col col-sml-10">
-											<ImagePreview image={store.options.routeService.getPreview(c)} />
-										</div>
-										<div className="col col-sml-2 u-display--flex u-display--flex--justify--center">
-											<label className="form__group__label u-mar--right--tny">
-												{store.options.deleteUploaded && (
-													<BaasicButton
-														className="btn btn--icon"
-														icon={'u-icon u-icon--delete u-icon--base'}
-														label={t('')}
-														onlyIcon={true}
-														onClick={() => onDeleteFn(c)}
-													/>
-												)}
-											</label>
-										</div>
-									</div>
-								</React.Fragment>
-							)}
-						</div>
-					);
-				})}
-
-			<div className="k-upload__list">
-				{store.files.length > 0 &&
-					store.files.map(c => {
-						let rawAttachment = c.getRawFile();
-						return (
-							<div key={c.uid} className="k-upload__list__item">
-								{store.options.showLivePreview && (
+						<div className="k-upload__list">
+							<div key={c} className="k-upload__list__item">
+								{store.options.showPreview && (
 									<React.Fragment>
-										<ImagePreview
-											image={window.URL.createObjectURL(new Blob([rawAttachment], { type: rawAttachment.type }))}
-										/>
-										<p className="k-upload__list__item__label">
-											{c.name.split('').length > 32
-												? c.name
-														.split('')
-														.splice(0, 32)
-														.join('') + '...'
-												: c.name}
-										</p>
-										{store.options.removeFromBuffer && (
+										<ImagePreview image={store.options.routeService.getPreview(c)} />
+
+										{store.options.deleteUploaded && (
 											<BaasicButton
 												className="k-upload__list__item__close btn btn--icon u-mar--right--tny"
 												icon={'u-icon u-icon--close u-icon--tny'}
 												label={t('')}
 												onlyIcon={true}
-												onClick={() => store.onRemoveFromBuffer(c)}
+												onClick={() => onDeleteFn(c)}
 											/>
 										)}
 									</React.Fragment>
 								)}
 							</div>
-						);
-					})}
-			</div>
+						</div>
+					);
+				})}
+
+				{store.files.length > 0 &&
+					<div className="k-upload__list">
+						{store.files.map(c => {
+							let rawAttachment = c.getRawFile();
+							return (
+								<div key={c.uid} className="k-upload__list__item">
+									{store.options.showLivePreview && (
+										<React.Fragment>
+											<ImagePreview
+												image={window.URL.createObjectURL(new Blob([rawAttachment], { type: rawAttachment.type }))}
+											/>
+											<p className="k-upload__list__item__label">
+												{c.name.split('').length > 32
+													? c.name
+															.split('')
+															.splice(0, 32)
+															.join('') + '...'
+													: c.name}
+											</p>
+											{store.options.removeFromBuffer && (
+												<BaasicButton
+													className="k-upload__list__item__close btn btn--icon u-mar--right--tny"
+													icon={'u-icon u-icon--close u-icon--tny'}
+													label={t('')}
+													onlyIcon={true}
+													onClick={() => store.onRemoveFromBuffer(c)}
+												/>
+											)}
+										</React.Fragment>
+									)}
+								</div>
+							);
+						})}
+					</div>
+				}
 		</React.Fragment>
 	);
 };
@@ -153,34 +149,8 @@ BaasicDropzoneTemplate.propTypes = {
 
 const ImagePreview = function({ image }) {
 	return (
-		<div
-			style={{
-				display: 'inline-flex',
-				justifyContent: "center",
-				borderRadius: 6,
-				border: '1px solid #eaeaea',
-				width: '100%',
-				height: 100,
-				padding: 4,
-				boxSizing: 'border-box',
-			}}
-		>
-			<div
-				style={{
-					display: 'flex',
-					minWidth: 0,
-					overflow: 'hidden',
-				}}
-			>
-				<img
-					src={image}
-					style={{
-						display: 'block',
-						width: 'auto',
-						height: '100%',
-					}}
-				/>
-			</div>
+		<div className="k-upload__list__item__image">
+			<img src={image} alt="" />
 		</div>
 	);
 };

@@ -1,0 +1,73 @@
+/*------------------------------------*\
+    # component.bank
+\*------------------------------------*/
+
+.bank {
+    &__footer {
+        &__buttons {
+            display: flex;
+
+            @media (--screen-to-med) {
+                align-items: flex-end;
+                flex-direction: column;
+            }
+
+            @media (--screen-from-med) {
+                justify-content: flex-end;
+            }
+        }
+    }
+
+    &--verify {
+        .k-dropzone,
+        .card--image {
+            background-color: $white;
+        }
+
+        &__separator {
+            position: relative;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin: calc($unit * 4) 0;
+
+            &::before {
+                content: "";
+
+                z-index: 1;
+                position: absolute;
+                top: 50%;
+                left: 0;
+
+                display: block;
+                width: 100%;
+                height: 1px;
+
+                background-color: $color-opaque;
+
+                transform: translateY(50%);
+            }
+
+            span {
+                z-index: 2;
+                position: relative;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: calc($unit * 6);
+                height: calc($unit * 6);
+
+                @mixin type-scale $type-xsmall, 1;
+                color: $color-text;
+
+                border-radius: $radius-full;
+                border: 1px solid $color-opaque;
+                background-color: $color-background;
+            }
+        }
+    }
+}
