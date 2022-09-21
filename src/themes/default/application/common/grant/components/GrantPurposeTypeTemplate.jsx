@@ -8,16 +8,16 @@ function GrantPurposeTypeTemplate({ grantPurposeType, form }
     return (
         <React.Fragment>
             {grantPurposeType.abrv === 'in-honor-of' &&
-                <BasicInput field={form.$('purposeNote')} />}
+                <BasicInput field={form.$('purposeName')} />}
 
             {grantPurposeType.abrv === 'solicited-by' &&
-                <BasicInput field={form.$('purposeNote')} />}
+                <BasicInput field={form.$('purposeName')} />}
 
             {grantPurposeType.abrv === 'in-memory-of' &&
-                <BasicInput field={form.$('purposeNote')} />}
+                <BasicInput field={form.$('purposeName')} />}
 
             {grantPurposeType.abrv === 'other' &&
-                <BasicTextArea field={form.$('purposeNote')} label="Note" placeholder="Note" />}
+                <BasicTextArea field={form.$('purposeNote')} />}
         </React.Fragment>
     )
 }

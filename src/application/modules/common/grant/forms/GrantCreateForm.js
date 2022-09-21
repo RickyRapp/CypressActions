@@ -22,7 +22,7 @@ export default class GrantCreateForm extends FormBase {
 					rules: 'required|numeric|min:100',
 					extra: {
 						type: 'c2',
-					},
+					}, 
 				},
 				{
 					name: 'grantPurposeTypeId',
@@ -45,6 +45,12 @@ export default class GrantCreateForm extends FormBase {
 					name: 'purposeNote',
 					label: 'GRANT.CREATE.FIELDS.PURPOSE_NOTE_LABEL',
 					placeholder: 'GRANT.CREATE.FIELDS.PURPOSE_NOTE_PLACEHOLDER',
+					rules: 'string|max:35',
+				},
+				{
+					name: 'purposeName',
+					label: 'GRANT.CREATE.FIELDS.NAME_LABEL',
+					placeholder: 'GRANT.CREATE.FIELDS.NAME_PLACEHOLDER',
 					rules: 'string|max:35',
 				},
 				{
