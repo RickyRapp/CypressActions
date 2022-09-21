@@ -1971,7 +1971,7 @@
                 "NUMBER_OF_PAYMENTS_PLACEHOLDER": "Enter Number of Payments",
                 "END_DATE_LABEL": "Select Ending Date",
                 "END_DATE_PLACEHOLDER": "Select Ending Date",
-                "NO_END_DATE_LABEL": "Ongoing",
+                "NO_END_DATE_LABEL": "Ongoing", 
                 "NO_END_DATE_PLACEHOLDER": "Ongoing",
                 "ADDITIONAL_INFORMATION_LABEL": "Additional information",
                 "ADDITIONAL_INFORMATION_PLACEHOLDER": "Additional information",

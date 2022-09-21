@@ -371,7 +371,7 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		
 	}
 
-	@action.bound 
+	@action.bound  
 	resetFieldRules() {
 		this.form.$('purposeNote').set('rules', '');
 		this.form.$('purposeName').set('rules', '');
