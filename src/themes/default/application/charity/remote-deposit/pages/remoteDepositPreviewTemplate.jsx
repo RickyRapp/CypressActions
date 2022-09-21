@@ -65,6 +65,20 @@ function RemoteDepositPreviewTemplate({ remoteDepositPreviewViewStore, t }) {
                             </div>
                         </div>
                     </div>
+                    <div className="col col-sml-12">
+                        <div className="card--secondary card--tny u-mar--bottom--sml">
+                            <div className="row">
+                                <div className="col col-sml-6">
+                                    <div className="form__group__label type--wgt--regular">{t('SESSION.PREVIEW.FIELDS.PAYMENT_METHOD')}</div>
+                                </div>
+                                <div className="col col-sml-6">
+                                    <div className="type--wgt--medium u-push">
+                                        {item && item.paymentMethod}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div>

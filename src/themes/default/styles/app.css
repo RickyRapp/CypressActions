@@ -99,6 +99,7 @@
 @import "component.note.css";
 @import "component.title.css";
 @import "component.bank.css";
+@import "component.stepper.css";
 
 /**
 * Views .......... specific website/app views (example: 404 view, login view)

@@ -17,8 +17,19 @@ import { isSome } from "core/utils";
 import { ApplicationListLayout, Content, PageHeader } from "core/layouts";
 
 const RemoteDepositListTemplate = function({ remoteDepositListViewStore }) {
-    const { tableStore, routes, queryUtility, authorization, checksOnHoldTableStore, onExpandChecksOnHoldClick, isChecksOnHoldVisible,
-        searchDonorDropdownStore, donationStatusDropdownStore, dateCreatedDateRangeQueryStore } = remoteDepositListViewStore;
+    const { 
+        tableStore,
+        routes,
+        queryUtility, 
+        authorization, 
+        checksOnHoldTableStore,
+        onExpandChecksOnHoldClick, 
+        isChecksOnHoldVisible,
+        searchDonorDropdownStore, 
+        donationStatusDropdownStore,
+        dateCreatedDateRangeQueryStore 
+    } = remoteDepositListViewStore;
+    
     return (
         <ApplicationListLayout
             store={remoteDepositListViewStore}
