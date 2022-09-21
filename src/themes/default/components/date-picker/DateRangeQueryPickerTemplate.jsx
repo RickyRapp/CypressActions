@@ -94,7 +94,7 @@ class DateRangeQueryPickerTemplate extends React.Component {
 
     render() {
         return (
-            <div className={this.store.options.advancedSearch ? "c-date-range__wrapper" : ""}>
+            <div className={this.store.options.advancedSearch ? "c-date-range__wrapper" : "c-date-range__wrapper"}>
                 <DateRangePicker value={this.store.value} options={this.store.options} onChange={this.onValueChange} t={this.t} errors={this.store.errors} />
                 <div className="c-date-range__period">
                     {this.store.options.advancedSearch &&

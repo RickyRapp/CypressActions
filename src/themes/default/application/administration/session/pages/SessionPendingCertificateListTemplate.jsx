@@ -33,7 +33,8 @@ const SessionPendingCertificateListTemplate = function ({ sessionPendingCertific
         <React.Fragment>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--primary card--med">
-                <TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}>
+                	<TableFilter queryUtility={queryUtility}>
+						<div className="row">
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={searchCharityDropdownStore} />
 								{/* <AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" /> */}
@@ -57,37 +58,34 @@ const SessionPendingCertificateListTemplate = function ({ sessionPendingCertific
 								/>
 							</div>
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id="dollarRange"
-                                    value={queryUtility.filter.dollarRange || ''}
-                                    onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
-                                    placeholder="SESSION.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
-                                />
-                            </div>
-                            {/* <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id="usernameCreatedSession"
-                                    value={queryUtility.filter.usernameCreatedSession || ''}
-                                    onChange={event => (queryUtility.filter.usernameCreatedSession = event.target.value)}
-                                    placeholder="SESSION.LIST.FILTER.USERNAME_CREATED_SESSION_PLACEHOLDER"
-                                />
-                            </div> */}
+								<BaasicInput
+									id="dollarRange"
+									value={queryUtility.filter.dollarRange || ''}
+									onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+									placeholder="SESSION.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+								/>
+							</div>
+							{/* <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
+									id="usernameCreatedSession"
+									value={queryUtility.filter.usernameCreatedSession || ''}
+									onChange={event => (queryUtility.filter.usernameCreatedSession = event.target.value)}
+									placeholder="SESSION.LIST.FILTER.USERNAME_CREATED_SESSION_PLACEHOLDER"
+								/>
+							</div> */}
 							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 								<BaasicDropdown store={searchDonorDropdownStore} />
 							</div>
-							<div className="col col-sml-12 u-mar--bottom--sml">
-								<div className="row row--form">
-									<div className="col col-sml-12 col-lrg-8">
-										<DateRangeQueryPicker
-											queryUtility={queryUtility}
-											store={dateCreatedDateRangeQueryStore}
-											fromPropertyName="dateCreatedFrom"
-											toPropertyName="dateCreatedTo"
-										/>
-									</div>
-								</div>
+							<div className="col col-sml-12 col-lrg-8 u-mar--bottom--sml">
+								<DateRangeQueryPicker
+									queryUtility={queryUtility}
+									store={dateCreatedDateRangeQueryStore}
+									fromPropertyName="dateCreatedFrom"
+									toPropertyName="dateCreatedTo"
+								/>
 							</div>
-						</TableFilter>
+						</div>
+					</TableFilter>
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}

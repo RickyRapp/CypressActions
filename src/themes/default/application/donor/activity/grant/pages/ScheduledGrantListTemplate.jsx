@@ -12,23 +12,23 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 	const { tableStore, routes, queryUtility, authorization, dateCreatedDateRangeQueryStore, charityDropdownStore, fetchSwitchType, summaryData, upcomingGrants } = scheduledGrantViewStore;
 	return (
 		<Content emptyRenderer={renderEmpty(routes)}>
-			<div className="row row--form">
+			<div className="row">
 				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">
-						<div className="u-mar--bottom--med">
-							<TableFilter
-								colClassName={"col col-sml-12 col-lrg-8"}
-								queryUtility={queryUtility}
-								secondColClassName={"col col-sml-12 col-lrg-4"}
-								additionalComponent={
-									<BaasicSwitchTemplate secondarySwitch firstLabel={"Finished"} secondLabel={"Active"} value={queryUtility.filter.done}
-										onChange={() => { fetchSwitchType() }} />
-								}
-							>
-								{<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+						<TableFilter
+							colClassName={""}
+							queryUtility={queryUtility}
+							secondColClassName={""}
+							additionalComponent={
+								<BaasicSwitchTemplate secondarySwitch firstLabel={"Finished"} secondLabel={"Active"} value={queryUtility.filter.done}
+									onChange={() => { fetchSwitchType() }} />
+							}
+						>
+							<div className="row u-mar--bottom--med">
+								{<div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
 									<BaasicDropdown store={charityDropdownStore} />
 								</div>}
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
 									<BaasicInput
 										id="dollarRange"
 										value={queryUtility.filter.dollarRange || ''}
@@ -36,20 +36,16 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 										placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
 									/>
 								</div>
-								{<div className="col col-sml-12 u-mar--bottom--sml">
-									<div className="row row--form">
-										<div className="col col-sml-12 col-lrg-8">
-											<DateRangeQueryPicker
-												queryUtility={queryUtility}
-												store={dateCreatedDateRangeQueryStore}
-												fromPropertyName="dateCreatedFrom"
-												toPropertyName="dateCreatedTo"
-											/>
-										</div>
-									</div>
+								{<div className="col col-sml-12 col-lrg-8 u-mar--bottom--sml">
+									<DateRangeQueryPicker
+										queryUtility={queryUtility}
+										store={dateCreatedDateRangeQueryStore}
+										fromPropertyName="dateCreatedFrom"
+										toPropertyName="dateCreatedTo"
+									/>
 								</div>}
-							</TableFilter>
-						</div>
+							</div>
+						</TableFilter>
 						<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 					</div>
 				</div>
