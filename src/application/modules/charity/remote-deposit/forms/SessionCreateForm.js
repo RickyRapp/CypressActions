@@ -34,8 +34,7 @@ export default class SessionCreateForm extends FormBase {
                 {
                     name: 'email',
                     label: 'SESSION.EDIT.FIELDS.EMAIL_LABEL',
-                    placeholder: 'SESSION.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-                    rules: 'email'
+                    placeholder: 'SESSION.EDIT.FIELDS.EMAIL_PLACEHOLDER'
                 },
                 {
                     name: 'description',

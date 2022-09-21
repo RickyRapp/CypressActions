@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { FormatterResolver, BasicInput, BaasicButton, NumericInputField } from 'core/components';
 
-function Step2Template({ form, onNextStepClick, isChangedDefaultAddress, charityName, charityAddress, taxId, phoneNumber, paymentMethod }) {
+function Step2Template({ form, onNextStepClick, isChangedDefaultAddress, charityName, charityAddress, taxId, phoneNumber, paymentMethod, addEmailField, emailInputs, handleEmailChange, removeEmailInputField }) {
 	const charityPhoneNumber = {
 		number: phoneNumber
 	}
@@ -54,8 +54,37 @@ function Step2Template({ form, onNextStepClick, isChangedDefaultAddress, charity
 					</p>
 				</div>
 
-				<BasicInput field={form.$('email')} />
+				{
+					emailInputs.map((input, index) => { 
+						return(
+						<div key={index}>
+							<input 
+								className={'input input--lrg input--text'} 
+								name="email" 
+								placeholder="Email"
+								onChange={event => handleEmailChange(index, event)}
+								/>
+								<p class="validation__message">{input.message}</p>
+						</div>
+						)
+					})
+				}
 
+				<button
+					className="btn btn--med btn--ghost search__wrapper__item"
+					onClick={addEmailField}
+				>
+					Add Email
+				</button>
+				{emailInputs.length > 1 && (
+					<button
+						className="btn btn--med btn--primary search__wrapper__item"
+						onClick={removeEmailInputField}
+					>
+						Remove email
+					</button>
+				)}
+				
 				<div className="type--right u-mar--top--med">
 					<BaasicButton
 						className="btn btn--med btn--secondary"

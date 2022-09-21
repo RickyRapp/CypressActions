@@ -33,7 +33,11 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
         charityAddress,
         taxId,
         phoneNumber,
-        paymentMethod
+        paymentMethod,
+        addEmailField,
+        emailInputs,
+        handleEmailChange,
+        removeEmailInputField
     } = sessionCreateViewStore;
 
     return (
@@ -66,6 +70,10 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                             taxId={taxId}
                             phoneNumber={phoneNumber}
                             paymentMethod={paymentMethod}
+                            addEmailField={addEmailField}
+                            emailInputs={emailInputs}
+                            handleEmailChange={handleEmailChange}
+                            removeEmailInputField={removeEmailInputField}
                         />
                     }
 

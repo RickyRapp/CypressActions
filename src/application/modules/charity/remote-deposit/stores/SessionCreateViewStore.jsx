@@ -28,6 +28,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable taxId = null;
     @observable phoneNumber = null;
     @observable paymentMethod = null;
+    @observable emailInputs = [{email:'', valid:true, message:''}]
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -165,6 +166,21 @@ class SessionViewStore extends BaseEditViewStore {
 
     @action.bound
     async onNextStep1Click() {
+        let invalidEmail = false;
+        let emails = '';
+        this.emailInputs.forEach((item, idx) => {
+            if(!item.valid)
+            {
+                invalidEmail = true;
+                return;
+            }
+            emails += `${item.email}${(idx < this.emailInputs.length-1 ? ',' : '')}`;
+        });
+
+        if(invalidEmail)
+            return;
+
+        this.form.$('email').set(emails);
         if(this.isCharityAccount) {
             const params = {
                 embed: ['contactInformation', 'charityAddresses']
@@ -381,6 +397,38 @@ class SessionViewStore extends BaseEditViewStore {
 
     async getPaymentMethod(){
         this.paymentMethod = await this.rootStore.application.administration.sessionStore.getPaymentMethod(this.rootStore.userStore.applicationUser.charityId);
+    }
+
+    @action.bound
+    addEmailField(){
+        this.emailInputs = [...this.emailInputs, {email:'', valid:false, message:''}]
+    }
+
+    @action.bound
+    handleEmailChange(index, event){
+        let data = [...this.emailInputs];
+        data[index].email = event.target.value;
+        
+        if(event.target.value === ''){
+            data[index].message = 'Please enter email address';
+            data[index].valid = false;
+            return;
+        }
+        
+        if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(event.target.value)){
+            data[index].message = 'Invalid email address';
+            data[index].valid = false;
+        }else{
+            data[index].message = '';
+            data[index].valid = true;
+        }
+    }
+
+    @action.bound
+    removeEmailInputField(){
+        if(this.emailInputs.length > 1){
+            this.emailInputs.splice(-1);
+        }
     }
 
 }
