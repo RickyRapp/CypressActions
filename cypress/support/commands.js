@@ -25,8 +25,8 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import '@testing-library/cypress/add-commands'
-require('cypress-downloadfile/lib/downloadFileCommand')
-require('cy-verify-downloads').addCustomCommand();
+//require('cypress-downloadfile/lib/downloadFileCommand')
+//require('cy-verify-downloads').addCustomCommand();
 
 //these commands act as functions to automate the login process - may need to remove cy.visit
 Cypress.Commands.add("localAdminLogin", () => {

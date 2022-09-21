@@ -22,7 +22,7 @@ export default class GrantCreateForm extends FormBase {
 					rules: 'required|numeric|min:100',
 					extra: {
 						type: 'c2',
-					},
+					}, 
 				},
 				{
 					name: 'grantPurposeTypeId',
