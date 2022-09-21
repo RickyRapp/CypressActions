@@ -51,7 +51,7 @@ export default class GrantEditForm extends FormBase {
 					label: 'GRANT.CREATE.FIELDS.PURPOSE_NOTE_LABEL',
 					placeholder: 'GRANT.CREATE.FIELDS.PURPOSE_NOTE_PLACEHOLDER',
 					rules: 'string|max:35',
-				},
+				}, 
 				{
 					name: 'purposeName',
 					label: 'GRANT.CREATE.FIELDS.NAME_LABEL',

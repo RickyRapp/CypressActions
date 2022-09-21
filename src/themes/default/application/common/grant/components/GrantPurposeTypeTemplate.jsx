@@ -20,7 +20,7 @@ function GrantPurposeTypeTemplate({ grantPurposeType, form }
                 <BasicTextArea field={form.$('purposeNote')} />}
         </React.Fragment>
     )
-}
+} 
 
 GrantPurposeTypeTemplate.propTypes = {
     grantPurposeType: PropTypes.object.isRequired,

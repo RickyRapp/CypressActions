@@ -48,7 +48,7 @@ export default class GrantCreateForm extends FormBase {
 					rules: 'string|max:35',
 				},
 				{
-					name: 'purposeName',
+					name: 'purposeName', 
 					label: 'GRANT.CREATE.FIELDS.NAME_LABEL',
 					placeholder: 'GRANT.CREATE.FIELDS.NAME_PLACEHOLDER',
 					rules: 'string|max:35',
