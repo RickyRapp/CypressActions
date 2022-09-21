@@ -35,7 +35,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 			
 			<div className="card--light card--med bank--verify">
 				<div className="type--center">
-					<p className='title--secondary u-mar--bottom--sml'>Create new bank electronically</p>
+					<p className='title--secondary u-mar--bottom--sml'>Create new bank account electronically</p>
 					{!item && <span className='title--secondary u-mar--bottom--sml'>Create new bank account manually or using : </span>}
 					<div className="btn--plaid btn--plaid--light u-mar--bottom--sml">
 						<CharityPlaid
@@ -46,7 +46,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					<div className="bank--verify__separator">
 						<span>OR</span>
 					</div>
-					<p>Create new bank manually</p>
+					<p className='title--secondary u-mar--bottom--sml'>Create new bank account manually</p>
 				</div>
 
 				<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>

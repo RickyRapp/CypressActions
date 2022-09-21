@@ -120,6 +120,7 @@ class UserStore {
                         phoneNumber: data.phoneNumber,
                         accountBalance: data.accountBalance,
                         availableBalance: data.availableBalance,
+                        email: data.email,
                         logo: await this.rootStore.application.charity.charityStore.getCharityMedia(data.id, 'logo')
                     }; 
                 }

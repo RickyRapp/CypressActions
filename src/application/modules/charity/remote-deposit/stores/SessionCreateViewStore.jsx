@@ -28,7 +28,7 @@ class SessionViewStore extends BaseEditViewStore {
     @observable taxId = null;
     @observable phoneNumber = null;
     @observable paymentMethod = null;
-    @observable emailInputs = [{email:'', valid:true, message:''}]
+    @observable emailInputs = [{email:'bla', valid:true, message:''}]
 
     constructor(rootStore) {
         const service = new SessionService(rootStore.application.baasic.apiClient);
@@ -69,7 +69,7 @@ class SessionViewStore extends BaseEditViewStore {
         this.charityAddress = `${charityFromUser.addressLine1}, ${charityFromUser.city}, ${charityFromUser.state}, ${charityFromUser.zipCode}`;
         this.taxId = charityFromUser.taxId;
         this.phoneNumber = charityFromUser.phoneNumber;
-        this.form.$('email').value = charityFromUser.email;
+        this.emailInputs[0].email = charityFromUser.email;
         this.form.$('charityId').value = this.rootStore.userStore.applicationUser.charityId;
         
         if(this.rootStore.userStore.applicationUser.roles.includes('Scanners')) {
@@ -429,6 +429,11 @@ class SessionViewStore extends BaseEditViewStore {
         if(this.emailInputs.length > 1){
             this.emailInputs.splice(-1);
         }
+    }
+
+    @action.bound
+    redirectToAllRemoteDeposits(){
+        this.rootStore.routerStore.goTo('master.app.main.charity.activity', null, {tab: '2'});
     }
 
 }

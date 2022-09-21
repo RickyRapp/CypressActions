@@ -3,7 +3,22 @@ import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
 import { FormatterResolver, BasicInput, BaasicButton, NumericInputField } from 'core/components';
 
-function Step2Template({ form, onNextStepClick, isChangedDefaultAddress, charityName, charityAddress, taxId, phoneNumber, paymentMethod, addEmailField, emailInputs, handleEmailChange, removeEmailInputField }) {
+function Step2Template({ 
+	form, 
+	onNextStepClick, 
+	isChangedDefaultAddress, 
+	charityName, 
+	charityAddress, 
+	taxId, 
+	phoneNumber, 
+	paymentMethod, 
+	addEmailField, 
+	emailInputs, 
+	handleEmailChange, 
+	removeEmailInputField, 
+	redirectToAllRemoteDeposits 
+	}) {
+
 	const charityPhoneNumber = {
 		number: phoneNumber
 	}
@@ -63,6 +78,7 @@ function Step2Template({ form, onNextStepClick, isChangedDefaultAddress, charity
 								name="email" 
 								placeholder="Email"
 								onChange={event => handleEmailChange(index, event)}
+								value={input.email}
 								/>
 								<p class="validation__message">{input.message}</p>
 						</div>
@@ -87,14 +103,21 @@ function Step2Template({ form, onNextStepClick, isChangedDefaultAddress, charity
 				
 				<div className="type--right u-mar--top--med">
 					<BaasicButton
+						className="btn btn--med btn--ghost search__wrapper__item"
+						classNameExtend="u-display--flex--justify--center"
+						onClick={redirectToAllRemoteDeposits}
+						label="SESSION.CREATE.STEP2.BUTTONS.REDIRECT"
+					/>
+
+					<BaasicButton
 						className="btn btn--med btn--secondary"
 						classNameExtend="u-display--flex--justify--center"
 						onClick={onNextStepClick}
 						label="SESSION.CREATE.STEP2.BUTTONS.SAVE"
 					/>
 				</div>
-			</div>
 
+			</div>
 			<div>
 				<div className="card--med card--primary u-mar--bottom--med">
 					<div className="u-mar--bottom--sml">

@@ -37,7 +37,8 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
         addEmailField,
         emailInputs,
         handleEmailChange,
-        removeEmailInputField
+        removeEmailInputField,
+        redirectToAllRemoteDeposits
     } = sessionCreateViewStore;
 
     return (
@@ -74,6 +75,7 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                             emailInputs={emailInputs}
                             handleEmailChange={handleEmailChange}
                             removeEmailInputField={removeEmailInputField}
+                            redirectToAllRemoteDeposits={redirectToAllRemoteDeposits}
                         />
                     }
 

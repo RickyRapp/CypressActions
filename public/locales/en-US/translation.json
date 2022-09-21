@@ -2592,7 +2592,8 @@
                     "BACK": "Back",
                     "SEARCH": "Search",
                     "CHANGE_DEFAULT_ADDRESS": "Add alternative address",
-                    "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address"
+                    "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address",
+                    "REDIRECT": "Remote Deposit History"
                 },
                 "FIELDS": {
                     "FULL_NAME_LABEL": "Full name",
