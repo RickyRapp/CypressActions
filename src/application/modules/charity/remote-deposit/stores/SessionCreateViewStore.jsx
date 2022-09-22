@@ -1,13 +1,12 @@
 import { action, computed, observable } from 'mobx';
-import { BaasicDropdownStore, BaseEditViewStore } from 'core/stores';
-import { SessionCreateForm } from 'application/charity/remote-deposit/forms';
-import { remoteDepositService } from 'application/charity/remote-deposit/services';
-import { GrantService } from 'application/common/grant/services';
+import { BaasicDropdownStore, BaasicUploadStore, BaseEditViewStore } from 'core/stores';
+import { SessionService } from 'application/administration/session/services';
 import { charityFormatter } from 'core/utils';
 import { ModalParams } from 'core/models';
+import { SessionCreateForm } from '../forms';
 
 class SessionViewStore extends BaseEditViewStore {
-    steps = [1, 2, 3, 4];
+    steps = [1,2,3];
     @observable currentStep = 1;
     @observable barcode = '';
     @observable sessionCertificates = [];
@@ -21,9 +20,18 @@ class SessionViewStore extends BaseEditViewStore {
 	@observable filteredCharities = [];
     @observable isCharitySelected = false;
     @observable cardNumber = null;
+    @observable isCharityAccount = false;
+    @observable isScannerAccount = false;
+    @observable charityName = 'N/A';
+    @observable blankScans = [];
+    @observable charityAddress = null;
+    @observable taxId = null;
+    @observable phoneNumber = null;
+    @observable paymentMethod = null;
+    @observable emailInputs = [{email:'bla', valid:true, message:''}]
 
     constructor(rootStore) {
-        const service = new remoteDepositService(rootStore.application.baasic.apiClient);
+        const service = new SessionService(rootStore.application.baasic.apiClient);
         super(rootStore, {
             name: 'remote-deposit-create',
             id: undefined,
@@ -33,7 +41,7 @@ class SessionViewStore extends BaseEditViewStore {
                     create: async (resource) => {
                         const response = await this.rootStore.application.administration.sessionStore.finishSession({ key: resource.key });
                         this.session = response.response;
-                        this.nextStep(4);
+                        this.nextStep(3);
                         this.form.clear();
                         this.charityDropdownStore.setValue(null);
                         this.charityDropdownStore.setFilteredItems([]);
@@ -49,26 +57,38 @@ class SessionViewStore extends BaseEditViewStore {
             },
             FormClass: SessionCreateForm,
             onAfterAction: () => {
-                this.nextStep(4);
+                this.nextStep(3);
             }
         });
-
+        
+        this.currentStep = 1;
+        this.isCharityAccount = true;
+        this.isCharitySelected = true;
+        var charityFromUser = this.rootStore.userStore.applicationUser.charity;
+        this.charityName = charityFromUser.name;
+        this.charityAddress = `${charityFromUser.addressLine1}, ${charityFromUser.city}, ${charityFromUser.state}, ${charityFromUser.zipCode}`;
+        this.taxId = charityFromUser.taxId;
+        this.phoneNumber = charityFromUser.phoneNumber;
+        this.emailInputs[0].email = charityFromUser.email;
+        this.form.$('charityId').value = this.rootStore.userStore.applicationUser.charityId;
+        
+        if(this.rootStore.userStore.applicationUser.roles.includes('Scanners')) {
+            this.isScannerAccount = true;
+        }
         this.createCharityDropdownStore();
+        this.createImageUploadStore();
+        this.getPaymentMethod();
         this.blankCertificateModal = new ModalParams({});
         this.givingCardModal = new ModalParams({});
         this.service = service;
     }
 
     @action.bound
+    goToCharityDashboard() {
+        this.rootStore.routerStore.goTo('master.app.main.charity.dashboard');
+    }
+    @action.bound
     async cancelCertificate(barcode) {
-        // this.modalStore.showConfirm(
-        //     `Are you sure you want to remove session from cache?`,
-        //     async () => {
-        //         await this.service.removeSessionFromCache({ key: key });
-        //         await this.queryUtility.fetch();
-        //         this.rootStore.notificationStore.success(`Successfully removed from cache`);
-        //     }
-        // );
         await this.rootStore.application.administration.sessionStore.removeCertificateFromOpenSession({ key: this.form.$('key').value, barcode: barcode });
         this.sessionCertificates = this.sessionCertificates.filter(obj => {
             return obj.barcode !== barcode;
@@ -78,23 +98,25 @@ class SessionViewStore extends BaseEditViewStore {
 
     @action.bound
     async removeFromCache() {
-        // this.rootStore.modalStore.showConfirm(
-        //     `-Are you sure you want to remove session from cache?`,
-        //     async () => {
-        //         await this.service.removeSessionFromCache({ key: key });
-        //         this.rootStore.notificationStore.success(`Successfully removed from cache`);
-        //     }
-        // );
         await this.service.inActivateSession({ key: this.form.$('key').value });
         await this.service.removeSessionFromCache({ key: this.form.$('key').value });
-        this.rootStore.routerStore.goTo('master.app.main.administration.session.tab');
+        if(this.rootStore.userStore.applicationUser.roles.includes('Charities')) {
+            this.rootStore.routerStore.goTo('master.app.main.charity.remote-deposit.list');
+        } else {
+            this.rootStore.routerStore.goTo('master.app.main.administration.session.tab');
+        }
+        
         this.rootStore.notificationStore.success(`Successfully removed from cache`);
     }
 
     @action.bound
     async editCheck(item) {
         this.blankCertificateModal.open({
-            certificate: item,
+            certificate: {... item, certificateValue: item.denominationTypeValue},
+            isCharityAccount: this.isCharityAccount,
+            imageUploadStore: this.imageUploadStore,
+            isEdit: this.sessionCertificates.map(c => c.barcode).indexOf(item.barcode) >= 0,
+            isScannerAccount: this.isScannerAccount,
             onClick: (certificate) => {
                 this.setBlankCertificate(certificate);
                 this.blankCertificateModal.close();
@@ -106,19 +128,11 @@ class SessionViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    onNextStep1Click(language) {
-        this.form.$('language').set(language);
-        this.nextStep(2);
-    }
-
-    @action.bound
 	setCharityId(id) {
 		const charity = this.filteredCharities.find(x => x.value === id);
 		this.charity = charity;
         this.form.$('charityId').value = id;
         this.isCharitySelected = true;
-        //this.queryUtility.filter.charityId = id;
-		//this.setAddress(charity.item.charityAddresses[0]);
 	} 
 	@action.bound
 	async filterCharities(inputValue) {
@@ -151,8 +165,34 @@ class SessionViewStore extends BaseEditViewStore {
 	};
 
     @action.bound
-    async onNextStep2Click() {
-        if (!this.isChangedDefaultAddress) {
+    async onNextStep1Click() {
+        let invalidEmail = false;
+        let emails = '';
+        this.emailInputs.forEach((item, idx) => {
+            if(!item.valid)
+            {
+                invalidEmail = true;
+                return;
+            }
+            emails += `${item.email}${(idx < this.emailInputs.length-1 ? ',' : '')}`;
+        });
+
+        if(invalidEmail)
+            return;
+
+        this.form.$('email').set(emails);
+        if(this.isCharityAccount) {
+            const params = {
+                embed: ['contactInformation', 'charityAddresses']
+            }
+            const charityId = this.rootStore.userStore.applicationUser.charityId;
+            this.setCharityId(charityId);
+            const data = await this.rootStore.application.charity.charityStore.getCharity(charityId, params);
+            const primaryAddress = data && data.charityAddresses && data.charityAddresses.find(c => c.isPrimary);
+            this.charity = {label: charityFormatter.format(data, {value: 'charity-name-display'}), value: charityId};
+            if(!this.isChangedDefaultAddress)
+                this.setAddress(primaryAddress);
+        } else if (!this.isChangedDefaultAddress) {
             const address = this.charity.item;
             this.setAddress(address);
         }
@@ -160,7 +200,7 @@ class SessionViewStore extends BaseEditViewStore {
         if (isValid) {
             const data = await this.rootStore.application.administration.sessionStore.createInitialSession(this.form.values());
             this.form.$('key').set(data.response);
-            this.nextStep(3);
+            this.nextStep(2);
         }
     }
 
@@ -175,8 +215,10 @@ class SessionViewStore extends BaseEditViewStore {
     }
 
     @action.bound
-    async onNextStep4Click() {
+    async onNextStep3Click() {
         clearInterval(this.refreshIntervalId);
+        this.form.$('key').value = null;
+        this.sessionCertificates = [];
         this.nextStep(1);
     }
 
@@ -187,6 +229,19 @@ class SessionViewStore extends BaseEditViewStore {
         else {
             ++this.currentStep;
         }
+    }
+
+    createImageUploadStore() {
+        this.imageUploadStore = new BaasicUploadStore(null, {
+            onDelete: () => { // eslint-disable-line
+                //async call to delete if needed
+            },
+            onChange: value => {
+			},
+			onRemoveFromBuffer: () => {
+			},
+        });
+
     }
 
     @action.bound
@@ -202,11 +257,17 @@ class SessionViewStore extends BaseEditViewStore {
             if (data.isEligible) {
                 data.certificate.isBlank = false;
                 if (data.certificate.denominationTypeValue === 0) {
+                    this.blankCertificateModal.onClose = (() => this.cancelCertificate(data.certificate.barcode));
                     this.blankCertificateModal.open({
                         certificate: data.certificate,
+                        isCharityAccount: this.isCharityAccount,
+                        isScannerAccount: this.isScannerAccount,
+                        imageUploadStore: this.imageUploadStore,
+                        isEdit: false,
                         onClick: (certificate) => {
                             certificate.isBlank = true;
                             this.setBlankCertificate(certificate);
+                            this.blankCertificateModal.onClose = null;
                             this.blankCertificateModal.close();
                         },
                         onClose: () => {
@@ -228,9 +289,13 @@ class SessionViewStore extends BaseEditViewStore {
     @action.bound
     async setBlankCertificate(certificate) {
         try {
-            const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue });
+            let mediaEntry = null;
+            if(this.imageUploadStore.files.length > this.imageUploadStore.originalFiles.length) {
+                mediaEntry = await this.service.uploadBlankCertificate(this.imageUploadStore.files[0], certificate.certificateId);
+            }
+            const data = await this.rootStore.application.administration.sessionStore.setBlankCertificateFromOpenSession({ key: this.form.$('key').value, barcode: certificate.barcode, certificateValue: certificate.certificateValue, coreMediaVaultEntryId: mediaEntry ? mediaEntry.data.id : null });
             data.response.isBlank = true;
-            // let existingCertificateInSession = this.sessionCertificates.find(c => c.barcode == certificate.barcode);
+
             let existingCertificateInSession = this.sessionCertificates.map(c => c.barcode).indexOf(certificate.barcode);
             if(existingCertificateInSession >= 0) {
                 this.sessionCertificates[existingCertificateInSession].certificateValue = data.response.certificateValue;
@@ -300,10 +365,10 @@ class SessionViewStore extends BaseEditViewStore {
     handleResponse(errorCode) {
         if (errorCode >= 4001 && errorCode <= 4010) {
             this.rootStore.notificationStore.error('ERROR_CODE.' + errorCode);
-        } else if (errorCode == 4016) {
-            this.rootStore.notificationStore.error('Certificate not in status for session');
         } else if (errorCode == 4019) {
             this.rootStore.notificationStore.error('Certificate expired');
+        } else if (errorCode == 4016) {
+            this.rootStore.notificationStore.error('Certificate not in status for session');
         } else {
             this.rootStore.notificationStore.error('EDIT_FORM_LAYOUT.ERROR_CREATE');
         }
@@ -327,39 +392,50 @@ class SessionViewStore extends BaseEditViewStore {
         this.form.$('zipCode').set(address.zipCode);
     }
     @computed get insufficientAmount() {
-        /*sessionCertificates.length > 0 && sessionCertificates.map(c => c.insufficientFunds) && <FormatterResolver
-											item={{ amount: 0 }}
-											field='amount'
-											format={{ type: 'currency' }} */
         this.sessionCertificates.length > 0 ? this.sessionCertificates.filter(c => c.insufficientFunds).map(c => c.certificateValue).reduce((a, b) => a + b, 0) : 0;
     }
 
-    @action.bound
-    async createGivingCardGrant() {
-        this.givingCardModal.open({
-            form: this.form,
-            charityDropdownStore: this.charityDropdownStore,
-            processCard: async () => {
-                this.form.$('taxId').value =  this.charityDropdownStore.value && this.charityDropdownStore.value.item.taxId;
-                const postData = {
-                    cardNumber: this.form.$('cardNumber').value,
-                    amount: this.form.$('amount').value,
-                    description: this.form.$('note').value,
-                    taxId:  this.charityDropdownStore.value && this.form.$('taxId').value.slice(0, 2) + '-' + this.form.$('taxId').value.slice(2)
-                }
-                const service = new GrantService(this.rootStore.application.baasic.apiClient);
-                try {
-                    const response = await service.createGivingCard({...postData});
-                    if(response.data.error || response.data.errorCode)
-                        throw response.data.error;
-                    this.rootStore.notificationStore.success(`Grant approved`);
-                    this.givingCardModal.close();
-                } catch (e) {
-                    this.rootStore.notificationStore.error(e);
-                }
-            }
-        });
+    async getPaymentMethod(){
+        this.paymentMethod = await this.rootStore.application.administration.sessionStore.getPaymentMethod(this.rootStore.userStore.applicationUser.charityId);
     }
+
+    @action.bound
+    addEmailField(){
+        this.emailInputs = [...this.emailInputs, {email:'', valid:false, message:''}]
+    }
+
+    @action.bound
+    handleEmailChange(index, event){
+        let data = [...this.emailInputs];
+        data[index].email = event.target.value;
+        
+        if(event.target.value === ''){
+            data[index].message = 'Please enter email address';
+            data[index].valid = false;
+            return;
+        }
+        
+        if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(event.target.value)){
+            data[index].message = 'Invalid email address';
+            data[index].valid = false;
+        }else{
+            data[index].message = '';
+            data[index].valid = true;
+        }
+    }
+
+    @action.bound
+    removeEmailInputField(){
+        if(this.emailInputs.length > 1){
+            this.emailInputs.splice(-1);
+        }
+    }
+
+    @action.bound
+    redirectToAllRemoteDeposits(){
+        this.rootStore.routerStore.goTo('master.app.main.charity.activity', null, {tab: '2'});
+    }
+
 }
 
 export default SessionViewStore;

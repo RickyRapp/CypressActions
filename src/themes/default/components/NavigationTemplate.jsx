@@ -23,29 +23,8 @@ const NavigationOptions = defaultTemplate(({ options, t }) => {
 });
 
 function NavigationTemplate({ title, navigationOptions, breadcrumbs, routerStore, t, overrideDefaultContent, children }) { // eslint-disable-line
-    // const lastIndex = breadcrumbs.length - 1;
     return !overrideDefaultContent ? (
         <React.Fragment>
-            {/* <div className='row'>
-                <div className="col col-sml-12">
-                    <div className='breadcrumbs'>
-                        {_.map(breadcrumbs, (breadcrumb, index) => {
-                            const isLast = index === lastIndex;
-                            const navigate =
-                                breadcrumb.route && !isLast
-                                    ? () => routerStore.goTo(breadcrumb.route)
-                                    : null;
-
-                            const breadcrumbTitle = t(breadcrumb.title);
-                            return (
-                                <span className={'breadcrumbs__item' + (!navigate ? ' disabled' : '')} key={index} {...(navigate ? { onClick: navigate } : {})}>
-                                    {breadcrumbTitle}{isLast ? '' : <span className='breadcrumbs__spacer u-icon u-icon--tny u-icon--arrow-right' />}
-                                </span>
-                            );
-                        })}
-                    </div>
-                </div>
-            </div> */}
             <div className="content__header">
                 <div className="row">
                     <div className='col col-sml-8 u-mar--bottom--med'>

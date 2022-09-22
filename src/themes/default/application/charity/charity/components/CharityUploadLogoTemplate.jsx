@@ -8,10 +8,12 @@ const CharityUploadLogoTemplate = function({ t, charityUploadLogoViewStore }) {
 	const { imageUploadStore, form, onEnableEditClick, item } = charityUploadLogoViewStore;
 
 	return (
-		<div>
-			<EditFormContent form={form}>
-				<div className="card--med card--primary u-mar--bottom--med">
+		<div className="card--primary card--med u-mar--bottom--med">
+			<EditFormContent form={form} formClassName={" "}>
+				<div className="card--primary__header">
 					<h3 className="u-mar--bottom--med">{t('CHARITY.UPLOAD_LOGO.TITLE')}</h3>
+				</div>
+				<div className="card--primary__body">
 					<div className="row">
 						<div className={`col col-sml-12 col-lrg-${item ? 8 : 12}`}>
 							<BaasicDropzone
@@ -20,24 +22,24 @@ const CharityUploadLogoTemplate = function({ t, charityUploadLogoViewStore }) {
 							/>
 						</div>
 						{item ? (
-                            <div className="col col-sml-12 col-lrg-4">
-                                <p className="form__group__label">Current Logo</p>
-                                
-                                <div className="card--image card--med u-mar--bottom--sml type--center">
-                                    <img className="k-upload__image--original" alt="" src={URL.createObjectURL(item)} />
-                                </div>
-                            </div>
+							<div className="col col-sml-12 col-lrg-4">
+								<p className="form__group__label">Current Logo</p>
+								
+								<div className="card--image card--med u-mar--bottom--sml type--center">
+									<img className="k-upload__image--original" alt="" src={URL.createObjectURL(item)} />
+								</div>
+							</div>
 						) : null}
 					</div>
-					<div className="info-card--footer">
-						{/* <BaasicButton
-                            type="button"
-                            className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
-                            onClick={onEnableEditClick}
-                            label="Cancel"
-                        /> */}
-						<BaasicFormControls form={form} onSubmit={form.onSubmit} />
-					</div>
+				</div>
+				<div className="card--primary__footer">
+					{/* <BaasicButton
+						type="button"
+						className="btn btn--med btn--med--wide btn--ghost u-mar--right--sml"
+						onClick={onEnableEditClick}
+						label="Cancel"
+					/> */}
+					<BaasicFormControls form={form} onSubmit={form.onSubmit} />
 				</div>
 			</EditFormContent>
 		</div>

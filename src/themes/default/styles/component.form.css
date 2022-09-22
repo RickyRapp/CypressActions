@@ -7,7 +7,7 @@
         margin-bottom: calc($unit * 3);
 
         &__label {
-            display: inline-block;
+            display: block;
             @mixin type-scale $type-small, 1;
             font-weight: $type-weight-medium;
             margin-bottom: calc($unit * 1);
@@ -15,7 +15,12 @@
             & .btn--primary {
                 float: right;
             }
+
+            &--toggle {
+                margin-bottom: calc($unit * 3 - 1px);
+            }
         }
+
     }
     
     &--inline {

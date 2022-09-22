@@ -39,104 +39,102 @@ const SessionListTemplate = function ({ sessionViewStore }) {
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
-								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="confirmationNumber"
-									className="input input--lrg"
-									value={queryUtility.filter.confirmationNumber || ''}
-									onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
-									placeholder="SESSION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="paymentNumber"
-									className="input input--lrg"
-									value={queryUtility.filter.paymentNumber || ''}
-									onChange={event => (queryUtility.filter.paymentNumber = event.target.value)}
-									placeholder="SESSION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={paymentTypeDropdownStore}
-									placeholder="SESSION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={donationStatusDropdownStore}
-									placeholder="SESSION.LIST.FILTER.SESSION_STATUS_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<NumberFormatInput
-									className="input input--lrg"
-									value={queryUtility.filter.bookletCertificateCode}
-									onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
-									format="######-##"
-									mask=""
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id="dollarRange"
-                                    value={queryUtility.filter.dollarRange || ''}
-                                    onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
-                                    placeholder="SESSION.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id="fundraiserName"
-                                    value={queryUtility.filter.fundraiserName || ''}
-                                    onChange={event => (queryUtility.filter.fundraiserName = event.target.value)}
-                                    placeholder="SESSION.LIST.FILTER.FUNDRAISER_NAME_PLACEHOLDER"
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<NumberFormatInput
-                                    id="phoneNumber"
-                                    value={queryUtility.filter.phoneNumber}
-                                    onChange={event => (queryUtility.filter.phoneNumber = event.formattedValue)}
-                                    placeholder="SESSION.LIST.FILTER.PHONE_NUMBER_PLACEHOLDER"
-                                    format="(###)(###)-(####)"
-                                />
-                            </div>
-                            <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id="sessionEmail"
-                                    value={queryUtility.filter.sessionEmail || ''}
-                                    onChange={event => (queryUtility.filter.sessionEmail = event.target.value)}
-                                    placeholder="SESSION.LIST.FILTER.EMAIL_PLACEHOLDER"
-                                />
-                            </div>
-                            {/* <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-                                <BaasicInput
-                                    id="usernameCreatedSession"
-                                    value={queryUtility.filter.usernameCreatedSession || ''}
-                                    onChange={event => (queryUtility.filter.usernameCreatedSession = event.target.value)}
-                                    placeholder="SESSION.LIST.FILTER.USERNAME_CREATED_SESSION_PLACEHOLDER"
-                                />
-                            </div> */}
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown store={searchDonorDropdownStore} />
-							</div>
-							<div className="col col-sml-12 u-mar--bottom--sml">
-								<div className="row row--form">
-									<div className="col col-sml-12 col-lrg-8">
-										<DateRangeQueryPicker
-											queryUtility={queryUtility}
-											store={dateCreatedDateRangeQueryStore}
-											fromPropertyName="dateCreatedFrom"
-											toPropertyName="dateCreatedTo"
-										/>
-									</div>
+						<TableFilter queryUtility={queryUtility}>
+							<div className="row">
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
+									<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="confirmationNumber"
+										className="input input--lrg"
+										value={queryUtility.filter.confirmationNumber || ''}
+										onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
+										placeholder="SESSION.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="paymentNumber"
+										className="input input--lrg"
+										value={queryUtility.filter.paymentNumber || ''}
+										onChange={event => (queryUtility.filter.paymentNumber = event.target.value)}
+										placeholder="SESSION.LIST.FILTER.PAYMENT_NUMBER_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={paymentTypeDropdownStore}
+										placeholder="SESSION.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={donationStatusDropdownStore}
+										placeholder="SESSION.LIST.FILTER.SESSION_STATUS_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<NumberFormatInput
+										className="input input--lrg"
+										value={queryUtility.filter.bookletCertificateCode}
+										onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
+										format="######-##"
+										mask=""
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="dollarRange"
+										value={queryUtility.filter.dollarRange || ''}
+										onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+										placeholder="SESSION.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="fundraiserName"
+										value={queryUtility.filter.fundraiserName || ''}
+										onChange={event => (queryUtility.filter.fundraiserName = event.target.value)}
+										placeholder="SESSION.LIST.FILTER.FUNDRAISER_NAME_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<NumberFormatInput
+										id="phoneNumber"
+										value={queryUtility.filter.phoneNumber}
+										onChange={event => (queryUtility.filter.phoneNumber = event.formattedValue)}
+										placeholder="SESSION.LIST.FILTER.PHONE_NUMBER_PLACEHOLDER"
+										format="(###)(###)-(####)"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="sessionEmail"
+										value={queryUtility.filter.sessionEmail || ''}
+										onChange={event => (queryUtility.filter.sessionEmail = event.target.value)}
+										placeholder="SESSION.LIST.FILTER.EMAIL_PLACEHOLDER"
+									/>
+								</div>
+								{/* <div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="usernameCreatedSession"
+										value={queryUtility.filter.usernameCreatedSession || ''}
+										onChange={event => (queryUtility.filter.usernameCreatedSession = event.target.value)}
+										placeholder="SESSION.LIST.FILTER.USERNAME_CREATED_SESSION_PLACEHOLDER"
+									/>
+								</div> */}
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown store={searchDonorDropdownStore} />
+								</div>
+								<div className="col col-sml-12 col-lrg-8 u-mar--bottom--sml">
+									<DateRangeQueryPicker
+										queryUtility={queryUtility}
+										store={dateCreatedDateRangeQueryStore}
+										fromPropertyName="dateCreatedFrom"
+										toPropertyName="dateCreatedTo"
+									/>
 								</div>
 							</div>
 						</TableFilter>

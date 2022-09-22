@@ -11,12 +11,14 @@ function DonorRecordActivityListTemplate({ donorRecordActivityViewStore }) {
 			<div className="card--tertiary card--med">
 				<div className="u-mar--bottom--med">
 					<TableFilter queryUtility={queryUtility}>
-						<div className="col col-sml-12 col-xxlrg-6 u-mar--bottom--sml">
-							<DateRangeQueryPicker queryUtility={queryUtility}
-								store={dateCreatedDateRangeQueryStore}
-								fromPropertyName='dateCreatedFrom'
-								toPropertyName='dateCreatedTo'
-							/>
+						<div className="row">
+							<div className="col col-sml-12 u-mar--bottom--sml">
+								<DateRangeQueryPicker queryUtility={queryUtility}
+									store={dateCreatedDateRangeQueryStore}
+									fromPropertyName='dateCreatedFrom'
+									toPropertyName='dateCreatedTo'
+								/>
+							</div>
 						</div>
 					</TableFilter>
 				</div>

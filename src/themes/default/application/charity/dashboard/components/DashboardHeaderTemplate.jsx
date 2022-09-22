@@ -9,9 +9,15 @@ function DashboardHeaderTemplate(props) {
     return (
         <PageHeader>
             {rootStore.userStore.user && rootStore.userStore.user.charity ? (
-                <React.Fragment>
-                    <div className="col col-sml-12">
-                        <span className="header__profile__title">{rootStore.userStore.user.charity.name}</span>
+                <div className="header__profile__wrapper">
+                    {rootStore.userStore.user.charity.logo && (
+                        <div className="header__profile__logo">
+                            <img className="" alt="" src={URL.createObjectURL(rootStore.userStore.user.charity.logo)} />
+                        </div>
+                    )}
+
+                    <div>
+                        <p className="header__profile__title">{rootStore.userStore.user.charity.name}</p>
                         <p className="header__profile__label">
                             Tax Id: <span className="type--wgt--bold">{rootStore.userStore.user.charity.taxId}</span>
                         </p>
@@ -19,7 +25,7 @@ function DashboardHeaderTemplate(props) {
                             Account Number: <span className="type--wgt--bold">{rootStore.userStore.user.charity.accountNumber}</span>
                         </p>
                     </div>
-                </React.Fragment >)
+                </div>)
                 : null}
         </PageHeader>
     )

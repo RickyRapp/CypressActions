@@ -13,7 +13,7 @@ const GrantRequestListTemplate = function({ grantRequestViewStore, t }) {
 		<Content>
 			<div className="card--tertiary card--med u-mar--bottom--sml">
 				<div className="u-mar--bottom--med">
-					<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility}></TableFilter>
+					<TableFilter colClassName={""} queryUtility={queryUtility}></TableFilter>
 				</div>
 				<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions} />
 			</div>

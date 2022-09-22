@@ -1071,6 +1071,9 @@
             }
         }
     },
+    "CHARITY_REMOTE_DEPOSIT": {
+        "TAB_TITLE": "Remote Deposit"
+    },
     "CHARITY_WITHDRAW": {
         "TAB_TITLE": "Charity Withdraw"
     },
@@ -1382,7 +1385,7 @@
                 "NAME" : "Investment (coming soon)",
                 "FIELDS" : {
                     "NOTIFY_INVESTMENT_DAILY" : "Notify us for investment daily percentage changes",
-                    "NOTIFY_INVESTMENT_DAILY_LABEL" : "Is enabled",
+                    "NOTIFY_INVESTMENT_DAILY_LABEL" : "Enable",
                     "AMOUNT_LABEL" :"Percentage",
                     "AMOUNT_PLACEHOLDER" : "%"
                 }
@@ -1974,8 +1977,8 @@
                 "ADDITIONAL_INFORMATION_PLACEHOLDER": "Additional information",
                 "NOTE_TO_ADMINISTRATOR_PLACEHOLDER": "Your Message",
                 "MEMBERSHIP_LABEL": "The IRS prohibits using donor advised funds for memberships that are not 100% tax deductible.",
-                "PURPOSE_NOTE_LABEL": "Name",
-                "PURPOSE_NOTE_PLACEHOLDER": "Name",
+                "PURPOSE_NOTE_LABEL": "Note",
+                "PURPOSE_NOTE_PLACEHOLDER": "Note",
                 "NON_BINDING_PLEDGE_LABEL": "Donor-advised funds can be used for a non-binding pledge. However, the IRS prohibits grants from a donor-advised fund from being used for a legally binding pledge.",
                 "CHARITY_EVENT_LABEL": "Attending",
                 "CHARITY_EVENT_ATTENDING_MESSAGE": "The IRS prohibits using donor-advised funds to pay for tickets to attend a CHARITY event. However, you can recommend a grant to the charity in support of a specific event as long as you have paid the full cost to attend the event on your own.",
@@ -2506,13 +2509,16 @@
                 "ORGANIZATION_NAME_LABEL": "Name / Email / Tax ID",
                 "CONFIRMATION_NUMBER_LABEL": "Confirmation number",
                 "ORIGINAL_CONFIRMATION_NUMBER_LABEL": "Original confirmation number",
+                "DESCRIPTION":"Desciption",
                 "NEW_CONFIRMATION_NUMBER_LABEL": "New confirmation numbers",
                 "DATE_CREATED_LABEL": "Date created",
                 "FULL_NAME_LABEL": "Full name",
+                "FUNDRAISER_NAME_LABEL": "Fundraiser name",
                 "PHONE_NUMBER_LABEL": "Phone number",
                 "EMAIL_LABEL": "Email",
                 "ESTIMATED_AMOUNT_LABEL": "Estimated Amount",
-                "CHECK_COUNT_LABEL": "Predicted Check Count"
+                "CHECK_COUNT_LABEL": "Predicted Check Count",
+                "PAYMENT_METHOD": "Payment Method"
             }
         },
         "LIST": {
@@ -2586,7 +2592,8 @@
                     "BACK": "Back",
                     "SEARCH": "Search",
                     "CHANGE_DEFAULT_ADDRESS": "Add alternative address",
-                    "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address"
+                    "SET_DEFAULT_DEFAULT_ADDRESS": "Set default address",
+                    "REDIRECT": "Remote Deposit History"
                 },
                 "FIELDS": {
                     "FULL_NAME_LABEL": "Full name",
@@ -2682,6 +2689,8 @@
             "FIELDS": {
                 "FULL_NAME_LABEL": "Full name",
                 "FULL_NAME_PLACEHOLDER": "Full name",
+                "FUNDRAISER_NAME_LABEL": "Fundraiser name",
+                "FUNDRAISER_NAME_PLACEHOLDER": "Fundraiser name",
                 "CHARITY_LABEL": "Charity",
                 "CHARITY_PLACEHOLDER": "Charity",
                 "PHONE_NUMBER_LABEL": "Phone number",

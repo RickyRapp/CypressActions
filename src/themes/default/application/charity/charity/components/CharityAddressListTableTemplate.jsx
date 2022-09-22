@@ -18,8 +18,10 @@ const CharityAddressListTableTemplate = function({ charityAddressViewStore, t })
 	}
 
 	return (
-		<div className="card--med card--primary u-mar--bottom--med">
-			<h3 className=" u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}</h3>
+		<div className="card--primary card--med u-mar--bottom--med">
+			<div className="card--primary__header">
+				<h3 className=" u-mar--bottom--med">{t('CHARITY.EDIT.FIELDS.ADDRESS_TITLE')}</h3>
+			</div>
 			{isEditEnabled && primaryAddress && primaryAddress.id === editId ? (
 				<CharityAddressEditForm
 					className=" "

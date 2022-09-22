@@ -15,7 +15,7 @@ class CharityAddressEditForm extends Component {
 
 		return (
 			<EditFormContent form={form}>
-				<div className={className ? className : "u-mar--bottom--sml"}>
+				<div className={className ? className : ""}>
 					<h3 className="title--secondary u-mar--bottom--med">{title}</h3>
 					<div className="row row--form">
 						<div className="form__group col col-sml-12 col-lrg-6 col-xxlrg-4">
@@ -44,7 +44,7 @@ class CharityAddressEditForm extends Component {
 						)}
 					</div>
 				</div>
-				<div className="info-card--footer">
+				<div className="card--primary__footer">
 					<BaasicButton
 						type="button"
 						className="btn btn--med btn--med--wide btn--ghost"

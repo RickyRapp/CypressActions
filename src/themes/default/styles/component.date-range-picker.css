@@ -16,15 +16,14 @@
 	}
 
 	&__wrapper {
-		/* max-width: 500px; */
 		display: flex;
 		flex-direction: column;
+		width: 100%;
 		
-		@media (--screen-from-xxlrg) {
+		@media (--screen-from-med) {
 			flex-direction: row;
 			gap: calc($unit * 4);
 		}
-		/* max-width: 580px; */
 	}
 
 	&__input {
@@ -32,7 +31,7 @@
 		display: inline-block;
 
 		flex: 1;
-		min-width: calc($unit * 40);
+		/* min-width: calc($unit * 40); */
 		
 		margin-bottom: calc($unit * 2);
 		
