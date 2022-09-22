@@ -96,6 +96,11 @@ class CharityService extends BaseService {
         const url = this.routeService.getCharityVerificationDocuments(id);
         return this.apiClient.get(url);
     }
+
+    findGivingInsight(filter){
+        const url = this.routeService.findGivingInsight(filter);
+        return this.apiClient.get(url);
+    }
 }
 
 export default CharityService;

@@ -189,5 +189,10 @@ class CharityStore {
         return response.data;
     }
 
+    async findGivingInsight(params) {
+        const response = await this.charityService.findGivingInsight(params);
+        return response.data;
+    }
+
 }
 export default CharityStore;
