@@ -9,9 +9,11 @@ import {
 	BaasicModal,
 	DateRangeQueryPicker,
 	NumberFormatInput,
+	BaasicButton,
 } from 'core/components';
 import { Content } from 'core/layouts';
 import { SelectDonor } from 'application/administration/donor/components';
+import { isSome } from 'core/utils';
 
 const GrantListTemplate = function ({ grantsViewStore }) {
 	const {
@@ -92,7 +94,7 @@ const GrantListTemplate = function ({ grantsViewStore }) {
 					</div>
 				</TableFilter>
 				
-				<BaasicTable authorization={authorization} tableStore={tableStore}/>
+				<BaasicTable authorization={authorization} tableStore={tableStore} actionsComponent={renderActions}/>
 			</div>
 
 			<BaasicModal modalParams={selectDonorModal}>
@@ -108,5 +110,60 @@ GrantListTemplate.propTypes = {
 	t: PropTypes.func,
 };
 
+
+function renderActions({ item, actions, actionsRender }) {
+    if (!isSome(actions)) return null;
+
+    const { onReview, onPreview, onCancel } = actions;
+    if ( !isSome(onReview) && !isSome(onPreview) && !isSome(onCancel)) return null;
+
+    let previewRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onPreviewRender) {
+            previewRender = actionsRender.onPreviewRender(item);
+        }
+    }
+
+    let cancelRender = true;
+    if (isSome(actionsRender)) {
+        if (actionsRender.onCancelRender) {
+            cancelRender = (item.status === 'Pending' && item.transactionType === 'deposit');
+        }
+    }
+
+    return (
+        <td>
+            <div className="type--right">
+                {isSome(onPreview) && previewRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon="u-icon u-icon--preview u-icon--base"
+                        label="CONTRIBUTION.LIST.BUTTON.PREVIEW"
+                        onlyIcon={true}
+                        onClick={() => onPreview(item)}
+                    ></BaasicButton>
+                ) : null}
+                {isSome(onCancel) && cancelRender ? (
+                    <BaasicButton
+                        className="btn btn--icon"
+                        onlyIconClassName="u-mar--right--tny"
+                        icon="u-icon u-icon--close--secondary u-icon--base"
+                        label="CONTRIBUTION.LIST.BUTTON.CANCEL"
+                        onlyIcon={true}
+                        onClick={() => onCancel(item)}
+                    ></BaasicButton>
+                ) : null}
+            </div>
+        </td>
+    );
+}
+
+renderActions.propTypes = {
+    item: PropTypes.object,
+    actions: PropTypes.object,
+    actionsRender: PropTypes.object,
+    authorization: PropTypes.any,
+};
 
 export default defaultTemplate(GrantListTemplate);

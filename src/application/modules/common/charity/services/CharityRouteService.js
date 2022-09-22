@@ -3,6 +3,7 @@ import { BaseRouteService } from 'core/services';
 class CharityRouteService extends BaseRouteService {
     constructor() {
         super('charity');
+        this.givingInsightfilterFields = 'donorId,charityId,confirmationNumber,bookletCertificateCode,purposeNote,dollarRange,donationStatusIds,donationTypeIds,dateCreatedFrom,dateCreatedTo,search,name,taxId,grantId,page,rpp,sort,embed,fields'
     }
 
     getCharityLoginProfile(id) {
@@ -91,6 +92,10 @@ class CharityRouteService extends BaseRouteService {
 
     getCharityVerificationDocuments(id){
         return super.get(this.base + '/user-verification-documents/{id}', id);
+    }
+
+    findGivingInsight(filter){
+        return super.find(this.base + `/giving-insight/{?${this.givingInsightfilterFields}}`, filter);
     }
 }
 
