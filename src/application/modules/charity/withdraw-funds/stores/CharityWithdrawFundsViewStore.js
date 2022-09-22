@@ -25,11 +25,11 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
     }
 
     @action.bound
-    onChange(value){
+    onChange(value) {
         this.isACH = value;
     }
 
-    async getCharityAddress(){
+    async getCharityAddress() {
         let params = {
             charityId: this.rootStore.userStore.applicationUser.id,
             orderBy: 'isPrimary',
@@ -58,14 +58,14 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
     }
 
     @action.bound
-    changeValue(value){
+    changeValue(value) {
         this.amount = value;
-        if(value <=0){
+        if (value <= 0) {
             this.amountValidationMessage = "Amount can't be lower than 0."
             return false;
         }
 
-        if( this.availableBalance < value ){
+        if (this.availableBalance < value) {
             this.amountValidationMessage = "Amount can't be greater than available balance."
             return false;
         }
@@ -73,25 +73,25 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
     }
 
     @action.bound
-    async createWithdraw(){
+    async createWithdraw() {
         const address = this.charityAddress;
         this.bankAccountValidationMessage = "";
         this.amountValidationMessage = "";
         this.addressValidationMessage = "";
 
-        if(!this.isACH && ( address.addressLine1 === ""
+        if (!this.isACH && (address.addressLine1 === ""
             || address.city === ""
             || address.state === ""
-            || address.zipCode === "")){
+            || address.zipCode === "")) {
             this.addressValidationMessage = "Invalid address."
             return false
-        } 
-        if(this.isACH && (this.bankAccount === null || this.bankAccount === undefined || this.bankAccount === "" ) ){
+        }
+        if (this.isACH && (this.bankAccount === null || this.bankAccount === undefined || this.bankAccount === "")) {
             this.bankAccountValidationMessage = "Please select bank account."
             return false;
         }
 
-        if(!this.amount || this.amount <=0 || this.availableBalance <= this.amount){
+        if (!this.amount || this.amount <= 0 || this.availableBalance <= this.amount) {
             this.amountValidationMessage = 'Please enter valid Amount.';
             return false;
         }
@@ -101,7 +101,7 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
             amount: this.amount,
             charityBankAccountId: this.bankAccount,
             IsAch: this.isACH,
-            charityAddress : {
+            charityAddress: {
                 addressLine1: address.addressLine1,
                 addressLine2: address.addressLine2,
                 city: address.city,
@@ -110,12 +110,16 @@ class CharityWithdrawFundsViewStore extends BaseViewStore {
             }
         }
 
-       const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
-       await this.rootStore.userStore.updateCharityBalances();
-       this.rootStore.notificationStore.success('Successfully created withdraw');
-       this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.dashboard')); 
+        const data = await this.rootStore.application.charity.grantStore.createWithdraw(resource);
+        await this.rootStore.userStore.updateCharityBalances();
+        this.rootStore.notificationStore.success('Successfully created withdraw');
+        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.dashboard'));
     }
 
+    @action.bound
+    async redirectToManageAccount() {
+        this.rootStore.routerStore.goTo(new RouterState('master.app.main.charity.profile'));
+    }
 }
 
 export default CharityWithdrawFundsViewStore;

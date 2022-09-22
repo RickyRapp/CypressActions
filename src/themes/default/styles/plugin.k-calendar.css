@@ -35,25 +35,63 @@
 			}
 		}
 	}
+	
+	& .k-calendar-view {
+		padding: 0 calc($unit * 1) !important;
 
-	.k-content {
-		.k-today {
-			color: $color-primary;
+		@media (--screen-from-med) {
+			padding: 0 calc($unit * 3) !important;
 		}
+	}
 
-		.k-link {
-			&:hover {
-				background-color: color($color-primary a(0.1));
-			}
+	&.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal) > .k-button {
+		width: calc($unit * 5) !important;
+		
+		@media (--screen-from-med) {
+			width: calc($unit * 8) !important;
+		}
+	}
+	
+	& .k-calendar-header {
+		flex-direction: column; 
+		
+		@media (--screen-from-med) {
+			flex-direction: row; 
 		}
 	}
 
 	& .k-content {
+		flex-direction: column !important;
+
+		& tbody {
+			margin-left: 0 !important;
+		}
+
+		@media (--screen-from-med) {
+			flex-direction: row !important;
+
+			& tbody {
+				&:last-child {
+					margin-left: calc($unit * 5) !important;
+				}
+			}
+		}
+
+		& .k-today {
+			color: $color-primary;
+		}
+
+		& .k-link {
+			&:hover {
+				background-color: color($color-primary a(0.1));
+			}
+		}
+
 		& .k-range-end.k-range-start {
 			& .k-link {
 				&:hover {
-                    color: $bali-hai;
-                    background-color: color($zest a(0.1));
+					color: $bali-hai;
+					background-color: color($zest a(0.1));
 				}
 			}
 		}

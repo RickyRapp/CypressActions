@@ -377,11 +377,11 @@ const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
 				</div>
 			) : null}
 
-			<div className="row row--form">
+			<div className="row">
 				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">
-						<div className="u-mar--bottom--med">
-							<TableFilter colClassName={'col col-sml-12 col-lrg-12'} queryUtility={queryUtility}>
+						<TableFilter queryUtility={queryUtility}>
+							<div className="row">
 								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
 									<BaasicDropdown store={charityDropdownStore} />
 								</div>
@@ -438,8 +438,9 @@ const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
 										</div>
 									</div>
 								</div>
-							</TableFilter>
-						</div>
+							</div>
+						</TableFilter>
+
 						{/* <div className="u-display--flex u-display--flex--justify--flex-end w--100">
 							<p className="type--sml">
 								Total amount:

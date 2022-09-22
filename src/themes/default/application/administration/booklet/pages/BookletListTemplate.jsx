@@ -13,61 +13,65 @@ const BookletListTemplate = function({ bookletViewStore }) {
 		<ApplicationListLayout store={bookletViewStore} authorization={authorization}>
 			<PageHeader routes={routes} />
 			<Content>
-			<div className="row row__align--end" style={{marginBottom: '15px'}}>
-            <div className="col col-sml-12 col-lrg-5 col-xxlrg-5 u-mar--top--sml">
-                <label className="form__group__label">Starting Code</label>
-                <BaasicInput field={resourcesModel.codeStart} onChange={e => {resourcesModel.codeStart = parseInt(e.target.value)}}/>
-            </div>
-			<div className="col col-sml-12 col-lrg-5 col-xxlrg-5 u-mar--top--sml">
-                <label className="form__group__label">Ending Code</label>
-                <BaasicInput field={resourcesModel.codeEnd} onChange={e => {resourcesModel.codeEnd = parseInt(e.target.value)}}/>
-            </div>
-            <div className="col col-sml-12 col-xxlrg-2 type--right u-mar--top--sml">
-				<BaasicButton
-                            className='btn btn--med btn--primary'
-                            label='EXPORT'
-							onClick={() => exportExcel()}
-                            />
-            </div>
-        </div>
+				<div className="card--tertiary card--med u-mar--bottom--sml">
+					<div className="row row__align--end">
+						<div className="col col-sml-12 col-lrg-5 u-mar--bottom--sml--to-med">
+							<label className="form__group__label">Starting Code</label>
+							<BaasicInput field={resourcesModel.codeStart} onChange={e => {resourcesModel.codeStart = parseInt(e.target.value)}}/>
+						</div>
+						<div className="col col-sml-12 col-lrg-5 u-mar--bottom--sml--to-med">
+							<label className="form__group__label">Ending Code</label>
+							<BaasicInput field={resourcesModel.codeEnd} onChange={e => {resourcesModel.codeEnd = parseInt(e.target.value)}}/>
+						</div>
+						<div className="col col-sml-12 col-lrg-2 type--right">
+							<BaasicButton
+								className='btn btn--med btn--primary'
+								label='EXPORT'
+								onClick={() => exportExcel()}
+								/>
+						</div>
+					</div>
+				</div>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility}>
-							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-								<BaasicInput
-									id="codes"
-									className="input input--lrg"
-									value={queryUtility.filter.codes || ''}
-									onChange={event => (queryUtility.filter.codes = event.target.value)}
-									placeholder="BOOKLET.LIST.FILTER.CODES_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={denominationTypeDropdownStore}
-									placeholder="BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={bookletStatusDropdownStore}
-									placeholder="BOOKLET.LIST.FILTER.BOOKLET_STATUS_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={bookletTypeDropdownStore}
-									placeholder="BOOKLET.LIST.FILTER.BOOKLET_TYPE_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-lrg-3 u-mar--bottom--sml">
-								<BaasicInput
-									id="donorsName"
-									className="input input--lrg"
-									value={queryUtility.filter.donorsName || ''}
-									onChange={event => (queryUtility.filter.donorsName = event.target.value)}
-									placeholder="BOOKLET.LIST.FILTER.DONORS_NAME"
-								/>
+						<TableFilter queryUtility={queryUtility}>
+							<div className="row">
+								<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="codes"
+										className="input input--lrg"
+										value={queryUtility.filter.codes || ''}
+										onChange={event => (queryUtility.filter.codes = event.target.value)}
+										placeholder="BOOKLET.LIST.FILTER.CODES_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={denominationTypeDropdownStore}
+										placeholder="BOOKLET.LIST.FILTER.DENOMINATION_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={bookletStatusDropdownStore}
+										placeholder="BOOKLET.LIST.FILTER.BOOKLET_STATUS_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={bookletTypeDropdownStore}
+										placeholder="BOOKLET.LIST.FILTER.BOOKLET_TYPE_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="donorsName"
+										className="input input--lrg"
+										value={queryUtility.filter.donorsName || ''}
+										onChange={event => (queryUtility.filter.donorsName = event.target.value)}
+										placeholder="BOOKLET.LIST.FILTER.DONORS_NAME"
+									/>
+								</div>
 							</div>
 						</TableFilter>
 					</div>

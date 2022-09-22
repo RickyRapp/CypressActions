@@ -11,9 +11,8 @@ function CharityPersonalDataTemplate() {
             <div className="u-mar--bottom--med">
                 <CharityBankAccount />
             </div>
-            <div className="u-mar--bottom--med">
-                <CharityAddressListTable />
-            </div>
+            
+            <CharityAddressListTable />
         </div>
     )
 }

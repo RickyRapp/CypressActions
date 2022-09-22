@@ -79,7 +79,7 @@ export default class MenuStore {
     //toggle secondary menu items 
     @action.bound toggleSecondaryMenu() {
         this.secondaryMenuIsOpen = !this.secondaryMenuIsOpen;
-        if(this.isCollapsed) {
+        if (this.isCollapsed) {
             this.secondaryMenuIsOpen = true;
         }
     }
@@ -91,6 +91,10 @@ export default class MenuStore {
     //toggles menu open/close is-open, for mobile
     @action.bound toggleMenuOpen() {
         this.isOpen = !this.isOpen;
+    }
+
+    @action.bound closeMenu() {
+        this.isOpen = false;
     }
 
     @action selectMenuItem = (item, e) => {
@@ -106,7 +110,7 @@ export default class MenuStore {
         } else {
             this.setSelectedPath(item.path);
         }
-        
+
         e && e.preventDefault();
     };
 

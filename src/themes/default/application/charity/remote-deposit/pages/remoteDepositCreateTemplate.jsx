@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultTemplate } from 'core/hoc';
-import { StepCounter, Step1Template, Step2Template, Step3Template, Step4Template } from 'themes/application/charity/remote-deposit/pages';
+import { Step2Template, Step3Template, Step4Template, StepCounter } from '../components';
+import { Page } from 'core/layouts';
 
 const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
     const {
@@ -9,11 +10,9 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
         steps,
         currentStep,
         onNextStep1Click,
-        onNextStep2Click,
         onPreviousStep2Click,
-        onNextStep4Click,
+        onNextStep3Click,
         charityDropdownStore,
-        onPreviousStep3Click,
         barcode,
         onBarcodeChange,
         cancelCertificate,
@@ -27,52 +26,62 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
         onChangeDefaultAddressClick,
         modalStore,
         filterCharities,
-        setCharityId,
         charity,
         insufficientAmount,
         isCharitySelected,
-        givingCardModal,
-        createGivingCardGrant
+        charityName,
+        charityAddress,
+        taxId,
+        phoneNumber,
+        paymentMethod,
+        addEmailField,
+        emailInputs,
+        handleEmailChange,
+        removeEmailInputField,
+        redirectToAllRemoteDeposits
     } = sessionCreateViewStore;
 
     return (
-        <React.Fragment>
-            <div className="container u-mar--bottom--sml">
-                <StepCounter
-                    steps={steps}
-                    currentStep={currentStep}
-                />
+        <Page>
+            <div className="container--lrg u-mar--bottom--sml">
+                <div className="container--sidebar">
+                    <StepCounter
+                        steps={steps}
+                        currentStep={currentStep}
+                        hideLogo={true}
+                    />
+                </div>
             </div>
 
-            <form onSubmit={form.onSubmit}>
-                {currentStep === 1 &&
-                    <div className="container container--sml">
-                        <Step1Template 
-                            onNextStepClick={onNextStep1Click}
-                            givingCardModal={givingCardModal}
-                            createGivingCardGrant={createGivingCardGrant}
-                        />
-                    </div>}
+            <div className="container--lrg">
+                <form onSubmit={form.onSubmit}>
 
-                {currentStep === 2 &&
-                    <div className="container container--sml">
+                    {currentStep === 1 &&
                         <Step2Template
                             form={form}
-                            onNextStepClick={onNextStep2Click}
                             onPreviousStepClick={onPreviousStep2Click}
+                            onNextStepClick={onNextStep1Click}
                             charityDropdownStore={charityDropdownStore}
                             isChangedDefaultAddress={isChangedDefaultAddress}
                             onChangeDefaultAddressClick={onChangeDefaultAddressClick}
                             filterCharities={filterCharities}
-                            setCharityId={setCharityId}
                             isCharitySelected={isCharitySelected}
+                            charityName={charityName}
+                            charityAddress={charityAddress}
+                            taxId={taxId}
+                            phoneNumber={phoneNumber}
+                            paymentMethod={paymentMethod}
+                            addEmailField={addEmailField}
+                            emailInputs={emailInputs}
+                            handleEmailChange={handleEmailChange}
+                            removeEmailInputField={removeEmailInputField}
+                            redirectToAllRemoteDeposits={redirectToAllRemoteDeposits}
                         />
-                    </div>}
+                    }
 
-                {currentStep === 3 &&
-                    <div className="u-padd--left--sml u-padd--right--sml">
+                    {currentStep === 2 &&
                         <Step3Template
-                            onPreviousStepClick={onPreviousStep3Click}
+                            onPreviousStepClick={onPreviousStep2Click}
                             form={form}
                             sessionCertificates={sessionCertificates}
                             barcode={barcode}
@@ -85,19 +94,20 @@ const RemoteDepositCreateTemplate = function ({ sessionCreateViewStore }) {
                             charity={charity}
                             insufficientAmount={insufficientAmount}
                         />
-                    </div>}
-                {currentStep === 4 &&
-                    <div className="container container--base u-padd--bottom--med">
+                    }
+
+                    {currentStep === 3 &&
                         <Step4Template
-                            onNextStepClick={onNextStep4Click}
+                            onNextStepClick={onNextStep3Click}
                             currentCount={currentCount}
                             sessionCertificates={sessionCertificates}
                             session={session}
                             charity={charity}
                         />
-                    </div>}
-            </form>
-        </React.Fragment>
+                    }
+                </form>
+            </div>
+        </Page>
     )
 };
 

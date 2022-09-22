@@ -45,70 +45,72 @@ const GrantListTemplate = function ({ grantViewStore }) {
 				<Export config={exportConfig} />
 			</div>
 			<div className="card--tertiary card--med u-mar--bottom--sml">
-				<div className="row row--form u-mar--bottom--med">
-					<div className="col col-sml-12 col-xxlrg-9">
-						<TableFilter colClassName={"col col-sml-12 col-xxlrg-9"} queryUtility={queryUtility}>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown store={searchDonorDropdownStore} />
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
-								<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="confirmationNumber"
-									className="input input--lrg"
-									value={queryUtility.filter.confirmationNumber || ''}
-									onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
-									placeholder="GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="dollarRange"
-									className="input input--lrg"
-									value={queryUtility.filter.dollarRange || ''}
-									onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
-									placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={donationStatusDropdownStore}
-									placeholder="GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={donationTypeDropdownStore}
-									placeholder="GRANT.LIST.FILTER.GRANT_TYPE_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="purposeNote"
-									className="input input--lrg"
-									value={queryUtility.filter.purposeNote || ''}
-									onChange={event => (queryUtility.filter.purposeNote = event.target.value)}
-									placeholder="GRANT.LIST.FILTER.INFORMATION_FROM_GRANT_PURPOSE_FIELDS"
-								/>
-							</div>
-							<div className="col col-sml-12 u-mar--bottom--sml">
-								<div className="row row--form">
-									<div className="col col-sml-12 col-lrg-8">
-										<DateRangeQueryPicker
-											queryUtility={queryUtility}
-											store={dateCreatedDateRangeQueryStore}
-											fromPropertyName="dateCreatedFrom"
-											toPropertyName="dateCreatedTo"
-										/>
+				<div className="row u-mar--bottom--med">
+					<div className="col col-sml-12 col-xxlrg-10">
+						<TableFilter queryUtility={queryUtility}>
+							<div className="row">
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown store={searchDonorDropdownStore} />
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									{/* <BaasicDropdown store={searchCharityDropdownStore} /> */}
+									<AsyncSelect onChange={e => setCharityId(e.value)} cacheOptions defaultOptions={true} loadOptions={promiseOptions} classNamePrefix="react-select" />
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="confirmationNumber"
+										className="input input--lrg"
+										value={queryUtility.filter.confirmationNumber || ''}
+										onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
+										placeholder="GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="dollarRange"
+										className="input input--lrg"
+										value={queryUtility.filter.dollarRange || ''}
+										onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+										placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={donationStatusDropdownStore}
+										placeholder="GRANT.LIST.FILTER.GRANT_STATUS_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={donationTypeDropdownStore}
+										placeholder="GRANT.LIST.FILTER.GRANT_TYPE_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="purposeNote"
+										className="input input--lrg"
+										value={queryUtility.filter.purposeNote || ''}
+										onChange={event => (queryUtility.filter.purposeNote = event.target.value)}
+										placeholder="GRANT.LIST.FILTER.INFORMATION_FROM_GRANT_PURPOSE_FIELDS"
+									/>
+								</div>
+								<div className="col col-sml-12 u-mar--bottom--sml">
+									<div className="row row--form">
+										<div className="col col-sml-12 col-lrg-8">
+											<DateRangeQueryPicker
+												queryUtility={queryUtility}
+												store={dateCreatedDateRangeQueryStore}
+												fromPropertyName="dateCreatedFrom"
+												toPropertyName="dateCreatedTo"
+											/>
+										</div>
 									</div>
 								</div>
 							</div>
 						</TableFilter>
 					</div>
-					<div className="col col-sml-12 col-xxlrg-3 type--right">
+					<div className="col col-sml-12 col-xxlrg-2 type--right">
 						<BaasicButton
 							className="btn btn--med btn--primary"
 							label={'LIST_LAYOUT.CREATE_BUTTON'}

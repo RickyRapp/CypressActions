@@ -46,8 +46,8 @@ const ContributionListTemplate = function({ contributionViewStore, t }) {
 					<div>
 						<div className="container--base u-mar--bottom--med">
 							<div className="card--tertiary card--med u-mar--bottom--med">
-								<div className="">
-									<TableFilter queryUtility={queryUtility}>
+								<TableFilter queryUtility={queryUtility}>
+									<div className="row">
 										<div className="col col-sml-12 col-med-6 col-xxxlrg-4 u-mar--bottom--sml">
 											<BaasicDropdown store={searchDonorDropdownStore} />
 										</div>
@@ -113,8 +113,8 @@ const ContributionListTemplate = function({ contributionViewStore, t }) {
 												toPropertyName="dateCreatedTo"
 											/>
 										</div>
-									</TableFilter>
-								</div>
+									</div>
+								</TableFilter>
 							</div>
 
 							<div className="card--primary card--med">

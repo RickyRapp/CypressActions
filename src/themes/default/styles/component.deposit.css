@@ -30,6 +30,12 @@
 			grid-template-columns: repeat(7, 1fr);
 		}
 
+		&--2 {
+			@media (--screen-from-sml) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
 		&--5 {
 			@media (--screen-from-sml) {
 				grid-template-columns: repeat(2, 1fr);

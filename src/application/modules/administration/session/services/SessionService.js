@@ -122,6 +122,11 @@ class SessionService extends BaseService {
         const url = this.routeService.updateScannedSession(resource);
         return this.apiClient.put(url, resource);
     }
+
+    getPaymentMethod(resource){
+        const url = this.routeService.getPaymentMethod(resource);
+        return this.apiClient.get(url);
+    }
 }
 
 export default SessionService;
