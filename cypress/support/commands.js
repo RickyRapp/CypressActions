@@ -73,7 +73,7 @@ Cypress.Commands.add("liveUserLogin", () => {
 
 Cypress.Commands.add("visitDashboard", () => {
        //get the starting balance
-       cy.contains('button', 'Sign In').should('not.exist');
+       //cy.contains('button', 'Sign In').should('not.exist');
        cy.findByText('Dashboard').should('exist') 
        cy.findByText('Dashboard').click() 
        cy.contains('span','Logout').should('be.visible') 
@@ -83,7 +83,7 @@ Cypress.Commands.add("visitDashboard", () => {
 })
 
 Cypress.Commands.add("addAndCheckDeposit", (num, currentBalance) => {
-    cy.findByText('I agree to Policies and Guidelines').parent('div')
+    cy.findByText('I agree to Policies and Guidelines').parent('span')
     .within(() => {
         cy.get('input').check({force:true}).wait(2500)
     }) 
