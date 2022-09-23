@@ -73,7 +73,7 @@ Cypress.Commands.add("liveUserLogin", () => {
 
 Cypress.Commands.add("visitDashboard", () => {
        //get the starting balance
-     //  cy.contains('button', 'Sign In').should('not.exist');
+       cy.contains('button', 'Sign In').should('not.exist');
        cy.findByText('Dashboard').should('exist') 
        cy.findByText('Dashboard').click() 
        cy.contains('span','Logout').should('be.visible') 
