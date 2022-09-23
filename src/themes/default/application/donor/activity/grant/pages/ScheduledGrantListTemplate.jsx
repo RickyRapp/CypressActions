@@ -24,7 +24,7 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 									onChange={() => { fetchSwitchType() }} />
 							}
 						>
-							<div className="row u-mar--bottom--med">
+							<div className="row u-mar--bottom--sml">
 								{<div className="col col-sml-12 col-med-6 u-mar--bottom--sml">
 									<BaasicDropdown store={charityDropdownStore} />
 								</div>}

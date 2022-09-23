@@ -25,7 +25,9 @@ const AdminReviewListTemplate = function ({ adminReviewViewStore }) {
         <React.Fragment>
             <Content emptyRenderer={renderEmpty(routes)} >
                 <div className="card--primary card--med">
-					<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility} />
+                    <div className="u-mar--bottom--med">
+					    <TableFilter queryUtility={queryUtility} />
+                    </div>
                     <BaasicTable
                         authorization={authorization}
                         tableStore={tableStore}
