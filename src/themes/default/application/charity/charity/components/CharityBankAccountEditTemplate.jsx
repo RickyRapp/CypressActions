@@ -100,7 +100,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 
 											<div className="card--image card--med u-mar--bottom--sml type--center"> 
 												<BaasicButton
-													className='btn btn--med btn--med--wide btn--ghost btn--icon--pdf'
+													className='btn btn--med btn--med--wide btn--ghost btn--icon--download'
 													label='Download'
 													onClick={() => exportFile()}
 												/>

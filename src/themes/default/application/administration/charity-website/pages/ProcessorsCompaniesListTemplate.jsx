@@ -18,9 +18,9 @@ const ProcessorsCompaniesListTemplate = function ({ processorsCompaniesListViewS
 		<ApplicationListLayout store={processorsCompaniesListViewStore} authorization={authorization}>
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
-					<div className="row u-mar--bottom--med">
+					<div className="row u-mar--bottom--sml">
 						<div className="col col-sml-12 col-xxlrg-10">
-							<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility} showDefaultSearchFilter={false}></TableFilter>
+							<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}></TableFilter>
 						</div>
 						<div className="col col-sml-12 col-xxlrg-2 type--right">
 							<BaasicButton
