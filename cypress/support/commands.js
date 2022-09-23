@@ -129,14 +129,14 @@ Cypress.Commands.add("addAndCheckDeposit", (num, currentBalance) => {
         cy.findByText('Dashboard').click()
         //cy.log(`currentBalance ${currentBalance}`)  
         //cy.log(`num ${num}`)  
-        var newBalance = parseFloat(currentBalance) + parseFloat(num)
+        const newBalance = parseFloat(currentBalance) + parseFloat(num)
   
         cy.log(`newBalance ${newBalance}`)  
         cy.get('.dashboard-card__body--amount').then((shouldBalance) => { 
             //cy.log(`with math.trunc, and slice and replace comma ${Math.trunc(shouldBalance.text().slice(1).replace(',',''))}`)
             //cy.log(`with math.trunc, and double replace ${Math.trunc(shouldBalance.text().replace('$','').replace(/\,/,''))}`)
             //cy.log(` no math.trunc ${parseFloat(shouldBalance.text().replace('$','').replace(/,/g,''))}`)
-            expect(parseFloat(newBalance).toFixed(2)*1).to.equal(parseFloat(shouldBalance.text().replace('$','').replace(/,/g,''))) 
+            expect(newBalance).to.equal(parseFloat(shouldBalance.text().replace('$','').replace(/,/g,''))) 
         }) 
 
         //logout and log back in as admin to reject    
@@ -159,14 +159,14 @@ Cypress.Commands.add("addAndCheckDeposit", (num, currentBalance) => {
         cy.findByText('Dashboard').click()
         //cy.log(`currentBalance ${currentBalance}`)  
         //cy.log(`num ${num}`)  
-        newBalance = parseFloat(currentBalance) - parseFloat(num)
+        const newBalance2 = parseFloat(newBalance) - parseFloat(num)
   
-        cy.log(`newBalance ${newBalance}`)  
-        cy.get('.dashboard-card__body--amount').then((shouldBalance) => { 
+        cy.log(`newBalance ${newBalance2}`)  
+        cy.get('.dashboard-card__body--amount').then((shouldBalance2) => { 
             //cy.log(`with math.trunc, and slice and replace comma ${Math.trunc(shouldBalance.text().slice(1).replace(',',''))}`)
             //cy.log(`with math.trunc, and double replace ${Math.trunc(shouldBalance.text().replace('$','').replace(/\,/,''))}`)
             //cy.log(` no math.trunc ${parseFloat(shouldBalance.text().replace('$','').replace(/,/g,''))}`)
-            expect(parseFloat(newBalance).toFixed(2)*1).to.equal(parseFloat(shouldBalance.text().replace('$','').replace(/,/g,''))) 
+            expect(newBalance2).to.equal(parseFloat(shouldBalance2.text().replace('$','').replace(/,/g,''))) 
         }) 
 
     })

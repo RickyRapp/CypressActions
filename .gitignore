@@ -30,4 +30,6 @@ build.zip
 #cypress
 /cypress/screenshots
 /cypress/videos
+/cypress/e2e/Donors Fund/TDF Processes/OrderChecks.cy.js
+/cypress/e2e/Donors Fund/TDF Processes/ProfileSettings.cy.js
 
