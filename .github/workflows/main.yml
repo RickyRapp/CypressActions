@@ -1,20 +1,5 @@
 name: End-to-end tests
-on:
-  push:
-    branches:
-    - develop
-    - develop_AT
-    - stage
-    - staging
-    - cypress-test-updates
-  pull_request:
-    branches:
-    - main
-    - develop
-    - develop_AT
-    - stage
-    - staging
-    - cypress-test-updates
+on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04 
