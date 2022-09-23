@@ -31,7 +31,8 @@ class remoteDepositPreviewViewStore extends BasePreviewViewStore {
                                 'grant.donationStatus',
                                 'grants.certificate.certificateStatus',
                                 'grants.certificate.denominationType',
-                                'grants.certificate.booklet'
+                                'grants.certificate.booklet',
+                                'sessionEmails'
                             ]
                         }
                         const service = new remoteDepositService(rootStore.application.baasic.apiClient);

@@ -56,7 +56,7 @@
 		}
 
 		@media (--screen-from-med) {
-			padding: $unit;
+			padding: calc($unit + 1px);
 		}
 
 		&__item {

@@ -12,7 +12,12 @@ const GeneralInformationTemplate = ({ item, t }) => {
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.CHARITY_LABEL')} value={item && item.charity && item.charity.name} />
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.FULL_NAME_LABEL')} value={item && item.fullName} />
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.PHONE_NUMBER_LABEL')} value={item && item.phoneNumber} />
-                <CardItem label={t('SESSION.PREVIEW.FIELDS.EMAIL_LABEL')} value={item && item.email} />
+                {item && item.sessionEmails && item.sessionEmails[0] ? (
+                    <CardItem label={t('SESSION.PREVIEW.FIELDS.EMAIL_LABEL')} value={item.sessionEmails.map( item => item.email += ' | ')} />
+                ):(
+                    <CardItem label={t('SESSION.PREVIEW.FIELDS.EMAIL_LABEL')} value={item && item.email} />
+                )}
+                <CardItem label={t('SESSION.PREVIEW.FIELDS.DESCRIPTION')} value={item && item.description} />
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.CONFIRMATION_NUMBER_LABEL')} value={item && item.confirmationNumber} />
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.ORIGINAL_CONFIRMATION_NUMBER_LABEL')} value={item && item.originalConfirmationNumber} />
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.DATE_CREATED_LABEL')} value={item && <Date format="full" value={item.dateCreated} />} />

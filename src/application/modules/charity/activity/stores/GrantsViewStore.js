@@ -5,6 +5,7 @@ import { ModalParams } from 'core/models';
 import { GrantListFilter } from 'application/administration/grant/models';
 import GrantDeclineForm from 'application/common/grant/forms';
 import _ from 'lodash';
+import moment from 'moment';
 class GrantViewStore extends BaseListViewStore {
     @observable declinationTypeId;
 
@@ -15,7 +16,9 @@ class GrantViewStore extends BaseListViewStore {
             routes: {
                 scheduledGrantsList: () => {
                 },
-                preview: () => {
+                preview: (id) => {
+                    this.rootStore.routerStore.goTo('master.app.main.charity.accept-security.details', { id: id });
+
                 },
             },
             queryConfig: {
@@ -31,36 +34,6 @@ class GrantViewStore extends BaseListViewStore {
             actions: () => {
                 return {
                     find: async (params) => {
-                        params.embed = [
-                            'grantPurposeType',
-                            'createdByCoreUser',
-                            'donationStatus',
-                            'donationType',
-                            'scheduledGrantPayment',
-                            'givingCardType',
-                            'certificate',
-                            'certificate.booklet'
-                        ];
-                        params.fields = [
-                            'id',
-                            'donor',
-                            'donor.id',
-                            'donor.donorName',
-                            'amount',
-                            'confirmationNumber',
-                            'bookletCertificateCode',
-                            'donationStatus',
-                            'donationType',
-                            'grantPurposeType',
-                            'purposeNote',
-                            'dateCreated',
-                            'scheduledGrantPayment',
-                            'declinationTypeId',
-                            'givingCardTypeId',
-                            'givingCardType',
-                            'url',
-                            'certificate'
-                        ];
                         if(params.dateCreatedFrom){
                             let fromDate = params.dateCreatedFrom.replace(' 00:00:00','');
                             params.dateCreatedFrom = `${fromDate} 00:00:00`;
@@ -69,15 +42,18 @@ class GrantViewStore extends BaseListViewStore {
                             let toDate = params.dateCreatedTo.replace(' 23:59:59','');
                             params.dateCreatedTo = `${toDate} 23:59:59`;
                         }
+
                         params.charityId = this.charityId;
-                        return this.rootStore.application.administration.grantStore.findGrant(params);
+                        return await this.rootStore.application.charity.charityStore.findGivingInsight(params);
                     }
                 }
             },
             FormClass: GrantDeclineForm,
         });
-
+        
+        this.contributionStatuses;
         this.charityId = rootStore.userStore.applicationUser.id;
+        this.getContributionStatusLookup();
 
         this.createTableStore();
         this.createSearchDonorDropdownStore();
@@ -101,6 +77,10 @@ class GrantViewStore extends BaseListViewStore {
         );
     }
 
+    async getContributionStatusLookup(){
+        this.contributionStatuses =  await this.rootStore.application.lookup.contributionStatusStore.find();
+    }
+
     @action.bound
     onClickDonorFromFilter(donorId) {
         this.rootStore.routerStore.goTo('master.app.main.administration.grant.create', { id: donorId })
@@ -118,15 +98,10 @@ class GrantViewStore extends BaseListViewStore {
     }
 
     createTableStore() {
-        const declinationReason = [{id: 1, name:'Legally binding pledge'},
-                            {id: 2, name:'Charity failed to provide necessary documents'},
-                            {id: 3, name:'Charity has seen its status revoked by the IRS'},
-                            {id: 4, name:'This grant does not comply with the Donors Funds’ Policies and guidelines'},
-                            {id: 5, name:'Earmarked grant'}];
         this.setTableStore(new TableViewStore(this.queryUtility, {
             columns: [
                 {
-                    key: 'donor.donorName',
+                    key: 'donorName',
                     title: 'GRANT.LIST.COLUMNS.DONOR_NAME_LABEL'
                 },
                 {
@@ -142,46 +117,16 @@ class GrantViewStore extends BaseListViewStore {
                     title: 'GRANT.LIST.COLUMNS.CONFIRMATION_NUMBER_LABEL',
                 },
                 {
-                    key: 'donationStatus.name',
-                    title: 'GRANT.LIST.COLUMNS.GRANT_STATUS_NAME_LABEL',
-                    format: {
-                        type: 'function',
-                        value: (item) => {
-                            if(item.declinationTypeId != null && typeof item.declinationTypeId != 'undefined'){
-                                return `Declined - ${(declinationReason.filter(x => x.id == item.declinationTypeId)).length > 0 ? declinationReason.filter(x => x.id == item.declinationTypeId)[0].name : 'other'}`;
-                            } else {
-                                return item.donationStatus.name;
-                            }
-                        }
-                    }
+                    key: 'status',
+                    title: 'GRANT.LIST.COLUMNS.GRANT_STATUS_NAME_LABEL'
                 },
                 {
-                    key: 'donationType.name',
-                    title: 'GRANT.LIST.COLUMNS.GRANT_TYPE_NAME_LABEL',
-                    format: {
-                        type: 'function',
-                        value: (item) => {
-                            if(item.donationType.abrv === 'online' || item.donationType.abrv === 'grant-request'){
-                                return `${item.donationType.name} - ${item.confirmationNumber}`;
-                            }else if( item.donationType.abrv === 'giving-card') {
-                                return `${item.donationType.name} - ${item.givingCardType.name}`;
-                            }else if(item.donationType.abrv === 'session') {
-                                return `Check ${item.certificate.booklet.code}-${item.certificate.code} `;
-                            } else if(item.donationType.abrv === 'charity-website') {
-                                return `${item.url ? item.url : 'Charity website'} - ${item.confirmationNumber}`;
-                            } else{
-                                return item.donationType.name;
-                            }
-                        }
-                    }
+                    key: 'type',
+                    title: 'GRANT.LIST.COLUMNS.GRANT_TYPE_NAME_LABEL'
                 },
                 {
-                    key: 'grantPurposeType.name',
-                    title: 'GRANT.LIST.COLUMNS.GRANT_PURPOSE_TYPE_LABEL',
-                    format: {
-                        type: 'function',
-                        value: this.renderGrantPurposeType
-                    }
+                    key: 'grantPurposeType',
+                    title: 'GRANT.LIST.COLUMNS.GRANT_PURPOSE_TYPE_LABEL'
                 },
                 {
                     key: 'dateCreated',
@@ -191,16 +136,28 @@ class GrantViewStore extends BaseListViewStore {
                         value: 'short'
                     }
                 }
-            ]
+            ],
+            actions: {
+                onCancel: contribution => this.openCancelContribution(contribution),
+                onPreview: contribution => this.routes.preview(contribution.id, contribution.donorId),
+                onSort: column => this.queryUtility.changeOrder(column.key),
+            },
+            actionsRender: {
+                onPreviewRender : item => {
+                    if (item.transactionType === 'deposit') {
+                        return true;
+                    }
+                    return false;
+                },
+                onCancelRender: item => {
+                    if (item.status === 'Pending' && item.transactionType === 'deposit') {
+                        const dateToEdit = moment(item.dateCreated).add(30, 'm');
+                        return moment().isBetween(moment(item.dateCreated), dateToEdit);
+                    }
+                    return false;
+                },
+            },
         }));
-    }
-
-
-    renderGrantPurposeType(item) {
-        if (item.grantPurposeType.abrv === 'other' || item.grantPurposeType.abrv === 'in-honor-of' || item.grantPurposeType.abrv === 'solicited-by' || item.grantPurposeType.abrv === 'in-memory-of') {
-            return `${item.grantPurposeType.name} - ${item.purposeNote}`
-        }
-        return item.grantPurposeType.name;
     }
 
     createSearchDonorDropdownStore() {
@@ -289,6 +246,32 @@ class GrantViewStore extends BaseListViewStore {
                 }
             });
     }
+
+    @action.bound
+	async openCancelContribution(item) {
+		this.rootStore.modalStore.showConfirm(
+			`Are you sure you want to cancel contribution (#${item.confirmationNumber}) created 
+            on: ${moment(item.dateCreated).format('dddd, MMMM Do YYYY, h:mm:ss a')} with amount: $${item.amount.toFixed(
+				2
+			)}`,
+			async () => {
+				this.loaderStore.suspend();
+				try {
+					await this.rootStore.application.donor.contributionStore.reviewContribution({
+						id: item.id,
+						contributionStatusId: this.contributionStatuses.find(c => c.abrv === 'canceled').id,
+					});
+					this.queryUtility.fetch();
+					this.rootStore.notificationStore.success('Contribution canceled');
+				} catch (err) {
+                    console.log(err)
+					this.rootStore.notificationStore.error('Failed to cancel contribution');
+				} finally {
+					this.loaderStore.resume();
+				}
+			}
+		);
+	}
 
 }
 

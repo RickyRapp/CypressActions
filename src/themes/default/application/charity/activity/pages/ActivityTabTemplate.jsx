@@ -24,9 +24,6 @@ const ActivityTabTemplate = function ({ activityTabViewStore }) {
                 <div label={'CHARITY_ACTIVITY.PAYMENTS'}>
                     <PaymentsList />
                 </div>
-                <div label={'CHARITY_ACTIVITY.DEPOSITS_INSIGHT'}>
-                    <DepositsInsight />
-                </div>
                 <div label={'CHARITY_ACTIVITY.WITHDRAWS'}>
                     <CharityWithdrawList />
                 </div>

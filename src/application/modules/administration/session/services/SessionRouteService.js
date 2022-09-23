@@ -111,6 +111,10 @@ class SessionRouteService extends BaseRouteService {
     getPaymentMethod(id){
         return super.get(this.base + '/payment-method/{id}', id);
     }
+
+    updateSessionEmails(resource){
+        return super.update(this.base + '/session-emails', resource);
+    }
 }
 
 export default SessionRouteService;
