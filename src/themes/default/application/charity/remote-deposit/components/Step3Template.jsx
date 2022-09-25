@@ -35,7 +35,7 @@ class Step3Template extends React.Component {
 								<div className="col col-lrg-3 type--base type--wgt--medium">{t('Barcode')}</div>
 								<div className="col col-lrg-2 type--base type--wgt--medium type--right">{t('Denomination')}</div>
 								<div className="col col-lrg-2 type--base type--wgt--medium type--right">{t('Amount')}</div>
-								<div className="col col-lrg-2 type--base type--wgt--medium type--center">{t('Action')}</div>
+								<div className="col col-lrg-2 type--base type--wgt--medium type--right">{t('Action')}</div>
 							</div>
 							{sessionCertificates.map((c, index) => {
 								return (
@@ -51,11 +51,11 @@ class Step3Template extends React.Component {
 										<div className="col col-lrg-2 type--sml type--wgt--medium type--right">
 											${c.certificateValue} {c.insufficientFunds ? ` - insufficient funds` : ''}
 										</div>
-										<div className="col col-lrg-2 type--sml type--wgt--medium type--center">
+										<div className="col col-lrg-2 type--sml type--wgt--medium type--right">
 											{c.isBlank ? <BaasicButton
 												className="btn btn--icon"
 												onlyIconClassName="u-mar--right--tny"
-												icon="u-icon u-icon--edit u-icon--sml"
+												icon="u-icon u-icon--edit u-icon--base"
 												label="CONTRIBUTION.LIST.BUTTON.EDIT"
 												onlyIcon={true}
 												onClick={() => editCheck(c)}
@@ -63,7 +63,7 @@ class Step3Template extends React.Component {
 											<BaasicButton
 												className="btn btn--icon"
 												onlyIconClassName="u-mar--right--tny"
-												icon="u-icon u-icon--close--secondary u-icon--sml"
+												icon="u-icon u-icon--close--secondary u-icon--base"
 												label="CONTRIBUTION.LIST.BUTTON.CANCEL"
 												onlyIcon={true}
 												onClick={() => cancelCertificate(c.barcode)}
