@@ -20,6 +20,7 @@ const GeneralInformationTemplate = ({ item, t }) => {
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.DESCRIPTION')} value={item && item.description} />
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.CONFIRMATION_NUMBER_LABEL')} value={item && item.confirmationNumber} />
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.ORIGINAL_CONFIRMATION_NUMBER_LABEL')} value={item && item.originalConfirmationNumber} />
+                <CardItem label={t('SESSION.PREVIEW.FIELDS.PAYMENT_METHOD')} value={item && item.paymentMethod} />
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.DATE_CREATED_LABEL')} value={item && <Date format="full" value={item.dateCreated} />} />
                 <CardItem label={t('SESSION.PREVIEW.FIELDS.CHECK_COUNT_LABEL')} value={item && item.checkCount} />
                 <CardItem

@@ -132,7 +132,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													value={asyncPlaceholder}
 												/>
 											)}
-											{charity && charity.item.charityTypeId === educationType && (
+											{charity && charity.item && charity.item.charityTypeId === educationType && (
 												<div className="validation__message validation__message--note">
 													You have selected a charity that operates as an educational institution. Please note, that
 													tuition payments are prohibited by the IRS through donor-advised funds.
@@ -644,7 +644,7 @@ const GrantCreateTemplate = function ({ grantCreateViewStore, t }) {
 													<div>
 														<h4 className="type--base type--wgt--medium u-mar--bottom--med">
 															{t('GRANT.CREATE.PREVIOUS_GRANTS')} to
-															{charity && <span> {charity.item.name}</span>}
+															{charity && <span> { charity.item && charity.item.name}</span>}
 														</h4>
 														<SimpleBaasicTable tableStore={previousGrantsTableStore} />
 													</div>

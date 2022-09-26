@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DateRangePicker } from '@progress/kendo-react-dateinputs';
-import { Popup } from '@progress/kendo-react-popup';
 import { defaultTemplate } from 'core/hoc';
 import moment from 'moment';
 
-const DateRangePickerTemplate = function(props) {
+const DateRangePickerTemplate = function (props) {
 	const { t, format, store, ...otherProps } = props;
+	const isMobileView = window.innerWidth < 650;
 
 	function internalOnChange(event) {
 		if (props.onChange) {
@@ -21,23 +21,22 @@ const DateRangePickerTemplate = function(props) {
 
 	return (
 		<div className="c-date-range__input">
-			{/* prettier-ignore */}
 			<input
-                className="input input--lrg input--text"
-                placeholder={"Start date - End date"}
-                value={inputValue.length > 1 ? inputValue : ""}
-                readOnly={true}
-            />
+				className="input input--lrg input--text"
+				placeholder={"Start date - End date"}
+				value={inputValue.length > 1 ? inputValue : ""}
+				readOnly={true}
+			/>
 			<div className="c-date-range">
 				<DateRangePicker
 					{...otherProps}
-					calendarSettings={{ views: 2 }}
+					calendarSettings={{ views: isMobileView ? 1 : 2 }}
 					format={t(format)}
 					startDateInput={store.d1}
 					// endDateInput={store.d2}
 					onChange={internalOnChange}
-					// startDateInputSettings={store.componentProps.options.startDateInputSettings}
-					// endDateInputSettings={store.componentProps.options.endDateInputSettings}
+				// startDateInputSettings={store.componentProps.options.startDateInputSettings}
+				// endDateInputSettings={store.componentProps.options.endDateInputSettings}
 				/>
 			</div>
 		</div>

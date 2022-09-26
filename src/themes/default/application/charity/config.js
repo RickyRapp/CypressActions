@@ -32,13 +32,13 @@ import { moduleProviderFactory } from 'core/providers'
                 route: 'master.app.main.charity.withdraw',
                 role: ['Charities']
             },
-            {
-                title: 'MENU.GRANT_REQUEST',
-                icon: 'grant',
-                order: 4,
-                route: 'master.app.main.charity.grant-request.create',
-                role: ['Charities']
-            },
+            // {
+            //     title: 'MENU.GRANT_REQUEST',
+            //     icon: 'grant',
+            //     order: 4,
+            //     route: 'master.app.main.charity.grant-request.create',
+            //     role: ['Charities']
+            // },
             {
                 title: 'MENU.REMOTE_DEPOSIT',
                 icon: 'contribution',
@@ -53,20 +53,20 @@ import { moduleProviderFactory } from 'core/providers'
                 route: 'master.app.main.charity.giving-card.create',
                 role: ['Charities']
             },
-            {
-                title: 'MENU.APIS_AND_PAYMENTS',
-                icon: 'third-party-website',
-                order: 7,
-                route: 'master.app.main.charity.dashboard',
-                role: ['Charities']
-            },
-            {
-                title: 'MENU.INVEST_FUNDS',
-                icon: 'grant',
-                order: 8,
-                route: 'master.app.main.charity.dashboard',
-                role: ['Charities']
-            },
+            // {
+            //     title: 'MENU.APIS_AND_PAYMENTS',
+            //     icon: 'third-party-website',
+            //     order: 7,
+            //     route: 'master.app.main.charity.dashboard',
+            //     role: ['Charities']
+            // },
+            // {
+            //     title: 'MENU.INVEST_FUNDS',
+            //     icon: 'grant',
+            //     order: 8,
+            //     route: 'master.app.main.charity.dashboard',
+            //     role: ['Charities']
+            // },
             {
                 title: 'MENU.ACCEPT_STOCKS_AND_SECURITIES',
                 icon: 'banks',
