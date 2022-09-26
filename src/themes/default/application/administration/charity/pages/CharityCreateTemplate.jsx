@@ -110,10 +110,10 @@ const CharityCreateTemplate = function({ charityCreateViewStore, t }) {
 							<NumberFormatInputField field={form.$('bankAccountAccountHolderNumber')} />
 						</div>
 
-						<div className="col col-sml-12 col-lrg-12">
-							<div className="row row--form">
-								<BaasicFieldDropzone field={form.$('coreMediaVaultEntryId')} store={imageUploadStore} />
-							</div>
+					</div>
+					<div className="row">
+						<div className="col col-sml-12 col-lrg-8">
+							<BaasicFieldDropzone field={form.$('coreMediaVaultEntryId')} store={imageUploadStore} />
 						</div>
 					</div>
 				</div>

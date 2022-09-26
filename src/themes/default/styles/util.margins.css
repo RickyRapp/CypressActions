@@ -34,6 +34,14 @@
 
             &--sml {
                 margin-top: calc($unit * 2);
+
+                &--to {
+                    &-med {
+                        @media (--screen-to-med) {
+                            margin-top: calc($unit * 2);
+                        }
+                    }
+                }
             }
             
             &--base {
@@ -54,7 +62,7 @@
                         }
                     }
                 }
-                
+
                 &--alt {
                     margin-top: calc($unit * 4.5);
                 }

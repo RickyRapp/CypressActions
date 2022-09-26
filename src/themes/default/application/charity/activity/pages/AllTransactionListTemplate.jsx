@@ -156,7 +156,7 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, removeCa
 			)}
 
 			<div className={`${!removeCardClassName ? 'card--primary card--med' : ''}`}>
-				<div className="row u-mar--bottom--med--to-med">
+				<div className="row u-mar--bottom--sml">
 					<div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
 						<TableFilter queryUtility={queryUtility}>
 							<div className="row">

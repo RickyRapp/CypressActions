@@ -53,6 +53,12 @@ export default class GrantEditForm extends FormBase {
 					rules: 'string',
 				},
 				{
+					name: 'purposeName',
+					label: 'GRANT.CREATE.FIELDS.NAME_LABEL',
+					placeholder: 'GRANT.CREATE.FIELDS.NAME_PLACEHOLDER',
+					rules: 'string',
+				},
+				{
 					name: 'charityEventAttending',
 					label: 'GRANT.CREATE.FIELDS.CHARITY_EVENT_LABEL',
 					rules: 'boolean',

@@ -2715,6 +2715,7 @@
                 "MAKE_REFUND_LABEL": "Make refund",
                 "MAKE_REFUND_FEE_LABEL": "Make refund fee",
                 "ADDRESS_LINE_1_LABEL": "Address line 1",
+                "ADDRESS_LINE_1_PLACEHOLDER": "Address line 1",
                 "ADDRESS_LINE_2_PLACEHOLDER": "Address line 2",
                 "ADDRESS_LINE_2_LABEL": "Address line 2",
                 "CITY_LABEL": "City",

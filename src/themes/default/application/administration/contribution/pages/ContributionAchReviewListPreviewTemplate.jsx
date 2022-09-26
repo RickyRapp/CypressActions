@@ -24,13 +24,11 @@ const ContributionAchReviewListPreviewTemplate = function ({ contributionAchRevi
 					<div className="card--tertiary card--med u-mar--bottom--sml">
 						<div className="row u-mar--bottom--med">
 							<div className="col col-sml-6 col-lrg-4 u-mar--top--sml">
-								<div> 
-									<BaasicButton
-										className="btn btn--med btn--med--med btn--ghost"
-										label={t('ACTIVITY.DEPOSIT_TAB.CSV_BUTTON')}
-										onClick={submitPending}
-									/>
-								</div>
+								<BaasicButton
+									className="btn btn--med btn--med--med btn--ghost"
+									label={t('ACTIVITY.DEPOSIT_TAB.CSV_BUTTON')}
+									onClick={submitPending}
+								/>
 							</div>
 							<div className="col col-sml-6 col-lrg-3">
 								<BasicInput field={form.$('paymentNumber')} />

@@ -30,20 +30,23 @@ const RoutingNumberListTemplate = function({ routingNumberViewStore }) {
 				</div> */}
 				<div className="card--tertiary card--med u-mar--top--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility} showDefaultSearchFilter={false}>
-							<div className="col col-sml-3 u-mar--bottom--sml">
-								<BaasicDropdown store={bankDropdownStore} placeholder="ROUTING_NUMBER.LIST.FILTER.BANK_PLACEHOLDER" />
-							</div>
-							<div className="col col-sml-3 u-mar--bottom--sml">
-								<BaasicInput
-									className="input input--lrg"
-									value={queryUtility.filter['number'] || ''}
-									onChange={event => (queryUtility.filter['number'] = event.target.value)}
-									placeholder="ROUTING_NUMBER.LIST.FILTER.NUMBER_PLACEHOLDER"
-								/>
+						<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false}>
+							<div className="row">
+								<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown store={bankDropdownStore} placeholder="ROUTING_NUMBER.LIST.FILTER.BANK_PLACEHOLDER" />
+								</div>
+								<div className="col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										className="input input--lrg"
+										value={queryUtility.filter['number'] || ''}
+										onChange={event => (queryUtility.filter['number'] = event.target.value)}
+										placeholder="ROUTING_NUMBER.LIST.FILTER.NUMBER_PLACEHOLDER"
+									/>
+								</div>
 							</div>
 						</TableFilter>
 					</div>
+
 					<BaasicTable authorization={authorization} tableStore={tableStore} />
 				</div>
 			</Content>

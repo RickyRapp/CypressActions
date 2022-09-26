@@ -153,11 +153,6 @@ class CharityBankAccountViewStore extends BaseEditViewStore {
             `Are you sure you want to verify bank account?`,
             async () => {
                 await this.rootStore.application.administration.charityStore.verifyCharityBank({ id: this.id, charityId: this.charityId });
-                this.bankAccountDropdownStore = null;
-                this.createBankAccountDropdownStore();
-                this.form.clear();
-                this.id = null;
-                this.verifiedByPlaid = null;
                 this.rootStore.notificationStore.success('Successfully verified Bank account');
             }
         );

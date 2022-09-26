@@ -28,10 +28,10 @@ class CharityBankAccountEditViewStore extends BaseEditViewStore {
                     this.charityMedia = null;
                     if(data.coreMediaVaultEntryId){
                         this.charityMedia = await rootStore.application.charity.charityStore.getCharityBankMedia(data.coreMediaVaultEntryId);
-                        isImage = !(this.charityMedia.type === 'application/pdf') && !(this.charityMedia.type === 'application/octet-stream');
+                        isImage = this.charityMedia && ( !(this.charityMedia.type === 'application/pdf') && !(this.charityMedia.type === 'application/octet-stream'));
                         if(!isImage){
                             this.chariytBankFile = this.charityMedia;
-                            const fileExtensions = (this.charityMedia.type === 'application/pdf') ? 'pdf' : 'csv';
+                            const fileExtensions = this.charityMedia && ((this.charityMedia.type === 'application/pdf') ? 'pdf' : 'csv' );
                             this.fileName = `${data.name}-${data.routingNumber}.${fileExtensions}`;
                         }
                     }

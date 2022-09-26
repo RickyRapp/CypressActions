@@ -19,7 +19,7 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 	return (
 		<Content>
 			<div className="card--tertiary card--med u-mar--bottom--med">
-				<div className="row u-mar--bottom--med">
+				<div className="row u-mar--bottom--sml">
 					<div className="col col-sml-12 col-med-10 col-lrg-10">
 						<TableFilter queryUtility={queryUtility}>
 							<div className="row">

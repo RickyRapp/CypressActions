@@ -116,5 +116,10 @@ class SessionStore {
         const response = await this.sessionService.getPaymentMethod(resource);
         return response.data;
     }
+
+    async updateSessionEmails(resource) {
+        const response = await this.sessionService.updateSessionEmails(resource);
+        return response.data;
+    }
 }
 export default SessionStore;

@@ -20,7 +20,6 @@ import { CardItem } from 'themes/components';
 
 const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
 	const {
-		contentLoading,
 		form,
 		item,
 		tableStore,
@@ -30,7 +29,10 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
 		saveChanges,
 		advancedSearchModal,
 		loaderStore,
+		sessionEmails,
+		handleEmailChange
 	} = sessionEditViewStore;
+
 	return (
 		<EditFormLayout
 			store={sessionEditViewStore}
@@ -51,11 +53,30 @@ const SessionEditTemplate = function ({ sessionEditViewStore, t }) {
 						<div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
 							<NumberFormatInputField field={form.$('phoneNumber')} />
 						</div>
-						<div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
-							<BasicInput field={form.$('email')} />
-						</div>
+						{ sessionEmails && sessionEmails[0] ? (
+							<div className="form__group col col-sml-12 col-lrg-12">
+								<label class="form__group__label" for="charityName--1">Emails</label>
+								{sessionEmails.map( (input, index) => {
+									return(
+										<div key={index} >
+											<input 
+												className={'input input--lrg input--text u-mar--bottom--sml'} 
+												name="email" 
+												placeholder="Email"
+												onChange={event => handleEmailChange(index, event)}
+												value={input.email}
+												/>
+										</div>
+										)
+								})}
+							</div>
+						) : (
+							<div className="form__group col col-sml-12 col-lrg-4 u-mar--bottom--sml">
+								<BasicInput field={form.$('email')} />
+							</div>
+						)}
 						<div className="form__group col col-sml-12 col-lrg-8">
-							<BasicInput field={form.$('description')} />
+								<BasicInput field={form.$('description')} />
 						</div>
 						<div className="form__group col col-sml-12 col-lrg-4">
 							<BasicInput field={form.$('addressLine1')} />
