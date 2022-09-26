@@ -366,12 +366,14 @@ class GrantCreateViewStore extends BaseEditViewStore {
 		this.resetFieldRules();
 		if (selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'where-deemed-most-needed').id && selectedOption !== this.grantPurposeTypes.find(c => c.abrv === 'general-fund').id) {
 			this.form.$('purposeNote').set('rules', 'required|max:35');
+			this.form.$('purposeName').set('rules', 'required|max:35');
 		}
 	}
 
 	@action.bound
 	resetFieldRules() {
 		this.form.$('purposeNote').set('rules', '');
+		this.form.$('purposeName').set('rules', '');
 	}
 
 	@action.bound
