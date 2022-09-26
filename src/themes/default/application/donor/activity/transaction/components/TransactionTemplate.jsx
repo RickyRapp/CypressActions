@@ -40,16 +40,18 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hide
 	return (
 		<div>
 			<div className={`${noBackground ? "" : "card--tertiary card--med"}`}>
-				<div className="row row--form u-mar--bottom--base">
+				<div className="row">
 					<div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
 						{hideSearch ? null :
-							<div>
+							<div className="u-mar--bottom--med">
 								<TableFilter queryUtility={queryUtility}>
-									<div className="col col-sml-12 col-xxlrg-6">
-										<DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
-									</div>
-									<div className="col col-sml-12 col-xxlrg-6">
-										<BaasicDropdown store={transactionTypeStore} className="input--dropdown--secondary" />
+									<div className="row">
+										<div className="col col-sml-12 col-xxlrg-8">
+											<DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
+										</div>
+										<div className="col col-sml-12 col-xxlrg-4 u-mar--top--sml--to-med u-mar--bottom--sml">
+											<BaasicDropdown store={transactionTypeStore} className="input--dropdown--secondary" />
+										</div>
 									</div>
 								</TableFilter>
 							</div>
@@ -57,7 +59,7 @@ function TransactionTemplate({ transactionViewStore, hideSearch, hidePager, hide
 					</div>
 					{
 						hidePeriod ? null :
-							<div className="col col-sml-12 col-lrg-4 col-xxlrg-3">
+							<div className="col col-sml-12 col-lrg-4 col-xxlrg-3 u-mar--bottom--med--to-med">
 								<BaasicDropdown store={transactionPeriod} queryUtility={queryUtility} className="input--dropdown--secondary" />
 							</div>
 					}

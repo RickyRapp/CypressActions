@@ -21,55 +21,57 @@ const CharityAdvancedSearchTemplate = function({ charityAdvancedSearchViewStore 
 			<Content>
 				<div className="u-mar--bottom--sml">
 					<TableFilter queryUtility={queryUtility} showDefaultSearchFilter={false} showSearch={false} visibleByDefault={expanded} showToggle={false}>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicInput
-								id="name"
-								className="input input--lrg"
-								value={queryUtility.filter.name || ''}
-								onChange={event => (queryUtility.filter.name = event.target.value)}
-								placeholder="CHARITY.LIST.FILTER.NAME_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicInput
-								id="dba"
-								className="input input--lrg"
-								value={queryUtility.filter.dba || ''}
-								onChange={event => (queryUtility.filter.dba = event.target.value)}
-								placeholder="CHARITY.LIST.FILTER.DBA_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicInput
-								id="emails"
-								className="input input--lrg"
-								value={queryUtility.filter.emails || ''}
-								onChange={event => (queryUtility.filter.emails = event.target.value)}
-								placeholder="CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicDropdown
-								store={charityTypeDropdownStore}
-								placeholder="CHARITY.LIST.FILTER.CHARITY_TYPE_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<BaasicInput
-								id="address"
-								className="input input--lrg"
-								value={queryUtility.filter.address || ''}
-								onChange={event => (queryUtility.filter.address = event.target.value)}
-								placeholder="CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER"
-							/>
-						</div>
-						<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-							<NumberFormatInput
-								className="input input--lrg"
-								value={queryUtility.filter.taxId || ''}
-								onChange={event => (queryUtility.filter.taxId = event.value)}
-								format="##-#######"
-							/>
+						<div className="row">
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
+									id="name"
+									className="input input--lrg"
+									value={queryUtility.filter.name || ''}
+									onChange={event => (queryUtility.filter.name = event.target.value)}
+									placeholder="CHARITY.LIST.FILTER.NAME_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
+									id="dba"
+									className="input input--lrg"
+									value={queryUtility.filter.dba || ''}
+									onChange={event => (queryUtility.filter.dba = event.target.value)}
+									placeholder="CHARITY.LIST.FILTER.DBA_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
+									id="emails"
+									className="input input--lrg"
+									value={queryUtility.filter.emails || ''}
+									onChange={event => (queryUtility.filter.emails = event.target.value)}
+									placeholder="CHARITY.LIST.FILTER.EMAILS_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicDropdown
+									store={charityTypeDropdownStore}
+									placeholder="CHARITY.LIST.FILTER.CHARITY_TYPE_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<BaasicInput
+									id="address"
+									className="input input--lrg"
+									value={queryUtility.filter.address || ''}
+									onChange={event => (queryUtility.filter.address = event.target.value)}
+									placeholder="CHARITY.LIST.FILTER.ADDRESS_PLACEHOLDER"
+								/>
+							</div>
+							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+								<NumberFormatInput
+									className="input input--lrg"
+									value={queryUtility.filter.taxId || ''}
+									onChange={event => (queryUtility.filter.taxId = event.value)}
+									format="##-#######"
+								/>
+							</div>
 						</div>
 					</TableFilter>
 				</div>
