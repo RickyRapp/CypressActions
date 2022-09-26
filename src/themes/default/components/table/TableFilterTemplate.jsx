@@ -149,7 +149,7 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 					{/* <h5 className="spc--top--sml">{t('GRID.FILTERS_TITLE')}</h5> */}
 					{filters}
 					{!nextToSearch && (
-						<div className="u-display--flex u-mar--top--med--to-xlrg u-mar--bottom--med">
+						<div className="u-display--flex u-mar--bottom--med">
 							<BaasicButton
 								className="btn btn--lrg btn--primary"
 								label="GRID.FILTER.SEARCH_BUTTON"

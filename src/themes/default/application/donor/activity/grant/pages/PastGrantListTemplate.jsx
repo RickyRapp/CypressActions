@@ -380,66 +380,68 @@ const PastGrantListTemplate = function({ pastGrantViewStore, t }) {
 			<div className="row">
 				<div className="col col-sml-12 col-xxxlrg-8 u-mar--bottom--med">
 					<div className="card--primary card--med">
-						<TableFilter queryUtility={queryUtility}>
-							<div className="row">
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown store={charityDropdownStore} />
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown store={donationTypeDropdownStore} />
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown store={donationStatusDropdownStore} />
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicInput
-										id="dollarRange"
-										value={queryUtility.filter.dollarRange || ''}
-										onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
-										placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicInput
-										id="grantMemo"
-										className="input input--lrg"
-										value={queryUtility.filter.grantMemo || ''}
-										onChange={event => (queryUtility.filter.grantMemo = event.target.value)}
-										placeholder="GRANT.LIST.FILTER.GRANT_MEMO_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicInput
-										id="confirmationNumber"
-										className="input input--lrg"
-										value={queryUtility.filter.confirmationNumber || ''}
-										onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
-										placeholder="GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
-									/>
-								</div>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<NumberFormatInput
-										className="input input--lrg"
-										value={queryUtility.filter.bookletCertificateCode}
-										onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
-										format="#####-##"
-										mask=""
-									/>
-								</div>
-								<div className="col col-sml-12 u-mar--bottom--sml">
-									<div className="row row--form">
-										<div className="col col-sml-12 col-lrg-8">
-											<DateRangeQueryPicker
-												queryUtility={queryUtility}
-												store={dateCreatedDateRangeQueryStore}
-												fromPropertyName="dateCreatedFrom"
-												toPropertyName="dateCreatedTo"
-											/>
+						<div className="u-mar--bottom--med">
+							<TableFilter queryUtility={queryUtility}>
+								<div className="row">
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<BaasicDropdown store={charityDropdownStore} />
+									</div>
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<BaasicDropdown store={donationTypeDropdownStore} />
+									</div>
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<BaasicDropdown store={donationStatusDropdownStore} />
+									</div>
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<BaasicInput
+											id="dollarRange"
+											value={queryUtility.filter.dollarRange || ''}
+											onChange={event => (queryUtility.filter.dollarRange = event.target.value)}
+											placeholder="GRANT.LIST.FILTER.DOLLAR_RANGE_PLACEHOLDER"
+										/>
+									</div>
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<BaasicInput
+											id="grantMemo"
+											className="input input--lrg"
+											value={queryUtility.filter.grantMemo || ''}
+											onChange={event => (queryUtility.filter.grantMemo = event.target.value)}
+											placeholder="GRANT.LIST.FILTER.GRANT_MEMO_PLACEHOLDER"
+										/>
+									</div>
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<BaasicInput
+											id="confirmationNumber"
+											className="input input--lrg"
+											value={queryUtility.filter.confirmationNumber || ''}
+											onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
+											placeholder="GRANT.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
+										/>
+									</div>
+									<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+										<NumberFormatInput
+											className="input input--lrg"
+											value={queryUtility.filter.bookletCertificateCode}
+											onChange={event => (queryUtility.filter.bookletCertificateCode = event.formattedValue)}
+											format="#####-##"
+											mask=""
+										/>
+									</div>
+									<div className="col col-sml-12 u-mar--bottom--sml">
+										<div className="row row--form">
+											<div className="col col-sml-12 col-lrg-8">
+												<DateRangeQueryPicker
+													queryUtility={queryUtility}
+													store={dateCreatedDateRangeQueryStore}
+													fromPropertyName="dateCreatedFrom"
+													toPropertyName="dateCreatedTo"
+												/>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</TableFilter>
+							</TableFilter>
+						</div>
 
 						{/* <div className="u-display--flex u-display--flex--justify--flex-end w--100">
 							<p className="type--sml">
