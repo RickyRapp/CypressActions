@@ -95,7 +95,7 @@ Cypress.Commands.add("addAndCheckDeposit", (num, currentBalance) => {
     cy.findByText('Advanced Search').click()
     cy.findByPlaceholderText('Amount e.g. $100 or $100-$500').type(num)
     cy.get('.btn--primary').eq(1).click({force: true}).wait(1000) 
-    cy.get('body').should('contain', 'Pending')  
+    //cy.get('body').should('contain', 'Pending')  
     cy.get('td').eq(1).then((theElement) => { 
 
         const confirmationNum = theElement.text()  
