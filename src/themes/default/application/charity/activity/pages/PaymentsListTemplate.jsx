@@ -64,14 +64,18 @@ const PaymentsListTemplate = function ({ paymentsViewStore, t }) {
     return (
         <Content>
                 <div className="card--tertiary card--med u-mar--bottom--sml">
-                    <TableFilter colClassName={"u-mar--bottom--sml"} queryUtility={queryUtility}>
-                        <div className="col col-sml-12 col-med-8 u-mar--bottom--sml">
-                            <BaasicDropdown
-                                store={paymentTypeDropdownStore}
-                                placeholder="RECONCILE.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
-                            />
-                        </div>
-                    </TableFilter>
+                    <div className="u-mar--bottom--med">
+                        <TableFilter queryUtility={queryUtility}>
+                            <div className="row">
+                                <div className="col col-sml-12 col-med-8 u-mar--bottom--sml">
+                                    <BaasicDropdown
+                                        store={paymentTypeDropdownStore}
+                                        placeholder="RECONCILE.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
+                                    />
+                                </div>
+                            </div>
+                        </TableFilter>
+                    </div>
 
                     <div className="table--tertiary">
                         <BaasicTableWithRowDetails 

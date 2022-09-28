@@ -156,14 +156,16 @@ const AllTransactionListTemplate = function ({ allTransactionViewStore, removeCa
 			)}
 
 			<div className={`${!removeCardClassName ? 'card--primary card--med' : ''}`}>
-				<div className="row">
+				<div className="row u-mar--bottom--sml">
 					<div className="col col-sml-12 col-lrg-8 col-xxlrg-9">
 						<TableFilter queryUtility={queryUtility}>
-							<div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--sml">
-								<DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
-							</div>
-							<div className="col col-sml-12 col-xxlrg-4">
-								<BaasicDropdown store={transactionTypeStore} className="input--dropdown--secondary" />
+							<div className="row">
+								<div className="col col-sml-12 col-xxlrg-8 u-mar--bottom--sml">
+									<DateRangeQueryPicker queryUtility={queryUtility} store={dateCreatedDateRangeQueryStore} />
+								</div>
+								<div className="col col-sml-12 col-xxlrg-4">
+									<BaasicDropdown store={transactionTypeStore} className="input--dropdown--secondary" />
+								</div>
 							</div>
 						</TableFilter>
 					</div>

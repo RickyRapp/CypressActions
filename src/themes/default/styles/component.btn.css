@@ -232,6 +232,26 @@
 		&:hover {
 			color: color($color-primary blackness(+10%));
 		}
+
+        &--secondary {
+            background-color: transparent;
+            color: $color-text;
+            border: 1px solid color($color-text a(0.5));
+
+            &:hover {
+                border-color: color($black a(0.15));
+            }
+        }
+
+        &--warning {
+            background-color: transparent;
+            color: $color-warning;
+            border: 1px solid $color-warning;
+
+            &:hover {
+                color: color($color-warning blackness(+10%));
+            }
+        }
 	}
 
 	&--blank {
@@ -269,11 +289,10 @@
 			display: inline-flex;
 			justify-content: center;
 			
-			height: calc($unit * 8) !important;
-			padding: 0 calc($unit * 3) !important;
+			padding: calc($unit * 3) !important;
 			
 			font-size: 15px !important;
-			line-height: calc($unit * 8);
+			line-height: calc($unit * 4);
 			letter-spacing: 0.05em;
 			text-transform: uppercase;
 			color: $white;
@@ -285,6 +304,12 @@
 			transition: all 250ms ease-in-out;
 
 			cursor: pointer;
+
+			@media (--screen-from-med) {
+				height: calc($unit * 8) !important;
+				padding: 0 calc($unit * 3) !important;
+				line-height: calc($unit * 8);
+			}
 
 			&:hover {
 				color: color($white a(80%));
@@ -323,7 +348,7 @@
 			padding: calc($unit * 4 - 1px) calc($unit * 4 - 1px);
 		}
 
-		&--pdf {
+		&--download {
 			display: flex;
 			padding: 0 calc($unit * 4);
 			
@@ -337,7 +362,7 @@
 				background-size: calc($unit * 3);
 				margin-right: calc($unit * 2);
 	
-				background-image: svg-load('../styles/postcss-svg/pdf.svg', stroke: $white);
+				background-image: svg-load('../styles/postcss-svg/download.svg', fill: $color-primary);
 				background-repeat: no-repeat;
 				background-position: center center;
 				vertical-align: middle;

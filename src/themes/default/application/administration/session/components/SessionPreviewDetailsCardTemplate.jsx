@@ -28,7 +28,18 @@ const SessionPreviewDetailsCardTemplate = ({ item, t }) => {
 				</div>
 				<div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
 					<div className="type--med type--wgt--medium">{t('SESSION.PREVIEW.FIELDS.EMAIL_LABEL')}</div>
-					<span className="type--base type--color--opaque">{item && item.email}</span>
+					{item && item.sessionEmails &&  item.sessionEmails[0] ? (
+						item.sessionEmails.map( (item, index) => {
+							return (
+								<div>
+								<span key={index} className="type--base type--color--opaque">{item && item.email}</span> <br></br>
+								</div>
+							)
+						})
+					):(
+						<span className="type--base type--color--opaque">{item && item.email}</span>
+					) }
+					
 				</div>
 				<div className="col col-sml-12 col-lrg-4 u-mar--bottom--med">
 					<div className="type--med type--wgt--medium">{t('SESSION.PREVIEW.FIELDS.CONFIRMATION_NUMBER_LABEL')}</div>

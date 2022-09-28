@@ -78,79 +78,77 @@ const BookletOrderListTemplate = function ({ bookletOrderViewStore }) {
 			<Content>
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="u-mar--bottom--med">
-						<TableFilter colClassName={"col col-sml-12 col-lrg-8"} queryUtility={queryUtility} visibleByDefault={false}>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown store={searchDonorDropdownStore} />
-							</div>
-
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="bookletCodes"
-									className="input input--lrg"
-									value={queryUtility.filter.bookletCodes || ''}
-									onChange={event => (queryUtility.filter.bookletCodes = event.target.value)}
-									placeholder="BOOKLET_ORDER.LIST.FILTER.BOOKLET_CODES_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="confirmationNumber"
-									className="input input--lrg"
-									value={queryUtility.filter.confirmationNumber || ''}
-									onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
-									placeholder="BOOKLET_ORDER.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicInput
-									id="trackingNumber"
-									className="input input--lrg"
-									value={queryUtility.filter.trackingNumber || ''}
-									onChange={event => (queryUtility.filter.trackingNumber = event.target.value)}
-									placeholder="BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={deliveryMethodTypeDropdownStore}
-									placeholder="BOOKLET_ORDER.LIST.FILTER.DELIVERY_TYPE_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown
-									store={bookletOrderStatusDropdownStore}
-									placeholder="BOOKLET_ORDER.LIST.FILTER.BOOKLET_ORDER_STATUS_PLACEHOLDER"
-								/>
-							</div>
-							<div className="col col-sml-12 u-mar--bottom--sml">
-								<div className="row row--form">
-									<div className="col col-sml-8">
-										<DateRangeQueryPicker
-											queryUtility={queryUtility}
-											store={dateCreatedDateRangeQueryStore}
-											fromPropertyName="dateCreatedFrom"
-											toPropertyName="dateCreatedTo"
-										/>
-									</div>
+						<TableFilter queryUtility={queryUtility} visibleByDefault={false}>
+							<div className="row">
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown store={searchDonorDropdownStore} />
 								</div>
-							</div>
-							<div className="col col-sml-6 u-mar--bottom--sml">
+
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="bookletCodes"
+										className="input input--lrg"
+										value={queryUtility.filter.bookletCodes || ''}
+										onChange={event => (queryUtility.filter.bookletCodes = event.target.value)}
+										placeholder="BOOKLET_ORDER.LIST.FILTER.BOOKLET_CODES_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="confirmationNumber"
+										className="input input--lrg"
+										value={queryUtility.filter.confirmationNumber || ''}
+										onChange={event => (queryUtility.filter.confirmationNumber = event.target.value)}
+										placeholder="BOOKLET_ORDER.LIST.FILTER.CONFIRMATION_NUMBER_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicInput
+										id="trackingNumber"
+										className="input input--lrg"
+										value={queryUtility.filter.trackingNumber || ''}
+										onChange={event => (queryUtility.filter.trackingNumber = event.target.value)}
+										placeholder="BOOKLET_ORDER.LIST.FILTER.TRACKING_NUMBER_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={deliveryMethodTypeDropdownStore}
+										placeholder="BOOKLET_ORDER.LIST.FILTER.DELIVERY_TYPE_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
+									<BaasicDropdown
+										store={bookletOrderStatusDropdownStore}
+										placeholder="BOOKLET_ORDER.LIST.FILTER.BOOKLET_ORDER_STATUS_PLACEHOLDER"
+									/>
+								</div>
+								<div className="col col-sml-12 col-lrg-8 u-mar--bottom--sml">
+									<DateRangeQueryPicker
+										queryUtility={queryUtility}
+										store={dateCreatedDateRangeQueryStore}
+										fromPropertyName="dateCreatedFrom"
+										toPropertyName="dateCreatedTo"
+									/>
+								</div>
+								<div className="col col-sml-6 u-mar--bottom--sml">
 									<BasicCheckbox
-                                            checked={queryUtility.filter.orderFolder}
+											checked={queryUtility.filter.orderFolder}
 											id="folder"
 											onChange={(e) => queryUtility.filter.orderFolder = e.target.checked}
-                                            label="Booklet Folder"
-                                            showLabel={true}
-                                        />
-							</div>
-							<div className="col col-sml-6 u-mar--bottom--sml">
+											label="Booklet Folder"
+											showLabel={true}
+										/>
+								</div>
+								<div className="col col-sml-6 u-mar--bottom--med">
 									<BasicCheckbox
-                                            checked={queryUtility.filter.isCustom}
+											checked={queryUtility.filter.isCustom}
 											id="customize"
 											onChange={(e) => queryUtility.filter.isCustom = e.target.checked}
-                                            label="Customized Booklet Order"
-                                            showLabel={true}
-                                        />
+											label="Customized Booklet Order"
+											showLabel={true}
+										/>
+								</div>
 							</div>
 						</TableFilter>
 						<BaasicButton className="btn btn--med btn--primary u-mar--right--med" label="Select defaults"onClick={selectDefaults} /> 

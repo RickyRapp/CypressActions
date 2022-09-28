@@ -15,6 +15,10 @@
 
 .u {
     &-mar {
+        &--reset {
+            margin: 0;
+        }
+
         &--top {
             &--nano {
                 margin-top: calc($unit / 2);
@@ -30,6 +34,14 @@
 
             &--sml {
                 margin-top: calc($unit * 2);
+
+                &--to {
+                    &-med {
+                        @media (--screen-to-med) {
+                            margin-top: calc($unit * 2);
+                        }
+                    }
+                }
             }
             
             &--base {
@@ -42,7 +54,15 @@
 
             &--med {
                 margin-top: calc($unit * 4);
-                
+
+                &--to {
+                    &-xlrg {
+                        @media (--screen-to-xlrg) {
+                            margin-top: calc($unit * 2);
+                        }
+                    }
+                }
+
                 &--alt {
                     margin-top: calc($unit * 4.5);
                 }
@@ -104,6 +124,14 @@
 
             &--med {
                 margin-right: calc($unit * 4);
+
+                &--to {
+                    &-med {
+                        @media (--screen-to-med) {
+                            margin-top: calc($unit * 2);
+                        }
+                    }
+                }
             }
 
             &--lrg {
@@ -138,6 +166,14 @@
 
             &--sml {
                 margin-bottom: calc($unit * 2);
+
+                &--to {
+                    &-med {
+                        @media (--screen-to-med) {
+                            margin-bottom: calc($unit * 2);
+                        }
+                    }
+                }
             }
 
             &--xxxmed {

@@ -9,6 +9,7 @@ import React from 'react';
 @applicationContext
 class SessionEditViewStore extends BaseEditViewStore {
     session = null;
+    @observable sessionEmails = null;
     @observable makeRefund = false;
     @observable makeRefundFee = false;
     @observable maxAmountError = false;
@@ -22,6 +23,7 @@ class SessionEditViewStore extends BaseEditViewStore {
             actions: () => {
                 return {
                     update: async (resource) => {
+                        await rootStore.application.administration.sessionStore.updateSessionEmails(this.sessionEmails);
                         await rootStore.application.administration.sessionStore.updateSession({ isWithApproval: true, ...resource });
                     },
                     get: async (id) => {
@@ -35,7 +37,8 @@ class SessionEditViewStore extends BaseEditViewStore {
                                 'grants.certificate',
                                 'grants.certificate.denominationType',
                                 'grants.certificate.certificateStatus',
-                                'grants.certificate.booklet'
+                                'grants.certificate.booklet',
+                                'sessionEmails'
                             ]
                         }
                         this.session = await this.rootStore.application.administration.sessionStore.getSession(id, params);
@@ -43,6 +46,7 @@ class SessionEditViewStore extends BaseEditViewStore {
                         if (!this.tableStore.dataInitialized) {
                             this.tableStore.dataInitialized = true;
                         }
+                        this.sessionEmails = this.session && this.session.sessionEmails;
                         return this.session;
                     }
                 }
@@ -121,6 +125,7 @@ class SessionEditViewStore extends BaseEditViewStore {
     @action.bound
     async saveChanges() {
         try{
+            await this.rootStore.application.administration.sessionStore.updateSessionEmails(this.sessionEmails);
             await this.rootStore.application.administration.sessionStore.updateSession({ id: this.id, isWithApproval: false, ...this.form.values() });
             this.rootStore.notificationStore.success('Resource updated successfully');
             this.rootStore.routerStore.goBack();
@@ -242,6 +247,12 @@ class SessionEditViewStore extends BaseEditViewStore {
                 return this.rootStore.application.lookup.certificateStatusStore.find();
             }
         });
+    }
+
+    
+    @action.bound
+    handleEmailChange(index, event){
+        this.sessionEmails[index].email = event.target.value;
     }
 }
 

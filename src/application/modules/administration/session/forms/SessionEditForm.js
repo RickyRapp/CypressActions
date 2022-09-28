@@ -24,7 +24,7 @@ export default class SessionEditForm extends FormBase {
                     name: 'phoneNumber',
                     label: 'SESSION.EDIT.FIELDS.PHONE_NUMBER_LABEL',
                     placeholder: 'SESSION.EDIT.FIELDS.PHONE_NUMBER_PLACEHOLDER',
-                    rules: 'required|string',
+                    rules: 'string',
                     extra: {
                         format: '(###) ###-####'
                     }

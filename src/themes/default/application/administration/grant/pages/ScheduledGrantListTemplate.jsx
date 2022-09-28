@@ -19,17 +19,19 @@ const ScheduledGrantListTemplate = function ({ scheduledGrantViewStore }) {
 	return (
 		<Content>
 			<div className="card--tertiary card--med u-mar--bottom--med">
-				<div className="row u-mar--bottom--med">
+				<div className="row u-mar--bottom--sml">
 					<div className="col col-sml-12 col-med-10 col-lrg-10">
 						<TableFilter queryUtility={queryUtility}>
-							<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-								<BaasicDropdown store={searchDonorDropdownStore} />
+							<div className="row">
+								<div className="col col-sml-12 col-lrg-8 u-mar--bottom--sml">
+									<BaasicDropdown store={searchDonorDropdownStore} />
+								</div>
 							</div>
 						</TableFilter>
 					</div>
-					<div className="col col-sml-12 col-med-2 col-lrg-2">
+					<div className="col col-sml-12 col-med-2 col-lrg-2 type--right">
 						<BaasicButton
-							className="btn btn--med btn--primary u-mar--right--sml"
+							className="btn btn--med btn--primary"
 							label={'LIST_LAYOUT.CREATE_BUTTON'}
 							onClick={routes.create}
 						/>

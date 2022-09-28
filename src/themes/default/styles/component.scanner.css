@@ -12,12 +12,13 @@
 	}
 
 	&__stepper {
-		width: 50%;
+		max-width: 768px;
+		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		margin: 0 auto;
-		margin-bottom: calc($unit * 10);
+		margin-bottom: calc($unit * 4);
 
 		&__step {
 			height: calc($unit * 7);
@@ -67,7 +68,7 @@
 		}
 
 		&--body {
-			height: calc($unit * 13);
+			height: calc($unit * 7);
 			align-items: center;
 			border-bottom: 1px solid color($color-text a(30%));
 		}

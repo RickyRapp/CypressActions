@@ -33,20 +33,24 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 	return (
 		<EditFormContent form={form} formClassName={" "}>
 			
-			<div className="u-mar--top--xlrg">
-				<div>
-					{!item && <span className='u-display--b u-mar--bottom--sml'>Create new bank account manually or using : </span>}
-					<div className="btn--plaid btn--plaid--outline u-mar--bottom--sml">
+			<div className="card--light card--med bank--verify">
+				<div className="type--center">
+					<p className='title--secondary u-mar--bottom--sml'>Create new bank account electronically</p>
+					{!item && <span className='title--secondary u-mar--bottom--sml'>Create new bank account manually or using : </span>}
+					<div className="btn--plaid btn--plaid--light u-mar--bottom--sml">
 						<CharityPlaid
 							entityType={"charity"}
 							bankAccount={item}
 						/>
 					</div>
+					<div className="bank--verify__separator">
+						<span>OR</span>
+					</div>
+					<p className='title--secondary u-mar--bottom--sml'>Create new bank account manually</p>
 				</div>
 
 				<h3 className="type--med type--wgt--medium type--color--opaque u-mar--bottom--med">{title}</h3>
 				<div className="row row--form">
-
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('accountNumber')} disabled={item != null && (item && item.isVerifiedByPlaid)} />
 					</div>
@@ -56,18 +60,14 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 					<div className="form__group col col-sml-12 col-lrg-6">
 						<BasicInput field={form.$('name')} />
 					</div>
-					
-				</div>
-
-				<div className="row row--form">
-					<div className="form__group col col-sml-12 col-lrg-4">
+					<div className="form__group col col-sml-12 col-lrg-6">
 						<div className="u-display--flex">
 							<div>
-								{bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Primary account?</label>
+								{bankAccountCount > 0 ? <span><label className="form__group__label form__group__label--toggle u-mar--right--lrg">Primary account?</label>
 									<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isPrimary')} /></span> : null}
 							</div>
 							<div >
-								{bankAccountCount > 0 ? <span><label className="form__group__label u-mar--right--med">Is disabled?</label>
+								{bankAccountCount > 0 ? <span><label className="form__group__label form__group__label--toggle">Is disabled?</label>
 									<BasicFieldCheckbox toggleClass="--toggle" showLabel={false} field={form.$('isDisabled')} disabled={item != null && (item && item.isPrimary)} /></span> : null}
 							</div>
 						</div>
@@ -75,7 +75,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 
 				</div>
 				<div className="row">
-					<div className="col col-sml-12 col-lrg-8">
+					<div className={`col col-sml-12 col-lrg-${charityMedia ? 8 : 12}`}>
 						<BaasicDropzone
 							store={imageUploadStore}
 						/>
@@ -100,7 +100,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 
 											<div className="card--image card--med u-mar--bottom--sml type--center"> 
 												<BaasicButton
-													className='btn btn--med btn--med--wide btn--secondary btn--icon--pdf'
+													className='btn btn--med btn--med--wide btn--ghost btn--icon--download'
 													label='Download'
 													onClick={() => exportFile()}
 												/>
@@ -112,7 +112,7 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 				</div>
 			</div>
 
-			<div className="info-card--footer">
+			<div className="card--primary__footer">
 				<BaasicButton
 					type='button'
 					className="btn btn--med btn--med--wide btn--ghost"
@@ -121,14 +121,12 @@ const CharityBankAccountEditTemplate = function ({ charityBankAccountEditViewSto
 				/>
 
 				{item != null &&
-					<BaasicButton className='btn btn--med btn--warning u-mar--left--sml' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >
+					<BaasicButton className='btn btn--med btn--ghost--warning' label="BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT" onClick={() => deleteBankAccount()} >
 						{/* {t('BANK_ACCOUNT.EDIT.BUTTON.DELETE_BANK_ACCOUNT')} */}
 					</BaasicButton>
 				}
 
-				<span>
-					<BaasicFormControls form={form} onSubmit={form.onSubmit} />
-				</span>
+				<BaasicFormControls form={form} onSubmit={form.onSubmit} />
 			</div>
 		</EditFormContent>
 	);

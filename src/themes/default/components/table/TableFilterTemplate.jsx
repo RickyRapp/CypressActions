@@ -31,49 +31,42 @@ function TableFilterTemplate(props) {
 	const clearVisible = props.showClear;
 	return (
 		<React.Fragment>
-			<div className={`${searchClassName || ''}`.trim()}>
-				<div className={`${colClassName ? '' : ''}`.trim()}>
-					<div className={`${colClassName ? colClassName : ''}`.trim()}>
-						<div className="search__wrapper">
-							{showSearch && (
-								<SearchFilter
-									className={`input input--med input--search search__input--noborder ${
-										filterStore.filterVisible ? 'is-expanded' : ''
-									}`}
-									inputWrapperClass={`${inputWrapperClass}`}
-									queryUtility={queryUtility}
-									clearVisible={clearVisible}
-									onSearch={debounceCallback}
-									disableSearch={fetchDisabled}
-								/>
-							)}
+			<div className="search search--table">
+				<div className="search__wrapper">
+					{showSearch && (
+						<SearchFilter
+							className={`input input--med input--search search__input--noborder ${
+								filterStore.filterVisible ? 'is-expanded' : ''
+							}`}
+							inputWrapperClass={`${inputWrapperClass}`}
+							queryUtility={queryUtility}
+							clearVisible={clearVisible}
+							onSearch={debounceCallback}
+							disableSearch={fetchDisabled}
+						/>
+					)}
 
-							{showButtons && children && (
-								<Fragment>
-									{showToggle && (
-										<div className="search__filter__btn" onClick={filterStore.toggleFilterVisibility}>
-											<i
-												className={`search__filter__btn__icon u-icon u-icon--filter u-icon--base search__wrapper__item`}
-											></i>
-											<span className="search__filter__btn__text search__wrapper__item">Advanced Search</span>
-											<i
-												className={`u-icon u-icon--arrow-down--primary u-icon--sml ${
-													filterStore.filterVisible ? 'u-rotate--180' : ''
-												}`}
-											></i>
-										</div>
-									)}
-								</Fragment>
+					{showButtons && children && (
+						<Fragment>
+							{showToggle && (
+								<div className="search__btn__advanced" onClick={filterStore.toggleFilterVisibility}>
+									<i className={`search__btn__icon u-icon u-icon--filter u-icon--base`}></i>
+									<span className="search__btn__text">Advanced Search</span>
+									<i className={`u-icon u-icon--arrow-down--primary u-icon--sml ${
+											filterStore.filterVisible ? 'u-rotate--180' : ''
+										}`}
+									></i>
+								</div>
 							)}
-						</div>
-					</div>
-
-					{additionalComponent &&
-						<div className={`${secondColClassName ? secondColClassName : ''}`.trim()}>
-							{additionalComponent}
-						</div>
-					}
+						</Fragment>
+					)}
 				</div>
+
+				{additionalComponent &&
+					<div className="search__additional">
+						{additionalComponent}
+					</div>
+				}
 
 				{showButtons && children && (
 					<Fragment>
@@ -154,25 +147,21 @@ function renderFilter(filterStore, queryUtility, filters, nextToSearch, showSepa
 					}}
 				>
 					{/* <h5 className="spc--top--sml">{t('GRID.FILTERS_TITLE')}</h5> */}
-					<div className="row row--form">{filters}</div>
+					{filters}
 					{!nextToSearch && (
 						<div className="u-display--flex u-mar--bottom--med">
-							<div>
-								<BaasicButton
-									className="btn btn--lrg btn--primary"
-									label="GRID.FILTER.SEARCH_BUTTON"
-									onClick={() => queryUtility.fetch()}
-									disabled={fetchDisabled}
-								/>
-							</div>
-							<div>
-								<BaasicButton
-									className="btn btn--lrg btn--ghost u-mar--left--sml"
-									label="GRID.FILTER.CLEAR_BUTTON"
-									onClick={() => queryUtility.resetFilter()}
-									disabled={fetchDisabled}
-								/>
-							</div>
+							<BaasicButton
+								className="btn btn--lrg btn--primary"
+								label="GRID.FILTER.SEARCH_BUTTON"
+								onClick={() => queryUtility.fetch()}
+								disabled={fetchDisabled}
+							/>
+							<BaasicButton
+								className="btn btn--lrg btn--ghost u-mar--left--sml"
+								label="GRID.FILTER.CLEAR_BUTTON"
+								onClick={() => queryUtility.resetFilter()}
+								disabled={fetchDisabled}
+							/>
 						</div>
 					)}
 				</form>

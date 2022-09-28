@@ -29,7 +29,8 @@ class SessionPreviewViewStore extends BasePreviewViewStore {
                                 'grants.donationStatus',
                                 'grants.certificate.certificateStatus',
                                 'grants.certificate.denominationType',
-                                'grants.certificate.booklet'
+                                'grants.certificate.booklet',
+                                'sessionEmails'
                             ]
                         }
                         const data = await rootStore.application.administration.sessionStore.getSession(id, params);

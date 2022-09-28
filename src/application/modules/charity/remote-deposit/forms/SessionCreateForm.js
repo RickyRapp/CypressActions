@@ -27,24 +27,14 @@ export default class SessionCreateForm extends FormBase {
                 },
                 {
                     name: 'fullName',
-                    label: 'SESSION.EDIT.FIELDS.FULL_NAME_LABEL',
-                    placeholder: 'SESSION.EDIT.FIELDS.FULL_NAME_PLACEHOLDER',
+                    label: 'SESSION.EDIT.FIELDS.FUNDRAISER_NAME_LABEL',
+                    placeholder: 'SESSION.EDIT.FIELDS.FUNDRAISER_NAME_PLACEHOLDER',
                     rules: 'required|string|max:25'
-                },
-                {
-                    name: 'phoneNumber',
-                    label: 'SESSION.EDIT.FIELDS.PHONE_NUMBER_LABEL',
-                    placeholder: 'SESSION.EDIT.FIELDS.PHONE_NUMBER_PLACEHOLDER',
-                    rules: 'required|string',
-                    extra: {
-                        format: '(###) ###-####'
-                    }
                 },
                 {
                     name: 'email',
                     label: 'SESSION.EDIT.FIELDS.EMAIL_LABEL',
-                    placeholder: 'SESSION.EDIT.FIELDS.EMAIL_PLACEHOLDER',
-                    rules: 'email'
+                    placeholder: 'SESSION.EDIT.FIELDS.EMAIL_PLACEHOLDER'
                 },
                 {
                     name: 'description',
@@ -92,6 +82,21 @@ export default class SessionCreateForm extends FormBase {
                     name: 'amount',
                     label: 'Grant Amount',
                     placeholder: 'Grant Amount',
+                    rules: 'numeric|min:0',
+                    extra: {
+                        type: 'c2'
+                    }
+                },
+                {
+                    name: 'checkCount',
+                    label: 'Count of checks',
+                    placeholder: 'Count of checks',
+                    rules: 'numeric|min:1',
+                },
+                {
+                    name: 'estimatedAmount',
+                    label: 'Estimated Amount',
+                    placeholder: 'Estimated Amount',
                     rules: 'numeric|min:0',
                     extra: {
                         type: 'c2'

@@ -108,13 +108,21 @@ class UserStore {
                 if (data) {
                     user.charityId = data.id;
                     user.charity = { 
-                        name: data.name, 
+                        name: data.name,
                         taxId: data.taxId, 
                         apiKey: charityApiKey, 
                         accountNumber: data.charityAccountNumber.accountNumber,
+                        addressLine1: data.charityAddresses[0] && data.charityAddresses[0].addressLine1,
+                        addressLine2: data.charityAddresses[0] && data.charityAddresses[0].addressLine2,
+                        city: data.charityAddresses[0] && data.charityAddresses[0].city,
+                        state: data.charityAddresses[0] && data.charityAddresses[0].state,
+                        zipCode: data.charityAddresses[0] && data.charityAddresses[0].zipCode,
+                        phoneNumber: data.phoneNumber,
                         accountBalance: data.accountBalance,
-                        availableBalance: data.availableBalance
-                    };
+                        availableBalance: data.availableBalance,
+                        email: data.email,
+                        logo: await this.rootStore.application.charity.charityStore.getCharityMedia(data.id, 'logo')
+                    }; 
                 }
             }
         } catch (ex) {
@@ -147,7 +155,6 @@ class UserStore {
             console.log(err);
         }
     }
-
 }
 
 export default UserStore;

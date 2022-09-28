@@ -74,12 +74,14 @@ const ReconcileListTemplate = function ({ reconcileViewStore, t }) {
 				<div className="card--tertiary card--med u-mar--bottom--sml">
 					<div className="row u-mar--bottom--med">
 						<div className="col col-sml-12 col-xxlrg-10">
-							<TableFilter colClassName={"col col-sml-12 col-lrg-6"} queryUtility={queryUtility}>
-								<div className="col col-sml-12 col-med-6 col-lrg-4 u-mar--bottom--sml">
-									<BaasicDropdown
-										store={paymentTypeDropdownStore}
-										placeholder="RECONCILE.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
-									/>
+							<TableFilter queryUtility={queryUtility}>
+								<div className="row u-mar--bottom--sml">
+									<div className="col col-sml-12 col-med-6 col-lrg-4">
+										<BaasicDropdown
+											store={paymentTypeDropdownStore}
+											placeholder="RECONCILE.LIST.FILTER.PAYMENT_TYPE_PLACEHOLDER"
+										/>
+									</div>
 								</div>
 							</TableFilter>
 						</div>
