@@ -8,7 +8,7 @@ context('Collectible Assets deposit', () => {
         cy.liveUserLogin().wait(7000)
         cy.on('uncaught:exception', () => false);
         cy.viewport(1440, 900) 
-    })
+    }) 
  
     it('makes a Collectible Assets deposit', () => { 
         cy.visitDashboard()

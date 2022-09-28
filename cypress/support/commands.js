@@ -81,7 +81,7 @@ Cypress.Commands.add("visitDashboard", () => {
       // cy.get('.dashboard-card__body--amount').scrollIntoView()
       // cy.get('.dashboard-card__body--amount').should('be.visible') 
 })
-
+ 
 Cypress.Commands.add("addAndCheckDeposit", (num, currentBalance) => {
     cy.findByText('I agree to Policies and Guidelines').parent('span')
     .within(() => {

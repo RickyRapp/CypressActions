@@ -8,7 +8,7 @@ context('Makes Wire transfer Deposit', () => {
         cy.liveUserLogin().wait(7000)
         cy.on('uncaught:exception', () => false);
         cy.viewport(1440, 900) 
-    })
+    }) 
 
 
     it('Makes Wire transfer Deposit', () => {

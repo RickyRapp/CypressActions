@@ -9,7 +9,7 @@ context('Real Estate deposit', () => {
         cy.on('uncaught:exception', () => false);
         cy.viewport(1440, 900) 
     }) 
- 
+  
     it('makes a Real Estate deposit', () => {
 
         cy.visitDashboard()

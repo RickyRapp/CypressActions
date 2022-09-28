@@ -9,7 +9,7 @@ context('Deposits Stock and securities ', () => {
         cy.on('uncaught:exception', () => false);
         cy.viewport(1440, 900) 
     })
- 
+  
  
     it('Deposits Stock and securities ', () => {
        // console.log(theElement.text())  

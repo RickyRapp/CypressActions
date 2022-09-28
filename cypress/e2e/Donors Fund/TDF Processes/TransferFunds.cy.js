@@ -15,7 +15,7 @@ context('Make a transfer', () => {
         cy.visitDashboard() 
         cy.findByText('Transfer funds').click()
         
- 
+  
         
     }) 
 })

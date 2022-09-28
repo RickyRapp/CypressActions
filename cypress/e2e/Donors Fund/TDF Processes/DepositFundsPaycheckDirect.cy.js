@@ -9,7 +9,7 @@ context('Paycheck Direct deposit', () => {
         cy.on('uncaught:exception', () => false);
         cy.viewport(1440, 900) 
     })
- 
+  
     it('makes a Paycheck Direct deposit', () => {
 
         //get the starting balance

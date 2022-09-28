@@ -9,7 +9,7 @@ context('Check by mail deposit', () => {
         cy.on('uncaught:exception', () => false);
         cy.viewport(1440, 900) 
     })
- 
+  
     it('makes a Check by mail deposit', () => {
 
         cy.visitDashboard()

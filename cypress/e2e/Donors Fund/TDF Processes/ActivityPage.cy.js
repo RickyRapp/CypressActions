@@ -5,7 +5,7 @@ context('Checks activity page', () => {
         cy.on('uncaught:exception', () => false);
         cy.viewport(1440, 900)  
     })
-
+ 
     it('checks activity page', () => { 
         cy.findByText('Activity').click().wait(500)
         var i=0;
